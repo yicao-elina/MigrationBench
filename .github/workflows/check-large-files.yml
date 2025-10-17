@@ -1,0 +1,25 @@
+name: Check for Large Files
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check-large-files:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Detect large files
+        run: |
+          echo "Scanning repository for large files (>20MB)..."
+          git ls-files | while read f; do
+            if [ -f "$f" ]; then
+              size=$(du -m "$f" | cut -f1)
+              if [ $size -gt 20 ]; then
+                echo "::error file=$f::File $f is ${size}MB (too large for repo)"
+                echo "Detected large file: $f ($size MB)"
+                exit 1
+              fi
+            fi
+          done
