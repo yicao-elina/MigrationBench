@@ -1,0 +1,92 @@
+Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mThu Oct 16 00:00:09 2025[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       49.28 GB       |       50.00 GB       |       98.55%      |      620,223       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mThu Oct 16 00:00:14 2025[0m               |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|     FS     |    Used   |   Quota   |  Used % |   Files    |  Files Quota  |   Files %    |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|    data    |  9.10 TB  |  10.00 TB |  90.00% |  552,567   |   4,096,000   |    13.00%    |
+|  scratch4  |  9.81 TB  |  10.00 TB |  98.00% | 1,548,573  |   5,242,880   |    29.00%    |
+| scratch16  |  19.38 TB |  20.00 TB |  96.00% | 1,566,392  |   20,480,000  |    7.00%     |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+
+Lmod is automatically replacing "openmpi/3.1.6" with "intel-mpi/2021.7".
+
+
+Lmod is automatically replacing "gcc/9.3.0" with "intel/2022.2".
+
+
+The following have been reloaded with a version change:
+  1) git/2.28.0 => git/2.38.1
+
+
+The following have been reloaded with a version change:
+  1) intel/2022.2 => intel/2022.2-dpcpp
+
+
+Currently Loaded Modules:
+  1) slurm/19.05.7   5) standard/2020.10         9) intel/2022.2-dpcpp (k,E)
+  2) lmod/8.7.24     6) intel-mpi/2021.7 (k,E)  10) qe/7.2
+  3) lua/5.4.4       7) intel-mkl/2021.7 (k,E)
+  4) helpers/0.1.1   8) git/2.38.1
+
+  Where:
+   E:  Experimental
+   k:  Spack, a package manager for supercomputers
+Thu Oct 16 00:07:52 EDT 2025
+This is sbatch-represent.slurm
+Running mace_probe_blackbox0818.py
+/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/sklearn/manifold/_t_sne.py:1164: FutureWarning: 'n_iter' was renamed to 'max_iter' in version 1.5 and will be removed in 1.7.
+  warnings.warn(
+/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/representation/analysis_Cr_Doped_600K/mace_probe_blackbox0818.py:285: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+  axes[0].scatter(tsne_emb[mask_a, 0], tsne_emb[mask_a, 1], c=color_map[label_a], alpha=0.7, s=24, edgecolors='none')
+/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/representation/analysis_Cr_Doped_600K/mace_probe_blackbox0818.py:296: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+  axes[1].scatter(tsne_emb[mask_b, 0], tsne_emb[mask_b, 1], c=color_map[label_b], alpha=0.7, s=24, edgecolors='none')
+/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/representation/analysis_Cr_Doped_600K/mace_probe_blackbox0818.py:307: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+  axes[2].scatter(tsne_emb[mask, 0], tsne_emb[mask, 1], label=label, alpha=0.7, c=color, s=24, edgecolors='none')
+
+==================== Starting Analysis for Set: Cr_Doped_Sb2Te3_600K ====================
+
+--- Processing model 'Foundation' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'Scratch' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'FT - 600K' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'FT - Multi-T' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+Saved combined features to analysis_Cr_Doped_600K/Cr_Doped_Sb2Te3_600K_probe_features.csv
+Running t-SNE...
+Calculating silhouette scores...
+  > Overall Silhouette Score: 0.412
+  > Avg. Silhouette for 'FT - 600K': -0.064
+  > Avg. Silhouette for 'FT - Multi-T': 0.021
+  > Avg. Silhouette for 'Foundation': 0.896
+  > Avg. Silhouette for 'Scratch': 0.795
+Generating plots...
+Saved figure to analysis_Cr_Doped_600K/Cr_Doped_Sb2Te3_600K_tsne_silhouette_panels.pdf
+
+==================== All Analyses Complete ====================
+Running mace_probe_blackbox0818.py done
+Thu Oct 16 00:09:28 EDT 2025
