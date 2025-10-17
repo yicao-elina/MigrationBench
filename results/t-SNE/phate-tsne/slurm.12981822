@@ -1,0 +1,141 @@
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mThu Oct 16 10:00:11 2025[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       49.48 GB       |       50.00 GB       |       98.96%      |      622,529       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mThu Oct 16 10:30:14 2025[0m               |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|     FS     |    Used   |   Quota   |  Used % |   Files    |  Files Quota  |   Files %    |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|    data    |  9.10 TB  |  10.00 TB |  90.00% |  550,122   |   4,096,000   |    13.00%    |
+|  scratch4  |  9.81 TB  |  10.00 TB |  98.00% | 1,549,558  |   5,242,880   |    29.00%    |
+| scratch16  |  19.38 TB |  20.00 TB |  96.00% | 1,566,392  |   20,480,000  |    7.00%     |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+
+Currently Loaded Modules:
+  1) gcc/9.3.0       3) slurm/19.05.7   5) lua/5.4.4       7) git/2.28.0
+  2) openmpi/3.1.6   4) lmod/8.7.24     6) helpers/0.1.1   8) standard/2020.10
+Thu Oct 16 10:33:49 EDT 2025
+This is sbatch-represent.slurm
+Current Python version: Python 3.13.3
+Current Python path: /data/pclancy3/yi/.conda/envs/sklearn-env/bin/python
+Conda environment: sklearn-env
+Target Python path: /data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/bin/python
+Target Python version: Python 3.8.3
+Thu Oct 16 10:33:49 EDT 2025
+This is sbatch-represent.slurm
+Running tsne.py with target Python
+Traceback (most recent call last):
+  File "_ctypes/callbacks.c", line 237, in 'calling callback function'
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 400, in match_module_callback
+    self._make_module_from_path(filepath)
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 515, in _make_module_from_path
+    module = module_class(filepath, prefix, user_api, internal_api)
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 606, in __init__
+    self.version = self.get_version()
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 646, in get_version
+    config = get_config().split()
+AttributeError: 'NoneType' object has no attribute 'split'
+
+==================== Starting Analysis for Set: Cr_Doped_Sb2Te3_600K ====================
+Created output directory: analysis_Cr_Doped_600K_v2
+
+--- Processing model 'Foundation' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'Scratch' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'FT - 600K' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'FT - Multi-T' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+Saved combined features to analysis_Cr_Doped_600K_v2/Cr_Doped_Sb2Te3_600K_probe_features.csv
+Running t-SNE...
+Running PHATE...
+Calculating PHATE...
+  Running PHATE on 404 observations and 6192 variables.
+  Calculating graph and diffusion operator...
+    Calculating PCA...
+    Calculated PCA in 4.33 seconds.
+    Calculating KNN search...
+Traceback (most recent call last):
+  File "/home/ycao73/.local/lib/python3.8/site-packages/graphtools/base.py", line 716, in K
+    return self._kernel
+AttributeError: 'kNNGraph' object has no attribute '_kernel'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "_ctypes/callbacks.c", line 237, in 'calling callback function'
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 400, in match_module_callback
+    self._make_module_from_path(filepath)
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 515, in _make_module_from_path
+    module = module_class(filepath, prefix, user_api, internal_api)
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 606, in __init__
+    self.version = self.get_version()
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 646, in get_version
+    config = get_config().split()
+AttributeError: 'NoneType' object has no attribute 'split'
+    Calculated KNN search in 0.14 seconds.
+    Calculating affinities...
+Traceback (most recent call last):
+  File "/home/ycao73/.local/lib/python3.8/site-packages/graphtools/base.py", line 716, in K
+    return self._kernel
+AttributeError: 'kNNGraph' object has no attribute '_kernel'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "_ctypes/callbacks.c", line 237, in 'calling callback function'
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 400, in match_module_callback
+    self._make_module_from_path(filepath)
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 515, in _make_module_from_path
+    module = module_class(filepath, prefix, user_api, internal_api)
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 606, in __init__
+    self.version = self.get_version()
+  File "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/lib/python3.8/site-packages/threadpoolctl.py", line 646, in get_version
+    config = get_config().split()
+AttributeError: 'NoneType' object has no attribute 'split'
+    Calculated affinities in 2.67 seconds.
+  Calculated graph and diffusion operator in 7.14 seconds.
+  Calculating optimal t...
+    Automatically selected t = 22
+  Calculated optimal t in 0.06 seconds.
+  Calculating diffusion potential...
+  Calculated diffusion potential in 0.01 seconds.
+  Calculating metric MDS...
+  Calculated metric MDS in 0.09 seconds.
+Calculated PHATE in 7.30 seconds.
+tsne.py:213: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+  ax.scatter(tsne_emb[mask, 0], tsne_emb[mask, 1], label=label, alpha=0.7, c=color_map.get(label), s=20, edgecolors='none')
+tsne.py:223: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+  ax.scatter(phate_emb[mask, 0], phate_emb[mask, 1], label=label, alpha=0.7, c=color_map.get(label), s=20, edgecolors='none')
+Calculating silhouette scores...
+  > Overall Silhouette Score (from t-SNE): 0.409
+  > Avg. Silhouette for 'FT - 600K': -0.085
+  > Avg. Silhouette for 'FT - Multi-T': 0.035
+  > Avg. Silhouette for 'Foundation': 0.894
+  > Avg. Silhouette for 'Scratch': 0.793
+Generating plots...
+Saved figure to analysis_Cr_Doped_600K_v2/Cr_Doped_Sb2Te3_600K_representation_analysis.pdf
+
+==================== All Analyses Complete ====================
+Running tsne.py done
+Thu Oct 16 10:35:18 EDT 2025

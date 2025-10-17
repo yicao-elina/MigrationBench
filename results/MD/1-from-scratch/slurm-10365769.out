@@ -1,0 +1,36 @@
++----------+----------+---------+---------+
+|   Used   |  Quota   | Percent |  Files  |
++----------+----------+---------+---------+
+| 44.03 GB | 50.00 GB |  88.06% | 595,862 |
++----------+----------+---------+---------+
+
++-----------+----------+----------+--------+-----------+-------------+---------+
+|     FS    |   Used   |  Quota   | Used % |   Files   | Files Quota | Files % |
++-----------+----------+----------+--------+-----------+-------------+---------+
+|    data   | 9.04 TB  | 10.00 TB | 90.00% |  372,694  |  4,096,000  |  9.00%  |
+|  scratch4 | 9.25 TB  | 10.00 TB | 92.00% | 1,469,839 |  5,242,880  |  28.00% |
+| scratch16 | 17.19 TB | 20.00 TB | 85.00% | 1,433,699 |  20,480,000 |  7.00%  |
++-----------+----------+----------+--------+-----------+-------------+---------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+Mon Aug 11 09:36:01 EDT 2025
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+
+The following have been reloaded with a version change:
+  1) openmpi/3.1.6 => openmpi/4.1.6
+
+
+Currently Loaded Modules:
+  1) gcc/9.3.0       5) helpers/0.1.1      9) hwloc/2.9.1
+  2) slurm/19.05.7   6) git/2.28.0        10) libevent/2.1.12
+  3) lmod/8.7.24     7) standard/2020.10  11) pmix/5.0.1
+  4) lua/5.4.4       8) zlib-ng/2.1.4     12) openmpi/4.1.6
+Running mace_md_eval.py
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/e3nn/o3/_wigner.py:10: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  _Jd, _W3j_flat, _W3j_indices = torch.load(os.path.join(os.path.dirname(__file__), 'constants.pt'))
+WARNING:root:'model_path' argument is deprecated, please use 'model_paths' in the future.
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/calculators/mace.py:139: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  torch.load(f=model_path, map_location=device)
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/serialization.py:1488: UserWarning: 'torch.load' received a zip file that looks like a TorchScript archive dispatching to 'torch.jit.load' (call 'torch.jit.load' directly to silence this warning)
+  warnings.warn(
+slurmstepd: error: *** JOB 10365769 ON gpu06 CANCELLED AT 2025-08-11T09:36:32 ***

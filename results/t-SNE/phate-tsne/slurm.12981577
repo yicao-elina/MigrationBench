@@ -1,0 +1,74 @@
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mThu Oct 16 10:00:11 2025[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       49.48 GB       |       50.00 GB       |       98.96%      |      622,529       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mThu Oct 16 10:30:14 2025[0m               |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|     FS     |    Used   |   Quota   |  Used % |   Files    |  Files Quota  |   Files %    |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|    data    |  9.10 TB  |  10.00 TB |  90.00% |  550,122   |   4,096,000   |    13.00%    |
+|  scratch4  |  9.81 TB  |  10.00 TB |  98.00% | 1,549,558  |   5,242,880   |    29.00%    |
+| scratch16  |  19.38 TB |  20.00 TB |  96.00% | 1,566,392  |   20,480,000  |    7.00%     |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+
+Currently Loaded Modules:
+  1) gcc/9.3.0       3) slurm/19.05.7   5) lua/5.4.4       7) git/2.28.0
+  2) openmpi/3.1.6   4) lmod/8.7.24     6) helpers/0.1.1   8) standard/2020.10
+Thu Oct 16 10:31:15 EDT 2025
+This is sbatch-represent.slurm
+Python version: Python 3.13.3
+Python path: /data/pclancy3/yi/.conda/envs/sklearn-env/bin/python
+Conda environment: sklearn-env
+Python path: /data/pclancy3/yi/.conda/envs/sklearn-env/bin/python
+Running tsne.py
+/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/sklearn/manifold/_t_sne.py:1164: FutureWarning: 'n_iter' was renamed to 'max_iter' in version 1.5 and will be removed in 1.7.
+  warnings.warn(
+/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/AI4MAT25/mlff-benchmark-cr-sb2te3/results/t-SNE/phate-tsne/tsne.py:213: UserWarning: *c* argument looks like a single numeric RGB or RGBA sequence, which should be avoided as value-mapping will have precedence in case its length matches with *x* & *y*.  Please use the *color* keyword-argument or provide a 2D array with a single row if you intend to specify the same RGB or RGBA value for all points.
+  ax.scatter(tsne_emb[mask, 0], tsne_emb[mask, 1], label=label, alpha=0.7, c=color_map.get(label), s=20, edgecolors='none')
+Error: 'phate' package not found. Please install with 'pip install --user phate'
+
+==================== Starting Analysis for Set: Cr_Doped_Sb2Te3_600K ====================
+Created output directory: analysis_Cr_Doped_600K_v2
+
+--- Processing model 'Foundation' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'Scratch' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'FT - 600K' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+--- Processing model 'FT - Multi-T' for set 'Cr_Doped_Sb2Te3_600K' ---
+  > Reading frames from 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 101 frames (Energy source: 'manual')
+
+Saved combined features to analysis_Cr_Doped_600K_v2/Cr_Doped_Sb2Te3_600K_probe_features.csv
+Running t-SNE...
+PHATE not available. Skipping PHATE analysis.
+Calculating silhouette scores...
+  > Overall Silhouette Score (from t-SNE): 0.412
+  > Avg. Silhouette for 'FT - 600K': -0.064
+  > Avg. Silhouette for 'FT - Multi-T': 0.021
+  > Avg. Silhouette for 'Foundation': 0.896
+  > Avg. Silhouette for 'Scratch': 0.795
+Generating plots...
+Saved figure to analysis_Cr_Doped_600K_v2/Cr_Doped_Sb2Te3_600K_representation_analysis.pdf
+
+==================== All Analyses Complete ====================
+Running tsne.py done
+Thu Oct 16 10:32:39 EDT 2025

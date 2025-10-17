@@ -1,0 +1,50 @@
++----------+----------+---------+---------+
+|   Used   |  Quota   | Percent |  Files  |
++----------+----------+---------+---------+
+| 44.21 GB | 50.00 GB |  88.42% | 597,130 |
++----------+----------+---------+---------+
+
++-----------+----------+----------+--------+-----------+-------------+---------+
+|     FS    |   Used   |  Quota   | Used % |   Files   | Files Quota | Files % |
++-----------+----------+----------+--------+-----------+-------------+---------+
+|    data   | 9.05 TB  | 10.00 TB | 90.00% |  406,585  |  4,096,000  |  9.00%  |
+|  scratch4 | 9.32 TB  | 10.00 TB | 93.00% | 1,479,773 |  5,242,880  |  28.00% |
+| scratch16 | 17.23 TB | 20.00 TB | 86.00% | 1,433,773 |  20,480,000 |  7.00%  |
++-----------+----------+----------+--------+-----------+-------------+---------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+Sun Aug 17 21:53:20 EDT 2025
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+
+The following have been reloaded with a version change:
+  1) openmpi/3.1.6 => openmpi/4.1.6
+
+
+Currently Loaded Modules:
+  1) gcc/9.3.0       5) helpers/0.1.1      9) hwloc/2.9.1
+  2) slurm/19.05.7   6) git/2.28.0        10) libevent/2.1.12
+  3) lmod/8.7.24     7) standard/2020.10  11) pmix/5.0.1
+  4) lua/5.4.4       8) zlib-ng/2.1.4     12) openmpi/4.1.6
+Running mace_md_eval_temp.py
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/e3nn/o3/_wigner.py:10: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  _Jd, _W3j_flat, _W3j_indices = torch.load(os.path.join(os.path.dirname(__file__), 'constants.pt'))
+WARNING:root:'model_path' argument is deprecated, please use 'model_paths' in the future.
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/calculators/mace.py:139: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  torch.load(f=model_path, map_location=device)
+cuequivariance or cuequivariance_torch is not available. Cuequivariance acceleration will be disabled.
+Loaded structure from ../../2L_octo_Cr2_v2_relax.extxyz
+Supercell dimensions: 5x5x1
+No dtype selected, switching to float64 to match model dtype.
+Using MACE model from /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_Multi_T/finetuned_MACE_multihead0804.model
+Starting MD simulation...
+MD finished in 556.04 minutes.
+Trajectory saved to: 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz
+Data saved to: 2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K_data.csv
+Plot saved as 2L_octo_Cr2_v2_relax_md_plot.pdf
+
+--- MD Summary Statistics ---
+Average temperature: 597.77 ± 22.90 K
+Average energy/atom: -2190.9017 ± 0.0047 eV
+Average max force: 2.6481 ± 0.3200 eV/Å
+Running mace_md_eval_temp.py done
+Mon Aug 18 07:10:24 EDT 2025

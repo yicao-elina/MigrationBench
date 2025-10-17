@@ -1,0 +1,45 @@
++----------+----------+---------+---------+
+|   Used   |  Quota   | Percent |  Files  |
++----------+----------+---------+---------+
+| 44.21 GB | 50.00 GB |  88.41% | 597,039 |
++----------+----------+---------+---------+
+
++-----------+----------+----------+--------+-----------+-------------+---------+
+|     FS    |   Used   |  Quota   | Used % |   Files   | Files Quota | Files % |
++-----------+----------+----------+--------+-----------+-------------+---------+
+|    data   | 9.04 TB  | 10.00 TB | 90.00% |  406,433  |  4,096,000  |  9.00%  |
+|  scratch4 | 9.30 TB  | 10.00 TB | 93.00% | 1,478,098 |  5,242,880  |  28.00% |
+| scratch16 | 17.23 TB | 20.00 TB | 86.00% | 1,434,153 |  20,480,000 |  7.00%  |
++-----------+----------+----------+--------+-----------+-------------+---------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+Thu Aug 14 13:16:25 EDT 2025
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+
+The following have been reloaded with a version change:
+  1) openmpi/3.1.6 => openmpi/4.1.6
+
+
+Currently Loaded Modules:
+  1) gcc/9.3.0       5) helpers/0.1.1      9) hwloc/2.9.1
+  2) slurm/19.05.7   6) git/2.28.0        10) libevent/2.1.12
+  3) lmod/8.7.24     7) standard/2020.10  11) pmix/5.0.1
+  4) lua/5.4.4       8) zlib-ng/2.1.4     12) openmpi/4.1.6
+Running mace_md_eval_0814.py
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/e3nn/o3/_wigner.py:10: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  _Jd, _W3j_flat, _W3j_indices = torch.load(os.path.join(os.path.dirname(__file__), 'constants.pt'))
+cuequivariance or cuequivariance_torch is not available. Cuequivariance acceleration will be disabled.
+Traceback (most recent call last):
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/1-from-scratch/eval/mace_md_eval_0814.py", line 362, in <module>
+    csv_files = run_mace_md(
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/1-from-scratch/eval/mace_md_eval_0814.py", line 77, in run_mace_md
+    atoms = read(input_file)
+  File "/home/ycao73/.local/lib/python3.9/site-packages/ase/io/formats.py", line 808, in read
+    format = format or filetype(filename, read=isinstance(filename, str))
+  File "/home/ycao73/.local/lib/python3.9/site-packages/ase/io/formats.py", line 983, in filetype
+    fd = open_with_compression(filename, 'rb')
+  File "/home/ycao73/.local/lib/python3.9/site-packages/ase/io/formats.py", line 612, in open_with_compression
+    return open(filename, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '../2L_octo_Cr2_v2_relax.extxyz'
+Running mace_md_eval_0814.py done
+Thu Aug 14 13:16:31 EDT 2025
