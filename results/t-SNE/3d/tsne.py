@@ -43,67 +43,67 @@ except ImportError:
 # ------------------------
 # Define all comparison sets here. The script will loop through each one.
 COMPARISON_SETS = {
-    "Cr_Doped_Sb2Te3_600K": {
-        "output_dir": "analysis_Cr_Doped_600K_3D",
-        "data_sources": [
-            {
-                "label": "Foundation",
-                "files": [
-                    '/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-mace_mp/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz'
-                ],
-                "marker": "o",  # circle
-                "color": "Heritage Blue"
-            },
-            {
-                "label": "Scratch",
-                "files": [
-                    '/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/1-from-scratch/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz'
-                ],
-                "marker": "s",  # square
-                "color": "Spirit Blue"
-            },
-            {
-                "label": "FT - 600K",
-                "files": [
-                    '/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/2-naive-fine-tuning/temp/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz'
-                ],
-                "marker": "^",  # triangle up
-                "color": "Red"
-            },
-            {
-                "label": "FT - Multi-T",
-                "files": [
-                    '/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/3-multi_T-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz'
-                ],
-                "marker": "D",  # diamond
-                "color": "Orange"
-            }
-        ]
-    },
-    # --- Example of a second comparison set with multiple files per source ---
-    # "Multi_File_Example": {
-    #     "output_dir": "analysis_multi_file_example",
+    # "Cr_Doped_Sb2Te3_600K": {
+    #     "output_dir": "analysis_Cr_Doped_600K_3D",
     #     "data_sources": [
     #         {
-    #             "label": "High_Temp",
+    #             "label": "Foundation",
     #             "files": [
-    #                 "/path/to/high_temp_1.xyz",
-    #                 "/path/to/high_temp_2.xyz"
+    #                 '/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-mace_mp/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz'
     #             ],
-    #             "marker": "o",
+    #             "marker": "o",  # circle
+    #             "color": "Heritage Blue"
+    #         },
+    #         {
+    #             "label": "Scratch",
+    #             "files": [
+    #                 '/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/1-from-scratch/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz'
+    #             ],
+    #             "marker": "s",  # square
+    #             "color": "Spirit Blue"
+    #         },
+    #         {
+    #             "label": "FT - 600K",
+    #             "files": [
+    #                 '/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/2-naive-fine-tuning/temp/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz'
+    #             ],
+    #             "marker": "^",  # triangle up
     #             "color": "Red"
     #         },
     #         {
-    #             "label": "Low_Temp", 
+    #             "label": "FT - Multi-T",
     #             "files": [
-    #                 "/path/to/low_temp_1.xyz",
-    #                 "/path/to/low_temp_2.xyz"
+    #                 '/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/3-multi_T-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz'
     #             ],
-    #             "marker": "s",
-    #             "color": "Blue"
+    #             "marker": "D",  # diamond
+    #             "color": "Orange"
     #         }
     #     ]
-    # }
+    # },
+    # --- Example of a second comparison set with multiple files per source ---
+    "Multi_File_Example": {
+        "output_dir": "analysis_multi_file_example",
+        "data_sources": [
+            {
+                "label": "High_Temp",
+                "files": [
+                    "/path/to/high_temp_1.xyz",
+                    "/path/to/high_temp_2.xyz"
+                ],
+                "marker": "o",
+                "color": "Red"
+            },
+            {
+                "label": "Low_Temp", 
+                "files": [
+                    "/path/to/low_temp_1.xyz",
+                    "/path/to/low_temp_2.xyz"
+                ],
+                "marker": "s",
+                "color": "Blue"
+            }
+        ]
+    }
 }
 
 # --- Global Parameters ---
