@@ -34,7 +34,7 @@ The framework uses **migration as a physical probe** to distinguish between *spe
 
 ## 🧰 Installation
 ```bash
-git clone https://github.com/YiCao-JHU/MigrationBench.git
+git clone https://github.com/yicao-elina/MigrationBench.git
 cd MigrationBench
 pip install -e .
 ````
