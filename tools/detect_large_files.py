@@ -2,7 +2,7 @@
 import os
 
 # Threshold in MB
-THRESHOLD_MB = 20
+THRESHOLD_MB = 50
 gitignore_path = ".gitignore"
 large_files = []
 
