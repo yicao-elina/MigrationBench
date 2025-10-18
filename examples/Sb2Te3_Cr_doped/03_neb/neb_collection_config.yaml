@@ -1,0 +1,51 @@
+# Auto-generated NEB collection config
+output_base_directory: "mlff_training_data"
+
+# Global settings
+global_settings:
+  include_forces: true
+  file_patterns:
+    neb_output: "neb.out"
+    xyz_coords: "sb2te3.xyz"
+    migration_data: "sb2te3.dat"
+
+# Data organization structure
+categories:
+  221_vdw_corr_DFT_D3:
+    default:
+      description: "Automatically collected NEB trajectories from 221_vdw_corr_DFT_D3"
+      paths:
+        - path: "221_vdw_corr_DFT_D3//1-7"
+          name: "1-7"
+          metadata: {}
+        - path: "221_vdw_corr_DFT_D3//1-2"
+          name: "1-2"
+          metadata: {}
+        - path: "221_vdw_corr_DFT_D3//1-3"
+          name: "1-3"
+          metadata: {}
+        - path: "221_vdw_corr_DFT_D3//1-8"
+          name: "1-8"
+          metadata: {}
+        - path: "221_vdw_corr_DFT_D3//1-4"
+          name: "1-4"
+          metadata: {}
+        - path: "221_vdw_corr_DFT_D3//1-5/1.sep2-2_10img_ea"
+          name: "1-5_1.sep2-2_10img_ea"
+          metadata: {}
+        - path: "221_vdw_corr_DFT_D3//1-5"
+          name: "1-5"
+          metadata: {}
+        - path: "221_vdw_corr_DFT_D3//1-5/1.sep2-1_10img_ea"
+          name: "1-5_1.sep2-1_10img_ea"
+          metadata: {}
+        - path: "221_vdw_corr_DFT_D3//1-6"
+          name: "1-6"
+          metadata: {}
+
+# Data validation rules
+validation:
+  min_images_per_path: 3
+  max_energy_per_atom: 10.0
+  required_files: ["neb.out", "sb2te3.xyz"]
+  optional_files: ["sb2te3.dat"]
