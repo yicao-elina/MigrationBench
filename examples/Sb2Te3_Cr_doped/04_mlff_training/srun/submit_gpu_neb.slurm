@@ -28,7 +28,8 @@ CHECKPOINTS_DIR="../finetuned_model/neb"
 RESULTS_DIR="../finetuned_model/neb"
 
 # Define data file paths
-dat_dir="../data/data_neb"
+# dat_dir="../data/data_neb"
+dat_dir="../data/merged_2D_neb-MultiT"
 TRAIN_FILE="${dat_dir}/train.xyz"
 VALID_FILE="${dat_dir}/valid.xyz"
 TEST_FILE="${dat_dir}/test.xyz"
@@ -37,7 +38,7 @@ TEST_FILE="${dat_dir}/test.xyz"
 DEVICE="cuda"
 
 # Energy and forces keys in the extxyz file
-ENERGY_KEY="free_energy"
+ENERGY_KEY="energy"
 FORCES_KEY="forces"
 
 # max_L, r_max, and hidden_irreps are set in the model

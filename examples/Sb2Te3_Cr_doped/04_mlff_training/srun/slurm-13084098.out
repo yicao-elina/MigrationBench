@@ -1,0 +1,128 @@
++----------+----------+---------+---------+
+|   Used   |  Quota   | Percent |  Files  |
++----------+----------+---------+---------+
+| 49.49 GB | 50.00 GB |  98.99% | 622,831 |
++----------+----------+---------+---------+
+
++-----------+----------+----------+--------+-----------+-------------+---------+
+|     FS    |   Used   |  Quota   | Used % |   Files   | Files Quota | Files % |
++-----------+----------+----------+--------+-----------+-------------+---------+
+|    data   | 9.10 TB  | 10.00 TB | 90.00% |  551,100  |  4,096,000  |  13.00% |
+|  scratch4 | 9.81 TB  | 10.00 TB | 98.00% | 1,550,762 |  5,242,880  |  29.00% |
+| scratch16 | 19.38 TB | 20.00 TB | 96.00% | 1,566,392 |  20,480,000 |  7.00%  |
++-----------+----------+----------+--------+-----------+-------------+---------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+
+The following have been reloaded with a version change:
+  1) openmpi/3.1.6 => openmpi/4.1.6
+
+Sat Oct 18 17:48:00 EDT 2025
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+
+The following have been reloaded with a version change:
+  1) openmpi/4.1.6 => openmpi/3.1.6
+
+
+Currently Loaded Modules:
+  1) gcc/9.3.0       3) slurm/19.05.7   5) lua/5.4.4       7) git/2.28.0
+  2) openmpi/3.1.6   4) lmod/8.7.24     6) helpers/0.1.1   8) standard/2020.10
+/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/AI4MAT25/mlff-benchmark-cr-sb2te3/examples/Sb2Te3_Cr_doped/04_mlff_training/srun
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/e3nn/o3/_wigner.py:10: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  _Jd, _W3j_flat, _W3j_indices = torch.load(os.path.join(os.path.dirname(__file__), 'constants.pt'))
+cuequivariance or cuequivariance_torch is not available. Cuequivariance acceleration will be disabled.
+2025-10-18 17:48:44.294 INFO: ===========VERIFYING SETTINGS===========
+2025-10-18 17:48:44.320 WARNING: All of hidden_irreps, num_channels and max_L are specified
+2025-10-18 17:48:44.320 WARNING: Using num_channels and max_L to create hidden_irreps: 32x0e+32x1o.
+2025-10-18 17:48:44.320 INFO: Stage Two is activated as start_stage_two was defined
+2025-10-18 17:48:44.321 INFO: MACE version: 0.3.12
+2025-10-18 17:48:44.465 INFO: CUDA version: 11.8, CUDA device: 0
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/cli/run_train.py:149: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  model_foundation = torch.load(
+2025-10-18 17:48:46.018 INFO: Using foundation model /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model as initial checkpoint.
+2025-10-18 17:48:46.020 WARNING: Using multiheads finetuning with a foundation model that is not a Materials Project model, need to provied a path to a pretraining file with --pt_train_file.
+2025-10-18 17:48:46.020 INFO: ===========LOADING INPUT DATA===========
+2025-10-18 17:48:46.020 INFO: Using heads: ['default']
+2025-10-18 17:48:46.020 INFO: =============    Processing head default     ===========
+2025-10-18 17:48:46.251 WARNING: Since ASE version 3.23.0b1, using energy_key 'energy' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'energy' to 'REF_energy'. You need to use --energy_key='REF_energy' to specify the chosen key name.
+2025-10-18 17:48:46.292 WARNING: Since ASE version 3.23.0b1, using forces_key 'forces' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'forces' to 'REF_forces'. You need to use --forces_key='REF_forces' to specify the chosen key name.
+2025-10-18 17:48:46.336 INFO: Using isolated atom energies from training file
+2025-10-18 17:48:46.348 INFO: Training file 1/1 [341 configs, 341 energy, 341 forces, 341 stresses] loaded from '../data/merged_2D_neb-MultiT/train.xyz'
+2025-10-18 17:48:46.348 INFO: Total training set [341 configs, 341 energy, 341 forces, 341 stresses]
+2025-10-18 17:48:46.388 WARNING: Since ASE version 3.23.0b1, using energy_key 'energy' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'energy' to 'REF_energy'. You need to use --energy_key='REF_energy' to specify the chosen key name.
+2025-10-18 17:48:46.393 WARNING: Since ASE version 3.23.0b1, using forces_key 'forces' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'forces' to 'REF_forces'. You need to use --forces_key='REF_forces' to specify the chosen key name.
+2025-10-18 17:48:46.400 INFO: Validation file 1/1 [42 configs, 42 energy, 42 forces, 42 stresses] loaded from '../data/merged_2D_neb-MultiT/valid.xyz'
+2025-10-18 17:48:46.400 INFO: Total validation set [42 configs, 42 energy, 42 forces, 42 stresses]
+2025-10-18 17:48:46.440 WARNING: Since ASE version 3.23.0b1, using energy_key 'energy' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'energy' to 'REF_energy'. You need to use --energy_key='REF_energy' to specify the chosen key name.
+2025-10-18 17:48:46.445 WARNING: Since ASE version 3.23.0b1, using forces_key 'forces' is no longer safe when communicating between MACE and ASE. We recommend using a different key, rewriting 'forces' to 'REF_forces'. You need to use --forces_key='REF_forces' to specify the chosen key name.
+2025-10-18 17:48:46.452 INFO: Test file 1/1 [42 configs, 42 energy, 42 forces, 42 stresses] loaded from '../data/merged_2D_neb-MultiT/test.xyz'
+2025-10-18 17:48:46.452 INFO: Total test set (42 configs):
+2025-10-18 17:48:46.452 INFO: Default_default: 42 configs, 42 energy, 42 forces, 42 stresses
+2025-10-18 17:48:46.453 INFO: Total number of configurations: train=341, valid=42, tests=[Default_default: 42],
+2025-10-18 17:48:46.457 INFO: Atomic Numbers used: [np.int64(24), np.int64(51), np.int64(52)]
+2025-10-18 17:48:46.457 INFO: Atomic Energies used (z: eV) for head default: {24: -2270.518789079322, 51: -1908.633351763048, 52: -2369.398259284361}
+2025-10-18 17:48:46.457 INFO: Processing datasets for head 'default'
+2025-10-18 17:48:46.937 INFO: Combining 1 list datasets for head 'default'
+2025-10-18 17:48:46.998 INFO: Combining 1 list datasets for head 'default_valid'
+2025-10-18 17:48:46.998 INFO: Combined validation datasets for default
+2025-10-18 17:48:46.998 INFO: Head 'default' training dataset size: 341
+2025-10-18 17:48:46.998 INFO: Computing average number of neighbors
+2025-10-18 17:48:47.082 INFO: Average number of neighbors: 23.344079542030734
+2025-10-18 17:48:47.082 INFO: During training the following quantities will be reported: energy, forces
+2025-10-18 17:48:47.082 INFO: ===========MODEL DETAILS===========
+2025-10-18 17:48:47.151 INFO: Loading FOUNDATION model
+2025-10-18 17:48:47.151 INFO: Using filtered elements: [np.int64(24), np.int64(51), np.int64(52)]
+2025-10-18 17:48:47.152 INFO: Model configuration extracted from foundation model
+2025-10-18 17:48:47.152 INFO: Using universal loss function for fine-tuning
+2025-10-18 17:48:47.152 INFO: Message passing with hidden irreps 128x0e+128x1o)
+2025-10-18 17:48:47.152 INFO: 2 layers, each with correlation order: 3 (body order: 4) and spherical harmonics up to: l=3
+2025-10-18 17:48:47.152 INFO: Radial cutoff: 6.0 A (total receptive field for each atom: 12.0 A)
+2025-10-18 17:48:47.152 INFO: Distance transform for radial basis functions: Agnesi
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+2025-10-18 17:48:49.708 INFO: Total number of parameters: 752174
+2025-10-18 17:48:49.708 INFO: 
+2025-10-18 17:48:49.708 INFO: ===========OPTIMIZER INFORMATION===========
+2025-10-18 17:48:49.708 INFO: Using ADAM as parameter optimizer
+2025-10-18 17:48:49.708 INFO: Batch size: 32
+2025-10-18 17:48:49.708 INFO: Using Exponential Moving Average with decay: 0.99
+2025-10-18 17:48:49.708 INFO: Number of gradient updates: 10656
+2025-10-18 17:48:49.708 INFO: Learning rate: 0.01, weight decay: 5e-07
+2025-10-18 17:48:49.708 INFO: WeightedEnergyForcesLoss(energy_weight=1.000, forces_weight=10.000)
+2025-10-18 17:48:49.709 INFO: Stage Two (after 200 epochs) with loss function: WeightedEnergyForcesLoss(energy_weight=1000.000, forces_weight=100.000), with energy weight : 1000.0, forces weight : 100.0 and learning rate : 0.001
+2025-10-18 17:48:49.793 WARNING: Cannot find checkpoint with tag 'finetuned_neb_run-234' in '../finetuned_model/neb'
+2025-10-18 17:48:49.794 INFO: Using gradient clipping with tolerance=10.000
+2025-10-18 17:48:49.794 INFO: 
+2025-10-18 17:48:49.794 INFO: ===========TRAINING===========
+2025-10-18 17:48:49.794 INFO: Started training, reporting errors on validation set
+2025-10-18 17:48:49.794 INFO: Loss metrics on validation set
+2025-10-18 17:48:54.955 INFO: Initial: head: default, loss=1.16328300, RMSE_E_per_atom= 1292.55 meV, RMSE_F= 1032.82 meV / A
+2025-10-18 17:49:16.557 INFO: Epoch 0: head: default, loss=0.05784239, RMSE_E_per_atom=  157.35 meV, RMSE_F=  283.68 meV / A
+2025-10-18 17:53:45.435 INFO: Epoch 50: head: default, loss=0.01167058, RMSE_E_per_atom=   25.44 meV, RMSE_F=  130.70 meV / A
+2025-10-18 17:58:11.560 INFO: Epoch 100: head: default, loss=0.01073778, RMSE_E_per_atom=   10.95 meV, RMSE_F=  125.74 meV / A

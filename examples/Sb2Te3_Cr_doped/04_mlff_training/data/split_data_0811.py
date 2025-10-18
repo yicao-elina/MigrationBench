@@ -45,7 +45,7 @@ def split_data(input_file, isolated_file, train_ratio=0.8, valid_ratio=0.1, test
         print(f"Warning: Isolated atom file '{isolated_file}' not found. Proceeding without isolated data.")
 
     # Create output directories if they don't exist
-    dat_dir = "data_neb"
+    dat_dir = "data_2D_neb"
     os.makedirs(dat_dir, exist_ok=True)
 
     # Write to separate files
@@ -62,4 +62,4 @@ if __name__ == "__main__":
     # /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/2.aimd/3.Cr-Sb2Te3/1/650K-pbe/aimd_md.xyz
     # split_data("aimd_md.xyz", "isolated_atoms.xyz")
     # 2025-05-28
-    split_data("merged_neb.xyz", "isolated_atoms_SG15.xyz")
+    split_data("merged_2D_neb.xyz", "isolated_atoms_SG15.xyz")
