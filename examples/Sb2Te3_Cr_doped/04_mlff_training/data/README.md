@@ -43,6 +43,18 @@ Splits the merged dataset into training, validation, and test sets.
 ```bash
 python split_data.py <input_xyz> [--train_ratio 0.8] [--val_ratio 0.1] [--test_ratio 0.1]
 ```
+Example:
+```bash
+# Use defaults (isolated_atoms.xyz, data_split/, 0.8/0.1/0.1 ratios)
+python split_data.py merged_2D_neb.xyz
+
+# Full specification
+python split_data.py /path/to/merged_neb.xyz \
+    --isolated /path/to/isolated_atoms.xyz \
+    --output /path/to/training_data \
+    --train 0.75 --valid 0.15 --test 0.1 \
+    --seed 42
+```
 
 **Default behavior:**
 - 80% training data (includes isolated atoms)
