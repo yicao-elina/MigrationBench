@@ -128,3 +128,72 @@ cuequivariance or cuequivariance_torch is not available. Cuequivariance accelera
 2025-10-18 17:58:11.560 INFO: Epoch 100: head: default, loss=0.01073778, RMSE_E_per_atom=   10.95 meV, RMSE_F=  125.74 meV / A
 2025-10-18 18:02:37.573 INFO: Epoch 150: head: default, loss=0.01041829, RMSE_E_per_atom=    6.76 meV, RMSE_F=  123.93 meV / A
 2025-10-18 18:06:57.750 INFO: Changing loss based on Stage Two Weights
+2025-10-18 18:07:03.345 INFO: Epoch 200: head: default, loss=0.11112746, RMSE_E_per_atom=   11.19 meV, RMSE_F=  122.75 meV / A
+2025-10-18 18:11:29.551 INFO: Epoch 250: head: default, loss=0.10665763, RMSE_E_per_atom=    3.66 meV, RMSE_F=  124.34 meV / A
+2025-10-18 18:15:56.543 INFO: Epoch 300: head: default, loss=0.10684881, RMSE_E_per_atom=    3.62 meV, RMSE_F=  124.29 meV / A
+2025-10-18 18:20:23.930 INFO: Epoch 350: head: default, loss=0.10774063, RMSE_E_per_atom=    3.60 meV, RMSE_F=  124.69 meV / A
+2025-10-18 18:24:51.702 INFO: Epoch 400: head: default, loss=0.10882599, RMSE_E_per_atom=    3.67 meV, RMSE_F=  125.16 meV / A
+2025-10-18 18:29:19.007 INFO: Epoch 450: head: default, loss=0.10974767, RMSE_E_per_atom=    3.65 meV, RMSE_F=  125.61 meV / A
+2025-10-18 18:33:45.806 INFO: Epoch 500: head: default, loss=0.11082354, RMSE_E_per_atom=    3.61 meV, RMSE_F=  126.13 meV / A
+2025-10-18 18:38:12.083 INFO: Epoch 550: head: default, loss=0.11145891, RMSE_E_per_atom=    3.63 meV, RMSE_F=  126.47 meV / A
+2025-10-18 18:42:39.444 INFO: Epoch 600: head: default, loss=0.11241364, RMSE_E_per_atom=    3.64 meV, RMSE_F=  126.92 meV / A
+2025-10-18 18:47:06.552 INFO: Epoch 650: head: default, loss=0.11321946, RMSE_E_per_atom=    3.63 meV, RMSE_F=  127.32 meV / A
+2025-10-18 18:51:34.267 INFO: Epoch 700: head: default, loss=0.11400022, RMSE_E_per_atom=    3.62 meV, RMSE_F=  127.73 meV / A
+2025-10-18 18:56:01.375 INFO: Epoch 750: head: default, loss=0.11465787, RMSE_E_per_atom=    3.61 meV, RMSE_F=  128.07 meV / A
+2025-10-18 19:00:27.946 INFO: Epoch 800: head: default, loss=0.11558445, RMSE_E_per_atom=    3.60 meV, RMSE_F=  128.53 meV / A
+2025-10-18 19:04:54.729 INFO: Epoch 850: head: default, loss=0.11629342, RMSE_E_per_atom=    3.66 meV, RMSE_F=  128.87 meV / A
+2025-10-18 19:09:21.288 INFO: Epoch 900: head: default, loss=0.11696915, RMSE_E_per_atom=    3.65 meV, RMSE_F=  129.22 meV / A
+2025-10-18 19:13:48.105 INFO: Epoch 950: head: default, loss=0.11746036, RMSE_E_per_atom=    3.61 meV, RMSE_F=  129.51 meV / A
+2025-10-18 19:18:09.130 INFO: Training complete
+2025-10-18 19:18:09.130 INFO: 
+2025-10-18 19:18:09.130 INFO: ===========RESULTS===========
+2025-10-18 19:18:09.207 INFO: Loading checkpoint: ../finetuned_model/neb/finetuned_neb_run-234_epoch-150.pt
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/tools/checkpoint.py:187: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  torch.load(f=checkpoint_info.path, map_location=device),
+2025-10-18 19:18:09.286 INFO: Loaded Stage one model from epoch 150 for evaluation
+2025-10-18 19:18:09.286 INFO: Saving model to ../finetuned_model/neb/finetuned_neb_run-234.model
+2025-10-18 19:18:09.475 INFO: Compiling model, saving metadata to ../finetuned_model/neb/finetuned_neb_compiled.model
+2025-10-18 19:18:10.457 INFO: Computing metrics for training, validation, and test sets
+2025-10-18 19:18:10.458 INFO: Evaluating train_default ...
+2025-10-18 19:18:12.312 INFO: Evaluating valid_default ...
+2025-10-18 19:18:12.696 INFO: Error-table on TRAIN and VALID:
++---------------+---------------------+------------------+-------------------+
+|  config_type  | RMSE E / meV / atom | RMSE F / meV / A | relative F RMSE % |
++---------------+---------------------+------------------+-------------------+
+| train_default |            6.3      |         26.4     |          5.80     |
+| valid_default |            6.8      |        123.9     |         26.45     |
++---------------+---------------------+------------------+-------------------+
+2025-10-18 19:18:12.696 INFO: Evaluating Default_default ...
+2025-10-18 19:18:13.010 INFO: Error-table on TEST:
++-----------------+---------------------+------------------+-------------------+
+|   config_type   | RMSE E / meV / atom | RMSE F / meV / A | relative F RMSE % |
++-----------------+---------------------+------------------+-------------------+
+| Default_default |            6.3      |         99.3     |         20.46     |
++-----------------+---------------------+------------------+-------------------+
+2025-10-18 19:18:18.568 INFO: Loading checkpoint: ../finetuned_model/neb/finetuned_neb_run-234_epoch-250_swa.pt
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/tools/checkpoint.py:187: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  torch.load(f=checkpoint_info.path, map_location=device),
+2025-10-18 19:18:18.637 INFO: Loaded Stage two model from epoch 250 for evaluation
+2025-10-18 19:18:18.638 INFO: Saving model to ../finetuned_model/neb/finetuned_neb_run-234_stagetwo.model
+2025-10-18 19:18:18.828 INFO: Compiling model, saving metadata ../finetuned_model/neb/finetuned_neb_stagetwo_compiled.model
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/jit/_check.py:178: UserWarning: The TorchScript type system doesn't support instance-level annotations on empty non-base types in `__init__`. Instead, either 1) use a type annotation in the class body, or 2) wrap the type in `torch.jit.Attribute`.
+  warnings.warn(
+2025-10-18 19:18:19.627 INFO: Computing metrics for training, validation, and test sets
+2025-10-18 19:18:19.627 INFO: Evaluating train_default ...
+2025-10-18 19:18:21.529 INFO: Evaluating valid_default ...
+2025-10-18 19:18:21.822 INFO: Error-table on TRAIN and VALID:
++---------------+---------------------+------------------+-------------------+
+|  config_type  | RMSE E / meV / atom | RMSE F / meV / A | relative F RMSE % |
++---------------+---------------------+------------------+-------------------+
+| train_default |            2.1      |         21.4     |          4.72     |
+| valid_default |            3.7      |        124.3     |         26.54     |
++---------------+---------------------+------------------+-------------------+
+2025-10-18 19:18:21.823 INFO: Evaluating Default_default ...
+2025-10-18 19:18:22.140 INFO: Error-table on TEST:
++-----------------+---------------------+------------------+-------------------+
+|   config_type   | RMSE E / meV / atom | RMSE F / meV / A | relative F RMSE % |
++-----------------+---------------------+------------------+-------------------+
+| Default_default |            3.6      |        100.9     |         20.80     |
++-----------------+---------------------+------------------+-------------------+
+2025-10-18 19:18:26.802 INFO: Done
+Sat Oct 18 19:18:27 EDT 2025
