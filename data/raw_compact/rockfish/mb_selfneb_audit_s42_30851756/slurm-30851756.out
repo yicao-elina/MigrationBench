@@ -1,0 +1,105 @@
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mSun Sep 13 09:00:35 2026[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       48.78 GB       |       50.00 GB       |       97.56%      |      751,300       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mSun Sep 13 09:30:16 2026[0m               |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|     FS     |    Used   |   Quota   |  Used %  |   Files    |  Files Quota  |   Files %   |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|    data    |  13.62 TB |  10.00 TB | 136.00%  | 1,102,995  |   4,096,000   |    26.00%   |
+|  scratch4  |  9.91 TB  |  10.00 TB |  99.00%  | 1,629,629  |   5,242,880   |    31.00%   |
+| scratch16  |  12.56 TB |  20.00 TB |  62.00%  |  984,048   |   20,480,000  |    4.00%    |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+cuequivariance or cuequivariance_torch is not available. Cuequivariance acceleration will be disabled.
+{
+  "barrier_shape": "endpoint_dominated",
+  "created_at_utc": "2026-09-13T13:44:53.886315+00:00",
+  "endpoint_delta_eV": -0.3790521499552142,
+  "energy_span_eV": 1.037407224042056,
+  "forward_barrier_eV": 0.0,
+  "historical_optimizer_final": {
+    "iteration": 295,
+    "optimizer_band_energy_eV": -308.943512,
+    "optimizer_neb_fmax_eV_A": 0.049927
+  },
+  "interpretation": "Uniform rescoring repairs the final energy profile only. It cannot repair an optimization whose NEB tangent/path evolution used endpoint and internal energies from incompatible calculators.",
+  "minimum_image_index_qe": 11,
+  "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model",
+  "model_sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0",
+  "n_images": 12,
+  "n_optimizer_iterations_in_trajectory": 296,
+  "optimizer_log": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806-NEB/0-foundation-omat/slurm.10199010",
+  "optimizer_log_sha256": "e8291e2ee149d022ae6e86e4735c9c4a3b76d07b8aabfcad1fc894dcb9d04821",
+  "peak_image_index_qe": 1,
+  "reconstructed_neb_fmax_eV_A": 0.04992728335816195,
+  "rescored_atomic_fmax_eV_A": [
+    1.2343278594210707,
+    0.04346154634753614,
+    0.02648469773340712,
+    0.013860462390221175,
+    0.027168001236394505,
+    0.10802696895261092,
+    0.3519014660497037,
+    0.42689192320938224,
+    0.014344444953246814,
+    0.7334227121456466,
+    0.5540657359878975,
+    0.5132169083422995
+  ],
+  "rescored_image_energies_eV": [
+    -308.63422930718366,
+    -309.3186473481586,
+    -309.35652645617046,
+    -309.35961384399764,
+    -309.3507166487134,
+    -309.3196353877942,
+    -309.2201601918983,
+    -309.03596005298886,
+    -308.94351248661496,
+    -309.1851100780107,
+    -309.6716365312257,
+    -309.0132814571389
+  ],
+  "reverse_barrier_eV": 0.3790521499552142,
+  "schema_version": "1.0",
+  "scientific_status": "diagnostic_invalid_historical_mixed_calculator_optimization",
+  "seed": 42,
+  "source_endpoint_internal_energy_scale_mismatch": true,
+  "source_final_band_calculator_classes": [
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator",
+    "SinglePointCalculator"
+  ],
+  "source_final_band_stored_energies_eV": [
+    -179665.26139882064,
+    -309.31864734815866,
+    -309.35652645617034,
+    -309.35961384399764,
+    -309.3507166487134,
+    -309.3196353877942,
+    -309.2201601918983,
+    -309.0359600529888,
+    -308.94351248661496,
+    -309.1851100780107,
+    -309.6716365312257,
+    -179664.531481068
+  ],
+  "trajectory": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806-NEB/0-foundation-omat/neb_optimization.traj",
+  "trajectory_sha256": "709e4065966dfd83d0dd4b67d7694ecfbe295629a74a10efcceb308214ed04f8"
+}

@@ -1,0 +1,54 @@
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mWed Sep  9 02:00:06 2026[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       48.77 GB       |       50.00 GB       |       97.55%      |      751,085       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mWed Sep  9 02:00:17 2026[0m               |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|     FS     |    Used   |   Quota   |  Used %  |   Files    |  Files Quota  |   Files %   |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|    data    |  13.62 TB |  10.00 TB | 136.00%  | 1,102,975  |   4,096,000   |    26.00%   |
+|  scratch4  |  9.57 TB  |  10.00 TB |  95.00%  | 1,627,364  |   5,242,880   |    31.00%   |
+| scratch16  |  12.41 TB |  20.00 TB |  62.00%  |  980,836   |   20,480,000  |    4.00%    |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+host=gpu02
+user=ycao73
+workdir=/home/ycao73/revision1_pipeline_20260909
+seed=42
+Python 3.9.22
+{
+  "barrier_proxy_eV": 0.0,
+  "images": "/home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/mlff_emt/mlff_neb_images.extxyz"
+}
+{
+  "wrote": "/home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/qe_from_mlff.neb.in",
+  "num_of_images": 5
+}
+{
+  "out_dir": "/home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/hf_dataset",
+  "tables": {
+    "configurations": 5,
+    "calculations": 5,
+    "neb_paths": 1,
+    "derived_barriers": 1
+  },
+  "parquet_status": {
+    "configurations": "skipped: ImportError: Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.\nA suitable version of pyarrow or fastparquet is required for parquet support.\nTrying to import the above resulted in these errors:\n - Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.\n - Missing optional dependency 'fastparquet'. fastparquet is required for parquet support. Use pip or conda to install fastparquet.",
+    "calculations": "skipped: ImportError: Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.\nA suitable version of pyarrow or fastparquet is required for parquet support.\nTrying to import the above resulted in these errors:\n - Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.\n - Missing optional dependency 'fastparquet'. fastparquet is required for parquet support. Use pip or conda to install fastparquet.",
+    "neb_paths": "skipped: ImportError: Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.\nA suitable version of pyarrow or fastparquet is required for parquet support.\nTrying to import the above resulted in these errors:\n - Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.\n - Missing optional dependency 'fastparquet'. fastparquet is required for parquet support. Use pip or conda to install fastparquet.",
+    "derived_barriers": "skipped: ImportError: Unable to find a usable engine; tried using: 'pyarrow', 'fastparquet'.\nA suitable version of pyarrow or fastparquet is required for parquet support.\nTrying to import the above resulted in these errors:\n - Missing optional dependency 'pyarrow'. pyarrow is required for parquet support. Use pip or conda to install pyarrow.\n - Missing optional dependency 'fastparquet'. fastparquet is required for parquet support. Use pip or conda to install fastparquet."
+  },
+  "source_sha256": "7760a3cf98d21702dc5ae8a10f2aa7e3ae1253f5a1bce590d50695c32912807d",
+  "barrier_eV": 0.0,
+  "manuscript_allowed": true
+}
++ /data/pclancy3/yi/.conda/envs/mace/bin/python scripts/migrationbench/run_mlff_neb.py --images /home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/smoke_images.extxyz --out-dir /home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/mlff_emt --calculator emt --device cpu --steps 2 --fmax 10.0
++ /data/pclancy3/yi/.conda/envs/mace/bin/python scripts/migrationbench/qe_neb_from_images.py --images /home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/mlff_emt/mlff_neb_images.extxyz --engine-template /home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/qe_engine_template.in --output /home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/qe_from_mlff.neb.in --nstep-path 5 --path-thr 0.5
++ /data/pclancy3/yi/.conda/envs/mace/bin/python scripts/migrationbench/migrationbench_dataset.py build --images /home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/mlff_emt/mlff_neb_images.extxyz --out-dir /home/ycao73/revision1_pipeline_20260909/data_processed/pipeline_smoke/hf_dataset --pathway-id smoke_Cu2 --path-label smoke --family smoke --protocol mlff_pre_neb --calculator-family MLFF --calculator-label EMT --method EMT --convergence-status converged --acceptance-notes smoke test only
+SMOKE TEST PASSED

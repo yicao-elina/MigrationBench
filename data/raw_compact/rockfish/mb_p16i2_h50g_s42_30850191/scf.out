@@ -1,0 +1,981 @@
+
+     Program PWSCF v.7.3.1 starts on 13Sep2026 at  5:17:21 
+
+     This program is part of the open-source Quantum ESPRESSO suite
+     for quantum simulation of materials; please cite
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 21 395502 (2009);
+         "P. Giannozzi et al., J. Phys.:Condens. Matter 29 465901 (2017);
+         "P. Giannozzi et al., J. Chem. Phys. 152 154105 (2020);
+          URL http://www.quantum-espresso.org", 
+     in publications or presentations arising from this work. More details at
+     http://www.quantum-espresso.org/quote
+
+     Parallel version (MPI), running on     2 processors
+
+     MPI processes distributed on     1 nodes
+     148813 MiB available memory on the printing compute node when the environment starts
+ 
+     Reading input from scf.in
+
+     Current dimensions of program PWSCF are:
+     Max number of different atomic species (ntypx) = 10
+     Max number of k-points (npk) =  40000
+     Max angular momentum in pseudopotentials (lmaxx) =  4
+
+     gamma-point specific algorithms are used
+     Message from routine setup:
+     using ibrav=0 with symmetry is DISCOURAGED, use correct ibrav instead
+ 
+     R & G space division:  proc/nbgrp/npool/nimage =       2
+     Subspace diagonalization in iterative solution of the eigenvalue problem:
+     a serial algorithm will be used
+
+ 
+     Parallelization info
+     --------------------
+     sticks:   dense  smooth     PW     G-vecs:    dense   smooth      PW
+     Min        1740    1740    429               307583   307583   38387
+     Max        1741    1741    430               307608   307608   38394
+     Sum        3481    3481    859               615191   615191   76781
+ 
+     Using Slab Decomposition
+ 
+
+
+     bravais-lattice index     =            0
+     lattice parameter (alat)  =      15.9274  a.u.
+     unit-cell volume          =   12884.0056 (a.u.)^3
+     number of atoms/cell      =           61
+     number of atomic types    =            3
+     number of electrons       =       950.00
+     number of Kohn-Sham states=          570
+     kinetic-energy cutoff     =      50.0000  Ry
+     charge density cutoff     =     200.0000  Ry
+     scf convergence threshold =      1.0E-06
+     mixing beta               =       0.2000
+     number of iterations used =            8  local-TF  mixing
+     Exchange-correlation= PBE
+                           (   1   4   3   4   0   0   0)
+
+     celldm(1)=  15.927435  celldm(2)=   0.000000  celldm(3)=   0.000000
+     celldm(4)=   0.000000  celldm(5)=   0.000000  celldm(6)=   0.000000
+
+     crystal axes: (cart. coord. in units of alat)
+               a(1) = (   1.000000   0.000000   0.000000 )  
+               a(2) = (  -0.500000   0.866025   0.000000 )  
+               a(3) = (   0.000000   0.000000   3.681993 )  
+
+     reciprocal axes: (cart. coord. in units 2 pi/alat)
+               b(1) = (  1.000000  0.577351  0.000000 )  
+               b(2) = (  0.000000  1.154701  0.000000 )  
+               b(3) = (  0.000000  0.000000  0.271592 )  
+
+
+     PseudoPot. # 1 for Cr read from file:
+     /data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Cr_PBE_FR.SG15v1.2.UPF
+     MD5 check sum: 19291ff833b3d067f23df56d5404fde6
+     Pseudo is Norm-conserving, Zval = 14.0
+     Generated using ONCVPSP code by D. R. Hamann
+     Using radial grid of 1490 points,  6 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+                l(5) =   2
+                l(6) =   2
+
+     PseudoPot. # 2 for Sb read from file:
+     /data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Sb_PBE_FR.SG15v1.2.UPF
+     MD5 check sum: 0e999992813bf262e14e71941f404476
+     Pseudo is Norm-conserving, Zval = 15.0
+     Generated using ONCVPSP code by D. R. Hamann
+     Using radial grid of 1468 points,  6 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+                l(5) =   2
+                l(6) =   2
+
+     PseudoPot. # 3 for Te read from file:
+     /data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Te_PBE_FR.SG15v1.2.UPF
+     MD5 check sum: 7c59b7da87cf03000ce4d32f994025eb
+     Pseudo is Norm-conserving, Zval = 16.0
+     Generated using ONCVPSP code by D. R. Hamann
+     Using radial grid of 1324 points,  6 beta functions with: 
+                l(1) =   0
+                l(2) =   0
+                l(3) =   1
+                l(4) =   1
+                l(5) =   2
+                l(6) =   2
+
+     atomic species   valence    mass     pseudopotential
+     Cr               14.00    51.99610     Cr( 1.00)
+     Sb               15.00   121.76000     Sb( 1.00)
+     Te               16.00   127.60000     Te( 1.00)
+
+      2 Sym. Ops. (no inversion) found
+
+
+                                    s                        frac. trans.
+
+      isym =  1     identity                                     
+
+ cryst.   s( 1) = (     1          0          0      )
+                  (     0          1          0      )
+                  (     0          0          1      )
+
+ cart.    s( 1) = (  1.0000000  0.0000000  0.0000000 )
+                  (  0.0000000  1.0000000  0.0000000 )
+                  (  0.0000000  0.0000000  1.0000000 )
+
+
+      isym =  2     inv. 180 deg rotation - cryst. axis [1,1,0]  
+
+ cryst.   s( 2) = (     0         -1          0      )
+                  (    -1          0          0      )
+                  (     0          0          1      )
+
+ cart.    s( 2) = (  0.5000000 -0.8660258  0.0000000 )
+                  ( -0.8660250 -0.5000000  0.0000000 )
+                  (  0.0000000  0.0000000  1.0000000 )
+
+
+   Cartesian axes
+
+     site n.     atom                  positions (alat units)
+         1        Te     tau(   1) = (   0.2500400   0.1439817   0.4048846  )
+         2        Te     tau(   2) = (   0.0003282  -0.2885314   0.4048846  )
+         3        Te     tau(   3) = (  -0.2501345   0.1444152   0.4016622  )
+         4        Te     tau(   4) = (   0.4998799  -0.2886054   0.4047108  )
+         5        Te     tau(   5) = (  -0.0175211   0.0101158   0.8278989  )
+         6        Te     tau(   6) = (  -0.2505481  -0.4326959   0.8374919  )
+         7        Te     tau(   7) = (  -0.4830856   0.0029491   0.8279266  )
+         8        Te     tau(   8) = (  -0.2440968   0.4168899   0.8279266  )
+         9        Te     tau(   9) = (   0.0000588  -0.0000339   0.0003183  )
+        10        Te     tau(  10) = (  -0.2500436  -0.4329871  -0.0003660  )
+        11        Te     tau(  11) = (  -0.4999612  -0.0000107   0.0000678  )
+        12        Te     tau(  12) = (   0.2500287  -0.4330405   0.0000678  )
+        13        Te     tau(  13) = (   0.0210501   0.2941207   1.6360984  )
+        14        Te     tau(  14) = (  -0.2441909  -0.1652899   1.6360984  )
+        15        Te     tau(  15) = (  -0.5288224   0.3053158   1.6518524  )
+        16        Te     tau(  16) = (   0.2497144  -0.1441723   1.6482639  )
+        17        Te     tau(  17) = (   0.2484922   0.1214394  -1.6478331  )
+        18        Te     tau(  18) = (   0.0190765  -0.2759199  -1.6478331  )
+        19        Te     tau(  19) = (  -0.2421776   0.1398213  -1.6511821  )
+        20        Te     tau(  20) = (   0.5172224  -0.2986181  -1.6747989  )
+        21        Te     tau(  21) = (   0.2553302   0.1299988   1.2326127  )
+        22        Te     tau(  22) = (   0.0150828  -0.2861214   1.2326127  )
+        23        Te     tau(  23) = (  -0.2501375   0.1444170   1.2430916  )
+        24        Te     tau(  24) = (   0.4852209  -0.2801420   1.2348796  )
+        25        Te     tau(  25) = (   0.0338774  -0.0195591  -0.8363451  )
+        26        Te     tau(  26) = (  -0.2420133  -0.4376234  -0.8437859  )
+        27        Te     tau(  27) = (   0.4821832   0.0054019  -0.8208470  )
+        28        Te     tau(  28) = (   0.2364134  -0.4202835  -0.8208470  )
+        29        Te     tau(  29) = (   0.0000108   0.2885624  -0.4063577  )
+        30        Te     tau(  30) = (  -0.2498970  -0.1442901  -0.4063577  )
+        31        Te     tau(  31) = (  -0.5000738   0.2887178  -0.4037334  )
+        32        Te     tau(  32) = (   0.2500154  -0.1443461  -0.4021829  )
+        33        Te     tau(  33) = (  -0.0025867   0.2930796  -1.2289297  )
+        34        Te     tau(  34) = (  -0.2551077  -0.1442993  -1.2289297  )
+        35        Te     tau(  35) = (  -0.4716272   0.2722941  -1.2384510  )
+        36        Te     tau(  36) = (   0.2589042  -0.1494780  -1.2472062  )
+        37        Sb     tau(  37) = (   0.0004650   0.2869164   1.0226698  )
+        38        Sb     tau(  38) = (  -0.2482444  -0.1438605   1.0226698  )
+        39        Sb     tau(  39) = (  -0.4969278   0.2869014   1.0162058  )
+        40        Sb     tau(  40) = (   0.2505456  -0.1446521   0.9921218  )
+        41        Sb     tau(  41) = (   0.0002808   0.2889385   0.2179595  )
+        42        Sb     tau(  42) = (  -0.2500876  -0.1447120   0.2179595  )
+        43        Sb     tau(  43) = (  -0.5003313   0.2888664   0.2176948  )
+        44        Sb     tau(  44) = (   0.2501524  -0.1444252   0.2180912  )
+        45        Sb     tau(  45) = (  -0.0105574   0.0060953  -1.4409966  )
+        46        Sb     tau(  46) = (  -0.2257510  -0.4470124  -1.4344327  )
+        47        Sb     tau(  47) = (  -0.4858821  -0.0146129  -1.4625375  )
+        48        Sb     tau(  48) = (  -0.2302859   0.4280927  -1.4625375  )
+        49        Sb     tau(  49) = (   0.0042800  -0.0024711   1.4504510  )
+        50        Sb     tau(  50) = (  -0.2495826  -0.4332533   1.4252744  )
+        51        Sb     tau(  51) = (   0.4987720  -0.0007819   1.4617752  )
+        52        Sb     tau(  52) = (   0.2500631  -0.4315578   1.4617752  )
+        53        Sb     tau(  53) = (   0.2497509   0.1442000  -0.2171206  )
+        54        Sb     tau(  54) = (  -0.0000054  -0.2883902  -0.2171206  )
+        55        Sb     tau(  55) = (  -0.2498536   0.1442531  -0.2188757  )
+        56        Sb     tau(  56) = (   0.4999811  -0.2886638  -0.2184860  )
+        57        Sb     tau(  57) = (   0.2587752   0.1411762  -1.0321769  )
+        58        Sb     tau(  58) = (   0.0071254  -0.2946936  -1.0321769  )
+        59        Sb     tau(  59) = (  -0.2429293   0.1402553  -0.9754496  )
+        60        Sb     tau(  60) = (   0.4896153  -0.2826791  -1.0041220  )
+        61        Cr     tau(  61) = (  -0.2232181  -0.4484748   1.9543699  )
+
+     --------------------------------------------
+     DFT-D3 Dispersion Correction (3-body terms):
+     --------------------------------------------
+       Reference C6 values for interpolation: 
+
+         atom   Coordination number   C6
+         Cr         0.000          1381.48
+         Cr         1.827           571.38
+         Cr        10.619           306.69
+         Sb         0.000           985.88
+         Sb         0.975           946.94
+         Sb         1.952           896.11
+         Sb         2.932           834.76
+         Te         0.000           851.07
+         Te         0.981           850.20
+         Te         1.964           837.16
+
+       Values used:
+
+         atom   Coordination number  R0_AB[au]  C6      C8
+         Te         3.082            3.676    837.16  84978.06
+         Te         3.082            3.676    837.16  84978.06
+         Te         3.125            3.676    837.16  84978.06
+         Te         3.090            3.676    837.16  84978.06
+         Te         3.140            3.676    837.16  84978.06
+         Te         3.090            3.676    837.16  84978.06
+         Te         3.146            3.676    837.16  84978.06
+         Te         3.146            3.676    837.16  84978.06
+         Te         5.225            3.676    837.16  84978.05
+         Te         5.230            3.676    837.16  84978.05
+         Te         5.219            3.676    837.16  84978.05
+         Te         5.219            3.676    837.16  84978.05
+         Te         3.291            3.676    837.16  84978.06
+         Te         3.291            3.676    837.16  84978.06
+         Te         3.461            3.676    837.16  84978.06
+         Te         3.212            3.676    837.16  84978.06
+         Te         3.941            3.676    837.16  84978.05
+         Te         3.941            3.676    837.16  84978.05
+         Te         3.120            3.676    837.16  84978.06
+         Te         3.760            3.676    837.16  84978.05
+         Te         5.229            3.676    837.16  84978.05
+         Te         5.229            3.676    837.16  84978.05
+         Te         5.161            3.676    837.16  84978.05
+         Te         5.188            3.676    837.16  84978.05
+         Te         3.223            3.676    837.16  84978.06
+         Te         3.092            3.676    837.16  84978.06
+         Te         3.195            3.676    837.16  84978.06
+         Te         3.195            3.676    837.16  84978.06
+         Te         3.066            3.676    837.16  84978.06
+         Te         3.066            3.676    837.16  84978.06
+         Te         3.101            3.676    837.16  84978.06
+         Te         3.130            3.676    837.16  84978.06
+         Te         5.050            3.676    837.16  84978.05
+         Te         5.050            3.676    837.16  84978.05
+         Te         5.131            3.676    837.16  84978.05
+         Te         5.231            3.676    837.16  84978.05
+         Sb         5.470            3.794    834.76  89580.53
+         Sb         5.470            3.794    834.76  89580.53
+         Sb         5.458            3.794    834.76  89580.53
+         Sb         5.338            3.794    834.76  89580.53
+         Sb         5.494            3.794    834.76  89580.53
+         Sb         5.494            3.794    834.76  89580.53
+         Sb         5.495            3.794    834.76  89580.53
+         Sb         5.492            3.794    834.76  89580.53
+         Sb         5.509            3.794    834.76  89580.53
+         Sb         5.911            3.794    834.76  89580.53
+         Sb         5.450            3.794    834.76  89580.53
+         Sb         5.450            3.794    834.76  89580.53
+         Sb         5.493            3.794    834.76  89580.53
+         Sb         5.631            3.794    834.76  89580.53
+         Sb         5.361            3.794    834.76  89580.53
+         Sb         5.361            3.794    834.76  89580.53
+         Sb         5.499            3.794    834.76  89580.53
+         Sb         5.499            3.794    834.76  89580.53
+         Sb         5.473            3.794    834.76  89580.53
+         Sb         5.483            3.794    834.76  89580.53
+         Sb         5.567            3.794    834.76  89580.53
+         Sb         5.567            3.794    834.76  89580.53
+         Sb         4.983            3.794    834.76  89580.53
+         Sb         5.401            3.794    834.76  89580.53
+         Cr         4.560            3.252    571.38  52732.00
+
+         Molecular C6 ( Ry / a.u.^6 ) =   3092416.23
+
+
+   Crystallographic axes
+
+     site n.     atom                  positions (cryst. coord.)
+         1        Te     tau(   1) = (  0.3331679  0.1662558  0.1099634  )
+         2        Te     tau(   2) = ( -0.1662555 -0.3331675  0.1099634  )
+         3        Te     tau(   3) = ( -0.1667563  0.1667564  0.1090882  )
+         4        Te     tau(   4) = (  0.3332534 -0.3332529  0.1099162  )
+         5        Te     tau(   5) = ( -0.0116807  0.0116807  0.2248508  )
+         6        Te     tau(   6) = ( -0.5003653 -0.4996344  0.2274561  )
+         7        Te     tau(   7) = ( -0.4813830  0.0034053  0.2248583  )
+         8        Te     tau(   8) = ( -0.0034052  0.4813832  0.2248583  )
+         9        Te     tau(   9) = (  0.0000392 -0.0000392  0.0000865  )
+        10        Te     tau(  10) = ( -0.5000289 -0.4999707 -0.0000994  )
+        11        Te     tau(  11) = ( -0.4999674 -0.0000124  0.0000184  )
+        12        Te     tau(  12) = (  0.0000125 -0.5000324  0.0000184  )
+        13        Te     tau(  13) = (  0.1908609  0.3396215  0.4443513  )
+        14        Te     tau(  14) = ( -0.3396211 -0.1908604  0.4443513  )
+        15        Te     tau(  15) = ( -0.3525482  0.3525485  0.4486300  )
+        16        Te     tau(  16) = (  0.1664765 -0.1664759  0.4476553  )
+        17        Te     tau(  17) = (  0.3186053  0.1402262 -0.4475384  )
+        18        Te     tau(  18) = ( -0.1402260 -0.3186050 -0.4475384  )
+        19        Te     tau(  19) = ( -0.1614517  0.1614518 -0.4484479  )
+        20        Te     tau(  20) = (  0.3448151 -0.3448147 -0.4548621  )
+        21        Te     tau(  21) = (  0.3303851  0.1501098  0.3347678  )
+        22        Te     tau(  22) = ( -0.1501096 -0.3303847  0.3347678  )
+        23        Te     tau(  23) = ( -0.1667583  0.1667584  0.3376138  )
+        24        Te     tau(  24) = (  0.3234808 -0.3234803  0.3353835  )
+        25        Te     tau(  25) = (  0.0225849 -0.0225849 -0.2271447  )
+        26        Te     tau(  26) = ( -0.4946754 -0.5053242 -0.2291655  )
+        27        Te     tau(  27) = (  0.4853020  0.0062376 -0.2229355  )
+        28        Te     tau(  28) = ( -0.0062375 -0.4853018 -0.2229355  )
+        29        Te     tau(  29) = (  0.1666125  0.3332033 -0.1103635  )
+        30        Te     tau(  30) = ( -0.3332030 -0.1666120 -0.1103635  )
+        31        Te     tau(  31) = ( -0.3333825  0.3333827 -0.1096508  )
+        32        Te     tau(  32) = (  0.1666772 -0.1666766 -0.1092297  )
+        33        Te     tau(  33) = (  0.1666230  0.3384193 -0.3337675  )
+        34        Te     tau(  34) = ( -0.3384189 -0.1666225 -0.3337675  )
+        35        Te     tau(  35) = ( -0.3144181  0.3144183 -0.3363534  )
+        36        Te     tau(  36) = (  0.1726030 -0.1726024 -0.3387313  )
+        37        Sb     tau(  37) = (  0.1661164  0.3313027  0.2777490  )
+        38        Sb     tau(  38) = ( -0.3313024 -0.1661159  0.2777490  )
+        39        Sb     tau(  39) = ( -0.3312851  0.3312853  0.2759934  )
+        40        Sb     tau(  40) = (  0.1670306 -0.1670300  0.2694524  )
+        41        Sb     tau(  41) = (  0.1670996  0.3336375  0.0591961  )
+        42        Sb     tau(  42) = ( -0.3336372 -0.1670991  0.0591961  )
+        43        Sb     tau(  43) = ( -0.3335541  0.3335544  0.0591242  )
+        44        Sb     tau(  44) = (  0.1667685 -0.1667679  0.0592318  )
+        45        Sb     tau(  45) = ( -0.0070383  0.0070383 -0.3913632  )
+        46        Sb     tau(  46) = ( -0.4838339 -0.5161658 -0.3895805  )
+        47        Sb     tau(  47) = ( -0.4943189 -0.0168735 -0.3972135  )
+        48        Sb     tau(  48) = (  0.0168736  0.4943191 -0.3972135  )
+        49        Sb     tau(  49) = (  0.0028534 -0.0028534  0.3939310  )
+        50        Sb     tau(  50) = ( -0.4997216 -0.5002780  0.3870932  )
+        51        Sb     tau(  51) = (  0.4983205 -0.0009029  0.3970065  )
+        52        Sb     tau(  52) = (  0.0009030 -0.4983203  0.3970065  )
+        53        Sb     tau(  53) = (  0.3330048  0.1665079 -0.0589682  )
+        54        Sb     tau(  54) = ( -0.1665077 -0.3330045 -0.0589682  )
+        55        Sb     tau(  55) = ( -0.1665690  0.1665692 -0.0594449  )
+        56        Sb     tau(  56) = (  0.3333209 -0.3333204 -0.0593390  )
+        57        Sb     tau(  57) = (  0.3402833  0.1630163 -0.2803310  )
+        58        Sb     tau(  58) = ( -0.1630161 -0.3402830 -0.2803310  )
+        59        Sb     tau(  59) = ( -0.1619528  0.1619530 -0.2649243  )
+        60        Sb     tau(  60) = (  0.3264104 -0.3264099 -0.2727115  )
+        61        Cr     tau(  61) = ( -0.4821452 -0.5178543  0.5307913  )
+
+     number of k points=     1  Marzari-Vanderbilt smearing, width (Ry)=  0.0147
+                       cart. coord. in units 2pi/alat
+        k(    1) = (   0.0000000   0.0000000   0.0000000), wk =   2.0000000
+
+                       cryst. coord.
+        k(    1) = (   0.0000000   0.0000000   0.0000000), wk =   2.0000000
+
+     Dense  grid:   307596 G-vectors     FFT dimensions: (  72,  72, 270)
+
+     Dynamical RAM for                 wfc:     167.25 MB
+
+     Dynamical RAM for     wfc (w. buffer):     167.25 MB
+
+     Dynamical RAM for           str. fact:       7.04 MB
+
+     Dynamical RAM for           local pot:       0.00 MB
+
+     Dynamical RAM for          nlocal pot:     322.18 MB
+
+     Dynamical RAM for                qrad:       3.41 MB
+
+     Dynamical RAM for          rho,v,vnew:      23.06 MB
+
+     Dynamical RAM for               rhoin:       7.69 MB
+
+     Dynamical RAM for            rho*nmix:      37.55 MB
+
+     Dynamical RAM for           G-vectors:       9.97 MB
+
+     Dynamical RAM for          h,s,v(r/c):      29.75 MB
+
+     Dynamical RAM for          <psi|beta>:       4.77 MB
+
+     Dynamical RAM for                 psi:     334.51 MB
+
+     Dynamical RAM for                hpsi:     334.51 MB
+
+     Dynamical RAM for      wfcinit/wfcrot:     341.95 MB
+
+     Estimated static dynamical RAM per process >     576.69 MB
+
+     Estimated max dynamical RAM per process >       1.29 GB
+
+     Estimated total dynamical RAM >       2.57 GB
+
+     Initial potential from superposition of free atoms
+
+     starting charge     949.9776, renormalised to     950.0000
+     Starting wfcs are  550 randomized atomic wfcs +   20 random wfcs
+
+     total cpu time spent up to now is        8.1 secs
+
+     Self-consistent Calculation
+
+     iteration #  1     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1043 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147515 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  1.00E-02,  avg # of iterations =  6.0
+
+     total cpu time spent up to now is       37.9 secs
+
+     total energy              =   -9818.16017755 Ry
+     estimated scf accuracy    <      14.84126225 Ry
+
+     iteration #  2     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1416 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147444 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  1.56E-03,  avg # of iterations =  2.0
+
+     total cpu time spent up to now is       61.6 secs
+
+     total energy              =   -9818.88312782 Ry
+     estimated scf accuracy    <       0.73255730 Ry
+
+     iteration #  3     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1427 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147431 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  7.71E-05,  avg # of iterations = 13.0
+
+     total cpu time spent up to now is      107.1 secs
+
+     total energy              =   -9819.28972779 Ry
+     estimated scf accuracy    <       0.50322781 Ry
+
+     iteration #  4     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1433 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147418 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  5.30E-05,  avg # of iterations =  2.0
+
+     total cpu time spent up to now is      130.7 secs
+
+     total energy              =   -9819.27728763 Ry
+     estimated scf accuracy    <       0.16332200 Ry
+
+     iteration #  5     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1437 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147408 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  1.72E-05,  avg # of iterations = 18.0
+
+     total cpu time spent up to now is      167.7 secs
+
+     total energy              =   -9819.30118181 Ry
+     estimated scf accuracy    <       0.03887336 Ry
+
+     iteration #  6     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1441 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147397 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  4.09E-06,  avg # of iterations = 10.0
+
+     total cpu time spent up to now is      197.4 secs
+
+     total energy              =   -9819.30049374 Ry
+     estimated scf accuracy    <       0.03148806 Ry
+
+     iteration #  7     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1447 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147385 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  3.31E-06,  avg # of iterations =  2.0
+
+     total cpu time spent up to now is      221.0 secs
+
+     total energy              =   -9819.30039742 Ry
+     estimated scf accuracy    <       0.02031679 Ry
+
+     iteration #  8     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1451 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147375 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  2.14E-06,  avg # of iterations =  2.0
+     Minimization algorithm failed to find Fermi energy: reverting to bisection
+     Possible cause: smearing is larger than the electronic band-gap.
+
+     total cpu time spent up to now is      244.9 secs
+
+     total energy              =   -9819.30073718 Ry
+     estimated scf accuracy    <       0.00938163 Ry
+
+     iteration #  9     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1456 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147364 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  9.88E-07,  avg # of iterations =  2.0
+
+     total cpu time spent up to now is      268.3 secs
+
+     total energy              =   -9819.30095305 Ry
+     estimated scf accuracy    <       0.00630835 Ry
+
+     iteration # 10     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1462 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147351 MiB available memory on the node where the printing process lives
+------------------
+     c_bands:  2 eigenvalues not converged
+     ethr =  6.64E-07,  avg # of iterations = 20.0
+
+     total cpu time spent up to now is      299.5 secs
+
+     total energy              =   -9819.30090089 Ry
+     estimated scf accuracy    <       0.00148420 Ry
+
+     iteration # 11     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147351 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  1.56E-07,  avg # of iterations =  5.0
+     Minimization algorithm failed to find Fermi energy: reverting to bisection
+     Possible cause: smearing is larger than the electronic band-gap.
+
+     total cpu time spent up to now is      326.6 secs
+
+     total energy              =   -9819.30108007 Ry
+     estimated scf accuracy    <       0.00051215 Ry
+
+     iteration # 12     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147352 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  5.39E-08,  avg # of iterations =  5.0
+     Minimization algorithm failed to find Fermi energy: reverting to bisection
+     Possible cause: smearing is larger than the electronic band-gap.
+
+     total cpu time spent up to now is      352.0 secs
+
+     total energy              =   -9819.30107072 Ry
+     estimated scf accuracy    <       0.00025452 Ry
+
+     iteration # 13     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147351 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  2.68E-08,  avg # of iterations =  2.0
+
+     total cpu time spent up to now is      376.2 secs
+
+     total energy              =   -9819.30108306 Ry
+     estimated scf accuracy    <       0.00013031 Ry
+
+     iteration # 14     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147349 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  1.37E-08,  avg # of iterations =  5.0
+
+     total cpu time spent up to now is      401.1 secs
+
+     total energy              =   -9819.30108544 Ry
+     estimated scf accuracy    <       0.00005023 Ry
+
+     iteration # 15     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147352 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  5.29E-09,  avg # of iterations =  6.0
+
+     total cpu time spent up to now is      427.4 secs
+
+     total energy              =   -9819.30108848 Ry
+     estimated scf accuracy    <       0.00003152 Ry
+
+     iteration # 16     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147352 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  3.32E-09,  avg # of iterations =  2.0
+
+     total cpu time spent up to now is      450.8 secs
+
+     total energy              =   -9819.30108839 Ry
+     estimated scf accuracy    <       0.00002454 Ry
+
+     iteration # 17     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147352 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  2.58E-09,  avg # of iterations =  1.0
+
+     total cpu time spent up to now is      472.4 secs
+
+     total energy              =   -9819.30108731 Ry
+     estimated scf accuracy    <       0.00001960 Ry
+
+     iteration # 18     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147348 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  2.06E-09,  avg # of iterations =  2.0
+     Minimization algorithm failed to find Fermi energy: reverting to bisection
+     Possible cause: smearing is larger than the electronic band-gap.
+
+     total cpu time spent up to now is      495.9 secs
+
+     total energy              =   -9819.30108734 Ry
+     estimated scf accuracy    <       0.00001304 Ry
+
+     iteration # 19     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147349 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  1.37E-09,  avg # of iterations =  1.0
+
+     total cpu time spent up to now is      517.5 secs
+
+     total energy              =   -9819.30108675 Ry
+     estimated scf accuracy    <       0.00001031 Ry
+
+     iteration # 20     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147350 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  1.09E-09,  avg # of iterations =  2.0
+     Minimization algorithm failed to find Fermi energy: reverting to bisection
+     Possible cause: smearing is larger than the electronic band-gap.
+
+     total cpu time spent up to now is      541.2 secs
+
+     total energy              =   -9819.30108704 Ry
+     estimated scf accuracy    <       0.00000442 Ry
+
+     iteration # 21     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147350 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  4.66E-10,  avg # of iterations =  2.0
+
+     total cpu time spent up to now is      564.6 secs
+
+     total energy              =   -9819.30108671 Ry
+     estimated scf accuracy    <       0.00000269 Ry
+
+     iteration # 22     ecut=    50.00 Ry     beta= 0.20
+     Davidson diagonalization with overlap
+
+---- Real-time Memory Report at c_bands before calling an iterative solver
+          1467 MiB given to the printing process from OS
+             0 MiB allocation reported by mallinfo(arena+hblkhd)
+        147350 MiB available memory on the node where the printing process lives
+------------------
+     ethr =  2.84E-10,  avg # of iterations =  5.0
+     Minimization algorithm failed to find Fermi energy: reverting to bisection
+     Possible cause: smearing is larger than the electronic band-gap.
+
+     total cpu time spent up to now is      589.0 secs
+
+     End of self-consistent calculation
+
+          k = 0.0000 0.0000 0.0000 ( 38391 PWs)   bands (ev):
+
+   -60.2888 -31.7526 -31.6854 -31.5043 -25.9365 -25.9208 -25.9201 -25.8698
+   -25.8695 -25.8692 -25.8640 -25.8628 -25.8619 -25.8615 -25.8594 -25.8545
+   -25.8544 -25.8520 -25.8519 -25.8487 -25.8370 -25.8363 -25.8103 -25.8102
+   -25.8053 -25.8037 -25.8026 -25.8014 -25.7998 -25.7988 -25.7982 -25.7971
+   -25.7965 -25.7963 -25.7925 -25.7921 -25.7919 -25.7906 -25.7895 -25.7872
+   -25.7871 -25.7846 -25.7819 -25.7807 -25.7801 -25.7741 -25.7731 -25.7730
+   -25.7705 -25.7702 -25.7678 -25.7603 -25.7578 -25.7558 -25.7477 -25.7458
+   -25.7455 -25.7450 -25.7414 -25.7395 -25.7390 -25.7376 -25.7356 -25.7324
+   -25.7322 -25.7319 -25.7314 -25.7312 -25.7289 -25.7289 -25.7268 -25.7254
+   -25.7254 -25.7253 -25.7252 -25.7246 -25.7246 -25.7245 -25.7243 -25.7242
+   -25.7236 -25.7235 -25.7222 -25.7219 -25.7203 -25.7154 -25.7146 -25.7114
+   -25.7109 -25.7096 -25.7094 -25.7072 -25.7005 -25.7001 -25.7000 -25.6997
+   -25.6990 -25.6989 -25.6967 -25.6894 -25.6866 -25.6857 -25.6805 -25.6786
+   -25.6781 -25.6736 -25.6694 -25.6687 -25.6685 -25.6677 -25.6661 -25.6659
+   -25.6657 -25.6645 -25.6626 -25.6537 -25.6536 -25.6535 -25.6528 -25.6527
+   -25.6527 -25.6520 -25.6513 -25.6453 -25.6450 -25.6443 -25.6442 -25.6434
+   -25.6422 -25.6397 -25.6385 -25.6378 -25.6377 -25.6352 -25.6348 -25.6322
+   -25.6320 -25.6296 -25.6296 -25.6222 -25.6176 -25.6176 -25.6071 -25.6070
+   -25.6002 -25.5972 -25.5919 -25.5917 -25.5909 -25.5907 -25.5875 -25.5871
+   -25.5844 -25.5841 -25.5825 -25.5825 -25.5747 -25.5747 -25.5688 -25.5686
+   -25.5680 -25.5675 -25.5675 -25.5667 -25.5612 -25.5605 -25.5538 -25.5533
+   -25.5510 -25.5475 -25.5469 -25.5440 -25.5385 -25.5368 -25.5254 -25.5226
+   -25.5208 -25.5153 -25.5119 -25.5084 -25.4822 -25.4684 -25.4478 -25.4329
+   -18.5647 -18.5624 -18.5579 -18.5576 -18.5558 -18.5497 -18.5484 -18.5457
+   -18.5448 -18.5430 -18.5421 -18.5283 -18.5259 -18.5221 -18.5201 -18.5173
+   -18.5169 -18.5169 -18.5167 -18.5154 -18.5145 -18.4997 -18.4951 -18.4945
+   -18.4914 -18.4893 -18.4885 -18.4869 -18.4792 -18.4775 -18.4726 -18.4672
+   -18.4640 -18.4629 -18.4618 -18.4585 -18.4583 -18.4529 -18.4278 -18.4261
+   -18.4255 -18.4226 -18.4216 -18.4202 -18.4180 -18.4178 -18.4174 -18.4173
+   -18.4169 -18.4162 -18.4159 -18.4151 -18.4140 -18.4131 -18.4122 -18.4122
+   -18.4116 -18.4101 -18.4097 -18.4093 -18.4089 -18.4088 -18.4079 -18.4047
+   -18.4032 -18.4028 -18.4009 -18.3871 -18.3855 -18.3811 -18.3797 -18.3793
+   -18.3780 -18.3764 -18.3757 -18.3755 -18.3737 -18.3727 -18.3724 -18.3709
+   -18.3703 -18.3701 -18.3696 -18.3682 -18.3681 -18.3678 -18.3669 -18.3668
+   -18.3658 -18.3639 -18.3613 -18.3599 -18.3584 -18.3582 -18.3534 -18.3515
+   -18.3507 -18.3491 -18.3447 -18.3402 -18.3370 -18.3347 -18.3308 -18.3295
+   -18.3155 -18.3083 -18.3002 -18.2964 -18.2945 -18.2916 -18.2253 -18.2218
+   -18.1193 -18.1081 -18.0907 -18.0577 -18.0541 -18.0322 -18.0283 -18.0162
+    -2.6387  -2.5133  -2.4284  -1.8859  -1.7319  -1.6520  -0.6741  -0.6377
+    -0.6345  -0.6075  -0.5346  -0.5082  -0.5034  -0.4950  -0.4912  -0.4837
+    -0.4737  -0.4611  -0.4407  -0.4175  -0.3886  -0.3766  -0.3301  -0.3189
+    -0.3129  -0.3024  -0.2979  -0.2948  -0.2433  -0.2187  -0.2156  -0.2085
+    -0.1996  -0.1975  -0.1519  -0.0684   1.2356   1.2709   1.2983   1.3773
+     1.3822   1.4018   1.4076   1.4226   1.5175   2.0639   2.0830   2.0878
+     2.1667   2.2084   2.2169   2.2225   2.2489   2.2894   2.4737   2.6338
+     2.8241   4.2703   4.5392   4.7271   5.0875   5.1027   5.1301   5.2124
+     5.2189   5.2233   5.2884   5.2927   5.3037   6.6073   6.7047   6.7404
+     6.8379   6.8684   6.9137   6.9673   6.9958   6.9968   6.9979   7.0228
+     7.0300   7.0378   7.0467   7.0697   7.0709   7.0914   7.0976   7.0987
+     7.1055   7.1344   7.1409   7.1484   7.1657   7.2351   7.2750   7.2846
+     7.7998   7.8469   7.8930   7.9093   7.9133   7.9770   7.9828   7.9877
+     8.0834   8.1119   8.1660   8.1675   8.2134   8.3590   8.3706   8.3923
+     8.5824   8.6629   8.7554   8.7714   8.7936   8.7940   8.8432   8.8529
+     8.8814   8.8818   8.9236   9.0126   9.0220   9.0429   9.0684   9.0758
+     9.1343   9.1616   9.1845   9.1874   9.1912   9.2428   9.2684   9.3073
+     9.3604   9.3699   9.3929   9.4251   9.4373   9.4713   9.4893   9.5266
+     9.6157   9.6205   9.6343   9.6358   9.6421   9.6537   9.6597   9.6766
+     9.7058   9.7225   9.7236   9.8952   9.9425   9.9549   9.9962  10.0194
+    10.1230  10.1274  10.1393  10.2105  10.2545  10.4765  10.6187  10.7751
+    10.8820  10.9401  10.9773  11.3314  11.4571  11.5213  11.6055  11.6395
+    11.6745  11.7129  11.8282  11.8298  11.8893  11.9122  11.9260  11.9603
+    11.9727  12.0341  12.1106  12.1110  12.3600  12.3808  12.4351  12.4449
+    12.4614  12.5202  12.5598  12.5796  12.6210  12.6770  12.7403  12.7915
+    12.8799  12.9034  12.9531  12.9586  12.9762  13.0237  13.1003  13.1009
+    13.2322  13.2370  13.2569  13.2882  13.3256  13.3302  13.3938  13.4001
+    13.4171  13.4812  13.6722  13.7083  13.7330  13.7530  13.8270  13.8951
+    14.0281  14.0671  14.0907  14.1746  14.1859  14.2568  14.2738  14.2981
+    14.2987  14.3891  14.3961  14.4986  14.5596  14.7280  14.7556  14.8754
+    14.9914  14.9956  15.0192  15.0824  15.1994  15.2312  15.4633  15.4818
+    15.5657  15.5932  15.6058  15.8661  15.9251  16.1041  16.1284  16.1896
+    16.2178  16.2745  16.3187  16.3688  16.3924  16.4336  16.4822  16.4912
+    16.5744  16.6599
+
+     occupation numbers 
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000   1.0000
+     1.0000   1.0000   1.0000   1.0000   1.0000   1.0007   1.0124   1.0715
+     1.0590   0.9671   0.8685   0.0194   0.0012   0.0002   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000   0.0000
+     0.0000   0.0000
+
+     the Fermi energy is    11.1083 ev
+
+!    total energy              =   -9819.30108614 Ry
+     estimated scf accuracy    <       0.00000096 Ry
+     smearing contrib. (-TS)   =       0.00977361 Ry
+     internal energy E=F+TS    =   -9819.31085975 Ry
+
+     The total energy is F=E-TS. E is the sum of the following terms:
+     one-electron contribution =   -4967.03561565 Ry
+     hartree contribution      =    2734.08129695 Ry
+     xc contribution           =   -1066.81753521 Ry
+     ewald contribution        =   -6518.39362212 Ry
+     DFT-D3 Dispersion         =      -1.14538371 Ry
+
+     convergence has been achieved in  22 iterations
+
+     Writing all to output data dir ./out/sb2te3.save/ :
+     XML data file, charge density, pseudopotentials, collected wavefunctions
+ 
+     init_run     :      7.69s CPU      8.03s WALL (       1 calls)
+     electrons    :    575.28s CPU    580.84s WALL (       1 calls)
+
+     Called by init_run:
+     wfcinit      :      7.19s CPU      7.44s WALL (       1 calls)
+     wfcinit:atom :      0.07s CPU      0.10s WALL (       1 calls)
+     wfcinit:wfcr :      6.98s CPU      7.14s WALL (       1 calls)
+     potinit      :      0.33s CPU      0.37s WALL (       1 calls)
+     hinit0       :      0.11s CPU      0.15s WALL (       1 calls)
+
+     Called by electrons:
+     c_bands      :    485.19s CPU    489.67s WALL (      22 calls)
+     sum_band     :     60.40s CPU     60.65s WALL (      22 calls)
+     v_of_rho     :      7.07s CPU      7.47s WALL (      23 calls)
+     v_h          :      0.67s CPU      0.67s WALL (      23 calls)
+     v_xc         :      6.40s CPU      6.79s WALL (      23 calls)
+     mix_rho      :     21.92s CPU     22.36s WALL (      22 calls)
+     energy_dftd3 :      0.71s CPU      0.71s WALL (       1 calls)
+
+     Called by c_bands:
+     init_us_2    :      7.10s CPU      7.19s WALL (      45 calls)
+     regterg      :    461.17s CPU    465.59s WALL (      22 calls)
+
+     Called by sum_band:
+     sum_band:wei :      0.02s CPU      0.02s WALL (      22 calls)
+     sum_band:loo :     59.56s CPU     59.79s WALL (      22 calls)
+     sum_band:buf :      0.00s CPU      0.00s WALL (      22 calls)
+     sum_band:ini :      3.48s CPU      3.50s WALL (      22 calls)
+
+     Called by *egterg:
+     rdiaghg      :     34.48s CPU     34.62s WALL (     137 calls)
+     regterg:over :     45.51s CPU     45.67s WALL (     115 calls)
+     regterg:upda :     27.67s CPU     27.76s WALL (     115 calls)
+     regterg:last :     47.12s CPU     47.28s WALL (      43 calls)
+     h_psi        :    289.52s CPU    290.70s WALL (     138 calls)
+     g_psi        :      1.24s CPU      1.25s WALL (     115 calls)
+
+     Called by h_psi:
+     h_psi:calbec :     42.83s CPU     42.98s WALL (     138 calls)
+     vloc_psi     :    202.52s CPU    203.35s WALL (     138 calls)
+     add_vuspsi   :     41.29s CPU     41.45s WALL (     138 calls)
+
+     General routines
+     calbec       :     42.83s CPU     42.98s WALL (     138 calls)
+     fft          :      2.71s CPU      2.82s WALL (     183 calls)
+     ffts         :     10.69s CPU     10.76s WALL (     729 calls)
+     fftw         :    174.26s CPU    174.97s WALL (   34106 calls)
+ 
+     Parallel routines
+ 
+     PWSCF        :   9m43.19s CPU   9m57.11s WALL
+
+ 
+   This run was terminated on:   5:27:18  13Sep2026            
+
+=------------------------------------------------------------------------------=
+   JOB DONE.
+=------------------------------------------------------------------------------=

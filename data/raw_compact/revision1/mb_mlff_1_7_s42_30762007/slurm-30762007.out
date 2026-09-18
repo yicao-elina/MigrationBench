@@ -1,0 +1,44 @@
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mWed Sep  9 02:00:06 2026[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       48.77 GB       |       50.00 GB       |       97.55%      |      751,085       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mWed Sep  9 02:30:16 2026[0m               |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|     FS     |    Used   |   Quota   |  Used %  |   Files    |  Files Quota  |   Files %   |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|    data    |  13.62 TB |  10.00 TB | 136.00%  | 1,102,995  |   4,096,000   |    26.00%   |
+|  scratch4  |  9.57 TB  |  10.00 TB |  95.00%  | 1,627,336  |   5,242,880   |    31.00%   |
+| scratch16  |  12.41 TB |  20.00 TB |  62.00%  |  980,836   |   20,480,000  |    4.00%    |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+host=gpu07
+user=ycao73
+workdir=/home/ycao73/revision1_pipeline_20260909
+seed=42
+path_id=1-7
+images=/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-7/sb2te3.xyz
+calculator=mace-model
+model_path=/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model
+steps=100
+fmax=0.05
+spring=0.1
+run_root=/scratch16/pclancy3/yi/revision1_migrationbench_runs
+job_run_dir=/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_1_7_s42_30762007
+Python 3.9.22
+cuequivariance or cuequivariance_torch is not available. Cuequivariance acceleration will be disabled.
+No dtype selected, switching to float64 to match model dtype.
+No dtype selected, switching to float64 to match model dtype.
+No dtype selected, switching to float64 to match model dtype.
+No dtype selected, switching to float64 to match model dtype.
+No dtype selected, switching to float64 to match model dtype.
+No dtype selected, switching to float64 to match model dtype.
+{
+  "barrier_proxy_eV": 0.47822071339413696,
+  "images": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_1_7_s42_30762007/mlff_1-7_s42/mlff_neb_images.extxyz"
+}

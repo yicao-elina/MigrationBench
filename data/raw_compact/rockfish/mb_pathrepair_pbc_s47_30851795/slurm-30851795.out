@@ -1,0 +1,78 @@
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mSun Sep 13 09:00:35 2026[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       48.78 GB       |       50.00 GB       |       97.56%      |      751,300       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mSun Sep 13 09:30:16 2026[0m               |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|     FS     |    Used   |   Quota   |  Used %  |   Files    |  Files Quota  |   Files %   |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|    data    |  13.62 TB |  10.00 TB | 136.00%  | 1,102,995  |   4,096,000   |    26.00%   |
+|  scratch4  |  9.91 TB  |  10.00 TB |  99.00%  | 1,629,629  |   5,242,880   |    31.00%   |
+| scratch16  |  12.56 TB |  20.00 TB |  62.00%  |  984,048   |   20,480,000  |    4.00%    |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+...............................................................          [100%]
+63 passed in 1.10s
+{
+  "output": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_pathrepair_pbc_s47_30851795/coverage_gaps_pbc_v3/1-3_periodic_direct.extxyz",
+  "mode": "unwrap",
+  "before": {
+    "min_pair_distance_A": 1.3766727164002157,
+    "max_migrant_step_A": 1.9294002659000022,
+    "total_migrant_path_A": 6.8660952528000045
+  },
+  "after": {
+    "min_pair_distance_A": 1.3766727164002193,
+    "max_migrant_step_A": 1.9294002659000005,
+    "total_migrant_path_A": 6.866095252800003
+  }
+}
+{
+  "output": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_pathrepair_pbc_s47_30851795/coverage_gaps_pbc_v3/1-3_periodic_repaired.extxyz",
+  "mode": "unwrap",
+  "before": {
+    "min_pair_distance_A": 1.3766727164002157,
+    "max_migrant_step_A": 1.9294002659000022,
+    "total_migrant_path_A": 6.8660952528000045
+  },
+  "after": {
+    "min_pair_distance_A": 1.8,
+    "max_migrant_step_A": 2.309459202899457,
+    "total_migrant_path_A": 6.866095252800044
+  }
+}
+{
+  "output": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_pathrepair_pbc_s47_30851795/coverage_gaps_pbc_v3/1-5_periodic_direct.extxyz",
+  "mode": "unwrap",
+  "before": {
+    "min_pair_distance_A": 1.4084953492002121,
+    "max_migrant_step_A": 4.199668455600002,
+    "total_migrant_path_A": 13.370790201700014
+  },
+  "after": {
+    "min_pair_distance_A": 1.4084953492002137,
+    "max_migrant_step_A": 4.199668455600002,
+    "total_migrant_path_A": 13.370790201700016
+  }
+}
+{
+  "output": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_pathrepair_pbc_s47_30851795/coverage_gaps_pbc_v3/1-5_periodic_repaired.extxyz",
+  "mode": "unwrap",
+  "before": {
+    "min_pair_distance_A": 1.4084953492002121,
+    "max_migrant_step_A": 4.199668455600002,
+    "total_migrant_path_A": 13.370790201700014
+  },
+  "after": {
+    "min_pair_distance_A": 1.800000000000001,
+    "max_migrant_step_A": 4.199668455600002,
+    "total_migrant_path_A": 13.370790201700041
+  }
+}
+periodic path-repair smoke gates passed

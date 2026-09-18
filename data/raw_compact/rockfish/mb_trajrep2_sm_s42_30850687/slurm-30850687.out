@@ -1,0 +1,135 @@
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mSun Sep 13 07:00:41 2026[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       48.78 GB       |       50.00 GB       |       97.56%      |      751,292       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mSun Sep 13 07:30:16 2026[0m               |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|     FS     |    Used   |   Quota   |  Used %  |   Files    |  Files Quota  |   Files %   |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+|    data    |  13.62 TB |  10.00 TB | 136.00%  | 1,102,995  |   4,096,000   |    26.00%   |
+|  scratch4  |  9.91 TB  |  10.00 TB |  99.00%  | 1,629,629  |   5,242,880   |    31.00%   |
+| scratch16  |  12.55 TB |  20.00 TB |  62.00%  |  983,247   |   20,480,000  |    4.00%    |
++------------+-----------+-----------+----------+------------+---------------+-------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+Python 3.9.22
+{
+  "groups": {
+    "Sb2Te3Cr_61": {
+      "path_ids": [
+        "1-2",
+        "1-3",
+        "1-4",
+        "1-5",
+        "1-6",
+        "1-7",
+        "1-8"
+      ],
+      "distance_scales": {
+        "geometry_frechet": 0.2448493523872807,
+        "local_environment": 0.7480187462701122,
+        "displacement_field": 0.42350988468312883,
+        "energy_profile": 0.34962521274223707,
+        "bond_topology": 1.5314506773837975
+      },
+      "selected": [
+        {
+          "rank": 1,
+          "path_id": "1-7",
+          "marginal_coverage_gain": 0.5238287589541885,
+          "cumulative_coverage": 0.5238287589541885,
+          "quality_tiebreak_score": 0.7512586391723531
+        },
+        {
+          "rank": 2,
+          "path_id": "1-5",
+          "marginal_coverage_gain": 0.10242239083862892,
+          "cumulative_coverage": 0.6262511497928174,
+          "quality_tiebreak_score": 6.870132174419423e-08
+        },
+        {
+          "rank": 3,
+          "path_id": "1-8",
+          "marginal_coverage_gain": 0.1016127353531392,
+          "cumulative_coverage": 0.7278638851459566,
+          "quality_tiebreak_score": 0.7343127739134202
+        },
+        {
+          "rank": 4,
+          "path_id": "1-3",
+          "marginal_coverage_gain": 0.08748969457531763,
+          "cumulative_coverage": 0.8153535797212742,
+          "quality_tiebreak_score": 6.866572717197205e-09
+        },
+        {
+          "rank": 5,
+          "path_id": "1-2",
+          "marginal_coverage_gain": 0.08522950900781878,
+          "cumulative_coverage": 0.900583088729093,
+          "quality_tiebreak_score": 8.93163819087434e-06
+        }
+      ],
+      "target": 0.9
+    },
+    "Sb2Te3Cr_81": {
+      "path_ids": [
+        "81_neb_1",
+        "81_neb_2",
+        "81_neb_3",
+        "81_neb_4",
+        "81_neb_5"
+      ],
+      "distance_scales": {
+        "geometry_frechet": 0.359179582787827,
+        "local_environment": 0.9169382268550972,
+        "displacement_field": 0.09795145434666888,
+        "energy_profile": 0.14647328370373588,
+        "bond_topology": 1.6610954455119225
+      },
+      "selected": [
+        {
+          "rank": 1,
+          "path_id": "81_neb_2",
+          "marginal_coverage_gain": 0.5293170595799765,
+          "cumulative_coverage": 0.5293170595799765,
+          "quality_tiebreak_score": 0.6480574841312449
+        },
+        {
+          "rank": 2,
+          "path_id": "81_neb_5",
+          "marginal_coverage_gain": 0.13872161418282203,
+          "cumulative_coverage": 0.6680386737627986,
+          "quality_tiebreak_score": 0.738073278397843
+        },
+        {
+          "rank": 3,
+          "path_id": "81_neb_3",
+          "marginal_coverage_gain": 0.11649435194664048,
+          "cumulative_coverage": 0.7845330257094391,
+          "quality_tiebreak_score": 0.7846929187197942
+        },
+        {
+          "rank": 4,
+          "path_id": "81_neb_1",
+          "marginal_coverage_gain": 0.11568983467899085,
+          "cumulative_coverage": 0.9002228603884299,
+          "quality_tiebreak_score": 0.7221290021113951
+        }
+      ],
+      "target": 0.9
+    }
+  },
+  "quality_checks": {
+    "candidate_count": 12,
+    "cross_system_pairs_created": 0,
+    "all_paths_unconverged_or_historical": true,
+    "coverage_monotonic_all": true,
+    "coverage_target_reached_all": true
+  }
+}
+representative trajectory smoke gates passed
