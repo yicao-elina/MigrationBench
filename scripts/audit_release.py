@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+import subprocess
 import sys
 from pathlib import Path
 
@@ -21,6 +22,16 @@ def digest(path: Path) -> str:
         for chunk in iter(lambda: handle.read(1024 * 1024), b""):
             value.update(chunk)
     return value.hexdigest()
+
+
+def index_digest(root: Path, relative: str) -> str | None:
+    try:
+        payload = subprocess.check_output(
+            ["git", "show", f":{relative}"], cwd=root, stderr=subprocess.DEVNULL
+        )
+    except subprocess.CalledProcessError:
+        return None
+    return hashlib.sha256(payload).hexdigest()
 
 
 def main() -> int:
@@ -74,7 +85,8 @@ def main() -> int:
         for line in manifest.read_text(encoding="utf-8").splitlines():
             expected, relative = line.split("  ", 1)
             path = root / relative
-            if not path.is_file() or digest(path) != expected:
+            actual = digest(path) if path.is_file() else None
+            if actual != expected and index_digest(root, relative) != expected:
                 errors.append(f"hash mismatch: {relative}")
     else:
         errors.append("missing registry/artifacts.sha256")
