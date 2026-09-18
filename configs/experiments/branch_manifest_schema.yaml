@@ -1,0 +1,153 @@
+schema_name: migrationbench_branch_manifest
+schema_version: 0.2.0
+purpose: >
+  One manifest per NEB branch. The manifest records how a candidate path was
+  produced, whether it is allowed to advance to the next stage, and how it can
+  be compared with sibling branches.
+
+required_top_level_fields:
+  - manifest_schema_version
+  - path_id
+  - branch_id
+  - branch_role
+  - created_at_utc
+  - parentage
+  - inputs
+  - config
+  - outputs
+  - metrics
+  - quality_gates
+  - decision
+
+branch_roles:
+  raw_historical:
+    description: Existing historical trajectory or QE output used only as a source.
+  repaired_images:
+    description: Physics-heuristic intermediate-image repair before MLFF or QE.
+  mlff_neb:
+    description: MACE/MLFF pre-relaxation or approximate NEB path optimization.
+  qe_preflight:
+    description: Short QE NEB run used to validate input parsing, path length, memory, and first activation table.
+  qe_restart_segment:
+    description: Walltime-bounded QE continuation from a previous run directory.
+  qe_final:
+    description: Accepted converged or explicitly stationary DFT reference.
+
+parentage:
+  required_fields:
+    - parent_branch_id
+    - parent_event_id
+    - source_run_dir
+    - source_images
+  restart_fields:
+    - parent_qe_run_dir
+    - restart_mode
+    - copied_restart_artifacts
+
+inputs:
+  required_fields:
+    - image_file
+    - image_file_sha256
+    - source_qe_input
+    - source_qe_output
+  optional_fields:
+    - mace_model
+    - mace_model_sha256
+    - qe_engine_template
+    - pseudopotential_paths
+
+runtime_provenance:
+  required_for_new_computational_branches:
+    - runtime_provenance_file
+    - runtime_provenance_sha256
+  required_contents:
+    - python
+    - packages
+    - environment
+    - binaries
+    - inputs
+    - generator
+  legacy_policy: Historical branches may use null only when explicitly marked unavailable_historical.
+
+config:
+  common_required:
+    - seed
+    - migrant_element
+    - n_images
+    - pbc
+    - cell
+  repair_required_when_branch_role_is_repaired_images:
+    - repair_mode
+    - min_pair_distance_floor_A
+    - smooth_host
+    - smooth_all
+    - preserve_endpoints
+  mlff_required_when_branch_role_is_mlff_neb:
+    - calculator
+    - model_path
+    - optimizer
+    - max_steps
+    - force_threshold_eV_A
+  qe_required_when_branch_role_starts_with_qe:
+    - qe_version_or_module
+    - neb_program
+    - mpi_ranks
+    - memory
+    - slurm_walltime
+    - qe_max_seconds
+    - restart_mode
+    - path_thr_eV_A
+    - opt_scheme
+    - CI_scheme
+    - k_min
+    - k_max
+
+metrics:
+  geometry_required:
+    - min_pair_distance_A
+    - min_migrant_host_distance_A
+    - max_all_atom_mic_step_A
+    - max_migrant_step_A
+    - total_migrant_path_A
+  mlff_required_when_available:
+    - initial_energy_profile_eV
+    - final_energy_profile_eV
+    - relaxation_energy_delta_per_image_eV
+    - barrier_proxy_eV
+    - max_internal_final_force_eV_A
+  qe_required_when_available:
+    - initial_path_length_bohr
+    - initial_inter_image_distance_bohr
+    - activation_forward_eV
+    - activation_reverse_eV
+    - max_image_error_eV_A
+    - barrier_drift_last_three_eV
+    - n_complete_iterations_parsed
+    - job_done
+    - overflow_flags
+
+quality_gates:
+  geometry:
+    min_pair_distance_A: ">= 1.70 hard floor; prefer >= 2.0 unless chemically justified"
+    max_all_atom_mic_step_A: "<= 2.5 for direct QE; larger values require repair or explicit rationale"
+    preserve_endpoints: true
+  mlff_to_qe:
+    max_abs_relaxation_energy_delta_per_internal_image_eV: "<= 5.0, unless the branch is explicitly labeled diagnostic"
+    no_internal_image_basin_collapse: true
+    max_internal_final_force_eV_A: "<= 0.20 preferred for QE initialization; higher values require caution"
+  qe_preflight:
+    no_path_length_overflow: true
+    no_activation_table_overflow: true
+    first_activation_table_if_present_must_be_physical: true
+  qe_final:
+    max_image_error_eV_A: "<= 0.03 production; <= 0.02 final check preferred"
+    max_barrier_drift_last_three_eV: "<= 0.02"
+    job_done: true
+
+decision_states:
+  - accept_for_next_stage
+  - continue_with_caution
+  - restart_from_parent
+  - ready_not_submitted
+  - quarantine_do_not_restart
+  - accepted_final_reference

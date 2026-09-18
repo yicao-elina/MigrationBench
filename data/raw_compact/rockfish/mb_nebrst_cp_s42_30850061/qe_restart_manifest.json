@@ -1,0 +1,35 @@
+{
+  "attempt": 2,
+  "branch_id": "smoke_r2_s42",
+  "copy_verification": {
+    "copied_inventory": "copied_restart_inventory.sha256",
+    "copied_inventory_sha256": "a0e1f069785b1a4e839100a7bcdab57c76be3c9bf16b0e50902bb53aef21fb3e",
+    "inventory_diff": "restart_inventory.diff",
+    "inventory_match": true,
+    "parent_inventory": "parent_restart_inventory.sha256",
+    "parent_inventory_sha256": "a0e1f069785b1a4e839100a7bcdab57c76be3c9bf16b0e50902bb53aef21fb3e"
+  },
+  "job_name": "mb_nebrst_cp_s42",
+  "parent": {
+    "latest_path_iteration": 1,
+    "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/qe_restart_parent_s42"
+  },
+  "path_id": "smoke",
+  "resources": {
+    "kpoint_pools": 1,
+    "max_seconds": 240,
+    "memory": "1G",
+    "ntasks": 1,
+    "safety_seconds": 60,
+    "walltime": "00:05:00"
+  },
+  "restart_policy": {
+    "copy_scope": "parent_out_directory_only",
+    "copy_verification": "complete_relative_path_sha256_inventory_before_neb",
+    "parent_mutated": false,
+    "restart_mode": "restart"
+  },
+  "schema_version": "1.0",
+  "scientific_role": "slurm_copy_and_hash_smoke_only",
+  "seed": 42
+}

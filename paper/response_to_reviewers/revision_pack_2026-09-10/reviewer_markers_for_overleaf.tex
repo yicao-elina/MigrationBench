@@ -1,0 +1,68 @@
+% Reviewer marker helpers for the Revision 1 Overleaf source.
+% Default behavior is invisible in the compiled PDF.
+% To make markers visible during coauthor review, uncomment the marginpar definition below.
+
+\providecommand{\reviewermap}[3]{}
+
+% Visible draft-review mode:
+% \renewcommand{\reviewermap}[3]{%
+%   \marginpar{\tiny\raggedright\textbf{#1}\\Status: #2\\#3}%
+% }
+
+% Example use in the manuscript source:
+%
+% \reviewermap{REV-A1}{partial}{Fig. 3d fixed DFT-path evaluation vs SI Fig. S3 self-consistent MLFF NEB; pending final-QE-1-4-barrier and SI-FigS3-audit.}
+%
+% Recommended tags:
+%
+% REV-A1: Fig. 3d vs SI Fig. S3 NEB protocol distinction.
+% REV-A2: FT-600K train/test overlap SOAP/RMSD audit.
+% REV-A3: multi-seed uncertainty for kinetic barriers.
+% REV-A4: scoped generalizability claims.
+% REV-A5: Scratch-5% same-data-volume control.
+% REV-A6: softened interpretability claims.
+% REV-A7: nearest-neighbor literature and delta vs previous report.
+% REV-C8: zero-force exporter provenance and code fix.
+% REV-C9: corrected MD protocol and quarantined FT-600K transport.
+% REV-C10: grouped train/valid/test split.
+% REV-C11: original-space silhouette replacing projected-space silhouette.
+% REV-C12: removed always-zero force-sensitivity stub.
+% REV-C13: SHAP pipeline release and non-stub code availability.
+
+% Pasteable markers:
+
+% Abstract:
+% \reviewermap{REV-A4}{done-local}{Scope "generalizable standard" to a candidate framework demonstrated on Cr-doped Sb2Te3.}
+
+% Introduction related work:
+% \reviewermap{REV-A7}{done-local}{Add close prior work and state the delta relative to the earlier arXiv/workshop report.}
+
+% Methods data split:
+% \reviewermap{REV-A2/REV-C10}{pending}{Grouped split by trajectory/pathway provenance; pending SOAP-RMSD-overlap-audit and grouped-split-retrained-rmse.}
+
+% Methods data provenance:
+% \reviewermap{REV-C8}{pending-release}{Confirm reported FT models used real-force AIMD frames; pending final code-release hash for zero-force exporter fix.}
+
+% Methods MD protocol:
+% \reviewermap{REV-C9}{pending-cluster}{Old FT-600K MD transport value is quarantined; pending corrected-FT600K-MD-transport.}
+
+% Sec. 3.2 local migration / Fig. 3d:
+% \reviewermap{REV-A1}{partial}{Fig. 3d is fixed-geometry DFT-path scoring. Current 1-4 DFT reference candidate is 0.336050 eV; Foundation fixed-path barrier is 1.024296 eV, error +0.688246 eV. Pending final-QE-1-4-barrier and SI-FigS3-audit.}
+
+% Sec. 3.2 uncertainty/control:
+% \reviewermap{REV-A3/REV-A5}{pending-cluster}{Add multi-seed Scratch/FT-600K barrier uncertainty and Scratch-5% same-data-volume control.}
+
+% Sec. 3.4 latent-space:
+% \reviewermap{REV-A6/REV-C11/REV-C12}{done-local}{Claims softened to "consistent with"; original 6191-d euclidean silhouette 0.333; t-SNE sensitivity 0.397 +/- 0.027; PHATE 0.473 +/- 0.000; zero feature stub dropped.}
+
+% Sec. 3.5 SHAP:
+% \reviewermap{REV-A6/REV-C13}{partial}{SHAP explains surrogate error predictions, not MACE directly. Current 5-fold CV R2: FT-600K 0.9819, FT-MultiT 0.8756, Scratch 0.9730. Pending MACE-CrCr-perturbation-test and final code-release evidence.}
+
+% Conclusion:
+% \reviewermap{REV-A4}{done-local}{Broader generality moved to future cross-system validation.}
+
+% Code/Data Availability:
+% \reviewermap{REV-C13}{pending-release}{Point only to actual non-stub released scripts; pending final-SHAP-code-release-hash and final-empty-stub-audit.}
+
+% SI Fig. S3 text/caption:
+% \reviewermap{REV-A1}{partial}{SI Fig. S3 is self-consistent MLFF NEB. The 0.41 eV value is a model-reported MLFF barrier, not a fixed-path DFT-reference error.}

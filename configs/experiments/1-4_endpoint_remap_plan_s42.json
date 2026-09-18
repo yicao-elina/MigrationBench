@@ -1,0 +1,94 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T16:29:21Z",
+  "path_id": "1-4",
+  "seed": 42,
+  "status": "waiting_for_independent_repeat_endpoint_acceptance",
+  "scientific_role": "historical_curvature_donor_to_endpoint_bound_production_candidates",
+  "historical_curvature_donor": {
+    "images": "data_raw/historical_neb/legacy_61/1-4/sb2te3.xyz",
+    "images_sha256": "81c61faf152df1f1c274ccafdbc9810e682b64cf59d1e8f73650ba9b77252b44",
+    "qe_template": "data_raw/historical_neb/legacy_61/1-4/pw_1.in",
+    "qe_template_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4",
+    "topology_manifest": "data_processed/path_topology_audit/path_topology_manifest.json",
+    "topology_manifest_sha256": "f96d43a3b3198fb9dfa694405cbd122f248e55234c3d91867222b39bce2a8c63",
+    "diagnostic_trust_jobs": [30853021, 30852994],
+    "production_handoff_allowed": false
+  },
+  "basin_endpoints": {
+    "image_1": {
+      "first_relax_job_id": 30852638,
+      "repeat_relax_job_id": null,
+      "acceptance_artifact": null,
+      "accepted_structure": null,
+      "accepted_structure_sha256": null
+    },
+    "image_4": {
+      "first_relax_job_id": 30852853,
+      "repeat_relax_job_id": null,
+      "acceptance_artifact": null,
+      "accepted_structure": null,
+      "accepted_structure_sha256": null
+    },
+    "image_5": {
+      "first_relax_job_id": 30852854,
+      "repeat_relax_job_id": null,
+      "acceptance_artifact": null,
+      "accepted_structure": null,
+      "accepted_structure_sha256": null
+    }
+  },
+  "segments": [
+    {
+      "segment_id": "1-4_image1_to_image4",
+      "initial_basin": "image_1",
+      "final_basin": "image_4",
+      "historical_start_image_qe": 1,
+      "historical_end_image_qe": 4,
+      "n_output_images": 7,
+      "candidate_manifest": null,
+      "candidate_manifest_sha256": null,
+      "mace_job_id": null,
+      "mace_comparison": null,
+      "qe_pair_manifest": null,
+      "status": "blocked_by_endpoint_acceptance"
+    },
+    {
+      "segment_id": "1-4_image4_to_image5",
+      "initial_basin": "image_4",
+      "final_basin": "image_5",
+      "historical_start_image_qe": 4,
+      "historical_end_image_qe": 5,
+      "n_output_images": 7,
+      "candidate_manifest": null,
+      "candidate_manifest_sha256": null,
+      "mace_job_id": null,
+      "mace_comparison": null,
+      "qe_pair_manifest": null,
+      "status": "blocked_by_endpoint_acceptance"
+    }
+  ],
+  "candidate_generation": {
+    "script": "scripts/migrationbench/generate_nonlinear_neb_candidates.py",
+    "historical_input_option": "--historical-images",
+    "required_endpoint_status": "accepted_local_minima",
+    "required_flags": [
+      "--initial-structure",
+      "--final-structure",
+      "--endpoint-acceptance",
+      "--historical-images",
+      "--historical-template-qe",
+      "--historical-start-image-qe",
+      "--historical-end-image-qe"
+    ]
+  },
+  "acceptance": {
+    "all_three_basins_independently_repeat_relaxed": true,
+    "endpoint_force_threshold_eV_A": 0.05,
+    "candidate_endpoints_exactly_hash_bound": true,
+    "candidate_geometry_gate_pass": true,
+    "rerun_mace_after_remap": true,
+    "historical_trust_output_directly_reused": false,
+    "schema_1_1_qe_pair_required": true
+  }
+}

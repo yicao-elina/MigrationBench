@@ -1,0 +1,744 @@
+{
+  "created_at_utc": "2026-09-14T13:49:35.909709+00:00",
+  "experiment": "exact_iteration_direct_vs_geometry_transform_qe_relax",
+  "pair_count": 4,
+  "formal_speedup_count": 0,
+  "comparison_statuses": [
+    "pending_not_converged",
+    "same_basin_runtime_provenance_pending"
+  ],
+  "rows": [
+    {
+      "path_id": "1-6",
+      "image_index_qe": 2,
+      "direct_job_id": "30851800",
+      "transformed_job_id": "30851803",
+      "transform_shift_A": 0.2500000000000007,
+      "direct_repeat_acceptance": "pending",
+      "transformed_repeat_acceptance": "pending",
+      "direct_repeat_acceptance_artifact": null,
+      "direct_repeat_acceptance_artifact_sha256": null,
+      "transformed_repeat_acceptance_artifact": null,
+      "transformed_repeat_acceptance_artifact_sha256": null,
+      "repeat_acceptance_artifact": null,
+      "direct_status": "partial_relax_needs_review_or_restart",
+      "transformed_status": "accepted_local_minimum",
+      "basin_equivalence": "pending",
+      "diagnostic_current_geometry_equivalence": "different",
+      "final_cr_distance_A": 0.2557001061460518,
+      "final_host_rmsd_A": 0.38729434705559734,
+      "final_local_signature_rms_A": 0.16162305876402924,
+      "direct_calculator_identity": "7111008577b76397",
+      "transformed_calculator_identity": "7111008577b76397",
+      "calculator_identities_match": true,
+      "calculator_identity_accepted_by_n24": false,
+      "calculator_acceptance_artifact": null,
+      "direct_lineage_runtime_provenance": {
+        "passed": false,
+        "segments": [
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_d16t108i2s42_30844024",
+            "passed": false,
+            "failed_checks": [
+              "input_or_expected_job_id_missing"
+            ]
+          },
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_d16t108i2r2s42_30851800",
+            "passed": false,
+            "failed_checks": [
+              "binary_pw.x_exists",
+              "binary_pw.x_hash_recorded",
+              "input_relax_input_exists",
+              "input_relax_input_hash_matches",
+              "runtime_provenance_exists",
+              "slurm_job_id_matches"
+            ],
+            "checks": {
+              "runtime_provenance_exists": false,
+              "input_relax_input_exists": false,
+              "input_relax_input_hash_matches": false,
+              "binary_pw.x_exists": false,
+              "binary_pw.x_hash_recorded": false,
+              "slurm_job_id_matches": false
+            },
+            "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_d16t108i2r2s42_30851800/runtime_provenance.json",
+            "sha256": null,
+            "observed_slurm_job_id": null,
+            "observed_input_hashes": {
+              "relax_input": null
+            },
+            "required_input_hashes": {
+              "relax_input": "1e9791abedbca5ef229a0f84a7efccb01fa1258804c7441999efb4029816ba6b"
+            },
+            "required_binaries": [
+              "pw.x"
+            ]
+          }
+        ],
+        "segment_count": 2
+      },
+      "transformed_lineage_runtime_provenance": {
+        "passed": false,
+        "segments": [
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_x16t108i2s42_30844035",
+            "passed": false,
+            "failed_checks": [
+              "input_or_expected_job_id_missing"
+            ]
+          },
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_x16t108i2r2s42_30851803",
+            "passed": false,
+            "failed_checks": [
+              "binary_pw.x_exists",
+              "binary_pw.x_hash_recorded",
+              "input_relax_input_exists",
+              "input_relax_input_hash_matches",
+              "runtime_provenance_exists",
+              "slurm_job_id_matches"
+            ],
+            "checks": {
+              "runtime_provenance_exists": false,
+              "input_relax_input_exists": false,
+              "input_relax_input_hash_matches": false,
+              "binary_pw.x_exists": false,
+              "binary_pw.x_hash_recorded": false,
+              "slurm_job_id_matches": false
+            },
+            "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_x16t108i2r2s42_30851803/runtime_provenance.json",
+            "sha256": null,
+            "observed_slurm_job_id": null,
+            "observed_input_hashes": {
+              "relax_input": null
+            },
+            "required_input_hashes": {
+              "relax_input": "ec7873d5789b6a5a681ccd5d17db75d95ae7896f5f3cf31cf310424da09691ee"
+            },
+            "required_binaries": [
+              "pw.x"
+            ]
+          }
+        ],
+        "segment_count": 2
+      },
+      "lineage_runtime_provenance_complete": false,
+      "direct_ionic_steps": 157,
+      "transformed_ionic_steps": 109,
+      "direct_scf_iterations": 2700,
+      "transformed_scf_iterations": 1751,
+      "direct_elapsed_seconds": 43059,
+      "transformed_elapsed_seconds": 18896,
+      "direct_current_max_force_eV_A": 0.005342042907721354,
+      "transformed_current_max_force_eV_A": 0.003130116559097988,
+      "diagnostic_prefix_ionic_step_ratio": 1.4403669724770642,
+      "diagnostic_prefix_scf_iteration_ratio": 1.5419760137064535,
+      "direct_initial_energy_eV": -133598.39726438423,
+      "transformed_initial_energy_eV": -133598.21361473843,
+      "transformed_minus_direct_initial_energy_eV": 0.18364964579814114,
+      "direct_final_energy_eV": -133601.2970988217,
+      "transformed_final_energy_eV": -133600.8275002284,
+      "absolute_final_energy_difference_eV": 0.4695985933067277,
+      "direct_relaxation_energy_drop_eV": 2.8998344374704175,
+      "transformed_relaxation_energy_drop_eV": 2.613885489961831,
+      "ionic_step_speedup": null,
+      "scf_iteration_speedup": null,
+      "walltime_speedup": null,
+      "comparison_status": "pending_not_converged",
+      "direct_first_step_fmax_lte_0p5": 0,
+      "transformed_first_step_fmax_lte_0p5": 0,
+      "diagnostic_threshold_step_ratio_0p5": null,
+      "direct_first_sustained_step_fmax_lte_0p5": 0,
+      "transformed_first_sustained_step_fmax_lte_0p5": 0,
+      "direct_scf_to_sustained_fmax_lte_0p5": 31,
+      "transformed_scf_to_sustained_fmax_lte_0p5": 37,
+      "diagnostic_prefix_sustained_step_ratio_0p5": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p5": 0.8378378378378378,
+      "formal_sustained_step_speedup_0p5": null,
+      "formal_sustained_scf_speedup_0p5": null,
+      "direct_first_step_fmax_lte_0p2": 0,
+      "transformed_first_step_fmax_lte_0p2": 0,
+      "diagnostic_threshold_step_ratio_0p2": null,
+      "direct_first_sustained_step_fmax_lte_0p2": 0,
+      "transformed_first_sustained_step_fmax_lte_0p2": 0,
+      "direct_scf_to_sustained_fmax_lte_0p2": 31,
+      "transformed_scf_to_sustained_fmax_lte_0p2": 37,
+      "diagnostic_prefix_sustained_step_ratio_0p2": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p2": 0.8378378378378378,
+      "formal_sustained_step_speedup_0p2": null,
+      "formal_sustained_scf_speedup_0p2": null,
+      "direct_first_step_fmax_lte_0p1": 0,
+      "transformed_first_step_fmax_lte_0p1": 0,
+      "diagnostic_threshold_step_ratio_0p1": null,
+      "direct_first_sustained_step_fmax_lte_0p1": 0,
+      "transformed_first_sustained_step_fmax_lte_0p1": 0,
+      "direct_scf_to_sustained_fmax_lte_0p1": 31,
+      "transformed_scf_to_sustained_fmax_lte_0p1": 37,
+      "diagnostic_prefix_sustained_step_ratio_0p1": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p1": 0.8378378378378378,
+      "formal_sustained_step_speedup_0p1": null,
+      "formal_sustained_scf_speedup_0p1": null,
+      "direct_first_step_fmax_lte_0p05": 0,
+      "transformed_first_step_fmax_lte_0p05": 0,
+      "diagnostic_threshold_step_ratio_0p05": null,
+      "direct_first_sustained_step_fmax_lte_0p05": 0,
+      "transformed_first_sustained_step_fmax_lte_0p05": 0,
+      "direct_scf_to_sustained_fmax_lte_0p05": 31,
+      "transformed_scf_to_sustained_fmax_lte_0p05": 37,
+      "diagnostic_prefix_sustained_step_ratio_0p05": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p05": 0.8378378378378378,
+      "formal_sustained_step_speedup_0p05": null,
+      "formal_sustained_scf_speedup_0p05": null
+    },
+    {
+      "path_id": "1-6",
+      "image_index_qe": 5,
+      "direct_job_id": "30851807",
+      "transformed_job_id": "30851806",
+      "transform_shift_A": 0.14259534978676028,
+      "direct_repeat_acceptance": "pending",
+      "transformed_repeat_acceptance": "pending",
+      "direct_repeat_acceptance_artifact": null,
+      "direct_repeat_acceptance_artifact_sha256": null,
+      "transformed_repeat_acceptance_artifact": null,
+      "transformed_repeat_acceptance_artifact_sha256": null,
+      "repeat_acceptance_artifact": null,
+      "direct_status": "accepted_local_minimum",
+      "transformed_status": "accepted_local_minimum",
+      "basin_equivalence": "pending",
+      "diagnostic_current_geometry_equivalence": "different",
+      "final_cr_distance_A": 0.877849555800001,
+      "final_host_rmsd_A": 0.7339179460950683,
+      "final_local_signature_rms_A": 0.49022174930411017,
+      "direct_calculator_identity": "7111008577b76397",
+      "transformed_calculator_identity": "7111008577b76397",
+      "calculator_identities_match": true,
+      "calculator_identity_accepted_by_n24": false,
+      "calculator_acceptance_artifact": null,
+      "direct_lineage_runtime_provenance": {
+        "passed": false,
+        "segments": [
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_d16t108i5s42_30844025",
+            "passed": false,
+            "failed_checks": [
+              "input_or_expected_job_id_missing"
+            ]
+          },
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_d16t108i5r2s42_30851807",
+            "passed": false,
+            "failed_checks": [
+              "binary_pw.x_exists",
+              "binary_pw.x_hash_recorded",
+              "input_relax_input_exists",
+              "input_relax_input_hash_matches",
+              "runtime_provenance_exists",
+              "slurm_job_id_matches"
+            ],
+            "checks": {
+              "runtime_provenance_exists": false,
+              "input_relax_input_exists": false,
+              "input_relax_input_hash_matches": false,
+              "binary_pw.x_exists": false,
+              "binary_pw.x_hash_recorded": false,
+              "slurm_job_id_matches": false
+            },
+            "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_d16t108i5r2s42_30851807/runtime_provenance.json",
+            "sha256": null,
+            "observed_slurm_job_id": null,
+            "observed_input_hashes": {
+              "relax_input": null
+            },
+            "required_input_hashes": {
+              "relax_input": "7398d129d53cb6f6539a0980661f849b64cd4b04d1181458698bb109088a87e4"
+            },
+            "required_binaries": [
+              "pw.x"
+            ]
+          }
+        ],
+        "segment_count": 2
+      },
+      "transformed_lineage_runtime_provenance": {
+        "passed": false,
+        "segments": [
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_x16t108i5s42_30844038",
+            "passed": false,
+            "failed_checks": [
+              "input_or_expected_job_id_missing"
+            ]
+          },
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_x16t108i5r2s42_30851806",
+            "passed": false,
+            "failed_checks": [
+              "binary_pw.x_exists",
+              "binary_pw.x_hash_recorded",
+              "input_relax_input_exists",
+              "input_relax_input_hash_matches",
+              "runtime_provenance_exists",
+              "slurm_job_id_matches"
+            ],
+            "checks": {
+              "runtime_provenance_exists": false,
+              "input_relax_input_exists": false,
+              "input_relax_input_hash_matches": false,
+              "binary_pw.x_exists": false,
+              "binary_pw.x_hash_recorded": false,
+              "slurm_job_id_matches": false
+            },
+            "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_x16t108i5r2s42_30851806/runtime_provenance.json",
+            "sha256": null,
+            "observed_slurm_job_id": null,
+            "observed_input_hashes": {
+              "relax_input": null
+            },
+            "required_input_hashes": {
+              "relax_input": "4136e287963b1be043b1e604a9dc8621b105c25ddbbfc53ed5b9c7bf177d6ae2"
+            },
+            "required_binaries": [
+              "pw.x"
+            ]
+          }
+        ],
+        "segment_count": 2
+      },
+      "lineage_runtime_provenance_complete": false,
+      "direct_ionic_steps": 149,
+      "transformed_ionic_steps": 163,
+      "direct_scf_iterations": 2615,
+      "transformed_scf_iterations": 2816,
+      "direct_elapsed_seconds": 34546,
+      "transformed_elapsed_seconds": 38283,
+      "direct_current_max_force_eV_A": 0.004359049304487936,
+      "transformed_current_max_force_eV_A": 0.0030553004173259554,
+      "diagnostic_prefix_ionic_step_ratio": 0.9141104294478528,
+      "diagnostic_prefix_scf_iteration_ratio": 0.9286221590909091,
+      "direct_initial_energy_eV": -133596.32961658825,
+      "transformed_initial_energy_eV": -133596.15295047263,
+      "transformed_minus_direct_initial_energy_eV": 0.17666611561435275,
+      "direct_final_energy_eV": -133599.4069589256,
+      "transformed_final_energy_eV": -133600.8528023277,
+      "absolute_final_energy_difference_eV": 1.445843402092578,
+      "direct_relaxation_energy_drop_eV": 3.0773423373466358,
+      "transformed_relaxation_energy_drop_eV": 4.699851855053566,
+      "ionic_step_speedup": null,
+      "scf_iteration_speedup": null,
+      "walltime_speedup": null,
+      "comparison_status": "same_basin_runtime_provenance_pending",
+      "direct_first_step_fmax_lte_0p5": 0,
+      "transformed_first_step_fmax_lte_0p5": 0,
+      "diagnostic_threshold_step_ratio_0p5": null,
+      "direct_first_sustained_step_fmax_lte_0p5": 0,
+      "transformed_first_sustained_step_fmax_lte_0p5": 0,
+      "direct_scf_to_sustained_fmax_lte_0p5": 29,
+      "transformed_scf_to_sustained_fmax_lte_0p5": 32,
+      "diagnostic_prefix_sustained_step_ratio_0p5": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p5": 0.90625,
+      "formal_sustained_step_speedup_0p5": null,
+      "formal_sustained_scf_speedup_0p5": null,
+      "direct_first_step_fmax_lte_0p2": 0,
+      "transformed_first_step_fmax_lte_0p2": 0,
+      "diagnostic_threshold_step_ratio_0p2": null,
+      "direct_first_sustained_step_fmax_lte_0p2": 0,
+      "transformed_first_sustained_step_fmax_lte_0p2": 0,
+      "direct_scf_to_sustained_fmax_lte_0p2": 29,
+      "transformed_scf_to_sustained_fmax_lte_0p2": 32,
+      "diagnostic_prefix_sustained_step_ratio_0p2": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p2": 0.90625,
+      "formal_sustained_step_speedup_0p2": null,
+      "formal_sustained_scf_speedup_0p2": null,
+      "direct_first_step_fmax_lte_0p1": 0,
+      "transformed_first_step_fmax_lte_0p1": 0,
+      "diagnostic_threshold_step_ratio_0p1": null,
+      "direct_first_sustained_step_fmax_lte_0p1": 0,
+      "transformed_first_sustained_step_fmax_lte_0p1": 0,
+      "direct_scf_to_sustained_fmax_lte_0p1": 29,
+      "transformed_scf_to_sustained_fmax_lte_0p1": 32,
+      "diagnostic_prefix_sustained_step_ratio_0p1": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p1": 0.90625,
+      "formal_sustained_step_speedup_0p1": null,
+      "formal_sustained_scf_speedup_0p1": null,
+      "direct_first_step_fmax_lte_0p05": 0,
+      "transformed_first_step_fmax_lte_0p05": 0,
+      "diagnostic_threshold_step_ratio_0p05": null,
+      "direct_first_sustained_step_fmax_lte_0p05": 0,
+      "transformed_first_sustained_step_fmax_lte_0p05": 0,
+      "direct_scf_to_sustained_fmax_lte_0p05": 29,
+      "transformed_scf_to_sustained_fmax_lte_0p05": 32,
+      "diagnostic_prefix_sustained_step_ratio_0p05": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p05": 0.90625,
+      "formal_sustained_step_speedup_0p05": null,
+      "formal_sustained_scf_speedup_0p05": null
+    },
+    {
+      "path_id": "1-7",
+      "image_index_qe": 2,
+      "direct_job_id": "30851802",
+      "transformed_job_id": "30851801",
+      "transform_shift_A": 0.24999999999999947,
+      "direct_repeat_acceptance": "pending",
+      "transformed_repeat_acceptance": "pending",
+      "direct_repeat_acceptance_artifact": null,
+      "direct_repeat_acceptance_artifact_sha256": null,
+      "transformed_repeat_acceptance_artifact": null,
+      "transformed_repeat_acceptance_artifact_sha256": null,
+      "repeat_acceptance_artifact": null,
+      "direct_status": "partial_relax_needs_review_or_restart",
+      "transformed_status": "accepted_local_minimum",
+      "basin_equivalence": "pending",
+      "diagnostic_current_geometry_equivalence": "different",
+      "final_cr_distance_A": 0.2886385160793709,
+      "final_host_rmsd_A": 0.520696552714153,
+      "final_local_signature_rms_A": 0.08071544084980173,
+      "direct_calculator_identity": "7111008577b76397",
+      "transformed_calculator_identity": "7111008577b76397",
+      "calculator_identities_match": true,
+      "calculator_identity_accepted_by_n24": false,
+      "calculator_acceptance_artifact": null,
+      "direct_lineage_runtime_provenance": {
+        "passed": false,
+        "segments": [
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_d17t112i2s42_30844039",
+            "passed": false,
+            "failed_checks": [
+              "input_or_expected_job_id_missing"
+            ]
+          },
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_d17t112i2r2s42_30851802",
+            "passed": false,
+            "failed_checks": [
+              "binary_pw.x_exists",
+              "binary_pw.x_hash_recorded",
+              "input_relax_input_exists",
+              "input_relax_input_hash_matches",
+              "runtime_provenance_exists",
+              "slurm_job_id_matches"
+            ],
+            "checks": {
+              "runtime_provenance_exists": false,
+              "input_relax_input_exists": false,
+              "input_relax_input_hash_matches": false,
+              "binary_pw.x_exists": false,
+              "binary_pw.x_hash_recorded": false,
+              "slurm_job_id_matches": false
+            },
+            "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_d17t112i2r2s42_30851802/runtime_provenance.json",
+            "sha256": null,
+            "observed_slurm_job_id": null,
+            "observed_input_hashes": {
+              "relax_input": null
+            },
+            "required_input_hashes": {
+              "relax_input": "096218b7b21d311a71ee20deae781ba2a690c2d8fc63441063c2c27fced45c15"
+            },
+            "required_binaries": [
+              "pw.x"
+            ]
+          }
+        ],
+        "segment_count": 2
+      },
+      "transformed_lineage_runtime_provenance": {
+        "passed": false,
+        "segments": [
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_x17t112i2s42_30844065",
+            "passed": false,
+            "failed_checks": [
+              "input_or_expected_job_id_missing"
+            ]
+          },
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_x17t112i2r2s42_30851801",
+            "passed": false,
+            "failed_checks": [
+              "binary_pw.x_exists",
+              "binary_pw.x_hash_recorded",
+              "input_relax_input_exists",
+              "input_relax_input_hash_matches",
+              "runtime_provenance_exists",
+              "slurm_job_id_matches"
+            ],
+            "checks": {
+              "runtime_provenance_exists": false,
+              "input_relax_input_exists": false,
+              "input_relax_input_hash_matches": false,
+              "binary_pw.x_exists": false,
+              "binary_pw.x_hash_recorded": false,
+              "slurm_job_id_matches": false
+            },
+            "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_x17t112i2r2s42_30851801/runtime_provenance.json",
+            "sha256": null,
+            "observed_slurm_job_id": null,
+            "observed_input_hashes": {
+              "relax_input": null
+            },
+            "required_input_hashes": {
+              "relax_input": "df4d4fa18ebc75f62a92211ccc8e1fda126cc1f6c18a721b2f98ad2b7cead6d9"
+            },
+            "required_binaries": [
+              "pw.x"
+            ]
+          }
+        ],
+        "segment_count": 2
+      },
+      "lineage_runtime_provenance_complete": false,
+      "direct_ionic_steps": 163,
+      "transformed_ionic_steps": 139,
+      "direct_scf_iterations": 2761,
+      "transformed_scf_iterations": 2240,
+      "direct_elapsed_seconds": 45855,
+      "transformed_elapsed_seconds": 35457,
+      "direct_current_max_force_eV_A": 0.006917570331520612,
+      "transformed_current_max_force_eV_A": 0.00119299202086247,
+      "diagnostic_prefix_ionic_step_ratio": 1.1726618705035972,
+      "diagnostic_prefix_scf_iteration_ratio": 1.2325892857142857,
+      "direct_initial_energy_eV": -133598.64716096615,
+      "transformed_initial_energy_eV": -133598.46852978028,
+      "transformed_minus_direct_initial_energy_eV": 0.1786311858741101,
+      "direct_final_energy_eV": -133601.0465725683,
+      "transformed_final_energy_eV": -133600.87349631483,
+      "absolute_final_energy_difference_eV": 0.17307625347166322,
+      "direct_relaxation_energy_drop_eV": 2.3994116021494847,
+      "transformed_relaxation_energy_drop_eV": 2.4049665345519315,
+      "ionic_step_speedup": null,
+      "scf_iteration_speedup": null,
+      "walltime_speedup": null,
+      "comparison_status": "pending_not_converged",
+      "direct_first_step_fmax_lte_0p5": 0,
+      "transformed_first_step_fmax_lte_0p5": 0,
+      "diagnostic_threshold_step_ratio_0p5": null,
+      "direct_first_sustained_step_fmax_lte_0p5": 0,
+      "transformed_first_sustained_step_fmax_lte_0p5": 0,
+      "direct_scf_to_sustained_fmax_lte_0p5": 29,
+      "transformed_scf_to_sustained_fmax_lte_0p5": 32,
+      "diagnostic_prefix_sustained_step_ratio_0p5": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p5": 0.90625,
+      "formal_sustained_step_speedup_0p5": null,
+      "formal_sustained_scf_speedup_0p5": null,
+      "direct_first_step_fmax_lte_0p2": 0,
+      "transformed_first_step_fmax_lte_0p2": 0,
+      "diagnostic_threshold_step_ratio_0p2": null,
+      "direct_first_sustained_step_fmax_lte_0p2": 0,
+      "transformed_first_sustained_step_fmax_lte_0p2": 0,
+      "direct_scf_to_sustained_fmax_lte_0p2": 29,
+      "transformed_scf_to_sustained_fmax_lte_0p2": 32,
+      "diagnostic_prefix_sustained_step_ratio_0p2": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p2": 0.90625,
+      "formal_sustained_step_speedup_0p2": null,
+      "formal_sustained_scf_speedup_0p2": null,
+      "direct_first_step_fmax_lte_0p1": 0,
+      "transformed_first_step_fmax_lte_0p1": 0,
+      "diagnostic_threshold_step_ratio_0p1": null,
+      "direct_first_sustained_step_fmax_lte_0p1": 0,
+      "transformed_first_sustained_step_fmax_lte_0p1": 0,
+      "direct_scf_to_sustained_fmax_lte_0p1": 29,
+      "transformed_scf_to_sustained_fmax_lte_0p1": 32,
+      "diagnostic_prefix_sustained_step_ratio_0p1": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p1": 0.90625,
+      "formal_sustained_step_speedup_0p1": null,
+      "formal_sustained_scf_speedup_0p1": null,
+      "direct_first_step_fmax_lte_0p05": 0,
+      "transformed_first_step_fmax_lte_0p05": 0,
+      "diagnostic_threshold_step_ratio_0p05": null,
+      "direct_first_sustained_step_fmax_lte_0p05": 51,
+      "transformed_first_sustained_step_fmax_lte_0p05": 0,
+      "direct_scf_to_sustained_fmax_lte_0p05": 891,
+      "transformed_scf_to_sustained_fmax_lte_0p05": 32,
+      "diagnostic_prefix_sustained_step_ratio_0p05": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p05": 27.84375,
+      "formal_sustained_step_speedup_0p05": null,
+      "formal_sustained_scf_speedup_0p05": null
+    },
+    {
+      "path_id": "1-7",
+      "image_index_qe": 5,
+      "direct_job_id": "30851808",
+      "transformed_job_id": "30851809",
+      "transform_shift_A": 0.1320151383924953,
+      "direct_repeat_acceptance": "pending",
+      "transformed_repeat_acceptance": "pending",
+      "direct_repeat_acceptance_artifact": null,
+      "direct_repeat_acceptance_artifact_sha256": null,
+      "transformed_repeat_acceptance_artifact": null,
+      "transformed_repeat_acceptance_artifact_sha256": null,
+      "repeat_acceptance_artifact": null,
+      "direct_status": "accepted_local_minimum",
+      "transformed_status": "accepted_local_minimum",
+      "basin_equivalence": "pending",
+      "diagnostic_current_geometry_equivalence": "different",
+      "final_cr_distance_A": 0.21084446860058387,
+      "final_host_rmsd_A": 0.3202515882834926,
+      "final_local_signature_rms_A": 0.28354313207486215,
+      "direct_calculator_identity": "7111008577b76397",
+      "transformed_calculator_identity": "7111008577b76397",
+      "calculator_identities_match": true,
+      "calculator_identity_accepted_by_n24": false,
+      "calculator_acceptance_artifact": null,
+      "direct_lineage_runtime_provenance": {
+        "passed": false,
+        "segments": [
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_d17t112i5s42_30844053",
+            "passed": false,
+            "failed_checks": [
+              "input_or_expected_job_id_missing"
+            ]
+          },
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_d17t112i5r2s42_30851808",
+            "passed": false,
+            "failed_checks": [
+              "binary_pw.x_exists",
+              "binary_pw.x_hash_recorded",
+              "input_relax_input_exists",
+              "input_relax_input_hash_matches",
+              "runtime_provenance_exists",
+              "slurm_job_id_matches"
+            ],
+            "checks": {
+              "runtime_provenance_exists": false,
+              "input_relax_input_exists": false,
+              "input_relax_input_hash_matches": false,
+              "binary_pw.x_exists": false,
+              "binary_pw.x_hash_recorded": false,
+              "slurm_job_id_matches": false
+            },
+            "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_d17t112i5r2s42_30851808/runtime_provenance.json",
+            "sha256": null,
+            "observed_slurm_job_id": null,
+            "observed_input_hashes": {
+              "relax_input": null
+            },
+            "required_input_hashes": {
+              "relax_input": "5f8894f24975ad992f30b1ac9128737c784e02c8b5d347957f5dce5e4e371703"
+            },
+            "required_binaries": [
+              "pw.x"
+            ]
+          }
+        ],
+        "segment_count": 2
+      },
+      "transformed_lineage_runtime_provenance": {
+        "passed": false,
+        "segments": [
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_x17t112i5s42_30844069",
+            "passed": false,
+            "failed_checks": [
+              "input_or_expected_job_id_missing"
+            ]
+          },
+          {
+            "segment_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_x17t112i5r2s42_30851809",
+            "passed": false,
+            "failed_checks": [
+              "binary_pw.x_exists",
+              "binary_pw.x_hash_recorded",
+              "input_relax_input_exists",
+              "input_relax_input_hash_matches",
+              "runtime_provenance_exists",
+              "slurm_job_id_matches"
+            ],
+            "checks": {
+              "runtime_provenance_exists": false,
+              "input_relax_input_exists": false,
+              "input_relax_input_hash_matches": false,
+              "binary_pw.x_exists": false,
+              "binary_pw.x_hash_recorded": false,
+              "slurm_job_id_matches": false
+            },
+            "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_x17t112i5r2s42_30851809/runtime_provenance.json",
+            "sha256": null,
+            "observed_slurm_job_id": null,
+            "observed_input_hashes": {
+              "relax_input": null
+            },
+            "required_input_hashes": {
+              "relax_input": "b9494ca009c29ea188b9cc5ed92f3413411b31335ae45f891f6e44d63099635b"
+            },
+            "required_binaries": [
+              "pw.x"
+            ]
+          }
+        ],
+        "segment_count": 2
+      },
+      "lineage_runtime_provenance_complete": false,
+      "direct_ionic_steps": 92,
+      "transformed_ionic_steps": 109,
+      "direct_scf_iterations": 1554,
+      "transformed_scf_iterations": 1863,
+      "direct_elapsed_seconds": 16764,
+      "transformed_elapsed_seconds": 23086,
+      "direct_current_max_force_eV_A": 0.0028788667668666786,
+      "transformed_current_max_force_eV_A": 0.0029117753427454355,
+      "diagnostic_prefix_ionic_step_ratio": 0.8440366972477065,
+      "diagnostic_prefix_scf_iteration_ratio": 0.8341384863123994,
+      "direct_initial_energy_eV": -133596.88187262448,
+      "transformed_initial_energy_eV": -133596.71634861914,
+      "transformed_minus_direct_initial_energy_eV": 0.1655240053369198,
+      "direct_final_energy_eV": -133599.84561531557,
+      "transformed_final_energy_eV": -133599.39876666566,
+      "absolute_final_energy_difference_eV": 0.44684864990995266,
+      "direct_relaxation_energy_drop_eV": 2.963742691092193,
+      "transformed_relaxation_energy_drop_eV": 2.6824180465191603,
+      "ionic_step_speedup": null,
+      "scf_iteration_speedup": null,
+      "walltime_speedup": null,
+      "comparison_status": "same_basin_runtime_provenance_pending",
+      "direct_first_step_fmax_lte_0p5": 0,
+      "transformed_first_step_fmax_lte_0p5": 0,
+      "diagnostic_threshold_step_ratio_0p5": null,
+      "direct_first_sustained_step_fmax_lte_0p5": 0,
+      "transformed_first_sustained_step_fmax_lte_0p5": 0,
+      "direct_scf_to_sustained_fmax_lte_0p5": 30,
+      "transformed_scf_to_sustained_fmax_lte_0p5": 28,
+      "diagnostic_prefix_sustained_step_ratio_0p5": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p5": 1.0714285714285714,
+      "formal_sustained_step_speedup_0p5": null,
+      "formal_sustained_scf_speedup_0p5": null,
+      "direct_first_step_fmax_lte_0p2": 0,
+      "transformed_first_step_fmax_lte_0p2": 0,
+      "diagnostic_threshold_step_ratio_0p2": null,
+      "direct_first_sustained_step_fmax_lte_0p2": 0,
+      "transformed_first_sustained_step_fmax_lte_0p2": 0,
+      "direct_scf_to_sustained_fmax_lte_0p2": 30,
+      "transformed_scf_to_sustained_fmax_lte_0p2": 28,
+      "diagnostic_prefix_sustained_step_ratio_0p2": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p2": 1.0714285714285714,
+      "formal_sustained_step_speedup_0p2": null,
+      "formal_sustained_scf_speedup_0p2": null,
+      "direct_first_step_fmax_lte_0p1": 0,
+      "transformed_first_step_fmax_lte_0p1": 0,
+      "diagnostic_threshold_step_ratio_0p1": null,
+      "direct_first_sustained_step_fmax_lte_0p1": 0,
+      "transformed_first_sustained_step_fmax_lte_0p1": 0,
+      "direct_scf_to_sustained_fmax_lte_0p1": 30,
+      "transformed_scf_to_sustained_fmax_lte_0p1": 28,
+      "diagnostic_prefix_sustained_step_ratio_0p1": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p1": 1.0714285714285714,
+      "formal_sustained_step_speedup_0p1": null,
+      "formal_sustained_scf_speedup_0p1": null,
+      "direct_first_step_fmax_lte_0p05": 0,
+      "transformed_first_step_fmax_lte_0p05": 0,
+      "diagnostic_threshold_step_ratio_0p05": null,
+      "direct_first_sustained_step_fmax_lte_0p05": 0,
+      "transformed_first_sustained_step_fmax_lte_0p05": 0,
+      "direct_scf_to_sustained_fmax_lte_0p05": 30,
+      "transformed_scf_to_sustained_fmax_lte_0p05": 28,
+      "diagnostic_prefix_sustained_step_ratio_0p05": null,
+      "diagnostic_prefix_sustained_scf_ratio_0p05": 1.0714285714285714,
+      "formal_sustained_step_speedup_0p05": null,
+      "formal_sustained_scf_speedup_0p05": null
+    }
+  ]
+}

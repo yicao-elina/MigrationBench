@@ -1,0 +1,334 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-14T03:11:01Z",
+  "experiment": "1-6_iter108_kpoint_4x4_5x5_s42",
+  "config": {
+    "pair_delta_E_tolerance_eV": 0.02
+  },
+  "jobs": [
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T20:15:08.173748+00:00",
+      "scientific_role": "fixed_geometry_qe_protocol_sensitivity",
+      "branch_id": "1-6_iter108_img2_hist_50_200_4x4x1_nonspin_s42",
+      "job_name": "mb_p16i2_k441_s42",
+      "path_id": "1-6",
+      "source_iteration": 108,
+      "image_index_qe": 2,
+      "geometry_role": "internal_low_energy_basin_candidate",
+      "seed": 42,
+      "profile": {
+        "id": "hist_50_200_4x4x1_nonspin",
+        "job_slug": "k441",
+        "ecutwfc_Ry": 50,
+        "ecutrho_Ry": 200,
+        "degauss_Ry": 0.0146997236,
+        "spin_model": "nonspin",
+        "kpoints": {
+          "mode": "automatic",
+          "grid_shift": [
+            4,
+            4,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        "ntasks": 4,
+        "kpoint_pools": 4
+      },
+      "calculator_identity": {
+        "root_label": "protocol_sensitivity",
+        "path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_dense_s42/1-6_iter108_img2_hist_50_200_4x4x1_nonspin_s42/scf.in",
+        "sha256": "679db3b4ca41f5aea5ee748f8e62893d654116ea6d8546741cb4c65cfe0117d5",
+        "calculation": "scf",
+        "composition": "Cr1Sb24Te36",
+        "ecutwfc_Ry": 50,
+        "ecutrho_Ry": 200,
+        "occupations": "smearing",
+        "smearing": "cold",
+        "degauss_Ry": 0.0146997236,
+        "conv_thr_Ry": 1e-06,
+        "vdw_corr": "DFT-D3",
+        "nspin": 1,
+        "noncolin": false,
+        "lspinorb": false,
+        "soc_enabled": false,
+        "kpoints": "automatic:4 4 1 0 0 0",
+        "pseudopotentials": "Cr:Cr_PBE_FR.SG15v1.2.UPF;Sb:Sb_PBE_FR.SG15v1.2.UPF;Te:Te_PBE_FR.SG15v1.2.UPF",
+        "cell_fingerprint": "599c2d6bd5b9",
+        "calculator_identity": "63097414d3a2bf2a",
+        "identity_complete": true,
+        "identity_missing_fields": ""
+      },
+      "source": {
+        "path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/out/sb2te3.path108",
+        "path_file_sha256": "8a3ed15b98857829b27216fec194671504e2aaa3b767fd1d77bbfbd48bd6f6d6",
+        "template": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_1.in",
+        "template_sha256": "36605c22f15c003761c9fe3dc867dbb2f7edf3def9393da3007680bc27d6d423",
+        "source_energy_eV": -133598.381759652
+      },
+      "generated_input": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_dense_s42/1-6_iter108_img2_hist_50_200_4x4x1_nonspin_s42/scf.in",
+      "generated_input_sha256": "679db3b4ca41f5aea5ee748f8e62893d654116ea6d8546741cb4c65cfe0117d5",
+      "resources": {
+        "walltime": "24:00:00",
+        "max_seconds": 84600,
+        "memory": "180G",
+        "ntasks": 4,
+        "kpoint_pools": 4
+      },
+      "acceptance": {
+        "job_done": true,
+        "scf_converged": true,
+        "finite_energy": true,
+        "pair_delta_E_tolerance_eV": 0.02,
+        "compare_only_with_same_profile": true
+      },
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_dense_s42/1-6_iter108_img2_hist_50_200_4x4x1_nonspin_s42/scf_sensitivity_manifest.json"
+    },
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T20:15:08.174815+00:00",
+      "scientific_role": "fixed_geometry_qe_protocol_sensitivity",
+      "branch_id": "1-6_iter108_img4_hist_50_200_4x4x1_nonspin_s42",
+      "job_name": "mb_p16i4_k441_s42",
+      "path_id": "1-6",
+      "source_iteration": 108,
+      "image_index_qe": 4,
+      "geometry_role": "segment_high_energy_image_candidate",
+      "seed": 42,
+      "profile": {
+        "id": "hist_50_200_4x4x1_nonspin",
+        "job_slug": "k441",
+        "ecutwfc_Ry": 50,
+        "ecutrho_Ry": 200,
+        "degauss_Ry": 0.0146997236,
+        "spin_model": "nonspin",
+        "kpoints": {
+          "mode": "automatic",
+          "grid_shift": [
+            4,
+            4,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        "ntasks": 4,
+        "kpoint_pools": 4
+      },
+      "calculator_identity": {
+        "root_label": "protocol_sensitivity",
+        "path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_dense_s42/1-6_iter108_img4_hist_50_200_4x4x1_nonspin_s42/scf.in",
+        "sha256": "97a2aeeeb0d9c58d0fc81c720130b933178bc61a0f2a294d8639107163388142",
+        "calculation": "scf",
+        "composition": "Cr1Sb24Te36",
+        "ecutwfc_Ry": 50,
+        "ecutrho_Ry": 200,
+        "occupations": "smearing",
+        "smearing": "cold",
+        "degauss_Ry": 0.0146997236,
+        "conv_thr_Ry": 1e-06,
+        "vdw_corr": "DFT-D3",
+        "nspin": 1,
+        "noncolin": false,
+        "lspinorb": false,
+        "soc_enabled": false,
+        "kpoints": "automatic:4 4 1 0 0 0",
+        "pseudopotentials": "Cr:Cr_PBE_FR.SG15v1.2.UPF;Sb:Sb_PBE_FR.SG15v1.2.UPF;Te:Te_PBE_FR.SG15v1.2.UPF",
+        "cell_fingerprint": "599c2d6bd5b9",
+        "calculator_identity": "63097414d3a2bf2a",
+        "identity_complete": true,
+        "identity_missing_fields": ""
+      },
+      "source": {
+        "path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/out/sb2te3.path108",
+        "path_file_sha256": "8a3ed15b98857829b27216fec194671504e2aaa3b767fd1d77bbfbd48bd6f6d6",
+        "template": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_1.in",
+        "template_sha256": "36605c22f15c003761c9fe3dc867dbb2f7edf3def9393da3007680bc27d6d423",
+        "source_energy_eV": -133597.5556161532
+      },
+      "generated_input": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_dense_s42/1-6_iter108_img4_hist_50_200_4x4x1_nonspin_s42/scf.in",
+      "generated_input_sha256": "97a2aeeeb0d9c58d0fc81c720130b933178bc61a0f2a294d8639107163388142",
+      "resources": {
+        "walltime": "24:00:00",
+        "max_seconds": 84600,
+        "memory": "180G",
+        "ntasks": 4,
+        "kpoint_pools": 4
+      },
+      "acceptance": {
+        "job_done": true,
+        "scf_converged": true,
+        "finite_energy": true,
+        "pair_delta_E_tolerance_eV": 0.02,
+        "compare_only_with_same_profile": true
+      },
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_dense_s42/1-6_iter108_img4_hist_50_200_4x4x1_nonspin_s42/scf_sensitivity_manifest.json"
+    },
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T23:50:56.337610+00:00",
+      "scientific_role": "fixed_geometry_qe_protocol_sensitivity",
+      "branch_id": "1-6_iter108_img2_hist_50_200_5x5x1_nonspin_s42",
+      "job_name": "mb_p16i2_k551_s42",
+      "path_id": "1-6",
+      "source_iteration": 108,
+      "image_index_qe": 2,
+      "geometry_role": "internal_low_energy_basin_candidate",
+      "seed": 42,
+      "profile": {
+        "id": "hist_50_200_5x5x1_nonspin",
+        "job_slug": "k551",
+        "ecutwfc_Ry": 50,
+        "ecutrho_Ry": 200,
+        "degauss_Ry": 0.0146997236,
+        "spin_model": "nonspin",
+        "kpoints": {
+          "mode": "automatic",
+          "grid_shift": [
+            5,
+            5,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        "ntasks": 5,
+        "kpoint_pools": 5
+      },
+      "calculator_identity": {
+        "root_label": "protocol_sensitivity",
+        "path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_5x5_s42/1-6_iter108_img2_hist_50_200_5x5x1_nonspin_s42/scf.in",
+        "sha256": "e0d8fffe53fa4d90c3464fac4376d6cca368b18072242b9bdcda4d499f3a0728",
+        "calculation": "scf",
+        "composition": "Cr1Sb24Te36",
+        "ecutwfc_Ry": 50,
+        "ecutrho_Ry": 200,
+        "occupations": "smearing",
+        "smearing": "cold",
+        "degauss_Ry": 0.0146997236,
+        "conv_thr_Ry": 1e-06,
+        "vdw_corr": "DFT-D3",
+        "nspin": 1,
+        "noncolin": false,
+        "lspinorb": false,
+        "soc_enabled": false,
+        "kpoints": "automatic:5 5 1 0 0 0",
+        "pseudopotentials": "Cr:Cr_PBE_FR.SG15v1.2.UPF;Sb:Sb_PBE_FR.SG15v1.2.UPF;Te:Te_PBE_FR.SG15v1.2.UPF",
+        "cell_fingerprint": "599c2d6bd5b9",
+        "calculator_identity": "1aa7f72c5ebbe794",
+        "identity_complete": true,
+        "identity_missing_fields": ""
+      },
+      "source": {
+        "path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/out/sb2te3.path108",
+        "path_file_sha256": "8a3ed15b98857829b27216fec194671504e2aaa3b767fd1d77bbfbd48bd6f6d6",
+        "template": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_1.in",
+        "template_sha256": "36605c22f15c003761c9fe3dc867dbb2f7edf3def9393da3007680bc27d6d423",
+        "source_energy_eV": -133598.381759652
+      },
+      "generated_input": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_5x5_s42/1-6_iter108_img2_hist_50_200_5x5x1_nonspin_s42/scf.in",
+      "generated_input_sha256": "e0d8fffe53fa4d90c3464fac4376d6cca368b18072242b9bdcda4d499f3a0728",
+      "resources": {
+        "walltime": "24:00:00",
+        "max_seconds": 84600,
+        "memory": "170G",
+        "ntasks": 5,
+        "kpoint_pools": 5
+      },
+      "acceptance": {
+        "job_done": true,
+        "scf_converged": true,
+        "finite_energy": true,
+        "pair_delta_E_tolerance_eV": 0.02,
+        "compare_only_with_same_profile": true
+      },
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_5x5_s42/1-6_iter108_img2_hist_50_200_5x5x1_nonspin_s42/scf_sensitivity_manifest.json"
+    },
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T23:50:56.339396+00:00",
+      "scientific_role": "fixed_geometry_qe_protocol_sensitivity",
+      "branch_id": "1-6_iter108_img4_hist_50_200_5x5x1_nonspin_s42",
+      "job_name": "mb_p16i4_k551_s42",
+      "path_id": "1-6",
+      "source_iteration": 108,
+      "image_index_qe": 4,
+      "geometry_role": "segment_high_energy_image_candidate",
+      "seed": 42,
+      "profile": {
+        "id": "hist_50_200_5x5x1_nonspin",
+        "job_slug": "k551",
+        "ecutwfc_Ry": 50,
+        "ecutrho_Ry": 200,
+        "degauss_Ry": 0.0146997236,
+        "spin_model": "nonspin",
+        "kpoints": {
+          "mode": "automatic",
+          "grid_shift": [
+            5,
+            5,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        "ntasks": 5,
+        "kpoint_pools": 5
+      },
+      "calculator_identity": {
+        "root_label": "protocol_sensitivity",
+        "path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_5x5_s42/1-6_iter108_img4_hist_50_200_5x5x1_nonspin_s42/scf.in",
+        "sha256": "80e1019addd10b976addf51a4c1d10552a3921a33709847ba03a46117f31b37b",
+        "calculation": "scf",
+        "composition": "Cr1Sb24Te36",
+        "ecutwfc_Ry": 50,
+        "ecutrho_Ry": 200,
+        "occupations": "smearing",
+        "smearing": "cold",
+        "degauss_Ry": 0.0146997236,
+        "conv_thr_Ry": 1e-06,
+        "vdw_corr": "DFT-D3",
+        "nspin": 1,
+        "noncolin": false,
+        "lspinorb": false,
+        "soc_enabled": false,
+        "kpoints": "automatic:5 5 1 0 0 0",
+        "pseudopotentials": "Cr:Cr_PBE_FR.SG15v1.2.UPF;Sb:Sb_PBE_FR.SG15v1.2.UPF;Te:Te_PBE_FR.SG15v1.2.UPF",
+        "cell_fingerprint": "599c2d6bd5b9",
+        "calculator_identity": "1aa7f72c5ebbe794",
+        "identity_complete": true,
+        "identity_missing_fields": ""
+      },
+      "source": {
+        "path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/out/sb2te3.path108",
+        "path_file_sha256": "8a3ed15b98857829b27216fec194671504e2aaa3b767fd1d77bbfbd48bd6f6d6",
+        "template": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_1.in",
+        "template_sha256": "36605c22f15c003761c9fe3dc867dbb2f7edf3def9393da3007680bc27d6d423",
+        "source_energy_eV": -133597.5556161532
+      },
+      "generated_input": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_5x5_s42/1-6_iter108_img4_hist_50_200_5x5x1_nonspin_s42/scf.in",
+      "generated_input_sha256": "80e1019addd10b976addf51a4c1d10552a3921a33709847ba03a46117f31b37b",
+      "resources": {
+        "walltime": "24:00:00",
+        "max_seconds": 84600,
+        "memory": "170G",
+        "ntasks": 5,
+        "kpoint_pools": 5
+      },
+      "acceptance": {
+        "job_done": true,
+        "scf_converged": true,
+        "finite_energy": true,
+        "pair_delta_E_tolerance_eV": 0.02,
+        "compare_only_with_same_profile": true
+      },
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_5x5_s42/1-6_iter108_img4_hist_50_200_5x5x1_nonspin_s42/scf_sensitivity_manifest.json"
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T15:40:54.068314+00:00",
+  "candidate_manifest": "data/processed/mlff_queue_gap_inputs_s42/nonlinear_candidate_manifest.json",
+  "candidate_manifest_sha256": "8512f8473cf731887ee0f0aabb5e3ec8f7d27967e97e3d5e24fa061c086fa04d",
+  "mode": "diagnostic",
+  "model_path": "$MACE_CACHE/20231203mace128L1_epoch199model",
+  "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+  "submitted": true,
+  "submitted_code_snapshot": {
+    "remote_directory": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/nonlinear_mace/mb_nlmebc568_dg8466_tr348f_s52/submitted_code",
+    "sha256": {
+      "capture_runtime_provenance.py": "585e9a5597ab1f207381bbc942e67f6f549673595c3dd845460527ab46e2a69e",
+      "export_mlff_neb_iteration_history.py": "0e6953a36a6c7dc98f3e17dcccec8c2dec763b39514295b8db4b263c1715fb62",
+      "run_mlff_neb.py": "95279374bb7930644ba75bce872208aa7886a1a477275a7546287e82fe6ae129",
+      "submit_slurm_mlff_neb_cpu.sh": "a3aef0bb405f098e007ed6e6536adc11b5a35a03f965202d2f203d5a7ef6eee8"
+    }
+  },
+  "jobs": [
+    {
+      "branch_id": "1-4_historical_periodic_direct_s42",
+      "job_name": "mb_nlmebc568_dg8466_tr348f_s52",
+      "mode": "diagnostic",
+      "seed": 52,
+      "steps": 150,
+      "fmax_target_eV_A": 0.1,
+      "spring_constant_eV_A2": 0.1,
+      "migrant_tether_k_eV_A2": 4.0,
+      "host_tether_k_eV_A2": 0.5,
+      "calculator": "mace-foundation",
+      "model_path": "$MACE_CACHE/20231203mace128L1_epoch199model",
+      "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+      "local_images": "data/processed/mlff_queue_gap_inputs_s42/1-4_periodic_direct.extxyz",
+      "local_images_sha256": "0ad36e2cb224c4fffb93f715b67cd0d4cddc9b263a6e5cdf64d5d7daf8d262da",
+      "remote_images": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/nonlinear_mace/mb_nlmebc568_dg8466_tr348f_s52/1-4_periodic_direct.extxyz",
+      "remote_candidate_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/nonlinear_mace/mb_nlmebc568_dg8466_tr348f_s52/nonlinear_candidate_manifest.json",
+      "remote_input_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/nonlinear_mace/mb_nlmebc568_dg8466_tr348f_s52",
+      "resources": {
+        "walltime": "02:00:00",
+        "memory": "48G",
+        "cpus": 8
+      },
+      "job_id": "30852994",
+      "submission_status": "submitted_new_job",
+      "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlmebc568_dg8466_tr348f_s52_30852994"
+    }
+  ]
+}

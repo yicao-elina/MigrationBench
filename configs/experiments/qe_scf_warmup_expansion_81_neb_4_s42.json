@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "scientific_role": "expand_independent_image_scf_warmups_after_two_image_gate",
+  "arguments": {
+    "warmup_status": "registry/runtime_state/qe_scf_warmup_job_status.json",
+    "jobs_file": "configs/experiments/active_qe_scf_warmup_jobs.json",
+    "source_pw_dir": "data/raw_compact/rockfish/mb_qe81n4_direct_pf_s42_30791514",
+    "output_root": "data/processed/qe_scf_warmup_inputs/81_neb_4/expansion_v1",
+    "batch_manifest": "data/processed/qe_scf_warmup_inputs/81_neb_4/expansion_v1/batch_manifest.json",
+    "path_id": "81_neb_4",
+    "pilot_images": "1-2",
+    "images": "3-10",
+    "seed": 42,
+    "ssh_host": "rockfish",
+    "remote_input_root": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/scf_warmups/81_neb_4/expansion_v1",
+    "remote_run_root": "/scratch16/pclancy3/yi/revision1_migrationbench_runs",
+    "remote_wrapper": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/scripts/migrationbench/submit_slurm_qe_scf_warmup.sh",
+    "walltime": "24:00:00",
+    "max_seconds": 84600,
+    "ntasks": 4,
+    "memory": "180G",
+    "kpoint_pools": 4,
+    "degauss_Ry": 0.01,
+    "mixing_beta": 0.2,
+    "mixing_mode": "local-TF",
+    "mixing_ndim": 8,
+    "electron_maxstep": 800,
+    "conv_thr": "1.0d-6"
+  },
+  "gate": {
+    "required_pilot_classification": "accepted_scf_warmstart",
+    "required_source_restart_artifacts": [
+      "charge-density.dat",
+      "data-file-schema.xml"
+    ],
+    "recorded_but_not_copied_optional_artifacts": ["wfc*.dat"],
+    "duplicate_submission_policy": "recover_by_registry_manifest_or_exact_rockfish_job_name"
+  }
+}

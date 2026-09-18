@@ -1,0 +1,130 @@
+dataset:
+  repo_id: alinacao2000/MigrationBench
+  format: parquet
+  guiding_examples:
+    - "OMol25 stores ASE Atoms objects/derived rows with total energy, forces, and rich calculation metadata."
+    - "MigrationBench adds NEB path-level records, image ordering, and convergence/provenance gates."
+
+tables:
+  configurations:
+    primary_key: configuration_id
+    columns:
+      configuration_id: stable hash of species, cell, pbc, positions, and pathway/image metadata
+      structure_hash: stable hash of species, cell, pbc, and positions only
+      system_id: material/system label, e.g. Cr-doped Sb2Te3
+      composition: reduced or full composition string
+      elements: list of element symbols
+      nsites: number of atoms
+      cell: 3x3 lattice in Angstrom
+      pbc: length-3 boolean periodic boundary flags
+      positions: nsites x 3 Cartesian positions in Angstrom
+      source_uri: original local or cluster path, kept as provenance
+      source_sha256: sha256 of the raw source file when available
+      created_at_utc: ISO timestamp of dataset conversion
+      metadata_json: lossless JSON blob for non-tabular details
+  calculations:
+    primary_key: calculation_id
+    columns:
+      calculation_id: stable hash of configuration_id plus calculator/method/run metadata
+      configuration_id: foreign key into configurations
+      pathway_id: NEB pathway identifier when applicable
+      image_index: zero-based image index for NEB images
+      reaction_coordinate: NEB reaction coordinate if known
+      calculator_family: DFT, MACE, MACE-self-NEB, digitized-PNG, etc.
+      calculator_label: exact user-facing model/method label
+      model_checkpoint_uri: cluster/local/HF URI for MLFF checkpoint when applicable
+      method: PBE-D3, MACE-MP, MACE fine-tuned, etc.
+      energy_eV: total energy label in eV
+      forces_eV_A: per-atom force array, nullable
+      stress: stress tensor/vector, nullable
+      force_label_status: real, absent, fabricated_zero_quarantined, or not_applicable
+      convergence_status: converged, numerically_stationary_unconverged, unconverged, diverged, failed, placeholder
+      run_id: globally meaningful job/run id
+      raw_log_uri: path to raw neb.out/slurm/log artifact
+      raw_log_sha256: sha256 of raw log when available
+      runtime_provenance_uri: immutable runtime_provenance.json for the run
+      runtime_provenance_sha256: sha256 of the runtime identity record
+      runtime_environment_id: stable hash of consequential software, module, binary, and platform identity
+      software: code and version if known
+      metadata_json: lossless JSON blob for all remaining run settings
+  neb_paths:
+    primary_key: pathway_id
+    columns:
+      pathway_id: stable path id, e.g. Sb2Te3Cr_1-4_dftd3
+      system_id: material/system label
+      path_label: human-readable label, e.g. 1-4
+      family: in_gap, deep_penetration, interlayer_2d, replacement, etc.
+      n_images: image count
+      endpoint_configuration_ids: first and last configuration ids
+      reference_calculation_ids: ordered DFT calculation ids for the canonical path
+      barrier_eV: forward activation energy under canonical convention
+      reverse_barrier_eV: reverse activation energy if known
+      barrier_convention: peak relative to first image
+      status: converged, numerically_stationary_unconverged, quarantine, pending
+      acceptance_notes: concise reason why the path is usable or quarantined
+      metadata_json: lossless JSON blob for path-level settings
+  derived_barriers:
+    primary_key: barrier_result_id
+    columns:
+      barrier_result_id: stable hash of pathway_id, calculator_label, protocol, and source calculation ids
+      pathway_id: foreign key into neb_paths
+      protocol: dft_neb, fixed_geometry_single_point, self_consistent_mlff_neb, png_digitized_approx
+      calculator_label: DFT or model label
+      barrier_eV: barrier under the stated protocol
+      reference_barrier_eV: canonical DFT reference for error calculation
+      error_eV: barrier_eV minus reference_barrier_eV
+      source_calculation_ids: ordered list of calculation ids
+      convergence_status: same status vocabulary as calculations
+      manuscript_allowed: boolean gate
+      exclusion_reason: nullable
+      metadata_json: lossless JSON blob
+  endpoint_basins:
+    primary_key: basin_id
+    columns:
+      basin_id: stable system-scoped identifier after periodic atom matching
+      system_id: foreign key to the material/cell definition
+      configuration_id: accepted relaxed configuration
+      source_pathway_id: historical or proposed path that supplied the candidate
+      source_image_index: source image index when applicable
+      relaxation_run_id: standalone DFT relaxation job/run id
+      final_energy_eV: converged endpoint energy
+      final_max_force_eV_A: maximum atomic force at acceptance
+      repeat_relax_displacement_A: displacement under repeat-stability check
+      repeat_relax_energy_drop_eV: energy lowering under repeat-stability check
+      status: candidate, relax_running, accepted, rejected, or superseded
+      rejection_reason: nullable controlled reason
+      metadata_json: symmetry orbit, local descriptor, hashes, and full provenance
+  optimization_iterations:
+    primary_key: iteration_record_id
+    columns:
+      iteration_record_id: stable hash of run, optimizer iteration, and image index
+      run_id: Slurm or local run identifier
+      pathway_id: nullable path identifier for NEB calculations
+      endpoint_basin_id: nullable basin identifier for standalone endpoint relaxations
+      optimizer_iteration: BFGS or NEB iteration number
+      image_index: NEB image index; null for a standalone endpoint step
+      configuration_id: foreign key to configurations
+      energy_eV: total energy at this iteration/image
+      forces_eV_A: complete atomic forces
+      path_energy_gradient_eV_A: complete potential-energy gradient; equals negative atomic force after unit conversion
+      neb_force_eV_A: projected NEB/tangent force vector when explicitly available; nullable and never inferred from the potential-energy gradient
+      neb_residual_eV_A: scalar QE image error used for NEB convergence when the projected vector is unavailable
+      reaction_coordinate: cumulative normalized path coordinate when applicable
+      convergence_state: scf, ionic, image, path, and run-level flags
+      raw_log_uri: immutable raw output location
+      raw_log_sha256: source checksum
+      runtime_provenance_uri: immutable runtime identity record for this run
+      runtime_provenance_sha256: checksum of that record
+      metadata_json: optimizer, spring, tangent, restart parent, and software details
+  mechanism_clusters:
+    primary_key: mechanism_cluster_id
+    columns:
+      mechanism_cluster_id: stable descriptor-versioned mechanism group
+      system_id: system scope
+      representative_pathway_id: selected medoid or facility-location representative
+      member_pathway_ids: all assigned candidate paths
+      descriptor_version: exact trajectory descriptor contract
+      coverage_weight: candidate-space importance represented by the cluster
+      within_cluster_max_distance: maximum member-to-representative trajectory distance
+      status: selected, converged, duplicate, failed, or unresolved
+      metadata_json: distance components, selection score, and provenance

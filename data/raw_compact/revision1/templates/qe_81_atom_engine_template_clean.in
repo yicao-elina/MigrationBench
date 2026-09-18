@@ -1,0 +1,35 @@
+&CONTROL
+  etot_conv_thr = 1.0000000000d-04
+  forc_conv_thr = 1.0000000000d-03
+  outdir = './out/'
+  prefix = 'sb2te3'
+  pseudo_dir = '/home/ycao73/ONCVPseudoPack/SG15_v1.2/UPF/PBE/'
+  verbosity = 'high'
+  max_seconds = 250000
+/
+&SYSTEM
+  vdw_corr = 'DFT-D3'
+  degauss = 0.00500
+  ecutrho = 280
+  ecutwfc = 70
+  ibrav = 0
+  nat = 81
+  ntyp = 3
+  occupations = 'smearing'
+  smearing = 'cold'
+/
+&ELECTRONS
+  conv_thr = 1.0000000000d-06
+  electron_maxstep = 400
+  mixing_beta = 0.4
+/
+ATOMIC_SPECIES
+  Cr 51.99600 Cr_PBE_FR.SG15v1.2.UPF
+  Sb 121.76000 Sb_PBE_FR.SG15v1.2.UPF
+  Te 127.60000 Te_PBE_FR.SG15v1.2.UPF
+K_POINTS AUTOMATIC
+2 2 2 1 1 1
+CELL_PARAMETERS angstrom
+  17.10859971872434 0.00000000000000 0.00000000000000
+  -4.26916021361244 7.40364387667964 0.00000000000000
+  0.08956351952752 0.05165086255083 47.42888785524057

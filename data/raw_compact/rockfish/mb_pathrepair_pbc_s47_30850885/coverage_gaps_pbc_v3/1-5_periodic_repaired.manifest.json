@@ -1,0 +1,106 @@
+{
+  "created_at_utc": "2026-09-13T12:28:54.261980+00:00",
+  "source_images": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_raw/historical_neb/legacy_61/1-5/sb2te3.xyz",
+  "source_sha256": "a3a71d88c87d36562f0c1e1491a95f3eba760745102bf3e00de584d77c0d7fe7",
+  "output_images": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_pathrepair_pbc_s47_30850885/coverage_gaps_pbc_v3/1-5_periodic_repaired.extxyz",
+  "output_sha256": "b0628bce3e2f97bbb5c26c7f7ccb44802b4b0e9ca04987c980182ab8055ad95b",
+  "mode": "unwrap",
+  "migrant_element": "Cr",
+  "migrant_index_zero_based": 60,
+  "before": {
+    "min_pair_distance_A": 1.4084953492002121,
+    "max_migrant_step_A": 4.199668455600002,
+    "total_migrant_path_A": 13.370790201700014
+  },
+  "after": {
+    "min_pair_distance_A": 1.800000000000001,
+    "max_migrant_step_A": 4.199668455600002,
+    "total_migrant_path_A": 13.370790201700041
+  },
+  "parameters": {
+    "n_images": 5,
+    "source_n_images": 5,
+    "resample_images": null,
+    "mic": true,
+    "min_pair_distance_A": 1.8,
+    "repel_steps": 100,
+    "repel_step_size_A": 0.05,
+    "repel_policy": "migrant-only"
+  },
+  "repair_actions": [
+    {
+      "image_index_zero_based": 1,
+      "iterations": 8,
+      "before_min_pair_distance_A": 1.4084953492002137,
+      "before_pair_indices": [
+        49,
+        60
+      ],
+      "after_min_pair_distance_A": 1.800000000000001,
+      "after_pair_indices": [
+        49,
+        60
+      ],
+      "moved_atom_indices": [
+        60
+      ],
+      "maximum_atom_displacement_A": 0.3915046507997869,
+      "migrant_displacement_A": 0.3915046507997869,
+      "unresolved_reason": null,
+      "threshold_pass": true
+    },
+    {
+      "image_index_zero_based": 2,
+      "iterations": 0,
+      "before_min_pair_distance_A": 2.397209405800134,
+      "before_pair_indices": [
+        5,
+        60
+      ],
+      "after_min_pair_distance_A": 2.397209405800134,
+      "after_pair_indices": [
+        5,
+        60
+      ],
+      "moved_atom_indices": [],
+      "maximum_atom_displacement_A": 0.0,
+      "migrant_displacement_A": 0.0,
+      "unresolved_reason": null,
+      "threshold_pass": true
+    },
+    {
+      "image_index_zero_based": 3,
+      "iterations": 0,
+      "before_min_pair_distance_A": 2.4981449447947646,
+      "before_pair_indices": [
+        0,
+        60
+      ],
+      "after_min_pair_distance_A": 2.4981449447947646,
+      "after_pair_indices": [
+        0,
+        60
+      ],
+      "moved_atom_indices": [],
+      "maximum_atom_displacement_A": 0.0,
+      "migrant_displacement_A": 0.0,
+      "unresolved_reason": null,
+      "threshold_pass": true
+    }
+  ],
+  "source_had_periodic_cell": false,
+  "cell_template": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_raw/historical_neb/legacy_61/1-5/pw_1.in",
+  "cell_template_sha256": "e770e3d40a5c41ce68cd73f04a023af795621b5bfa7c3bcdcb2d71979cea4a0d",
+  "output_pbc": [
+    true,
+    true,
+    true
+  ],
+  "endpoint_min_pair_distances_A": [
+    2.8468782091687053,
+    2.4702118617000646
+  ],
+  "all_intermediate_images_pass": true,
+  "endpoints_pass": true,
+  "warning": "This is a path-initialization repair only. It must be followed by MLFF and/or QE NEB validation."
+}

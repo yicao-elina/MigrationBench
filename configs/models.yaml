@@ -1,0 +1,22 @@
+models:
+  scratch:
+    family: MACE
+    role: specialist trained from scratch
+    checkpoint_policy: external-hash-only
+  foundation:
+    family: MACE
+    role: pretrained foundation model
+    checkpoint_policy: external-hash-only
+  ft_600k:
+    family: MACE
+    role: single-temperature fine-tune
+    checkpoint_policy: external-hash-only
+  ft_multit:
+    family: MACE
+    role: multi-temperature fine-tune
+    checkpoint_policy: external-hash-only
+  qe:
+    family: Quantum ESPRESSO
+    role: DFT reference
+    checkpoint_policy: inputs-and-compact-text-only
+

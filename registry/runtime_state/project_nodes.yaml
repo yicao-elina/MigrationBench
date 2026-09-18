@@ -1,0 +1,954 @@
+updated: '2026-09-13'
+project: MigrationBench Revision1
+north_star: Traceable task-relevant NEB benchmark and reviewer response package
+nodes:
+  N0:
+    name: North star and claim ledger
+    status: done
+    upstream:
+    - reviewer comments
+    - manuscript text
+    - SI text
+    downstream:
+    - all reviewer responses
+    - all figure/table edits
+    acceptance: Every risky claim maps to a data artifact, script, and manuscript
+      edit location.
+  N1:
+    name: Rockfish inventory
+    status: done
+    upstream:
+    - ssh rockfish
+    - /data/pclancy3/yi
+    - /scratch16/pclancy3/yi
+    downstream:
+    - historical NEB audit
+    - MACE pre-NEB
+    - QE continuation
+    acceptance: Historical roots and writable scratch roots are explicit.
+  N2:
+    name: Historical NEB audit
+    status: partial
+    upstream:
+    - N1
+    downstream:
+    - candidate path queue
+    - reviewer A1
+    - figure 3/SI cleanup
+    acceptance: Every historical barrier is parsed from raw output and labeled converged,
+      stationary-unconverged, failed, or quarantined.
+    notes:
+    - Victor V-ST neb outputs parsed locally; all three located NEB outputs are unconverged
+      or nonphysical and remain quarantined.
+    - Historical Fig. S3 Foundation artifacts were recovered. They describe an
+      82-atom Cr2 path, not the 61-atom Cr1 1-4 path, and the optimizer mixed
+      DFT-energy endpoints with MACE-energy internal images. Uniform-checkpoint
+      Rockfish rescoring in job 30851756 yields 0.000 eV forward, 0.379 eV
+      reverse, and 1.037 eV max-min span; the submitted 0.41 eV is rejected.
+  N3:
+    name: MACE/MLFF pre-NEB
+    status: traceable_runner_validated_production_pending
+    upstream:
+    - N2
+    - MACE/foundation/fine-tuned model artifacts
+    downstream:
+    - QE explicit-image NEB inputs
+    - task-relevant MLFF benchmark
+    acceptance: Each path has every optimizer iteration, every image energy,
+      true atomic force, internal-image NEB force and residual, seed, exact model
+      hash, software versions, convergence state, and manifest.
+    current_evidence: |
+      The path-queue coverage audit joins all 12 unconverged path IDs to explicit
+      MACE evidence: all 12 assigned runs are terminal and mirrored under
+      data_processed/cluster with final images, trajectories, logs, manifests,
+      and post-hoc per-iteration histories.
+      Historical trajectories lacked cells, so 1-4, 1-7, and 1-8 were rebuilt
+      from their QE templates and passed 1.8 A clearance and continuity gates
+      before submission. Jobs 30852128, 30852143, and 30852144 use one explicit
+      MACE-MP-0 checkpoint, seed 42, 500 steps, 0.10 eV/A, and CPU resources;
+      all three fail scientific handoff and remain diagnostic.
+      The former missing-cell jobs 30850728-30850731 and bad-PBC 1-7 QE handoff
+      remain quarantined. Coverage means assigned to a traceable MACE branch;
+      it does not mean convergence, mechanism preservation, or DFT acceptance.
+    active_jobs: []
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/docs/coverage_gap_path_repairs.md
+    - /Users/alina/Project/26MIgrationBench/configs/mlff_repair_ab_coverage_gaps_s46.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/path_repairs/coverage_gaps_v1
+    - /Users/alina/Project/26MIgrationBench/data_processed/path_queue_mlff_coverage/audit.json
+    - /Users/alina/Project/26MIgrationBench/configs/path_queue_mlff_evidence_s42.json
+  N4:
+    name: QE explicit-image input generation
+    status: in_progress
+    upstream:
+    - N3
+    - QE PW template
+    downstream:
+    - restartable QE NEB
+    acceptance: Each QE neb.in is accompanied by a config/manifest explaining image
+      provenance and settings.
+    qe_ready_inputs:
+    - path_id: 1-2
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe1_2_mace_r1_s42
+      priority: medium
+      caveat: large MLFF relaxation; inspect before submission
+    - path_id: 1-3
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe13_mace_r1_s42
+      priority: medium
+      caveat: large MLFF relaxation; input generated
+    - path_id: 1-5
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe1_5_mace_r1_s42
+      priority: low
+      caveat: MLFF internal force very high; difficult queue
+    - path_id: 1-6
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe1_6_mace_r1_s42
+      priority: high_after_1_7
+      caveat: cleanest MLFF preconditioner among new jobs
+    - path_id: 81_neb_1
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_1_mace_r1_s42
+      priority: medium_high
+      caveat: best 81 MLFF barrier shape among deep candidates; max_internal_fmax
+        0.156
+    - path_id: 81_neb_2
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_2_mace_r1_s42
+      priority: low
+      caveat: MLFF barrier nearly zero and internal fmax 0.501; likely bad preconditioner
+    - path_id: 81_neb_3
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_3_mace_r1_s42
+      priority: low
+      caveat: MLFF barrier collapsed to zero and internal fmax 0.910; difficult queue
+    - path_id: 81_neb_4
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_4_mace_r1_s42
+      priority: medium
+      caveat: moderate MLFF barrier 0.309 and max_internal_fmax 0.160
+    - path_id: 81_neb_5
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_5_mace_r1_s42
+      priority: low_medium
+      caveat: MLFF barrier collapsed to zero though internal fmax low; inspect path
+        before QE
+  N5:
+    name: Restartable QE NEB chain
+    status: running_unconverged
+    upstream:
+    - N4
+    - N23
+    downstream:
+    - final DFT barrier table
+    - reviewer A1
+    - figures/SI
+    acceptance: Each segment stops cleanly using max_seconds before Slurm walltime,
+      and only monitor-classified clean_max_seconds_restartable parents may advance;
+      copied restart state must pass a complete SHA-256 inventory comparison.
+    current_evidence: |
+      Jobs 30812497 (1-7) and 30812496 (1-6) stopped cleanly at complete NEB
+      iterations 199 and 191. Verified 48 h restart segments 30880322 and
+      30880323 are running. At 2026-09-15T07:42Z they had complete iterations
+      46 and 50 with maximum movable-image residuals 0.378317 and 0.478149 eV/A.
+      Their 0.557933 and 0.820400 eV forward activations remain diagnostic;
+      neither passes the 0.03 eV/A force gate and no continuation may be
+      submitted while either segment is active.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/continue_qe_neb.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/submit_slurm_qe_neb_restart_verified.sh
+    - /Users/alina/Project/26MIgrationBench/cluster/mb_nebrst_cp2_s42_30850065
+    historical_jobs:
+    - job_id: '30791312'
+      job_name: mb_qe17_mace_r1_s42
+      path_id: 1-7
+      run_dir: /scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_qe17_mace_r1_s42_30791312
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe17_mace_r1_s42
+      source_images: /scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_1_7c_s42_30763474/mlff_1-7_cont_s42/mlff_neb_images.extxyz
+      slurm_walltime: '24:00:00'
+      qe_max_seconds: 84600
+      safety_seconds: 1800
+      monitor: rockfish-neb-1-7-qe-monitor
+    - job_id: '30791362'
+      job_name: mb_qe1_6_mace_r1_s42
+      path_id: 1-6
+      run_dir: /scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_qe1_6_mace_r1_s42_30791362
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe1_6_mace_r1_s42
+      source_images: /scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_cpu_1_6_s42_30791347/mlff_1-6_s42/mlff_neb_images.extxyz
+      slurm_walltime: '24:00:00'
+      qe_max_seconds: 84600
+      safety_seconds: 1800
+      health_caveat: QE printed initial path length as asterisks; monitor for geometry/path
+        issues.
+    - job_id: '30791401'
+      job_name: mb_qe81n1_mace_r1_s42
+      path_id: 81_neb_1
+      run_dir: /scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_qe81n1_mace_r1_s42_30791401
+      input_dir: /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_1_mace_r1_s42
+      source_images: /scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_cpu_81_neb_1__s42_30763517/mlff_81_neb_1_s42/mlff_neb_images.extxyz
+      slurm_walltime: '24:00:00'
+      qe_max_seconds: 84600
+      safety_seconds: 1800
+      role: first 81-atom deep-penetration QE probe
+      status_at_health_check: RUNNING
+      health_check: parsed 10 images and entered iteration 1 SCF on c048
+  N6:
+    name: Final DFT barrier table
+    status: pending
+    upstream:
+    - N5
+    downstream:
+    - Fig. 3
+    - SI NEB table
+    - response letter
+    acceptance: Barrier values are re-derived by parser from final raw QE output and
+      pass the movable-image NEB force and barrier-drift gates; frozen-endpoint errors
+      remain diagnostic only.
+  N7:
+    name: Data leakage and split audit
+    status: checkpoint_scoped_audit_passed
+    upstream:
+    - fine-tuning data
+    - NEB image geometries
+    downstream:
+    - reviewer A2
+    - Methods data split description
+    acceptance: Force-column audit plus geometry-nearest-neighbor audit show no forbidden
+      overlap, or leakage paths are excluded.
+    notes:
+    - QE history staging uses whole-path split_group_id and currently lives only in
+      the isolated audit split; relational and cross-split hash validation passes.
+    - Whole-structure audit attempt 30845220 was scientifically invalid because training and evaluation cells have different compositions; it is not a pass.
+    - Cross-supercell Cr-centered local fingerprint/SOAP/RMSD audit job 30845544
+      compared 1110 QE evaluation frames with the declared train/valid/test files.
+      It found zero exact fingerprints, zero local RMSD matches within 0.05 A,
+      and zero SOAP cosine matches within 0.0001. The pass is checkpoint-scoped
+      and does not cover unknown foundation-model pretraining data.
+    - SI empirical-distribution figure, per-split counts, thresholds, minima,
+      quantiles, and threshold margins are generated reproducibly from the
+      nearest-neighbor table. RMSD-incompatible local species cardinalities are
+      counted rather than silently dropped.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/data_processed/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/leakage_distance_distributions.svg
+    - /Users/alina/Project/26MIgrationBench/data_processed/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/leakage_distance_summary.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/plot_training_leakage_audit.py
+  N8:
+    name: Task-relevant benchmark framework
+    status: in_progress
+    upstream:
+    - N2
+    - N3
+    - N5
+    - N6
+    downstream:
+    - Introduction
+    - Methods
+    - Discussion
+    - reviewer A4/A7
+    acceptance: Metrics distinguish fixed-path energy error, self-relaxed path error,
+      TS localization error, geometry relaxation error, and ranking stability.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/select_migration_endpoints.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection_v3/representative_path_queue.csv
+    - /Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/v1_mace_screening/proposer_manifest.json
+  N9:
+    name: Multi-seed retraining and uncertainty
+    status: pending
+    upstream:
+    - grouped split
+    - cluster training jobs
+    downstream:
+    - Table S1
+    - reviewer A3/A5
+    acceptance: Mean and standard deviation over fixed seeds with grouped split and
+      zero group overlap.
+  N10:
+    name: 81-atom path classification
+    status: done_for_historical_geometry
+    upstream:
+    - historical 81-atom trajectories
+    downstream:
+    - deep-penetration benchmark
+    - path queue
+    acceptance: Paths are categorized by continuous descriptors, not visual intuition
+      alone.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/data_processed/path_classification/81_atom_paths_v2_pbc.csv
+    - /Users/alina/Project/26MIgrationBench/data_processed/path_classification/81_atom_paths_v2_pbc.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/neb_energy_profiles
+    - /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_1_mace_r1_s42
+    - /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_2_mace_r1_s42
+    - /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_3_mace_r1_s42
+    - /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_4_mace_r1_s42
+    - /scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81_neb_5_mace_r1_s42
+    notes:
+    - All five historical paths classify as deep penetration under PBC-aware continuous descriptors; retain penetration_score and gap_score rather than relying on the label alone.
+    - Historical barriers remain unconverged candidates and are not promoted by this geometry classification.
+  N11:
+    name: MD protocol repair
+    status: partial
+    upstream:
+    - old MD scripts/logs
+    downstream:
+    - Fig. 2
+    - reviewer C9
+    acceptance: Corrected trajectory length, block uncertainty, and quarantined old
+      values.
+  N12:
+    name: Latent/projection robustness
+    status: done_local
+    upstream:
+    - feature matrices
+    downstream:
+    - Fig. 5
+    - reviewer A6/C11/C12
+    acceptance: Projection-only claims removed or clearly scoped.
+  N13:
+    name: SHAP/surrogate interpretation
+    status: partial
+    upstream:
+    - archived SHAP pipeline
+    - MACE perturbation tests
+    downstream:
+    - Fig. 6
+    - reviewer A6/C13
+    acceptance: Claims are scoped to surrogate unless perturbation confirms calculator
+      response.
+  N14:
+    name: Citation and scope edits
+    status: done_local
+    upstream:
+    - reviewer literature comments
+    downstream:
+    - Introduction
+    - Conclusion
+    - response letter
+    acceptance: No unsupported generalization claim remains.
+  N15:
+    name: Figure/table rebuild
+    status: pending
+    upstream:
+    - N6
+    - N9
+    - N11
+    - N12
+    - N13
+    downstream:
+    - manuscript PDF
+    - response letter
+    acceptance: Figures and captions consume generated tables, not manual screenshots.
+  N16:
+    name: Response letter finalization
+    status: pending
+    upstream:
+    - N6
+    - N7
+    - N8
+    - N9
+    - N11
+    - N12
+    - N13
+    - N14
+    - N15
+    downstream:
+    - submission package
+    acceptance: No unresolved placeholder remains except explicitly excluded experiments.
+  N17:
+    name: Standalone endpoint basin validation
+    status: running
+    upstream:
+    - N2
+    - N18
+    - N24
+    downstream:
+    - N19
+    - N20
+    acceptance: Each accepted endpoint completes fixed-cell QE BFGS relaxation,
+      has maximum atomic force <= 0.05 eV/A, passes repeat-relax and geometry gates,
+      and exports every ionic step with energy and atomic forces.
+    implementation: First-relax acceptance now feeds a hash-bound, same-calculator
+      repeat-relax state machine. Pair acceptance fails closed on force, periodic
+      displacement, energy consistency, minimum distance, parent binding, and
+      calculator identity. Local tests and real Rockfish CPU Slurm smoke 30850580
+      pass end to end; real repeat jobs cannot be prepared until a first-relax
+      row is accepted. Accepted structures then enter complete-linkage basin
+      deduplication under the central policy, validated by Rockfish Slurm job
+      30850601. Failed import-only attempts
+      30850569/30850575 are archived. The QE relax parser now distinguishes
+      explicit `bfgs converged` from `maximum number of steps reached` and aligns
+      every force evaluation with the input or preceding printed geometry;
+      Rockfish regression job 30851575 passed 60 tests. The site-search audit
+      found 245/245 mirrored QE inputs missing CELL_PARAMETERS with ibrav=0, so
+      direct submission is forbidden. The frozen prospective v5 batch injects
+      one hash-bound reference cell and globally matches six proposals to six
+      controls across 12 distinct void families. Rockfish smoke 30854580 passed;
+      all 12 inputs are complete under calculator identity 03738b164d4bdccb and
+      byte-identical across local and Rockfish generation. Rockfish comparator
+      smoke 30854874 passed three tests for global matching, cell completeness,
+      censored-result suppression, and input/runtime provenance binding. The
+      complete strict acceptance chain was then validated by Rockfish CPU job
+      30856509; two synthetic first/repeat records passed input, Slurm-job, and
+      pw.x provenance gates, batch acceptance returned 2/2, and basin assignment
+      preserved two distinct basins. This is software evidence, not a physical
+      endpoint result.
+      The prospective comparator no longer counts a first-relax success as a
+      stable-site yield. It requires the repeat acceptance artifact to bind the
+      first-status hash, parent job, calculator, and runtime evidence. Rockfish
+      job 30857156 validates accepted, rejected-repeat, and missing-repeat paths.
+      The read-only stage planner now makes wait, continuation, repeat,
+      acceptance, basin, and final-comparison transitions explicit; Rockfish job
+      30857186 validates the staged progression with four passing tests.
+      At the authorized 2026-09-13T20:00:11Z snapshot all 12 prospective jobs
+      were healthy and running after about three hours, but remained in first SCF
+      with 2-3 electronic iterations and zero ionic steps. The planner returned
+      waiting_for_first_relax. Non-label performance probe 30864875 tests the
+      identical unique_119 Hamiltonian with 4 ranks and 4 k-point pools; current
+      scientific jobs remain untouched. Its registry and fail-closed throughput
+      comparator passed the complete 104-test Rockfish suite in job 30864905.
+      At 2026-09-13T23:37Z all 12 remained healthy but were still inside their
+      first SCF, with 3-5 electronic iterations and zero ionic steps. Scaling
+      probe 30864875 failed by Slurm OOM after one SCF iteration; four ranks and
+      four pools at 180 GB are rejected for this 81-atom Hamiltonian and its
+      output is ineligible for labels.
+      At 2026-09-14T13:43Z all 12 prospective direct/control jobs and all six
+      transformed jobs remained healthy but still had zero ionic steps. A force
+      parser audit found that the separately printed DFT-D3 contribution had
+      overwritten QE's total Hellmann-Feynman force block. After correction,
+      image-1 job 30877468 and image-5 job 30872029 are accepted first
+      relaxations with fmax 0.040615 and 0.002138 eV/A. Hash-bound repeat jobs
+      30880454 and 30880456 are running. Redundant over-tight job 30879756 was
+      cancelled; image 4 remains quarantined after SCF failure.
+      Repeat jobs 30880454 and 30880456 completed and independently retained
+      their image-1/image-5 basins with final total-force maxima 0.040615 and
+      0.021037 eV/A, passing the 0.05 eV/A endpoint gate. At
+      2026-09-15T07:46Z all 18 prospective direct/control/transformed jobs had
+      stopped cleanly by max_seconds inside their first electronic SCF. They
+      completed only 15-20 SCF iterations and zero ionic steps, so no stable-site
+      yield or relaxation-speed comparison exists. A label-ineligible 2-rank,
+      2-pool probe 30920087 is running to test k-point parallelism after the
+      earlier 4-rank/4-pool probe failed by OOM.
+    active_jobs:
+    - {job_id: '30843300', path_id: 1-6, image_index: 2, variant: direct}
+    - {job_id: '30843325', path_id: 1-7, image_index: 2, variant: direct}
+    - {job_id: '30851387', parent_job_id: '30843307', path_id: 1-6, image_index: 5, variant: max_step_continuation}
+    - {job_id: '30851388', parent_job_id: '30843348', path_id: 1-7, image_index: 5, variant: max_step_continuation}
+    - {job_id: '30851617', parent_job_id: '30843292', path_id: 1-6, image_index: 1, variant: strict_force_refinement}
+    - {job_id: '30851619', parent_job_id: '30843324', path_id: 1-7, image_index: 1, variant: strict_force_refinement}
+    - {job_id: '30852638', path_id: 1-4_historical, image_index: 1, variant: direct_multiframe_coordinate}
+    - {job_id: '30852853', path_id: 1-4_historical, image_index: 4, variant: direct_multiframe_coordinate}
+    - {job_id: '30852854', path_id: 1-4_historical, image_index: 5, variant: direct_multiframe_coordinate}
+    - {job_id: '30872019', parent_job_id: '30852638', path_id: 1-4_historical, image_index: 1, variant: strict_force_refinement}
+    - {job_id: '30872029', parent_job_id: '30852854', path_id: 1-4_historical, image_index: 5, variant: strict_force_refinement}
+    - {job_id: '30877468', parent_job_id: '30872019', path_id: 1-4_historical, image_index: 1, variant: symmetry_release_force_refinement}
+    - {job_id: '30880454', parent_job_id: '30877468', path_id: 1-4_historical, image_index: 1, variant: repeat_relax}
+    - {job_id: '30880456', parent_job_id: '30872029', path_id: 1-4_historical, image_index: 5, variant: repeat_relax}
+    - {job_id: '30854592', path_id: site_proposer_pair1, image_index: 1, variant: proposal, seed: 42}
+    - {job_id: '30854596', path_id: site_proposer_pair1, image_index: 1, variant: matched_control, seed: 42}
+    - {job_id: '30854597', path_id: site_proposer_pair2, image_index: 1, variant: proposal, seed: 42}
+    - {job_id: '30854600', path_id: site_proposer_pair2, image_index: 1, variant: matched_control, seed: 42}
+    - {job_id: '30854603', path_id: site_proposer_pair3, image_index: 1, variant: proposal, seed: 42}
+    - {job_id: '30854604', path_id: site_proposer_pair3, image_index: 1, variant: matched_control, seed: 42}
+    - {job_id: '30854608', path_id: site_proposer_pair4, image_index: 1, variant: proposal, seed: 42}
+    - {job_id: '30854611', path_id: site_proposer_pair4, image_index: 1, variant: matched_control, seed: 42}
+    - {job_id: '30854612', path_id: site_proposer_pair5, image_index: 1, variant: proposal, seed: 42}
+    - {job_id: '30854615', path_id: site_proposer_pair5, image_index: 1, variant: matched_control, seed: 42}
+    - {job_id: '30854617', path_id: site_proposer_pair6, image_index: 1, variant: proposal, seed: 42}
+    - {job_id: '30854619', path_id: site_proposer_pair6, image_index: 1, variant: matched_control, seed: 42}
+    notes:
+    - These six jobs use r3 startup geometries and are controls, not latest-iteration
+      hidden-basin validation. Canonical exact-iteration jobs are tracked under N19.
+    - Parent jobs 30843307 and 30843348 exhausted 50 ionic steps and were never
+      BFGS-converged. Parent jobs 30843292 and 30843324 were QE-converged but
+      failed the benchmark maximum-atom-force gate at 0.07493 and 0.07312 eV/A.
+    - The 1-4 historical layout stores all five path coordinates in sb2te3.xyz;
+      pw_1.in is only the calculator and cell template. Jobs 30852638/30852853/
+      30852854 use one coordinate source for images 1/4/5, fixed cell, nstep=200,
+      and max_seconds=84600. Rockfish regression 30852857 passed 73 tests.
+    - The 2026-09-14 force parser audit invalidated earlier DFT-D3-derived fmax
+      values. Corrected total-force parsing accepts images 1 and 5 for repeat
+      validation; image 4 remains quarantined because its electronic SCF failed.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/docs/endpoint_acceptance_state_machine.md
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/prepare_qe_repeat_relaxations.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/build_endpoint_pair_acceptance.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/build_endpoint_acceptance_batch.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/validate_runtime_provenance.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/plan_endpoint_discovery_progress.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/assign_endpoint_basins.py
+    - /Users/alina/Project/26MIgrationBench/cluster/mb_epaccept3_sm_s42_30850580/endpoint_acceptance_smoke.json
+    - /Users/alina/Project/26MIgrationBench/cluster/mb_epbasin_sm_s42_30850601/basin_assignments/endpoint_basin_assignments.json
+    - /Users/alina/Project/26MIgrationBench/docs/site_proposer_prospective_dft_validation.md
+    - /Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/endpoint_relax_batch_manifest.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/submitted_endpoint_relax_jobs.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/compare_site_proposer_dft_validation.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_siteprep_s42_30854874/mb_siteprep_s42_30854874/pytest.out
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_epaccept_sm_s42_30856509/batch_acceptance/endpoint_acceptance_batch.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_epaccept_sm_s42_30856509/basin_assignments/endpoint_basin_assignments.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_siteprep_s42_30857156/mb_siteprep_s42_30857156/pytest.out
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_siteprep_s42_30857186/mb_siteprep_s42_30857186/pytest.out
+    - /Users/alina/Project/26MIgrationBench/state/qe_site_proposer_prospective_dft_status_s42.json
+    - /Users/alina/Project/26MIgrationBench/state/qe_site_proposer_prospective_dft_plan_s42.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_scf_scaling/site_proposer_unique_119_4r4p_s42/submitted_job.json
+    - /Users/alina/Project/26MIgrationBench/configs/active_qe_scf_scaling_jobs.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/analyze_qe_scf_scaling_probe.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_fulltest_s42_30864905/pytest.out
+  N18:
+    name: Migration-space and hidden-basin formalization
+    status: partial_valid_coverage_gap
+    upstream:
+    - N1
+    - N2
+    downstream:
+    - N17
+    - N20
+    acceptance: System-scoped endpoint graph, continuous path descriptors,
+      trajectory distance, representative score, and coverage formula are versioned;
+      historical paths are segmented at candidate basins.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/docs/representative_path_generation_spec.md
+    - /Users/alina/Project/26MIgrationBench/docs/representative_trajectory_portfolio.md
+    - /Users/alina/Project/26MIgrationBench/data_processed/path_topology_audit/path_topology_manifest.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection_v3/selection_manifest.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/representative_trajectory_portfolio/portfolio_manifest.json
+    - /Users/alina/Project/26MIgrationBench/cluster/mb_trajrep3_sm_s42_30850696/representative_trajectory_portfolio/portfolio_manifest.json
+    - /Users/alina/Project/26MIgrationBench/docs/clearance_graph_path_reconstruction.md
+    - /Users/alina/Project/26MIgrationBench/data_processed/path_repairs/clearance_graph_1-5_s48/1-5_clearance_graph_13.extxyz
+    - /Users/alina/Project/26MIgrationBench/data_processed/path_repairs/clearance_graph_1-5_s48/coverage_score/geometry_coverage_score.json
+    - /Users/alina/Project/26MIgrationBench/docs/mlff_trust_region_preconditioner.md
+    - /Users/alina/Project/26MIgrationBench/configs/mlff_trust_region_1-4_s42.json
+    - /Users/alina/Project/26MIgrationBench/configs/mlff_trust_region_1-4_s52.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/compare_mlff_trust_region.py
+    - /Users/alina/Project/26MIgrationBench/configs/1-4_endpoint_remap_plan_s42.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_multidonor_s42_30853440/slurm-30853440.out
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/materialize_endpoint_remap_candidates.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_remapgate_s42_30853464/slurm-30853464.out
+    current_evidence: The 12-lineage historical candidate universe now has an
+      executable curve-level distance and facility-location selector. The 61-atom
+      set reaches 0.900583 diagnostic coverage with 5/7 representatives; the
+      81-atom set reaches 0.900223 with 4/5. Rockfish CPU Slurm job 30850696
+      reproduced all three result CSVs byte-for-byte. Restricting representative
+      centers to valid 61-atom geometries caps coverage at 0.735641, so three
+      close-contact regions require repair or replacement. No path is promoted
+      to a final reference. Rockfish smoke 30850824 validated periodic-cell-aware
+      hard-clearance projections for `1-3` and `1-5`; `1-2` still needs endpoint
+      replacement, and `1-5` retains a 4.200 A Cr-step continuity defect. Full
+      Rockfish suite 30851071 passed 58 tests, including continuation-lineage,
+      multi-config MLFF provenance,
+      and MLFF periodic-output gates, and reproduced the repaired paths byte-for-byte.
+      A periodic clearance-graph reconstruction for `1-5` passed Rockfish job
+      30850985 with 1.806 A minimum separation and 1.830 A maximum Cr step.
+      Geometry-only similarity to historical `1-5` is 0.535 and valid-center
+      coverage rises by 0.0302, so it is retained as a distinct candidate.
+      Provenance-complete MACE jobs 30852128, 30852143, and 30852144 are
+      terminal but fail scientific handoff; 1-4 exceeds the 5 eV energy-change
+      gate, 1-7 exceeds the 2.5 A migrant-step gate, and 1-8 fails both. They are
+      archived as negative diagnostics rather than promoted to QE.
+      Trust-region MACE job 30853021 now provides the strict seed-42 pair against
+      unrestrained job 30852128; job 30852994, seed 52, is an implementation
+      replicate. Both separately record base-MACE and restrained energies and
+      forces for every image and iteration. Rockfish Slurm job 30853032 passed
+      all 78 tests for the terminal comparator and fail-closed classification.
+      Rockfish Slurm job 30853107 then passed all 80 tests, including a complete
+      synthetic trust-region export that proves physical labels and the barrier
+      are read from base MACE while tethered quantities remain optimization-only.
+      The historical 1-4 candidate is now explicitly barred from direct QE
+      promotion because its endpoints are unverified and its production flag is
+      false. If its trust run passes geometry, it is only a curvature donor.
+      Topology requires accepted image-1, image-4, and image-5 basins to be
+      remapped into separate 1->4 and 4->5 candidates, followed by a new MACE
+      run. Rockfish job 30853208 validated this fail-closed decision with 85
+      passes and one explicit frozen-runner-version skip. The nonlinear
+      generator now consumes explicit segments from multi-frame historical ASE
+      trajectories; job 30853440 passed 86 tests plus the same one explicit
+      skip. The endpoint-remap plan is materialized with null placeholders and
+      immutable donor hashes in configs/1-4_endpoint_remap_plan_s42.json. The
+      remap materializer requires both segment-level repeat acceptance artifacts,
+      exact structure hashes, image indices, and a shared endpoint calculator;
+      Rockfish job 30853464 passed 87 tests plus the frozen-runner skip.
+      Jobs 30853021 and 30852994 are terminal, provenance-complete, and
+      identical across seeds. The restrained optimizer converged in 31 steps;
+      its base-MACE residual remains 0.190 eV/A, so it is accepted only as a
+      curvature donor. The formal comparator requires endpoint remap before any
+      new MACE or QE handoff. The frozen-runner boundary is removed, and
+      Initial deployment smoke 30861664 exposed one missing remote comparator
+      sync and is preserved as failed infrastructure evidence. Replacement
+      Rockfish job 30861741 passed all 97 tests with zero skips.
+    active_jobs:
+    - {job_id: '30850997', path_id: 1-5_cleargraph13, variant: mace_foundation, seed: 48}
+  N19:
+    name: Geometry-transform versus direct DFT relaxation
+    status: running
+    upstream:
+    - N17
+    - N24
+    downstream:
+    - endpoint proposer design
+    - N20
+    acceptance: Compare only paired calculations that converge to the same basin;
+      report ionic-step, SCF-iteration, and walltime speedups, with basin switches
+      reported separately. A manuscript-level speedup additionally requires the
+      shared calculator identity to pass N24 and every segment included in the
+      cumulative cost to pass input/job/pw.x runtime provenance; if either gate
+      fails, both pair members must be rerun from segment one.
+    current_evidence: |
+      The original eight exact-iteration jobs all ended cleanly at QE's inherited
+      default nstep=50, without BFGS convergence. Final evaluated maximum forces
+      were 0.07519/0.07135 eV/A for direct/transformed 1-6 image 2,
+      0.78201/0.06623 for 1-6 image 5, 0.07284/0.07070 for 1-7 image 2,
+      and 0.08082/1.04789 for 1-7 image 5. These prefixes do not support a
+      speedup claim. Eight r2 continuations now start from each branch's latest
+      printed geometry, preserve a separate last-force-evaluated geometry hash,
+      and explicitly set nstep=200, max_seconds=84600, 24 h, 2 MPI ranks, and
+      160 GB. Active registries atomically replaced the terminal parents.
+      Rockfish smoke 30852040 validated 69 tests, the corrected continuation
+      code, periodic path repair, and explicit remote code-root export. The
+      coverage-gap direct/transformed jobs 30850842-30850847 and corrected
+      periodic MACE controls 30850830-30850833 remain separate experiments;
+      missing-cell MACE jobs 30850728-30850731 remain quarantined. Calculator
+      identities match within each exact pair, but N24 has not accepted the
+      identity and no final same-basin speedup is available. The active r2 jobs
+      predate runtime capture, so a later continuation cannot repair their
+      cumulative provenance; manuscript promotion requires a fully provenanced
+      rerun of both arms from segment one. Rockfish CPU smoke 30857352 passed
+      the decision and multi-segment runtime-provenance tests. At the
+      2026-09-13T15:26Z checkpoint all six coverage-gap DFT jobs and all eight
+      exact-pair r2 continuations were running normally. Coverage-gap BFGS-step
+      prefixes were 25/23, 28/27, and 29/29 for the three direct/transformed
+      pairs; these censored counts are not speedups. Rockfish job 30852910 passed
+      all 74 current tests for strict MACE provenance, geometry, history, and
+      collapse gating. All six selected-point inputs share complete calculator
+      identity 7111008577b76397 with zero parse errors; N24 acceptance remains
+      pending.
+      At the 18:27Z checkpoint, selected direct jobs remained running at
+      36/48/45 steps. All transformed parents cleanly reached nstep=50 without
+      BFGS convergence and were continued as jobs 30860584/30860628/30860689
+      with nstep=200 and max_seconds=84600. At 18:33Z all eight exact r2 jobs
+      were healthy and running; only 1-7/image2 met the current-geometry same-
+      basin diagnostic. Every formal comparison remains pending_not_converged.
+      A separately frozen same-structure prospective batch transforms the six
+      site-proposer coordinates by the bounded periodic soft-contact objective.
+      Shifts span 0.006-0.235 A, all transformed inputs retain >2.60 A Cr-host
+      clearance, and all 18 direct/control/transformed inputs share calculator
+      identity 03738b164d4bdccb. Transformed jobs 30861875/80/81/94 and
+      30861902/15 are running; their direct controls are proposal jobs
+      30854592/97, 30854603/08/12/17. This is a relaxation-efficiency estimand,
+      not the proposal-versus-control stable-site-yield estimand.
+      The canonical updater validates exact six-pair coverage and requires
+      hash-bound repeat acceptance for both variants before final basin and
+      speedup classification. Direct and transformed repeat jobs carry distinct
+      arm tags, preventing job-name/prefix collisions. Rockfish job 30862388
+      passed all 101 tests. The paired repeat planner additionally selects exactly
+      the six proposal parents, excludes matched controls, and makes direct repeats
+      shared canonical computations rather than duplicate submissions. Rockfish
+      CPU Slurm job 30862405 passed all 102 tests with zero skips.
+      Direct and transformed repeat acceptances are separate hash-bound artifacts;
+      the final updater consumes and records both rather than requiring an
+      ambiguous manually merged batch. Rockfish CPU Slurm job 30864698 passed
+      all 103 tests with zero skips after this interface was added.
+      A broad discovery repeat status can be reused through an exact six-proposal,
+      source-hash-bound read-only view; Rockfish job 30864774 passed all 103 tests
+      for this no-duplicate-computation transition.
+      A semantic audit proves all six frozen inputs differ only in QE prefix and
+      one Cr coordinate: host maximum displacement is exactly 0.0 A, cells and
+      atom order match, and all input hashes and Cr shifts agree with the manifest.
+      The parser/comparator now records first instantaneous and first sustained
+      force-threshold crossings plus cumulative SCF work at every force
+      evaluation, so a one-step force dip cannot be misreported as acceleration.
+      All 12 prospective direct/control jobs and all six transformed jobs were
+      still in their first SCF at the 23:38Z cadence checkpoint; no speedup is
+      released. Rockfish full-suite job 30872198 passed 107 tests.
+      Reanalysis with the corrected force parser classifies six of eight r2 rows
+      as accepted local minima; two direct rows still end after SCF failures.
+      Formal speedup remains zero because repeat/runtime/calculator gates are
+      absent. The `1-6/image5` pair reaches different basins. The same-basin
+      `1-7/image5` transformed arm is slower: 109 versus 92 ionic steps and
+      1863 versus 1554 cumulative SCF iterations. These old lineages remain
+      diagnostic and will not receive more compute.
+      At 2026-09-15T07:46Z the prospective A/B batch became terminal without a
+      single ionic step: every arm hit max_seconds during its first SCF after
+      15-20 completed electronic iterations. The mathematical coordinate
+      transform therefore has not yet been tested at the ionic-relaxation level;
+      the present bottleneck is electronic SCF throughput/stability. No speedup
+      is defined. Performance-only job 30920087 tests the identical unique_119
+      Hamiltonian with 2 MPI ranks and 2 k-point pools before any bulk restart.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/docs/endpoint_site_transform_ab_experiment.md
+    - /Users/alina/Project/26MIgrationBench/docs/prospective_site_transform_dft_speed_experiment.md
+    - /Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_comparison/exact_iter/1-6_iter108/paired_relaxation_comparison.csv
+    - /Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_comparison/exact_iter/1-7_iter112/paired_relaxation_comparison.csv
+    - /Users/alina/Project/26MIgrationBench/docs/coverage_gap_path_repairs.md
+    - /Users/alina/Project/26MIgrationBench/configs/qe_geometry_transform_relax_ab_s47.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_geometry_transform_relax_ab_s47
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_calculator_identity_audit/selected_point_ab_s47
+    - /Users/alina/Project/26MIgrationBench/docs/qe_relax_continuation.md
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/continue_qe_relax.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/update_qe_exact_geometry_transform_ab.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/compare_endpoint_relaxation_speed.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/update_site_proposer_transform_ab.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/plan_site_transform_ab_repeats.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_abprov_s42_30857352/mb_abprov_s42_30857352/pytest.out
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_fulltest_s42_30862405/pytest.out
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_fulltest_s42_30864698/pytest.out
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_fulltest_s42_30864774/pytest.out
+    - /Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/semantic_pair_audit/input_pair_audit.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/audit_site_transform_input_pairs.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42
+    active_jobs:
+    - {job_id: '30851800', parent_job_id: '30844024', path_id: 1-6, iteration: 108, image_index: 2, variant: direct_r2}
+    - {job_id: '30851803', parent_job_id: '30844035', path_id: 1-6, iteration: 108, image_index: 2, variant: geomvoid025_r2}
+    - {job_id: '30851807', parent_job_id: '30844025', path_id: 1-6, iteration: 108, image_index: 5, variant: direct_r2}
+    - {job_id: '30851806', parent_job_id: '30844038', path_id: 1-6, iteration: 108, image_index: 5, variant: geomvoid025_r2}
+    - {job_id: '30851802', parent_job_id: '30844039', path_id: 1-7, iteration: 112, image_index: 2, variant: direct_r2}
+    - {job_id: '30851801', parent_job_id: '30844065', path_id: 1-7, iteration: 112, image_index: 2, variant: geomvoid025_r2}
+    - {job_id: '30851808', parent_job_id: '30844053', path_id: 1-7, iteration: 112, image_index: 5, variant: direct_r2}
+    - {job_id: '30851809', parent_job_id: '30844069', path_id: 1-7, iteration: 112, image_index: 5, variant: geomvoid025_r2}
+    - {job_id: '30850842', path_id: 1-3, image_index: 2, variant: direct}
+    - {job_id: '30850843', path_id: 1-3, image_index: 3, variant: direct}
+    - {job_id: '30850846', path_id: 1-5, image_index: 2, variant: direct}
+    - {job_id: '30861875', path_id: site_proposer_pair1, image_index: 1, variant: proposal_transformed, seed: 42}
+    - {job_id: '30861880', path_id: site_proposer_pair2, image_index: 1, variant: proposal_transformed, seed: 42}
+    - {job_id: '30861881', path_id: site_proposer_pair3, image_index: 1, variant: proposal_transformed, seed: 42}
+    - {job_id: '30861894', path_id: site_proposer_pair4, image_index: 1, variant: proposal_transformed, seed: 42}
+    - {job_id: '30861902', path_id: site_proposer_pair5, image_index: 1, variant: proposal_transformed, seed: 42}
+    - {job_id: '30861915', path_id: site_proposer_pair6, image_index: 1, variant: proposal_transformed, seed: 42}
+    - {job_id: '30860584', parent_job_id: '30850844', path_id: 1-3, image_index: 2, variant: hard_clearance_r2}
+    - {job_id: '30860628', parent_job_id: '30850845', path_id: 1-3, image_index: 3, variant: hard_clearance_r2}
+    - {job_id: '30860689', parent_job_id: '30850847', path_id: 1-5, image_index: 2, variant: hard_clearance_r2}
+  N20:
+    name: First complete representative-path pilot
+    status: nonlinear_generator_validated_pending_endpoints
+    upstream:
+    - N17
+    - N18
+    - N19
+    - N24
+    downstream:
+    - N6
+    - mechanism coverage expansion
+    - Hugging Face dataset release
+    acceptance: One accepted basin pair is transformed into nonlinear candidate
+      paths, MACE-pre-relaxed, and refined by restartable QE NEB to <= 0.03 eV/A
+      plus a <= 0.02 eV/A final check; every image and optimizer iteration is
+      preserved with energies, atomic forces, NEB forces, convergence, and hashes.
+    current_evidence: The deterministic nonlinear generator produces MIC-linear,
+      clearance-arc, and historical-curvature-warp candidates with PBC-exact
+      endpoints, geometry gates, and dual migrant/all-atom path deduplication.
+      Real Rockfish CPU Slurm smoke 30850304 passed 8/8 61-atom seven-image
+      candidates with no fabricated energy/force labels. CPU Slurm jobs
+      30850337 and 30850360 then validated lossless MACE iteration capture and
+      explicit model identities on one candidate. Both two-step paths remain
+      near 3.6 eV/A NEB residual. A matched direct-versus-MLFF QE handoff bundle
+      passed Rockfish Slurm validation in job 30850445, with seven images and
+      shared complete identity 7111008577b76397. It remains diagnostic and
+      unsubmitted because the endpoints and N24 identity are not accepted. The
+      production provenance chain is now acyclic and regression tested as
+      endpoint acceptance -> candidate manifest -> MLFF result -> QE handoff.
+      Candidate manifests bind both endpoint structure hashes and the preceding
+      acceptance artifact hash. Trust-region MACE now has a distinct production
+      handoff role requiring a hash-bound comparator decision, dual-potential
+      histories, and base-potential identity before the ordinary endpoint and
+      calculator gates are applied. Handoff bundle schema 1.1 binds both neb.in
+      files to their individual handoff manifests. Rockfish job 30853141 passed
+      all 82 tests, including self-contained schema-1.1 pair generation and
+      validation. Jobs 30853132 and 30853133 are archived failed fixture-
+      portability diagnostics and produced no scientific input. The downstream
+      QE-NEB A/B comparator now accumulates path and SCF work across restart
+      segments, measures final-band identity under PBC, and refuses prefix,
+      mechanism-switch, or unaccepted-calculator speedups. Rockfish job 30853151
+      passed all 84 tests. The hardened version additionally hash-binds each
+      lineage's first input to the pair manifest and records residual AUC and
+      threshold-crossing iterations; Rockfish job 30853165 passed all 84 tests.
+      Job 30853162 is retained as the failed fixture that motivated the explicit
+      fail-closed cell-distance handling. Endpoint-remap materialization now has
+      a full Rockfish CPU execution test; job 30853484 completed successfully
+      and built both historical 1->4 and 4->5 segments from hash-bound synthetic
+      acceptance fixtures. This closes the software execution gate only; real
+      endpoint acceptance and new production MACE runs remain pending.
+      Production, warm-started, and restart QE-NEB wrappers now capture both
+      neb.x and pw.x. The A/B comparator requires this runtime identity for every
+      cost-bearing segment. Rockfish job 30857639 validated real QE 7.3.1 binary,
+      input, and Slurm bindings; failed job 30857573 is retained as the Conda/QE
+      PATH-order diagnostic.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/generate_nonlinear_neb_candidates.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/validate_nonlinear_candidate_manifest.py
+    - /Users/alina/Project/26MIgrationBench/docs/nonlinear_candidate_generation.md
+    - /Users/alina/Project/26MIgrationBench/data_processed/nonlinear_candidate_smoke/1-6_iter108_img2_to_img5_v2_s42/nonlinear_candidate_manifest.json
+    - /Users/alina/Project/26MIgrationBench/cluster/mb_nlpath_smoke_s42_30850304/candidate_validation.json
+    - /Users/alina/Project/26MIgrationBench/docs/mlff_preconditioner_measurement.md
+    - /Users/alina/Project/26MIgrationBench/data_processed/mlff_preconditioner_comparison/nonlinear_historical_warp_smoke/mlff_preconditioner_comparison.json
+    - /Users/alina/Project/26MIgrationBench/docs/qe_neb_handoff_gate.md
+    - /Users/alina/Project/26MIgrationBench/cluster/mb_qehandoff2_sm_s44_30850445/qe_handoff_pair_validation.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_handoffgate_s42_30853141/slurm-30853141.out
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/compare_qe_neb_initialization_ab.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_nebabcmp_s42_30853151/slurm-30853151.out
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_nebablineage_s42_30853165/slurm-30853165.out
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_remape2e_s42_30853484/mb_remape2e_s42_30853484/smoke_manifest.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/cluster/mb_qenebprov_s42_30857639/mb_qenebprov_s42_30857639/runtime_validation.json
+  N21:
+    name: Lossless QE iteration data asset
+    status: done_for_current_lineage
+    upstream:
+    - N5
+    downstream:
+    - N6
+    - N20
+    - N22
+    acceptance: Every completed NEB iteration joins exact .pathN coordinates and
+      gradients, PW energies and atomic forces, neb.out residuals, reaction coordinates,
+      stable IDs, and immutable source hashes with numerical cross-checks.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_neb_full_history/1-6_r3
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_neb_full_history/1-7_r3
+  N22:
+    name: Hugging Face dataset staging and release gate
+    status: validated_audit_staging
+    upstream:
+    - N7
+    - N21
+    downstream:
+    - Hugging Face release
+    - N16
+    acceptance: Normalized tables pass primary-key, foreign-key, array, force-gradient,
+      iteration/calculation-force, endpoint-force-semantics, grouped-split,
+      cross-split duplicate, and manuscript eligibility gates. Manuscript use
+      additionally requires hash-bound accepted path, endpoint, calculator, and
+      runtime-provenance artifacts; missing evidence fails closed.
+    current_evidence: The QE audit staging contains 1110 rows and the two
+      reconstructed historical MACE bundles contain 8390 61-atom and 24030
+      81-atom configuration/calculation/iteration rows. All four staging bundles
+      pass relational, physical, split, quarantine, and manuscript gates. Legacy
+      runtime provenance is explicitly null and the assumed historical MACE NEB
+      protocol is recorded; these rows stay audit-only. Every future production
+      wrapper, including SCF warmup and restart wrappers, writes runtime identity
+      before execution. Rockfish job 30852080 captured Python/MACE/package
+      identities and SHA-256 hashes for pw.x and neb.x; job 30852079 passed all
+      70 tests. The prospective transform experiment now has a dedicated
+      relaxation_pairs builder. It marks every row evaluation-only, preserves
+      full A/B lineage metadata, and forbids numerical speedups until repeat,
+      basin, runtime, and calculator gates all pass. Rockfish job 30862305
+      passed all 100 tests.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/data_processed/hf_dataset_staging/qe_neb_history_v1
+    - /Users/alina/Project/26MIgrationBench/data_processed/hf_dataset_staging/mlff_neb_history_smoke_v1
+    - /Users/alina/Project/26MIgrationBench/data_processed/hf_dataset_staging/mlff_historical_61_v1
+    - /Users/alina/Project/26MIgrationBench/data_processed/hf_dataset_staging/mlff_historical_81_v1
+    - /Users/alina/Project/26MIgrationBench/docs/hf_dataset_release_gate.md
+    - /Users/alina/Project/26MIgrationBench/docs/environment_reproducibility.md
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/build_relaxation_pair_dataset.py
+    - /Users/alina/Project/26MIgrationBench/cluster/mb_runtimeprov_s42_30851964/runtime_provenance.json
+  N23:
+    name: 81-atom independent-image SCF warm-start
+    status: all_warmups_accepted_production_neb_running
+    upstream:
+    - N4
+    - N10
+    downstream:
+    - N5
+    acceptance: Every image reaches a finite, converged standalone SCF with charge-density
+      and XML restart artifacts; the assembled production NEB restores degauss 0.005 Ry,
+      reconverges every image, never uses warmup energies as barrier labels, and
+      carries hash-bound input, runtime, pw.x, charge-density, and XML provenance.
+    active_jobs:
+    - {job_id: '30845691', path_id: 81_neb_4, image_index_qe: 1, seed: 42}
+    - {job_id: '30845692', path_id: 81_neb_4, image_index_qe: 2, seed: 42}
+    - {job_id: '30864950', path_id: 81_neb_4, image_index_qe: 3, seed: 42}
+    - {job_id: '30864953', path_id: 81_neb_4, image_index_qe: 4, seed: 42}
+    - {job_id: '30864956', path_id: 81_neb_4, image_index_qe: 5, seed: 42}
+    - {job_id: '30864957', path_id: 81_neb_4, image_index_qe: 6, seed: 42}
+    - {job_id: '30864959', path_id: 81_neb_4, image_index_qe: 7, seed: 42}
+    - {job_id: '30864960', path_id: 81_neb_4, image_index_qe: 8, seed: 42}
+    - {job_id: '30864963', path_id: 81_neb_4, image_index_qe: 9, seed: 42}
+    - {job_id: '30864964', path_id: 81_neb_4, image_index_qe: 10, seed: 42}
+    - {job_id: '30879749', path_id: 81_neb_4, variant: production_scf_warmstarted_qe_neb, seed: 42}
+    current_evidence: |
+      Pilot images 1 and 2 completed accepted standalone SCFs in 21 and 22
+      electronic iterations with charge-density, XML, and wavefunction restart
+      artifacts. The pilot-gated launcher then submitted images 3-10. These
+      independent-image energies are warm-start diagnostics only and can never
+      be used as a barrier; production NEB remains gated on all ten accepted
+      image records and a hash-bound assembly. At the 2026-09-13T23:41:42Z
+      checkpoint, images 3-10 were all healthy and running in SCF with 7-10
+      electronic iterations; no timeout, failure, or continuation was present.
+      At 2026-09-14T03:10Z images 4 and 5 also passed, bringing accepted
+      warm-start coverage to 4/10. Images 3 and 6-10 remain healthy at 16-21
+      electronic iterations; production NEB remains blocked on all ten.
+      At 2026-09-14T10:23Z all ten image SCFs passed with finite energies and
+      restart artifacts. The gated launcher assembled the charge-density
+      warm-start, restored degauss=0.005 Ry, and submitted 48 h production QE
+      NEB job 30879749. At 2026-09-15T07:42Z it remained RUNNING in its first
+      NEB iteration without a complete activation table. Warmup energies remain
+      diagnostics, not barrier labels.
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/configs/active_qe_scf_warmup_jobs.json
+    - /Users/alina/Project/26MIgrationBench/state/qe_scf_warmup_job_status.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/prepare_qe_neb_from_scf_warmups.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/expand_qe_scf_warmup_batch.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/continue_qe_scf_warmup.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/submit_slurm_qe_scf_warmup_restart.sh
+    - /Users/alina/Project/26MIgrationBench/configs/qe_scf_warmup_expansion_81_neb_4_s42.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/launch_qe_neb_from_scf_warmups.py
+    - /Users/alina/Project/26MIgrationBench/configs/qe_neb_launch_81_neb_4_scfwarm_s42.json
+  N24:
+    name: QE calculator identity and convergence gate
+    status: numerical_protocol_converged_spin_resolved_soc_paused
+    upstream:
+    - N2
+    - N3
+    downstream:
+    - N17
+    - N19
+    - N20
+    - Methods
+    - reviewer consistency response
+    acceptance: Every accepted energy and barrier is tied to one complete calculator
+      identity. Endpoint-saddle energy differences pass cutoff and k-point convergence;
+      spin and explicit SOC variants are resolved as physical-model choices. The SI
+      exactly matches the settings used by each accepted result.
+    current_evidence: |
+      377 inputs form 12 identities; no audited input explicitly enables SOC.
+      Main 61-atom, 81-atom, site-search, and Victor profiles differ. The
+      50/200 versus 100/400 Ry fixed-geometry cutoff stage passed for exact
+      1-6/path108 images 2 and 4: the energy contrasts are 0.830367 and
+      0.829871 eV, differing by only 0.000497 eV against a 0.02 eV gate.
+      The completed Gamma-versus-2x2x1 stage failed decisively: the contrast is
+      +0.830367 eV at Gamma and -0.615659 eV at 2x2x1, a -1.446026 eV change
+      with an ordering reversal. Gamma-only historical barriers are therefore
+      quarantined as final references. The completed 3x3x1 versus 4x4x1 stage
+      also failed: image-4 minus image-2 is -0.807902 eV at 3x3x1 and
+      -0.904860 eV at 4x4x1, differing by 0.096958 eV against the 0.02 eV gate.
+      Hash-bound 5x5x1 jobs 30871998 and 30871999 completed accepted SCFs. The
+      5x5x1 contrast is -0.894609 eV; its difference from 4x4x1 is 0.010251 eV,
+      passing the 0.02 eV gate. The cheaper 4x4x1 mesh is therefore accepted for
+      the next numerical stage. Cutoff-at-4x4x1 jobs 30877380-30877383 completed
+      accepted SCFs. Their 50/200 and 100/400 Ry contrasts are -0.904860 and
+      -0.905798 eV, differing by only 0.000938 eV, so the cutoff gate passes and
+      accepts the cheaper 50/200 Ry setting. Nonspin jobs 30879759/61 and
+      collinear-Cr jobs 30879762/64 completed accepted SCFs. Their fixed-geometry
+      contrasts are -0.904860 and -0.692803 eV, differing by 0.212056 eV, so
+      spin is a distinct physical model rather than a numerical convergence
+      variant. Explicit-SOC jobs 30879766/68 were cancelled on 2026-09-15 by
+      user instruction and must not be restarted without renewed authorization.
+      The launcher rejects empty/non-numeric Slurm receipts.
+      Rockfish SG15 Cr/Sb/Te UPFs are
+      hash-verified fully relativistic NC files with spin-orbit projectors, so
+      an explicit SOC branch is technically allowed but remains a pending
+      physical-model decision. SCF monitoring now preserves scalar and
+      noncollinear magnetic observables, including species-mapped site moments.
+    active_jobs:
+    - {job_id: '30879759', profile: accepted_50_200_4x4x1_nonspin_reference, image_index_qe: 2, seed: 42, status: completed}
+    - {job_id: '30879761', profile: accepted_50_200_4x4x1_nonspin_reference, image_index_qe: 4, seed: 42, status: completed}
+    - {job_id: '30879762', profile: accepted_50_200_4x4x1_collinear_cr, image_index_qe: 2, seed: 42, status: completed}
+    - {job_id: '30879764', profile: accepted_50_200_4x4x1_collinear_cr, image_index_qe: 4, seed: 42, status: completed}
+    - {job_id: '30879766', profile: accepted_50_200_4x4x1_soc_cr, image_index_qe: 2, seed: 42, status: cancelled_user_paused}
+    - {job_id: '30879768', profile: accepted_50_200_4x4x1_soc_cr, image_index_qe: 4, seed: 42, status: cancelled_user_paused}
+    outputs:
+    - /Users/alina/Project/26MIgrationBench/docs/qe_calculator_identity_audit.md
+    - /Users/alina/Project/26MIgrationBench/docs/qe_methods_resolution_branches.md
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_calculator_identity_audit/v1/calculator_identity_manifest.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/audit_qe_calculator_identity.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/analyze_qe_protocol_sensitivity.py
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/plan_next_qe_protocol_stage.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_pseudopotential_compatibility/sg15_fr_pbe_rockfish.json
+    - /Users/alina/Project/26MIgrationBench/scripts/migrationbench/monitor_qe_scf_warmups.py
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_stage_s42/kpoint_analysis.json
+    - /Users/alina/Project/26MIgrationBench/configs/qe_protocol_sensitivity_1-6_kpoint_dense_s42.json
+    - /Users/alina/Project/26MIgrationBench/configs/qe_protocol_sensitivity_1-6_kpoint_5x5_s42.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_dense_s42/dense_k_analysis.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_4x4_5x5_s42/kpoint_analysis.json
+    - /Users/alina/Project/26MIgrationBench/configs/qe_protocol_sensitivity_1-6_cutoff_at_4x4_s42.json
+    - /Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_cutoff_at_4x4_s42/cutoff_analysis.json
+    - /Users/alina/Project/26MIgrationBench/configs/qe_protocol_sensitivity_1-6_spin_soc_at_4x4_s42.json

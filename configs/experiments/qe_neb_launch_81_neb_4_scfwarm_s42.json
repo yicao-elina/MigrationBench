@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "scientific_role": "launch_production_qe_neb_after_all_image_scf_warmups_are_accepted",
+  "arguments": {
+    "base_neb_input": "data/raw_compact/rockfish/mb_qe81n4_direct_pf_s42_30791514/neb.in",
+    "warmup_status": "registry/runtime_state/qe_scf_warmup_job_status.json",
+    "out_dir": "data/processed/qe_neb_inputs/81_neb_4/scfwarm_v1",
+    "launch_manifest": "data/processed/qe_neb_inputs/81_neb_4/scfwarm_v1/production_launch_manifest.json",
+    "active_qe_jobs": "configs/experiments/active_qe_jobs.json",
+    "path_id": "81_neb_4",
+    "branch_id": "81_neb_4_scfwarm_qe_r1_s42",
+    "job_name": "mb_qe81n4_scfw_r1_s42",
+    "num_images": 10,
+    "seed": 42,
+    "remote_input_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe81n4_scfwarm_r1_s42",
+    "remote_run_root": "/scratch16/pclancy3/yi/revision1_migrationbench_runs",
+    "remote_wrapper": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/scripts/migrationbench/submit_slurm_qe_neb_warmstarted.sh",
+    "walltime": "48:00:00",
+    "max_seconds": 171000,
+    "ntasks": 4,
+    "memory": "180G",
+    "kpoint_pools": 4,
+    "production_degauss_Ry": 0.005
+  },
+  "gate": {
+    "required_images": 10,
+    "required_classification": "accepted_scf_warmstart",
+    "warmup_energies_are_labels": false,
+    "production_scf_reconvergence_required": true,
+    "duplicate_submission_policy": "registry_then_exact_rockfish_job_name"
+  }
+}

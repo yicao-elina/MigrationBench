@@ -1,0 +1,445 @@
+{
+  "created_at_utc": "2026-09-14T06:33:56.330499+00:00",
+  "jobs": [
+    {
+      "branch_id": "tetradymite__Sb2Te3__Cr1__ingap_1-7__reused_path_s42",
+      "calculator": "mace-foundation",
+      "checks": {
+        "candidate_manifest_hash": true,
+        "dual_potential_history": true,
+        "endpoints_preserved": true,
+        "final_geometry": false,
+        "history_complete": true,
+        "history_output_hashes": true,
+        "input_hash": true,
+        "model_hash": true,
+        "no_large_energy_collapse": true,
+        "output_images_hash": true,
+        "periodic_output": true,
+        "protocol_match": true,
+        "runtime_code_snapshot": true,
+        "runtime_identity_complete": true,
+        "runtime_input_hashes": true,
+        "single_manifest": true,
+        "trajectory_hash": true
+      },
+      "classification": "terminal_geometry_failure",
+      "fmax_target_eV_A": 0.05,
+      "host_tether_k_eV_A2": 0.0,
+      "job_id": "30878807",
+      "job_name": "mb_nlmba7ef0_dg8466_s42",
+      "local_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlmba7ef0_dg8466_s42_30878807",
+      "local_images": "/Users/alina/Project/26MIgrationBench/data_processed/material_transfer_stage1_s42/tetradymite__Sb2Te3__Cr1__ingap_1-7__reused_path_s42/reused_path/mapped_images.extxyz",
+      "local_images_sha256": "b2c3bd952827b3766c533c86674ee4a1ae9af3df65cb1042039cd503f51a4385",
+      "manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlmba7ef0_dg8466_s42_30878807/mlff_tetradymite__Sb2Te3__Cr1__ingap_1-7__reused_path_s42_s42/mlff_neb_manifest.json",
+      "mechanism_metrics": {
+        "all_atom_internal_coordinate_rms_A": 0.38274426740129236,
+        "endpoint_max_displacement_A": 0.0,
+        "final_geometry": {
+          "max_migrant_step_A": 2.848734918132286,
+          "min_pair_distance_A": 2.580521857640665,
+          "total_migrant_path_A": 5.509447539845718
+        },
+        "initial_geometry": {
+          "max_migrant_step_A": 1.0966774841773306,
+          "min_pair_distance_A": 2.535280713422076,
+          "total_migrant_path_A": 2.7333996356453123
+        },
+        "max_abs_internal_relaxation_energy_delta_eV": 3.948171765331466,
+        "migrant_internal_coordinate_rms_A": 1.3602824081586609
+      },
+      "metrics": {
+        "barrier_proxy_eV": 0.0,
+        "final_max_internal_neb_force_eV_A": 0.04793316007986194,
+        "final_max_internal_true_force_eV_A": 0.08716754256759776,
+        "max_abs_internal_relaxation_energy_delta_eV": 3.948171765331466,
+        "optimizer_converged": true,
+        "optimizer_converged_under_optimization_potential": true,
+        "optimizer_steps_completed": 113,
+        "reference_tether": {
+          "enabled": false,
+          "formula": "E_opt=E_base+0.5*sum_a k_a*||MIC(r_a-r_a_ref)||^2",
+          "host_k_eV_A2": 0.0,
+          "migrant_element": "Cr",
+          "migrant_k_eV_A2": 0.0
+        }
+      },
+      "migrant_tether_k_eV_A2": 0.0,
+      "mode": "diagnostic",
+      "model_path": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+      "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+      "remote_candidate_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlmba7ef0_dg8466_s42/nonlinear_candidate_manifest.json",
+      "remote_images": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlmba7ef0_dg8466_s42/mapped_images.extxyz",
+      "remote_input_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlmba7ef0_dg8466_s42",
+      "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlmba7ef0_dg8466_s42_30878807",
+      "resources": {
+        "cpus": 8,
+        "memory": "64G",
+        "walltime": "08:00:00"
+      },
+      "sacct_main": {
+        "Elapsed": "00:02:57",
+        "ExitCode": "0:0",
+        "JobID": "30878807",
+        "JobName": "mb_nlmba7ef0_dg8466_s42",
+        "MaxRSS": "",
+        "ReqMem": "64G",
+        "State": "COMPLETED"
+      },
+      "sacct_rows": [
+        {
+          "Elapsed": "00:02:57",
+          "ExitCode": "0:0",
+          "JobID": "30878807",
+          "JobName": "mb_nlmba7ef0_dg8466_s42",
+          "MaxRSS": "",
+          "ReqMem": "64G",
+          "State": "COMPLETED"
+        }
+      ],
+      "seed": 42,
+      "spring_constant_eV_A2": 0.1,
+      "steps": 500,
+      "submission_status": "submitted_new_job",
+      "submitted_code_snapshot": {
+        "remote_directory": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlmba7ef0_dg8466_s42/submitted_code",
+        "sha256": {
+          "capture_runtime_provenance.py": "585e9a5597ab1f207381bbc942e67f6f549673595c3dd845460527ab46e2a69e",
+          "export_mlff_neb_iteration_history.py": "0e6953a36a6c7dc98f3e17dcccec8c2dec763b39514295b8db4b263c1715fb62",
+          "run_mlff_neb.py": "6cbb63c08a947d349265d655737fd7c960741548c303409443571fc897d0a68a",
+          "submit_slurm_mlff_neb_cpu.sh": "d19056a84a4d5fb0ecaa2d59278281b0c5111446c6d902cad1f53419e5907e51"
+        }
+      }
+    },
+    {
+      "branch_id": "tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42",
+      "calculator": "mace-foundation",
+      "checks": {
+        "candidate_manifest_hash": true,
+        "dual_potential_history": true,
+        "endpoints_preserved": true,
+        "final_geometry": true,
+        "history_complete": true,
+        "history_output_hashes": true,
+        "input_hash": true,
+        "model_hash": true,
+        "no_large_energy_collapse": true,
+        "output_images_hash": true,
+        "periodic_output": true,
+        "protocol_match": true,
+        "runtime_code_snapshot": true,
+        "runtime_identity_complete": true,
+        "runtime_input_hashes": true,
+        "single_manifest": true,
+        "trajectory_hash": true
+      },
+      "classification": "ready_for_mechanism_clustering",
+      "fmax_target_eV_A": 0.05,
+      "host_tether_k_eV_A2": 0.0,
+      "job_id": "30878808",
+      "job_name": "mb_nlm6a346d_dg8466_s42",
+      "local_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6a346d_dg8466_s42_30878808",
+      "local_images": "/Users/alina/Project/26MIgrationBench/data_processed/material_transfer_stage1_s42/tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42/reused_path/mapped_images.extxyz",
+      "local_images_sha256": "e7622e2a586a5e7012223a2cc7d2df337efeed730632a2014370a45c0f310d4d",
+      "manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_manifest.json",
+      "mechanism_metrics": {
+        "all_atom_internal_coordinate_rms_A": 0.12855217322917323,
+        "endpoint_max_displacement_A": 0.0,
+        "final_geometry": {
+          "max_migrant_step_A": 1.479485370624364,
+          "min_pair_distance_A": 2.5098928647357774,
+          "total_migrant_path_A": 3.214140245579392
+        },
+        "initial_geometry": {
+          "max_migrant_step_A": 1.0966774841773306,
+          "min_pair_distance_A": 2.535280713422076,
+          "total_migrant_path_A": 2.7333996356453123
+        },
+        "max_abs_internal_relaxation_energy_delta_eV": 3.2430423736421687,
+        "migrant_internal_coordinate_rms_A": 0.6669049457963085
+      },
+      "metrics": {
+        "barrier_proxy_eV": 0.0,
+        "final_max_internal_neb_force_eV_A": 0.0467487373844611,
+        "final_max_internal_true_force_eV_A": 0.23654681411422965,
+        "max_abs_internal_relaxation_energy_delta_eV": 3.2430423736421687,
+        "optimizer_converged": true,
+        "optimizer_converged_under_optimization_potential": true,
+        "optimizer_steps_completed": 50,
+        "reference_tether": {
+          "enabled": false,
+          "formula": "E_opt=E_base+0.5*sum_a k_a*||MIC(r_a-r_a_ref)||^2",
+          "host_k_eV_A2": 0.0,
+          "migrant_element": "Cr",
+          "migrant_k_eV_A2": 0.0
+        }
+      },
+      "migrant_tether_k_eV_A2": 0.0,
+      "mode": "diagnostic",
+      "model_path": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+      "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+      "remote_candidate_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm6a346d_dg8466_s42/nonlinear_candidate_manifest.json",
+      "remote_images": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm6a346d_dg8466_s42/mapped_images.extxyz",
+      "remote_input_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm6a346d_dg8466_s42",
+      "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808",
+      "resources": {
+        "cpus": 8,
+        "memory": "64G",
+        "walltime": "08:00:00"
+      },
+      "sacct_main": {
+        "Elapsed": "00:02:01",
+        "ExitCode": "0:0",
+        "JobID": "30878808",
+        "JobName": "mb_nlm6a346d_dg8466_s42",
+        "MaxRSS": "",
+        "ReqMem": "64G",
+        "State": "COMPLETED"
+      },
+      "sacct_rows": [
+        {
+          "Elapsed": "00:02:01",
+          "ExitCode": "0:0",
+          "JobID": "30878808",
+          "JobName": "mb_nlm6a346d_dg8466_s42",
+          "MaxRSS": "",
+          "ReqMem": "64G",
+          "State": "COMPLETED"
+        }
+      ],
+      "seed": 42,
+      "spring_constant_eV_A2": 0.1,
+      "steps": 500,
+      "submission_status": "submitted_new_job",
+      "submitted_code_snapshot": {
+        "remote_directory": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm6a346d_dg8466_s42/submitted_code",
+        "sha256": {
+          "capture_runtime_provenance.py": "585e9a5597ab1f207381bbc942e67f6f549673595c3dd845460527ab46e2a69e",
+          "export_mlff_neb_iteration_history.py": "0e6953a36a6c7dc98f3e17dcccec8c2dec763b39514295b8db4b263c1715fb62",
+          "run_mlff_neb.py": "6cbb63c08a947d349265d655737fd7c960741548c303409443571fc897d0a68a",
+          "submit_slurm_mlff_neb_cpu.sh": "d19056a84a4d5fb0ecaa2d59278281b0c5111446c6d902cad1f53419e5907e51"
+        }
+      }
+    },
+    {
+      "branch_id": "tetradymite__Bi2Te3__Cr1__ingap_1-7__reused_path_s42",
+      "calculator": "mace-foundation",
+      "checks": {
+        "candidate_manifest_hash": true,
+        "dual_potential_history": true,
+        "endpoints_preserved": true,
+        "final_geometry": true,
+        "history_complete": true,
+        "history_output_hashes": true,
+        "input_hash": true,
+        "model_hash": true,
+        "no_large_energy_collapse": false,
+        "output_images_hash": true,
+        "periodic_output": true,
+        "protocol_match": true,
+        "runtime_code_snapshot": true,
+        "runtime_identity_complete": true,
+        "runtime_input_hashes": true,
+        "single_manifest": true,
+        "trajectory_hash": true
+      },
+      "classification": "terminal_basin_collapse",
+      "fmax_target_eV_A": 0.05,
+      "host_tether_k_eV_A2": 0.0,
+      "job_id": "30878811",
+      "job_name": "mb_nlm486c15_dg8466_s42",
+      "local_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm486c15_dg8466_s42_30878811",
+      "local_images": "/Users/alina/Project/26MIgrationBench/data_processed/material_transfer_stage1_s42/tetradymite__Bi2Te3__Cr1__ingap_1-7__reused_path_s42/reused_path/mapped_images.extxyz",
+      "local_images_sha256": "0b488179e74df8c06cdef83d48809f3dc21623548ff5693e2116678d64055abb",
+      "manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm486c15_dg8466_s42_30878811/mlff_tetradymite__Bi2Te3__Cr1__ingap_1-7__reused_path_s42_s42/mlff_neb_manifest.json",
+      "mechanism_metrics": {
+        "all_atom_internal_coordinate_rms_A": 0.15134658530587083,
+        "endpoint_max_displacement_A": 7.95218492360205e-09,
+        "final_geometry": {
+          "max_migrant_step_A": 1.5048689846032077,
+          "min_pair_distance_A": 2.583793159198253,
+          "total_migrant_path_A": 3.075263009119242
+        },
+        "initial_geometry": {
+          "max_migrant_step_A": 1.118243871760316,
+          "min_pair_distance_A": 2.5452757009299827,
+          "total_migrant_path_A": 2.7965653554919134
+        },
+        "max_abs_internal_relaxation_energy_delta_eV": 5.285114955544856,
+        "migrant_internal_coordinate_rms_A": 0.6458480680175789
+      },
+      "metrics": {
+        "barrier_proxy_eV": 0.0,
+        "final_max_internal_neb_force_eV_A": 0.04365977564275563,
+        "final_max_internal_true_force_eV_A": 0.41967092229193725,
+        "max_abs_internal_relaxation_energy_delta_eV": 5.285114955544856,
+        "optimizer_converged": true,
+        "optimizer_converged_under_optimization_potential": true,
+        "optimizer_steps_completed": 38,
+        "reference_tether": {
+          "enabled": false,
+          "formula": "E_opt=E_base+0.5*sum_a k_a*||MIC(r_a-r_a_ref)||^2",
+          "host_k_eV_A2": 0.0,
+          "migrant_element": "Cr",
+          "migrant_k_eV_A2": 0.0
+        }
+      },
+      "migrant_tether_k_eV_A2": 0.0,
+      "mode": "diagnostic",
+      "model_path": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+      "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+      "remote_candidate_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm486c15_dg8466_s42/nonlinear_candidate_manifest.json",
+      "remote_images": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm486c15_dg8466_s42/mapped_images.extxyz",
+      "remote_input_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm486c15_dg8466_s42",
+      "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm486c15_dg8466_s42_30878811",
+      "resources": {
+        "cpus": 8,
+        "memory": "64G",
+        "walltime": "08:00:00"
+      },
+      "sacct_main": {
+        "Elapsed": "00:01:40",
+        "ExitCode": "0:0",
+        "JobID": "30878811",
+        "JobName": "mb_nlm486c15_dg8466_s42",
+        "MaxRSS": "",
+        "ReqMem": "64G",
+        "State": "COMPLETED"
+      },
+      "sacct_rows": [
+        {
+          "Elapsed": "00:01:40",
+          "ExitCode": "0:0",
+          "JobID": "30878811",
+          "JobName": "mb_nlm486c15_dg8466_s42",
+          "MaxRSS": "",
+          "ReqMem": "64G",
+          "State": "COMPLETED"
+        }
+      ],
+      "seed": 42,
+      "spring_constant_eV_A2": 0.1,
+      "steps": 500,
+      "submission_status": "submitted_new_job",
+      "submitted_code_snapshot": {
+        "remote_directory": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm486c15_dg8466_s42/submitted_code",
+        "sha256": {
+          "capture_runtime_provenance.py": "585e9a5597ab1f207381bbc942e67f6f549673595c3dd845460527ab46e2a69e",
+          "export_mlff_neb_iteration_history.py": "0e6953a36a6c7dc98f3e17dcccec8c2dec763b39514295b8db4b263c1715fb62",
+          "run_mlff_neb.py": "6cbb63c08a947d349265d655737fd7c960741548c303409443571fc897d0a68a",
+          "submit_slurm_mlff_neb_cpu.sh": "d19056a84a4d5fb0ecaa2d59278281b0c5111446c6d902cad1f53419e5907e51"
+        }
+      }
+    },
+    {
+      "branch_id": "tetradymite__Bi2Te3__Mn1__ingap_1-7__reused_path_s42",
+      "calculator": "mace-foundation",
+      "checks": {
+        "candidate_manifest_hash": true,
+        "dual_potential_history": true,
+        "endpoints_preserved": true,
+        "final_geometry": true,
+        "history_complete": true,
+        "history_output_hashes": true,
+        "input_hash": true,
+        "model_hash": true,
+        "no_large_energy_collapse": true,
+        "output_images_hash": true,
+        "periodic_output": true,
+        "protocol_match": true,
+        "runtime_code_snapshot": true,
+        "runtime_identity_complete": true,
+        "runtime_input_hashes": true,
+        "single_manifest": true,
+        "trajectory_hash": true
+      },
+      "classification": "ready_for_mechanism_clustering",
+      "fmax_target_eV_A": 0.05,
+      "host_tether_k_eV_A2": 0.0,
+      "job_id": "30878812",
+      "job_name": "mb_nlm1e6199_dg8466_s42",
+      "local_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm1e6199_dg8466_s42_30878812",
+      "local_images": "/Users/alina/Project/26MIgrationBench/data_processed/material_transfer_stage1_s42/tetradymite__Bi2Te3__Mn1__ingap_1-7__reused_path_s42/reused_path/mapped_images.extxyz",
+      "local_images_sha256": "650863f1bff55f798262f9c903815306c16d6e8f5e681d035560cd325017ae5c",
+      "manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm1e6199_dg8466_s42_30878812/mlff_tetradymite__Bi2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_manifest.json",
+      "mechanism_metrics": {
+        "all_atom_internal_coordinate_rms_A": 0.1418163374873989,
+        "endpoint_max_displacement_A": 7.95218492360205e-09,
+        "final_geometry": {
+          "max_migrant_step_A": 1.52378448036767,
+          "min_pair_distance_A": 2.526090367507527,
+          "total_migrant_path_A": 2.7625594295697673
+        },
+        "initial_geometry": {
+          "max_migrant_step_A": 1.118243871760316,
+          "min_pair_distance_A": 2.5452757009299827,
+          "total_migrant_path_A": 2.7965653554919134
+        },
+        "max_abs_internal_relaxation_energy_delta_eV": 4.831959635355815,
+        "migrant_internal_coordinate_rms_A": 0.5853028776882332
+      },
+      "metrics": {
+        "barrier_proxy_eV": 0.0,
+        "final_max_internal_neb_force_eV_A": 0.04939635432403143,
+        "final_max_internal_true_force_eV_A": 0.26746117949896886,
+        "max_abs_internal_relaxation_energy_delta_eV": 4.831959635355815,
+        "optimizer_converged": true,
+        "optimizer_converged_under_optimization_potential": true,
+        "optimizer_steps_completed": 37,
+        "reference_tether": {
+          "enabled": false,
+          "formula": "E_opt=E_base+0.5*sum_a k_a*||MIC(r_a-r_a_ref)||^2",
+          "host_k_eV_A2": 0.0,
+          "migrant_element": "Cr",
+          "migrant_k_eV_A2": 0.0
+        }
+      },
+      "migrant_tether_k_eV_A2": 0.0,
+      "mode": "diagnostic",
+      "model_path": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+      "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+      "remote_candidate_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm1e6199_dg8466_s42/nonlinear_candidate_manifest.json",
+      "remote_images": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm1e6199_dg8466_s42/mapped_images.extxyz",
+      "remote_input_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm1e6199_dg8466_s42",
+      "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm1e6199_dg8466_s42_30878812",
+      "resources": {
+        "cpus": 8,
+        "memory": "64G",
+        "walltime": "08:00:00"
+      },
+      "sacct_main": {
+        "Elapsed": "00:01:40",
+        "ExitCode": "0:0",
+        "JobID": "30878812",
+        "JobName": "mb_nlm1e6199_dg8466_s42",
+        "MaxRSS": "",
+        "ReqMem": "64G",
+        "State": "COMPLETED"
+      },
+      "sacct_rows": [
+        {
+          "Elapsed": "00:01:40",
+          "ExitCode": "0:0",
+          "JobID": "30878812",
+          "JobName": "mb_nlm1e6199_dg8466_s42",
+          "MaxRSS": "",
+          "ReqMem": "64G",
+          "State": "COMPLETED"
+        }
+      ],
+      "seed": 42,
+      "spring_constant_eV_A2": 0.1,
+      "steps": 500,
+      "submission_status": "submitted_new_job",
+      "submitted_code_snapshot": {
+        "remote_directory": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm1e6199_dg8466_s42/submitted_code",
+        "sha256": {
+          "capture_runtime_provenance.py": "585e9a5597ab1f207381bbc942e67f6f549673595c3dd845460527ab46e2a69e",
+          "export_mlff_neb_iteration_history.py": "0e6953a36a6c7dc98f3e17dcccec8c2dec763b39514295b8db4b263c1715fb62",
+          "run_mlff_neb.py": "6cbb63c08a947d349265d655737fd7c960741548c303409443571fc897d0a68a",
+          "submit_slurm_mlff_neb_cpu.sh": "d19056a84a4d5fb0ecaa2d59278281b0c5111446c6d902cad1f53419e5907e51"
+        }
+      }
+    }
+  ]
+}

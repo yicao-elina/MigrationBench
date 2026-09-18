@@ -1,0 +1,27 @@
+{
+  "schema_version": "1.0",
+  "scientific_role": "slurm_copy_and_hash_smoke_only",
+  "path_id": "smoke",
+  "branch_id": "smoke_r2_s42",
+  "job_name": "mb_nebrst_cp_s42",
+  "seed": 42,
+  "attempt": 2,
+  "parent": {
+    "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/qe_restart_parent_s42",
+    "latest_path_iteration": 1
+  },
+  "resources": {
+    "walltime": "00:05:00",
+    "max_seconds": 240,
+    "safety_seconds": 60,
+    "ntasks": 1,
+    "memory": "1G",
+    "kpoint_pools": 1
+  },
+  "restart_policy": {
+    "restart_mode": "restart",
+    "copy_scope": "parent_out_directory_only",
+    "copy_verification": "complete_relative_path_sha256_inventory_before_neb",
+    "parent_mutated": false
+  }
+}

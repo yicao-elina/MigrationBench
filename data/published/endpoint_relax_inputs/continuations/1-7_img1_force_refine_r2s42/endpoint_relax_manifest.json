@@ -1,0 +1,60 @@
+{
+  "attempt": 2,
+  "branch_id": "1-7_qe_r3_img1_endpoint_relax_r2s42",
+  "calculator_identity": "7111008577b76397",
+  "continuation_policy": {
+    "bfgs_hessian_restart": false,
+    "electronic_restart": "from_scratch",
+    "geometry_source": "parent_latest_printed_geometry",
+    "mode": "force-refinement",
+    "parent_mutated": false,
+    "parent_stop_reason": "benchmark_force_gate_failed_after_qe_bfgs",
+    "reason": "portable continuation without relying on incomplete electronic restart files"
+  },
+  "created_at_utc": "2026-09-13T13:25:57.684880+00:00",
+  "job_name": "mb_ep_17qer3_i1_r2s42",
+  "lineage_metrics_before_segment": {
+    "ionic_steps": 45,
+    "scf_iterations": 788,
+    "segments": 1
+  },
+  "parent": {
+    "branch_id": "1-7_qe_r3_img1_endpoint_relax_s42",
+    "classification": "relax_done_force_gate_failed",
+    "job_id": "30843324",
+    "job_name": "mb_ep_17qer3_i1_s42",
+    "last_complete_energy_eV": -133601.23060575858,
+    "last_complete_force_geometry_sha256": "b9d4341b5ac946c88bd9ab680c073bc59ef8f8dfefbfde0b6fff830ab4cddbaa",
+    "last_complete_ionic_step": 44,
+    "last_complete_max_force_eV_A": 0.07312475105516124,
+    "latest_geometry_has_evaluated_forces": true,
+    "latest_printed_geometry_sha256": "b9d4341b5ac946c88bd9ab680c073bc59ef8f8dfefbfde0b6fff830ab4cddbaa",
+    "manifest_sha256": "972b837b8b1ba4eb6beaf2e967b95e8d08cef8d2e685c01caa556093a1460a94",
+    "relax_input_sha256": "7c838c6157baee757afacd3109b95b9a27c411d99cdc1a94b40b23928cca6e70",
+    "relax_output_sha256": "27fc647a98b1ccf45ffd5fff299c1e609465d38df6337ae44230dc03d795d64a",
+    "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_ep_17qer3_i1_s42_30843324",
+    "status_file": "/Users/alina/Project/26MIgrationBench/state/qe_endpoint_relax_job_status.json",
+    "status_file_sha256": "991b73d0b2a15ca350b6fb9760d8d60a258825ae60d61859589cae12ea7b5cb8"
+  },
+  "path_id": "1-7_qe_r3",
+  "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_inputs/continuations/1-7_img1_force_refine_r2s42/relax.in",
+  "relax_input_sha256": "3004dfa10c7b36e7e2c5d368f3964032868dc893b8200104cce4ba246c357f4c",
+  "resources": {
+    "etot_conv_thr_Ry": 1e-06,
+    "forc_conv_thr_Ry_Bohr": 0.0005,
+    "memory": "160G",
+    "ntasks": 2,
+    "pw_max_seconds": 84600,
+    "target_max_atom_force_eV_A": 0.05,
+    "walltime": "24:00:00"
+  },
+  "schema_version": "1.0",
+  "scientific_role": "validated_qe_relax_force_refinement",
+  "seed": 42,
+  "source_image_index_qe": 1,
+  "source_path_id": "1-7_qe_r3",
+  "submission": {
+    "job_id": "30851619",
+    "state": "submitted"
+  }
+}

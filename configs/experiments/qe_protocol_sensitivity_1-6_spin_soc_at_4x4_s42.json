@@ -1,0 +1,62 @@
+{
+  "path_id": "1-6",
+  "source_run_dir": "data/raw_compact/rockfish/mb_qe16_direct_r3_s42_30812496",
+  "source_iteration": 108,
+  "image_indices": [2, 4],
+  "geometry_roles": {
+    "2": "internal_low_energy_basin_candidate",
+    "4": "segment_high_energy_image_candidate"
+  },
+  "pair_delta_E_tolerance_eV": 0.02,
+  "seed": 42,
+  "resources": {
+    "walltime": "48:00:00",
+    "max_seconds": 171000,
+    "memory": "180G"
+  },
+  "stage": "spin_and_soc_sensitivity_at_accepted_50_200_Ry_4x4x1_numerical_protocol",
+  "blocked_by": null,
+  "upstream_gate": {
+    "kpoint_gate": "pass_4x4x1_vs_5x5x1_difference_0.010251_eV",
+    "cutoff_gate": "pass_50_200_vs_100_400_difference_0.000938_eV",
+    "accepted_numerical_protocol": "50_200_Ry_4x4x1"
+  },
+  "out_dir": "data_processed/qe_protocol_sensitivity/1-6_spin_soc_at_4x4_s42",
+  "profiles": [
+    {
+      "id": "accepted_50_200_4x4x1_nonspin_reference",
+      "job_slug": "ns50k44",
+      "ecutwfc_Ry": 50,
+      "ecutrho_Ry": 200,
+      "degauss_Ry": 0.0146997236,
+      "spin_model": "nonspin",
+      "kpoints": {"mode": "automatic", "grid_shift": [4, 4, 1, 0, 0, 0]},
+      "ntasks": 4,
+      "kpoint_pools": 4
+    },
+    {
+      "id": "accepted_50_200_4x4x1_collinear_cr",
+      "job_slug": "sp50k44",
+      "ecutwfc_Ry": 50,
+      "ecutrho_Ry": 200,
+      "degauss_Ry": 0.0146997236,
+      "spin_model": "collinear",
+      "starting_magnetization": 0.5,
+      "kpoints": {"mode": "automatic", "grid_shift": [4, 4, 1, 0, 0, 0]},
+      "ntasks": 4,
+      "kpoint_pools": 4
+    },
+    {
+      "id": "accepted_50_200_4x4x1_soc_cr",
+      "job_slug": "soc50k44",
+      "ecutwfc_Ry": 50,
+      "ecutrho_Ry": 200,
+      "degauss_Ry": 0.0146997236,
+      "spin_model": "soc",
+      "starting_magnetization": 0.5,
+      "kpoints": {"mode": "automatic", "grid_shift": [4, 4, 1, 0, 0, 0]},
+      "ntasks": 4,
+      "kpoint_pools": 4
+    }
+  ]
+}

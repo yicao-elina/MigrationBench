@@ -1,0 +1,143 @@
+created_at: 2026-09-09
+run_root: /scratch16/pclancy3/yi/revision1_migrationbench_runs
+readonly_root: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3
+local_sync_root: data_processed/cluster
+default_seed: 42
+mlff_coverage_audit: data_processed/path_queue_mlff_coverage/audit.json
+mlff_coverage_status: 12_of_12_assigned_9_terminal_local_3_active
+
+resource_policy:
+  qe_neb: cpu_first
+  mlff_neb: cpu_first
+  gpu_exception: "Use GPU only when CPU MACE walltime becomes the bottleneck or when comparing with already-submitted GPU preconditioning jobs."
+
+workflow_for_unconverged_qe_neb:
+  - historical_qe_neb_output_or_images
+  - mace_pre_neb_relax_with_manifest
+  - qe_neb_explicit_image_input_with_config_manifest
+  - qe_cpu_neb_preflight
+  - qe_cpu_neb_production
+  - local_rsync_and_parser_gate
+  - dataset_record_for_huggingface
+
+paths:
+  - path_id: 1-4
+    family_descriptor: in_gap_by_prior_site_definition
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-4/sb2te3.xyz
+    qe_template: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-4/pw_1.in
+    current_dft_barrier_eV: 0.336050
+    current_qe_status: numerically_stationary_unconverged
+    current_max_image_error_eV_A: 0.482407
+    endpoint_validation_jobs: [30852638, 30852853, 30852854]
+    mlff_evidence_status: active_registered_job_30852128_periodic_path
+    next_step: monitor_mace_and_endpoint_jobs_then_repeat_relax_accepted_basins
+    manuscript_role: canonical_in_gap_candidate
+  - path_id: 1-7
+    family_descriptor: in_gap_by_prior_site_definition
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-7/sb2te3.xyz
+    qe_template: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-7/pw_1.in
+    current_dft_barrier_eV: 0.557933
+    current_qe_status: running_unconverged_hidden_basin_endpoint_unverified
+    topology_status: hidden_basin_at_image_2_and_endpoint_dominated_segments
+    endpoint_validation_jobs: [30843324, 30843325, 30843348]
+    mlff_evidence_status: active_registered_job_30852143_supersedes_bad_pbc_branch
+    next_step: validate_images_1_2_5_as_standalone_basins_and_gate_corrected_mace_path
+    manuscript_role: quarantine_until_converged
+  - path_id: 1-2
+    family_descriptor: deep_penetration_by_prior_site_definition
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-2/sb2te3.xyz
+    qe_template: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-2/pw_1.in
+    current_dft_barrier_eV: 2.790171
+    current_qe_status: unconverged
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_exists
+    next_step: reject_or_repair_large_mace_basin_change_before_any_qe_restart
+    manuscript_role: quarantine
+  - path_id: 1-3
+    family_descriptor: deep_penetration_by_prior_site_definition
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-3/sb2te3.xyz
+    qe_template: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-3/pw_1.in
+    current_dft_barrier_eV: 4.003362
+    current_qe_status: unconverged
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_exists
+    next_step: inspect_mace_mechanism_then_run_only_if_endpoint_gate_passes
+    manuscript_role: quarantine
+  - path_id: 1-5
+    family_descriptor: deep_penetration_by_prior_site_definition_needs_geometry_recheck
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-5/sb2te3.xyz
+    current_qe_status: divergent_or_unconverged
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_exists
+    next_step: replace_or_repair_high_force_mace_path_after_endpoint_sanity_check
+    manuscript_role: quarantine
+  - path_id: 1-6
+    family_descriptor: unclassified_auxiliary
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-6/sb2te3.xyz
+    current_dft_barrier_eV: 0.820400
+    current_qe_status: running_unconverged_hidden_basin_endpoint_unverified
+    topology_status: hidden_basin_at_image_2_and_endpoint_dominated_segments
+    endpoint_validation_jobs: [30843292, 30843300, 30843307]
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_quarantined
+    next_step: validate_images_1_2_5_as_standalone_basins_then_redefine_path
+    manuscript_role: auxiliary_candidate
+  - path_id: 1-8
+    family_descriptor: unclassified_auxiliary
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-8/sb2te3.xyz
+    current_dft_barrier_eV: 1.755620
+    current_qe_status: max_steps_reached
+    mlff_evidence_status: active_registered_job_30852144_periodic_path
+    next_step: monitor_mace_job_then_classify_mechanism_and_qe_eligibility
+    manuscript_role: auxiliary_candidate
+  - path_id: 81_neb_1
+    family_descriptor: deep_penetration_by_continuous_geometry
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_1/sb2te3.xyz
+    historical_neb_out: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_1/neb.out
+    current_dft_barrier_eV: 1.034728
+    current_max_image_error_eV_A: 0.355916
+    penetration_score: 0.691495
+    gap_score: 0.349578
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_exists
+    next_step: prioritize_after_endpoint_gate_or_use_81_neb_4_warmstart_route
+    manuscript_role: deep_penetration_secondary_candidate
+  - path_id: 81_neb_2
+    family_descriptor: deep_penetration_by_continuous_geometry
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_2/sb2te3.xyz
+    historical_neb_out: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_2/neb.out
+    current_dft_barrier_eV: 1.561262
+    current_max_image_error_eV_A: 0.635720
+    penetration_score: 0.736401
+    gap_score: 0.210226
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_exists
+    next_step: retain_diagnostic_due_near_zero_mace_barrier_and_high_force
+    manuscript_role: deep_penetration_secondary_candidate
+  - path_id: 81_neb_3
+    family_descriptor: deep_penetration_by_continuous_geometry
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_3/sb2te3.xyz
+    historical_neb_out: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_3/neb.out
+    current_dft_barrier_eV: 1.691053
+    current_max_image_error_eV_A: 0.231831
+    penetration_score: 0.718459
+    gap_score: 0.299710
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_exists
+    next_step: retain_diagnostic_due_zero_mace_barrier_and_high_force
+    manuscript_role: deep_penetration_secondary_candidate
+  - path_id: 81_neb_4
+    family_descriptor: deep_penetration_by_continuous_geometry
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_4/sb2te3.xyz
+    historical_neb_out: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_4/neb.out
+    current_dft_barrier_eV: 2.063858
+    current_max_image_error_eV_A: 0.526984
+    penetration_score: 0.739774
+    gap_score: 0.215557
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_exists
+    next_step: complete_independent_image_scf_warmstart_then_qe_neb
+    manuscript_role: deep_penetration_secondary_candidate
+  - path_id: 81_neb_5
+    family_descriptor: deep_penetration_by_continuous_geometry
+    historical_images: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_5/sb2te3.xyz
+    historical_neb_out: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_5/neb.out
+    current_dft_barrier_eV: 1.414868
+    current_max_image_error_eV_A: 0.319104
+    penetration_score: 0.741177
+    gap_score: 0.234885
+    mlff_evidence_status: terminal_local_asset_posthoc_history_qe_handoff_exists
+    next_step: inspect_zero_barrier_mechanism_before_qe_use
+    manuscript_role: deep_penetration_secondary_candidate

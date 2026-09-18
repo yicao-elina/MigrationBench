@@ -1,0 +1,216 @@
+{
+  "created_at_utc": "2026-09-14T06:31:21.215686+00:00",
+  "run_role": "diagnostic_preconditioner",
+  "source_candidate_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm6a346d_dg8466_s42/nonlinear_candidate_manifest.json",
+  "source_candidate_manifest_sha256": "c7a6df4871253a306106130c666608e0d20eb8b393e6aa7cd9f80733479c70e6",
+  "seed": 42,
+  "input_images": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/material_transfer_stage1/mb_nlm6a346d_dg8466_s42/mapped_images.extxyz",
+  "input_images_sha256": "e7622e2a586a5e7012223a2cc7d2df337efeed730632a2014370a45c0f310d4d",
+  "initial": null,
+  "initial_sha256": null,
+  "final": null,
+  "final_sha256": null,
+  "calculator": "mace-foundation",
+  "calculator_label": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+  "model_path": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+  "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+  "software_versions": {
+    "ase": "3.25.0",
+    "mace-torch": "0.3.12",
+    "torch": "2.7.0+cu118"
+  },
+  "default_dtype": "float64",
+  "n_images": 5,
+  "fmax_target_eV_A": 0.05,
+  "steps_requested": 500,
+  "optimizer_steps_completed": 50,
+  "optimizer_converged": true,
+  "optimizer_converged_under_optimization_potential": true,
+  "optimization_potential": "base",
+  "reference_tether": {
+    "enabled": false,
+    "migrant_element": "Cr",
+    "migrant_k_eV_A2": 0.0,
+    "host_k_eV_A2": 0.0,
+    "formula": "E_opt=E_base+0.5*sum_a k_a*||MIC(r_a-r_a_ref)||^2"
+  },
+  "initial_profile": [
+    {
+      "image_index": 0,
+      "energy_eV": -224.3901119772853,
+      "rel_energy_eV": 0.0,
+      "fmax_eV_A": 1.15319853973375
+    },
+    {
+      "image_index": 1,
+      "energy_eV": -224.00271430184168,
+      "rel_energy_eV": 0.3873976754436228,
+      "fmax_eV_A": 1.1592644380872126
+    },
+    {
+      "image_index": 2,
+      "energy_eV": -223.93136326573853,
+      "rel_energy_eV": 0.4587487115467752,
+      "fmax_eV_A": 1.2603108167741652
+    },
+    {
+      "image_index": 3,
+      "energy_eV": -224.55228557673027,
+      "rel_energy_eV": -0.16217359944496934,
+      "fmax_eV_A": 1.2039686874477868
+    },
+    {
+      "image_index": 4,
+      "energy_eV": -225.13940075212975,
+      "rel_energy_eV": -0.7492887748444446,
+      "fmax_eV_A": 1.0805300261113435
+    }
+  ],
+  "barrier_proxy_eV": 0.0,
+  "profile": [
+    {
+      "image_index": 0,
+      "energy_eV": -224.3901119772853,
+      "rel_energy_eV": 0.0,
+      "fmax_eV_A": 1.15319853973375
+    },
+    {
+      "image_index": 1,
+      "energy_eV": -227.24575667548385,
+      "rel_energy_eV": -2.855644698198546,
+      "fmax_eV_A": 0.10117762733063733
+    },
+    {
+      "image_index": 2,
+      "energy_eV": -226.80974940858076,
+      "rel_energy_eV": -2.419637431295456,
+      "fmax_eV_A": 0.23654681411422965
+    },
+    {
+      "image_index": 3,
+      "energy_eV": -227.23348158208097,
+      "rel_energy_eV": -2.8433696047956687,
+      "fmax_eV_A": 0.044484687669651156
+    },
+    {
+      "image_index": 4,
+      "energy_eV": -225.13940075212975,
+      "rel_energy_eV": -0.7492887748444446,
+      "fmax_eV_A": 1.0805300261113435
+    }
+  ],
+  "restrained_profile": [
+    {
+      "image_index": 0,
+      "energy_eV": -224.3901119772853,
+      "rel_energy_eV": 0.0,
+      "fmax_eV_A": 1.15319853973375
+    },
+    {
+      "image_index": 1,
+      "energy_eV": -227.24575667548385,
+      "rel_energy_eV": -2.855644698198546,
+      "fmax_eV_A": 0.10117762733063733
+    },
+    {
+      "image_index": 2,
+      "energy_eV": -226.80974940858076,
+      "rel_energy_eV": -2.419637431295456,
+      "fmax_eV_A": 0.23654681411422965
+    },
+    {
+      "image_index": 3,
+      "energy_eV": -227.23348158208097,
+      "rel_energy_eV": -2.8433696047956687,
+      "fmax_eV_A": 0.044484687669651156
+    },
+    {
+      "image_index": 4,
+      "energy_eV": -225.13940075212975,
+      "rel_energy_eV": -0.7492887748444446,
+      "fmax_eV_A": 1.0805300261113435
+    }
+  ],
+  "relaxation_energy_delta": [
+    {
+      "image_index": 0,
+      "initial_energy_eV": -224.3901119772853,
+      "final_energy_eV": -224.3901119772853,
+      "delta_energy_eV": 0.0,
+      "initial_rel_energy_eV": 0.0,
+      "final_rel_energy_eV": 0.0,
+      "delta_rel_energy_eV": 0.0,
+      "initial_fmax_eV_A": 1.15319853973375,
+      "final_fmax_eV_A": 1.15319853973375
+    },
+    {
+      "image_index": 1,
+      "initial_energy_eV": -224.00271430184168,
+      "final_energy_eV": -227.24575667548385,
+      "delta_energy_eV": -3.2430423736421687,
+      "initial_rel_energy_eV": 0.3873976754436228,
+      "final_rel_energy_eV": -2.855644698198546,
+      "delta_rel_energy_eV": -3.2430423736421687,
+      "initial_fmax_eV_A": 1.1592644380872126,
+      "final_fmax_eV_A": 0.10117762733063733
+    },
+    {
+      "image_index": 2,
+      "initial_energy_eV": -223.93136326573853,
+      "final_energy_eV": -226.80974940858076,
+      "delta_energy_eV": -2.8783861428422313,
+      "initial_rel_energy_eV": 0.4587487115467752,
+      "final_rel_energy_eV": -2.419637431295456,
+      "delta_rel_energy_eV": -2.8783861428422313,
+      "initial_fmax_eV_A": 1.2603108167741652,
+      "final_fmax_eV_A": 0.23654681411422965
+    },
+    {
+      "image_index": 3,
+      "initial_energy_eV": -224.55228557673027,
+      "final_energy_eV": -227.23348158208097,
+      "delta_energy_eV": -2.6811960053506994,
+      "initial_rel_energy_eV": -0.16217359944496934,
+      "final_rel_energy_eV": -2.8433696047956687,
+      "delta_rel_energy_eV": -2.6811960053506994,
+      "initial_fmax_eV_A": 1.2039686874477868,
+      "final_fmax_eV_A": 0.044484687669651156
+    },
+    {
+      "image_index": 4,
+      "initial_energy_eV": -225.13940075212975,
+      "final_energy_eV": -225.13940075212975,
+      "delta_energy_eV": 0.0,
+      "initial_rel_energy_eV": -0.7492887748444446,
+      "final_rel_energy_eV": -0.7492887748444446,
+      "delta_rel_energy_eV": 0.0,
+      "initial_fmax_eV_A": 1.0805300261113435,
+      "final_fmax_eV_A": 1.0805300261113435
+    }
+  ],
+  "outputs": {
+    "images": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_images.extxyz",
+    "images_sha256": "d02dbe7a36d65c5c2276059aafe238629a5f9197ce29c2dedb759349f1f83651",
+    "trajectory": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb.traj",
+    "log": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb.log",
+    "iteration_history": {
+      "extxyz": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_iteration_history.extxyz",
+      "extxyz_sha256": "336a50e51cb3fbdce6114973e3f0e9e76a20b52fb2340ba7198273535579a041",
+      "csv": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_iteration_history.csv",
+      "csv_sha256": "298c794dd38e7498595d83c38593778b6983f5e6295f0dc0fecf3e66f0e07214"
+    },
+    "iteration_history_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_iteration_history_manifest.json",
+    "dual_potential_history_extxyz": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_dual_potential_history.extxyz",
+    "dual_potential_history_extxyz_sha256": "19fdc08cf2b5b180f3f3afb18c8a2fbb2aab978a502fc2f5daff69a1080a5c87",
+    "dual_potential_history_csv": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_dual_potential_history.csv",
+    "dual_potential_history_csv_sha256": "fa4ccd657457cd1cf0fe5fb4b4c464734dd13eb4c240e45cadef97c40760e986",
+    "dual_potential_history_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6a346d_dg8466_s42_30878808/mlff_tetradymite__Sb2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_dual_potential_history_manifest.json",
+    "dual_potential_history_manifest_sha256": "d3bb7c0684e6aab8041723d2f20e749d57e1ea69e32d1b3988116c29029a20ac"
+  },
+  "optimizer_iterations_recorded_including_initial": 51,
+  "final_max_internal_true_force_eV_A": 0.23654681411422965,
+  "final_max_internal_neb_force_eV_A": 0.0467487373844611,
+  "final_max_neb_residual_eV_A": 0.04210635584725597,
+  "dual_potential_history_complete": true,
+  "warning": "MLFF barrier is a preconditioner/proposal only; final paper reference must come from DFT NEB."
+}

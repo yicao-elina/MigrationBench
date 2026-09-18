@@ -1,0 +1,26 @@
+name: reproducibility
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test-and-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv sync --extra test --extra workflow
+      - run: uv run snakemake --snakefile workflow/Snakefile --cores 1 all
+      - run: uv run pytest
+      - uses: xu-cheng/latex-action@v4
+        with:
+          working_directory: paper
+          root_file: |
+            sn-article-final.tex
+            sn-article-SI.tex
+            response_to_reviewers.tex
+      - run: git diff --exit-code

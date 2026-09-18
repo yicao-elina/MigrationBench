@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T10:31:00Z",
+  "polling_interval_hours": 3,
+  "scientific_role": "unverified_endpoint_preconditioner_diagnostics",
+  "jobs": [
+    {
+      "job_id": "30850447",
+      "job_name": "mb_nlm6d1d33_dg9f86_s45",
+      "calculator": "mace-model",
+      "model_label": "MACE-OMAT fine-tuned",
+      "seed": 45,
+      "steps": 200,
+      "fmax_target_eV_A": 0.1,
+      "production_eligible": false,
+      "launch_manifest": "data_processed/nonlinear_candidate_smoke/1-6_iter108_img2_to_img5_v2_s42/mlff_diagnostic_omat_s45_launch.json"
+    },
+    {
+      "job_id": "30850448",
+      "job_name": "mb_nlm6d1d33_dg8466_s45",
+      "calculator": "mace-foundation",
+      "model_label": "MACE-MP-0 medium foundation",
+      "seed": 45,
+      "steps": 200,
+      "fmax_target_eV_A": 0.1,
+      "production_eligible": false,
+      "launch_manifest": "data_processed/nonlinear_candidate_smoke/1-6_iter108_img2_to_img5_v2_s42/mlff_diagnostic_foundation_s45_launch.json"
+    },
+    {
+      "job_id": "30850830",
+      "job_name": "mb_mrep13p_dir_s47",
+      "calculator": "mace-foundation",
+      "model_label": "MACE-MP-0 medium foundation",
+      "seed": 47,
+      "steps": 200,
+      "fmax_target_eV_A": 0.1,
+      "production_eligible": false,
+      "variant": "1-3 periodic direct control"
+    },
+    {
+      "job_id": "30850831",
+      "job_name": "mb_mrep13p_fix_s47",
+      "calculator": "mace-foundation",
+      "model_label": "MACE-MP-0 medium foundation",
+      "seed": 47,
+      "steps": 200,
+      "fmax_target_eV_A": 0.1,
+      "production_eligible": false,
+      "variant": "1-3 periodic unwrap plus migrant-only 1.8 A repair"
+    },
+    {
+      "job_id": "30850832",
+      "job_name": "mb_mrep15p_dir_s47",
+      "calculator": "mace-foundation",
+      "model_label": "MACE-MP-0 medium foundation",
+      "seed": 47,
+      "steps": 200,
+      "fmax_target_eV_A": 0.1,
+      "production_eligible": false,
+      "variant": "1-5 periodic direct control"
+    },
+    {
+      "job_id": "30850833",
+      "job_name": "mb_mrep15p_fix_s47",
+      "calculator": "mace-foundation",
+      "model_label": "MACE-MP-0 medium foundation",
+      "seed": 47,
+      "steps": 200,
+      "fmax_target_eV_A": 0.1,
+      "production_eligible": false,
+      "variant": "1-5 periodic unwrap plus migrant-only 1.8 A repair"
+    },
+    {
+      "job_id": "30850997",
+      "job_name": "mb_m15cg13_s48",
+      "calculator": "mace-foundation",
+      "model_label": "MACE-MP-0 medium foundation",
+      "seed": 48,
+      "steps": 500,
+      "fmax_target_eV_A": 0.1,
+      "production_eligible": false,
+      "variant": "1-5 periodic clearance-graph 13-image reconstruction"
+    }
+  ]
+}

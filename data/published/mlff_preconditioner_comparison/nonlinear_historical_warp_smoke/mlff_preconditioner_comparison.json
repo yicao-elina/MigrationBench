@@ -1,0 +1,121 @@
+{
+  "created_at_utc": "2026-09-13T10:46:44.129652+00:00",
+  "run_config": "/Users/alina/Project/26MIgrationBench/configs/mlff_preconditioner_smoke_comparison.json",
+  "run_config_sha256": "87b99564fa8a5b63414e8cc252b16324e421703988d1bc194415fb2a7419e699",
+  "records": [
+    {
+      "label": "MACE-OMAT fine-tuned",
+      "run_role": "unverified_smoke",
+      "calculator": "mace-model",
+      "model_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model",
+      "model_path_sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0",
+      "seed": 43,
+      "input_images_sha256": "16abe3a3590b80a0bfbb97b96fa3476811031bb7e2759b0460b3a550e4f4e186",
+      "optimizer_steps_completed": 2,
+      "optimizer_converged": false,
+      "initial_neb_residual_eV_A": 14.089326922144515,
+      "final_neb_residual_eV_A": 3.56884508576894,
+      "residual_final_over_initial": 0.2533013184724747,
+      "log_residual_slope_per_step": -0.6865877584032757,
+      "residual_auc_eV_A_step": 15.980658332806538,
+      "steps_to_1_eV_A": null,
+      "steps_to_0.5_eV_A": null,
+      "steps_to_0.1_eV_A": null,
+      "initial_barrier_proxy_eV": 5.910706402322546,
+      "final_barrier_proxy_eV": 2.448742365394992,
+      "barrier_proxy_change_eV": -3.4619640369275544,
+      "final_max_internal_true_force_eV_A": 3.514980386586412,
+      "final_max_internal_neb_force_eV_A": 3.587323893035326,
+      "manuscript_barrier_eligible": false,
+      "main_manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6d1d33_sm_s43_30850337/mlff_historical_curvature_warp_s43/mlff_neb_manifest.json",
+      "main_manifest_sha256": "12a11e561bd771db11221257c7a21f5f69e6a7e4319010c7bd6b747616b6aec9",
+      "history_manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6d1d33_sm_s43_30850337/posthoc_history_v3_true_endpoints/mlff_neb_iteration_history_manifest.json",
+      "history_manifest_sha256": "d8f6025cec40bbb1dfe9bbbd6c212f4ed0ff0ed7a38b3082ccdbca670f9d0a5b",
+      "iterations": [
+        {
+          "optimizer_iteration": 0,
+          "barrier_proxy_eV": 5.910706402322546,
+          "max_internal_true_force_eV_A": 14.057835746244404,
+          "max_internal_neb_force_eV_A": 14.379911686329526,
+          "max_neb_residual_eV_A": 14.089326922144515
+        },
+        {
+          "optimizer_iteration": 1,
+          "barrier_proxy_eV": 3.5892070084164516,
+          "max_internal_true_force_eV_A": 7.074836289767823,
+          "max_internal_neb_force_eV_A": 7.256243131017932,
+          "max_neb_residual_eV_A": 7.151572328849809
+        },
+        {
+          "optimizer_iteration": 2,
+          "barrier_proxy_eV": 2.448742365394992,
+          "max_internal_true_force_eV_A": 3.514980386586412,
+          "max_internal_neb_force_eV_A": 3.587323893035326,
+          "max_neb_residual_eV_A": 3.56884508576894
+        }
+      ]
+    },
+    {
+      "label": "MACE-MP-0 medium foundation",
+      "run_role": "unverified_smoke",
+      "calculator": "mace-foundation",
+      "model_path": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+      "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+      "seed": 44,
+      "input_images_sha256": "16abe3a3590b80a0bfbb97b96fa3476811031bb7e2759b0460b3a550e4f4e186",
+      "optimizer_steps_completed": 2,
+      "optimizer_converged": false,
+      "initial_neb_residual_eV_A": 10.786786255659361,
+      "final_neb_residual_eV_A": 3.6589426136427887,
+      "residual_final_over_initial": 0.339205999536989,
+      "log_residual_slope_per_step": -0.5405738439532857,
+      "residual_auc_eV_A_step": 13.337142734117524,
+      "steps_to_1_eV_A": null,
+      "steps_to_0.5_eV_A": null,
+      "steps_to_0.1_eV_A": null,
+      "initial_barrier_proxy_eV": 5.4633777944575,
+      "final_barrier_proxy_eV": 2.613503488301319,
+      "barrier_proxy_change_eV": -2.849874306156181,
+      "final_max_internal_true_force_eV_A": 3.6024101919819276,
+      "final_max_internal_neb_force_eV_A": 3.668103423882154,
+      "manuscript_barrier_eligible": false,
+      "main_manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6d1d33_sm_s44_30850360/mlff_historical_curvature_warp_s44/mlff_neb_manifest.json",
+      "main_manifest_sha256": "0cff56a0b6cd61029f382ff861b51f3d9a63523225e5a02a625b91b747cee683",
+      "history_manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6d1d33_sm_s44_30850360/posthoc_history_v3_true_endpoints/mlff_neb_iteration_history_manifest.json",
+      "history_manifest_sha256": "97bf05077e38bbdab711cff14df0fe862d381dae865cbfee60dbbf125100fa82",
+      "iterations": [
+        {
+          "optimizer_iteration": 0,
+          "barrier_proxy_eV": 5.4633777944575,
+          "max_internal_true_force_eV_A": 10.67372021591136,
+          "max_internal_neb_force_eV_A": 10.946987677573398,
+          "max_neb_residual_eV_A": 10.786786255659361
+        },
+        {
+          "optimizer_iteration": 1,
+          "barrier_proxy_eV": 3.68343623807786,
+          "max_internal_true_force_eV_A": 6.003010892497081,
+          "max_internal_neb_force_eV_A": 6.165492532428926,
+          "max_neb_residual_eV_A": 6.114278299466448
+        },
+        {
+          "optimizer_iteration": 2,
+          "barrier_proxy_eV": 2.613503488301319,
+          "max_internal_true_force_eV_A": 3.6024101919819276,
+          "max_internal_neb_force_eV_A": 3.668103423882154,
+          "max_neb_residual_eV_A": 3.6589426136427887
+        }
+      ]
+    }
+  ],
+  "interpretation_gate": "Diagnostic only unless endpoints are accepted, each run reaches its NEB force target, and downstream DFT handoff quality is measured.",
+  "task_relevant_metrics": [
+    "NEB residual trajectory",
+    "steps to force threshold",
+    "path deformation",
+    "barrier-proxy drift",
+    "DFT initial residual",
+    "DFT steps to convergence",
+    "final DFT mechanism and barrier"
+  ]
+}

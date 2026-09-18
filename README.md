@@ -1,108 +1,63 @@
-# MigrationBench 🧠⚙️
-**Benchmarking Specialist vs. Generalist ML Force Fields via Migration Pathways**
+# MigrationBench paper reproduction
 
-> Official implementation of the NeurIPS AI4Mat 2025 paper  
-> *"Migration as a Probe: A Generalizable Benchmark Framework for Specialist vs. Generalist Machine-Learned Force Fields"*
+This repository is the canonical source for the MigrationBench revision, its
+paper artifacts, and the compact evidence needed to audit every reported
+result. Overleaf is a publication mirror; Rockfish is a compute backend, not a
+source of truth.
 
----
+## Reproduction levels
 
-## 🧩 Overview
-**MigrationBench** provides a generalizable benchmarking pipeline for evaluating **machine-learned force fields (MLFFs)** based on their ability to reproduce **migration properties** such as energy barriers, transition states, and pathway stability.
+1. **Paper reproduction (offline):** regenerate registries, manuscript macros,
+   tables, figures, and release checks from the committed compact evidence.
+2. **Full computational reproduction:** rerun QE/MACE jobs on Rockfish using
+   the recorded inputs, manifests, job IDs, environment, and source hashes.
+   Wavefunctions, charge densities, complete QE `outdir` trees, and model
+   checkpoints are intentionally not stored in Git.
 
-The framework uses **migration as a physical probe** to distinguish between *specialist* (fine-tuned) and *generalist* (foundation) models, uncovering how training paradigms shape chemical intuition and kinetic reliability.
+## Quick start
 
----
-
-## 🚀 Key Features
-- **Unified Pipeline** for AIMD → NEB → MLFF → Error Analysis  
-- **Model-Agnostic Interface** supporting MACE, NequIP, SchNet, M3GNet, and others  
-- **Automatic NEB Diagnostics** detecting unstable (explosive) fine-tuned models  
-- **Latent Space Visualization** revealing structure-property divergence  
-- **Extensible Benchmarking API** for community submissions and model comparison
-
----
-
-## 🧠 Core Concept
-| Concept | Description |
-|----------|--------------|
-| **Migration as Probe** | Use atomic migration pathways to evaluate MLFF robustness |
-| **Specialist vs. Generalist** | Compare fine-tuned vs. pretrained model paradigms |
-| **Failure Analysis** | Identify “explosive” or non-convergent NEB behaviors |
-| **Latent Diagnostics** | Track learned representations across model variants |
-
----
-
-## 🧰 Installation
 ```bash
-git clone https://github.com/yicao-elina/MigrationBench.git
-cd MigrationBench
-pip install -e .
-````
-
-Dependencies (Python ≥3.9):
-
-* ASE
-* pymatgen
-* MACE / NequIP / SchNetPack
-* numpy, pandas, matplotlib
-* scipy, tqdm
-
----
-
-## 📊 Quick Start
-
-```python
-from migrationbench import Benchmark
-
-bench = Benchmark(
-    material="Sb2Te3",
-    model="mace-specialist",
-    migration_path="data/neb/path_1"
-)
-bench.run()
-bench.plot_energy_profile()
-bench.export_metrics("results/barrier_comparison.csv")
+conda env create -f environment.yml
+conda activate migrationbench
+make reproduce
+make test
+make audit
 ```
 
----
+`make paper` additionally compiles the main text, SI, and response letter when
+the full LaTeX toolchain is installed. To rebuild one target, use Snakemake,
+for example `snakemake -s workflow/Snakefile figures/publication/fig6_shap_revised.pdf`.
 
-## 🧪 Example Outputs
+## Repository map
 
-* NEB energy barrier plots comparing DFT vs. MLFFs
-* Convergence diagnostics for migration stability
-* Latent representation maps across models
-* Model ranking by physical coherence
+- `configs/`: stable project/model/path definitions and experiment configs.
+- `workflow/`: executable Snakemake DAG and Rockfish profile.
+- `src/migrationbench/`: submission, monitoring, ingestion, analysis,
+  plotting, and provenance code.
+- `data/raw_compact/`: immutable compact evidence copied from historical runs.
+- `data/processed/`: canonical analysis inputs; `data/published/`: review exports.
+- `registry/`: run/claim/reviewer ledgers and content hashes.
+- `figures/`, `tables/`: generated and publication-ready artifacts.
+- `paper/`: main text, SI, response letter, bibliography, and journal assets.
+- `docs/history/`: migration decisions and source snapshots.
 
----
+## Operating rules
 
-## 🔬 Citation
+- Analysis and plotting code reads `data/processed`, never arbitrary cluster
+  paths.
+- A new run is accepted only after its manifest and compact outputs are synced,
+  hashed, and entered in `registry/runs.csv` (and `runs.parquet` when PyArrow is
+  available).
+- A manuscript number enters through `paper/results_generated.tex`; the same
+  value must not be independently copied into main text, SI, and response.
+- `python scripts/sync_overleaf.py --overleaf PATH` stops on remote divergence
+  by default. It never silently overwrites independent Overleaf edits.
+- Before release, `make audit` and `make test` must pass with a clean worktree.
 
-If you use this benchmark, please cite:
+## Historical sources
 
->Cao, Yi, and Paulette Clancy. "Migration as a Probe: A Generalizable Benchmark Framework for Specialist vs. Generalist Machine-Learned Force Fields." arXiv preprint arXiv:2509.00090 (2025).
+The migration inventory, source hashes, inclusion policy, and known gaps are
+documented in `docs/history/MIGRATION_REPORT.md`. The remote branch
+`archive/main-before-paper-repro-2026-09-17` preserves the previous GitHub
+`main` exactly.
 
----
-
-## 🤝 Contributing
-
-We welcome contributions!
-You can:
-
-* Submit your MLFF results using our standard output format
-* Propose new migration systems or evaluation metrics
-* Share feedback via [Issues](https://github.com/YiCao-JHU/MigrationBench/issues)
-
----
-
-## 📧 Contact
-
-Yi Cao — Johns Hopkins University
-📮 [ycao73@jh.edu](mailto:ycao73@jh.edu)
-
----
-
-### 🌍 “Migration reveals what metrics miss.”
-
-
-
----

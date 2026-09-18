@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T13:20:00Z",
+  "issue": "QE relax outputs print forces for the current geometry before printing the next ATOMIC_POSITIONS block. The pre-correction parser attached those forces to the next coordinates.",
+  "scientific_effect": {
+    "continuation_coordinates": "valid_latest_printed_geometry",
+    "continuation_jobs_must_be_cancelled": false,
+    "old_manifest_field_last_complete_geometry_sha256": "misnamed_latest_printed_geometry_sha256",
+    "old_force_value": "valid_last_evaluated_force_but_not_evaluated_at_the_continuation_coordinates",
+    "old_iteration_extxyz": "superseded_and_must_be_regenerated_with_input-aware_alignment"
+  },
+  "branches": [
+    {
+      "path_id": "1-6",
+      "parent_job_id": "30843307",
+      "continuation_job_id": "30851387",
+      "continuation_input_sha256": "57e93882dc14585fb16284ed859e31df89a39e4b8060054f291cbe4feb9fa233",
+      "input_equals_latest_printed_geometry": true,
+      "latest_printed_geometry_sha256": "11be26280ac39181479149c2a3795cac09a9c7860a34489d714690d7a76c7e2e",
+      "last_complete_force_geometry_sha256": "9407b207bb94904bf535c89b7685caae72473f3c183bd6a4b8b12502e08a1200",
+      "last_evaluated_max_force_eV_A": 0.7883496595968531
+    },
+    {
+      "path_id": "1-7",
+      "parent_job_id": "30843348",
+      "continuation_job_id": "30851388",
+      "continuation_input_sha256": "f9040d87a781ce8353186b44f7c99fac708379b81b3e01c521c0aa60047e368d",
+      "input_equals_latest_printed_geometry": true,
+      "latest_printed_geometry_sha256": "02f2bc4a5353dd8fe99f209bcabca1de35ebeff25f26e106d0bdcd2465baf6d1",
+      "last_complete_force_geometry_sha256": "2e95db819f991e86ccb532474b2ed25207c16937dc7ebd8a784ec26ed71c528c",
+      "last_evaluated_max_force_eV_A": 0.08111728300296205
+    }
+  ],
+  "corrected_implementation": [
+    "scripts/migrationbench/parse_qe_relax_output.py",
+    "scripts/migrationbench/monitor_qe_relax_jobs.py",
+    "scripts/migrationbench/continue_qe_relax.py"
+  ]
+}

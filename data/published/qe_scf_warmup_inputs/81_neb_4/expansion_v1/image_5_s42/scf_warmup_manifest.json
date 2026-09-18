@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T20:19:03.514040+00:00",
+  "scientific_role": "standalone_image_scf_warmup_before_qe_neb",
+  "path_id": "81_neb_4",
+  "image_index_qe": 5,
+  "seed": 42,
+  "source_pw_input": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe81n4_direct_pf_s42_30791514/pw_5.in",
+  "source_pw_sha256": "b0c3430bd3922c751272db826812c99b695e29e472a77df5cde84fa21bc99a97",
+  "generated_input": "/Users/alina/Project/26MIgrationBench/data_processed/qe_scf_warmup_inputs/81_neb_4/expansion_v1/image_5_s42/scf.in",
+  "generated_input_sha256": "c94b418c99c44688f63716eab8c90385f4502bb7e9eb707c36fb7eb379f64b6d",
+  "electronic_settings": {
+    "degauss_Ry": 0.01,
+    "mixing_beta": 0.2,
+    "mixing_mode": "local-TF",
+    "mixing_ndim": 8,
+    "electron_maxstep": 800,
+    "conv_thr": "1.0d-6",
+    "startingpot": "atomic",
+    "startingwfc": "atomic+random"
+  },
+  "resources": {
+    "walltime": "24:00:00",
+    "max_seconds": 84600,
+    "ntasks": 4,
+    "memory": "180G",
+    "kpoint_pools": 4
+  },
+  "acceptance": {
+    "qe_job_done": true,
+    "scf_converged": true,
+    "finite_total_energy": true,
+    "restart_artifacts_required": [
+      "charge-density.dat",
+      "data-file-schema.xml"
+    ],
+    "restart_artifacts_recorded_optional": [
+      "wfc*.dat"
+    ]
+  }
+}

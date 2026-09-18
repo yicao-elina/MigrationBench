@@ -1,0 +1,446 @@
+{
+  "created_at_utc": "2026-09-13T18:59:13.442724+00:00",
+  "design": "paired direct versus geometry-transformed DFT relax",
+  "direct_batch_manifest": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/endpoint_relax_batch_manifest.json",
+  "source_arm_filter": "proposal",
+  "jobs": [
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T18:59:13.339483+00:00",
+      "branch_id": "site_proposer_proposal_01_unique_119_s42_geomvoid",
+      "job_name": "mb_spx01_s42",
+      "seed": 42,
+      "scientific_role": "paired_geometry_preconditioned_endpoint_relax",
+      "source_path_id": "sb2te3_4x2x1::victor::unique_119",
+      "source_image_index_qe": 1,
+      "source_arm": "proposal",
+      "source_pair_index": 1,
+      "source_site_id": "sb2te3_4x2x1::victor::unique_119",
+      "source_raw_site_id": "unique_119",
+      "direct_baseline_branch_id": "site_proposer_proposal_01_unique_119_s42",
+      "direct_baseline_job_id": "30854592",
+      "source_pw_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/site_proposer_proposal_01_unique_119_s42/relax.in",
+      "source_pw_sha256": "af6227efcb1f5b44e9a49cc843690d581e6581d767d5c48df273bcbeebe2d7d0",
+      "transform": {
+        "name": "constrained_periodic_local_void_projection",
+        "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+        "parameters": {
+          "safe_distance_A": 2.8,
+          "sigma_A": 0.25,
+          "tether": 2.0,
+          "max_shift_A": 0.35,
+          "step_size": 0.03,
+          "max_iterations": 200,
+          "gradient_tolerance": 1e-06
+        },
+        "cr_position_before_A": [
+          12.8470491664,
+          0.0230586427,
+          23.7375500362
+        ],
+        "cr_position_after_A": [
+          12.849399059707126,
+          0.017794214276610158,
+          23.73572595779246
+        ],
+        "metrics": {
+          "objective_before": 2.779696701888666,
+          "objective_after": 2.7791717537754463,
+          "iterations": 9,
+          "final_gradient_norm": 5.222404872957188e-06,
+          "cr_displacement_A": 0.006046773289674226,
+          "minimum_cr_host_distance_before_A": 2.7999121717494284,
+          "minimum_cr_host_distance_after_A": 2.80486841140855
+        }
+      },
+      "comparison_gate": {
+        "same_final_basin_required_for_speedup": true,
+        "primary_metrics": [
+          "ionic_steps",
+          "total_scf_iterations",
+          "force_threshold_work"
+        ],
+        "secondary_metrics": [
+          "walltime",
+          "cpu_hours"
+        ],
+        "basin_change_is_not_speedup": true
+      },
+      "resources": {
+        "walltime": "24:00:00",
+        "pw_max_seconds": 84600,
+        "nstep": 200,
+        "ntasks": 2,
+        "memory": "160G"
+      },
+      "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_01_unique_119_s42_geomvoid/relax.in",
+      "relax_input_sha256": "6ee5f23dfe8a5c1d213420c323f815d0e6a1df75f47eaa36cda377b6f28eeaa3",
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_01_unique_119_s42_geomvoid/endpoint_relax_manifest.json"
+    },
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T18:59:13.355147+00:00",
+      "branch_id": "site_proposer_proposal_02_unique_093_s42_geomvoid",
+      "job_name": "mb_spx02_s42",
+      "seed": 42,
+      "scientific_role": "paired_geometry_preconditioned_endpoint_relax",
+      "source_path_id": "sb2te3_4x2x1::joshitha::unique_093",
+      "source_image_index_qe": 1,
+      "source_arm": "proposal",
+      "source_pair_index": 2,
+      "source_site_id": "sb2te3_4x2x1::joshitha::unique_093",
+      "source_raw_site_id": "unique_093",
+      "direct_baseline_branch_id": "site_proposer_proposal_02_unique_093_s42",
+      "direct_baseline_job_id": "30854597",
+      "source_pw_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/site_proposer_proposal_02_unique_093_s42/relax.in",
+      "source_pw_sha256": "a8dbc992138c688e19c93385a05f4ecd194eb22e05e9e70c40fc4bab8f40d397",
+      "transform": {
+        "name": "constrained_periodic_local_void_projection",
+        "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+        "parameters": {
+          "safe_distance_A": 2.8,
+          "sigma_A": 0.25,
+          "tether": 2.0,
+          "max_shift_A": 0.35,
+          "step_size": 0.03,
+          "max_iterations": 200,
+          "gradient_tolerance": 1e-06
+        },
+        "cr_position_before_A": [
+          8.5816115194,
+          4.9444139304,
+          21.0731774342
+        ],
+        "cr_position_after_A": [
+          8.575552695261928,
+          4.94811637698517,
+          21.12076493762169
+        ],
+        "metrics": {
+          "objective_before": 5.3405672766573105,
+          "objective_after": 5.305586737655634,
+          "iterations": 9,
+          "final_gradient_norm": 7.457117132014663e-06,
+          "cr_displacement_A": 0.04811432159514812,
+          "minimum_cr_host_distance_before_A": 2.666022025602998,
+          "minimum_cr_host_distance_after_A": 2.6742097147469184
+        }
+      },
+      "comparison_gate": {
+        "same_final_basin_required_for_speedup": true,
+        "primary_metrics": [
+          "ionic_steps",
+          "total_scf_iterations",
+          "force_threshold_work"
+        ],
+        "secondary_metrics": [
+          "walltime",
+          "cpu_hours"
+        ],
+        "basin_change_is_not_speedup": true
+      },
+      "resources": {
+        "walltime": "24:00:00",
+        "pw_max_seconds": 84600,
+        "nstep": 200,
+        "ntasks": 2,
+        "memory": "160G"
+      },
+      "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_02_unique_093_s42_geomvoid/relax.in",
+      "relax_input_sha256": "48197084ccf80009d84a07cdc5824d8e4d5769b1b25d1337aa7487bc729ecd19",
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_02_unique_093_s42_geomvoid/endpoint_relax_manifest.json"
+    },
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T18:59:13.384039+00:00",
+      "branch_id": "site_proposer_proposal_03_unique_088_s42_geomvoid",
+      "job_name": "mb_spx03_s42",
+      "seed": 42,
+      "scientific_role": "paired_geometry_preconditioned_endpoint_relax",
+      "source_path_id": "sb2te3_4x2x1::joshitha::unique_088",
+      "source_image_index_qe": 1,
+      "source_arm": "proposal",
+      "source_pair_index": 3,
+      "source_site_id": "sb2te3_4x2x1::joshitha::unique_088",
+      "source_raw_site_id": "unique_088",
+      "direct_baseline_branch_id": "site_proposer_proposal_03_unique_088_s42",
+      "direct_baseline_job_id": "30854603",
+      "source_pw_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/site_proposer_proposal_03_unique_088_s42/relax.in",
+      "source_pw_sha256": "5b2c1918333daaca152d7b22d0dbf03f4fa6655e8e95801e14153e907c0a872f",
+      "transform": {
+        "name": "constrained_periodic_local_void_projection",
+        "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+        "parameters": {
+          "safe_distance_A": 2.8,
+          "sigma_A": 0.25,
+          "tether": 2.0,
+          "max_shift_A": 0.35,
+          "step_size": 0.03,
+          "max_iterations": 200,
+          "gradient_tolerance": 1e-06
+        },
+        "cr_position_before_A": [
+          4.3197784633,
+          4.970956548,
+          22.6324892766
+        ],
+        "cr_position_after_A": [
+          4.321494874108985,
+          4.971229891615019,
+          22.405539306815452
+        ],
+        "metrics": {
+          "objective_before": 5.084903840590163,
+          "objective_after": 4.672117561950854,
+          "iterations": 27,
+          "final_gradient_norm": 6.12899983808209e-06,
+          "cr_displacement_A": 0.22695662486035686,
+          "minimum_cr_host_distance_before_A": 2.602868225035781,
+          "minimum_cr_host_distance_after_A": 2.6094741395843277
+        }
+      },
+      "comparison_gate": {
+        "same_final_basin_required_for_speedup": true,
+        "primary_metrics": [
+          "ionic_steps",
+          "total_scf_iterations",
+          "force_threshold_work"
+        ],
+        "secondary_metrics": [
+          "walltime",
+          "cpu_hours"
+        ],
+        "basin_change_is_not_speedup": true
+      },
+      "resources": {
+        "walltime": "24:00:00",
+        "pw_max_seconds": 84600,
+        "nstep": 200,
+        "ntasks": 2,
+        "memory": "160G"
+      },
+      "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_03_unique_088_s42_geomvoid/relax.in",
+      "relax_input_sha256": "31c0afd3277765c3fe3c53d79489f90527a781b4d8bbc5449e88fa2978d162cf",
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_03_unique_088_s42_geomvoid/endpoint_relax_manifest.json"
+    },
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T18:59:13.397822+00:00",
+      "branch_id": "site_proposer_proposal_04_unique_200_s42_geomvoid",
+      "job_name": "mb_spx04_s42",
+      "seed": 42,
+      "scientific_role": "paired_geometry_preconditioned_endpoint_relax",
+      "source_path_id": "sb2te3_4x2x1::victor::unique_200",
+      "source_image_index_qe": 1,
+      "source_arm": "proposal",
+      "source_pair_index": 4,
+      "source_site_id": "sb2te3_4x2x1::victor::unique_200",
+      "source_raw_site_id": "unique_200",
+      "direct_baseline_branch_id": "site_proposer_proposal_04_unique_200_s42",
+      "direct_baseline_job_id": "30854608",
+      "source_pw_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/site_proposer_proposal_04_unique_200_s42/relax.in",
+      "source_pw_sha256": "0d7452a94a8262c35c8644aa1e3b73d6a6e9999b9932bc21e03e513062d05cd6",
+      "transform": {
+        "name": "constrained_periodic_local_void_projection",
+        "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+        "parameters": {
+          "safe_distance_A": 2.8,
+          "sigma_A": 0.25,
+          "tether": 2.0,
+          "max_shift_A": 0.35,
+          "step_size": 0.03,
+          "max_iterations": 200,
+          "gradient_tolerance": 1e-06
+        },
+        "cr_position_before_A": [
+          4.3189792485,
+          0.0141972659,
+          30.197515419
+        ],
+        "cr_position_after_A": [
+          4.316692869899685,
+          0.01676117098120215,
+          30.10742356501785
+        ],
+        "metrics": {
+          "objective_before": 4.346899422199036,
+          "objective_after": 4.216004088447785,
+          "iterations": 6,
+          "final_gradient_norm": 1.2957172552861398e-06,
+          "cr_displacement_A": 0.09015732521714535,
+          "minimum_cr_host_distance_before_A": 2.643088601495437,
+          "minimum_cr_host_distance_after_A": 2.706793647403451
+        }
+      },
+      "comparison_gate": {
+        "same_final_basin_required_for_speedup": true,
+        "primary_metrics": [
+          "ionic_steps",
+          "total_scf_iterations",
+          "force_threshold_work"
+        ],
+        "secondary_metrics": [
+          "walltime",
+          "cpu_hours"
+        ],
+        "basin_change_is_not_speedup": true
+      },
+      "resources": {
+        "walltime": "24:00:00",
+        "pw_max_seconds": 84600,
+        "nstep": 200,
+        "ntasks": 2,
+        "memory": "160G"
+      },
+      "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_04_unique_200_s42_geomvoid/relax.in",
+      "relax_input_sha256": "d131e68a93323f8ef5da66e118eccb90f1b4318a66472d973ceac7003a351522",
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_04_unique_200_s42_geomvoid/endpoint_relax_manifest.json"
+    },
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T18:59:13.411533+00:00",
+      "branch_id": "site_proposer_proposal_05_unique_166_s42_geomvoid",
+      "job_name": "mb_spx05_s42",
+      "seed": 42,
+      "scientific_role": "paired_geometry_preconditioned_endpoint_relax",
+      "source_path_id": "sb2te3_4x2x1::joshitha::unique_166",
+      "source_image_index_qe": 1,
+      "source_arm": "proposal",
+      "source_pair_index": 5,
+      "source_site_id": "sb2te3_4x2x1::joshitha::unique_166",
+      "source_raw_site_id": "unique_166",
+      "direct_baseline_branch_id": "site_proposer_proposal_05_unique_166_s42",
+      "direct_baseline_job_id": "30854612",
+      "source_pw_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/site_proposer_proposal_05_unique_166_s42/relax.in",
+      "source_pw_sha256": "5b80c0b3b1c1d6ff0978a7be9776f445d0b6500a26f50639400f4ee2ac8ddfa7",
+      "transform": {
+        "name": "constrained_periodic_local_void_projection",
+        "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+        "parameters": {
+          "safe_distance_A": 2.8,
+          "sigma_A": 0.25,
+          "tether": 2.0,
+          "max_shift_A": 0.35,
+          "step_size": 0.03,
+          "max_iterations": 200,
+          "gradient_tolerance": 1e-06
+        },
+        "cr_position_before_A": [
+          12.8388375318,
+          4.9465043242,
+          27.6308777887
+        ],
+        "cr_position_after_A": [
+          12.834666541410764,
+          4.941634144962361,
+          27.722530172025948
+        ],
+        "metrics": {
+          "objective_before": 4.632713703963565,
+          "objective_after": 4.496431434761471,
+          "iterations": 6,
+          "final_gradient_norm": 2.2434467717659362e-06,
+          "cr_displacement_A": 0.09187641251137381,
+          "minimum_cr_host_distance_before_A": 2.6433986328953702,
+          "minimum_cr_host_distance_after_A": 2.695148458494951
+        }
+      },
+      "comparison_gate": {
+        "same_final_basin_required_for_speedup": true,
+        "primary_metrics": [
+          "ionic_steps",
+          "total_scf_iterations",
+          "force_threshold_work"
+        ],
+        "secondary_metrics": [
+          "walltime",
+          "cpu_hours"
+        ],
+        "basin_change_is_not_speedup": true
+      },
+      "resources": {
+        "walltime": "24:00:00",
+        "pw_max_seconds": 84600,
+        "nstep": 200,
+        "ntasks": 2,
+        "memory": "160G"
+      },
+      "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_05_unique_166_s42_geomvoid/relax.in",
+      "relax_input_sha256": "ab80c55316650d87469dcfbe1e4cd11f1fd2db7354ca3bea23ab9d5401ae750d",
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_05_unique_166_s42_geomvoid/endpoint_relax_manifest.json"
+    },
+    {
+      "schema_version": "1.0",
+      "created_at_utc": "2026-09-13T18:59:13.442490+00:00",
+      "branch_id": "site_proposer_proposal_06_unique_098_s42_geomvoid",
+      "job_name": "mb_spx06_s42",
+      "seed": 42,
+      "scientific_role": "paired_geometry_preconditioned_endpoint_relax",
+      "source_path_id": "sb2te3_4x2x1::joshitha::unique_098",
+      "source_image_index_qe": 1,
+      "source_arm": "proposal",
+      "source_pair_index": 6,
+      "source_site_id": "sb2te3_4x2x1::joshitha::unique_098",
+      "source_raw_site_id": "unique_098",
+      "direct_baseline_branch_id": "site_proposer_proposal_06_unique_098_s42",
+      "direct_baseline_job_id": "30854617",
+      "source_pw_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_dft_v5_s42/site_proposer_proposal_06_unique_098_s42/relax.in",
+      "source_pw_sha256": "cf7a1b8cf8aa8d58525769e608b131e23090217773053d9afc0b04a0252b3392",
+      "transform": {
+        "name": "constrained_periodic_local_void_projection",
+        "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+        "parameters": {
+          "safe_distance_A": 2.8,
+          "sigma_A": 0.25,
+          "tether": 2.0,
+          "max_shift_A": 0.35,
+          "step_size": 0.03,
+          "max_iterations": 200,
+          "gradient_tolerance": 1e-06
+        },
+        "cr_position_before_A": [
+          12.8283066208,
+          4.9387991002,
+          22.5821070243
+        ],
+        "cr_position_after_A": [
+          12.834544179398106,
+          4.9422004992668,
+          22.347402218725616
+        ],
+        "metrics": {
+          "objective_before": 5.002268050848104,
+          "objective_after": 4.57691815561321,
+          "iterations": 29,
+          "final_gradient_norm": 4.267982235885335e-06,
+          "cr_displacement_A": 0.23481231316220666,
+          "minimum_cr_host_distance_before_A": 2.6194075766541567,
+          "minimum_cr_host_distance_after_A": 2.6145931356010577
+        }
+      },
+      "comparison_gate": {
+        "same_final_basin_required_for_speedup": true,
+        "primary_metrics": [
+          "ionic_steps",
+          "total_scf_iterations",
+          "force_threshold_work"
+        ],
+        "secondary_metrics": [
+          "walltime",
+          "cpu_hours"
+        ],
+        "basin_change_is_not_speedup": true
+      },
+      "resources": {
+        "walltime": "24:00:00",
+        "pw_max_seconds": 84600,
+        "nstep": 200,
+        "ntasks": 2,
+        "memory": "160G"
+      },
+      "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_06_unique_098_s42_geomvoid/relax.in",
+      "relax_input_sha256": "7f176d68851ce676a273ea1e0bc1446d58cb24ef2dae501c85311049f32d7445",
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/site_stability_proposer/prospective_transform_ab_v1_s42/site_proposer_proposal_06_unique_098_s42_geomvoid/endpoint_relax_manifest.json"
+    }
+  ]
+}

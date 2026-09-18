@@ -1,0 +1,41 @@
+{
+  "schema_version": "1.0",
+  "job_name": "mb_leak_qe1617_s42",
+  "seed": 42,
+  "scientific_role": "checkpoint-specific NEB geometry leakage audit",
+  "model_checkpoint": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+  "training_lineage": {
+    "train": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/train.xyz",
+    "valid": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/valid.xyz",
+    "test": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/test.xyz",
+    "observed_log_counts": {"train": 1888, "valid": 236, "test": 237}
+  },
+  "evaluation": {
+    "1-6": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/leakage_audit_s42/1-6_neb_full_history.extxyz",
+    "1-7": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/leakage_audit_s42/1-7_neb_full_history.extxyz"
+  },
+  "metrics": {
+    "exact_fingerprint_decimals": 5,
+    "soap": {"center": "Cr", "r_cut_A": 6.0, "n_max": 6, "l_max": 4, "distance": "cosine"},
+    "rmsd": "Cr-anchored PBC vectors with per-species Hungarian matching"
+  },
+  "thresholds": {
+    "exact_rmsd_A": 0.01,
+    "near_rmsd_A": 0.05,
+    "near_soap_cosine": 0.0001,
+    "rmsd_candidate_count": 10
+  },
+  "resources": {"partition": "parallel", "cpus": 8, "memory": "48G", "walltime": "04:00:00"},
+  "argv": [
+    "--train", "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/train.xyz",
+    "--valid", "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/valid.xyz",
+    "--test", "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/test.xyz",
+    "--eval", "1-6=/scratch16/pclancy3/yi/revision1_migrationbench_inputs/leakage_audit_s42/1-6_neb_full_history.extxyz",
+    "--eval", "1-7=/scratch16/pclancy3/yi/revision1_migrationbench_inputs/leakage_audit_s42/1-7_neb_full_history.extxyz",
+    "--model-checkpoint", "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+    "--out-dir", "results",
+    "--soap-r-cut", "6.0", "--soap-n-max", "6", "--soap-l-max", "4",
+    "--exact-rmsd-A", "0.01", "--near-rmsd-A", "0.05", "--near-soap-cosine", "0.0001",
+    "--rmsd-candidate-count", "10"
+  ]
+}

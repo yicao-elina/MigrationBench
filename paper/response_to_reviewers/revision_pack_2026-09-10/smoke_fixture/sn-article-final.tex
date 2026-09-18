@@ -1,0 +1,33 @@
+\documentclass{article}
+% Reviewer-map markers are no-op by default and are used only for source review.
+\providecommand{\reviewermap}[3]{}
+\begin{document}
+\reviewermap{REV-A4}{done-local}{Scope generalizable-standard language to a candidate framework demonstrated on Cr-doped Sb2Te3.}
+This work establishes migration-based non-equilibrium probes as a data-efficient, generalizable standard for MLFF evaluation.
+\reviewermap{REV-A4}{done-local}{Frame generalizability as an open question rather than a completed claim.}
+\item Can non-equilibrium probes generated from methods, such as NEB, provide a generalizable and efficient benchmark?
+This creates a diagnostic framework for designing more data-efficient learning loops.
+\reviewermap{REV-A7}{done-local}{Add nearest-neighbor literature and state the delta relative to the earlier arXiv/workshop report.}
+\reviewermap{REV-A2/REV-C10}{pending}{Grouped split by trajectory/pathway provenance; pending SOAP-RMSD-overlap-audit and grouped-split-retrained-rmse.}
+Both FT-600K and FT-Multi_T models used identical train/validation/test splits.
+\reviewermap{REV-C8}{pending-release}{Confirm reported fine-tuned models used real-force AIMD frames only; pending final code-release hash for zero-force exporter fix.}
+Energy and forces were read using the keys \texttt{energy} and \texttt{forces}.
+\reviewermap{REV-A1}{partial}{Fig. 3d is fixed-geometry DFT-path scoring; current 1-4 DFT reference candidate is 0.336050 eV; Foundation fixed-path error is +0.688246 eV.}
+Our DFT calculations serve as the ground-truth reference. This establishes a barrier.
+\subsection{NEB Stability as an Additional Robustness Criterion}
+\reviewermap{REV-A1}{partial}{Define Fig. 3d and SI Fig. S3 as different NEB operators and report them side-by-side.}
+\reviewermap{REV-A3}{pending-cluster}{Replace unsupported chance explanation with seed-stability evidence over Scratch and FT-600K retraining seeds.}
+not through physical insight but random chance.
+\subsubsection{The Critical Role of Task-Specific Fine-Tuning}
+\reviewermap{REV-A5}{pending-cluster}{Add Scratch-5% random-initialization control trained on the same approximately 1000 configurations as FT-600K.}
+\reviewermap{REV-A6/REV-C11/REV-C12}{done-local}{Claims softened to consistent-with; original 6191-d euclidean silhouette is 0.333; zero feature stub dropped.}
+This geometric difference provides a direct mechanistic explanation for the models.
+\reviewermap{REV-C11}{done-local}{Silhouette values are recomputed in original descriptor space; projected values are retained only as a baseline.}
+Average silhouette scores (from $t$-SNE) quantify the representational dissimilarity.
+\reviewermap{REV-A6/REV-C13}{partial}{SHAP explains surrogate error predictions, not MACE internals directly; current 5-fold CV R2 values are 0.9819, 0.8756, and 0.9730.}
+This approach allows us to interpret the complex MACE potential by analyzing a simpler model.
+\reviewermap{REV-A4}{done-local}{Broader principles are now framed as case-study hypotheses requiring cross-system validation.}
+Our findings highlight several broader principles.
+\reviewermap{REV-A4}{done-local}{Conclusion should keep framework generality as future validation rather than a final claim.}
+Together, these results underscore that more data is not necessarily the solution.
+\end{document}

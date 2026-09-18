@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T10:04:04.000260+00:00",
+  "source_trajectory": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_nlm6d1d33_sm_s43_30850337/mlff_historical_curvature_warp_s43/mlff_neb.traj",
+  "source_trajectory_sha256": "1937b5c6a75999784e7957885b8685db7edf605146ee8f7db1c4089cce831ad3",
+  "n_optimizer_iterations_including_initial": 3,
+  "n_images": 7,
+  "n_atoms": 61,
+  "spring_constant_eV_A2": 0.1,
+  "climb": false,
+  "neb_method": "improvedtangent",
+  "force_semantics": {
+    "forces": "true calculator atomic forces for every image",
+    "neb_forces": "projected NEB optimization forces for internal images only; absent on endpoints",
+    "neb_residual_eV_A": "ASE NEB residual for each internal image"
+  },
+  "iteration_summaries": [
+    {
+      "optimizer_iteration": 0,
+      "barrier_proxy_eV": 5.910706402322546,
+      "max_internal_true_force_eV_A": 14.057835746244404,
+      "max_internal_neb_force_eV_A": 14.379911686329526,
+      "max_neb_residual_eV_A": 14.089326922144515
+    },
+    {
+      "optimizer_iteration": 1,
+      "barrier_proxy_eV": 3.5892070084164516,
+      "max_internal_true_force_eV_A": 7.074836289767823,
+      "max_internal_neb_force_eV_A": 7.256243131017932,
+      "max_neb_residual_eV_A": 7.151572328849809
+    },
+    {
+      "optimizer_iteration": 2,
+      "barrier_proxy_eV": 2.448742365394992,
+      "max_internal_true_force_eV_A": 3.514980386586412,
+      "max_internal_neb_force_eV_A": 3.587323893035326,
+      "max_neb_residual_eV_A": 3.56884508576894
+    }
+  ],
+  "final_iteration_summary": {
+    "optimizer_iteration": 2,
+    "barrier_proxy_eV": 2.448742365394992,
+    "max_internal_true_force_eV_A": 3.514980386586412,
+    "max_internal_neb_force_eV_A": 3.587323893035326,
+    "max_neb_residual_eV_A": 3.56884508576894
+  },
+  "outputs": {
+    "extxyz": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/posthoc/mlff_s43_history_v2/mlff_neb_iteration_history.extxyz",
+    "extxyz_sha256": "8ce21fc422bb3cc9006ce1f1f17eebc81bed8d54a3fc44b094e08155971ebb47",
+    "csv": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/posthoc/mlff_s43_history_v2/mlff_neb_iteration_history.csv",
+    "csv_sha256": "648606785df80df7ce67c10cb3b1176e5e5c11a4cc60acb405cdfccf8edf36b6"
+  }
+}

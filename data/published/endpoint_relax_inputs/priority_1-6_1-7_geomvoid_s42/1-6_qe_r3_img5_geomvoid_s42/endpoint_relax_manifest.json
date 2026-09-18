@@ -1,0 +1,67 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T07:00:01.149201+00:00",
+  "branch_id": "1-6_qe_r3_img5_geomvoid_s42",
+  "job_name": "mb_epx_16qer3_i5_s42",
+  "seed": 42,
+  "scientific_role": "paired_geometry_preconditioned_endpoint_relax",
+  "source_path_id": "1-6_qe_r3",
+  "source_image_index_qe": 5,
+  "direct_baseline_branch_id": "1-6_qe_r3_img5_endpoint_relax_s42",
+  "direct_baseline_job_id": "30843307",
+  "source_pw_input": "/Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_inputs/priority_1-6_1-7_s42/1-6_qe_r3_img5_endpoint_relax_s42/relax.in",
+  "source_pw_sha256": "16bd7d5705c95209700898daf6126b361765605c9b51081bc8755dc997432e12",
+  "transform": {
+    "name": "constrained_periodic_local_void_projection",
+    "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+    "parameters": {
+      "safe_distance_A": 2.8,
+      "sigma_A": 0.25,
+      "tether": 2.0,
+      "max_shift_A": 0.35,
+      "step_size": 0.03,
+      "max_iterations": 200,
+      "gradient_tolerance": 1e-06
+    },
+    "cr_position_before_A": [
+      4.2142178275,
+      2.4330797972,
+      16.7163275447
+    ],
+    "cr_position_after_A": [
+      4.21421783916246,
+      2.433079788709996,
+      16.858922894486884
+    ],
+    "metrics": {
+      "objective_before": 6.243910765145369,
+      "objective_after": 5.9970929611089,
+      "iterations": 13,
+      "final_gradient_norm": 2.594450985458373e-06,
+      "cr_displacement_A": 0.14259534978688465,
+      "minimum_cr_host_distance_before_A": 2.591021035096538,
+      "minimum_cr_host_distance_after_A": 2.5913457847054517
+    }
+  },
+  "comparison_gate": {
+    "same_final_basin_required_for_speedup": true,
+    "primary_metrics": [
+      "ionic_steps",
+      "total_scf_iterations",
+      "force_threshold_work"
+    ],
+    "secondary_metrics": [
+      "walltime",
+      "cpu_hours"
+    ],
+    "basin_change_is_not_speedup": true
+  },
+  "resources": {
+    "walltime": "24:00:00",
+    "pw_max_seconds": 84600,
+    "ntasks": 2,
+    "memory": "160G"
+  },
+  "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_inputs/priority_1-6_1-7_geomvoid_s42/1-6_qe_r3_img5_geomvoid_s42/relax.in",
+  "relax_input_sha256": "6300c05ef9eaba7af4b27d64502ba45f87bd361686b806b862c254c10b1d7b9a"
+}

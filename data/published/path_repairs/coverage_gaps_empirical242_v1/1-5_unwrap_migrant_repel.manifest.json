@@ -1,0 +1,98 @@
+{
+  "created_at_utc": "2026-09-13T12:03:58.879944+00:00",
+  "source_images": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5/sb2te3.xyz",
+  "source_sha256": "a3a71d88c87d36562f0c1e1491a95f3eba760745102bf3e00de584d77c0d7fe7",
+  "output_images": "/Users/alina/Project/26MIgrationBench/data_processed/path_repairs/coverage_gaps_empirical242_v1/1-5_unwrap_migrant_repel.extxyz",
+  "output_sha256": "3aa91a912d3e997cee6018d46fb64dd86926dd2ea857eff8c99b9303b61b8b24",
+  "mode": "unwrap",
+  "migrant_element": "Cr",
+  "migrant_index_zero_based": 60,
+  "before": {
+    "min_pair_distance_A": 1.4084953492002121,
+    "max_migrant_step_A": 4.199668455600002,
+    "total_migrant_path_A": 13.370790201700014
+  },
+  "after": {
+    "min_pair_distance_A": 2.4200000000000004,
+    "max_migrant_step_A": 4.222459049799868,
+    "total_migrant_path_A": 13.370790201700153
+  },
+  "parameters": {
+    "n_images": 5,
+    "mic": true,
+    "min_pair_distance_A": 2.42,
+    "repel_steps": 120,
+    "repel_step_size_A": 0.05,
+    "repel_policy": "migrant-only"
+  },
+  "repair_actions": [
+    {
+      "image_index_zero_based": 1,
+      "iterations": 21,
+      "before_min_pair_distance_A": 1.4084953492002121,
+      "before_pair_indices": [
+        49,
+        60
+      ],
+      "after_min_pair_distance_A": 2.4200000000000004,
+      "after_pair_indices": [
+        49,
+        60
+      ],
+      "moved_atom_indices": [
+        60
+      ],
+      "maximum_atom_displacement_A": 1.0115046507997885,
+      "migrant_displacement_A": 1.0115046507997885,
+      "unresolved_reason": null,
+      "threshold_pass": true
+    },
+    {
+      "image_index_zero_based": 2,
+      "iterations": 1,
+      "before_min_pair_distance_A": 2.3972094058001323,
+      "before_pair_indices": [
+        5,
+        60
+      ],
+      "after_min_pair_distance_A": 2.4200000000000004,
+      "after_pair_indices": [
+        5,
+        60
+      ],
+      "moved_atom_indices": [
+        60
+      ],
+      "maximum_atom_displacement_A": 0.02279059419986799,
+      "migrant_displacement_A": 0.02279059419986799,
+      "unresolved_reason": null,
+      "threshold_pass": true
+    },
+    {
+      "image_index_zero_based": 3,
+      "iterations": 0,
+      "before_min_pair_distance_A": 2.4981449447947637,
+      "before_pair_indices": [
+        0,
+        60
+      ],
+      "after_min_pair_distance_A": 2.4981449447947637,
+      "after_pair_indices": [
+        0,
+        60
+      ],
+      "moved_atom_indices": [],
+      "maximum_atom_displacement_A": 0.0,
+      "migrant_displacement_A": 0.0,
+      "unresolved_reason": null,
+      "threshold_pass": true
+    }
+  ],
+  "endpoint_min_pair_distances_A": [
+    2.846878209168705,
+    2.4702118617000632
+  ],
+  "all_intermediate_images_pass": true,
+  "endpoints_pass": true,
+  "warning": "This is a path-initialization repair only. It must be followed by MLFF and/or QE NEB validation."
+}

@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T12:20:14.729781+00:00",
+  "seed": 47,
+  "path_id": "1-5",
+  "source_path_id": "1-5",
+  "source_image_index_zero_based": 1,
+  "source_image_index_qe": 2,
+  "direct_images": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_processed/path_repairs/coverage_gaps_pbc_v3/1-5_periodic_direct.extxyz",
+  "direct_images_sha256": "3aef46d76e8438bdd5046ddc0d9eac5ce46e68684fa3a40eed5c74345f5d072c",
+  "transformed_images": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_processed/path_repairs/coverage_gaps_pbc_v3/1-5_periodic_repaired.extxyz",
+  "transformed_images_sha256": "b0628bce3e2f97bbb5c26c7f7ccb44802b4b0e9ca04987c980182ab8055ad95b",
+  "transform_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_processed/path_repairs/coverage_gaps_pbc_v3/1-5_periodic_repaired.manifest.json",
+  "transform_manifest_sha256": "45664d4db8be11224f782f330dae3aa70d0c7035016c26c2a51107285723b5cd",
+  "template_pw_input": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_raw/historical_neb/legacy_61/1-5/pw_1.in",
+  "template_pw_sha256": "e770e3d40a5c41ce68cd73f04a023af795621b5bfa7c3bcdcb2d71979cea4a0d",
+  "transform": {
+    "name": "sequential_periodic_hard_clearance_projection",
+    "formula": "r_(k+1)=r_k+min(delta,d_min-d_j)*(r_k-r_j)/|r_k-r_j|",
+    "cr_displacement_A": 0.3915046500000567,
+    "maximum_host_displacement_A": 0.0,
+    "distance_gate_A": 1.8
+  },
+  "resources": {
+    "walltime": "24:00:00",
+    "pw_max_seconds": 84600,
+    "ntasks": 2,
+    "memory": "160G"
+  },
+  "comparison_gate": {
+    "both_bfgs_converged": true,
+    "both_final_max_force_eV_A_lte": 0.05,
+    "same_final_basin_required": true,
+    "primary_metrics": [
+      "ionic_steps",
+      "total_scf_iterations_seen"
+    ],
+    "secondary_metrics": [
+      "elapsed_seconds"
+    ],
+    "basin_change_is_not_speedup": true
+  },
+  "branch_id": "1-5_img2_transformed_s47",
+  "job_name": "mb_x15i2s47",
+  "variant": "transformed",
+  "scientific_role": "geometry_preconditioned_qe_relax",
+  "source_frame_sha256": "31dcc8a43b786984bdf8031227d30a4d23d3e132a2c8172c9ee9e9dd1019e1b1",
+  "relax_input": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_prep_qegeom_ab_s47_30850839/qe_relax_ab/1-5/transformed/1-5_img2_transformed_s47/relax.in",
+  "relax_input_sha256": "0b6eb2b150a86c4294e79e2c5e629c3983c2438b942e5e153278ff4df54a1a5b"
+}

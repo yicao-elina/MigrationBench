@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revision1 Workflow DAG</title>
+  <style>
+    :root {
+      --bg: #f7f7f4;
+      --fg: #202225;
+      --muted: #62666d;
+      --line: #cfd3d7;
+      --panel: #ffffff;
+      --done: #2f7d56;
+      --partial: #a06a00;
+      --pending: #2667a5;
+      --blocked: #b13b3b;
+      --quarantine: #6f747b;
+      --focus: #1a73a8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font: 14px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+    header {
+      padding: 20px 24px 12px;
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    h1, h2, h3 { margin: 0; font-weight: 600; letter-spacing: 0; }
+    h1 { font-size: 22px; }
+    h2 { font-size: 16px; margin-bottom: 10px; }
+    h3 { font-size: 14px; margin-top: 14px; }
+    .subtitle { color: var(--muted); margin-top: 6px; max-width: 980px; }
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(420px, 1.2fr) minmax(320px, 0.8fr);
+      gap: 16px;
+      padding: 16px;
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin-top: 14px;
+    }
+    button, select {
+      font: inherit;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      color: var(--fg);
+      border-radius: 6px;
+      padding: 7px 10px;
+      cursor: pointer;
+    }
+    button[aria-pressed="true"] {
+      border-color: var(--focus);
+      box-shadow: 0 0 0 2px rgba(26, 115, 168, .15);
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-width: 0;
+    }
+    .dag {
+      position: relative;
+      min-height: 720px;
+      overflow: auto;
+    }
+    svg.edges {
+      position: absolute;
+      inset: 0;
+      width: 1100px;
+      height: 760px;
+      pointer-events: none;
+    }
+    .nodes {
+      position: relative;
+      width: 1100px;
+      height: 760px;
+    }
+    .node {
+      position: absolute;
+      width: 190px;
+      min-height: 74px;
+      border: 1px solid var(--line);
+      background: #fff;
+      border-radius: 8px;
+      padding: 9px;
+      text-align: left;
+    }
+    .node:hover, .node.active {
+      outline: 2px solid rgba(26,115,168,.25);
+      border-color: var(--focus);
+    }
+    .node .id { font-size: 12px; color: var(--muted); }
+    .node .title { display: block; font-weight: 600; margin-top: 2px; }
+    .status {
+      display: inline-block;
+      margin-top: 7px;
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: #fff;
+    }
+    .done { background: var(--done); }
+    .partial { background: var(--partial); }
+    .pending { background: var(--pending); }
+    .blocked { background: var(--blocked); }
+    .quarantined { background: var(--quarantine); }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .legend span { font-size: 12px; color: var(--muted); }
+    .detail-grid {
+      display: grid;
+      gap: 10px;
+    }
+    .kv {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+    }
+    .label {
+      color: var(--muted);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 4px;
+    }
+    ul { margin: 6px 0 0 18px; padding: 0; }
+    li { margin: 3px 0; }
+    .progress {
+      height: 10px;
+      background: #e6e8ea;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 8px;
+    }
+    .bar { height: 100%; background: var(--done); width: 0%; }
+    .mini {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 8px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+      font-size: 13px;
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 7px 6px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th { color: var(--muted); font-weight: 600; }
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      .dag { min-height: 560px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Revision1 Workflow DAG</h1>
+    <div class="subtitle">Raw artifacts flow into audited data products, which then feed figures, manuscript edits, and reviewer responses. Click any node to inspect upstreams, downstreams, acceptance gates, and open gaps.</div>
+    <div class="toolbar" role="group" aria-label="Status filters">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="done">Done</button>
+      <button type="button" data-filter="partial">Partial</button>
+      <button type="button" data-filter="pending">Pending</button>
+      <button type="button" data-filter="blocked">Blocked</button>
+      <button type="button" data-filter="quarantined">Quarantined</button>
+      <button type="button" id="advance-status">Advance selected status</button>
+    </div>
+  </header>
+
+  <main class="layout">
+    <section class="panel">
+      <div class="legend">
+        <span><strong>North star:</strong> every claim must trace raw artifact -> script -> dataset/table -> figure/text -> reviewer response.</span>
+      </div>
+      <div class="dag" id="dag">
+        <svg class="edges" id="edges" aria-hidden="true"></svg>
+        <div class="nodes" id="nodes"></div>
+      </div>
+    </section>
+    <aside class="panel" id="detail" aria-live="polite"></aside>
+  </main>
+
+  <script>
+    const baseNodes = [
+      {id:"N0", title:"North star and claim ledger", status:"done", x:40, y:30, upstream:["reviewer.md","manuscript tex"], downstream:["N8","N16"], method:"Map each risky claim to reviewer item, edit ref, evidence path, and placeholder.", acceptance:"Every risky claim maps to reviewer item and edit ref.", reviewers:["A1-A7","C8-C13"], gaps:[]},
+      {id:"N1", title:"Rockfish inventory", status:"done", x:40, y:170, upstream:["SSH/Rockfish paths"], downstream:["N2","N3","N10"], method:"Locate historical /data roots, model roots, NEB roots, and scratch run root.", acceptance:"Paths documented; /data read-only; /scratch16 used for new jobs.", reviewers:["A1","C8"], gaps:[]},
+      {id:"N2", title:"Historical NEB audit", status:"partial", x:280, y:90, upstream:["N1","historical neb.out"], downstream:["N3","N6","A1"], method:"Parse QE NEB outputs for barriers, image counts, max errors, and convergence state.", acceptance:"Candidate values separated from manuscript-grade references.", reviewers:["A1","A3"], gaps:["1-7 and deep-penetration DFT remain unconverged or timed out."]},
+      {id:"N3", title:"MACE pre-NEB pipeline", status:"partial", x:520, y:30, upstream:["N1","N2","MACE checkpoint"], downstream:["N4"], method:"ASE NEB with MACE; record seed, source SHA, initial/final profile, relaxation energy delta.", acceptance:"Manifest and extxyz exist; no unphysical energy spike; fmax interpreted.", reviewers:["A1"], gaps:["81-atom MACE paths completed but remain high-force or collapsed for some barriers."]},
+      {id:"N4", title:"QE explicit-image input", status:"partial", x:760, y:30, upstream:["N3","QE template"], downstream:["N5"], method:"Generate QE neb.in with BEGIN_POSITIONS and companion manifest.", acceptance:"Input parses; manifest records source MLFF and source QE evidence.", reviewers:["A1"], gaps:["Needs final long-run submission on Rockfish."]},
+      {id:"N5", title:"Restartable QE NEB chain", status:"pending", x:760, y:170, upstream:["N4"], downstream:["N6"], method:"Set QE max_seconds below Slurm walltime; copy previous run dir; restart from parent state.", acceptance:"Clean stop or convergence; restart manifest written every segment.", reviewers:["A1"], gaps:["24-48 h 1-7 chain not yet submitted from this Codex environment."]},
+      {id:"N6", title:"Final DFT barrier table", status:"pending", x:760, y:320, upstream:["N5"], downstream:["N15","A1","A3","A5"], method:"Parse final neb.out and regenerate tables with convergence columns.", acceptance:"max image error <= 0.03 eV/A or explicitly quarantined.", reviewers:["A1","A3","A5"], gaps:["No final converged 1-7/deep-penetration reference yet."]},
+      {id:"N7", title:"Train/test leakage audit", status:"partial", x:280, y:250, upstream:["fine-tuning splits","NEB images"], downstream:["A2","C8","C10"], method:"Force-column audit complete; SOAP/RMSD nearest-neighbor audit planned.", acceptance:"No near duplicate below threshold or exclusion-retrain complete.", reviewers:["A2","C8","C10"], gaps:["SOAP/RMSD nearest-neighbor values pending."]},
+      {id:"N8", title:"Task-relevant benchmark framework", status:"partial", x:520, y:320, upstream:["N0","N2","N3","N6"], downstream:["A4","A7","Discussion"], method:"Define fixed-path, self-relaxed, model-reporting, and path-geometry errors.", acceptance:"Metrics and dataset fields are implementable and cited consistently.", reviewers:["A4","A7"], gaps:["Needs final DFT values to demonstrate full metric table."]},
+      {id:"N9", title:"Multi-seed retraining", status:"pending", x:40, y:430, upstream:["grouped split fix"], downstream:["A3","A5","Table S1"], method:"Scratch, FT-600K, Scratch-5% seeds {123,234,345}; evaluate barriers and RMSE.", acceptance:"Mean +/- std; grouped split; zero group overlap.", reviewers:["A3","A5","C10"], gaps:["Cluster runs/results not in local audit."]},
+      {id:"N10", title:"81-atom path classification", status:"partial", x:280, y:430, upstream:["N1","81-atom trajectories"], downstream:["deep path selection","N5"], method:"Continuous geometry descriptors: penetration score, gap score, coordination, host distance.", acceptance:"Labels are derived from descriptors; DFT values remain gated.", reviewers:["A1","A3"], gaps:["Deep paths still not manuscript-grade DFT references."]},
+      {id:"N11", title:"MD protocol repair", status:"partial", x:40, y:590, upstream:["old MD scripts/logs"], downstream:["Fig 2","C9"], method:"Patch asymmetric protocol, rerun FT-600K, block-average valid trajectories.", acceptance:"Corrected trajectory length and uncertainty reported.", reviewers:["C9"], gaps:["Corrected FT-600K MD rerun pending."]},
+      {id:"N12", title:"Latent robustness", status:"done", x:280, y:590, upstream:["feature matrices"], downstream:["Fig 5","A6","C11","C12"], method:"Original-space/PCA/t-SNE sensitivity; drop zero feature stub.", acceptance:"Projection-only claims removed or labelled invalid.", reviewers:["A6","C11","C12"], gaps:[]},
+      {id:"N13", title:"SHAP reproducibility", status:"partial", x:520, y:590, upstream:["archived SHAP pipeline"], downstream:["Fig 6","A6","C13"], method:"Port pipeline, validate feature labels, report CV R2, perturbation if retained.", acceptance:"Claims scoped to surrogate unless perturbation confirms MACE response.", reviewers:["A6","C13"], gaps:["Final code release and perturbation status pending."]},
+      {id:"N14", title:"Citation and scope edits", status:"done", x:760, y:500, upstream:["reviewer literature"], downstream:["A4","A7","Intro","Conclusion"], method:"Add nearest-neighbor citations, delta paragraph, and hedged generalization wording.", acceptance:"No unsupported generalizable-standard claim remains.", reviewers:["A4","A7"], gaps:[]},
+      {id:"N15", title:"Figure/table rebuild", status:"pending", x:990, y:320, upstream:["N6","N9","N11","N12","N13"], downstream:["N16","manuscript PDF"], method:"Regenerate visuals and tables from data_processed outputs.", acceptance:"No figure-caption mismatch; every number traceable.", reviewers:["A1","A3","A5","A6","C9"], gaps:["Waiting on final numeric jobs."]},
+      {id:"N16", title:"Response letter finalization", status:"pending", x:990, y:500, upstream:["N6","N7","N9","N11","N13","N14","N15"], downstream:["submission"], method:"Replace placeholders, align with manuscript, keep excluded items explicit.", acceptance:"No unresolved NUMBER-PENDING remains unless deliberately excluded.", reviewers:["all"], gaps:["Waiting on data-dependent placeholders."]}
+    ];
+    const edges = [
+      ["N0","N8"],["N0","N16"],["N1","N2"],["N1","N3"],["N1","N10"],
+      ["N2","N3"],["N2","N6"],["N3","N4"],["N4","N5"],["N5","N6"],
+      ["N6","N15"],["N7","N16"],["N8","N16"],["N9","N15"],["N10","N5"],
+      ["N11","N15"],["N12","N15"],["N13","N15"],["N14","N16"],["N15","N16"]
+    ];
+    const order = ["pending","partial","done","quarantined","blocked"];
+    const storageKey = "revision1-dag-status-overrides";
+    let overrides = JSON.parse(localStorage.getItem(storageKey) || "{}");
+    let selected = "N0";
+    let filter = "all";
+
+    function nodes() {
+      return baseNodes.map(n => ({...n, status: overrides[n.id] || n.status}));
+    }
+    function statusClass(s) {
+      return s === "done" ? "done" : s === "partial" ? "partial" : s === "blocked" ? "blocked" : s === "quarantined" ? "quarantined" : "pending";
+    }
+    function drawEdges(data) {
+      const byId = Object.fromEntries(data.map(n => [n.id,n]));
+      const svg = document.getElementById("edges");
+      svg.innerHTML = `<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="${getComputedStyle(document.documentElement).getPropertyValue("--line").trim()}"/></marker></defs>`;
+      edges.forEach(([a,b]) => {
+        if (!byId[a] || !byId[b]) return;
+        if (filter !== "all" && byId[a].status !== filter && byId[b].status !== filter) return;
+        const x1 = byId[a].x + 190, y1 = byId[a].y + 38;
+        const x2 = byId[b].x, y2 = byId[b].y + 38;
+        const mid = Math.max(x1 + 30, (x1+x2)/2);
+        const path = document.createElementNS("http://www.w3.org/2000/svg","path");
+        path.setAttribute("d", `M${x1},${y1} C${mid},${y1} ${mid},${y2} ${x2},${y2}`);
+        path.setAttribute("fill","none");
+        path.setAttribute("stroke","var(--line)");
+        path.setAttribute("stroke-width","1.5");
+        path.setAttribute("marker-end","url(#arrow)");
+        svg.appendChild(path);
+      });
+    }
+    function drawNodes() {
+      const data = nodes();
+      const wrap = document.getElementById("nodes");
+      wrap.innerHTML = "";
+      data.forEach(n => {
+        if (filter !== "all" && n.status !== filter) return;
+        const el = document.createElement("button");
+        el.className = `node ${n.id === selected ? "active" : ""}`;
+        el.style.left = n.x + "px";
+        el.style.top = n.y + "px";
+        el.type = "button";
+        el.innerHTML = `<span class="id">${n.id}</span><span class="title">${n.title}</span><span class="status ${statusClass(n.status)}">${n.status}</span>`;
+        el.addEventListener("click", () => { selected = n.id; render(); });
+        wrap.appendChild(el);
+      });
+      drawEdges(data);
+    }
+    function list(items) {
+      return items && items.length ? `<ul>${items.map(x => `<li>${x}</li>`).join("")}</ul>` : `<div class="mini">None recorded.</div>`;
+    }
+    function drawDetail() {
+      const n = nodes().find(x => x.id === selected) || nodes()[0];
+      const doneCount = nodes().filter(x => x.status === "done").length;
+      const progress = Math.round(doneCount / nodes().length * 100);
+      document.getElementById("detail").innerHTML = `
+        <h2>${n.id}: ${n.title}</h2>
+        <span class="status ${statusClass(n.status)}">${n.status}</span>
+        <div class="mini">${doneCount}/${nodes().length} nodes done (${progress}%). Local status overrides are saved in this browser.</div>
+        <div class="progress" role="progressbar" aria-valuenow="${progress}" aria-valuemin="0" aria-valuemax="100"><div class="bar" style="width:${progress}%"></div></div>
+        <div class="detail-grid">
+          <div class="kv"><div class="label">Method</div>${n.method}</div>
+          <div class="kv"><div class="label">Acceptance gate</div>${n.acceptance}</div>
+          <div class="kv"><div class="label">Upstream</div>${list(n.upstream)}</div>
+          <div class="kv"><div class="label">Downstream</div>${list(n.downstream)}</div>
+          <div class="kv"><div class="label">Reviewer consumers</div>${list(n.reviewers)}</div>
+          <div class="kv"><div class="label">Open gaps</div>${list(n.gaps)}</div>
+        </div>
+        <h3>Status counts</h3>
+        <table>
+          <thead><tr><th>Status</th><th>Count</th></tr></thead>
+          <tbody>${["done","partial","pending","blocked","quarantined"].map(s => `<tr><td>${s}</td><td>${nodes().filter(x => x.status === s).length}</td></tr>`).join("")}</tbody>
+        </table>
+      `;
+    }
+    function render() { drawNodes(); drawDetail(); }
+    document.querySelectorAll("[data-filter]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll("[data-filter]").forEach(b => b.setAttribute("aria-pressed","false"));
+        btn.setAttribute("aria-pressed","true");
+        filter = btn.dataset.filter;
+        render();
+      });
+    });
+    document.getElementById("advance-status").addEventListener("click", () => {
+      const current = nodes().find(n => n.id === selected);
+      const idx = order.indexOf(current.status);
+      overrides[selected] = order[(idx + 1) % order.length];
+      localStorage.setItem(storageKey, JSON.stringify(overrides));
+      render();
+    });
+    render();
+  </script>
+</body>
+</html>

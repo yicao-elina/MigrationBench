@@ -1,0 +1,55 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T09:07:05.200613+00:00",
+  "scientific_role": "mace_label_site_screening_proposer_not_dft_stability_model",
+  "inputs": {
+    "site_table": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection_v3/candidate_sites.csv",
+    "site_table_sha256": "b3eb827e39d30b339bc401a67f4f2a29c442b0acf84ad573c64605d94040733b",
+    "dedup_table": "/Users/alina/Project/26MIgrationBench/data_raw/site_search_qe/interstitial_search/dedup_clusters.csv",
+    "dedup_table_sha256": "295f3297e6cb2682fdda2b51de8a3115af54a8d6991920f867fec9d4ffee8f70",
+    "reference_cell_input": "/Users/alina/Project/26MIgrationBench/data_raw/site_search_qe/2L_octo_Cr1.in",
+    "reference_cell_sha256": "c9921cb1e9f2d78669db8429f5b0f161f32c11903f6af8232f8685618948843c"
+  },
+  "descriptor": {
+    "name": "Cr_centered_species_resolved_radial_angular_invariant_v1",
+    "dimension": 71,
+    "periodic_minimum_image": true,
+    "radial_cutoff_A": 6.0,
+    "angular_cutoff_A": 4.2,
+    "translation_rotation_permutation_invariant": true
+  },
+  "validation": {
+    "split_unit": "connected_source_void_family",
+    "metrics": {
+      "n_samples": 191,
+      "n_void_family_groups": 48,
+      "n_group_folds": 5,
+      "mae_eV": 0.6231177865152335,
+      "rmse_eV": 0.92419468582198,
+      "spearman_rank_correlation": 0.8340889657010581,
+      "lowest_20pct_recall": 0.8205128205128205,
+      "pairwise_order_accuracy_delta_gte_0p2eV": 0.851429272481904,
+      "uncertainty_95pct_empirical_coverage": 0.9581151832460733
+    },
+    "quality_gate": {
+      "rmse_eV_lte_1p0": true,
+      "spearman_gte_0p5": true,
+      "lowest_20pct_recall_gte_0p5": true,
+      "independent_accepted_dft_labels_gte_20": false
+    }
+  },
+  "counts": {
+    "candidate_sites": 191,
+    "recommendations": 12,
+    "dft_outputs_present": 2,
+    "historical_dft_outputs_unlinked_to_current_input": 2,
+    "accepted_dft_local_minima": 0
+  },
+  "decision": {
+    "screening_ranking_available": true,
+    "dft_stability_model_allowed": false,
+    "qe_submission_allowed": false,
+    "reason": "Current target is MACE screening energy and independent accepted DFT labels are insufficient."
+  },
+  "seed": 42
+}

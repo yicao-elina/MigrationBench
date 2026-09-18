@@ -1,0 +1,65 @@
+{
+  "created_at_utc": "2026-09-13T13:33:09.270481+00:00",
+  "input": "/Users/alina/Project/26MIgrationBench/data_processed/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/nearest_neighbors.csv",
+  "input_sha256": "75638e7a6001092595071e2a45fda4ed6155634df3ccfc481d6b13a612057122",
+  "schema_version": "1.0",
+  "scope": "declared fine-tuning checkpoint files versus current 1-6/1-7 QE evaluation histories",
+  "scope_limit": "unknown foundation-model pretraining data are not auditable from available files",
+  "splits": [
+    {
+      "evaluation_rows": 1110,
+      "reference_split": "train",
+      "rmsd_comparable_rows": 124,
+      "rmsd_incompatible_species_cardinality_rows": 986,
+      "rmsd_lte_threshold": 0,
+      "rmsd_median_A": 2.611740916026389,
+      "rmsd_min_A": 1.19443129092788,
+      "rmsd_min_over_threshold": 23.8886258185576,
+      "rmsd_q05_A": 1.197948525802815,
+      "soap_comparable_rows": 1110,
+      "soap_lte_threshold": 0,
+      "soap_median_cosine_distance": 0.0034994908190663088,
+      "soap_min_cosine_distance": 0.0002792569268363909,
+      "soap_min_over_threshold": 2.792569268363909,
+      "soap_q05_cosine_distance": 0.0003529844242131652
+    },
+    {
+      "evaluation_rows": 1110,
+      "reference_split": "valid",
+      "rmsd_comparable_rows": 392,
+      "rmsd_incompatible_species_cardinality_rows": 718,
+      "rmsd_lte_threshold": 0,
+      "rmsd_median_A": 0.6290848018076751,
+      "rmsd_min_A": 0.6260175886439601,
+      "rmsd_min_over_threshold": 12.5203517728792,
+      "rmsd_q05_A": 0.6260175886439601,
+      "soap_comparable_rows": 1110,
+      "soap_lte_threshold": 0,
+      "soap_median_cosine_distance": 0.004973268831299005,
+      "soap_min_cosine_distance": 0.00037094776342350144,
+      "soap_min_over_threshold": 3.7094776342350144,
+      "soap_q05_cosine_distance": 0.00037094776342350144
+    },
+    {
+      "evaluation_rows": 1110,
+      "reference_split": "test",
+      "rmsd_comparable_rows": 335,
+      "rmsd_incompatible_species_cardinality_rows": 775,
+      "rmsd_lte_threshold": 0,
+      "rmsd_median_A": 0.593473605457071,
+      "rmsd_min_A": 0.5909955886422615,
+      "rmsd_min_over_threshold": 11.81991177284523,
+      "rmsd_q05_A": 0.5909955886422615,
+      "soap_comparable_rows": 1110,
+      "soap_lte_threshold": 0,
+      "soap_median_cosine_distance": 0.0035659670976329605,
+      "soap_min_cosine_distance": 0.0005089493884451457,
+      "soap_min_over_threshold": 5.089493884451457,
+      "soap_q05_cosine_distance": 0.0005089493884451457
+    }
+  ],
+  "thresholds": {
+    "cr_local_species_rmsd_A": 0.05,
+    "soap_cosine_distance": 0.0001
+  }
+}

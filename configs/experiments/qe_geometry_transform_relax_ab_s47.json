@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0",
+  "experiment": "paired_direct_vs_periodic_hard_clearance_projection_qe_relax",
+  "seed": 47,
+  "resources": {"partition": "parallel", "account": "pclancy3", "walltime": "24:00:00", "pw_max_seconds": 84600, "ntasks": 2, "memory": "160G"},
+  "provenance_correction": {
+    "scope": "submitted direct-branch endpoint_relax_manifest.json only",
+    "issue": "The direct manifest inherited the paired Cr-shift transform field even though its source frame and relax.in contain the unmodified direct coordinates.",
+    "authoritative_interpretation": "variant=direct is identity with cr_displacement_A=0; transformed manifests carry the measured projection displacement.",
+    "calculation_impact": "none",
+    "generator_fixed_for_future_runs": true
+  },
+  "direct_jobs": [
+    {"branch_id": "1-3_img2_direct_s47", "path_id": "1-3", "image_index_qe": 2, "job_name": "mb_d13i2s47", "job_id": "30850842", "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_d13i2s47_30850842"},
+    {"branch_id": "1-3_img3_direct_s47", "path_id": "1-3", "image_index_qe": 3, "job_name": "mb_d13i3s47", "job_id": "30850843", "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_d13i3s47_30850843"},
+    {"branch_id": "1-5_img2_direct_s47", "path_id": "1-5", "image_index_qe": 2, "job_name": "mb_d15i2s47", "job_id": "30850846", "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_d15i2s47_30850846"}
+  ],
+  "transformed_jobs": [
+    {"branch_id": "1-3_img2_transformed_s47", "path_id": "1-3", "image_index_qe": 2, "job_name": "mb_x13i2s47", "job_id": "30850844", "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_x13i2s47_30850844"},
+    {"branch_id": "1-3_img3_transformed_s47", "path_id": "1-3", "image_index_qe": 3, "job_name": "mb_x13i3s47", "job_id": "30850845", "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_x13i3s47_30850845"},
+    {"branch_id": "1-5_img2_transformed_s47", "path_id": "1-5", "image_index_qe": 2, "job_name": "mb_x15i2s47", "job_id": "30850847", "remote_run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_x15i2s47_30850847"}
+  ],
+  "comparison_gate": {
+    "both_bfgs_converged": true,
+    "both_final_max_force_eV_A_lte": 0.05,
+    "same_final_basin_required": true,
+    "primary_metrics": ["ionic_steps", "total_scf_iterations_seen"],
+    "secondary_metrics": ["elapsed_seconds"],
+    "basin_change_is_not_speedup": true
+  }
+}

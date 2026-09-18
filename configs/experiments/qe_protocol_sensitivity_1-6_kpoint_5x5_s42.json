@@ -1,0 +1,42 @@
+{
+  "path_id": "1-6",
+  "source_run_dir": "data/raw_compact/rockfish/mb_qe16_direct_r3_s42_30812496",
+  "source_iteration": 108,
+  "image_indices": [2, 4],
+  "geometry_roles": {
+    "2": "internal_low_energy_basin_candidate",
+    "4": "segment_high_energy_image_candidate"
+  },
+  "pair_delta_E_tolerance_eV": 0.02,
+  "seed": 42,
+  "resources": {
+    "walltime": "24:00:00",
+    "max_seconds": 84600,
+    "memory": "170G"
+  },
+  "stage": "5x5x1_kpoint_sensitivity_after_3x3x1_4x4x1_failure",
+  "blocked_by": null,
+  "upstream_gate": {
+    "stage": "3x3x1_vs_4x4x1_kpoint_sensitivity",
+    "gate": "fail",
+    "gate_reason": "energy_contrast_is_protocol_sensitive",
+    "delta_E_difference_eV": 0.0969577066925481
+  },
+  "out_dir": "data_processed/qe_protocol_sensitivity/1-6_kpoint_5x5_s42",
+  "profiles": [
+    {
+      "id": "hist_50_200_5x5x1_nonspin",
+      "job_slug": "k551",
+      "ecutwfc_Ry": 50,
+      "ecutrho_Ry": 200,
+      "degauss_Ry": 0.0146997236,
+      "spin_model": "nonspin",
+      "kpoints": {
+        "mode": "automatic",
+        "grid_shift": [5, 5, 1, 0, 0, 0]
+      },
+      "ntasks": 5,
+      "kpoint_pools": 5
+    }
+  ]
+}

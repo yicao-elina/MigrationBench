@@ -1,0 +1,12 @@
+\begin{tabular}{lllll}
+\toprule
+Model & $D$ (cm$^2$/s) & $R^2$ (MSD fit) & $\kappa$ (W\,m$^{-1}$\,K$^{-1}$) & Status \\
+\midrule
+Foundation & $(0.7 \pm 7.9) \times 10^{-9}$ & 0.011 & $(2.4 \pm 8.6) \times 10^{-3}$ & VALID \\
+Scratch & $(-3.4 \pm 3.2) \times 10^{-9}$ & 0.001 & $(0.9 \pm 1.3) \times 10^{-2}$ & VALID \\
+FT-600K$^{\dagger}$ & $(3.9 \pm 4.0) \times 10^{-8}$ & 0.903 & $(0.9 \pm 1.2) \times 10^{-2}$ & \textbf{[INVALID-pending-JB-6]} \\
+FT-MultiT & $(4.8 \pm 4.8) \times 10^{-8}$ & 0.861 & $(2.0 \pm 1.7) \times 10^{-2}$ & VALID \\
+\bottomrule
+\multicolumn{5}{l}{\footnotesize $^{\dagger}$Naive-FT 600 K run used steps=2000, interval=5 (\texttt{mace\_md\_eval\_0814.py}:359--360); quarantined pending JB-6.} \\
+\multicolumn{5}{l}{\footnotesize $D$: block-averaged MSD slope (6 blocks, fit window 5--200 ps). $\kappa$: Green--Kubo running integral averaged over 100--200 ps (6 blocks).} \\
+\end{tabular}

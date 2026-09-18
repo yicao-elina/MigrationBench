@@ -1,0 +1,61 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T17:12:38.282369+00:00",
+  "migrant_element": "Cr",
+  "policy": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/configs/representative_path_selection.json",
+  "policy_sha256": "4968aeb10b5fa3413127e7f435ff20f79a05587cf324ecd217de420c99506460",
+  "thresholds": {
+    "maximum_migrant_distance_A": 0.25,
+    "maximum_host_rmsd_A": 0.15,
+    "maximum_local_signature_rms_A": 0.15,
+    "local_signature_neighbors": 12
+  },
+  "sources": [
+    {
+      "path": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_epaccept_sm_s42_30856509/batch_acceptance/endpoint_acceptance_batch.json",
+      "sha256": "39b553617591e329dfd69d00a64473ecb30bbae3067aea13ef157abbe82e0061",
+      "status": "accepted_all"
+    }
+  ],
+  "counts": {
+    "accepted_records": 2,
+    "basins": 2
+  },
+  "assignments": [
+    {
+      "basin_id": "BASIN_Cr1Te1_bd0f3f07ac65_ccf052808fa9a048",
+      "is_representative": true,
+      "system_key": "Cr1Te1_bd0f3f07ac65",
+      "path_id": "smoke",
+      "image_index_qe": 1,
+      "parent_job_id": "parent-1",
+      "repeat_job_id": "repeat-1",
+      "accepted_structure": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_epaccept_sm_s42_30856509/batch_acceptance/smoke_img1_repeat_final.extxyz",
+      "accepted_structure_sha256": "10386008c98427136b1c296f5ad08ff41faca50aab5a75e56073994b462529dc",
+      "calculator_identity": "bf55d8eee6e7d4af"
+    },
+    {
+      "basin_id": "BASIN_Cr1Te1_bd0f3f07ac65_d71b356ac32dce18",
+      "is_representative": true,
+      "system_key": "Cr1Te1_bd0f3f07ac65",
+      "path_id": "smoke",
+      "image_index_qe": 2,
+      "parent_job_id": "parent-2",
+      "repeat_job_id": "repeat-2",
+      "accepted_structure": "/scratch16/pclancy3/yi/revision1_migrationbench_smoke/runs/mb_epaccept_sm_s42_30856509/batch_acceptance/smoke_img2_repeat_final.extxyz",
+      "accepted_structure_sha256": "9f33a637410709038257b192045bebcc84207f76403701f90ab1cfaa3b725603",
+      "calculator_identity": "bf55d8eee6e7d4af"
+    }
+  ],
+  "pairwise_comparisons": [
+    {
+      "left_structure_sha256": "9f33a637410709038257b192045bebcc84207f76403701f90ab1cfaa3b725603",
+      "right_structure_sha256": "10386008c98427136b1c296f5ad08ff41faca50aab5a75e56073994b462529dc",
+      "comparable_system": true,
+      "equivalent": false,
+      "migrant_distance_A": 4.5,
+      "host_rmsd_A": 0.0,
+      "local_signature_rms_A": 0.2999999999999998
+    }
+  ]
+}

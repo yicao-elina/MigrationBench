@@ -1,0 +1,53 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T10:42:21.571176+00:00",
+  "source_trajectory": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6d1d33_sm_s44_30850360/mlff_historical_curvature_warp_s44/mlff_neb.traj",
+  "source_trajectory_sha256": "6c27aa8080596645581b02d02c32f6bec16b97bbb2cb676fcebe4f0914b861dc",
+  "n_optimizer_iterations_including_initial": 3,
+  "n_images": 7,
+  "n_atoms": 61,
+  "spring_constant_eV_A2": 0.1,
+  "climb": false,
+  "neb_method": "improvedtangent",
+  "force_semantics": {
+    "forces": "true calculator atomic forces read from each trajectory image before ASE NEB projection; fixed endpoints are never taken from zero-filled NEB.real_forces",
+    "neb_forces": "projected NEB optimization forces for internal images only; absent on endpoints",
+    "neb_residual_eV_A": "ASE NEB residual for each internal image"
+  },
+  "iteration_summaries": [
+    {
+      "optimizer_iteration": 0,
+      "barrier_proxy_eV": 5.4633777944575,
+      "max_internal_true_force_eV_A": 10.67372021591136,
+      "max_internal_neb_force_eV_A": 10.946987677573398,
+      "max_neb_residual_eV_A": 10.786786255659361
+    },
+    {
+      "optimizer_iteration": 1,
+      "barrier_proxy_eV": 3.68343623807786,
+      "max_internal_true_force_eV_A": 6.003010892497081,
+      "max_internal_neb_force_eV_A": 6.165492532428926,
+      "max_neb_residual_eV_A": 6.114278299466448
+    },
+    {
+      "optimizer_iteration": 2,
+      "barrier_proxy_eV": 2.613503488301319,
+      "max_internal_true_force_eV_A": 3.6024101919819276,
+      "max_internal_neb_force_eV_A": 3.668103423882154,
+      "max_neb_residual_eV_A": 3.6589426136427887
+    }
+  ],
+  "final_iteration_summary": {
+    "optimizer_iteration": 2,
+    "barrier_proxy_eV": 2.613503488301319,
+    "max_internal_true_force_eV_A": 3.6024101919819276,
+    "max_internal_neb_force_eV_A": 3.668103423882154,
+    "max_neb_residual_eV_A": 3.6589426136427887
+  },
+  "outputs": {
+    "extxyz": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6d1d33_sm_s44_30850360/posthoc_history_v3_true_endpoints/mlff_neb_iteration_history.extxyz",
+    "extxyz_sha256": "956d41cfd08bc93aab232f997043d5462ed91b54ccbc89e390eeac8af3ff4f1d",
+    "csv": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm6d1d33_sm_s44_30850360/posthoc_history_v3_true_endpoints/mlff_neb_iteration_history.csv",
+    "csv_sha256": "c2ddad4bcbbabe7a57b20683cd307225ef620cfd70a54300f168bbd0991a4275"
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "created_at_local": "2026-09-12T23:37:19",
+  "inputs": [
+    {
+      "input_spec": "data_processed/site_assignments/victor_sites.csv",
+      "system_id": "victor_sites",
+      "source_namespace": "victor_sites",
+      "source_csv": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/victor_sites.csv",
+      "source_sha256": "81d87d32c1f9abc689e776ae9092e1e5440bf4b8e3089e44a5228b95ed40b6ce"
+    },
+    {
+      "input_spec": "data_processed/site_assignments/joshitha_sites.csv",
+      "system_id": "joshitha_sites",
+      "source_namespace": "joshitha_sites",
+      "source_csv": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/joshitha_sites.csv",
+      "source_sha256": "6811862232ebe0e6711717e45f82647f830bea05583049ce3f5d20d690520170"
+    }
+  ],
+  "parameters": {
+    "site_csv": [
+      "data_processed/site_assignments/victor_sites.csv",
+      "data_processed/site_assignments/joshitha_sites.csv"
+    ],
+    "out_dir": "data_processed/site_assignments/endpoint_selection_v2",
+    "min_delta_z_A": 0.4,
+    "max_delta_z_A": 8.0,
+    "max_energy_delta_eV": 6.0,
+    "representatives_per_class": 12
+  },
+  "outputs": {
+    "candidate_sites": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection_v2/candidate_sites.csv",
+    "candidate_pairs": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection_v2/candidate_pairs.csv",
+    "representative_path_queue": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection_v2/representative_path_queue.csv"
+  },
+  "counts": {
+    "sites": 191,
+    "candidate_pairs": 6356,
+    "representatives": 48
+  },
+  "quality_checks": {
+    "site_key_unique": true,
+    "path_key_unique": true,
+    "cross_system_pairs": 0,
+    "missing_screening_energy_sites": 0
+  },
+  "notes": [
+    "This script proposes endpoint pairs; it does not claim a DFT barrier.",
+    "Bare input paths are isolated into separate systems. Cross-source pairing requires an explicit shared SYSTEM_ID.",
+    "Transition classes are bins over continuous descriptors and must be stored with the dataset.",
+    "Representative paths should be escalated to MLFF pre-NEB first, then QE NEB if scientifically useful."
+  ]
+}

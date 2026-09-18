@@ -1,0 +1,30 @@
+&CONTROL
+  calculation = 'relax'
+  restart_mode = 'from_scratch'
+  prefix = 'repeat_2'
+  tprnfor = .true.
+  max_seconds = 500
+/
+&SYSTEM
+  nat = 2
+  ntyp = 2
+  ecutwfc = 50
+  ecutrho = 200
+  occupations = 'smearing'
+  smearing = 'gaussian'
+  degauss = 0.005
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+/
+ATOMIC_SPECIES
+Cr 1 Cr.UPF
+Te 1 Te.UPF
+ATOMIC_POSITIONS angstrom
+Cr  4.500000000000  0.000000000000  0.000000000000
+Te  2.100000000000  0.000000000000  0.000000000000
+K_POINTS gamma
+CELL_PARAMETERS angstrom
+10 0 0
+0 10 0
+0 0 10

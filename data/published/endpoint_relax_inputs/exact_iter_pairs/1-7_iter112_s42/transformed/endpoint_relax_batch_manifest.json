@@ -1,0 +1,148 @@
+{
+  "created_at_utc": "2026-09-13T07:14:00.726585+00:00",
+  "experiment": "paired_direct_vs_geometry_transform_from_exact_qe_neb_iteration",
+  "path_id": "1-7",
+  "source_iteration": 112,
+  "source_path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/out/sb2te3.path112",
+  "source_path_file_sha256": "9db37901f08693062e2b98231c3abdf050e5d9ceec2cdda15586e430844b9385",
+  "jobs": [
+    {
+      "schema_version": "1.1",
+      "created_at_utc": "2026-09-13T07:14:00.702827+00:00",
+      "seed": 42,
+      "source_path_id": "1-7",
+      "source_iteration": 112,
+      "source_image_index_qe": 2,
+      "source_path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/out/sb2te3.path112",
+      "source_path_file_sha256": "9db37901f08693062e2b98231c3abdf050e5d9ceec2cdda15586e430844b9385",
+      "source_energy_eV": -133598.55460114466,
+      "source_relative_energy_eV": -1.1147921369411051,
+      "source_neb_error_eV_A": 0.311123,
+      "template_pw_input": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/pw_1.in",
+      "template_pw_sha256": "7db6a2f64ba8887528307bb380dbf5440b7ed6f3bb54308fc7e31e23d1f37676",
+      "resources": {
+        "walltime": "24:00:00",
+        "pw_max_seconds": 84600,
+        "ntasks": 2,
+        "memory": "160G"
+      },
+      "comparison_gate": {
+        "both_bfgs_converged": true,
+        "both_final_max_force_eV_A_lte": 0.05,
+        "same_final_basin_required": true,
+        "primary_metrics": [
+          "ionic_steps",
+          "total_scf_iterations_seen"
+        ],
+        "secondary_metrics": [
+          "elapsed_seconds"
+        ]
+      },
+      "branch_id": "1-7_iter112_img2_geomvoid_s42",
+      "job_name": "mb_x17t112i2s42",
+      "scientific_role": "exact_iteration_geometry_preconditioned_qe_relax",
+      "direct_baseline_branch_id": "1-7_iter112_img2_direct_s42",
+      "transform": {
+        "name": "constrained_periodic_local_void_projection",
+        "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+        "parameters": {
+          "safe_distance_A": 2.8,
+          "sigma_A": 0.25,
+          "tether": 2.0,
+          "max_shift_A": 0.25
+        },
+        "cr_position_before_A": [
+          -2.3189013303305006,
+          -3.527338219213662,
+          14.462963165036136
+        ],
+        "cr_position_after_A": [
+          -2.3508956000506775,
+          -3.5088661195253223,
+          14.710218393976145
+        ],
+        "metrics": {
+          "objective_before": 7.47235780535909,
+          "objective_after": 4.765089078566923,
+          "iterations": 6,
+          "final_gradient_norm": 7.634658757677585,
+          "cr_displacement_A": 0.24999999999999947,
+          "minimum_cr_host_distance_before_A": 2.484751388397699,
+          "minimum_cr_host_distance_after_A": 2.600406308353427
+        }
+      },
+      "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_inputs/exact_iter_pairs/1-7_iter112_s42/transformed/1-7_iter112_img2_geomvoid_s42/relax.in",
+      "relax_input_sha256": "6544f1dc34ee96375346ea2670bac5875203539739f9da18e8b0a064a0ad8bcc",
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_inputs/exact_iter_pairs/1-7_iter112_s42/transformed/1-7_iter112_img2_geomvoid_s42/endpoint_relax_manifest.json"
+    },
+    {
+      "schema_version": "1.1",
+      "created_at_utc": "2026-09-13T07:14:00.713537+00:00",
+      "seed": 42,
+      "source_path_id": "1-7",
+      "source_iteration": 112,
+      "source_image_index_qe": 5,
+      "source_path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/out/sb2te3.path112",
+      "source_path_file_sha256": "9db37901f08693062e2b98231c3abdf050e5d9ceec2cdda15586e430844b9385",
+      "source_energy_eV": -133596.88187555244,
+      "source_relative_energy_eV": 0.557933455274906,
+      "source_neb_error_eV_A": 1.583026,
+      "template_pw_input": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/pw_1.in",
+      "template_pw_sha256": "7db6a2f64ba8887528307bb380dbf5440b7ed6f3bb54308fc7e31e23d1f37676",
+      "resources": {
+        "walltime": "24:00:00",
+        "pw_max_seconds": 84600,
+        "ntasks": 2,
+        "memory": "160G"
+      },
+      "comparison_gate": {
+        "both_bfgs_converged": true,
+        "both_final_max_force_eV_A_lte": 0.05,
+        "same_final_basin_required": true,
+        "primary_metrics": [
+          "ionic_steps",
+          "total_scf_iterations_seen"
+        ],
+        "secondary_metrics": [
+          "elapsed_seconds"
+        ]
+      },
+      "branch_id": "1-7_iter112_img5_geomvoid_s42",
+      "job_name": "mb_x17t112i5s42",
+      "scientific_role": "exact_iteration_geometry_preconditioned_qe_relax",
+      "direct_baseline_branch_id": "1-7_iter112_img5_direct_s42",
+      "transform": {
+        "name": "constrained_periodic_local_void_projection",
+        "formula": "lambda*|dr|^2 + sum_j softplus((d_safe-d_j)/sigma)^2",
+        "parameters": {
+          "safe_distance_A": 2.8,
+          "sigma_A": 0.25,
+          "tether": 2.0,
+          "max_shift_A": 0.25
+        },
+        "cr_position_before_A": [
+          -4.21421779476647,
+          -2.433076337125058,
+          14.35116462649985
+        ],
+        "cr_position_after_A": [
+          -4.214217805870231,
+          -2.4330768333540473,
+          14.219149488108288
+        ],
+        "metrics": {
+          "objective_before": 6.530404886482393,
+          "objective_after": 6.312773425537334,
+          "iterations": 12,
+          "final_gradient_norm": 3.3493192097663937e-06,
+          "cr_displacement_A": 0.1320151383924953,
+          "minimum_cr_host_distance_before_A": 2.580521863542854,
+          "minimum_cr_host_distance_after_A": 2.577381758977023
+        }
+      },
+      "relax_input": "/Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_inputs/exact_iter_pairs/1-7_iter112_s42/transformed/1-7_iter112_img5_geomvoid_s42/relax.in",
+      "relax_input_sha256": "1c5d7ee13cbd92e2b438e98ef4df12f25b459e4f26b22a788254c44d447b4021",
+      "manifest_path": "/Users/alina/Project/26MIgrationBench/data_processed/endpoint_relax_inputs/exact_iter_pairs/1-7_iter112_s42/transformed/1-7_iter112_img5_geomvoid_s42/endpoint_relax_manifest.json"
+    }
+  ]
+}

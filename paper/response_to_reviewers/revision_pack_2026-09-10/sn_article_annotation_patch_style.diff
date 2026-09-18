@@ -1,0 +1,67 @@
+diff --git a/sn-article-final.tex b/sn-article-final.tex
+--- a/sn-article-final.tex
++++ b/sn-article-final.tex
+@@
++% REVIEWER-MAP PREAMBLE:
++% Add near the manuscript preamble for invisible source-level reviewer tags.
++% \providecommand{\reviewermap}[3]{}
+@@ Abstract
++\reviewermap{REV-A4}{done-local}{Reviewer asked us to avoid claiming a general standard from one material and one architecture. Rewritten as a candidate framework demonstrated on Cr-doped Sb2Te3.}
+-% This work establishes migration-based non-equilibrium probes as a data-efficient, generalizable standard ...
++% Replace with candidate-framework wording from overleaf_search_replace_checklist.md item 1.
+@@ Introduction
++\reviewermap{REV-A7}{done-local}{Add close prior work and state the delta relative to the earlier arXiv/workshop report.}
++% Insert delta paragraph after the diagnostic-framework paragraph.
+@@ Methods: train/valid/test split
++\reviewermap{REV-A2/REV-C10}{pending}{Grouped split by trajectory/pathway provenance; pending SOAP-RMSD-overlap-audit and grouped-split-retrained-rmse.}
++% Replace frame-level split description with grouped-split description.
+@@ Methods: training data provenance
++\reviewermap{REV-C8}{pending-release}{Old NEB exporters could write fabricated zero forces. Reported FT models used real-force AIMD frames only; pending final code-release hash.}
++% Add provenance sentence excluding zero-force NEB exports from reported training.
+@@ Methods: MD protocol
++\reviewermap{REV-C9}{pending-cluster}{Old FT-600K MD transport value is quarantined; pending corrected-FT600K-MD-transport.}
++% Mark corrected 100000-step, interval-200 MD protocol.
+@@ Sec. 3.2 local migration / Fig. 3d
++\reviewermap{REV-A1}{partial}{Fig. 3d is fixed-geometry DFT-path scoring. Current 1-4 DFT reference candidate is 0.336050 eV; Foundation fixed-path barrier is 1.024296 eV, error +0.688246 eV. Pending final-QE-1-4-barrier and SI-FigS3-audit.}
++% Replace reference sentence with the audited 1-4 fixed-path reference text.
+@@ Sec. 3.2 NEB stability
++\reviewermap{REV-A1}{partial}{Define Fig. 3d and SI Fig. S3 as different NEB operators and report them side-by-side.}
++% Insert fixed-geometry versus self-consistent MLFF NEB paragraph.
+@@ Sec. 3.2 deep penetration
++\reviewermap{REV-A3}{pending-cluster}{Replace unsupported "by chance" explanation with seed-stability result.}
++% Replace chance sentence after multiseed-kinetic-barrier-errors are available.
+@@ Sec. 3.2 FT-600K / control
++\reviewermap{REV-A5}{pending-cluster}{Add Scratch-5% random-initialization control trained on the same approximately 1000 configurations as FT-600K.}
++% Insert Scratch-5% control paragraph once values are available.
+@@ Sec. 3.4 latent-space analysis
++\reviewermap{REV-A6/REV-C11/REV-C12}{done-local}{Claims softened to "consistent with"; original 6191-d euclidean silhouette 0.333; t-SNE sensitivity 0.397 +/- 0.027; PHATE 0.473 +/- 0.000; zero feature stub dropped.}
++% Replace direct-mechanistic language and projected silhouette claims.
+@@ Sec. 3.5 SHAP
++\reviewermap{REV-A6/REV-C13}{partial}{SHAP explains surrogate error predictions, not MACE directly. Current 5-fold CV R2: FT-600K 0.9819, FT-MultiT 0.8756, Scratch 0.9730. Pending perturbation and release evidence.}
++% Replace internalization language and add surrogate CV R2 values.
+@@ Conclusion
++\reviewermap{REV-A4}{done-local}{Broader generality moved to future cross-system validation.}
++% Replace broad-principles wording with hedged case-study wording.
+@@ Code/Data Availability
++\reviewermap{REV-C13}{pending-release}{Point only to actual non-stub released scripts; pending final-SHAP-code-release-hash and final-empty-stub-audit.}
++% Add release hash after final code audit.
+
+diff --git a/sn-article-SI.tex b/sn-article-SI.tex
+--- a/sn-article-SI.tex
++++ b/sn-article-SI.tex
+@@ SI Methods: NEB convergence
++\reviewermap{REV-A1}{partial}{DFT NEB references must include per-path convergence status; current path 1-4 reference candidate is 0.336050 eV and still carries a convergence caveat.}
+@@ SI training protocol
++\reviewermap{REV-A2/REV-C10}{pending}{Grouped split and train/test overlap audit must be documented here once SOAP/RMSD values are available.}
+@@ SI Table S1
++\reviewermap{REV-A3/REV-A5/REV-C10}{pending-cluster}{Extend Table S1 with grouped-split RMSE, multiseed barrier errors, and Scratch-5% control.}
+@@ SI Fig. S3 paragraph
++\reviewermap{REV-A1}{partial}{SI Fig. S3 is self-consistent MLFF NEB. The 0.41 eV value is a model-reported MLFF barrier, not a fixed-path DFT-reference error.}
++% Replace "exceptional capability" paragraph with E4b.
+@@ SI Fig. S3 caption
++\reviewermap{REV-A1}{partial}{Caption must say model-reported MLFF barrier and distinguish self-consistent MLFF NEB from fixed-geometry DFT-path scoring.}
++% Replace caption with E4c.
+@@ SI latent robustness
++\reviewermap{REV-A6/REV-C11/REV-C12}{done-local}{Report original-space/PCA/projected-space sensitivity metrics and removal of zero feature stub.}
+@@ SI SHAP surrogate table
++\reviewermap{REV-A6/REV-C13}{partial}{Report SHAP surrogate CV R2 and final code-release provenance.}

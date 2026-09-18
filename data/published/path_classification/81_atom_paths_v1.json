@@ -1,0 +1,699 @@
+{
+  "created_at_utc": "2026-09-13T08:05:57.518620+00:00",
+  "parameters": {
+    "output_json": "/scratch16/pclancy3/yi/revision1_migrationbench_analysis/path_classification/81_atom_paths_v1.json",
+    "output_csv": "/scratch16/pclancy3/yi/revision1_migrationbench_analysis/path_classification/81_atom_paths_v1.csv",
+    "migrant_element": "Cr",
+    "coord_cutoff_A": 3.2,
+    "z_density_sigma_A": 0.8,
+    "deep_coordination_scale": 5.0,
+    "deep_density_scale": 0.16,
+    "close_contact_distance_A": 2.0,
+    "open_channel_distance_A": 3.0,
+    "open_channel_z_A": 1.6,
+    "paths": [
+      "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_1/sb2te3.xyz",
+      "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_2/sb2te3.xyz",
+      "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_3/sb2te3.xyz",
+      "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_4/sb2te3.xyz",
+      "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_5/sb2te3.xyz"
+    ]
+  },
+  "results": [
+    {
+      "source_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_1/sb2te3.xyz",
+      "source_sha256": "3770bf661fb3cbb61420b51860a72e1c717c0dfb7509dc4ebd7672900abd7934",
+      "n_images": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "path_length_A": 3.9398605330168706,
+      "endpoint_distance_A": 3.7085700425512336,
+      "min_host_distance_A": 2.454101536164901,
+      "mean_host_distance_A": 2.5344997490217347,
+      "mean_coordination": 6.0,
+      "max_coordination": 8,
+      "mean_nearest_host_plane_dz_A": 0.49852631827000093,
+      "mean_z_density_score": 0.09376079283736496,
+      "penetration_score": 0.6914949652540757,
+      "gap_score": 0.3495775191813433,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 2.1873396066,
+          "cr_y_A": 3.727630261,
+          "cr_z_A": 23.714243757,
+          "nearest_host_distance_A": 2.766754585574916,
+          "coordination": 8,
+          "nearest_host_plane_dz_A": 1.3227198363999975,
+          "z_density_score": 0.045224573437786256
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 2.2752393013,
+          "cr_y_A": 3.6532443831,
+          "cr_z_A": 24.1092876576,
+          "nearest_host_distance_A": 2.648667619651759,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.9281207594000023,
+          "z_density_score": 0.05560794108509502
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 2.4498269403,
+          "cr_y_A": 3.5218224016,
+          "cr_z_A": 24.4441213023,
+          "nearest_host_distance_A": 2.516384646979806,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.5932871147000007,
+          "z_density_score": 0.07598409372061983
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 2.7544631401,
+          "cr_y_A": 3.3262132516,
+          "cr_z_A": 24.7106152361,
+          "nearest_host_distance_A": 2.454101536164901,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.3267931809000011,
+          "z_density_score": 0.09320902001872675
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 3.1489727684,
+          "cr_y_A": 3.0832940843,
+          "cr_z_A": 24.8994816213,
+          "nearest_host_distance_A": 2.479905457206371,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.13792679570000033,
+          "z_density_score": 0.10304007109924965
+        },
+        {
+          "image_index": 5,
+          "cr_x_A": 3.4716067537,
+          "cr_y_A": 2.9025543373,
+          "cr_z_A": 25.0698787796,
+          "nearest_host_distance_A": 2.4869418229797993,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.028460550700000198,
+          "z_density_score": 0.10917955435666456
+        },
+        {
+          "image_index": 6,
+          "cr_x_A": 3.6946286083,
+          "cr_y_A": 2.7300670958,
+          "cr_z_A": 25.4200744269,
+          "nearest_host_distance_A": 2.4813297895565727,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.2811120043000024,
+          "z_density_score": 0.11364820567689393
+        },
+        {
+          "image_index": 7,
+          "cr_x_A": 3.7643364738,
+          "cr_y_A": 2.5661463178,
+          "cr_z_A": 25.8922314866,
+          "nearest_host_distance_A": 2.486243417426291,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.7532690640000013,
+          "z_density_score": 0.11202246430103649
+        },
+        {
+          "image_index": 8,
+          "cr_x_A": 3.837093145,
+          "cr_y_A": 2.4281148824,
+          "cr_z_A": 26.292763445,
+          "nearest_host_distance_A": 2.506306255115521,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.4622631331000022,
+          "z_density_score": 0.11387412479887653
+        },
+        {
+          "image_index": 9,
+          "cr_x_A": 4.0483479292,
+          "cr_y_A": 2.3343998793,
+          "cr_z_A": 26.6037158346,
+          "nearest_host_distance_A": 2.518362359561403,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.15131074350000162,
+          "z_density_score": 0.11581787987870062
+        }
+      ],
+      "class_label": "deep_penetration",
+      "class_confidence": 0.972,
+      "historical_qe": {
+        "activation_forward_eV": 1.034728,
+        "activation_reverse_eV": 1.030269,
+        "job_done": true,
+        "warning_count": 1,
+        "max_reported_image_error_eV_A": 0.355916,
+        "last_complete_iteration": 54
+      }
+    },
+    {
+      "source_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_2/sb2te3.xyz",
+      "source_sha256": "8d9d92ebbcf6e967e9f969d6835dd87d04929450e8da2b31be9f79541158ae86",
+      "n_images": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "path_length_A": 2.760952540630635,
+      "endpoint_distance_A": 2.7285746912025735,
+      "min_host_distance_A": 2.383028442861424,
+      "mean_host_distance_A": 2.427396492153679,
+      "mean_coordination": 5.5,
+      "max_coordination": 7,
+      "mean_nearest_host_plane_dz_A": 0.08181794112999974,
+      "mean_z_density_score": 0.1121230022499472,
+      "penetration_score": 0.7364005045643313,
+      "gap_score": 0.21022609609134302,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 4.0261379927,
+          "cr_y_A": 2.3215913789,
+          "cr_z_A": 26.569297014,
+          "nearest_host_distance_A": 2.5404506400674194,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.16837485989999834,
+          "z_density_score": 0.11352672674093087
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 4.2844525841,
+          "cr_y_A": 2.2260293788,
+          "cr_z_A": 26.6027015047,
+          "nearest_host_distance_A": 2.4878032028452477,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.13497036919999772,
+          "z_density_score": 0.11366938272613311
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 4.5611773927,
+          "cr_y_A": 2.1297573891,
+          "cr_z_A": 26.5895668316,
+          "nearest_host_distance_A": 2.4517837147311274,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.1481050422999992,
+          "z_density_score": 0.11361881220553265
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 4.8563684601,
+          "cr_y_A": 2.010680629,
+          "cr_z_A": 26.6168723041,
+          "nearest_host_distance_A": 2.418312801034967,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.12079956979999906,
+          "z_density_score": 0.11371547372918211
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 5.1414858263,
+          "cr_y_A": 1.8988943701,
+          "cr_z_A": 26.7210128414,
+          "nearest_host_distance_A": 2.4025245765223358,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.016659032499998006,
+          "z_density_score": 0.11375000408155686
+        },
+        {
+          "image_index": 5,
+          "cr_x_A": 5.4076022258,
+          "cr_y_A": 1.7929603478,
+          "cr_z_A": 26.8433189862,
+          "nearest_host_distance_A": 2.408567959663112,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.008825298899999723,
+          "z_density_score": 0.11300173284701484
+        },
+        {
+          "image_index": 6,
+          "cr_x_A": 5.6776113528,
+          "cr_y_A": 1.6572995242,
+          "cr_z_A": 26.9494434278,
+          "nearest_host_distance_A": 2.4038809401114136,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.055523679000000215,
+          "z_density_score": 0.11160616680085614
+        },
+        {
+          "image_index": 7,
+          "cr_x_A": 5.9568751756,
+          "cr_y_A": 1.5223520537,
+          "cr_z_A": 27.0268484794,
+          "nearest_host_distance_A": 2.387844926197295,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.021877897800003154,
+          "z_density_score": 0.11017050462279394
+        },
+        {
+          "image_index": 8,
+          "cr_x_A": 6.2339655013,
+          "cr_y_A": 1.3903825454,
+          "cr_z_A": 27.0769059046,
+          "nearest_host_distance_A": 2.3897677175024485,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.07193532300000172,
+          "z_density_score": 0.10907609304858276
+        },
+        {
+          "image_index": 9,
+          "cr_x_A": 6.4965461971,
+          "cr_y_A": 1.2797779367,
+          "cr_z_A": 27.0760789205,
+          "nearest_host_distance_A": 2.383028442861424,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.07110833890000023,
+          "z_density_score": 0.10909512569688865
+        }
+      ],
+      "class_label": "deep_penetration",
+      "class_confidence": 0.973,
+      "historical_qe": {
+        "activation_forward_eV": 1.561262,
+        "activation_reverse_eV": 2.111153,
+        "job_done": true,
+        "warning_count": 1,
+        "max_reported_image_error_eV_A": 0.63572,
+        "last_complete_iteration": 55
+      }
+    },
+    {
+      "source_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_3/sb2te3.xyz",
+      "source_sha256": "84c0d4f8fb5ef8a7f1887d8bbc3cdda9b72fe216841c42bac75961f6923c57c2",
+      "n_images": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "path_length_A": 4.518238567042113,
+      "endpoint_distance_A": 4.235460789424253,
+      "min_host_distance_A": 2.3781465623704,
+      "mean_host_distance_A": 2.4874895262182593,
+      "mean_coordination": 6.0,
+      "max_coordination": 8,
+      "mean_nearest_host_plane_dz_A": 0.3672670588199999,
+      "mean_z_density_score": 0.10377254777427954,
+      "penetration_score": 0.7184593440982098,
+      "gap_score": 0.29970995591509164,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 6.4906670947,
+          "cr_y_A": 1.2763878372,
+          "cr_z_A": 27.0723836296,
+          "nearest_host_distance_A": 2.3815315232678325,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.20371341930000142,
+          "z_density_score": 0.1099810503561663
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 6.4989093888,
+          "cr_y_A": 1.427262682,
+          "cr_z_A": 27.4509526478,
+          "nearest_host_distance_A": 2.473590131163507,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.5822824375000017,
+          "z_density_score": 0.09944545028166293
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 6.54941547,
+          "cr_y_A": 1.602277692,
+          "cr_z_A": 27.9264758167,
+          "nearest_host_distance_A": 2.581757457710256,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.8408582891000016,
+          "z_density_score": 0.09373821701484071
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 6.5155437138,
+          "cr_y_A": 1.8019357036,
+          "cr_z_A": 28.4524609308,
+          "nearest_host_distance_A": 2.5366875290044097,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.3148731749999989,
+          "z_density_score": 0.10426520205286186
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 6.471551793,
+          "cr_y_A": 2.2708824892,
+          "cr_z_A": 28.7011309456,
+          "nearest_host_distance_A": 2.4780174950136225,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.06620316020000061,
+          "z_density_score": 0.10873778415860998
+        },
+        {
+          "image_index": 5,
+          "cr_x_A": 6.4727738567,
+          "cr_y_A": 2.7387216423,
+          "cr_z_A": 28.8895792694,
+          "nearest_host_distance_A": 2.4786352334148245,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.012941043999997959,
+          "z_density_score": 0.1093641883173085
+        },
+        {
+          "image_index": 6,
+          "cr_x_A": 6.4237231209,
+          "cr_y_A": 3.1952397434,
+          "cr_z_A": 29.1675854082,
+          "nearest_host_distance_A": 2.5394742117010316,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.20282540370000035,
+          "z_density_score": 0.10567468527674398
+        },
+        {
+          "image_index": 7,
+          "cr_x_A": 6.4039581757,
+          "cr_y_A": 3.3797585762,
+          "cr_z_A": 29.6985290541,
+          "nearest_host_distance_A": 2.5761062304144353,
+          "coordination": 8,
+          "nearest_host_plane_dz_A": 0.7337690495999993,
+          "z_density_score": 0.09558739760624957
+        },
+        {
+          "image_index": 8,
+          "cr_x_A": 6.4495447582,
+          "cr_y_A": 3.5732639247,
+          "cr_z_A": 30.1536811886,
+          "nearest_host_distance_A": 2.4509488881222725,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.5459186623999983,
+          "z_density_score": 0.10021922321269545
+        },
+        {
+          "image_index": 9,
+          "cr_x_A": 6.4545549586,
+          "cr_y_A": 3.7219025545,
+          "cr_z_A": 30.5303139036,
+          "nearest_host_distance_A": 2.3781465623704,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.1692859473999988,
+          "z_density_score": 0.11071227946565601
+        }
+      ],
+      "class_label": "deep_penetration",
+      "class_confidence": 0.98,
+      "historical_qe": {
+        "activation_forward_eV": 1.691053,
+        "activation_reverse_eV": 1.668197,
+        "job_done": true,
+        "warning_count": 1,
+        "max_reported_image_error_eV_A": 0.231831,
+        "last_complete_iteration": 53
+      }
+    },
+    {
+      "source_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_4/sb2te3.xyz",
+      "source_sha256": "78b2a5a88dc45cbc7f3f8c11345a7ac97eb0a207bd3dc2b219dc258965c335df",
+      "n_images": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "path_length_A": 2.30196706958777,
+      "endpoint_distance_A": 2.2765000861402247,
+      "min_host_distance_A": 2.3729702559524717,
+      "mean_host_distance_A": 2.4246274104214196,
+      "mean_coordination": 5.6,
+      "max_coordination": 7,
+      "mean_nearest_host_plane_dz_A": 0.11188222228000058,
+      "mean_z_density_score": 0.11335847148965228,
+      "penetration_score": 0.7397736393201162,
+      "gap_score": 0.21555657081338897,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 6.4523307962,
+          "cr_y_A": 3.7206204167,
+          "cr_z_A": 30.5241529943,
+          "nearest_host_distance_A": 2.3729702559524717,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.16312364170000038,
+          "z_density_score": 0.11109049050449156
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 6.2519072326,
+          "cr_y_A": 3.6050394001,
+          "cr_z_A": 30.5118842704,
+          "nearest_host_distance_A": 2.38383902911345,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.1753923656000005,
+          "z_density_score": 0.11082292150351605
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 6.0356003795,
+          "cr_y_A": 3.4803004584,
+          "cr_z_A": 30.5407014665,
+          "nearest_host_distance_A": 2.3865303720299385,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.14657516950000016,
+          "z_density_score": 0.11143921306077269
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 5.8109045517,
+          "cr_y_A": 3.3507276748,
+          "cr_z_A": 30.598491592,
+          "nearest_host_distance_A": 2.3898829360722442,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.08878504400000153,
+          "z_density_score": 0.1125395664697891
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 5.5862160952,
+          "cr_y_A": 3.2211645599,
+          "cr_z_A": 30.6671653851,
+          "nearest_host_distance_A": 2.406808597212964,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.02011125090000121,
+          "z_density_score": 0.1135892628868859
+        },
+        {
+          "image_index": 5,
+          "cr_x_A": 5.3754543407,
+          "cr_y_A": 3.09962784,
+          "cr_z_A": 30.7508178195,
+          "nearest_host_distance_A": 2.418325047514687,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.0002139274000008129,
+          "z_density_score": 0.11446262888730349
+        },
+        {
+          "image_index": 6,
+          "cr_x_A": 5.1605822868,
+          "cr_y_A": 2.9757132363,
+          "cr_z_A": 30.8338575445,
+          "nearest_host_distance_A": 2.46175409141334,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.08325365239999982,
+          "z_density_score": 0.11488432859657735
+        },
+        {
+          "image_index": 7,
+          "cr_x_A": 4.9367590343,
+          "cr_y_A": 2.8466315178,
+          "cr_z_A": 30.897428155,
+          "nearest_host_distance_A": 2.4943555381652947,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.14682426290000095,
+          "z_density_score": 0.1149222321782574
+        },
+        {
+          "image_index": 8,
+          "cr_x_A": 4.7156387908,
+          "cr_y_A": 2.7191028025,
+          "cr_z_A": 30.9108532307,
+          "nearest_host_distance_A": 2.4829290797633283,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.1602493385999999,
+          "z_density_score": 0.11490085131746794
+        },
+        {
+          "image_index": 9,
+          "cr_x_A": 4.505173695,
+          "cr_y_A": 2.5977244756,
+          "cr_z_A": 30.8848974619,
+          "nearest_host_distance_A": 2.4488791569764814,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.1342935698000005,
+          "z_density_score": 0.11493321949146144
+        }
+      ],
+      "class_label": "deep_penetration",
+      "class_confidence": 0.977,
+      "historical_qe": {
+        "activation_forward_eV": 2.063858,
+        "activation_reverse_eV": 1.543546,
+        "job_done": true,
+        "warning_count": 1,
+        "max_reported_image_error_eV_A": 0.526984,
+        "last_complete_iteration": 54
+      }
+    },
+    {
+      "source_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/2.2-layer-diffusion/2D_421_Diffusion_traj/neb_5/sb2te3.xyz",
+      "source_sha256": "3c1e67172bf3fa9e9f976f741db89f15210bece564613d1b334a0184e356cee6",
+      "n_images": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "path_length_A": 2.986392996229272,
+      "endpoint_distance_A": 2.886709295113204,
+      "min_host_distance_A": 2.332867489261741,
+      "mean_host_distance_A": 2.393742668921699,
+      "mean_coordination": 5.0,
+      "max_coordination": 7,
+      "mean_nearest_host_plane_dz_A": 0.2637731495999983,
+      "mean_z_density_score": 0.11277787917257168,
+      "penetration_score": 0.7411771114058845,
+      "gap_score": 0.23488457748976416,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 4.4855035765,
+          "cr_y_A": 2.5863121557,
+          "cr_z_A": 30.8716133359,
+          "nearest_host_distance_A": 2.442015083783394,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.0022023848000003454,
+          "z_density_score": 0.11473862530081977
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 4.6497607667,
+          "cr_y_A": 2.4765088103,
+          "cr_z_A": 30.9801540063,
+          "nearest_host_distance_A": 2.484646923231335,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.1063382855999997,
+          "z_density_score": 0.11507608024532785
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 4.8283069089,
+          "cr_y_A": 2.3878028909,
+          "cr_z_A": 31.2343920705,
+          "nearest_host_distance_A": 2.46322692316674,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.36057634979999875,
+          "z_density_score": 0.1138900217643479
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 5.006352228,
+          "cr_y_A": 2.2625951237,
+          "cr_z_A": 31.503951967,
+          "nearest_host_distance_A": 2.414086410890714,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.6301362462999975,
+          "z_density_score": 0.11197938409606263
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 5.1702243431,
+          "cr_y_A": 2.0939859535,
+          "cr_z_A": 31.7997234152,
+          "nearest_host_distance_A": 2.400880509687467,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.641660010199999,
+          "z_density_score": 0.11187101714144103
+        },
+        {
+          "image_index": 5,
+          "cr_x_A": 5.3715942954,
+          "cr_y_A": 1.9473026277,
+          "cr_z_A": 32.0210073983,
+          "nearest_host_distance_A": 2.386285004653824,
+          "coordination": 3,
+          "nearest_host_plane_dz_A": 0.4203760270999979,
+          "z_density_score": 0.11295470899164195
+        },
+        {
+          "image_index": 6,
+          "cr_x_A": 5.628258462,
+          "cr_y_A": 1.7910350263,
+          "cr_z_A": 32.1730793535,
+          "nearest_host_distance_A": 2.342598856168634,
+          "coordination": 3,
+          "nearest_host_plane_dz_A": 0.2683040718999976,
+          "z_density_score": 0.1133539724777668
+        },
+        {
+          "image_index": 7,
+          "cr_x_A": 5.9359716475,
+          "cr_y_A": 1.6082254216,
+          "cr_z_A": 32.296874376,
+          "nearest_host_distance_A": 2.3368197662276695,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.14450904939999987,
+          "z_density_score": 0.11288644411098417
+        },
+        {
+          "image_index": 8,
+          "cr_x_A": 6.2474229029,
+          "cr_y_A": 1.4114057859,
+          "cr_z_A": 32.3949283564,
+          "nearest_host_distance_A": 2.332867489261741,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.04645506899999674,
+          "z_density_score": 0.11174185328652478
+        },
+        {
+          "image_index": 9,
+          "cr_x_A": 6.4536811157,
+          "cr_y_A": 1.2550687878,
+          "cr_z_A": 32.510868906,
+          "nearest_host_distance_A": 2.3339997221454745,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.017174001899995517,
+          "z_density_score": 0.10928668431079987
+        }
+      ],
+      "class_label": "deep_penetration",
+      "class_confidence": 0.959,
+      "historical_qe": {
+        "activation_forward_eV": 1.414868,
+        "activation_reverse_eV": 1.06583,
+        "job_done": true,
+        "warning_count": 1,
+        "max_reported_image_error_eV_A": 0.319104,
+        "last_complete_iteration": 61
+      }
+    }
+  ]
+}

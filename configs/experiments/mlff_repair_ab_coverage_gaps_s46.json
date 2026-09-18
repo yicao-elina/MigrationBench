@@ -1,0 +1,63 @@
+{
+  "schema_version": "1.0",
+  "scientific_role": "diagnostic_geometry_repair_ab_unverified_endpoints",
+  "calculator": "mace-foundation",
+  "model_label": "MACE-MP-0 medium foundation",
+  "model_path": "$MACE_CACHE/20231203mace128L1_epoch199model",
+  "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353f67aa9fa1be9c6e1e0ed35845",
+  "seed": 46,
+  "steps": 200,
+  "fmax_target_eV_A": 0.10,
+  "spring_constant_eV_A2": 0.10,
+  "device": "cpu",
+  "slurm": {
+    "partition": "parallel",
+    "account": "pclancy3",
+    "time": "06:00:00",
+    "cpus_per_task": 8,
+    "memory": "48G",
+    "run_root": "/scratch16/pclancy3/yi/revision1_migrationbench_runs"
+  },
+  "jobs": [
+    {
+      "job_name": "mb_mrep13_dir_s46",
+      "job_id": "30850728",
+      "path_id": "1-3_direct_control",
+      "variant": "direct_historical",
+      "images": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_raw/historical_neb/legacy_61/1-3/sb2te3.xyz",
+      "source_manifest": ""
+    },
+    {
+      "job_name": "mb_mrep13_fix_s46",
+      "job_id": "30850729",
+      "path_id": "1-3_migrant_repel_v1",
+      "variant": "unwrap_migrant_only_repel_1.8A",
+      "images": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_processed/path_repairs/coverage_gaps_v1/1-3_unwrap_migrant_repel.extxyz",
+      "source_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_processed/path_repairs/coverage_gaps_v1/1-3_unwrap_migrant_repel.manifest.json"
+    },
+    {
+      "job_name": "mb_mrep15_dir_s46",
+      "job_id": "30850730",
+      "path_id": "1-5_direct_control",
+      "variant": "direct_historical",
+      "images": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_raw/historical_neb/legacy_61/1-5/sb2te3.xyz",
+      "source_manifest": ""
+    },
+    {
+      "job_name": "mb_mrep15_fix_s46",
+      "job_id": "30850731",
+      "path_id": "1-5_migrant_repel_v1",
+      "variant": "unwrap_migrant_only_repel_1.8A",
+      "images": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_processed/path_repairs/coverage_gaps_v1/1-5_unwrap_migrant_repel.extxyz",
+      "source_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_pipeline/data_processed/path_repairs/coverage_gaps_v1/1-5_unwrap_migrant_repel.manifest.json"
+    }
+  ],
+  "acceptance": {
+    "comparison_requires_same_model_hash_seed_steps_fmax_spring": true,
+    "success_requires_optimizer_converged": true,
+    "maximum_final_internal_neb_force_eV_A": 0.10,
+    "same_final_mechanism_required_for_speedup_claim": true,
+    "qe_handoff_allowed": false,
+    "reason": "endpoints are not independently DFT accepted"
+  }
+}

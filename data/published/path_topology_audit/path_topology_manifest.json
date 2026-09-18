@@ -1,0 +1,2036 @@
+{
+  "created_at_utc": "2026-09-13T06:37:50.415376+00:00",
+  "config": {
+    "schema_version": "1.0",
+    "energy_local_minimum_tolerance_eV": 0.02,
+    "candidate_force_max_eV_A": 0.3,
+    "accepted_endpoint_force_max_eV_A": 0.05,
+    "minimum_pair_distance_A": 1.8,
+    "minimum_migrant_host_distance_A": 1.8,
+    "endpoint_relaxation_required": true,
+    "notes": [
+      "An internal image is only a basin candidate; it must be independently relaxed before it can become an accepted endpoint.",
+      "Frozen NEB endpoints do not provide endpoint force evidence.",
+      "A segment whose highest-energy image is an endpoint does not contain a resolved interior saddle and is not a manuscript-grade activation barrier."
+    ]
+  },
+  "quality_checks": {
+    "path_id_unique": true,
+    "composition_order_consistent_all": true,
+    "energy_count_matches_geometry_all": true,
+    "geometry_gate_pass_count": 11,
+    "cell_missing_count": 5,
+    "unverified_endpoint_count": 28
+  },
+  "results": [
+    {
+      "path_id": "1-2_historical",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-2",
+      "image_format": "multi_frame_xyz_with_qe_cell",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-2/sb2te3.xyz",
+          "sha256": "ed1acbfb3531bf4a0d7bc666b028d44851a8b1739f3966b442aee533734c2ba0"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-2/pw_1.in",
+          "sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-2/neb.out",
+      "neb_out_sha256": "6d999c9608be0a68f0845fa195f58eeb0ad94f7b2c20cbb90e0b82288b47bddf",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        2,
+        5
+      ],
+      "topology_status": "hidden_basin_candidate;endpoint_dominated_segment",
+      "geometry_gate_pass": false,
+      "configuration_path_length_rms_A": 0.5901053213305083,
+      "configuration_endpoint_chord_rms_A": 0.5367879093061368,
+      "configuration_tortuosity": 1.0993267752496338,
+      "migrant_path_length_A": 4.1694535769329875,
+      "migrant_endpoint_chord_A": 4.105451683306463,
+      "migrant_tortuosity": 1.0155894889438761,
+      "host_step_rms_mean_A": 0.06026577434845892,
+      "minimum_pair_distance_A": 1.4101720229582146,
+      "minimum_migrant_host_distance_A": 1.4101720229582146,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-2/neb.out",
+        "job_done": false,
+        "initial_path_length_bohr": 7.8843,
+        "initial_inter_image_distance_bohr": 1.9711,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 122,
+        "last_complete_iteration": 121,
+        "activation_forward_eV": 2.790171,
+        "activation_reverse_eV": 1.01533,
+        "max_image_error_eV_A": 3.212886,
+        "barrier_drift_last_three_eV": 0.03630999999999984,
+        "n_iterations_parsed": 122,
+        "n_complete_iterations_parsed": 121,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133596.8450981,
+            "error_eV_A": 0.429147,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133597.0547121,
+            "error_eV_A": 0.702768,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133595.8331935,
+            "error_eV_A": 0.77501,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133594.0549275,
+            "error_eV_A": 3.212886,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133595.0702575,
+            "error_eV_A": 0.490327,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 1,
+          "image_index_qe": 2,
+          "energy_eV": -133597.0547121,
+          "energy_relative_global_min_eV": 0.0,
+          "local_basin_depth_eV": 0.2096140000212472,
+          "image_error_eV_A": 0.702768,
+          "candidate_status": "weak_candidate_high_neb_force"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 2,
+          "saddle_image_qe": 1,
+          "delta_E_eV": -0.2096140000212472,
+          "barrier_forward_eV": 0.0,
+          "barrier_reverse_eV": 0.2096140000212472,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        },
+        {
+          "start_image_qe": 2,
+          "end_image_qe": 5,
+          "saddle_image_qe": 4,
+          "delta_E_eV": 1.984454600024037,
+          "barrier_forward_eV": 2.9997846000187565,
+          "barrier_reverse_eV": 1.0153299999947194,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "1-3_historical",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-3",
+      "image_format": "multi_frame_xyz_with_qe_cell",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-3/sb2te3.xyz",
+          "sha256": "77ab28a0430d525d458ee3c3981cd062bd444feb184b4034a53d1035b10e943a"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-3/pw_1.in",
+          "sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-3/neb.out",
+      "neb_out_sha256": "31197001d9d91664ee2bbccb56767ae1c8cf83df68d0b289b57a81334738cac3",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 0,
+      "basin_image_indices_qe": [
+        1,
+        5
+      ],
+      "topology_status": "single_segment_candidate",
+      "geometry_gate_pass": false,
+      "configuration_path_length_rms_A": 0.9798324334897882,
+      "configuration_endpoint_chord_rms_A": 0.886935358093398,
+      "configuration_tortuosity": 1.1047393979151836,
+      "migrant_path_length_A": 6.866095252800004,
+      "migrant_endpoint_chord_A": 6.866095252800003,
+      "migrant_tortuosity": 1.0000000000000002,
+      "host_step_rms_mean_A": 0.0930131305503781,
+      "minimum_pair_distance_A": 1.376672716400214,
+      "minimum_migrant_host_distance_A": 1.376672716400214,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-3/neb.out",
+        "job_done": false,
+        "initial_path_length_bohr": 13.0915,
+        "initial_inter_image_distance_bohr": 3.2729,
+        "overflow_flags": [
+          "activation_forward_overflow",
+          "activation_reverse_overflow"
+        ],
+        "has_overflow": true,
+        "converged_by_default_gate": false,
+        "last_iteration": 26,
+        "last_complete_iteration": 25,
+        "activation_forward_eV": 4.003362,
+        "activation_reverse_eV": 3.950126,
+        "max_image_error_eV_A": 5.364093,
+        "barrier_drift_last_three_eV": 0.028348999999999513,
+        "n_iterations_parsed": 26,
+        "n_complete_iterations_parsed": 25,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133596.5578276,
+            "error_eV_A": 0.543543,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133595.1983842,
+            "error_eV_A": 5.364093,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133592.5544654,
+            "error_eV_A": 2.621479,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133594.8097282,
+            "error_eV_A": 4.224105,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133596.5045915,
+            "error_eV_A": 0.666412,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 5,
+          "saddle_image_qe": 3,
+          "delta_E_eV": 0.053236099978676066,
+          "barrier_forward_eV": 4.003362199990079,
+          "barrier_reverse_eV": 3.9501261000114027,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "1-4_historical",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-4",
+      "image_format": "multi_frame_xyz_with_qe_cell",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-4/sb2te3.xyz",
+          "sha256": "81c61faf152df1f1c274ccafdbc9810e682b64cf59d1e8f73650ba9b77252b44"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-4/pw_1.in",
+          "sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-4/neb.out",
+      "neb_out_sha256": "41fad90be066083c6c588454c0638710e0be405eb4f34dd53d97daaa46ede11b",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        4,
+        5
+      ],
+      "topology_status": "hidden_basin_candidate;endpoint_dominated_segment",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.8217134224273143,
+      "configuration_endpoint_chord_rms_A": 0.5329784644233619,
+      "configuration_tortuosity": 1.5417385077956938,
+      "migrant_path_length_A": 4.496043609949547,
+      "migrant_endpoint_chord_A": 3.918639210988146,
+      "migrant_tortuosity": 1.1473481910103687,
+      "host_step_rms_mean_A": 0.1418245568813563,
+      "minimum_pair_distance_A": 2.4199889716179244,
+      "minimum_migrant_host_distance_A": 2.4199889716179244,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-4/neb.out",
+        "job_done": false,
+        "initial_path_length_bohr": 7.4581,
+        "initial_inter_image_distance_bohr": 1.8645,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 262,
+        "last_complete_iteration": 261,
+        "activation_forward_eV": 0.33605,
+        "activation_reverse_eV": 0.016829,
+        "max_image_error_eV_A": 0.482407,
+        "barrier_drift_last_three_eV": 0.0005189999999999917,
+        "n_iterations_parsed": 262,
+        "n_complete_iterations_parsed": 261,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133597.8866532,
+            "error_eV_A": 0.150468,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133597.5971033,
+            "error_eV_A": 0.482407,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133597.5506032,
+            "error_eV_A": 0.273379,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133598.0331433,
+            "error_eV_A": 0.414221,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133597.5674326,
+            "error_eV_A": 0.16251,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 3,
+          "image_index_qe": 4,
+          "energy_eV": -133598.0331433,
+          "energy_relative_global_min_eV": 0.0,
+          "local_basin_depth_eV": 0.46571070002391934,
+          "image_error_eV_A": 0.414221,
+          "candidate_status": "weak_candidate_high_neb_force"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 4,
+          "saddle_image_qe": 3,
+          "delta_E_eV": -0.14649010001448914,
+          "barrier_forward_eV": 0.3360499999835156,
+          "barrier_reverse_eV": 0.48254009999800473,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        },
+        {
+          "start_image_qe": 4,
+          "end_image_qe": 5,
+          "saddle_image_qe": 5,
+          "delta_E_eV": 0.46571070002391934,
+          "barrier_forward_eV": 0.46571070002391934,
+          "barrier_reverse_eV": 0.0,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        }
+      ]
+    },
+    {
+      "path_id": "1-5_historical",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5",
+      "image_format": "multi_frame_xyz_with_qe_cell",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5/sb2te3.xyz",
+          "sha256": "a3a71d88c87d36562f0c1e1491a95f3eba760745102bf3e00de584d77c0d7fe7"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5/pw_1.in",
+          "sha256": "e770e3d40a5c41ce68cd73f04a023af795621b5bfa7c3bcdcb2d71979cea4a0d"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5/neb.out",
+      "neb_out_sha256": "e45ffd1b6c93a19633e5a9e83d3a8e264c53d44f6da8157efc1d7c815ace2384",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        3,
+        5
+      ],
+      "topology_status": "hidden_basin_candidate",
+      "geometry_gate_pass": false,
+      "configuration_path_length_rms_A": 1.898563996065922,
+      "configuration_endpoint_chord_rms_A": 1.718269343824337,
+      "configuration_tortuosity": 1.104928050360431,
+      "migrant_path_length_A": 13.370790201700013,
+      "migrant_endpoint_chord_A": 13.370790201700009,
+      "migrant_tortuosity": 1.0000000000000002,
+      "host_step_rms_mean_A": 0.19689840804955938,
+      "minimum_pair_distance_A": 1.4084953492002121,
+      "minimum_migrant_host_distance_A": 1.4084953492002121,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5/neb.out",
+        "job_done": false,
+        "initial_path_length_bohr": 25.2331,
+        "initial_inter_image_distance_bohr": 6.3083,
+        "overflow_flags": [
+          "activation_forward_overflow",
+          "activation_reverse_overflow"
+        ],
+        "has_overflow": true,
+        "converged_by_default_gate": false,
+        "last_iteration": 262,
+        "last_complete_iteration": 261,
+        "activation_forward_eV": 1.099583,
+        "activation_reverse_eV": 0.753468,
+        "max_image_error_eV_A": 4.673162,
+        "barrier_drift_last_three_eV": 0.0025960000000000427,
+        "n_iterations_parsed": 262,
+        "n_complete_iterations_parsed": 261,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133597.4407243,
+            "error_eV_A": 0.237171,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133596.3411411,
+            "error_eV_A": 4.673162,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133598.2876524,
+            "error_eV_A": 0.559001,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133596.7273179,
+            "error_eV_A": 0.916788,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133597.0946092,
+            "error_eV_A": 0.287391,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 2,
+          "image_index_qe": 3,
+          "energy_eV": -133598.2876524,
+          "energy_relative_global_min_eV": 0.0,
+          "local_basin_depth_eV": 1.5603345000126865,
+          "image_error_eV_A": 0.559001,
+          "candidate_status": "weak_candidate_high_neb_force"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 3,
+          "saddle_image_qe": 2,
+          "delta_E_eV": -0.8469281000143383,
+          "barrier_forward_eV": 1.0995831999753136,
+          "barrier_reverse_eV": 1.9465112999896519,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        },
+        {
+          "start_image_qe": 3,
+          "end_image_qe": 5,
+          "saddle_image_qe": 4,
+          "delta_E_eV": 1.1930432000081055,
+          "barrier_forward_eV": 1.5603345000126865,
+          "barrier_reverse_eV": 0.367291300004581,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "1-6_historical",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6",
+      "image_format": "multi_frame_xyz_with_qe_cell",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/sb2te3.xyz",
+          "sha256": "7db35bb57ad82b75a5c46c66814249d2f2a9a7a0c79019cd359e525e3a7235a8"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/pw_1.in",
+          "sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/neb.out",
+      "neb_out_sha256": "7226aaf276a6860b840c2d7eea320fdf4973010280d8a73052940775dabfc42d",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        4,
+        5
+      ],
+      "topology_status": "hidden_basin_candidate;endpoint_dominated_segment",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.4049047616238836,
+      "configuration_endpoint_chord_rms_A": 0.36846796374704244,
+      "configuration_tortuosity": 1.0988872886161019,
+      "migrant_path_length_A": 2.729687317628099,
+      "migrant_endpoint_chord_A": 2.7127364207697298,
+      "migrant_tortuosity": 1.006248633936046,
+      "host_step_rms_mean_A": 0.048975369159870955,
+      "minimum_pair_distance_A": 2.5262500651464066,
+      "minimum_migrant_host_distance_A": 2.5262500651464066,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/neb.out",
+        "job_done": false,
+        "initial_path_length_bohr": 5.4723,
+        "initial_inter_image_distance_bohr": 1.3681,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 88,
+        "last_complete_iteration": 87,
+        "activation_forward_eV": 1.026035,
+        "activation_reverse_eV": 0.205627,
+        "max_image_error_eV_A": 0.584852,
+        "barrier_drift_last_three_eV": 0.037860000000000005,
+        "n_iterations_parsed": 88,
+        "n_complete_iterations_parsed": 87,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133597.1500298,
+            "error_eV_A": 0.312684,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133596.5246897,
+            "error_eV_A": 0.504139,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133596.123995,
+            "error_eV_A": 0.42673,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133596.3869583,
+            "error_eV_A": 0.584852,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133596.3296216,
+            "error_eV_A": 0.437553,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 3,
+          "image_index_qe": 4,
+          "energy_eV": -133596.3869583,
+          "energy_relative_global_min_eV": 0.7630714999977499,
+          "local_basin_depth_eV": 0.05733670000336133,
+          "image_error_eV_A": 0.584852,
+          "candidate_status": "weak_candidate_high_neb_force"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 4,
+          "saddle_image_qe": 3,
+          "delta_E_eV": 0.7630714999977499,
+          "barrier_forward_eV": 1.026034799986519,
+          "barrier_reverse_eV": 0.262963299988769,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        },
+        {
+          "start_image_qe": 4,
+          "end_image_qe": 5,
+          "saddle_image_qe": 5,
+          "delta_E_eV": 0.05733670000336133,
+          "barrier_forward_eV": 0.05733670000336133,
+          "barrier_reverse_eV": 0.0,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        }
+      ]
+    },
+    {
+      "path_id": "1-7_historical",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-7",
+      "image_format": "multi_frame_xyz_with_qe_cell",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-7/sb2te3.xyz",
+          "sha256": "25d81dee86702bd59e64180528de84b8133be8ff0a0511071fb62a9f3299d7ed"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-7/pw_1.in",
+          "sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-7/neb.out",
+      "neb_out_sha256": "7839f02e5836cc18a5ef66eb2e969ff719dd13d57956fdab205c243c744a1b71",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        4,
+        5
+      ],
+      "topology_status": "hidden_basin_candidate;endpoint_dominated_segment",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.4485790568597644,
+      "configuration_endpoint_chord_rms_A": 0.3686793875591874,
+      "configuration_tortuosity": 1.2167185690242854,
+      "migrant_path_length_A": 2.7333996431161727,
+      "migrant_endpoint_chord_A": 2.697849772364618,
+      "migrant_tortuosity": 1.0131771127939402,
+      "host_step_rms_mean_A": 0.06454408690550638,
+      "minimum_pair_distance_A": 2.5352807173102136,
+      "minimum_migrant_host_distance_A": 2.5352807173102136,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-7/neb.out",
+        "job_done": false,
+        "initial_path_length_bohr": 5.4725,
+        "initial_inter_image_distance_bohr": 1.3681,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 121,
+        "last_complete_iteration": 120,
+        "activation_forward_eV": 0.582586,
+        "activation_reverse_eV": 0.02465,
+        "max_image_error_eV_A": 0.291742,
+        "barrier_drift_last_three_eV": 0.08992699999999998,
+        "n_iterations_parsed": 121,
+        "n_complete_iterations_parsed": 120,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133597.4398126,
+            "error_eV_A": 0.233958,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133596.9465596,
+            "error_eV_A": 0.207822,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133596.8572266,
+            "error_eV_A": 0.263485,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133597.1767353,
+            "error_eV_A": 0.291742,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133596.8818762,
+            "error_eV_A": 0.228312,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 3,
+          "image_index_qe": 4,
+          "energy_eV": -133597.1767353,
+          "energy_relative_global_min_eV": 0.26307730001281016,
+          "local_basin_depth_eV": 0.29485909998766147,
+          "image_error_eV_A": 0.291742,
+          "candidate_status": "candidate_needs_independent_relax"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 4,
+          "saddle_image_qe": 3,
+          "delta_E_eV": 0.26307730001281016,
+          "barrier_forward_eV": 0.5825860000040848,
+          "barrier_reverse_eV": 0.3195086999912746,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        },
+        {
+          "start_image_qe": 4,
+          "end_image_qe": 5,
+          "saddle_image_qe": 5,
+          "delta_E_eV": 0.29485909998766147,
+          "barrier_forward_eV": 0.29485909998766147,
+          "barrier_reverse_eV": 0.0,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        }
+      ]
+    },
+    {
+      "path_id": "1-8_historical",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8",
+      "image_format": "multi_frame_xyz_with_qe_cell",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/sb2te3.xyz",
+          "sha256": "7bf2d109530748172c95967b3c813cc2c28bfb39ff44c2829f327d642402f1cc"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/pw_1.in",
+          "sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/neb.out",
+      "neb_out_sha256": "48adf69c21f63015c4b7eaa4aa9ac2df29b275b04c677c94941642163c424996",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        3,
+        5
+      ],
+      "topology_status": "hidden_basin_candidate",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 2.07996474086016,
+      "configuration_endpoint_chord_rms_A": 0.8862595858745104,
+      "configuration_tortuosity": 2.3469023906892574,
+      "migrant_path_length_A": 4.982265670687539,
+      "migrant_endpoint_chord_A": 4.218756398902269,
+      "migrant_tortuosity": 1.1809797010284682,
+      "host_step_rms_mean_A": 0.4980305458097792,
+      "minimum_pair_distance_A": 2.4883036688010867,
+      "minimum_migrant_host_distance_A": 2.4883036688010867,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/neb.out",
+        "job_done": true,
+        "initial_path_length_bohr": 8.0711,
+        "initial_inter_image_distance_bohr": 2.0178,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 999,
+        "last_complete_iteration": 999,
+        "activation_forward_eV": 1.75562,
+        "activation_reverse_eV": 0.989243,
+        "max_image_error_eV_A": 0.327388,
+        "barrier_drift_last_three_eV": 0.0012060000000000404,
+        "n_iterations_parsed": 999,
+        "n_complete_iterations_parsed": 999,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133601.114331,
+            "error_eV_A": 0.050492,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133599.357957,
+            "error_eV_A": 0.165014,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133600.0975275,
+            "error_eV_A": 0.327388,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133599.8655412,
+            "error_eV_A": 0.307068,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133600.3479347,
+            "error_eV_A": 0.101842,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 2,
+          "image_index_qe": 3,
+          "energy_eV": -133600.0975275,
+          "energy_relative_global_min_eV": 1.0168034999805968,
+          "local_basin_depth_eV": 0.23198630000115372,
+          "image_error_eV_A": 0.327388,
+          "candidate_status": "weak_candidate_high_neb_force"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 3,
+          "saddle_image_qe": 2,
+          "delta_E_eV": 1.0168034999805968,
+          "barrier_forward_eV": 1.7563739999895915,
+          "barrier_reverse_eV": 0.7395705000089947,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        },
+        {
+          "start_image_qe": 3,
+          "end_image_qe": 5,
+          "saddle_image_qe": 4,
+          "delta_E_eV": -0.25040719998651184,
+          "barrier_forward_eV": 0.23198630000115372,
+          "barrier_reverse_eV": 0.48239349998766556,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "81_neb_1",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_1",
+      "image_format": "multi_frame_xyz",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_1/sb2te3.xyz",
+          "sha256": "3770bf661fb3cbb61420b51860a72e1c717c0dfb7509dc4ebd7672900abd7934"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_1/neb.out",
+      "neb_out_sha256": "930f343dc5b2b8a538d62a97c9fa6ee0b739e911a6861b575d6fc14fcaae97e0",
+      "n_images_geometry": 10,
+      "n_images_energy": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        2,
+        10
+      ],
+      "topology_status": "hidden_basin_candidate;endpoint_dominated_segment",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.5155661481051305,
+      "configuration_endpoint_chord_rms_A": 0.42255318154201116,
+      "configuration_tortuosity": 1.220121325849896,
+      "migrant_path_length_A": 3.9398605330168706,
+      "migrant_endpoint_chord_A": 3.7085700425512336,
+      "migrant_tortuosity": 1.0623664883801212,
+      "host_step_rms_mean_A": 0.029752752251102077,
+      "minimum_pair_distance_A": 2.4541015361649015,
+      "minimum_migrant_host_distance_A": 2.4541015361649015,
+      "cell_available": false,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_1/neb.out",
+        "job_done": true,
+        "initial_path_length_bohr": 7.0759,
+        "initial_inter_image_distance_bohr": 0.7862,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 55,
+        "last_complete_iteration": 54,
+        "activation_forward_eV": 1.034728,
+        "activation_reverse_eV": 1.030269,
+        "max_image_error_eV_A": 0.355916,
+        "barrier_drift_last_three_eV": 0.002593999999999985,
+        "n_iterations_parsed": 55,
+        "n_complete_iterations_parsed": 54,
+        "n_images_last_iteration": 10,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -177387.6376939,
+            "error_eV_A": 0.135683,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -177387.7877832,
+            "error_eV_A": 0.118854,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -177387.6045851,
+            "error_eV_A": 0.1284,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -177387.124171,
+            "error_eV_A": 0.190125,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -177386.6029654,
+            "error_eV_A": 0.214679,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 6,
+            "energy_eV": -177386.747075,
+            "error_eV_A": 0.331278,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 7,
+            "energy_eV": -177387.0213867,
+            "error_eV_A": 0.355916,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 8,
+            "energy_eV": -177387.3631092,
+            "error_eV_A": 0.245681,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 9,
+            "energy_eV": -177387.5551315,
+            "error_eV_A": 0.211068,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 10,
+            "energy_eV": -177387.6332343,
+            "error_eV_A": 0.128424,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 1,
+          "image_index_qe": 2,
+          "energy_eV": -177387.7877832,
+          "energy_relative_global_min_eV": 0.0,
+          "local_basin_depth_eV": 0.1500893000047654,
+          "image_error_eV_A": 0.118854,
+          "candidate_status": "candidate_needs_independent_relax"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 2,
+          "saddle_image_qe": 1,
+          "delta_E_eV": -0.1500893000047654,
+          "barrier_forward_eV": 0.0,
+          "barrier_reverse_eV": 0.1500893000047654,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        },
+        {
+          "start_image_qe": 2,
+          "end_image_qe": 10,
+          "saddle_image_qe": 5,
+          "delta_E_eV": 0.15454889999818988,
+          "barrier_forward_eV": 1.1848178000072949,
+          "barrier_reverse_eV": 1.030268900009105,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "81_neb_2",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_2",
+      "image_format": "multi_frame_xyz",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_2/sb2te3.xyz",
+          "sha256": "8d9d92ebbcf6e967e9f969d6835dd87d04929450e8da2b31be9f79541158ae86"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_2/neb.out",
+      "neb_out_sha256": "36cc5090b9ae8757e3f70b7bd23a7075b5ef219bcd8112c616e1da87dbc2e99c",
+      "n_images_geometry": 10,
+      "n_images_energy": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 0,
+      "basin_image_indices_qe": [
+        1,
+        10
+      ],
+      "topology_status": "single_segment_candidate",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.34344599303084034,
+      "configuration_endpoint_chord_rms_A": 0.32165826381719625,
+      "configuration_tortuosity": 1.0677356426509421,
+      "migrant_path_length_A": 2.7609525406306354,
+      "migrant_endpoint_chord_A": 2.7285746912025735,
+      "migrant_tortuosity": 1.0118662133503085,
+      "host_step_rms_mean_A": 0.0168977253444531,
+      "minimum_pair_distance_A": 2.383028442861424,
+      "minimum_migrant_host_distance_A": 2.383028442861424,
+      "cell_available": false,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_2/neb.out",
+        "job_done": true,
+        "initial_path_length_bohr": 5.4978,
+        "initial_inter_image_distance_bohr": 0.6109,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 56,
+        "last_complete_iteration": 55,
+        "activation_forward_eV": 1.561262,
+        "activation_reverse_eV": 2.111153,
+        "max_image_error_eV_A": 0.63572,
+        "barrier_drift_last_three_eV": 0.023973000000000022,
+        "n_iterations_parsed": 56,
+        "n_complete_iterations_parsed": 55,
+        "n_images_last_iteration": 10,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -177387.6141853,
+            "error_eV_A": 0.141223,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -177387.5671186,
+            "error_eV_A": 0.373648,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -177387.2984343,
+            "error_eV_A": 0.63572,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -177386.7530336,
+            "error_eV_A": 0.572722,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -177386.1603247,
+            "error_eV_A": 0.604427,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 6,
+            "energy_eV": -177386.0529229,
+            "error_eV_A": 0.5898,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 7,
+            "energy_eV": -177386.4046943,
+            "error_eV_A": 0.58171,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 8,
+            "energy_eV": -177387.1837586,
+            "error_eV_A": 0.537388,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 9,
+            "energy_eV": -177387.9333534,
+            "error_eV_A": 0.46955,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 10,
+            "energy_eV": -177388.1640754,
+            "error_eV_A": 0.028456,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 10,
+          "saddle_image_qe": 6,
+          "delta_E_eV": -0.5498901000246406,
+          "barrier_forward_eV": 1.5612623999768402,
+          "barrier_reverse_eV": 2.111152500001481,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "81_neb_3",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_3",
+      "image_format": "multi_frame_xyz",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_3/sb2te3.xyz",
+          "sha256": "84c0d4f8fb5ef8a7f1887d8bbc3cdda9b72fe216841c42bac75961f6923c57c2"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_3/neb.out",
+      "neb_out_sha256": "0221db647e64ecb5d81ef55dad664096d24f2cbd9e55daac59bd3986e36c3ad9",
+      "n_images_geometry": 10,
+      "n_images_energy": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 0,
+      "basin_image_indices_qe": [
+        1,
+        10
+      ],
+      "topology_status": "single_segment_candidate",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.6117063810827398,
+      "configuration_endpoint_chord_rms_A": 0.48174997903220007,
+      "configuration_tortuosity": 1.2697590196300839,
+      "migrant_path_length_A": 4.518238567042112,
+      "migrant_endpoint_chord_A": 4.235460789424253,
+      "migrant_tortuosity": 1.066764347889595,
+      "host_step_rms_mean_A": 0.03784921872440497,
+      "minimum_pair_distance_A": 2.3781465623703997,
+      "minimum_migrant_host_distance_A": 2.3781465623703997,
+      "cell_available": false,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_3/neb.out",
+        "job_done": true,
+        "initial_path_length_bohr": 8.1665,
+        "initial_inter_image_distance_bohr": 0.9074,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 54,
+        "last_complete_iteration": 53,
+        "activation_forward_eV": 1.691053,
+        "activation_reverse_eV": 1.668197,
+        "max_image_error_eV_A": 0.231831,
+        "barrier_drift_last_three_eV": 0.0006150000000000322,
+        "n_iterations_parsed": 54,
+        "n_complete_iterations_parsed": 53,
+        "n_images_last_iteration": 10,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -177388.166272,
+            "error_eV_A": 0.060122,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -177387.8111589,
+            "error_eV_A": 0.087683,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -177387.4496156,
+            "error_eV_A": 0.159088,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -177387.2868438,
+            "error_eV_A": 0.152629,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -177386.4845933,
+            "error_eV_A": 0.12494,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 6,
+            "energy_eV": -177386.4752194,
+            "error_eV_A": 0.151182,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 7,
+            "energy_eV": -177387.2733975,
+            "error_eV_A": 0.179034,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 8,
+            "energy_eV": -177387.4243158,
+            "error_eV_A": 0.231831,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 9,
+            "energy_eV": -177387.8147713,
+            "error_eV_A": 0.10478,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 10,
+            "energy_eV": -177388.1434162,
+            "error_eV_A": 0.173823,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 10,
+          "saddle_image_qe": 6,
+          "delta_E_eV": 0.022855799994431436,
+          "barrier_forward_eV": 1.6910526000137907,
+          "barrier_reverse_eV": 1.6681968000193592,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "81_neb_4",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_4",
+      "image_format": "multi_frame_xyz",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_4/sb2te3.xyz",
+          "sha256": "78b2a5a88dc45cbc7f3f8c11345a7ac97eb0a207bd3dc2b219dc258965c335df"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_4/neb.out",
+      "neb_out_sha256": "d0af7a9c263c24657e8e3abafd00b337b17f6cfd94f3a7ca5e765bfe6b195d78",
+      "n_images_geometry": 10,
+      "n_images_energy": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 0,
+      "basin_image_indices_qe": [
+        1,
+        10
+      ],
+      "topology_status": "single_segment_candidate",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.2920631698491309,
+      "configuration_endpoint_chord_rms_A": 0.2752089719636872,
+      "configuration_tortuosity": 1.0612414550484477,
+      "migrant_path_length_A": 2.30196706958777,
+      "migrant_endpoint_chord_A": 2.2765000861402243,
+      "migrant_tortuosity": 1.0111869020355386,
+      "host_step_rms_mean_A": 0.015380172556369899,
+      "minimum_pair_distance_A": 2.3729702559524717,
+      "minimum_migrant_host_distance_A": 2.3729702559524717,
+      "cell_available": false,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_4/neb.out",
+        "job_done": true,
+        "initial_path_length_bohr": 4.6558,
+        "initial_inter_image_distance_bohr": 0.5173,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 55,
+        "last_complete_iteration": 54,
+        "activation_forward_eV": 2.063858,
+        "activation_reverse_eV": 1.543546,
+        "max_image_error_eV_A": 0.526984,
+        "barrier_drift_last_three_eV": 0.005510999999999822,
+        "n_iterations_parsed": 55,
+        "n_complete_iterations_parsed": 54,
+        "n_images_last_iteration": 10,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -177388.1457988,
+            "error_eV_A": 0.016118,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -177387.9710389,
+            "error_eV_A": 0.383771,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -177387.4293337,
+            "error_eV_A": 0.485756,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -177386.7366058,
+            "error_eV_A": 0.430146,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -177386.2459298,
+            "error_eV_A": 0.389093,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 6,
+            "energy_eV": -177386.0819412,
+            "error_eV_A": 0.455708,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 7,
+            "energy_eV": -177386.3351436,
+            "error_eV_A": 0.506577,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 8,
+            "energy_eV": -177386.9684504,
+            "error_eV_A": 0.526984,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 9,
+            "energy_eV": -177387.4424879,
+            "error_eV_A": 0.386943,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 10,
+            "energy_eV": -177387.6254872,
+            "error_eV_A": 0.099446,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 10,
+          "saddle_image_qe": 6,
+          "delta_E_eV": 0.5203115999756847,
+          "barrier_forward_eV": 2.0638575999764726,
+          "barrier_reverse_eV": 1.543546000000788,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "81_neb_5",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_5",
+      "image_format": "multi_frame_xyz",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_5/sb2te3.xyz",
+          "sha256": "3c1e67172bf3fa9e9f976f741db89f15210bece564613d1b334a0184e356cee6"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_5/neb.out",
+      "neb_out_sha256": "0874029f5dc25c882c6014117e29f0948fc330139a00b5613301af3e0d17a193",
+      "n_images_geometry": 10,
+      "n_images_energy": 10,
+      "n_atoms": 81,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 80,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 0,
+      "basin_image_indices_qe": [
+        1,
+        10
+      ],
+      "topology_status": "single_segment_candidate",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.41711892898973796,
+      "configuration_endpoint_chord_rms_A": 0.3384387457160053,
+      "configuration_tortuosity": 1.232479833558288,
+      "migrant_path_length_A": 2.986392996229272,
+      "migrant_endpoint_chord_A": 2.886709295113204,
+      "migrant_tortuosity": 1.0345319500251786,
+      "host_step_rms_mean_A": 0.02706252856354294,
+      "minimum_pair_distance_A": 2.332867489261741,
+      "minimum_migrant_host_distance_A": 2.332867489261741,
+      "cell_available": false,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/layer_81/neb_5/neb.out",
+        "job_done": true,
+        "initial_path_length_bohr": 5.6887,
+        "initial_inter_image_distance_bohr": 0.6321,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 62,
+        "last_complete_iteration": 61,
+        "activation_forward_eV": 1.414868,
+        "activation_reverse_eV": 1.06583,
+        "max_image_error_eV_A": 0.319104,
+        "barrier_drift_last_three_eV": 0.0003670000000000062,
+        "n_iterations_parsed": 62,
+        "n_complete_iterations_parsed": 61,
+        "n_images_last_iteration": 10,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -177387.6356202,
+            "error_eV_A": 0.064152,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -177387.5969027,
+            "error_eV_A": 0.245124,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -177387.4663288,
+            "error_eV_A": 0.138954,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -177387.2832706,
+            "error_eV_A": 0.198422,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -177386.7735034,
+            "error_eV_A": 0.214901,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 6,
+            "energy_eV": -177386.2482409,
+            "error_eV_A": 0.319104,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 7,
+            "energy_eV": -177386.2207525,
+            "error_eV_A": 0.288657,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 8,
+            "energy_eV": -177386.7601914,
+            "error_eV_A": 0.314943,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 9,
+            "energy_eV": -177387.2142708,
+            "error_eV_A": 0.206566,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 10,
+            "energy_eV": -177387.2865828,
+            "error_eV_A": 0.042369,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          }
+        ]
+      },
+      "internal_basin_candidates": [],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 10,
+          "saddle_image_qe": 7,
+          "delta_E_eV": 0.3490373999811709,
+          "barrier_forward_eV": 1.4148676999902818,
+          "barrier_reverse_eV": 1.065830300009111,
+          "endpoint_dominated": false,
+          "segment_status": "candidate_segment_barrier"
+        }
+      ]
+    },
+    {
+      "path_id": "1-6_qe_r3",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496",
+      "image_format": "qe_numbered_inputs",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_1.in",
+          "sha256": "36605c22f15c003761c9fe3dc867dbb2f7edf3def9393da3007680bc27d6d423"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_2.in",
+          "sha256": "69fe490958eea78ac16256da5c90c8ad48e6c17e9b8e7eaeb30a638dc160bb2e"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_3.in",
+          "sha256": "c389eb5e8db475b8ca709f5fbd3612c63b072236b3bee596a3e54b07469e75b0"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_4.in",
+          "sha256": "aa321d7898b7da9c0c6b335ba8916880e9c1ec5b6f0d99cbbfbb32c9c8759e30"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_5.in",
+          "sha256": "4f00dfcf85ca46c177504ca80d6e4c6f2df517974ad111fa8846396f84235c60"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/neb.out",
+      "neb_out_sha256": "9fa429cca518de356594552532f02dd61b235c6f9da264b9cbcc8f77481e4dec",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        2,
+        5
+      ],
+      "topology_status": "hidden_basin_candidate;endpoint_dominated_segment",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.4049047616238836,
+      "configuration_endpoint_chord_rms_A": 0.36846796374704244,
+      "configuration_tortuosity": 1.0988872886161019,
+      "migrant_path_length_A": 2.729687317628099,
+      "migrant_endpoint_chord_A": 2.7127364207697298,
+      "migrant_tortuosity": 1.006248633936046,
+      "host_step_rms_mean_A": 0.048975369159870955,
+      "minimum_pair_distance_A": 2.5262500651464066,
+      "minimum_migrant_host_distance_A": 2.5262500651464066,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/neb.out",
+        "job_done": false,
+        "initial_path_length_bohr": null,
+        "initial_inter_image_distance_bohr": null,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 109,
+        "last_complete_iteration": 108,
+        "activation_forward_eV": 0.8204,
+        "activation_reverse_eV": -0.0,
+        "max_image_error_eV_A": 2.571356,
+        "barrier_drift_last_three_eV": 0.0,
+        "n_iterations_parsed": 44,
+        "n_complete_iterations_parsed": 43,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133597.150023,
+            "error_eV_A": 0.312794,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": true
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133598.3817597,
+            "error_eV_A": 0.228572,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133597.6026586,
+            "error_eV_A": 0.192114,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133597.5556162,
+            "error_eV_A": 0.214298,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133596.3296231,
+            "error_eV_A": 2.571356,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": true
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 1,
+          "image_index_qe": 2,
+          "energy_eV": -133598.3817597,
+          "energy_relative_global_min_eV": 0.0,
+          "local_basin_depth_eV": 0.7791010999935679,
+          "image_error_eV_A": 0.228572,
+          "candidate_status": "candidate_needs_independent_relax"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 2,
+          "saddle_image_qe": 1,
+          "delta_E_eV": -1.2317366999923252,
+          "barrier_forward_eV": 0.0,
+          "barrier_reverse_eV": 1.2317366999923252,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        },
+        {
+          "start_image_qe": 2,
+          "end_image_qe": 5,
+          "saddle_image_qe": 5,
+          "delta_E_eV": 2.0521365999884438,
+          "barrier_forward_eV": 2.0521365999884438,
+          "barrier_reverse_eV": 0.0,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        }
+      ]
+    },
+    {
+      "path_id": "1-7_qe_r3",
+      "run_dir": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497",
+      "image_format": "qe_numbered_inputs",
+      "image_sources": [
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/pw_1.in",
+          "sha256": "7db6a2f64ba8887528307bb380dbf5440b7ed6f3bb54308fc7e31e23d1f37676"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/pw_2.in",
+          "sha256": "7a416eec3968e944748b8205740aff76971e9a9edc46f6ad5c1525e4afc5e9f2"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/pw_3.in",
+          "sha256": "182cb3a42994eb17815b6802fc930ac9cef41f181bb635b23850e1dad797282a"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/pw_4.in",
+          "sha256": "d9529b2c2db5f0ccdbcb9ae7e50685a3a85ad6698c4b00c3c934760e0482ac87"
+        },
+        {
+          "path": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/pw_5.in",
+          "sha256": "d820b10e709b50128bc59d67f6aee1d2b4e0069c361585f3670acba441d722b5"
+        }
+      ],
+      "neb_out": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/neb.out",
+      "neb_out_sha256": "28a6c51107010fb9fbdcd9c7c54bef4a40c7fff69098b11589716e587f361f4d",
+      "n_images_geometry": 5,
+      "n_images_energy": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "composition_order_consistent": true,
+      "energy_count_matches_geometry": true,
+      "endpoint_stability_status": "unverified_frozen_neb_endpoints",
+      "internal_basin_candidate_count": 1,
+      "basin_image_indices_qe": [
+        1,
+        2,
+        5
+      ],
+      "topology_status": "hidden_basin_candidate;endpoint_dominated_segment",
+      "geometry_gate_pass": true,
+      "configuration_path_length_rms_A": 0.4485790568597644,
+      "configuration_endpoint_chord_rms_A": 0.3686793875591874,
+      "configuration_tortuosity": 1.2167185690242854,
+      "migrant_path_length_A": 2.7333996431161727,
+      "migrant_endpoint_chord_A": 2.697849772364618,
+      "migrant_tortuosity": 1.0131771127939402,
+      "host_step_rms_mean_A": 0.06454408690550638,
+      "minimum_pair_distance_A": 2.5352807173102136,
+      "minimum_migrant_host_distance_A": 2.5352807173102136,
+      "cell_available": true,
+      "qe_summary": {
+        "neb_out": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe17_direct_r3_s42_30812497/neb.out",
+        "job_done": false,
+        "initial_path_length_bohr": null,
+        "initial_inter_image_distance_bohr": null,
+        "overflow_flags": [],
+        "has_overflow": false,
+        "converged_by_default_gate": false,
+        "last_iteration": 113,
+        "last_complete_iteration": 112,
+        "activation_forward_eV": 0.557933,
+        "activation_reverse_eV": 0.0,
+        "max_image_error_eV_A": 1.583026,
+        "barrier_drift_last_three_eV": 0.0,
+        "n_iterations_parsed": 42,
+        "n_complete_iterations_parsed": 41,
+        "n_images_last_iteration": 5,
+        "last_images": [
+          {
+            "image_index": 1,
+            "energy_eV": -133597.439809,
+            "error_eV_A": 0.233763,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": true
+          },
+          {
+            "image_index": 2,
+            "energy_eV": -133598.5546011,
+            "error_eV_A": 0.311123,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 3,
+            "energy_eV": -133597.7138614,
+            "error_eV_A": 0.142004,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 4,
+            "energy_eV": -133597.6522612,
+            "error_eV_A": 0.396004,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": false
+          },
+          {
+            "image_index": 5,
+            "energy_eV": -133596.8818756,
+            "error_eV_A": 1.583026,
+            "energy_overflow": false,
+            "error_overflow": false,
+            "frozen": true
+          }
+        ]
+      },
+      "internal_basin_candidates": [
+        {
+          "image_index_zero_based": 1,
+          "image_index_qe": 2,
+          "energy_eV": -133598.5546011,
+          "energy_relative_global_min_eV": 0.0,
+          "local_basin_depth_eV": 0.840739700011909,
+          "image_error_eV_A": 0.311123,
+          "candidate_status": "weak_candidate_high_neb_force"
+        }
+      ],
+      "segments": [
+        {
+          "start_image_qe": 1,
+          "end_image_qe": 2,
+          "saddle_image_qe": 1,
+          "delta_E_eV": -1.1147921000083443,
+          "barrier_forward_eV": 0.0,
+          "barrier_reverse_eV": 1.1147921000083443,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        },
+        {
+          "start_image_qe": 2,
+          "end_image_qe": 5,
+          "saddle_image_qe": 5,
+          "delta_E_eV": 1.6727255000150762,
+          "barrier_forward_eV": 1.6727255000150762,
+          "barrier_reverse_eV": 0.0,
+          "endpoint_dominated": true,
+          "segment_status": "unresolved_no_interior_saddle"
+        }
+      ]
+    }
+  ]
+}

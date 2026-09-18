@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T09:16:26.707884+00:00",
+  "scientific_role": "fixed_geometry_qe_protocol_sensitivity",
+  "branch_id": "1-6_iter108_img4_cutoff_100_400_gamma_nonspin_s42",
+  "job_name": "mb_p16i4_c100g_s42",
+  "path_id": "1-6",
+  "source_iteration": 108,
+  "image_index_qe": 4,
+  "geometry_role": "segment_high_energy_image_candidate",
+  "seed": 42,
+  "profile": {
+    "id": "cutoff_100_400_gamma_nonspin",
+    "job_slug": "c100g",
+    "ecutwfc_Ry": 100,
+    "ecutrho_Ry": 400,
+    "degauss_Ry": 0.0146997236,
+    "spin_model": "nonspin",
+    "kpoints": {
+      "mode": "gamma"
+    },
+    "ntasks": 2,
+    "kpoint_pools": 1
+  },
+  "calculator_identity": {
+    "root_label": "protocol_sensitivity",
+    "path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_stage1_s42/1-6_iter108_img4_cutoff_100_400_gamma_nonspin_s42/scf.in",
+    "sha256": "80e44399d34a76b2168b5f837244b7f8de95d5ef5ce338973347ae0689113088",
+    "calculation": "scf",
+    "composition": "Cr1Sb24Te36",
+    "ecutwfc_Ry": 100.0,
+    "ecutrho_Ry": 400.0,
+    "occupations": "smearing",
+    "smearing": "cold",
+    "degauss_Ry": 0.0146997236,
+    "conv_thr_Ry": 1e-06,
+    "vdw_corr": "DFT-D3",
+    "nspin": 1,
+    "noncolin": false,
+    "lspinorb": false,
+    "soc_enabled": false,
+    "kpoints": "gamma",
+    "pseudopotentials": "Cr:Cr_PBE_FR.SG15v1.2.UPF;Sb:Sb_PBE_FR.SG15v1.2.UPF;Te:Te_PBE_FR.SG15v1.2.UPF",
+    "cell_fingerprint": "599c2d6bd5b9",
+    "calculator_identity": "b217c3e6b23f772a",
+    "identity_complete": true,
+    "identity_missing_fields": ""
+  },
+  "source": {
+    "path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/out/sb2te3.path108",
+    "path_file_sha256": "8a3ed15b98857829b27216fec194671504e2aaa3b767fd1d77bbfbd48bd6f6d6",
+    "template": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_1.in",
+    "template_sha256": "36605c22f15c003761c9fe3dc867dbb2f7edf3def9393da3007680bc27d6d423",
+    "source_energy_eV": -133597.5556161532
+  },
+  "generated_input": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_stage1_s42/1-6_iter108_img4_cutoff_100_400_gamma_nonspin_s42/scf.in",
+  "generated_input_sha256": "80e44399d34a76b2168b5f837244b7f8de95d5ef5ce338973347ae0689113088",
+  "resources": {
+    "walltime": "24:00:00",
+    "max_seconds": 84600,
+    "memory": "160G",
+    "ntasks": 2,
+    "kpoint_pools": 1
+  },
+  "acceptance": {
+    "job_done": true,
+    "scf_converged": true,
+    "finite_energy": true,
+    "pair_delta_E_tolerance_eV": 0.02,
+    "compare_only_with_same_profile": true
+  }
+}

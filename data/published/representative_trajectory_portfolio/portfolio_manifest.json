@@ -1,0 +1,217 @@
+{
+  "created_at_utc": "2026-09-13T12:02:17.154637+00:00",
+  "status": "diagnostic_only_no_endpoint_or_neb_acceptance",
+  "seed": 42,
+  "deterministic_selection": true,
+  "config_path": "/Users/alina/Project/26MIgrationBench/configs/historical_trajectory_portfolio.json",
+  "config_sha256": "ba09299024ff37cfaa37864adf8235f8994b1723b6c485b5c13cede4ca5452ef",
+  "distance_contract": "weighted normalized component distance; direction chosen jointly by minimum total forward/reversed alignment",
+  "coverage_contract": {
+    "metric": "weighted_facility_location",
+    "target": 0.9,
+    "importance": "uniform_over_distinct_historical_lineages",
+    "similarity": "exp(-D_traj)"
+  },
+  "lineage_refinements_not_independent_candidates": [
+    {
+      "path_id": "1-6_qe_r3",
+      "parent_lineage": "1-6",
+      "reason": "continuation/refinement of the same historical seed"
+    },
+    {
+      "path_id": "1-7_qe_r3",
+      "parent_lineage": "1-7",
+      "reason": "continuation/refinement of the same historical seed"
+    }
+  ],
+  "groups": {
+    "Sb2Te3Cr_61": {
+      "path_ids": [
+        "1-2",
+        "1-3",
+        "1-4",
+        "1-5",
+        "1-6",
+        "1-7",
+        "1-8"
+      ],
+      "distance_scales": {
+        "geometry_frechet": 0.2448493523872807,
+        "local_environment": 0.7480187462701122,
+        "displacement_field": 0.42350988468312883,
+        "energy_profile": 0.34962521274223707,
+        "bond_topology": 1.5314506773837975
+      },
+      "selected": [
+        {
+          "rank": 1,
+          "path_id": "1-7",
+          "marginal_coverage_gain": 0.5238287589541885,
+          "cumulative_coverage": 0.5238287589541885,
+          "quality_tiebreak_score": 0.7512586391723531
+        },
+        {
+          "rank": 2,
+          "path_id": "1-5",
+          "marginal_coverage_gain": 0.10242239083862892,
+          "cumulative_coverage": 0.6262511497928174,
+          "quality_tiebreak_score": 6.870132174419423e-08
+        },
+        {
+          "rank": 3,
+          "path_id": "1-8",
+          "marginal_coverage_gain": 0.1016127353531392,
+          "cumulative_coverage": 0.7278638851459566,
+          "quality_tiebreak_score": 0.7343127739134202
+        },
+        {
+          "rank": 4,
+          "path_id": "1-3",
+          "marginal_coverage_gain": 0.08748969457531763,
+          "cumulative_coverage": 0.8153535797212742,
+          "quality_tiebreak_score": 6.866572717197205e-09
+        },
+        {
+          "rank": 5,
+          "path_id": "1-2",
+          "marginal_coverage_gain": 0.08522950900781878,
+          "cumulative_coverage": 0.900583088729093,
+          "quality_tiebreak_score": 8.93163819087434e-06
+        }
+      ],
+      "valid_center_path_ids": [
+        "1-4",
+        "1-6",
+        "1-7",
+        "1-8"
+      ],
+      "valid_only_selected": [
+        {
+          "rank": 1,
+          "path_id": "1-7",
+          "marginal_coverage_gain": 0.5238287589541885,
+          "cumulative_coverage": 0.5238287589541885,
+          "quality_tiebreak_score": 0.7512586391723531
+        },
+        {
+          "rank": 2,
+          "path_id": "1-8",
+          "marginal_coverage_gain": 0.1016127353531392,
+          "cumulative_coverage": 0.6254414943073277,
+          "quality_tiebreak_score": 0.7343127739134202
+        },
+        {
+          "rank": 3,
+          "path_id": "1-4",
+          "marginal_coverage_gain": 0.07574585405803302,
+          "cumulative_coverage": 0.7011873483653607,
+          "quality_tiebreak_score": 0.6801132464071776
+        },
+        {
+          "rank": 4,
+          "path_id": "1-6",
+          "marginal_coverage_gain": 0.03445411722455427,
+          "cumulative_coverage": 0.735641465589915,
+          "quality_tiebreak_score": 0.656937710977807
+        }
+      ],
+      "valid_only_coverage_ceiling": 0.735641465589915,
+      "target_reachable_with_current_valid_centers": false,
+      "target": 0.9
+    },
+    "Sb2Te3Cr_81": {
+      "path_ids": [
+        "81_neb_1",
+        "81_neb_2",
+        "81_neb_3",
+        "81_neb_4",
+        "81_neb_5"
+      ],
+      "distance_scales": {
+        "geometry_frechet": 0.359179582787827,
+        "local_environment": 0.9169382268550972,
+        "displacement_field": 0.09795145434666888,
+        "energy_profile": 0.14647328370373588,
+        "bond_topology": 1.6610954455119225
+      },
+      "selected": [
+        {
+          "rank": 1,
+          "path_id": "81_neb_2",
+          "marginal_coverage_gain": 0.5293170595799765,
+          "cumulative_coverage": 0.5293170595799765,
+          "quality_tiebreak_score": 0.6480574841312449
+        },
+        {
+          "rank": 2,
+          "path_id": "81_neb_5",
+          "marginal_coverage_gain": 0.13872161418282203,
+          "cumulative_coverage": 0.6680386737627986,
+          "quality_tiebreak_score": 0.738073278397843
+        },
+        {
+          "rank": 3,
+          "path_id": "81_neb_3",
+          "marginal_coverage_gain": 0.11649435194664048,
+          "cumulative_coverage": 0.7845330257094391,
+          "quality_tiebreak_score": 0.7846929187197942
+        },
+        {
+          "rank": 4,
+          "path_id": "81_neb_1",
+          "marginal_coverage_gain": 0.11568983467899085,
+          "cumulative_coverage": 0.9002228603884299,
+          "quality_tiebreak_score": 0.7221290021113951
+        }
+      ],
+      "valid_center_path_ids": [
+        "81_neb_1",
+        "81_neb_2",
+        "81_neb_3",
+        "81_neb_4",
+        "81_neb_5"
+      ],
+      "valid_only_selected": [
+        {
+          "rank": 1,
+          "path_id": "81_neb_2",
+          "marginal_coverage_gain": 0.5293170595799765,
+          "cumulative_coverage": 0.5293170595799765,
+          "quality_tiebreak_score": 0.6480574841312449
+        },
+        {
+          "rank": 2,
+          "path_id": "81_neb_5",
+          "marginal_coverage_gain": 0.13872161418282203,
+          "cumulative_coverage": 0.6680386737627986,
+          "quality_tiebreak_score": 0.738073278397843
+        },
+        {
+          "rank": 3,
+          "path_id": "81_neb_3",
+          "marginal_coverage_gain": 0.11649435194664048,
+          "cumulative_coverage": 0.7845330257094391,
+          "quality_tiebreak_score": 0.7846929187197942
+        },
+        {
+          "rank": 4,
+          "path_id": "81_neb_1",
+          "marginal_coverage_gain": 0.11568983467899085,
+          "cumulative_coverage": 0.9002228603884299,
+          "quality_tiebreak_score": 0.7221290021113951
+        }
+      ],
+      "valid_only_coverage_ceiling": 1.0,
+      "target_reachable_with_current_valid_centers": true,
+      "target": 0.9
+    }
+  },
+  "quality_checks": {
+    "candidate_count": 12,
+    "cross_system_pairs_created": 0,
+    "all_paths_unconverged_or_historical": true,
+    "coverage_monotonic_all": true,
+    "coverage_target_reached_all": true,
+    "valid_center_target_reached_all": false
+  }
+}

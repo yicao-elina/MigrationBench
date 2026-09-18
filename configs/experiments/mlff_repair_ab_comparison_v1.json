@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "minimum_final_path_similarity_for_same_mechanism": 0.80,
+  "distance_reference": "data_processed/representative_trajectory_portfolio/portfolio_manifest.json",
+  "speedup_requires": [
+    "identical_calculator_model_seed_neb_protocol_and_budget",
+    "repair_manifest_hash_binding",
+    "both_optimizer_runs_converged",
+    "both_final_internal_neb_forces_at_or_below_target",
+    "same_final_mechanism"
+  ],
+  "different_mechanism_policy": "report mechanism change; do not report speedup",
+  "qe_handoff_allowed": false,
+  "qe_handoff_reason": "diagnostic A/B uses endpoints without independent DFT basin acceptance"
+}

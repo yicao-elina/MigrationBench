@@ -1,0 +1,33 @@
+{
+  "created_at_local": "2026-09-10T21:53:47",
+  "inputs": [
+    "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/victor_sites.csv",
+    "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/joshitha_sites.csv"
+  ],
+  "parameters": {
+    "site_csv": [
+      "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/victor_sites.csv",
+      "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/joshitha_sites.csv"
+    ],
+    "out_dir": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection",
+    "min_delta_z_A": 0.4,
+    "max_delta_z_A": 8.0,
+    "max_energy_delta_eV": 6.0,
+    "representatives_per_class": 12
+  },
+  "outputs": {
+    "candidate_sites": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection/candidate_sites.csv",
+    "candidate_pairs": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection/candidate_pairs.csv",
+    "representative_path_queue": "/Users/alina/Project/26MIgrationBench/data_processed/site_assignments/endpoint_selection/representative_path_queue.csv"
+  },
+  "counts": {
+    "sites": 191,
+    "candidate_pairs": 12052,
+    "representatives": 24
+  },
+  "notes": [
+    "This script proposes endpoint pairs; it does not claim a DFT barrier.",
+    "Transition classes are bins over continuous descriptors and must be stored with the dataset.",
+    "Representative paths should be escalated to MLFF pre-NEB first, then QE NEB if scientifically useful."
+  ]
+}

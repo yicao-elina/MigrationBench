@@ -1,0 +1,167 @@
+project:
+  name: MigrationBench
+  dataset_repo: alinacao2000/MigrationBench
+  local_revision_root: .
+  local_source_root: data/raw_compact
+  cluster_root: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3
+  cluster_readonly_root: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3
+  cluster_run_root: /scratch16/pclancy3/yi/revision1_migrationbench_runs
+
+policy:
+  paper_number_rule: "No value enters manuscript tables/figures unless it is derived from raw artifacts by a local script."
+  compute_resource_preference: "Prefer CPU Slurm resources for QE NEB and for MACE preconditioning smoke/production runs unless GPU acceleration is explicitly needed."
+  dft_reference_status_allowed:
+    - converged
+    - numerically_stationary_unconverged
+  quarantine_statuses:
+    - unconverged
+    - diverged
+    - png_digitized_only
+    - placeholder_energy
+    - geometry_only
+    - cluster_pending
+  trainable_labels:
+    required:
+      - energy
+      - forces
+    forbidden_if:
+      - zero_force_fabricated
+      - neb_eval_only
+
+dft:
+  code: Quantum ESPRESSO
+  neb_program: neb.x
+  canonical_barrier_definition: "forward activation energy, peak relative to first image"
+  default_path:
+    string_method: neb
+    opt_scheme: broyden
+    CI_scheme: auto
+    first_last_opt: false
+    minimum_image: true
+    path_thr_eV_per_A:
+      production: 0.03
+      final_check: 0.02
+    ds:
+      coarse: 0.5
+      production: 0.2
+    k_min: 0.1
+    k_max: 0.3
+  qe_input_strategy:
+    from_mlff_images: "Use MLFF-relaxed images as FIRST/INTERMEDIATE/LAST_IMAGE positions in a single neb.x input."
+    restartable: "Also emit image directories and a manifest, so cluster jobs can be restarted and audited."
+
+models:
+  foundation:
+    label: MACE Foundation
+    cluster_path: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model
+    role: foundation_or_mlff_preconditioner
+  scratch_seed_123:
+    label: MACE Scratch seed 123
+    cluster_path: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE_models_l1_0802/mace_l1_0802_compiled.model
+    role: reported_baseline
+  ft_600k_seed_234:
+    label: MACE FT-600K seed 234
+    cluster_path: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model
+    role: reported_finetuned
+  ft_multit_seed_234:
+    label: MACE FT-MultiT seed 234
+    cluster_path: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_Multi_T/finetuned_MACE_multihead0804.model
+    role: reported_finetuned
+
+pathways:
+  1-4:
+    family: in_gap
+    cell_atoms_observed: 61
+    current_reference_eV: 0.336050
+    current_reference_status: numerically_stationary_unconverged
+    manuscript_use: canonical_in_gap_reference
+    required_next_action: "Find or rerun fully converged DFT NEB; current value may be used only with explicit stationarity note."
+  1-7:
+    family: in_gap
+    cell_atoms_observed: 61
+    current_reference_eV: 0.582586
+    current_reference_status: unconverged
+    manuscript_use: quarantine
+    required_next_action: "Finish DFT NEB or replace with converged cluster result before quantitative claim."
+  1-2:
+    family: deep_penetration
+    cell_atoms_observed: 61
+    current_reference_eV: 2.790171
+    current_reference_status: unconverged
+    manuscript_use: quarantine
+    required_next_action: "Do not cite local 2.790 eV; locate converged cluster rerun or rerun from MLFF-relaxed path."
+  1-3:
+    family: deep_penetration
+    cell_atoms_observed: 61
+    current_reference_eV: 4.003362
+    current_reference_status: unconverged
+    manuscript_use: quarantine
+    required_next_action: "Do not cite local 4.003 eV; locate converged cluster rerun or rerun from MLFF-relaxed path."
+  1-5:
+    family: deep_penetration
+    cell_atoms_observed: 61
+    current_reference_status: diverged_or_unconverged
+    manuscript_use: quarantine
+    required_next_action: "Exclude from final barrier table until clean 10-12 image rerun converges."
+  81_atom_unresolved:
+    family: deep_penetration_by_geometry_descriptors
+    cell_atoms_observed: 81
+    current_reference_status: stationary_but_unconverged
+    manuscript_use: quarantine
+    required_next_action: "Run MACE preconditioning from each historical sb2te3.xyz, generate QE explicit-image inputs with manifests/configs, then rerun CPU QE NEB until convergence."
+    descriptor_table: data_processed/cluster/81_atom_2D_421_Diffusion_traj/path_geometry_classification.csv
+    path_ids:
+      neb_1:
+        class_label: deep_penetration
+        penetration_score: 0.691495
+        gap_score: 0.349578
+        historical_candidate_barrier_eV: 1.034728
+        historical_max_image_error_eV_A: 0.355916
+      neb_2:
+        class_label: deep_penetration
+        penetration_score: 0.736401
+        gap_score: 0.210226
+        historical_candidate_barrier_eV: 1.561262
+        historical_max_image_error_eV_A: 0.635720
+      neb_3:
+        class_label: deep_penetration
+        penetration_score: 0.718459
+        gap_score: 0.299710
+        historical_candidate_barrier_eV: 1.691053
+        historical_max_image_error_eV_A: 0.231831
+      neb_4:
+        class_label: deep_penetration
+        penetration_score: 0.739774
+        gap_score: 0.215557
+        historical_candidate_barrier_eV: 2.063858
+        historical_max_image_error_eV_A: 0.526984
+      neb_5:
+        class_label: deep_penetration
+        penetration_score: 0.741177
+        gap_score: 0.234885
+        historical_candidate_barrier_eV: 1.414868
+        historical_max_image_error_eV_A: 0.319104
+
+acceptance_gates:
+  dft_neb:
+    max_force_eV_per_A: 0.03
+    max_barrier_drift_last_two_iterations_eV: 0.02
+    require_job_done: true
+    allow_stationary_exception_for_revision_triage: true
+  mlff_pre_neb:
+    fmax_eV_per_A: 0.05
+    max_steps: 1000
+    require_no_energy_spike_eV: 5.0
+    max_abs_relaxation_energy_delta_per_internal_image_eV: 5.0
+    require_no_internal_image_basin_collapse: true
+    relaxation_delta_interpretation: "Large negative energy delta is a warning if it changes the path basin; it is not automatically acceptable."
+  repair_preconditioner:
+    preserve_endpoints: true
+    min_pair_distance_A_hard_floor: 1.70
+    prefer_min_pair_distance_A: 2.0
+    require_before_after_geometry_metrics: true
+    require_followup_mlff_energy_delta_audit: true
+    manuscript_evidence_role: "proposal_generation_only"
+  train_test_leakage:
+    soap_distance_near_duplicate_threshold: 0.01
+    rmsd_near_duplicate_A: 0.05

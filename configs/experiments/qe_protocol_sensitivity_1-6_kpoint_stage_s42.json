@@ -1,0 +1,64 @@
+{
+  "path_id": "1-6",
+  "source_run_dir": "data/raw_compact/rockfish/mb_qe16_direct_r3_s42_30812496",
+  "source_iteration": 108,
+  "image_indices": [
+    2,
+    4
+  ],
+  "geometry_roles": {
+    "2": "internal_low_energy_basin_candidate",
+    "4": "segment_high_energy_image_candidate"
+  },
+  "pair_delta_E_tolerance_eV": 0.02,
+  "seed": 42,
+  "resources": {
+    "walltime": "24:00:00",
+    "max_seconds": 84600,
+    "memory": "160G"
+  },
+  "stage": "kpoint_sensitivity",
+  "blocked_by": null,
+  "upstream_gate": {
+    "stage": "cutoff_sensitivity",
+    "gate": "pass",
+    "gate_reason": "all_test_profiles_within_tolerance"
+  },
+  "out_dir": "data_processed/qe_protocol_sensitivity/1-6_kpoint_stage_s42",
+  "profiles": [
+    {
+      "id": "hist_50_200_gamma_nonspin_kpoint_reference",
+      "job_slug": "krefg",
+      "ecutwfc_Ry": 50,
+      "ecutrho_Ry": 200,
+      "degauss_Ry": 0.0146997236,
+      "spin_model": "nonspin",
+      "kpoints": {
+        "mode": "gamma"
+      },
+      "ntasks": 2,
+      "kpoint_pools": 1
+    },
+    {
+      "id": "hist_50_200_gamma_nonspin_kpoint_2x2x1",
+      "job_slug": "k221",
+      "ecutwfc_Ry": 50,
+      "ecutrho_Ry": 200,
+      "degauss_Ry": 0.0146997236,
+      "spin_model": "nonspin",
+      "kpoints": {
+        "mode": "automatic",
+        "grid_shift": [
+          2,
+          2,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "ntasks": 2,
+      "kpoint_pools": 1
+    }
+  ]
+}

@@ -1,0 +1,2205 @@
+diff --git a/examples/Sb2Te3_Cr_doped/03_neb/neb_data_collector.py b/examples/Sb2Te3_Cr_doped/03_neb/neb_data_collector.py
+index 3002bd1..be231f8 100644
+--- a/examples/Sb2Te3_Cr_doped/03_neb/neb_data_collector.py
++++ b/examples/Sb2Te3_Cr_doped/03_neb/neb_data_collector.py
+@@ -438,15 +438,16 @@ class NEBDataCollector:
+                     lattice = estimate_lattice_parameters(atoms)
+                 else:
+                     lattice = f'"{lattice_params}"'
+-                
+-                # Generate placeholder forces (zeros for now)
+-                forces = [(0.0, 0.0, 0.0) for _ in range(natoms)]
+-                
++
++                # NOTE: forces are intentionally omitted. QE NEB outputs parsed
++                # here do not provide per-atom forces; writing fabricated zero
++                # forces would silently corrupt downstream MLFF training data.
++
+                 # Write header
+                 f.write(f"{natoms}\n")
+-                
++
+                 # Enhanced comment line with MLFF-relevant metadata
+-                properties = "Properties=species:S:1:pos:R:3:forces:R:3"
++                properties = "Properties=species:S:1:pos:R:3"
+                 
+                 comment_parts = [
+                     f'Lattice={lattice}',
+@@ -483,10 +484,9 @@ class NEBDataCollector:
+                 comment = ' '.join(comment_parts)
+                 f.write(comment + '\n')
+                 
+-                # Write atoms with forces
++                # Write atoms (no forces available from QE NEB outputs)
+                 for atom_idx, (element, x, y, z) in enumerate(atoms):
+-                    fx, fy, fz = forces[atom_idx]
+-                    line = f"{element:>2s} {x:15.8f} {y:15.8f} {z:15.8f} {fx:15.8f} {fy:15.8f} {fz:15.8f}"
++                    line = f"{element:>2s} {x:15.8f} {y:15.8f} {z:15.8f}"
+                     f.write(line + '\n')
+ 
+     def generate_summary_report(self):
+diff --git a/examples/Sb2Te3_Cr_doped/03_neb/neb_to_extended_xyz.py b/examples/Sb2Te3_Cr_doped/03_neb/neb_to_extended_xyz.py
+index 5340750..c1d21ef 100644
+--- a/examples/Sb2Te3_Cr_doped/03_neb/neb_to_extended_xyz.py
++++ b/examples/Sb2Te3_Cr_doped/03_neb/neb_to_extended_xyz.py
+@@ -64,13 +64,26 @@ def parse_migration_energy_file(dat_file: str) -> Dict:
+         'error_mapping': dict(zip(reaction_coords, errors))
+     }
+ 
+-def write_extended_xyz(output_file: str, neb_data: Dict, xyz_data: List, 
++def write_extended_xyz(output_file: str, neb_data: Dict, xyz_data: List,
+                       migration_data: Optional[Dict] = None,
+-                      lattice_params: str = None, include_forces: bool = True,
++                      lattice_params: str = None, include_forces: bool = False,
+                       use_exact_coordinates: bool = True):
+     """
+-    Write extended XYZ file with NEB and migration energy data
++    Write extended XYZ file with NEB and migration energy data.
++
++    Forces are NOT written by default: QE NEB outputs parsed here do not
++    provide per-atom forces, and fabricating placeholder forces would
++    silently corrupt downstream MLFF training data.
+     """
++    if include_forces:
++        raise NotImplementedError(
++            "Force output was requested, but no real force source is available. "
++            "QE NEB outputs (neb.out) do not contain per-atom forces and this "
++            "converter does not read any force file. Refusing to write "
++            "fabricated (zero) forces. Provide real forces or omit the "
++            "--include-forces flag."
++        )
++
+     total_images = len(xyz_data)
+     
+     with open(output_file, 'w') as f:
+@@ -109,23 +122,18 @@ def write_extended_xyz(output_file: str, neb_data: Dict, xyz_data: List,
+             
+             # Convert eV to Hartree
+             energy_hartree = energy_ev * 0.036749322176
+-            
++
+             # Estimate lattice if not provided
+             if lattice_params is None:
+                 lattice = estimate_lattice_parameters(atoms)
+             else:
+                 lattice = lattice_params
+-            
+-            # Generate forces (placeholder)
+-            forces = generate_fake_forces(natoms) if include_forces else None
+-            
++
+             # Write header
+             f.write(f"{natoms}\n")
+-            
++
+             # Write extended XYZ comment line
+             properties = "Properties=species:S:1:pos:R:3"
+-            if include_forces:
+-                properties += ":forces:R:3"
+             
+             comment = f'Lattice={lattice} {properties} '
+             comment += f'energy={energy_hartree:.8f} '
+@@ -154,11 +162,6 @@ def write_extended_xyz(output_file: str, neb_data: Dict, xyz_data: List,
+             # Write atoms
+             for atom_idx, (element, x, y, z) in enumerate(atoms):
+                 line = f"{element:>2s} {x:15.8f} {y:15.8f} {z:15.8f}"
+-                
+-                if include_forces and forces:
+-                    fx, fy, fz = forces[atom_idx]
+-                    line += f" {fx:15.8f} {fy:15.8f} {fz:15.8f}"
+-                
+                 f.write(line + '\n')
+             
+             f.write('\n')  # Separate images
+@@ -170,8 +173,8 @@ def parse_neb_output(neb_file: str) -> Dict:
+     with open(neb_file, 'r') as f:
+         content = f.read()
+     
+-    # Find all iterations
+-    iterations = re.findall(r'-+ iteration (\d+) -+.*?image\s+energy \(eV\)\s+error \(eV/A\)\s+frozen\s+(.*?)(?=path length|$)', 
++    # Find all iterations (allow variable whitespace in QE headers)
++    iterations = re.findall(r'-+\s*iteration\s+(\d+)\s+-+.*?image\s+energy \(eV\)\s+error \(eV/A\)\s+frozen\s+(.*?)(?=path length|$)',
+                            content, re.DOTALL)
+     
+     if not iterations:
+@@ -275,12 +278,6 @@ def estimate_lattice_parameters(atoms: List[Tuple[str, float, float, float]]) ->
+     
+     return f'"{a:.6f} 0.0 0.0 0.0 {b:.6f} 0.0 0.0 0.0 {c:.6f}"'
+ 
+-def generate_fake_forces(natoms: int) -> List[Tuple[float, float, float]]:
+-    """
+-    Generate placeholder forces (all zeros)
+-    """
+-    return [(0.0, 0.0, 0.0) for _ in range(natoms)]
+-
+ def calculate_reaction_coordinate(image_num: int, total_images: int) -> float:
+     """
+     Calculate reaction coordinate for a given image
+@@ -297,7 +294,9 @@ def main():
+     parser.add_argument('--dat', default='sb2te3.dat', help='Migration energy data file (default: sb2te3.dat)')
+     parser.add_argument('--output', default='extended_neb.xyz', help='Output extended XYZ file (default: extended_neb.xyz)')
+     parser.add_argument('--lattice', help='Lattice parameters string (if not provided, will be estimated)')
+-    parser.add_argument('--no-forces', action='store_true', help='Do not include placeholder forces')
++    parser.add_argument('--include-forces', action='store_true',
++                        help='Include per-atom forces (OFF by default; requires a real force source — '
++                             'currently unavailable, raises NotImplementedError rather than writing zeros)')
+     parser.add_argument('--no-migration', action='store_true', help='Skip migration energy data')
+     parser.add_argument('--interpolate', action='store_true', help='Use interpolation instead of exact coordinates from .dat file')
+     
+@@ -342,7 +341,7 @@ def main():
+         # Write extended XYZ
+         print(f"Writing extended XYZ to {args.output}...")
+         write_extended_xyz(args.output, neb_data, xyz_data, migration_data,
+-                        args.lattice, not args.no_forces, not args.interpolate)
++                        args.lattice, args.include_forces, not args.interpolate)
+                                 
+         print("Conversion completed successfully!")
+         
+diff --git a/examples/Sb2Te3_Cr_doped/04_mlff_training/data/split_data.py b/examples/Sb2Te3_Cr_doped/04_mlff_training/data/split_data.py
+index 2d9a6dd..ca97e80 100644
+--- a/examples/Sb2Te3_Cr_doped/04_mlff_training/data/split_data.py
++++ b/examples/Sb2Te3_Cr_doped/04_mlff_training/data/split_data.py
+@@ -9,8 +9,76 @@ import numpy as np
+ import os
+ import argparse
+ import sys
++from collections import defaultdict
+ from pathlib import Path
+ 
++# Frame-info keys that identify the originating trajectory/NEB path, checked in order.
++GROUP_TAG_KEYS = ('path_name', 'trajectory', 'group')
++
++def get_group_ids(atoms_list, input_file):
++    """
++    Assign a group ID to every frame.
++
++    Frames sharing a group tag (e.g. 'path_name' from NEB collector output)
++    must end up in the same partition so near-identical images from one
++    trajectory never leak across train/valid/test. When no tag is present,
++    fall back to per-file grouping (all frames of one file = one group).
++    """
++    group_ids = []
++    for atoms in atoms_list:
++        tag = None
++        for key in GROUP_TAG_KEYS:
++            if key in atoms.info:
++                tag = f"{key}={atoms.info[key]}"
++                break
++        if tag is None:
++            tag = f"file={os.path.basename(input_file)}"
++        group_ids.append(tag)
++    return group_ids
++
++def split_groups(group_ids, total_frames, train_ratio, valid_ratio, test_ratio):
++    """
++    Partition group IDs into train/valid/test, keeping every group intact.
++
++    Groups are shuffled (seeded by caller) and greedily assigned to the
++    partition with the largest remaining frame deficit, approximating the
++    requested ratios at group granularity.
++    Returns (train_indices, valid_indices, test_indices).
++    """
++    group_to_indices = defaultdict(list)
++    for idx, gid in enumerate(group_ids):
++        group_to_indices[gid].append(idx)
++
++    unique_groups = list(group_to_indices.keys())
++    np.random.shuffle(unique_groups)
++
++    targets = {
++        'train': train_ratio * total_frames,
++        'valid': valid_ratio * total_frames,
++        'test': test_ratio * total_frames,
++    }
++    counts = {'train': 0, 'valid': 0, 'test': 0}
++    assignment = {'train': [], 'valid': [], 'test': []}
++
++    # Assign largest groups first for better ratio approximation.
++    unique_groups.sort(key=lambda g: -len(group_to_indices[g]))
++    for gid in unique_groups:
++        size = len(group_to_indices[gid])
++        deficits = {name: targets[name] - counts[name] for name in targets}
++        target_name = max(deficits, key=deficits.get)
++        assignment[target_name].extend(group_to_indices[gid])
++        counts[target_name] += size
++
++    # Every group must belong to exactly one partition.
++    train_groups = {group_ids[i] for i in assignment['train']}
++    valid_groups = {group_ids[i] for i in assignment['valid']}
++    test_groups = {group_ids[i] for i in assignment['test']}
++    assert not (train_groups & valid_groups), "Group leak between train and valid"
++    assert not (train_groups & test_groups), "Group leak between train and test"
++    assert not (valid_groups & test_groups), "Group leak between valid and test"
++
++    return assignment['train'], assignment['valid'], assignment['test']
++
+ def split_data(input_file, isolated_file, output_dir, train_ratio=0.8, valid_ratio=0.1, test_ratio=0.1, seed=42):
+     """
+     Split an XYZ trajectory into training, validation, and test sets, including isolated atom configurations.
+@@ -49,21 +117,24 @@ def split_data(input_file, isolated_file, output_dir, train_ratio=0.8, valid_rat
+     if total_frames == 0:
+         raise ValueError("No frames found in input file")
+ 
+-    # Shuffle indices for random sampling
+-    indices = np.arange(total_frames)
+-    np.random.shuffle(indices)
++    # Group-aware split: all frames sharing a trajectory/path tag go to the
++    # same partition to prevent near-duplicate leakage across splits.
++    group_ids = get_group_ids(atoms_list, input_file)
++    n_groups = len(set(group_ids))
++    print(f"Found {n_groups} distinct groups across {total_frames} frames")
+ 
+-    # Calculate the number of frames for each set
+-    train_count = int(train_ratio * total_frames)
+-    valid_count = int(valid_ratio * total_frames)
+-    test_count = total_frames - train_count - valid_count  # Ensure all frames are used
++    train_indices, valid_indices, test_indices = split_groups(
++        group_ids, total_frames, train_ratio, valid_ratio, test_ratio)
+ 
+-    print(f"Splitting data: {train_count} train, {valid_count} valid, {test_count} test")
++    train_count = len(train_indices)
++    valid_count = len(valid_indices)
++    test_count = len(test_indices)
+ 
+-    # Split indices
+-    train_indices = indices[:train_count]
+-    valid_indices = indices[train_count:train_count + valid_count]
+-    test_indices = indices[train_count + valid_count:]
++    if train_count == 0 or valid_count == 0 or test_count == 0:
++        print("Warning: a partition is empty — too few distinct groups for the "
++              "requested ratios (groups are never split across partitions).")
++
++    print(f"Splitting data: {train_count} train, {valid_count} valid, {test_count} test")
+ 
+     # Split data
+     train_set = [atoms_list[i] for i in train_indices]
+diff --git a/results/MD/2-naive-fine-tuning/mace_md_eval_0814.py b/results/MD/2-naive-fine-tuning/mace_md_eval_0814.py
+index 335fcf6..8da8892 100644
+--- a/results/MD/2-naive-fine-tuning/mace_md_eval_0814.py
++++ b/results/MD/2-naive-fine-tuning/mace_md_eval_0814.py
+@@ -356,8 +356,8 @@ if __name__ == "__main__":
+ 
+     nx, ny, nz = 5, 5, 1       # Supercell size
+     temperature = 600          # K
+-    steps = 2000               # MD steps
+-    interval = 5            # sample every 200 steps (consistent with comment)
++    steps = 100000             # MD steps
++    interval = 200             # sample every 200 steps
+ 
+     csv_files = run_mace_md(
+         input_file,
+diff --git a/results/t-SNE/3d/tsne.py b/results/t-SNE/3d/tsne.py
+index ec85899..b0ece70 100644
+--- a/results/t-SNE/3d/tsne.py
++++ b/results/t-SNE/3d/tsne.py
+@@ -111,7 +111,6 @@ FRAME_SAMPLING_RATE = 10  # Process every Nth frame for efficiency
+ CUTOFF = 5.0
+ SOAP_NMAX, SOAP_LMAX = 4, 4
+ PCA_DIM = 10
+-FINITE_DIFF_DELTA = 1e-3
+ 
+ # Available marker styles for automatic assignment
+ MARKER_STYLES = ['o', 's', '^', 'D', 'v', '<', '>', 'p', '*', 'h', 'H', '+', 'x', '8']
+@@ -205,17 +204,6 @@ def soap_descriptors(atoms_list, cutoff, nmax, lmax, species):
+     soap = SOAP(species=species, periodic=True, r_cut=cutoff, n_max=nmax, l_max=lmax, average="inner")
+     return np.array([soap.create(at) for at in atoms_list])
+ 
+-def finite_diff_force_sensitivity(model_forces, atoms_list, delta):
+-    """Placeholder for force sensitivity calculation."""
+-    sens = []
+-    for at, base_f in zip(atoms_list, model_forces):
+-        idx = len(at) // 2
+-        f0 = base_f[idx*3:(idx+1)*3]
+-        # In a real scenario, one would re-run the model on a displaced structure.
+-        f1 = f0  # Placeholder assumes zero change
+-        sens.append(np.linalg.norm(f1 - f0))
+-    return np.array(sens).reshape(-1, 1)
+-
+ def process_data_source(source_config):
+     """Process all files for a single data source and return combined features."""
+     label = source_config["label"]
+@@ -249,8 +237,7 @@ def process_data_source(source_config):
+         else:
+             soap_pca = np.zeros((n_samples, PCA_DIM))
+ 
+-        sens = finite_diff_force_sensitivity(F, atoms_list, FINITE_DIFF_DELTA)
+-        feats = np.hstack([E.reshape(-1, 1), F, neigh, soap_pca, sens])
++        feats = np.hstack([E.reshape(-1, 1), F, neigh, soap_pca])
+         
+         all_features.append(feats)
+         all_atoms.extend(atoms_list)
+diff --git a/results/t-SNE/analysis_Cr_Doped_600K/mace_probe_blackbox0818.py b/results/t-SNE/analysis_Cr_Doped_600K/mace_probe_blackbox0818.py
+index bd37af2..e181ceb 100644
+--- a/results/t-SNE/analysis_Cr_Doped_600K/mace_probe_blackbox0818.py
++++ b/results/t-SNE/analysis_Cr_Doped_600K/mace_probe_blackbox0818.py
+@@ -77,7 +77,6 @@ FRAME_SAMPLING_RATE = 10  # Process every Nth frame for efficiency
+ CUTOFF = 5.0
+ SOAP_NMAX, SOAP_LMAX = 4, 4
+ PCA_DIM = 10
+-FINITE_DIFF_DELTA = 1e-3
+ 
+ # ------------------------
+ # UTILITY FUNCTIONS
+@@ -168,17 +167,6 @@ def soap_descriptors(atoms_list, cutoff, nmax, lmax, species):
+     soap = SOAP(species=species, periodic=True, r_cut=cutoff, n_max=nmax, l_max=lmax, average="inner")
+     return np.array([soap.create(at) for at in atoms_list])
+ 
+-def finite_diff_force_sensitivity(model_forces, atoms_list, delta):
+-    """Placeholder for force sensitivity calculation."""
+-    sens = []
+-    for at, base_f in zip(atoms_list, model_forces):
+-        idx = len(at) // 2
+-        f0 = base_f[idx*3:(idx+1)*3]
+-        # In a real scenario, one would re-run the model on a displaced structure.
+-        f1 = f0  # Placeholder assumes zero change
+-        sens.append(np.linalg.norm(f1 - f0))
+-    return np.array(sens).reshape(-1, 1)
+-
+ # ------------------------
+ # ANALYSIS & PLOTTING
+ # ------------------------
+@@ -220,9 +208,7 @@ def run_analysis_for_set(set_name, config):
+         else:
+             soap_pca = np.zeros((n_samples, PCA_DIM))
+ 
+-        sens = finite_diff_force_sensitivity(F, atoms_list, FINITE_DIFF_DELTA)
+-
+-        feats = np.hstack([E.reshape(-1, 1), F, neigh, soap_pca, sens])
++        feats = np.hstack([E.reshape(-1, 1), F, neigh, soap_pca])
+         all_rows.append(feats)
+         all_labels.extend([label] * len(feats))
+ 
+diff --git a/results/t-SNE/phate-tsne/tsne.py b/results/t-SNE/phate-tsne/tsne.py
+index 0717cbe..251cf40 100644
+--- a/results/t-SNE/phate-tsne/tsne.py
++++ b/results/t-SNE/phate-tsne/tsne.py
+@@ -70,7 +70,6 @@ FRAME_SAMPLING_RATE = 10
+ CUTOFF = 5.0
+ SOAP_NMAX, SOAP_LMAX = 4, 4
+ PCA_DIM = 10
+-FINITE_DIFF_DELTA = 1e-3
+ 
+ # ------------------------
+ # UTILITY FUNCTIONS (ASSUMED UNCHANGED FROM ORIGINAL SCRIPT)
+@@ -128,9 +127,6 @@ def soap_descriptors(atoms_list, cutoff, nmax, lmax, species):
+     soap = SOAP(species=species, periodic=True, r_cut=cutoff, n_max=nmax, l_max=lmax, average="inner")
+     return np.array([soap.create(at) for at in atoms_list])
+ 
+-def finite_diff_force_sensitivity(model_forces, atoms_list, delta):
+-    return np.zeros(len(atoms_list)).reshape(-1, 1) # Placeholder
+-
+ # ------------------------
+ # ANALYSIS & PLOTTING
+ # ------------------------
+@@ -157,8 +153,7 @@ def run_analysis_for_set(set_name, config):
+                 padding = np.zeros((n_samples, PCA_DIM - actual_pca_dim))
+                 soap_pca = np.hstack([soap_pca, padding])
+         else: soap_pca = np.zeros((n_samples, PCA_DIM))
+-        sens = finite_diff_force_sensitivity(F, atoms_list, FINITE_DIFF_DELTA)
+-        feats = np.hstack([E.reshape(-1, 1), F, neigh, soap_pca, sens])
++        feats = np.hstack([E.reshape(-1, 1), F, neigh, soap_pca])
+         all_rows.append(feats); all_labels.extend([label] * len(feats))
+     if not all_rows:
+         print(f"\nNo data processed for set '{set_name}'. Aborting."); return
+diff --git a/scripts/postprocessing/README.md b/scripts/postprocessing/README.md
+index e69de29..e981eeb 100644
+--- a/scripts/postprocessing/README.md
++++ b/scripts/postprocessing/README.md
+@@ -0,0 +1,14 @@
++# Post-processing scripts
++
++## SHAP analysis (ported 2026-09-06)
++
++- `shap_analysis.py` — ported from `25NeurIPS-AI4MAT/0929-MultiT/1-shap-data.py`
++  (replaces the former 0-byte stub). Computes MACE total and binding energies
++  per structure; produces the predictions CSV consumed by the SHAP pipeline.
++- `shap_plot_jhu.py` — ported from `25NeurIPS-AI4MAT/0929-MultiT/2-shap-plot-jhu.py`.
++  Direct SOAP-descriptor + GradientBoosting surrogate SHAP analysis and
++  JHU-styled publication figures (writes to `direct_soap_shap_analysis_JHU/`).
++
++Note: `shap_analysis.py` contains hardcoded cluster paths
++(`/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/...`, see its `MODEL_PATHS` config).
++These are valid only on the JHU cluster filesystem; update before local use.
+diff --git a/scripts/postprocessing/shap_analysis.py b/scripts/postprocessing/shap_analysis.py
+index e69de29..277658c 100644
+--- a/scripts/postprocessing/shap_analysis.py
++++ b/scripts/postprocessing/shap_analysis.py
+@@ -0,0 +1,857 @@
++# =============================================================================
++# PROVENANCE / PORT NOTE
++# =============================================================================
++# Ported (2026-09-06) from:
++#   25NeurIPS-AI4MAT/0929-MultiT/1-shap-data.py
++# Replaces the previous 0-byte placeholder `shap_analysis.py`.
++#
++# WARNING: This script contains HARDCODED CLUSTER PATHS under
++#   /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/...
++# (model checkpoints, lines ~43-46 in the MODEL_PATHS config below).
++# These paths are only valid on the JHU cluster. Update them before running
++# elsewhere. See README.md in this directory for details.
++# =============================================================================
++#!/usr/bin/env python3
++"""
++Enhanced MACE Energy Prediction with Binding Energy Analysis (v7 - Robust)
++
++This script calculates both total and binding energies for atomic configurations
++by subtracting isolated atom energies. This provides physically meaningful,
++size-extensive energies for proper MLFF benchmarking.
++
++Usage:
++    # Option 1: Using isolated atoms XYZ file (recommended)
++    python script.py structures.xyz --isolated-atoms isolated_atoms.xyz [--batch-size 4]
++    
++    # Option 2: Using command-line atom energies
++    python script.py structures.xyz --atom-energies Cr:-1052.123 Sb:-5834.567 Te:-6611.890 [--batch-size 4]
++
++The isolated atoms XYZ file should contain single-atom configurations with their
++DFT-calculated energies in the comment lines (energy=value format).
++"""
++
++import pandas as pd
++import torch
++from ase.io import read
++from tqdm import tqdm
++from pathlib import Path
++import re
++import sys
++import matplotlib.pyplot as plt
++import numpy as np
++import os
++import gc
++import argparse
++from collections import defaultdict, Counter
++from typing import Dict, List, Tuple, Optional
++import tempfile
++
++# Import necessary components from MACE library
++from mace import data, tools
++from mace.tools import torch_geometric, utils
++
++# --- CONFIGURATION ---
++
++MODEL_PATHS = {
++    "MACE Scratch": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE_models_l1_0903/mace_l1_0903_compiled.model",  # previously "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE_models_l1_0802/mace_l1_0802_compiled.model"
++    "MACE Foundation": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/finetuned_MACE_compiled.model",
++    "MACE FT - 600K": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
++    "MACE FT - Multi-T": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_Multi_T/finetuned_MACE_multihead0804.model",
++}
++
++# --- ISOLATED ATOM ENERGY MANAGEMENT ---
++
++class IsolatedAtomEnergyManager:
++    """Manages isolated atom energies for binding energy calculations."""
++    
++    def __init__(self):
++        self.ground_truth_energies: Dict[str, float] = {}
++        self.predicted_energies: Dict[str, Dict[str, float]] = defaultdict(dict)
++    
++    def load_from_xyz_file(self, xyz_file: str, models: Dict[str, str], batch_size: int = 1) -> None:
++        """Load isolated atom energies from XYZ file for both ground truth and predictions."""
++        print(f"Loading isolated atom energies from: {xyz_file}")
++        
++        try:
++            isolated_atoms = read(xyz_file, index=":")
++            print(f"Found {len(isolated_atoms)} isolated atom configurations")
++        except Exception as e:
++            raise ValueError(f"Error reading isolated atoms file: {e}")
++        
++        # Extract ground truth energies
++        ground_truth_energies = extract_ground_truth_energies(xyz_file)
++        
++        for i, atoms in enumerate(isolated_atoms):
++            if len(atoms) != 1:
++                print(f"Warning: Configuration {i} has {len(atoms)} atoms, expected 1. Skipping.")
++                continue
++            
++            element = atoms.get_chemical_symbols()[0]
++            gt_energy = ground_truth_energies.get(i, float('nan'))
++            
++            if not np.isnan(gt_energy):
++                if element in self.ground_truth_energies:
++                    print(f"Warning: Multiple energies found for {element}, using average")
++                    self.ground_truth_energies[element] = (self.ground_truth_energies[element] + gt_energy) / 2
++                else:
++                    self.ground_truth_energies[element] = gt_energy
++                print(f"Ground truth energy for {element}: {gt_energy:.6f} eV")
++        
++        # CRITICAL FIX: Use the robust prediction pipeline for isolated atoms
++        print("\nPredicting isolated atom energies using robust pipeline...")
++        self._predict_isolated_energies_robust(xyz_file, models, batch_size)
++    
++    def load_from_dict(self, atom_energies: Dict[str, float], models: Dict[str, str], batch_size: int = 1) -> None:
++        """Load isolated atom energies from dictionary and predict with models."""
++        print("Loading isolated atom energies from provided dictionary:")
++        
++        self.ground_truth_energies = atom_energies.copy()
++        for element, energy in atom_energies.items():
++            print(f"Ground truth energy for {element}: {energy:.6f} eV")
++        
++        # Create temporary XYZ file with isolated atoms
++        temp_xyz_file = self._create_temp_isolated_xyz(atom_energies)
++        
++        print(f"\nPredicting isolated atom energies using robust pipeline...")
++        try:
++            self._predict_isolated_energies_robust(temp_xyz_file, models, batch_size)
++        finally:
++            # Clean up temporary file
++            if os.path.exists(temp_xyz_file):
++                os.remove(temp_xyz_file)
++    
++    def _create_temp_isolated_xyz(self, atom_energies: Dict[str, float]) -> str:
++        """Create temporary XYZ file with isolated atoms."""
++        from ase import Atoms
++        from ase.io import write
++        
++        # Create temporary file
++        temp_fd, temp_xyz_file = tempfile.mkstemp(suffix='.xyz', prefix='isolated_atoms_')
++        os.close(temp_fd)
++        
++        isolated_atoms = []
++        for element, energy in atom_energies.items():
++            # Create isolated atom at origin with large cell
++            atoms = Atoms(element, positions=[[0.0, 0.0, 0.0]])
++            atoms.set_cell([10.0, 10.0, 10.0])  # Large cell to avoid interactions
++            atoms.set_pbc(True)
++            atoms.info['energy'] = energy  # Store energy in info
++            isolated_atoms.append(atoms)
++        
++        # Write to temporary file
++        write(temp_xyz_file, isolated_atoms)
++        print(f"Created temporary isolated atoms file: {temp_xyz_file}")
++        
++        return temp_xyz_file
++    
++    def _predict_isolated_energies_robust(self, xyz_file: str, models: Dict[str, str], batch_size: int) -> None:
++        """
++        CRITICAL FIX: Use the existing robust prediction pipeline for isolated atoms.
++        This reuses the exact same code that works for the main structures.
++        """
++        print("Using robust prediction pipeline for isolated atom energies...")
++        
++        # Temporarily store the original MODEL_PATHS
++        original_models = MODEL_PATHS.copy()
++        
++        try:
++            # Use a minimal subset approach - predict one model at a time to avoid memory issues
++            for model_name, model_path in models.items():
++                print(f"\nPredicting isolated atoms with {model_name}...")
++                
++                # Create single-model dict for prediction
++                single_model_dict = {model_name: model_path}
++                
++                # Call the robust prediction function with isolated atoms
++                isolated_results = self._run_single_model_prediction(xyz_file, single_model_dict, batch_size)
++                
++                # Extract predicted energies from results
++                if isolated_results is not None and len(isolated_results) > 0:
++                    # Load the isolated atoms to get element mapping
++                    try:
++                        isolated_atoms = read(xyz_file, index=":")
++                        
++                        for result in isolated_results:
++                            if result['model_name'] == model_name:
++                                image_idx = result['image_index']
++                                predicted_energy = result['predicted_energy_eV']
++                                
++                                if image_idx < len(isolated_atoms) and not np.isnan(predicted_energy):
++                                    atoms = isolated_atoms[image_idx]
++                                    if len(atoms) == 1:  # Ensure it's a single atom
++                                        element = atoms.get_chemical_symbols()[0]
++                                        self.predicted_energies[model_name][element] = predicted_energy
++                                        print(f"  {element}: {predicted_energy:.6f} eV")
++                    
++                    except Exception as e:
++                        print(f"  Error processing results for {model_name}: {e}")
++                        # Set NaN for all elements for this model
++                        for element in self.ground_truth_energies.keys():
++                            self.predicted_energies[model_name][element] = float('nan')
++                else:
++                    print(f"  No valid results for {model_name}")
++                    # Set NaN for all elements for this model
++                    for element in self.ground_truth_energies.keys():
++                        self.predicted_energies[model_name][element] = float('nan')
++        
++        except Exception as e:
++            print(f"Error in robust isolated atom prediction: {e}")
++            # Set NaN for all models and elements
++            for model_name in models.keys():
++                for element in self.ground_truth_energies.keys():
++                    self.predicted_energies[model_name][element] = float('nan')
++    
++    def _run_single_model_prediction(self, xyz_file: str, single_model_dict: Dict[str, str], batch_size: int) -> List[Dict]:
++        """
++        Run prediction for a single model using the robust pipeline.
++        This is a simplified version of predict_energies_with_binding_analysis.
++        """
++        os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
++        
++        device = tools.torch_tools.init_device("cuda" if torch.cuda.is_available() else "cpu")
++        tools.torch_tools.set_default_dtype("float64")
++        
++        results_list = []
++        
++        try:
++            # Load images
++            images = read(xyz_file, index=":")
++            ground_truth_energies = extract_ground_truth_energies(xyz_file)
++            
++            # Process the single model
++            for model_name, model_path_str in single_model_dict.items():
++                clear_memory()
++                model_path = Path(model_path_str)
++                
++                try:
++                    # Load model (same as main prediction)
++                    if model_path.suffix == ".pt":
++                        checkpoint = torch.load(model_path, map_location=device, weights_only=False)
++                        model = checkpoint.get('model', checkpoint)
++                    else:
++                        model = torch.load(model_path, map_location=device, weights_only=False)
++                    
++                    model.to(device)
++                    model.eval()
++                    
++                    for param in model.parameters():
++                        param.requires_grad = False
++                    
++                    # Prepare data (same as main prediction)
++                    z_table = utils.AtomicNumberTable([int(z) for z in model.atomic_numbers])
++                    configs = [data.config_from_atoms(atoms) for atoms in images]
++                    
++                    atomic_data_list = [
++                        data.AtomicData.from_config(config, z_table=z_table, cutoff=float(model.r_max))
++                        for config in configs
++                    ]
++                    
++                    data_loader = torch_geometric.dataloader.DataLoader(
++                        dataset=atomic_data_list,
++                        batch_size=min(batch_size, len(images)),  # Use smaller batch for isolated atoms
++                        shuffle=False,
++                        drop_last=False,
++                    )
++                    
++                    all_energies = []
++                    
++                    # Run inference (same as main prediction)
++                    for batch_idx, batch in enumerate(data_loader):
++                        torch.cuda.empty_cache()
++                        batch = batch.to(device)
++                        
++                        if hasattr(batch, 'positions'):
++                            batch.positions.requires_grad_(True)
++                        
++                        with torch.no_grad():
++                            try:
++                                output = model(batch.to_dict())
++                                batch_energies = tools.torch_tools.to_numpy(output["energy"])
++                                all_energies.extend(batch_energies)
++                            except RuntimeError as e:
++                                if "does not require grad" in str(e):
++                                    batch.positions.requires_grad_(True)
++                                    with torch.enable_grad():
++                                        output = model(batch.to_dict())
++                                        batch_energies = tools.torch_tools.to_numpy(output["energy"])
++                                        all_energies.extend(batch_energies)
++                                else:
++                                    raise e
++                        
++                        batch = batch.to('cpu')
++                        del batch, output
++                        torch.cuda.empty_cache()
++                    
++                    # Store results
++                    for i, pred_energy in enumerate(all_energies):
++                        gt_energy = ground_truth_energies.get(i, float('nan'))
++                        
++                        results_list.append({
++                            "model_name": model_name,
++                            "image_index": i,
++                            "predicted_energy_eV": pred_energy,
++                            "ground_truth_energy_eV": gt_energy,
++                        })
++                
++                except Exception as e:
++                    print(f"Error predicting with {model_name}: {e}")
++                    # Add NaN results for failed model
++                    for i in range(len(images)):
++                        gt_energy = ground_truth_energies.get(i, float('nan'))
++                        results_list.append({
++                            "model_name": model_name,
++                            "image_index": i,
++                            "predicted_energy_eV": float('nan'),
++                            "ground_truth_energy_eV": gt_energy,
++                        })
++                
++                finally:
++                    if 'model' in locals():
++                        del model
++                    clear_memory()
++        
++        except Exception as e:
++            print(f"Error in single model prediction: {e}")
++            return []
++        
++        return results_list
++    
++    def calculate_binding_energy(self, atoms, total_energy: float, model_name: str = None) -> Tuple[float, float]:
++        """
++        Calculate binding energy for a structure.
++        
++        Returns:
++            Tuple of (ground_truth_binding_energy, predicted_binding_energy)
++        """
++        composition = Counter(atoms.get_chemical_symbols())
++        
++        # Calculate ground truth binding energy
++        gt_isolated_sum = sum(
++            count * self.ground_truth_energies.get(element, float('nan'))
++            for element, count in composition.items()
++        )
++        gt_binding_energy = total_energy - gt_isolated_sum if not np.isnan(gt_isolated_sum) else float('nan')
++        
++        # Calculate predicted binding energy
++        if model_name and model_name in self.predicted_energies:
++            pred_isolated_sum = sum(
++                count * self.predicted_energies[model_name].get(element, float('nan'))
++                for element, count in composition.items()
++            )
++            pred_binding_energy = total_energy - pred_isolated_sum if not np.isnan(pred_isolated_sum) else float('nan')
++        else:
++            pred_binding_energy = float('nan')
++        
++        return gt_binding_energy, pred_binding_energy
++    
++    def get_summary(self) -> str:
++        """Get summary of loaded isolated atom energies."""
++        summary = "\n--- Isolated Atom Energy Summary ---\n"
++        summary += "Ground Truth Energies:\n"
++        for element, energy in sorted(self.ground_truth_energies.items()):
++            summary += f"  {element}: {energy:.6f} eV\n"
++        
++        summary += "\nPredicted Energies by Model:\n"
++        for model_name, energies in self.predicted_energies.items():
++            summary += f"  {model_name}:\n"
++            for element, energy in sorted(energies.items()):
++                if not np.isnan(energy):
++                    summary += f"    {element}: {energy:.6f} eV\n"
++                else:
++                    summary += f"    {element}: Failed to predict\n"
++        
++        return summary
++
++# --- HELPER FUNCTIONS ---
++
++def clear_memory():
++    """Clear GPU and system memory."""
++    torch.cuda.empty_cache()
++    gc.collect()
++    if torch.cuda.is_available():
++        torch.cuda.synchronize()
++
++def parse_xyz_energy_manual(xyz_file, image_index):
++    """Manually parse energy from extended XYZ file for a specific image."""
++    try:
++        with open(xyz_file, 'r') as f:
++            lines = f.readlines()
++        
++        current_image = 0
++        i = 0
++        
++        while i < len(lines):
++            line = lines[i].strip()
++            if not line:
++                i += 1
++                continue
++                
++            try:
++                n_atoms = int(line)
++                
++                if current_image == image_index:
++                    if i + 1 < len(lines):
++                        comment_line = lines[i + 1].strip()
++                        energy_match = re.search(r'energy=([+-]?[0-9]*\.?[0-9]+(?:[eE][+-]?[0-9]+)?)', comment_line)
++                        if energy_match:
++                            return float(energy_match.group(1))
++                    return float('nan')
++                
++                current_image += 1
++                i += n_atoms + 2
++                
++            except ValueError:
++                i += 1
++                
++        return float('nan')
++        
++    except Exception as e:
++        print(f"Manual parsing error for image {image_index}: {e}")
++        return float('nan')
++
++def extract_ground_truth_energies(xyz_file):
++    """Extract ground truth energies from extended XYZ file."""
++    energies = {}
++    
++    try:
++        images = read(xyz_file, index=":")
++        
++        for i, atoms in enumerate(images):
++            try:
++                if hasattr(atoms, 'calc') and atoms.calc is not None:
++                    energy = atoms.get_potential_energy()
++                    energies[i] = energy
++                elif 'energy' in atoms.info:
++                    energies[i] = atoms.info['energy']
++                else:
++                    energies[i] = parse_xyz_energy_manual(xyz_file, i)
++                    
++            except Exception as e:
++                energies[i] = parse_xyz_energy_manual(xyz_file, i)
++        
++    except Exception as e:
++        print(f"ASE failed: {e}, using manual parsing...")
++        
++        try:
++            images = read(xyz_file, index=":")
++            n_images = len(images)
++        except:
++            with open(xyz_file, 'r') as f:
++                lines = f.readlines()
++            
++            n_images = 0
++            i = 0
++            while i < len(lines):
++                line = lines[i].strip()
++                if line and line.isdigit():
++                    n_atoms = int(line)
++                    n_images += 1
++                    i += n_atoms + 2
++                else:
++                    i += 1
++        
++        for i in range(n_images):
++            energies[i] = parse_xyz_energy_manual(xyz_file, i)
++    
++    return energies
++
++def create_enhanced_plots(df_results, output_prefix, plot_binding=True):
++    """Create enhanced comparison plots for both total and binding energies."""
++    models = df_results['model_name'].unique()
++    
++    # Determine what to plot
++    energy_types = ['total']
++    if plot_binding and 'ground_truth_binding_energy_eV' in df_results.columns:
++        energy_types.append('binding')
++    
++    for energy_type in energy_types:
++        fig, axes = plt.subplots(2, 2, figsize=(15, 12))
++        axes = axes.flatten()
++        
++        if energy_type == 'binding':
++            gt_col = 'ground_truth_binding_energy_eV'
++            pred_col = 'predicted_binding_energy_eV'
++            error_col = 'binding_energy_error_eV'
++            title_suffix = 'Binding Energy'
++        else:
++            gt_col = 'ground_truth_energy_eV'
++            pred_col = 'predicted_energy_eV'
++            error_col = 'total_energy_error_eV'
++            title_suffix = 'Total Energy'
++        
++        for i, model_name in enumerate(models):
++            if i >= 4:
++                break
++                
++            model_data = df_results[df_results['model_name'] == model_name]
++            valid_data = model_data.dropna(subset=[gt_col, pred_col])
++            
++            if len(valid_data) == 0:
++                axes[i].text(0.5, 0.5, f'No valid data\nfor {model_name}', 
++                            ha='center', va='center', transform=axes[i].transAxes)
++                axes[i].set_title(f'{model_name}\n{title_suffix}')
++                continue
++            
++            gt_energies = valid_data[gt_col].values
++            pred_energies = valid_data[pred_col].values
++            
++            # Scatter plot
++            axes[i].scatter(gt_energies, pred_energies, alpha=0.6, s=50)
++            
++            # Perfect prediction line
++            min_energy = min(gt_energies.min(), pred_energies.min())
++            max_energy = max(gt_energies.max(), pred_energies.max())
++            axes[i].plot([min_energy, max_energy], [min_energy, max_energy], 'r--', alpha=0.8, label='Perfect prediction')
++            
++            # Statistics
++            mae = np.abs(pred_energies - gt_energies).mean()
++            rmse = np.sqrt(((pred_energies - gt_energies) ** 2).mean())
++            
++            axes[i].set_xlabel(f'Ground Truth {title_suffix} (eV)')
++            axes[i].set_ylabel(f'Predicted {title_suffix} (eV)')
++            axes[i].set_title(f'{model_name}\nMAE: {mae:.4f} eV, RMSE: {rmse:.4f} eV')
++            axes[i].legend()
++            axes[i].grid(True, alpha=0.3)
++        
++        # Hide unused subplots
++        for i in range(len(models), 4):
++            axes[i].set_visible(False)
++        
++        plt.suptitle(f'{title_suffix} Predictions vs Ground Truth', fontsize=16)
++        plt.tight_layout()
++        
++        filename = f'{output_prefix}_{energy_type}_energy_comparison'
++        plt.savefig(f'{filename}.png', dpi=300, bbox_inches='tight')
++        plt.savefig(f'{filename}.pdf', bbox_inches='tight')
++        print(f"Saved {energy_type} energy plots as '{filename}.png' and '.pdf'")
++        plt.close()
++        
++        # Error distribution plot
++        plt.figure(figsize=(12, 8))
++        
++        for model_name in models:
++            model_data = df_results[df_results['model_name'] == model_name]
++            valid_errors = model_data[error_col].dropna()
++            
++            if len(valid_errors) > 0:
++                plt.hist(valid_errors, bins=30, alpha=0.6, label=f'{model_name} (n={len(valid_errors)})')
++        
++        plt.xlabel(f'{title_suffix} Prediction Error (eV)')
++        plt.ylabel('Frequency')
++        plt.title(f'Distribution of {title_suffix} Prediction Errors')
++        plt.legend()
++        plt.grid(True, alpha=0.3)
++        plt.tight_layout()
++        
++        error_filename = f'{output_prefix}_{energy_type}_error_distribution'
++        plt.savefig(f'{error_filename}.png', dpi=300, bbox_inches='tight')
++        plt.savefig(f'{error_filename}.pdf', bbox_inches='tight')
++        print(f"Saved {energy_type} error distribution as '{error_filename}.png' and '.pdf'")
++        plt.close()
++
++def predict_energies_with_binding_analysis(xyz_file_path, isolated_manager, batch_size=4):
++    """Main function with binding energy analysis."""
++    os.environ['PYTORCH_CUDA_ALLOC_CONF'] = 'expandable_segments:True'
++    
++    device = tools.torch_tools.init_device("cuda" if torch.cuda.is_available() else "cpu")
++    tools.torch_tools.set_default_dtype("float64")
++    print(f"Using device: {device}")
++    print(f"Using batch size: {batch_size}")
++
++    # Load images
++    try:
++        images = read(xyz_file_path, index=":")
++        print(f"Loaded {len(images)} images from '{xyz_file_path}'")
++    except Exception as e:
++        print(f"Error loading images: {e}")
++        return
++
++    # Extract ground truth energies
++    try:
++        ground_truth_energies = extract_ground_truth_energies(xyz_file_path)
++        print(f"Extracted ground truth energies for {len(ground_truth_energies)} images")
++    except Exception as e:
++        print(f"Warning: Error extracting ground truth energies: {e}")
++        ground_truth_energies = {}
++
++    # Print isolated atom energy summary
++    print(isolated_manager.get_summary())
++
++    results_list = []
++
++    # Process each model
++    for model_name, model_path_str in MODEL_PATHS.items():
++        print(f"\n--- Evaluating model: {model_name} ---")
++        
++        clear_memory()
++        model_path = Path(model_path_str)
++        
++        try:
++            # Load model
++            if model_path.suffix == ".pt":
++                print(f"Loading PyTorch checkpoint (.pt): {model_path.name}")
++                checkpoint = torch.load(model_path, map_location=device, weights_only=False)
++                model = checkpoint.get('model', checkpoint)
++            else:
++                print(f"Loading TorchScript model (.model): {model_path.name}")
++                model = torch.load(model_path, map_location=device, weights_only=False)
++            
++            model.to(device)
++            model.eval()
++            
++            for param in model.parameters():
++                param.requires_grad = False
++
++        except Exception as e:
++            print(f"Error loading model '{model_name}': {e}")
++            # Add NaNs for failed model
++            for i in range(len(images)):
++                gt_total_energy = ground_truth_energies.get(i, float('nan'))
++                gt_binding_energy, pred_binding_energy = isolated_manager.calculate_binding_energy(
++                    images[i], gt_total_energy, model_name
++                )
++                
++                results_list.append({
++                    "model_name": model_name,
++                    "image_index": i,
++                    "predicted_energy_eV": float('nan'),
++                    "ground_truth_energy_eV": gt_total_energy,
++                    "total_energy_error_eV": float('nan'),
++                    "ground_truth_binding_energy_eV": gt_binding_energy,
++                    "predicted_binding_energy_eV": float('nan'),
++                    "binding_energy_error_eV": float('nan')
++                })
++            continue
++
++        # Prepare data and run inference
++        try:
++            z_table = utils.AtomicNumberTable([int(z) for z in model.atomic_numbers])
++            configs = [data.config_from_atoms(atoms) for atoms in images]
++            
++            atomic_data_list = [
++                data.AtomicData.from_config(config, z_table=z_table, cutoff=float(model.r_max))
++                for config in configs
++            ]
++            
++            data_loader = torch_geometric.dataloader.DataLoader(
++                dataset=atomic_data_list,
++                batch_size=batch_size,
++                shuffle=False,
++                drop_last=False,
++            )
++
++            all_energies = []
++            
++            for batch_idx, batch in enumerate(data_loader):
++                print(f"  Processing batch {batch_idx + 1}/{len(data_loader)} for {model_name}")
++                
++                torch.cuda.empty_cache()
++                batch = batch.to(device)
++                
++                if hasattr(batch, 'positions'):
++                    batch.positions.requires_grad_(True)
++                
++                with torch.no_grad():
++                    try:
++                        output = model(batch.to_dict())
++                        batch_energies = tools.torch_tools.to_numpy(output["energy"])
++                        all_energies.extend(batch_energies)
++                    except RuntimeError as e:
++                        if "does not require grad" in str(e):
++                            print(f"    Retrying batch {batch_idx + 1} with gradients enabled...")
++                            batch.positions.requires_grad_(True)
++                            with torch.enable_grad():
++                                output = model(batch.to_dict())
++                                batch_energies = tools.torch_tools.to_numpy(output["energy"])
++                                all_energies.extend(batch_energies)
++                        else:
++                            raise e
++                
++                batch = batch.to('cpu')
++                del batch, output
++                torch.cuda.empty_cache()
++            
++            # Calculate binding energies and store results
++            for i, pred_total_energy in enumerate(all_energies):
++                gt_total_energy = ground_truth_energies.get(i, float('nan'))
++                
++                # Calculate binding energies
++                gt_binding_energy, pred_binding_energy = isolated_manager.calculate_binding_energy(
++                    images[i], gt_total_energy, model_name
++                )
++                
++                # Calculate errors
++                total_error = pred_total_energy - gt_total_energy if not np.isnan(gt_total_energy) else float('nan')
++                binding_error = pred_binding_energy - gt_binding_energy if not (np.isnan(pred_binding_energy) or np.isnan(gt_binding_energy)) else float('nan')
++                
++                results_list.append({
++                    "model_name": model_name,
++                    "image_index": i,
++                    "predicted_energy_eV": pred_total_energy,
++                    "ground_truth_energy_eV": gt_total_energy,
++                    "total_energy_error_eV": total_error,
++                    "ground_truth_binding_energy_eV": gt_binding_energy,
++                    "predicted_binding_energy_eV": pred_binding_energy,
++                    "binding_energy_error_eV": binding_error
++                })
++                
++            print(f"Successfully calculated {len(all_energies)} energies for {model_name}.")
++
++        except Exception as e:
++            print(f"Error during inference for {model_name}: {e}")
++            # Add NaNs for failed inference
++            for i in range(len(images)):
++                gt_total_energy = ground_truth_energies.get(i, float('nan'))
++                gt_binding_energy, pred_binding_energy = isolated_manager.calculate_binding_energy(
++                    images[i], gt_total_energy, model_name
++                )
++                
++                results_list.append({
++                    "model_name": model_name,
++                    "image_index": i,
++                    "predicted_energy_eV": float('nan'),
++                    "ground_truth_energy_eV": gt_total_energy,
++                    "total_energy_error_eV": float('nan'),
++                    "ground_truth_binding_energy_eV": gt_binding_energy,
++                    "predicted_binding_energy_eV": float('nan'),
++                    "binding_energy_error_eV": float('nan')
++                })
++        
++        finally:
++            if 'model' in locals():
++                del model
++            clear_memory()
++
++    # Process results
++    if not results_list:
++        print("No results were generated. Exiting.")
++        return
++
++    df_results = pd.DataFrame(results_list)
++    df_results = df_results.sort_values(['model_name', 'image_index'])
++    
++    # Save results
++    input_name = Path(xyz_file_path).stem
++    output_csv = f"{input_name}_predictions_with_binding.csv"
++    df_results.to_csv(output_csv, index=False)
++    print(f"\nSuccessfully saved all predictions to '{output_csv}'")
++    
++    # Print enhanced statistics
++    print("\n--- Enhanced Summary Statistics ---")
++    for model_name in df_results['model_name'].unique():
++        model_data = df_results[df_results['model_name'] == model_name]
++        
++        print(f"\n{model_name}:")
++        
++        # Total energy statistics
++        total_errors = model_data['total_energy_error_eV'].dropna()
++        if len(total_errors) > 0:
++            total_mae = total_errors.abs().mean()
++            total_rmse = (total_errors ** 2).mean() ** 0.5
++            print(f"  Total Energy - MAE: {total_mae:.6f} eV, RMSE: {total_rmse:.6f} eV")
++        else:
++            print(f"  Total Energy - No valid data")
++        
++        # Binding energy statistics
++        binding_errors = model_data['binding_energy_error_eV'].dropna()
++        if len(binding_errors) > 0:
++            binding_mae = binding_errors.abs().mean()
++            binding_rmse = (binding_errors ** 2).mean() ** 0.5
++            print(f"  Binding Energy - MAE: {binding_mae:.6f} eV, RMSE: {binding_rmse:.6f} eV")
++            
++            # Per-atom binding energy errors
++            n_atoms_list = [len(images[idx]) for idx in model_data['image_index']]
++            valid_indices = model_data['binding_energy_error_eV'].notna()
++            if valid_indices.sum() > 0:
++                valid_errors = binding_errors.values
++                valid_n_atoms = np.array([n_atoms_list[i] for i in range(len(n_atoms_list)) if valid_indices.iloc[i]])
++                per_atom_errors = valid_errors / valid_n_atoms
++                per_atom_mae = np.abs(per_atom_errors).mean()
++                per_atom_rmse = np.sqrt((per_atom_errors ** 2).mean())
++                print(f"  Per-atom Binding Energy - MAE: {per_atom_mae:.6f} eV/atom, RMSE: {per_atom_rmse:.6f} eV/atom")
++        else:
++            print(f"  Binding Energy - No valid data")
++    
++    # Create enhanced plots
++    try:
++        create_enhanced_plots(df_results, input_name, plot_binding=True)
++    except Exception as e:
++        print(f"Warning: Could not create plots: {e}")
++
++def parse_atom_energies_from_string(atom_energy_string):
++    """Parse atom energies from command line string format."""
++    atom_energies = {}
++    pairs = atom_energy_string.split()
++    
++    for pair in pairs:
++        try:
++            element, energy_str = pair.split(':')
++            energy = float(energy_str)
++            atom_energies[element] = energy
++        except ValueError:
++            raise ValueError(f"Invalid atom-energy pair format: '{pair}'. Expected format: 'Element:energy'")
++    
++    return atom_energies
++
++def main():
++    """Main function with enhanced argument parsing."""
++    parser = argparse.ArgumentParser(
++        description='Enhanced MACE Energy Prediction with Binding Energy Analysis',
++        formatter_class=argparse.RawDescriptionHelpFormatter,
++        epilog="""
++Examples:
++    # Using isolated atoms XYZ file (recommended):
++    python script.py structures.xyz --isolated-atoms isolated_atoms.xyz --batch-size 4
++    
++    # Using command-line atom energies:
++    python script.py structures.xyz --atom-energies Cr:-1052.123 Sb:-5834.567 Te:-6611.890 --batch-size 4
++        """
++    )
++    
++    parser.add_argument('xyz_file', help='Path to the structures XYZ file')
++    
++    # Mutually exclusive group for isolated atom energies
++    energy_group = parser.add_mutually_exclusive_group(required=True)
++    energy_group.add_argument('--isolated-atoms', 
++                            help='Path to isolated atoms XYZ file with DFT energies')
++    energy_group.add_argument('--atom-energies', 
++                            help='Space-separated atom:energy pairs (e.g., "Cr:-1052.123 Sb:-5834.567")')
++    
++    parser.add_argument('--batch-size', type=int, default=4,
++                       help='Batch size for model inference (default: 4)')
++    
++    args = parser.parse_args()
++    
++    # Validate input file
++    if not Path(args.xyz_file).exists():
++        print(f"Error: File '{args.xyz_file}' does not exist.")
++        sys.exit(1)
++    
++    print(f"Processing structures from: {args.xyz_file}")
++    print(f"Using batch size: {args.batch_size}")
++    
++    # Initialize isolated atom energy manager
++    isolated_manager = IsolatedAtomEnergyManager()
++    
++    try:
++        if args.isolated_atoms:
++            if not Path(args.isolated_atoms).exists():
++                print(f"Error: Isolated atoms file '{args.isolated_atoms}' does not exist.")
++                sys.exit(1)
++            print(f"Loading isolated atom energies from: {args.isolated_atoms}")
++            isolated_manager.load_from_xyz_file(args.isolated_atoms, MODEL_PATHS, args.batch_size)
++        
++        elif args.atom_energies:
++            print(f"Parsing atom energies from command line: {args.atom_energies}")
++            atom_energies = parse_atom_energies_from_string(args.atom_energies)
++            isolated_manager.load_from_dict(atom_energies, MODEL_PATHS, args.batch_size)
++        
++        # Run prediction with binding energy analysis
++        predict_energies_with_binding_analysis(args.xyz_file, isolated_manager, args.batch_size)
++        
++    except Exception as e:
++        print(f"Error: {e}")
++        sys.exit(1)
++
++if __name__ == "__main__":
++    main()
+\ No newline at end of file
+diff --git a/scripts/postprocessing/shap_plot_jhu.py b/scripts/postprocessing/shap_plot_jhu.py
+new file mode 100644
+index 0000000..33091d5
+--- /dev/null
++++ b/scripts/postprocessing/shap_plot_jhu.py
+@@ -0,0 +1,914 @@
++# =============================================================================
++# PROVENANCE / PORT NOTE
++# =============================================================================
++# Ported (2026-09-06) from:
++#   25NeurIPS-AI4MAT/0929-MultiT/2-shap-plot-jhu.py
++# Companion plotting script to shap_analysis.py (ported from 1-shap-data.py).
++#
++# WARNING: Expects the SOAP/SHAP data products (predictions CSV with binding
++# energies) produced by shap_analysis.py, which embeds HARDCODED CLUSTER PATHS
++# under /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/... . Output goes to
++# 'direct_soap_shap_analysis_JHU/' by default (OUTPUT_DIR constant).
++# =============================================================================
++#!/usr/bin/env python3
++"""
++Enhanced MACE SHAP Analysis - Direct SOAP Feature Analysis (JHU Publication Version)
++
++Modifications by Yi, PhD Student, JHU:
++1. Integrated JHU color and style preferences using the `jhu_colors` package.
++2. Refactored plotting functions to generate each figure as a separate, publication-quality PDF.
++3. Improved modularity and file naming for easier use in manuscripts.
++4. Ensured consistent figure sizing and aesthetics for high-impact journals.
++5. Combined category analysis plots and expanded comparison plots to Top 50 features.
++"""
++
++import os
++import sys
++import numpy as np
++import pandas as pd
++import warnings
++from pathlib import Path
++import traceback
++
++# Core scientific packages
++from ase.io import read
++from ase.neighborlist import neighbor_list
++from dscribe.descriptors import SOAP
++from sklearn.ensemble import GradientBoostingRegressor
++from sklearn.model_selection import train_test_split
++from sklearn.metrics import mean_absolute_error, r2_score
++from sklearn.preprocessing import StandardScaler
++import shap
++
++# Plotting
++import matplotlib.pyplot as plt
++import seaborn as sns
++from matplotlib.gridspec import GridSpec
++import matplotlib.patches as mpatches
++
++# JHU color and style integration
++try:
++    import jhu_colors
++    from jhu_colors import get_jhu_color
++    print("JHU colors package loaded successfully.")
++except ImportError:
++    print("Warning: jhu_colors package not found. Using default matplotlib styles.")
++    # Define a dummy function if the package is not available
++    def get_jhu_color(name):
++        # Fallback colors
++        color_map = {
++            'Heritage Blue': '#002D62', 'Spirit Blue': '#68ACE5', 'Red': '#D92D20',
++            'Orange': '#E36F1E', 'Homewood Green': '#005522', 'Gold': '#F1BF00',
++            'White': '#FFFFFF', 'Double Black': '#000000', 'Purple': '#6A2A5F',
++            'Forest Green': '#006548', 'Harbor Blue': '#00728F', 'Maroon': '#6A0000'
++        }
++        return color_map.get(name, '#000000')
++
++warnings.filterwarnings('ignore')
++
++# --- Configuration ---
++FRAME_SAMPLING_RATE = 5
++CUTOFF = 5.0
++SOAP_NMAX, SOAP_LMAX = 4, 4
++N_NEIGHBOR_BINS = 30
++OUTPUT_DIR = 'direct_soap_shap_analysis_JHU'
++
++class SOAPFeatureInterpreter:
++    """Enhanced SOAP feature interpreter with physical meaning"""
++
++    def __init__(self, species, n_max, l_max, r_cut, actual_n_features=None):
++        self.species = sorted(species)
++        self.n_max = n_max
++        self.l_max = l_max
++        self.r_cut = r_cut
++        self.actual_n_features = actual_n_features
++        self.feature_info = self._generate_feature_info()
++
++    def _generate_feature_info(self):
++        """Generate detailed physical information for each SOAP feature"""
++        feature_info = []
++        feature_idx = 0
++
++        # SOAP features are organized by species pairs and (n1, n2, l) combinations
++        for i, species1 in enumerate(self.species):
++            for j, species2 in enumerate(self.species):
++                if i <= j:  # Only upper triangle due to symmetry
++                    for n1 in range(1, self.n_max + 1):
++                        for n2 in range(1, self.n_max + 1):
++                            for l in range(self.l_max + 1):
++                                # Stop if we exceed actual number of features
++                                if self.actual_n_features and feature_idx >= self.actual_n_features:
++                                    return feature_info
++
++                                # Physical interpretation
++                                interaction_type = f"{species1}-{species2}"
++                                if species1 == species2:
++                                    interaction_nature = "homo"
++                                else:
++                                    interaction_nature = "hetero"
++
++                                # Angular character
++                                if l == 0:
++                                    angular_char = "spherical"
++                                elif l == 1:
++                                    angular_char = "dipolar"
++                                elif l == 2:
++                                    angular_char = "quadrupolar"
++                                else:
++                                    angular_char = f"l{l}_multipolar"
++
++                                # Distance scale
++                                avg_n = (n1 + n2) / 2
++                                if avg_n <= 2:
++                                    distance_scale = "short_range"
++                                elif avg_n <= 3:
++                                    distance_scale = "medium_range"
++                                else:
++                                    distance_scale = "long_range"
++
++                                # Create comprehensive label
++                                short_label = f"{interaction_type}_n{n1}{n2}_l{l}"
++                                full_label = f"{interaction_type}_{angular_char}_{distance_scale}_n{n1}{n2}_l{l}"
++
++                                feature_info.append({
++                                    'index': feature_idx,
++                                    'short_label': short_label,
++                                    'full_label': full_label,
++                                    'species_pair': (species1, species2),
++                                    'interaction_nature': interaction_nature,
++                                    'n1': n1, 'n2': n2, 'l': l,
++                                    'angular_character': angular_char,
++                                    'distance_scale': distance_scale,
++                                    'radial_complexity': avg_n,
++                                    'angular_complexity': l
++                                })
++                                feature_idx += 1
++
++        return feature_info
++
++    def get_feature_categories(self):
++        """Get features grouped by physical categories"""
++        categories = {
++            'short_range_spherical': [],
++            'short_range_angular': [],
++            'medium_range_spherical': [],
++            'medium_range_angular': [],
++            'long_range_spherical': [],
++            'long_range_angular': [],
++            'homo_interactions': [],
++            'hetero_interactions': []
++        }
++
++        for info in self.feature_info:
++            idx = info['index']
++
++            # Only include indices that are within bounds
++            if self.actual_n_features and idx >= self.actual_n_features:
++                continue
++
++            # Distance and angular categories
++            if info['distance_scale'] == 'short_range':
++                if info['l'] == 0:
++                    categories['short_range_spherical'].append(idx)
++                else:
++                    categories['short_range_angular'].append(idx)
++            elif info['distance_scale'] == 'medium_range':
++                if info['l'] == 0:
++                    categories['medium_range_spherical'].append(idx)
++                else:
++                    categories['medium_range_angular'].append(idx)
++            else:  # long_range
++                if info['l'] == 0:
++                    categories['long_range_spherical'].append(idx)
++                else:
++                    categories['long_range_angular'].append(idx)
++
++            # Interaction nature
++            if info['interaction_nature'] == 'homo':
++                categories['homo_interactions'].append(idx)
++            else:
++                categories['hetero_interactions'].append(idx)
++
++        return categories
++
++class DirectSOAPFeatureExtractor:
++    """Feature extractor that preserves raw SOAP descriptors for direct analysis"""
++
++    def __init__(self, cutoff=5.0, soap_nmax=4, soap_lmax=4, n_bins=30):
++        self.cutoff = cutoff
++        self.soap_nmax = soap_nmax
++        self.soap_lmax = soap_lmax
++        self.n_bins = n_bins
++        self.soap_descriptor = None
++        self.soap_interpreter = None
++        self.scaler = StandardScaler()
++
++    def extract_raw_soap_descriptors(self, atoms_list):
++        """Extract raw SOAP descriptors without PCA"""
++        print("  > Extracting raw SOAP descriptors...")
++        try:
++            species = list(set(atoms_list[0].get_chemical_symbols()))
++            print(f"    Species found: {species}")
++
++            self.soap_descriptor = SOAP(
++                species=species, periodic=True, r_cut=self.cutoff,
++                n_max=self.soap_nmax, l_max=self.soap_lmax, average="inner"
++            )
++
++            soap_features = []
++            for i, atoms in enumerate(atoms_list):
++                try:
++                    soap_vec = self.soap_descriptor.create(atoms)
++                    soap_features.append(soap_vec)
++                except Exception as e:
++                    print(f"    Warning: SOAP failed for frame {i}: {e}")
++                    if len(soap_features) > 0:
++                        soap_features.append(np.zeros_like(soap_features[0]))
++                    else:
++                        # Estimate SOAP vector size
++                        n_species = len(species)
++                        estimated_size = n_species * (n_species + 1) // 2 * (self.soap_nmax ** 2) * (self.soap_lmax + 1)
++                        soap_features.append(np.zeros(estimated_size))
++
++            raw_soap = np.array(soap_features)
++            print(f"    Raw SOAP shape: {raw_soap.shape}")
++
++            # Initialize SOAP interpreter with actual number of features
++            actual_soap_features = raw_soap.shape[1]
++            self.soap_interpreter = SOAPFeatureInterpreter(
++                species, self.soap_nmax, self.soap_lmax, self.cutoff,
++                actual_n_features=actual_soap_features
++            )
++
++            # Standardize features for better SHAP analysis
++            raw_soap_scaled = self.scaler.fit_transform(raw_soap)
++
++            return raw_soap_scaled
++
++        except Exception as e:
++            print(f"    Error in SOAP extraction: {e}")
++            traceback.print_exc()
++            return np.zeros((len(atoms_list), 100))  # Fallback
++
++    def extract_structural_features(self, atoms_list):
++        """Extract basic structural features"""
++        print("  > Extracting structural features...")
++        structural_features = []
++
++        for atoms in atoms_list:
++            features = []
++
++            # Basic properties
++            features.append(len(atoms))
++            features.append(atoms.get_volume())
++            features.append(atoms.get_volume() / len(atoms))  # Volume per atom
++
++            # Cell parameters
++            cell = atoms.get_cell()
++            features.extend(cell.lengths())
++            features.extend(cell.angles())
++
++            # Coordination statistics
++            try:
++                i, j, d = neighbor_list('ijd', atoms, cutoff=self.cutoff)
++                coord_numbers = np.bincount(i, minlength=len(atoms))
++
++                features.extend([
++                    np.mean(coord_numbers), np.std(coord_numbers),
++                    np.mean(d), np.std(d), np.min(d)
++                ])
++
++            except:
++                features.extend([0.0] * 5)
++
++            # Element composition
++            symbols = atoms.get_chemical_symbols()
++            for symbol in ['Cr', 'Sb', 'Te']:
++                features.append(symbols.count(symbol) / len(atoms))
++
++            structural_features.append(features)
++
++        return np.array(structural_features)
++
++    def extract_all_features(self, atoms_list):
++        """Extract all features with raw SOAP descriptors"""
++        print(f"Extracting features from {len(atoms_list)} frames...")
++
++        raw_soap = self.extract_raw_soap_descriptors(atoms_list)
++        structural_features = self.extract_structural_features(atoms_list)
++
++        # Combine features
++        all_features = np.hstack([raw_soap, structural_features])
++
++        print(f"  > Combined feature shape: {all_features.shape}")
++        print(f"  > SOAP features: {raw_soap.shape[1]}")
++        print(f"  > Structural features: {structural_features.shape[1]}")
++
++        return all_features, raw_soap.shape[1]
++
++    def get_feature_names(self, n_soap_features):
++        """Generate feature names"""
++        feature_names = []
++
++        # SOAP feature names
++        if self.soap_interpreter and len(self.soap_interpreter.feature_info) > 0:
++            for info in self.soap_interpreter.feature_info:
++                if info['index'] < n_soap_features:  # Only include valid indices
++                    feature_names.append(info['short_label'])
++
++            # Fill remaining SOAP features if needed
++            while len(feature_names) < n_soap_features:
++                feature_names.append(f'soap_{len(feature_names)}')
++        else:
++            feature_names.extend([f'soap_{i}' for i in range(n_soap_features)])
++
++        # Structural feature names
++        structural_names = [
++            'n_atoms', 'volume', 'volume_per_atom',
++            'cell_a', 'cell_b', 'cell_c', 'angle_alpha', 'angle_beta', 'angle_gamma',
++            'coord_mean', 'coord_std', 'dist_mean', 'dist_std', 'min_dist',
++            'cr_fraction', 'sb_fraction', 'te_fraction'
++        ]
++        feature_names.extend(structural_names)
++
++        return feature_names
++
++class EnhancedErrorPredictor:
++    """Enhanced ML model for predicting and analyzing prediction errors"""
++
++    def __init__(self, dataset, target_type='error', feature_names=None):
++        self.target_type = target_type
++        self.feature_names = feature_names or []
++
++        # Use more sophisticated model
++        self.model = GradientBoostingRegressor(
++            n_estimators=200, learning_rate=0.05, max_depth=8,
++            subsample=0.8, random_state=42
++        )
++
++        X = dataset['features']
++
++        if target_type == 'error':
++            y = np.abs(dataset['prediction_errors'])
++        elif target_type == 'signed_error':
++            y = dataset['prediction_errors']  # Keep sign for bias analysis
++        else:
++            y = dataset['ground_truth_energies']
++
++        # Remove invalid data
++        valid_mask = ~(np.isnan(X).any(axis=1) | np.isnan(y) | np.isinf(y))
++        X, y = X[valid_mask], y[valid_mask]
++
++        if len(X) == 0:
++            raise ValueError("No valid training data")
++
++        # Train model
++        self.model.fit(X, y)
++
++        # Performance metrics
++        y_pred = self.model.predict(X)
++        mae = mean_absolute_error(y, y_pred)
++        r2 = r2_score(y, y_pred)
++
++        print(f"    {target_type.title()} predictor - MAE: {mae:.6f}, R²: {r2:.4f}")
++
++        # Store training data for analysis
++        self.X_train = X
++        self.y_train = y
++
++def perform_direct_shap_analysis(datasets):
++    """Perform SHAP analysis on raw SOAP features"""
++
++    print("\nPerforming direct SOAP SHAP analysis...")
++
++    shap_results = {}
++
++    for model_name, dataset in datasets.items():
++        print(f"\n--- Analyzing {model_name} ---")
++
++        try:
++            # Create predictors
++            error_predictor = EnhancedErrorPredictor(
++                dataset, target_type='error', feature_names=dataset['feature_names']
++            )
++            signed_error_predictor = EnhancedErrorPredictor(
++                dataset, target_type='signed_error', feature_names=dataset['feature_names']
++            )
++
++            # Prepare data for SHAP (use more samples since we're not using PCA)
++            X = dataset['features']
++            if np.any(np.isnan(X)):
++                X = np.nan_to_num(X, nan=0.0, posinf=0.0, neginf=0.0)
++
++            # Use more samples for better SHAP analysis
++            max_samples = min(500, len(X))
++            sample_indices = np.random.choice(len(X), max_samples, replace=False)
++            X_sample = X[sample_indices]
++
++            print(f"  > Computing SHAP values for {max_samples} samples...")
++
++            # SHAP analysis for absolute error
++            error_explainer = shap.TreeExplainer(error_predictor.model)
++            error_shap_values = error_explainer(X_sample)
++
++            # SHAP analysis for signed error (bias analysis)
++            signed_error_explainer = shap.TreeExplainer(signed_error_predictor.model)
++            signed_error_shap_values = signed_error_explainer(X_sample)
++
++            # Store results
++            shap_results[model_name] = {
++                'dataset': dataset,
++                'error_predictor': error_predictor,
++                'signed_error_predictor': signed_error_predictor,
++                'error_shap_values': error_shap_values,
++                'signed_error_shap_values': signed_error_shap_values,
++                'X_sample': X_sample,
++                'sample_indices': sample_indices,
++                'feature_names': dataset['feature_names'],
++                'n_soap_features': dataset['n_soap_features'],
++                'soap_interpreter': dataset.get('soap_interpreter')
++            }
++
++            print(f"  > ✓ Completed SHAP analysis for {model_name}")
++
++        except Exception as e:
++            print(f"  > ✗ SHAP analysis failed for {model_name}: {e}")
++            traceback.print_exc()
++
++    return shap_results
++
++# --- Refactored Plotting Functions ---
++
++def plot_top50_heatmap(importance_matrix, top_50_features, models, output_dir):
++    """Plot the heatmap of top 50 feature importances."""
++    print("  > Plotting top-50 feature importance heatmap...")
++    plt.figure(figsize=(18, 8))
++    ax = plt.gca()
++    im = ax.imshow(importance_matrix, cmap='jhu', aspect='auto')
++    
++    ax.set_xticks(np.arange(len(top_50_features)))
++    ax.set_xticklabels(top_50_features, rotation=90, fontsize=8)
++    ax.set_yticks(np.arange(len(models)))
++    ax.set_yticklabels(models)
++    ax.set_title('Top 50 SOAP Feature Importance Across Models (Error Prediction)', fontsize=14, fontweight='bold')
++    
++    cbar = plt.colorbar(im, ax=ax)
++    cbar.set_label('Mean |SHAP Value|', rotation=270, labelpad=20)
++    
++    plt.tight_layout()
++    plt.savefig(os.path.join(output_dir, 'heatmap_top50_feature_importance.pdf'), bbox_inches='tight')
++    plt.savefig(os.path.join(output_dir, 'heatmap_top50_feature_importance.png'), dpi=300, bbox_inches='tight')
++    plt.close()
++
++def plot_top50_difference_heatmap(difference_matrix, top_50_features, models, best_model_name, output_dir):
++    """Plot the difference heatmap relative to the best model."""
++    print(f"  > Plotting feature importance difference heatmap (vs. {best_model_name})...")
++    plt.figure(figsize=(18, 8))
++    ax = plt.gca()
++    vmax = np.max(np.abs(difference_matrix))
++    im = ax.imshow(difference_matrix, cmap='RdBu_r', aspect='auto', vmin=-vmax, vmax=vmax)
++    
++    ax.set_xticks(np.arange(len(top_50_features)))
++    ax.set_xticklabels(top_50_features, rotation=90, fontsize=8)
++    ax.set_yticks(np.arange(len(models)))
++    ax.set_yticklabels(models)
++    ax.set_title(f'Feature Importance Difference (Relative to Best Model: {best_model_name})', fontsize=14, fontweight='bold')
++    
++    cbar = plt.colorbar(im, ax=ax)
++    cbar.set_label('Importance Difference', rotation=270, labelpad=20)
++    
++    plt.tight_layout()
++    plt.savefig(os.path.join(output_dir, 'heatmap_top50_feature_difference.pdf'), bbox_inches='tight')
++    plt.savefig(os.path.join(output_dir, 'heatmap_top50_feature_difference.png'), dpi=300, bbox_inches='tight')
++    plt.close()
++
++def analyze_and_plot_top_features(shap_results, output_dir):
++    """Analyze and plot top 50 features, separating analysis from plotting."""
++    print("Analyzing top-50 features...")
++    all_importance_data = []
++    models = list(shap_results.keys())
++    
++    for model_name in models:
++        result = shap_results.get(model_name)
++        if not result: continue
++        
++        error_importance = np.mean(np.abs(result['error_shap_values'].values), axis=0)
++        all_importance_data.append({'model': model_name, 'error_importance': error_importance})
++        
++    if not all_importance_data:
++        print("No data for top feature analysis.")
++        return [], []
++        
++    feature_names = shap_results[models[0]]['feature_names']
++    n_soap_features = shap_results[models[0]]['n_soap_features']
++    soap_feature_names = feature_names[:n_soap_features]
++    
++    avg_importance = np.mean([d['error_importance'][:n_soap_features] for d in all_importance_data], axis=0)
++    top_50_indices = np.argsort(avg_importance)[-50:]
++    top_50_features = [soap_feature_names[i] for i in top_50_indices]
++    
++    importance_matrix = np.array([d['error_importance'][top_50_indices] for d in all_importance_data])
++    
++    # Find best model for difference plot
++    model_errors = [np.mean(np.abs(shap_results[m]['dataset']['prediction_errors'])) for m in models]
++    best_model_idx = np.argmin(model_errors)
++    best_model_name = models[best_model_idx]
++    difference_matrix = importance_matrix - importance_matrix[best_model_idx]
++
++    # Call plotting functions
++    plot_top50_heatmap(importance_matrix, top_50_features, models, output_dir)
++    plot_top50_difference_heatmap(difference_matrix, top_50_features, models, best_model_name, output_dir)
++
++    # Save ranking data
++    ranking_data = [{'rank': i + 1, 'feature_name': soap_feature_names[idx], 'avg_importance': avg_importance[idx],
++                     **{f'{d["model"]}_importance': d['error_importance'][idx] for d in all_importance_data}}
++                    for i, idx in enumerate(reversed(top_50_indices))]
++    pd.DataFrame(ranking_data).to_csv(os.path.join(output_dir, 'top50_feature_ranking.csv'), index=False)
++    
++    return top_50_indices, top_50_features
++
++def plot_feature_category_analysis(shap_results, output_dir):
++    """Analyze and plot SOAP features by physical categories in a single combined figure."""
++    print("Creating combined feature category analysis plot...")
++    models = list(shap_results.keys())
++    if not models: return
++
++    soap_interpreter = next((r.get('soap_interpreter') for r in shap_results.values() if r.get('soap_interpreter')), None)
++    if not soap_interpreter:
++        print("No SOAP interpreter available for category analysis.")
++        return
++
++    categories = soap_interpreter.get_feature_categories()
++    
++    model_errors = [np.mean(np.abs(shap_results[m]['dataset']['prediction_errors'])) for m in models]
++    norm_errors = np.array(model_errors) / max(model_errors) if max(model_errors) > 0 else np.zeros_like(model_errors)
++    colors = plt.cm.RdYlGn_r(norm_errors)
++
++    # Create a 2x3 grid for the first 6 categories
++    fig, axes = plt.subplots(2, 3, figsize=(18, 8))
++    fig.suptitle('SOAP Feature Category Importance Across Models', fontsize=16, fontweight='bold')
++    
++    main_categories = list(categories.keys())[:6]
++
++    for idx, cat_name in enumerate(main_categories):
++        feature_indices = categories[cat_name]
++        row, col = idx // 3, idx % 3
++        ax = axes[row, col]
++        
++        if not feature_indices:
++            ax.text(0.5, 0.5, f'No features in\n{cat_name}', ha='center', va='center', transform=ax.transAxes)
++        else:
++            category_importance = []
++            for model_name in models:
++                result = shap_results[model_name]
++                error_importance = np.mean(np.abs(result['error_shap_values'].values), axis=0)
++                valid_indices = [i for i in feature_indices if i < len(error_importance)]
++                cat_imp = np.mean(error_importance[valid_indices]) if valid_indices else 0.0
++                category_importance.append(cat_imp)
++
++            ax.bar(range(len(models)), category_importance, color=colors, alpha=0.8)
++            ax.set_xticks(range(len(models)))
++            ax.set_xticklabels(models, rotation=45, ha='right')
++            ax.set_ylabel('Mean Feature Importance')
++            ax.grid(True, alpha=0.3, axis='y')
++            
++        ax.set_title(cat_name.replace('_', ' ').title())
++
++    plt.tight_layout(rect=[0, 0, 1, 0.96])
++    plt.savefig(os.path.join(output_dir, 'combined_feature_category_analysis.pdf'), bbox_inches='tight')
++    plt.savefig(os.path.join(output_dir, 'combined_feature_category_analysis.png'), dpi=300, bbox_inches='tight')
++    plt.close()
++
++def plot_top50_importance_comparison(best_model, worst_model, best_importance, worst_importance, top_features_idx, feature_names, output_dir):
++    """Plot top 50 feature importance comparison between best and worst models."""
++    plt.figure(figsize=(20, 10))
++    x_pos = np.arange(len(top_features_idx))
++    width = 0.4
++    plt.bar(x_pos - width/2, best_importance[top_features_idx], width, label=f'{best_model} (Best)', color=get_jhu_color('Homewood Green'), alpha=0.8)
++    plt.bar(x_pos + width/2, worst_importance[top_features_idx], width, label=f'{worst_model} (Worst)', color=get_jhu_color('Red'), alpha=0.8)
++    plt.xlabel('Top 50 SOAP Features')
++    plt.ylabel('Mean |SHAP Value|')
++    plt.title('Top 50 SOAP Feature Importance: Best vs. Worst Model')
++    plt.xticks(x_pos, [feature_names[i] for i in top_features_idx], rotation=90, ha='center', fontsize=8)
++    plt.legend()
++    plt.grid(True, alpha=0.3, axis='y')
++    plt.tight_layout()
++    plt.savefig(os.path.join(output_dir, 'comparison_top50_importance.pdf'), bbox_inches='tight')
++    plt.close()
++
++def plot_top50_importance_difference(importance_diff, top_diff_idx, feature_names, output_dir):
++    """Plot top 50 features contributing to model failure."""
++    plt.figure(figsize=(8, 18))
++    diff_values = importance_diff[top_diff_idx]
++    colors = [get_jhu_color('Orange') if d > 0 else get_jhu_color('Spirit Blue') for d in diff_values]
++    plt.barh(range(len(top_diff_idx)), diff_values, color=colors, alpha=0.8)
++    plt.yticks(range(len(top_diff_idx)), [feature_names[i] for i in top_diff_idx], fontsize=9)
++    plt.xlabel('Importance Difference (Worst - Best)')
++    plt.title('Features Differentiating Model Performance (Top 50)')
++    plt.axvline(x=0, color='black', linestyle='--', alpha=0.6)
++    plt.grid(True, alpha=0.3, axis='x')
++    plt.tight_layout()
++    plt.savefig(os.path.join(output_dir, 'comparison_top50_difference.pdf'), bbox_inches='tight')
++    plt.close()
++    
++def plot_error_distributions(best_model, worst_model, best_errors, worst_errors, output_dir):
++    """Plot error distribution comparison."""
++    plt.figure(figsize=(6, 4))
++    plt.hist(best_errors, bins=30, alpha=0.7, label=f'{best_model}', color=get_jhu_color('Homewood Green'), density=True)
++    plt.hist(worst_errors, bins=30, alpha=0.7, label=f'{worst_model}', color=get_jhu_color('Red'), density=True)
++    plt.xlabel('Absolute Error (eV)')
++    plt.ylabel('Density')
++    plt.title('Error Distribution Comparison')
++    plt.legend()
++    plt.grid(True, alpha=0.3)
++    plt.tight_layout()
++    plt.savefig(os.path.join(output_dir, 'comparison_error_distribution.pdf'), bbox_inches='tight')
++    plt.close()
++
++def plot_prediction_scatter(best_model, worst_model, best_result, worst_result, output_dir):
++    """Plot prediction quality scatter plot."""
++    plt.figure(figsize=(6, 4))
++    plt.scatter(best_result['dataset']['ground_truth_energies'], best_result['dataset']['predicted_energies'],
++                alpha=0.6, label=f'{best_model}', color=get_jhu_color('Homewood Green'), s=20, edgecolors='w', linewidths=0.5)
++    plt.scatter(worst_result['dataset']['ground_truth_energies'], worst_result['dataset']['predicted_energies'],
++                alpha=0.6, label=f'{worst_model}', color=get_jhu_color('Red'), s=20, edgecolors='w', linewidths=0.5)
++    
++    all_true = np.concatenate([best_result['dataset']['ground_truth_energies'], worst_result['dataset']['ground_truth_energies']])
++    min_e, max_e = np.min(all_true), np.max(all_true)
++    plt.plot([min_e, max_e], [min_e, max_e], 'k--', alpha=0.8, label='Parity Line')
++    
++    plt.xlabel('Ground Truth Energy (eV)')
++    plt.ylabel('Predicted Energy (eV)')
++    plt.title('Prediction Quality Comparison')
++    plt.legend()
++    plt.grid(True, alpha=0.3)
++    plt.tight_layout()
++    plt.savefig(os.path.join(output_dir, 'comparison_prediction_scatter.pdf'), bbox_inches='tight')
++    plt.close()
++
++def plot_feature_stability_across_models(importance_matrix, feature_names, output_dir):
++    """Plot feature stability analysis."""
++    plt.figure(figsize=(8, 5))
++    feature_stability = np.std(importance_matrix, axis=0) / (np.mean(importance_matrix, axis=0) + 1e-9)
++    stable_idx = np.argsort(feature_stability)[:10]
++    unstable_idx = np.argsort(feature_stability)[-10:]
++    
++    plt.bar(range(10), np.mean(importance_matrix[:, stable_idx], axis=0), alpha=0.8, label='Stable Features', color=get_jhu_color('Heritage Blue'))
++    plt.bar(range(10, 20), np.mean(importance_matrix[:, unstable_idx], axis=0), alpha=0.8, label='Unstable Features', color=get_jhu_color('Gold'))
++    
++    all_labels = [feature_names[i] for i in stable_idx] + [feature_names[i] for i in unstable_idx]
++    plt.xticks(range(20), all_labels, rotation=45, ha='right', fontsize=9)
++    plt.ylabel('Mean |SHAP Value|')
++    plt.title('Feature Stability Across All Models')
++    plt.legend()
++    plt.grid(True, alpha=0.3, axis='y')
++    plt.tight_layout()
++    plt.savefig(os.path.join(output_dir, 'comparison_feature_stability.pdf'), bbox_inches='tight')
++    plt.close()
++
++def analyze_and_plot_model_comparison(shap_results, output_dir):
++    """Analyze model failure/success and call individual plotting functions."""
++    print("Creating model failure/success analysis...")
++    models = list(shap_results.keys())
++    if len(models) < 2:
++        print("Need at least 2 models for comparison.")
++        return
++
++    model_performance = {m: np.mean(np.abs(shap_results[m]['dataset']['prediction_errors'])) for m in models}
++    best_model = min(model_performance, key=model_performance.get)
++    worst_model = max(model_performance, key=model_performance.get)
++    
++    print(f"  Best model: {best_model} (MAE: {model_performance[best_model]:.6f})")
++    print(f"  Worst model: {worst_model} (MAE: {model_performance[worst_model]:.6f})")
++
++    best_result = shap_results[best_model]
++    worst_result = shap_results[worst_model]
++    n_soap = best_result['n_soap_features']
++    feature_names = best_result['feature_names']
++    
++    best_importance = np.mean(np.abs(best_result['error_shap_values'].values), axis=0)
++    worst_importance = np.mean(np.abs(worst_result['error_shap_values'].values), axis=0)
++    
++    # Analysis for plots - now for Top 50
++    top_features_idx = np.argsort(best_importance[:n_soap] + worst_importance[:n_soap])[-50:]
++    importance_diff = worst_importance[:n_soap] - best_importance[:n_soap]
++    top_diff_idx = np.argsort(np.abs(importance_diff))[-50:]
++    best_errors = np.abs(best_result['dataset']['prediction_errors'])
++    worst_errors = np.abs(worst_result['dataset']['prediction_errors'])
++    
++    all_importances = np.array([np.mean(np.abs(shap_results[m]['error_shap_values'].values), axis=0)[:n_soap] for m in models])
++
++    # Call plotting functions
++    plot_top50_importance_comparison(best_model, worst_model, best_importance, worst_importance, top_features_idx, feature_names, output_dir)
++    plot_top50_importance_difference(importance_diff, top_diff_idx, feature_names, output_dir)
++    plot_error_distributions(best_model, worst_model, best_errors, worst_errors, output_dir)
++    plot_prediction_scatter(best_model, worst_model, best_result, worst_result, output_dir)
++    plot_feature_stability_across_models(all_importances, feature_names, output_dir)
++    
++def save_comprehensive_results(shap_results, output_dir):
++    """Save comprehensive analysis results to CSV files"""
++    print("Saving comprehensive results...")
++    models = list(shap_results.keys())
++
++    # 1. Feature importance comparison for all features
++    all_feature_data = []
++    for model_name in models:
++        result = shap_results.get(model_name)
++        if not result: continue
++        
++        error_importance = np.mean(np.abs(result['error_shap_values'].values), axis=0)
++        signed_error_importance = np.mean(np.abs(result['signed_error_shap_values'].values), axis=0)
++        
++        for i, feature_name in enumerate(result['feature_names']):
++            all_feature_data.append({
++                'model': model_name, 'feature_name': feature_name,
++                'feature_type': 'SOAP' if i < result['n_soap_features'] else 'Structural',
++                'error_importance': error_importance[i],
++                'signed_error_importance': signed_error_importance[i],
++                'feature_index': i
++            })
++            
++    pd.DataFrame(all_feature_data).to_csv(os.path.join(output_dir, 'all_feature_importance.csv'), index=False)
++
++    # 2. Top features for each model
++    for model_name in models:
++        result = shap_results.get(model_name)
++        if not result: continue
++        
++        error_importance = np.mean(np.abs(result['error_shap_values'].values), axis=0)
++        soap_importance = error_importance[:result['n_soap_features']]
++        soap_names = result['feature_names'][:result['n_soap_features']]
++        top_50_idx = np.argsort(soap_importance)[-50:]
++        
++        model_top_features = [{'rank': rank + 1, 'feature_name': soap_names[idx], 'importance': soap_importance[idx], 'feature_index': idx}
++                              for rank, idx in enumerate(reversed(top_50_idx))]
++        
++        model_safe_name = model_name.replace(' ', '_').replace('-', '_')
++        pd.DataFrame(model_top_features).to_csv(os.path.join(output_dir, f'top50_features_{model_safe_name}.csv'), index=False)
++
++    # 3. Model performance comparison
++    performance_data = []
++    for model_name in models:
++        result = shap_results.get(model_name)
++        if not result: continue
++        
++        errors = np.abs(result['dataset']['prediction_errors'])
++        signed_errors = result['dataset']['prediction_errors']
++        
++        performance_data.append({
++            'model': model_name, 'mae': np.mean(errors), 'rmse': np.sqrt(np.mean(errors**2)),
++            'max_error': np.max(errors), 'std_error': np.std(errors),
++            'mean_signed_error': np.mean(signed_errors), 'n_samples': len(errors)
++        })
++        
++    pd.DataFrame(performance_data).to_csv(os.path.join(output_dir, 'model_performance_comparison.csv'), index=False)
++    
++    print("Saved comprehensive CSV results:")
++    print("  - all_feature_importance.csv")
++    print("  - top50_features_*.csv (for each model)")
++    print("  - model_performance_comparison.csv")
++
++class DirectSOAPAnalyzer:
++    """Main analyzer class for direct SOAP analysis"""
++
++    def __init__(self, xyz_file_path, predictions_csv_path):
++        self.xyz_file_path = xyz_file_path
++        self.predictions_csv_path = predictions_csv_path
++        self.feature_extractor = DirectSOAPFeatureExtractor(
++            cutoff=CUTOFF, soap_nmax=SOAP_NMAX, soap_lmax=SOAP_LMAX, n_bins=N_NEIGHBOR_BINS
++        )
++        self.predictions_df = None
++        self.atoms_list = None
++        self.features = None
++        self.feature_names = None
++        self.n_soap_features = 0
++
++    def load_data(self):
++        """Load predictions and atomic structures"""
++        print("Loading predictions and atomic structures...")
++        self.predictions_df = pd.read_csv(self.predictions_csv_path)
++        print(f"  > Loaded predictions: {len(self.predictions_df)} entries")
++        
++        self.atoms_list = read(self.xyz_file_path, index=":")
++        print(f"  > Loaded atomic structures: {len(self.atoms_list)} frames")
++
++        if len(self.atoms_list) > 2000:
++            print(f"  > Sampling every {FRAME_SAMPLING_RATE} frames...")
++            self.atoms_list = self.atoms_list[::FRAME_SAMPLING_RATE]
++            print(f"  > Using {len(self.atoms_list)} frames")
++
++        self.features, self.n_soap_features = self.feature_extractor.extract_all_features(self.atoms_list)
++        self.feature_names = self.feature_extractor.get_feature_names(self.n_soap_features)
++        
++        print(f"  > Feature matrix shape: {self.features.shape}")
++        print(f"  > SOAP features: {self.n_soap_features}")
++        print(f"  > Total feature names: {len(self.feature_names)}")
++
++    def create_model_datasets(self):
++        """Create datasets for each model"""
++        print("Creating model-specific datasets...")
++        datasets = {}
++        models = self.predictions_df['model_name'].unique()
++
++        for model_name in models:
++            model_data = self.predictions_df[self.predictions_df['model_name'] == model_name].copy()
++            valid_mask = ~(model_data['predicted_energy_eV'].isna() | model_data['ground_truth_energy_eV'].isna())
++            model_data = model_data[valid_mask]
++
++            if len(model_data) == 0:
++                print(f"  > No valid data for {model_name}")
++                continue
++
++            indices = model_data['image_index'].values
++            
++            # This logic needs careful alignment between sampled atoms and prediction data
++            # Assuming prediction CSV indices correspond to the original, unsampled XYZ file
++            original_indices = set(indices)
++            sampled_map = {orig_idx: new_idx for new_idx, orig_idx in enumerate(range(0, len(self.predictions_df['image_index'].unique()), FRAME_SAMPLING_RATE))}
++            
++            # Find which of the model's data points correspond to a sampled frame
++            data_mask = np.isin(indices, list(sampled_map.keys()))
++            if not np.any(data_mask):
++                print(f"  > No data for {model_name} matches the sampled frames.")
++                continue
++
++            model_data_sampled = model_data[data_mask]
++            
++            # Get the new indices into the `self.features` array
++            feature_indices = [sampled_map[i] for i in model_data_sampled['image_index'].values]
++            
++            model_features = self.features[feature_indices]
++            
++            datasets[model_name] = {
++                'features': model_features,
++                'ground_truth_energies': model_data_sampled['ground_truth_energy_eV'].values,
++                'predicted_energies': model_data_sampled['predicted_energy_eV'].values,
++                'prediction_errors': model_data_sampled['total_energy_error_eV'].values,
++                'feature_names': self.feature_names,
++                'n_soap_features': self.n_soap_features,
++                'soap_interpreter': self.feature_extractor.soap_interpreter
++            }
++            print(f"  > {model_name}: {len(model_data_sampled)} valid samples after frame sampling")
++            
++        return datasets
++
++def main():
++    """Main execution function"""
++    if len(sys.argv) != 3:
++        print("Usage: python direct_soap_shap_analysis_JHU.py <xyz_file_path> <predictions_csv_path>")
++        sys.exit(1)
++        
++    xyz_file_path = sys.argv[1]
++    predictions_csv_path = sys.argv[2]
++    
++    if not Path(xyz_file_path).exists() or not Path(predictions_csv_path).exists():
++        print(f"Error: Input file not found.")
++        sys.exit(1)
++        
++    print("Direct SOAP SHAP Analysis for MACE Models (JHU Publication Version)")
++    print("=" * 70)
++    print(f"XYZ file: {xyz_file_path}")
++    print(f"Predictions: {predictions_csv_path}")
++    print(f"Outputting to: {OUTPUT_DIR}/")
++    print("=" * 70)
++    
++    os.makedirs(OUTPUT_DIR, exist_ok=True)
++    
++    try:
++        analyzer = DirectSOAPAnalyzer(xyz_file_path, predictions_csv_path)
++        analyzer.load_data()
++        datasets = analyzer.create_model_datasets()
++        
++        if not datasets:
++            print("No valid datasets found. Exiting.")
++            sys.exit(1)
++            
++        shap_results = perform_direct_shap_analysis(datasets)
++        
++        if not shap_results:
++            print("SHAP analysis failed for all models. Exiting.")
++            sys.exit(1)
++            
++        print("\nCreating comprehensive visualizations (as separate PDFs)...")
++        analyze_and_plot_top_features(shap_results, OUTPUT_DIR)
++        plot_feature_category_analysis(shap_results, OUTPUT_DIR)
++        analyze_and_plot_model_comparison(shap_results, OUTPUT_DIR)
++        
++        save_comprehensive_results(shap_results, OUTPUT_DIR)
++        
++        print("\n" + "=" * 70)
++        print("Direct SOAP SHAP Analysis Complete!")
++        print(f"Results saved to: {OUTPUT_DIR}/")
++        print("\nKey outputs generated:")
++        print("  - Individual PDF/PNG files for each plot, ready for publication.")
++        print("  - Detailed CSV files with numerical results for further analysis.")
++        print("=" * 70)
++        
++    except Exception as e:
++        print(f"\nError during analysis: {e}")
++        traceback.print_exc()
++        sys.exit(1)
++
++if __name__ == "__main__":
++    main()
++

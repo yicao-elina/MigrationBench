@@ -1,0 +1,48 @@
+{
+  "schema_version": "1.0",
+  "trajectory_parameterization": "normalized cumulative configuration-space arc length",
+  "distance_weights": {
+    "geometry_frechet": 0.30,
+    "local_environment": 0.25,
+    "displacement_field": 0.20,
+    "energy_profile": 0.15,
+    "bond_topology": 0.10
+  },
+  "quality_weights": {
+    "endpoint_stability": 0.30,
+    "geometry_validity": 0.20,
+    "coverage_gain": 0.25,
+    "energy_plausibility": 0.15,
+    "redundancy_penalty": -0.10
+  },
+  "endpoint_gate": {
+    "standalone_relax_required": true,
+    "maximum_force_eV_A": 0.05,
+    "maximum_repeat_relax_displacement_A": 0.10,
+    "maximum_repeat_relax_energy_drop_eV": 0.02,
+    "equal_endpoint_energy_required": false
+  },
+  "basin_equivalence": {
+    "maximum_migrant_distance_A": 0.25,
+    "maximum_host_rmsd_A": 0.15,
+    "maximum_local_signature_rms_A": 0.15,
+    "local_signature_neighbors": 12
+  },
+  "path_gate": {
+    "minimum_pair_distance_A": 1.80,
+    "dft_neb_path_force_eV_A": 0.03,
+    "final_check_path_force_eV_A": 0.02,
+    "maximum_barrier_drift_eV": 0.02,
+    "interior_saddle_required": true
+  },
+  "coverage": {
+    "metric": "weighted_facility_location",
+    "target": 0.90,
+    "formula": "sum_i importance_i * max_{j in selected} exp(-D_ij) / sum_i importance_i"
+  },
+  "leakage_policy": {
+    "split_unit": "system_id + endpoint_basin_ids + mechanism_cluster_id",
+    "neb_evaluation_paths_trainable": false,
+    "post_outcome_dft_images_trainable_for_same_benchmark": false
+  }
+}

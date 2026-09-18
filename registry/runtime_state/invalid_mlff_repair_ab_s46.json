@@ -1,0 +1,15 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T12:20:48Z",
+  "classification": "invalid_input_missing_periodic_cell",
+  "supersedes_submission_config": "configs/mlff_repair_ab_coverage_gaps_s46.json",
+  "reason": "All four inputs and outputs have pbc=F F F because the historical XYZ files carried no cell and the first repair export silently preserved that absence.",
+  "scientific_use": "quarantined_software_diagnostic_only",
+  "jobs": [
+    {"job_id":"30850728","job_name":"mb_mrep13_dir_s46","slurm_state":"COMPLETED","optimizer_steps":200,"optimizer_converged":false},
+    {"job_id":"30850729","job_name":"mb_mrep13_fix_s46","slurm_state":"COMPLETED","optimizer_steps":156,"optimizer_converged":true},
+    {"job_id":"30850730","job_name":"mb_mrep15_dir_s46","slurm_state":"COMPLETED","optimizer_steps":155,"optimizer_converged":true},
+    {"job_id":"30850731","job_name":"mb_mrep15_fix_s46","slurm_state":"COMPLETED","optimizer_steps":137,"optimizer_converged":true}
+  ],
+  "replacement_jobs": ["30850830", "30850831", "30850832", "30850833"]
+}

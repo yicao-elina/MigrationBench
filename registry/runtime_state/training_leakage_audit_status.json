@@ -1,0 +1,46 @@
+{
+  "updated_at_utc": "2026-09-13T13:02:13Z",
+  "audit_id": "checkpoint_finetuned_MACE_multihead0804_s42",
+  "seed": 42,
+  "status": "pass_no_detected_training_overlap_under_declared_metrics",
+  "completed_job": {
+    "job_id": "30845544",
+    "job_name": "mb_leak2_qe1617_s42",
+    "partition": "parallel",
+    "walltime": "04:00:00",
+    "run_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_leak2_qe1617_s42_30845544"
+  },
+  "scope": "1-6 and 1-7 QE evaluation histories versus the declared train/valid/test files for finetuned_MACE_multihead0804_compiled.model",
+  "metrics": {
+    "evaluation_frames": 1110,
+    "exact_global_fingerprint_matches": 0,
+    "exact_local_fingerprint_matches": 0,
+    "rmsd_lte_0p01_A": 0,
+    "rmsd_lte_0p05_A": 0,
+    "soap_cosine_lte_0p0001": 0,
+    "minimum_train_local_rmsd_A": 1.19443129092788,
+    "minimum_valid_local_rmsd_A": 0.6260175886439601,
+    "minimum_test_local_rmsd_A": 0.5909955886422615
+  },
+  "canonical_report": "data_processed/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/leakage_audit.json",
+  "canonical_report_sha256": "e9c209317e06a647bc2a66ad5a19b430bfddc5ebb6a99f0b471d100aed50d4fc",
+  "superseded_attempts": [
+    {
+      "job_id": "30844881",
+      "state": "FAILED",
+      "reason": "/etc/bashrc referenced an unset variable before scientific work",
+      "scientific_result_valid": false
+    },
+    {
+      "job_id": "30845220",
+      "state": "COMPLETED_outer_wrapper_but_scientific_audit_failed",
+      "reason": "whole-structure composition filter could not compare different supercells",
+      "scientific_result_valid": false
+    }
+  ],
+  "limitations": [
+    "The pass is bounded to the declared checkpoint train/valid/test files and declared thresholds.",
+    "It does not establish absence from an unknown foundation-model pretraining corpus.",
+    "Future benchmark paths remain isolated by whole-path split groups and must be re-audited after any training-data update."
+  ]
+}

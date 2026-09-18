@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T07:48:51Z",
+  "status": "quarantined_do_not_use_as_dft_labels",
+  "source_directory": "/home/ycao73/neb_extxyz_outputs",
+  "source_alias": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data/neb_extxyz_outputs",
+  "source_script": {
+    "path": "/home/ycao73/neb_extxyz_outputs/extract_neb_trajectories.py",
+    "sha256": "b91c3c2ceeff4ff72c9900851a00fc9168755c0553ddd3c7b6ad8da87f2e9223",
+    "size_bytes": 9467
+  },
+  "reason": [
+    "QE .pathN energy is Hartree, but the historical extractor multiplies by the Ry-to-eV factor 13.605693122994 instead of 27.211386245988.",
+    "QE .pathN vector columns are potential-energy gradients in Hartree/bohr, but the historical extractor labels them as forces, keeps the gradient sign, and multiplies by the Ry/bohr factor 25.711 instead of using force = -gradient * 51.4220674763.",
+    "Iteration-zero .path0 values are unlabeled QE placeholders but were emitted as zero-energy, zero-force labels."
+  ],
+  "affected_summary": {
+    "files": 9,
+    "frames": 2306,
+    "iteration_zero_placeholder_frames": 67
+  },
+  "affected_files": [
+    {"name": "L_gap_center_lateral-lateral2_neb_traj.extxyz", "frames": 549, "placeholder_frames": 9, "sha256": "46e87795f4422975c8bf1536d747aa2711b715dcd0ed912ba7a8f6f47bd0fc13"},
+    {"name": "L_gap_center_primary-lateral_neb_traj.extxyz", "frames": 33, "placeholder_frames": 7, "sha256": "e58237cf3a5dba073ec0c797e941a47b3ceea075af20dc88d997a84970fb9b8b"},
+    {"name": "L_gap_edge_primary-lateral_neb_traj.extxyz", "frames": 7, "placeholder_frames": 7, "sha256": "3eff9a63cd1a91d89b3e7ae53f03adb34fc360ff4fc85078a4bdbdeca5b4bef6"},
+    {"name": "L_gap_lower_primary-lateral_neb_traj.extxyz", "frames": 469, "placeholder_frames": 7, "sha256": "fb417725f82a5c79d6c94d99c726b65ef64a21145aa5e55ca0d0f4824c7f0533"},
+    {"name": "L_ql_surface_lateral-lateral2_neb_traj.extxyz", "frames": 387, "placeholder_frames": 9, "sha256": "67c1f52f9f9edddd2026f4b3de2d2f7891951fd33e80fc3c1c04facb1058f7cb"},
+    {"name": "V_ql_deep-ql_deep_sb_lateral-lateral_neb_traj.extxyz", "frames": 385, "placeholder_frames": 7, "sha256": "15fc7963dc7ed776a0b2ccde46cdf6592cf18ad39c36036413bc92c5a88c3515"},
+    {"name": "V_ql_deep_sb-ql_surface_lateral-lateral_neb_traj.extxyz", "frames": 462, "placeholder_frames": 7, "sha256": "a59dc8f0ebae8a02e1c17d262989b17b5bb347d99a38851c954ae97503bcba1c"},
+    {"name": "V_ql_mid_te-ql_deep_primary-primary_neb_traj.extxyz", "frames": 7, "placeholder_frames": 7, "sha256": "793510f1069ddf76cbb1de51fcc309dc7707e9c27ada5b03f386ad67f0a9ac4b"},
+    {"name": "V_ql_shallow-ql_mid_high_primary-primary_neb_traj.extxyz", "frames": 7, "placeholder_frames": 7, "sha256": "6175b19904874003493050a504e3b01e89685492ca2adefd56823b5163ece68b"}
+  ],
+  "replacement_policy": {
+    "canonical_exporter": "scripts/migrationbench/parse_qe_neb_full_history.py",
+    "required_sources": ["QE .pathN coordinates", "per-image PW.out energy and atomic force", "restart-lineage neb.out residual"],
+    "path0_policy": "coordinates_only_unlabeled",
+    "publication_gate": "only converged paths with independently verified endpoints"
+  }
+}

@@ -1,0 +1,15 @@
+\documentclass{article}
+% Reviewer-map markers are no-op by default and are used only for source review.
+\providecommand{\reviewermap}[3]{}
+\begin{document}
+\reviewermap{REV-A1}{partial}{DFT NEB references must include per-path convergence status; current path 1-4 reference candidate is 0.336050 eV.}
+All initial, final, and intermediate configurations were considered to be converged when the forces were small.
+\reviewermap{REV-A2/REV-C10}{pending}{Grouped split and train/test overlap audit must be documented once SOAP/RMSD values are available.}
+Both FT-600K and FT-Multi_T models used identical train/validation/test splits.
+\reviewermap{REV-A1}{partial}{SI Fig. S3 is self-consistent MLFF NEB; 0.41 eV is a model-reported MLFF barrier, not a fixed-path DFT-reference error.}
+In contrast, the MACE foundation model, without any system-specific fine-tuning, successfully converged the NEB calculation.
+\reviewermap{REV-A1}{partial}{Caption must say model-reported MLFF barrier and distinguish self-consistent MLFF NEB from fixed-geometry DFT-path scoring.}
+\caption{Nudged Elastic Band benchmark yielding a migration barrier of 0.41 eV.}
+\reviewermap{REV-A6/REV-C13}{partial}{Report SHAP surrogate CV R2 and final code-release provenance.}
+Feature stability analysis across all models.
+\end{document}

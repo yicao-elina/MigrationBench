@@ -1,0 +1,18 @@
+{
+  "schema_version": "1.0",
+  "reason": "Client timeout allowed a second submitter invocation before the original process recorded its receipt.",
+  "canonical_jobs": ["30850191", "30850192", "30850193", "30850195"],
+  "cancelled_duplicate_jobs": [
+    {
+      "job_id": "30850194",
+      "duplicate_of": "30850193",
+      "branch_id": "1-6_iter108_img2_cutoff_100_400_gamma_nonspin_s42"
+    },
+    {
+      "job_id": "30850197",
+      "duplicate_of": "30850195",
+      "branch_id": "1-6_iter108_img4_cutoff_100_400_gamma_nonspin_s42"
+    }
+  ],
+  "remediation": "Submission now uses a Rockfish-side flock and immutable per-branch receipt. Cancelled duplicates are excluded from every active registry and downstream parser."
+}

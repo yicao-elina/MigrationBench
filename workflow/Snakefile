@@ -1,0 +1,11 @@
+configfile: "configs/project.yaml"
+
+rule all:
+    input:
+        "registry/runs.csv",
+        "paper/results_generated.tex",
+        "registry/artifacts.sha256",
+        "registry/release_audit.ok",
+
+include: "rules/provenance.smk"
+include: "rules/paper.smk"

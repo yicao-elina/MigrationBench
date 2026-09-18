@@ -1,0 +1,18 @@
+&CONTROL
+  calculation = 'scf',
+  prefix = 'smoke',
+  pseudo_dir = './pseudo',
+  outdir = './out'
+/
+&SYSTEM
+  ibrav = 0,
+  nat = 2,
+  ntyp = 1,
+  ecutwfc = 30
+/
+&ELECTRONS
+  conv_thr = 1.0d-6
+/
+ATOMIC_SPECIES
+Cu 63.546 Cu.pbe-dn-kjpaw_psl.1.0.0.UPF
+K_POINTS gamma

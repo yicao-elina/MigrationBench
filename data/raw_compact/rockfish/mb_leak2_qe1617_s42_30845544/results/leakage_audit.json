@@ -1,0 +1,170 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T08:15:01.259219+00:00",
+  "status": "pass_no_detected_training_overlap_under_declared_metrics",
+  "scope": "geometry leakage from target NEB evaluation frames into the checkpoint's declared fine-tuning train/valid/test files",
+  "evaluation_compositions": [
+    [
+      [
+        "Cr",
+        1
+      ],
+      [
+        "Sb",
+        24
+      ],
+      [
+        "Te",
+        36
+      ]
+    ]
+  ],
+  "evaluation_frames": 1110,
+  "metrics": {
+    "exact_fingerprint": "composition + cell metric + all species-pair MIC distances rounded to 1e-5 A",
+    "exact_local_fingerprint": "Cr-centered environment within 6.0 A + all local species-pair distances rounded to 1e-5 A",
+    "soap": {
+      "center": "Cr",
+      "r_cut_A": 6.0,
+      "n_max": 6,
+      "l_max": 4,
+      "distance": "cosine"
+    },
+    "rmsd": "Cr-centered environments within 6.0 A with per-species Hungarian assignment; no rotational alignment because cells share orientation",
+    "rmsd_candidate_selection": "minimum RMSD among the 10 nearest Cr-centered SOAP neighbors"
+  },
+  "thresholds": {
+    "exact_rmsd_A": 0.01,
+    "near_rmsd_A": 0.05,
+    "near_soap_cosine": 0.0001
+  },
+  "summaries": {
+    "train": {
+      "total_frames": 1891,
+      "periodic_frames_with_cr": 1888,
+      "cr_centered_reference_environments": 6388,
+      "exact_global_fingerprint_matches": 0,
+      "exact_local_fingerprint_matches": 0,
+      "local_rmsd_comparable_frames": 124,
+      "rmsd_lte_exact_threshold": 0,
+      "rmsd_lte_near_threshold": 0,
+      "soap_lte_near_threshold": 0,
+      "soap_cosine_distance": {
+        "min": 0.0002792569268363909,
+        "p01": 0.00028821058716843817,
+        "p05": 0.0003529844242131652,
+        "median": 0.0034994908190663088,
+        "p95": 0.007597765986701366,
+        "max": 0.008618330850243772
+      },
+      "cr_local_species_rmsd_A": {
+        "min": 1.19443129092788,
+        "p01": 1.1944724722237954,
+        "p05": 1.197948525802815,
+        "median": 2.611740916026389,
+        "p95": 2.718307454181247,
+        "max": 2.721682327425824
+      }
+    },
+    "valid": {
+      "total_frames": 236,
+      "periodic_frames_with_cr": 236,
+      "cr_centered_reference_environments": 835,
+      "exact_global_fingerprint_matches": 0,
+      "exact_local_fingerprint_matches": 0,
+      "local_rmsd_comparable_frames": 392,
+      "rmsd_lte_exact_threshold": 0,
+      "rmsd_lte_near_threshold": 0,
+      "soap_lte_near_threshold": 0,
+      "soap_cosine_distance": {
+        "min": 0.00037094776342350144,
+        "p01": 0.00037094776342350144,
+        "p05": 0.00037094776342350144,
+        "median": 0.004973268831299005,
+        "p95": 0.008232427893142196,
+        "max": 0.009920765510983975
+      },
+      "cr_local_species_rmsd_A": {
+        "min": 0.6260175886439601,
+        "p01": 0.6260175886439601,
+        "p05": 0.6260175886439601,
+        "median": 0.6290848018076751,
+        "p95": 2.620234329560173,
+        "max": 2.6232020141854147
+      }
+    },
+    "test": {
+      "total_frames": 237,
+      "periodic_frames_with_cr": 237,
+      "cr_centered_reference_environments": 806,
+      "exact_global_fingerprint_matches": 0,
+      "exact_local_fingerprint_matches": 0,
+      "local_rmsd_comparable_frames": 335,
+      "rmsd_lte_exact_threshold": 0,
+      "rmsd_lte_near_threshold": 0,
+      "soap_lte_near_threshold": 0,
+      "soap_cosine_distance": {
+        "min": 0.0005089493884451457,
+        "p01": 0.0005089493884451457,
+        "p05": 0.0005089493884451457,
+        "median": 0.0035659670976329605,
+        "p95": 0.007434304827038107,
+        "max": 0.008487360492976936
+      },
+      "cr_local_species_rmsd_A": {
+        "min": 0.5909955886422615,
+        "p01": 0.5909955886422615,
+        "p05": 0.5909955886422615,
+        "median": 0.593473605457071,
+        "p95": 2.806945259219931,
+        "max": 2.8294283507958906
+      }
+    }
+  },
+  "provenance": {
+    "model_checkpoint": {
+      "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+      "sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a",
+      "size_bytes": 13075227,
+      "mtime_utc": "2025-08-04T20:55:58.246349+00:00"
+    },
+    "splits": {
+      "train": {
+        "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/train.xyz",
+        "sha256": "79140b6300e868bcbf7bbeee84db088495f0c8fb2fd1db2c6f41f03678f23104",
+        "size_bytes": 17396534,
+        "mtime_utc": "2025-08-04T03:18:44.765658+00:00"
+      },
+      "valid": {
+        "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/valid.xyz",
+        "sha256": "fd393767e07f6645480093f1bae766918fce7ba65658949bc0365892bd857177",
+        "size_bytes": 2178372,
+        "mtime_utc": "2025-08-04T03:14:06.089698+00:00"
+      },
+      "test": {
+        "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K/test.xyz",
+        "sha256": "cbe062a7be5235d7dd8399fa000f088f328305543551847c9658841ba3ade6f8",
+        "size_bytes": 2184066,
+        "mtime_utc": "2025-08-04T03:14:06.366819+00:00"
+      }
+    },
+    "evaluations": {
+      "1-6": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/leakage_audit_s42/1-6_neb_full_history.extxyz",
+        "sha256": "c7ac5ccd375515fd103a92b88f193167b7ca8961ec1ca1e67fea92cc569526e7",
+        "size_bytes": 6523159,
+        "mtime_utc": "2026-09-13T07:29:56+00:00"
+      },
+      "1-7": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/leakage_audit_s42/1-7_neb_full_history.extxyz",
+        "sha256": "c1bcbde3fe16a76057e669e26898c3af978eb303831ab23210b56bfa05ef1810",
+        "size_bytes": 6782905,
+        "mtime_utc": "2026-09-13T07:29:56+00:00"
+      }
+    }
+  },
+  "limitations": [
+    "A pass is bounded to the declared checkpoint files and metrics, not a claim about unknown pretraining corpora.",
+    "SOAP-near alone is reported as distribution proximity and is not treated as leakage without an exact/low-RMSD match."
+  ]
+}

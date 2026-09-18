@@ -1,0 +1,162 @@
+{
+  "created_at_utc": "2026-09-11T05:02:48.973124+00:00",
+  "path_id": "1-2",
+  "path_family": "deep_penetration_by_prior_site_definition",
+  "measurement_purpose": "dft_refinement_of_mace_preconditioned_path",
+  "images": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_cpu_1_2_s42_30791344/mlff_1-2_s42/mlff_neb_images.extxyz",
+  "images_sha256": "eb6244b2708bbe964b66413628d6d88b40e2586b12738cc4d0c5fe880474d100",
+  "engine_template": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe1_2_mace_r1_s42/qe_engine_template.in",
+  "engine_template_sha256": "f564b15cbd3afc0ee9c0e3c70dc1fe50f7bb931e37f95dd567fcea0fc2851c13",
+  "source_neb_output": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-2/neb.out",
+  "source_neb_output_sha256": "6d999c9608be0a68f0845fa195f58eeb0ad94f7b2c20cbb90e0b82288b47bddf",
+  "source_mlff_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_cpu_1_2_s42_30791344/mlff_1-2_s42/mlff_neb_manifest.json",
+  "source_mlff_manifest_sha256": "0e5c9b9c8a7a0d461a938edbb5347bb0130ce9c7a25fa0e975b4bd5db6cf5206",
+  "output": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe1_2_mace_r1_s42/neb.in",
+  "num_of_images": 5,
+  "path_settings": {
+    "restart_mode": "from_scratch",
+    "nstep_path": 1000,
+    "opt_scheme": "broyden",
+    "CI_scheme": "auto",
+    "first_last_opt": false,
+    "minimum_image": true,
+    "ds": 0.2,
+    "k_min": 0.1,
+    "k_max": 0.3,
+    "path_thr": 0.03
+  },
+  "notes": [
+    "Generated from fixed images; inspect chemistry and pseudopotentials before submission.",
+    "QE neb.x does not read standard input; submit with neb.x -inp this file."
+  ],
+  "mlff_preconditioning": {
+    "calculator": "mace-model",
+    "calculator_label": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+    "seed": 42,
+    "fmax_target_eV_A": 0.05,
+    "steps_requested": 500,
+    "barrier_proxy_eV": 9.827962143172044,
+    "initial_profile": [
+      {
+        "image_index": 0,
+        "energy_eV": -133572.27997722907,
+        "rel_energy_eV": 0.0,
+        "fmax_eV_A": 2.1520261746085403
+      },
+      {
+        "image_index": 1,
+        "energy_eV": -133572.0911392371,
+        "rel_energy_eV": 0.18883799196919426,
+        "fmax_eV_A": 2.17409660974182
+      },
+      {
+        "image_index": 2,
+        "energy_eV": -133562.76538920891,
+        "rel_energy_eV": 9.514588020159863,
+        "fmax_eV_A": 24.4396014072286
+      },
+      {
+        "image_index": 3,
+        "energy_eV": -133560.559792233,
+        "rel_energy_eV": 11.720184996083844,
+        "fmax_eV_A": 28.270065853923665
+      },
+      {
+        "image_index": 4,
+        "energy_eV": -133562.4520150859,
+        "rel_energy_eV": 9.827962143172044,
+        "fmax_eV_A": 29.609216092640242
+      }
+    ],
+    "final_profile": [
+      {
+        "image_index": 0,
+        "energy_eV": -133572.27997722907,
+        "rel_energy_eV": 0.0,
+        "fmax_eV_A": 2.1520261746085403
+      },
+      {
+        "image_index": 1,
+        "energy_eV": -133590.5648120445,
+        "rel_energy_eV": -18.284834815422073,
+        "fmax_eV_A": 0.16039638361350342
+      },
+      {
+        "image_index": 2,
+        "energy_eV": -133599.51971163586,
+        "rel_energy_eV": -27.239734406786738,
+        "fmax_eV_A": 0.8642443047660502
+      },
+      {
+        "image_index": 3,
+        "energy_eV": -133592.5379628127,
+        "rel_energy_eV": -20.25798558362294,
+        "fmax_eV_A": 0.1633548171447999
+      },
+      {
+        "image_index": 4,
+        "energy_eV": -133562.4520150859,
+        "rel_energy_eV": 9.827962143172044,
+        "fmax_eV_A": 29.609216092640242
+      }
+    ],
+    "relaxation_energy_delta": [
+      {
+        "image_index": 0,
+        "initial_energy_eV": -133572.27997722907,
+        "final_energy_eV": -133572.27997722907,
+        "delta_energy_eV": 0.0,
+        "initial_rel_energy_eV": 0.0,
+        "final_rel_energy_eV": 0.0,
+        "delta_rel_energy_eV": 0.0,
+        "initial_fmax_eV_A": 2.1520261746085403,
+        "final_fmax_eV_A": 2.1520261746085403
+      },
+      {
+        "image_index": 1,
+        "initial_energy_eV": -133572.0911392371,
+        "final_energy_eV": -133590.5648120445,
+        "delta_energy_eV": -18.473672807391267,
+        "initial_rel_energy_eV": 0.18883799196919426,
+        "final_rel_energy_eV": -18.284834815422073,
+        "delta_rel_energy_eV": -18.473672807391267,
+        "initial_fmax_eV_A": 2.17409660974182,
+        "final_fmax_eV_A": 0.16039638361350342
+      },
+      {
+        "image_index": 2,
+        "initial_energy_eV": -133562.76538920891,
+        "final_energy_eV": -133599.51971163586,
+        "delta_energy_eV": -36.7543224269466,
+        "initial_rel_energy_eV": 9.514588020159863,
+        "final_rel_energy_eV": -27.239734406786738,
+        "delta_rel_energy_eV": -36.7543224269466,
+        "initial_fmax_eV_A": 24.4396014072286,
+        "final_fmax_eV_A": 0.8642443047660502
+      },
+      {
+        "image_index": 3,
+        "initial_energy_eV": -133560.559792233,
+        "final_energy_eV": -133592.5379628127,
+        "delta_energy_eV": -31.978170579706784,
+        "initial_rel_energy_eV": 11.720184996083844,
+        "final_rel_energy_eV": -20.25798558362294,
+        "delta_rel_energy_eV": -31.978170579706784,
+        "initial_fmax_eV_A": 28.270065853923665,
+        "final_fmax_eV_A": 0.1633548171447999
+      },
+      {
+        "image_index": 4,
+        "initial_energy_eV": -133562.4520150859,
+        "final_energy_eV": -133562.4520150859,
+        "delta_energy_eV": 0.0,
+        "initial_rel_energy_eV": 9.827962143172044,
+        "final_rel_energy_eV": 9.827962143172044,
+        "delta_rel_energy_eV": 0.0,
+        "initial_fmax_eV_A": 29.609216092640242,
+        "final_fmax_eV_A": 29.609216092640242
+      }
+    ],
+    "warning": "MLFF barrier is a preconditioner/proposal only; final paper reference must come from DFT NEB."
+  }
+}

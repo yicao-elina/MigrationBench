@@ -1,0 +1,206 @@
+{
+  "created_at_utc": "2026-09-14T06:43:30.697583+00:00",
+  "path_id": "1-7",
+  "path_family": "material_transfer_ingap",
+  "measurement_purpose": "first_stage_material_transfer_dft_neb_validation",
+  "run_role": "diagnostic",
+  "initialization_role": "mlff_preconditioned",
+  "images": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm1e6199_dg8466_s42_30878812/mlff_tetradymite__Bi2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_images.extxyz",
+  "images_sha256": "181386b852465629519f09c28ba4d17fb16b3e80cbaa04684032855ac755ba93",
+  "engine_template": "/Users/alina/Project/26MIgrationBench/data_processed/material_transfer_stage1_qe_s42/tetradymite__Bi2Te3__Mn1__ingap_1-7__reused_path_s42/engine_template.in",
+  "engine_template_sha256": "633e281e2f16cff0131ac5e26b2e95caef9be7f51029b0d0eeed60d82ddc94ba",
+  "source_neb_output": null,
+  "source_neb_output_sha256": null,
+  "source_mlff_manifest": "/Users/alina/Project/26MIgrationBench/cluster/mb_nlm1e6199_dg8466_s42_30878812/mlff_tetradymite__Bi2Te3__Mn1__ingap_1-7__reused_path_s42_s42/mlff_neb_manifest.json",
+  "source_mlff_manifest_sha256": "ba7d6420b11f83ec365ee75f69ff654f1ae6e1e32f567dfa5bc2ee1c5b74b893",
+  "mlff_preconditioner_acceptance": null,
+  "mlff_preconditioner_acceptance_sha256": null,
+  "source_candidate_manifest": null,
+  "source_candidate_manifest_sha256": null,
+  "direct_baseline_images": null,
+  "direct_baseline_images_sha256": null,
+  "output": "/Users/alina/Project/26MIgrationBench/data_processed/material_transfer_stage1_qe_s42/tetradymite__Bi2Te3__Mn1__ingap_1-7__reused_path_s42/neb.in",
+  "output_sha256": "4fa362abb3075e63fc3c139de80258fc106650fe5acc586d68a090dee08bfceb",
+  "calculator_identity": {
+    "root_label": "generated_handoff",
+    "path": "/private/var/folders/t5/kmpwl5g16xzc01p3fpg6mkv40000gn/T/migrationbench-qe-identity-g36sh763/neb.in",
+    "sha256": "4fa362abb3075e63fc3c139de80258fc106650fe5acc586d68a090dee08bfceb",
+    "calculation": null,
+    "composition": "Bi24Mn1Te36",
+    "ecutwfc_Ry": 50.0,
+    "ecutrho_Ry": 400.0,
+    "occupations": "smearing",
+    "smearing": "cold",
+    "degauss_Ry": 0.0146997236,
+    "conv_thr_Ry": 1e-06,
+    "vdw_corr": "DFT-D3",
+    "nspin": 2,
+    "noncolin": false,
+    "lspinorb": false,
+    "soc_enabled": false,
+    "kpoints": "automatic:4 4 1 0 0 0",
+    "pseudopotentials": "Bi:bi_pbe_v1.uspp.F.UPF;Mn:mn_pbe_v1.5.uspp.F.UPF;Te:te_pbe_v1.uspp.F.UPF",
+    "cell_fingerprint": "5d8a95840955",
+    "calculator_identity": "a57a1d777fdcd574",
+    "identity_complete": true,
+    "identity_missing_fields": ""
+  },
+  "production_handoff_gate": {
+    "run_role": "diagnostic",
+    "initialization_role": "mlff_preconditioned",
+    "status": "diagnostic_not_production_eligible",
+    "checks": {}
+  },
+  "num_of_images": 5,
+  "path_settings": {
+    "restart_mode": "from_scratch",
+    "nstep_path": 200,
+    "opt_scheme": "broyden",
+    "CI_scheme": "auto",
+    "first_last_opt": false,
+    "minimum_image": true,
+    "ds": 0.2,
+    "k_min": 0.1,
+    "k_max": 0.3,
+    "path_thr": 0.03
+  },
+  "notes": [
+    "Generated from fixed images; inspect chemistry and pseudopotentials before submission.",
+    "QE neb.x does not read standard input; submit with neb.x -inp this file."
+  ],
+  "mlff_preconditioning": {
+    "calculator": "mace-foundation",
+    "calculator_label": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+    "model_path": "/home/ycao73/.cache/mace/20231203mace128L1_epoch199model",
+    "model_path_sha256": "01bfe22100139f424713cf921144e5509cbe353d67aa9fa1be9c6e1e0ed35845",
+    "seed": 42,
+    "fmax_target_eV_A": 0.05,
+    "steps_requested": 500,
+    "optimizer_steps_completed": 37,
+    "optimizer_converged": true,
+    "final_max_neb_residual_eV_A": 0.03736085676862565,
+    "barrier_proxy_eV": 0.0,
+    "initial_profile": [
+      {
+        "image_index": 0,
+        "energy_eV": -223.69820950287865,
+        "rel_energy_eV": 0.0,
+        "fmax_eV_A": 1.488405944804918
+      },
+      {
+        "image_index": 1,
+        "energy_eV": -223.1665285802137,
+        "rel_energy_eV": 0.5316809226649468,
+        "fmax_eV_A": 1.4561440534111905
+      },
+      {
+        "image_index": 2,
+        "energy_eV": -223.05947246721354,
+        "rel_energy_eV": 0.6387370356651161,
+        "fmax_eV_A": 1.5781215261843997
+      },
+      {
+        "image_index": 3,
+        "energy_eV": -223.8266406064774,
+        "rel_energy_eV": -0.1284311035987571,
+        "fmax_eV_A": 1.5035374833875257
+      },
+      {
+        "image_index": 4,
+        "energy_eV": -224.5000799362657,
+        "rel_energy_eV": -0.8018704333870517,
+        "fmax_eV_A": 1.3418718009396498
+      }
+    ],
+    "final_profile": [
+      {
+        "image_index": 0,
+        "energy_eV": -223.69820950287865,
+        "rel_energy_eV": 0.0,
+        "fmax_eV_A": 1.488405944804918
+      },
+      {
+        "image_index": 1,
+        "energy_eV": -227.99848821556952,
+        "rel_energy_eV": -4.300278712690869,
+        "fmax_eV_A": 0.09723373246764945
+      },
+      {
+        "image_index": 2,
+        "energy_eV": -227.45228777700297,
+        "rel_energy_eV": -3.7540782741243106,
+        "fmax_eV_A": 0.26746117949896886
+      },
+      {
+        "image_index": 3,
+        "energy_eV": -227.86458356590697,
+        "rel_energy_eV": -4.166374063028314,
+        "fmax_eV_A": 0.02508118764027585
+      },
+      {
+        "image_index": 4,
+        "energy_eV": -224.5000799362657,
+        "rel_energy_eV": -0.8018704333870517,
+        "fmax_eV_A": 1.3418718009396498
+      }
+    ],
+    "relaxation_energy_delta": [
+      {
+        "image_index": 0,
+        "initial_energy_eV": -223.69820950287865,
+        "final_energy_eV": -223.69820950287865,
+        "delta_energy_eV": 0.0,
+        "initial_rel_energy_eV": 0.0,
+        "final_rel_energy_eV": 0.0,
+        "delta_rel_energy_eV": 0.0,
+        "initial_fmax_eV_A": 1.488405944804918,
+        "final_fmax_eV_A": 1.488405944804918
+      },
+      {
+        "image_index": 1,
+        "initial_energy_eV": -223.1665285802137,
+        "final_energy_eV": -227.99848821556952,
+        "delta_energy_eV": -4.831959635355815,
+        "initial_rel_energy_eV": 0.5316809226649468,
+        "final_rel_energy_eV": -4.300278712690869,
+        "delta_rel_energy_eV": -4.831959635355815,
+        "initial_fmax_eV_A": 1.4561440534111905,
+        "final_fmax_eV_A": 0.09723373246764945
+      },
+      {
+        "image_index": 2,
+        "initial_energy_eV": -223.05947246721354,
+        "final_energy_eV": -227.45228777700297,
+        "delta_energy_eV": -4.392815309789427,
+        "initial_rel_energy_eV": 0.6387370356651161,
+        "final_rel_energy_eV": -3.7540782741243106,
+        "delta_rel_energy_eV": -4.392815309789427,
+        "initial_fmax_eV_A": 1.5781215261843997,
+        "final_fmax_eV_A": 0.26746117949896886
+      },
+      {
+        "image_index": 3,
+        "initial_energy_eV": -223.8266406064774,
+        "final_energy_eV": -227.86458356590697,
+        "delta_energy_eV": -4.037942959429557,
+        "initial_rel_energy_eV": -0.1284311035987571,
+        "final_rel_energy_eV": -4.166374063028314,
+        "delta_rel_energy_eV": -4.037942959429557,
+        "initial_fmax_eV_A": 1.5035374833875257,
+        "final_fmax_eV_A": 0.02508118764027585
+      },
+      {
+        "image_index": 4,
+        "initial_energy_eV": -224.5000799362657,
+        "final_energy_eV": -224.5000799362657,
+        "delta_energy_eV": 0.0,
+        "initial_rel_energy_eV": -0.8018704333870517,
+        "final_rel_energy_eV": -0.8018704333870517,
+        "delta_rel_energy_eV": 0.0,
+        "initial_fmax_eV_A": 1.3418718009396498,
+        "final_fmax_eV_A": 1.3418718009396498
+      }
+    ],
+    "warning": "MLFF barrier is a preconditioner/proposal only; final paper reference must come from DFT NEB."
+  }
+}

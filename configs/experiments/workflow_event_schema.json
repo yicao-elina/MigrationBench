@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MigrationBench workflow event",
+  "type": "object",
+  "required": ["event_id", "timestamp_utc", "event_type", "path_id", "branch_id", "status", "inputs", "outputs", "config", "metrics", "decision"],
+  "properties": {
+    "event_id": {"type": "string"},
+    "timestamp_utc": {"type": "string"},
+    "event_type": {"type": "string"},
+    "path_id": {"type": "string"},
+    "branch_id": {"type": "string"},
+    "status": {"type": "string"},
+    "inputs": {"type": "object"},
+    "outputs": {"type": "object"},
+    "config": {"type": "object"},
+    "metrics": {"type": "object"},
+    "decision": {"type": "object"},
+    "links": {"type": "object"},
+    "notes": {"type": "string"}
+  },
+  "additionalProperties": true
+}

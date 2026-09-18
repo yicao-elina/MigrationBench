@@ -1,0 +1,41 @@
+&CONTROL
+  etot_conv_thr =   1.0000000000d-04
+  forc_conv_thr =   1.0000000000d-03
+  outdir = './out/'
+  prefix = 'sb2te3'
+  pseudo_dir = '/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/'
+  verbosity = 'high'
+/
+&SYSTEM
+  vdw_corr = 'DFT-D3' !
+  degauss =   1.4699723600d-02
+  ecutrho =   200
+  ecutwfc =   50
+  ibrav = 0 !A =    4.30392
+  nat = 61 ! interstitial
+  ntyp = 3 ! Cr added
+  occupations = 'smearing'
+  smearing = 'cold'
+/
+&ELECTRONS
+  conv_thr =   1.0000000000d-06
+  electron_maxstep = 400
+  mixing_beta =   0.4
+/
+&ions
+  ion_dynamics='bfgs'
+/
+&cell
+  cell_dynamics='bfgs',
+  press=0.0,
+  press_conv_thr=0.5,
+/
+ATOMIC_SPECIES
+  Cr   51.99610  Cr_PBE_FR.SG15v1.2.UPF
+  Sb  121.76000  Sb_PBE_FR.SG15v1.2.UPF
+  Te  127.60000  Te_PBE_FR.SG15v1.2.UPF
+K_POINTS gamma
+CELL_PARAMETERS angstrom
+8.42843558953249 0.00000000000000 0.00000000000000 ! TMi2-1,  2, after_relax.in
+-4.21421779476624 7.29923593142487 0.00000000000000
+0.00000000000000 0.00000000000000 31.03344084160948

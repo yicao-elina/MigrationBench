@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "checked_at_utc": "2026-09-13T09:38:00Z",
+  "host": "rockfish",
+  "pseudo_dir": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE",
+  "scientific_scope": "Compatibility prerequisite for an explicit QE noncollinear SOC sensitivity branch; not evidence that historical calculations enabled SOC.",
+  "pseudopotentials": [
+    {
+      "species": "Cr",
+      "filename": "Cr_PBE_FR.SG15v1.2.UPF",
+      "sha256": "a9352047039238c12614fb6c3ed93acb6e84b2cd9011db2f62eda1858045c5e4",
+      "pseudo_type": "NC",
+      "relativistic": "full",
+      "has_so": true,
+      "z_valence": 14.0
+    },
+    {
+      "species": "Sb",
+      "filename": "Sb_PBE_FR.SG15v1.2.UPF",
+      "sha256": "998415c8a49d852c7376645c0a896110258aa7bb40b5c331a1e2874ed34e8132",
+      "pseudo_type": "NC",
+      "relativistic": "full",
+      "has_so": true,
+      "z_valence": 15.0
+    },
+    {
+      "species": "Te",
+      "filename": "Te_PBE_FR.SG15v1.2.UPF",
+      "sha256": "1b6d3177b82988cecabebf7da1636825613b7270bc269795a1fb6c12743e12fa",
+      "pseudo_type": "NC",
+      "relativistic": "full",
+      "has_so": true,
+      "z_valence": 16.0
+    }
+  ],
+  "compatibility_gate": {
+    "all_files_readable": true,
+    "all_fully_relativistic": true,
+    "all_have_spin_orbit_projectors": true,
+    "explicit_soc_input_allowed": true
+  },
+  "activation_requirement": "QE input must explicitly set noncolin=.true. and lspinorb=.true.; filenames or UPF metadata alone do not activate SOC."
+}

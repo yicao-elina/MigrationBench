@@ -1,0 +1,14 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T07:19:10Z",
+  "severity": "critical_for_scientific_interpretation",
+  "affected_direct_jobs": ["30843292", "30843300", "30843307", "30843324", "30843325", "30843348"],
+  "affected_transformed_jobs": ["30843835", "30843837", "30843840", "30843841"],
+  "correction": "The relax.in geometries were derived from r3 pw_N.in startup inputs, while source_neb_image_state was taken from the latest complete neb.out table. Geometry and energy therefore refer to different NEB iterations.",
+  "valid_use": "Paired direct-versus-transform relaxation experiment on r3 startup geometries.",
+  "invalid_use": "Validation of the latest hidden-basin geometry or exact geometry-energy labels.",
+  "replacement": {
+    "1-6": "data_processed/endpoint_relax_inputs/exact_iter_pairs/1-6_iter108_s42/paired_experiment_manifest.json",
+    "1-7": "data_processed/endpoint_relax_inputs/exact_iter_pairs/1-7_iter112_s42/paired_experiment_manifest.json"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schema_version": "1.0",
+  "status": "corrected",
+  "issue": "ASE NEB.real_forces contains zero-filled entries for fixed endpoints; these are not calculator forces.",
+  "invalid_semantics": "Earlier MLFF iteration exports labeled fixed-endpoint NEB.real_forces zeros as true atomic forces.",
+  "correct_semantics": "Read every image calculator force from the trajectory before constructing ASE NEB; projected NEB forces and residuals remain absent on endpoints.",
+  "affected_runs": [
+    {
+      "job_id": "30850337",
+      "superseded_history": "cluster/mb_nlm6d1d33_sm_s43_30850337/mlff_historical_curvature_warp_s43/mlff_neb_iteration_history_manifest.json",
+      "corrected_history": "cluster/mb_nlm6d1d33_sm_s43_30850337/posthoc_history_v3_true_endpoints/mlff_neb_iteration_history_manifest.json",
+      "endpoint_true_force_fmax_eV_A": [2.027820655718557, 0.7681434822227037]
+    },
+    {
+      "job_id": "30850360",
+      "superseded_history": "cluster/mb_nlm6d1d33_sm_s44_30850360/mlff_historical_curvature_warp_s44/mlff_neb_iteration_history_manifest.json",
+      "corrected_history": "cluster/mb_nlm6d1d33_sm_s44_30850360/posthoc_history_v3_true_endpoints/mlff_neb_iteration_history_manifest.json",
+      "endpoint_true_force_fmax_eV_A": [1.5405109742687801, 0.7993316706689156]
+    }
+  ],
+  "scientific_impact": "Internal-image NEB residual trajectories and barrier proxies are unchanged. Endpoint force labels and any dataset rows derived from them must use corrected v3 histories."
+}

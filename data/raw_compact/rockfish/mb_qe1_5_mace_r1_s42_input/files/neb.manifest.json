@@ -1,0 +1,162 @@
+{
+  "created_at_utc": "2026-09-11T05:02:50.765096+00:00",
+  "path_id": "1-5",
+  "path_family": "deep_penetration_by_prior_site_definition_needs_geometry_recheck",
+  "measurement_purpose": "dft_refinement_of_mace_preconditioned_path",
+  "images": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_cpu_1_5_s42_30791346/mlff_1-5_s42/mlff_neb_images.extxyz",
+  "images_sha256": "47c87c49d0fa78df07129013f0f99ea81919779314c045d82cc21830400c13ea",
+  "engine_template": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe1_5_mace_r1_s42/qe_engine_template.in",
+  "engine_template_sha256": "010f67d2f03aace7f1934fef6df5e36b9e461e785d615b6ed66dcde8d0d21cad",
+  "source_neb_output": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.neb/1.vdw_corr_DFT_D3/1-5/neb.out",
+  "source_neb_output_sha256": "e45ffd1b6c93a19633e5a9e83d3a8e264c53d44f6da8157efc1d7c815ace2384",
+  "source_mlff_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/mb_mlff_cpu_1_5_s42_30791346/mlff_1-5_s42/mlff_neb_manifest.json",
+  "source_mlff_manifest_sha256": "6df0467494ab97b6863060bbcc48455aa60dcba2463d10e4c730c16aefb5c175",
+  "output": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/mb_qe1_5_mace_r1_s42/neb.in",
+  "num_of_images": 5,
+  "path_settings": {
+    "restart_mode": "from_scratch",
+    "nstep_path": 1000,
+    "opt_scheme": "broyden",
+    "CI_scheme": "auto",
+    "first_last_opt": false,
+    "minimum_image": true,
+    "ds": 0.2,
+    "k_min": 0.1,
+    "k_max": 0.3,
+    "path_thr": 0.03
+  },
+  "notes": [
+    "Generated from fixed images; inspect chemistry and pseudopotentials before submission.",
+    "QE neb.x does not read standard input; submit with neb.x -inp this file."
+  ],
+  "mlff_preconditioning": {
+    "calculator": "mace-model",
+    "calculator_label": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+    "seed": 42,
+    "fmax_target_eV_A": 0.05,
+    "steps_requested": 500,
+    "barrier_proxy_eV": 0.4990368973230943,
+    "initial_profile": [
+      {
+        "image_index": 0,
+        "energy_eV": -133572.51825482142,
+        "rel_energy_eV": 0.0,
+        "fmax_eV_A": 2.0548937483630842
+      },
+      {
+        "image_index": 1,
+        "energy_eV": -133560.76333010188,
+        "rel_energy_eV": 11.754924719542032,
+        "fmax_eV_A": 28.740845341008082
+      },
+      {
+        "image_index": 2,
+        "energy_eV": -133572.096954553,
+        "rel_energy_eV": 0.4213002684118692,
+        "fmax_eV_A": 2.2389764424800034
+      },
+      {
+        "image_index": 3,
+        "energy_eV": -133571.89333595053,
+        "rel_energy_eV": 0.6249188708898146,
+        "fmax_eV_A": 1.8447340049468766
+      },
+      {
+        "image_index": 4,
+        "energy_eV": -133572.0192179241,
+        "rel_energy_eV": 0.4990368973230943,
+        "fmax_eV_A": 2.153820038434504
+      }
+    ],
+    "final_profile": [
+      {
+        "image_index": 0,
+        "energy_eV": -133572.51825482142,
+        "rel_energy_eV": 0.0,
+        "fmax_eV_A": 2.0548937483630842
+      },
+      {
+        "image_index": 1,
+        "energy_eV": -133591.82832317028,
+        "rel_energy_eV": -19.310068348859204,
+        "fmax_eV_A": 0.28934286978127743
+      },
+      {
+        "image_index": 2,
+        "energy_eV": -133696.3655096035,
+        "rel_energy_eV": -123.8472547820711,
+        "fmax_eV_A": 19.35783021662348
+      },
+      {
+        "image_index": 3,
+        "energy_eV": -133589.66250949426,
+        "rel_energy_eV": -17.144254672835814,
+        "fmax_eV_A": 0.07578865446158103
+      },
+      {
+        "image_index": 4,
+        "energy_eV": -133572.0192179241,
+        "rel_energy_eV": 0.4990368973230943,
+        "fmax_eV_A": 2.153820038434504
+      }
+    ],
+    "relaxation_energy_delta": [
+      {
+        "image_index": 0,
+        "initial_energy_eV": -133572.51825482142,
+        "final_energy_eV": -133572.51825482142,
+        "delta_energy_eV": 0.0,
+        "initial_rel_energy_eV": 0.0,
+        "final_rel_energy_eV": 0.0,
+        "delta_rel_energy_eV": 0.0,
+        "initial_fmax_eV_A": 2.0548937483630842,
+        "final_fmax_eV_A": 2.0548937483630842
+      },
+      {
+        "image_index": 1,
+        "initial_energy_eV": -133560.76333010188,
+        "final_energy_eV": -133591.82832317028,
+        "delta_energy_eV": -31.064993068401236,
+        "initial_rel_energy_eV": 11.754924719542032,
+        "final_rel_energy_eV": -19.310068348859204,
+        "delta_rel_energy_eV": -31.064993068401236,
+        "initial_fmax_eV_A": 28.740845341008082,
+        "final_fmax_eV_A": 0.28934286978127743
+      },
+      {
+        "image_index": 2,
+        "initial_energy_eV": -133572.096954553,
+        "final_energy_eV": -133696.3655096035,
+        "delta_energy_eV": -124.26855505048297,
+        "initial_rel_energy_eV": 0.4213002684118692,
+        "final_rel_energy_eV": -123.8472547820711,
+        "delta_rel_energy_eV": -124.26855505048297,
+        "initial_fmax_eV_A": 2.2389764424800034,
+        "final_fmax_eV_A": 19.35783021662348
+      },
+      {
+        "image_index": 3,
+        "initial_energy_eV": -133571.89333595053,
+        "final_energy_eV": -133589.66250949426,
+        "delta_energy_eV": -17.76917354372563,
+        "initial_rel_energy_eV": 0.6249188708898146,
+        "final_rel_energy_eV": -17.144254672835814,
+        "delta_rel_energy_eV": -17.76917354372563,
+        "initial_fmax_eV_A": 1.8447340049468766,
+        "final_fmax_eV_A": 0.07578865446158103
+      },
+      {
+        "image_index": 4,
+        "initial_energy_eV": -133572.0192179241,
+        "final_energy_eV": -133572.0192179241,
+        "delta_energy_eV": 0.0,
+        "initial_rel_energy_eV": 0.4990368973230943,
+        "final_rel_energy_eV": 0.4990368973230943,
+        "delta_rel_energy_eV": 0.0,
+        "initial_fmax_eV_A": 2.153820038434504,
+        "final_fmax_eV_A": 2.153820038434504
+      }
+    ],
+    "warning": "MLFF barrier is a preconditioner/proposal only; final paper reference must come from DFT NEB."
+  }
+}

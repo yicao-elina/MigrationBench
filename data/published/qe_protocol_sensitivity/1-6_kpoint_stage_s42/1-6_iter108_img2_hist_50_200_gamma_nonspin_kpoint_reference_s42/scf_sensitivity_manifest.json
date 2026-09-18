@@ -1,0 +1,72 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-13T13:02:44.529679+00:00",
+  "scientific_role": "fixed_geometry_qe_protocol_sensitivity",
+  "branch_id": "1-6_iter108_img2_hist_50_200_gamma_nonspin_kpoint_reference_s42",
+  "job_name": "mb_p16i2_krefg_s42",
+  "path_id": "1-6",
+  "source_iteration": 108,
+  "image_index_qe": 2,
+  "geometry_role": "internal_low_energy_basin_candidate",
+  "seed": 42,
+  "profile": {
+    "id": "hist_50_200_gamma_nonspin_kpoint_reference",
+    "job_slug": "krefg",
+    "ecutwfc_Ry": 50,
+    "ecutrho_Ry": 200,
+    "degauss_Ry": 0.0146997236,
+    "spin_model": "nonspin",
+    "kpoints": {
+      "mode": "gamma"
+    },
+    "ntasks": 2,
+    "kpoint_pools": 1
+  },
+  "calculator_identity": {
+    "root_label": "protocol_sensitivity",
+    "path": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_stage_s42/1-6_iter108_img2_hist_50_200_gamma_nonspin_kpoint_reference_s42/scf.in",
+    "sha256": "a09fd41c61a1ea13a9a3fe424668fd814f05090b10717d8662f2297ff9adccee",
+    "calculation": "scf",
+    "composition": "Cr1Sb24Te36",
+    "ecutwfc_Ry": 50.0,
+    "ecutrho_Ry": 200.0,
+    "occupations": "smearing",
+    "smearing": "cold",
+    "degauss_Ry": 0.0146997236,
+    "conv_thr_Ry": 1e-06,
+    "vdw_corr": "DFT-D3",
+    "nspin": 1,
+    "noncolin": false,
+    "lspinorb": false,
+    "soc_enabled": false,
+    "kpoints": "gamma",
+    "pseudopotentials": "Cr:Cr_PBE_FR.SG15v1.2.UPF;Sb:Sb_PBE_FR.SG15v1.2.UPF;Te:Te_PBE_FR.SG15v1.2.UPF",
+    "cell_fingerprint": "599c2d6bd5b9",
+    "calculator_identity": "7111008577b76397",
+    "identity_complete": true,
+    "identity_missing_fields": ""
+  },
+  "source": {
+    "path_file": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/out/sb2te3.path108",
+    "path_file_sha256": "8a3ed15b98857829b27216fec194671504e2aaa3b767fd1d77bbfbd48bd6f6d6",
+    "template": "/Users/alina/Project/26MIgrationBench/cluster/mb_qe16_direct_r3_s42_30812496/pw_1.in",
+    "template_sha256": "36605c22f15c003761c9fe3dc867dbb2f7edf3def9393da3007680bc27d6d423",
+    "source_energy_eV": -133598.381759652
+  },
+  "generated_input": "/Users/alina/Project/26MIgrationBench/data_processed/qe_protocol_sensitivity/1-6_kpoint_stage_s42/1-6_iter108_img2_hist_50_200_gamma_nonspin_kpoint_reference_s42/scf.in",
+  "generated_input_sha256": "a09fd41c61a1ea13a9a3fe424668fd814f05090b10717d8662f2297ff9adccee",
+  "resources": {
+    "walltime": "24:00:00",
+    "max_seconds": 84600,
+    "memory": "160G",
+    "ntasks": 2,
+    "kpoint_pools": 1
+  },
+  "acceptance": {
+    "job_done": true,
+    "scf_converged": true,
+    "finite_energy": true,
+    "pair_delta_E_tolerance_eV": 0.02,
+    "compare_only_with_same_profile": true
+  }
+}

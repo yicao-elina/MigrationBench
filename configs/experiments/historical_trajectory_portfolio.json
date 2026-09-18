@@ -1,0 +1,42 @@
+{
+  "schema_version": "1.0",
+  "status": "diagnostic_historical_candidate_universe",
+  "migrant_element": "Cr",
+  "resample_points": 21,
+  "local_neighbors_per_species": 12,
+  "coordination_radii_A": [2.6, 2.9, 3.2, 3.5, 4.0],
+  "distance_weights": {
+    "geometry_frechet": 0.30,
+    "local_environment": 0.25,
+    "displacement_field": 0.20,
+    "energy_profile": 0.15,
+    "bond_topology": 0.10
+  },
+  "coverage": {
+    "metric": "weighted_facility_location",
+    "target": 0.90,
+    "importance": "uniform_over_distinct_historical_lineages",
+    "similarity": "exp(-D_traj)"
+  },
+  "cell_overrides_by_system": {
+    "Sb2Te3Cr_81": "cluster/mb_qe81n4_direct_pf_s42_30791514/pw_1.in"
+  },
+  "candidate_paths": [
+    {"path_id": "1-2", "system_id": "Sb2Te3Cr_61", "run_dir": "data_raw/historical_neb/legacy_61/1-2"},
+    {"path_id": "1-3", "system_id": "Sb2Te3Cr_61", "run_dir": "data_raw/historical_neb/legacy_61/1-3"},
+    {"path_id": "1-4", "system_id": "Sb2Te3Cr_61", "run_dir": "data_raw/historical_neb/legacy_61/1-4"},
+    {"path_id": "1-5", "system_id": "Sb2Te3Cr_61", "run_dir": "data_raw/historical_neb/legacy_61/1-5"},
+    {"path_id": "1-6", "system_id": "Sb2Te3Cr_61", "run_dir": "data_raw/historical_neb/legacy_61/1-6"},
+    {"path_id": "1-7", "system_id": "Sb2Te3Cr_61", "run_dir": "data_raw/historical_neb/legacy_61/1-7"},
+    {"path_id": "1-8", "system_id": "Sb2Te3Cr_61", "run_dir": "data_raw/historical_neb/legacy_61/1-8"},
+    {"path_id": "81_neb_1", "system_id": "Sb2Te3Cr_81", "run_dir": "data_raw/historical_neb/layer_81/neb_1"},
+    {"path_id": "81_neb_2", "system_id": "Sb2Te3Cr_81", "run_dir": "data_raw/historical_neb/layer_81/neb_2"},
+    {"path_id": "81_neb_3", "system_id": "Sb2Te3Cr_81", "run_dir": "data_raw/historical_neb/layer_81/neb_3"},
+    {"path_id": "81_neb_4", "system_id": "Sb2Te3Cr_81", "run_dir": "data_raw/historical_neb/layer_81/neb_4"},
+    {"path_id": "81_neb_5", "system_id": "Sb2Te3Cr_81", "run_dir": "data_raw/historical_neb/layer_81/neb_5"}
+  ],
+  "lineage_refinements_not_independent_candidates": [
+    {"path_id": "1-6_qe_r3", "parent_lineage": "1-6", "reason": "continuation/refinement of the same historical seed"},
+    {"path_id": "1-7_qe_r3", "parent_lineage": "1-7", "reason": "continuation/refinement of the same historical seed"}
+  ]
+}
