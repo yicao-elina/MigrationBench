@@ -42,6 +42,11 @@ not make a model scientifically valid for a new system: the checkpoint SHA,
 element coverage, spin/charge assumptions, timestep, ensemble, and acceptance
 gates must still be recorded per campaign.
 
+The runtime was validated on Skipjack with Slurm job `908659`: a two-step ASE
+Langevin MACE smoke on the pilot `Cr@Sb` input completed with finite energies.
+The same validation used the module stack above and reported Python 3.11.9,
+PyTorch 2.10.0+cu128, ASE 3.25.0, and MACE-Torch 0.3.12.
+
 For a generic workstation, use the repository `environment.yml`; it is kept
 separate from the Skipjack module recipe because workstation CUDA/PyTorch
 resolution is not the same as the ARCH module stack.
