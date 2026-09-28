@@ -24,6 +24,14 @@ make test
 make audit
 ```
 
+For the ARCH Skipjack cluster, use the validated module-based recipe in
+[`docs/skipjack_environment.md`](docs/skipjack_environment.md). It keeps
+PyTorch supplied by `pytorch/2.10.0-b200-py3.11` and installs the remaining
+MACE/ASE packages into a project-local prefix.
+
+The supported source-checkout test entry point is `make test`; it sets
+`PYTHONPATH=src` explicitly.
+
 `make paper` additionally compiles the main text, SI, and response letter when
 the full LaTeX toolchain is installed. To rebuild one target, use Snakemake,
 for example `snakemake -s workflow/Snakefile figures/publication/fig6_shap_revised.pdf`.
@@ -60,4 +68,3 @@ The migration inventory, source hashes, inclusion policy, and known gaps are
 documented in `docs/history/MIGRATION_REPORT.md`. The remote branch
 `archive/main-before-paper-repro-2026-09-17` preserves the previous GitHub
 `main` exactly.
-

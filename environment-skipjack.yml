@@ -1,0 +1,10 @@
+name: migrationbench-skipjack
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  # The production Skipjack recipe loads PyTorch from the official module:
+  #   module load gcc/9.3.0 pytorch/2.10.0-b200-py3.11
+  # Do not add a second conda/pip PyTorch here; it can replace the cluster
+  # CUDA build. Install the remaining packages from requirements-skipjack.txt.
