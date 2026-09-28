@@ -343,7 +343,15 @@ def run(args: argparse.Namespace) -> dict:
         method="improvedtangent",
         remove_rotation_and_translation=args.remove_rotation_translation,
     )
-    opt = FIRE(neb, trajectory=str(out_dir / "mlff_neb.traj"), logfile=str(out_dir / "mlff_neb.log"))
+    if args.fire_dt <= 0 or args.fire_maxstep <= 0:
+        raise ValueError("FIRE timestep and maximum step must be positive")
+    opt = FIRE(
+        neb,
+        dt=args.fire_dt,
+        maxstep=args.fire_maxstep,
+        trajectory=str(out_dir / "mlff_neb.traj"),
+        logfile=str(out_dir / "mlff_neb.log"),
+    )
     _, dual_history_handle, dual_history_extxyz, dual_history_csv = attach_dual_potential_history(
         opt, images, out_dir
     )
@@ -433,6 +441,8 @@ def run(args: argparse.Namespace) -> dict:
         "n_images": len(images),
         "fmax_target_eV_A": args.fmax,
         "steps_requested": args.steps,
+        "fire_dt": args.fire_dt,
+        "fire_maxstep_A": args.fire_maxstep,
         "optimizer_steps_completed": int(opt.nsteps),
         "optimizer_converged": optimizer_converged,
         "optimizer_converged_under_optimization_potential": optimizer_converged_under_optimization_potential,
@@ -482,6 +492,8 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--default-dtype", default="float64", choices=["float32", "float64"])
     p.add_argument("--fmax", type=float, default=0.05)
     p.add_argument("--steps", type=int, default=500)
+    p.add_argument("--fire-dt", type=float, default=0.1)
+    p.add_argument("--fire-maxstep", type=float, default=0.2)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--spring-constant", type=float, default=0.1)
     p.add_argument("--migrant-element", default="Cr")
