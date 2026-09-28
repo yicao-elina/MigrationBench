@@ -12,7 +12,7 @@
 
 set -eo pipefail
 
-source /data/apps/go.sh
+source /data/apps/go.sh || true
 export OMP_NUM_THREADS="${OMP_NUM_THREADS:-8}"
 module restore || true
 source ~/.bashrc
@@ -25,6 +25,8 @@ SEED="${MIGRATIONBENCH_SEED:-42}"
 STEPS="${MIGRATIONBENCH_STEPS:-500}"
 FMAX="${MIGRATIONBENCH_FMAX:-0.05}"
 SPRING="${MIGRATIONBENCH_SPRING:-0.1}"
+FIRE_DT="${MIGRATIONBENCH_FIRE_DT:-0.1}"
+FIRE_MAXSTEP="${MIGRATIONBENCH_FIRE_MAXSTEP:-0.2}"
 MIGRANT_ELEMENT="${MIGRATIONBENCH_MIGRANT_ELEMENT:-Cr}"
 MIGRANT_TETHER_K="${MIGRATIONBENCH_MIGRANT_TETHER_K:-0.0}"
 HOST_TETHER_K="${MIGRATIONBENCH_HOST_TETHER_K:-0.0}"
@@ -56,6 +58,8 @@ echo "submitted_code_dir=${SUBMITTED_CODE_DIR}"
 echo "steps=${STEPS}"
 echo "fmax=${FMAX}"
 echo "spring=${SPRING}"
+echo "fire_dt=${FIRE_DT}"
+echo "fire_maxstep=${FIRE_MAXSTEP}"
 echo "migrant_element=${MIGRANT_ELEMENT}"
 echo "migrant_tether_k=${MIGRANT_TETHER_K}"
 echo "host_tether_k=${HOST_TETHER_K}"
@@ -89,6 +93,8 @@ python scripts/migrationbench/run_mlff_neb.py \
   --seed "${SEED}" \
   --fmax "${FMAX}" \
   --spring-constant "${SPRING}" \
+  --fire-dt "${FIRE_DT}" \
+  --fire-maxstep "${FIRE_MAXSTEP}" \
   --migrant-element "${MIGRANT_ELEMENT}" \
   --migrant-tether-k "${MIGRANT_TETHER_K}" \
   --host-tether-k "${HOST_TETHER_K}" \
