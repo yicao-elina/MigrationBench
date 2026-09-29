@@ -36,6 +36,20 @@ The supported source-checkout test entry point is `make test`; it sets
 the full LaTeX toolchain is installed. To rebuild one target, use Snakemake,
 for example `snakemake -s workflow/Snakefile figures/publication/fig6_shap_revised.pdf`.
 
+The Sec. 3.5/Fig. 6 SHAP release uses only the X-FORCE three-model compact
+inputs in `data/raw_compact/revision1/shap/`. Re-run the aligned workflow with:
+
+```bash
+PYTHONPATH=scripts python scripts/shap_analysis.py \
+  --xyz data/raw_compact/revision1/shap/sampled_trajectory_Cr2_temp.xyz \
+  --predictions data/raw_compact/revision1/shap/sampled_trajectory_Cr2_temp_predictions_with_binding1.csv \
+  --output /tmp/migrationbench-shap
+```
+
+The scope and source hashes are recorded in `docs/audit/shap_source_lineage.md`.
+The 600-row four-model input, 2-concentration analysis, and Dual-X ID/OOD/NEB
+SHAP results are not inputs to the MigrationBench Fig. 6 claim.
+
 ## Repository map
 
 - `configs/`: stable project/model/path definitions and experiment configs.

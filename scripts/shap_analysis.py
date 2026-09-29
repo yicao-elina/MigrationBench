@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
-"""Reproducible SHAP surrogate analysis for MigrationBench.
+"""Reproduce the MigrationBench Sec. 3.5 three-model SHAP surrogate.
 
-The published analysis explains a surrogate for absolute total-energy error;
-it does not attribute MACE internals.  Inputs are deliberately explicit:
-either a single CSV containing ``model``, ``target`` and feature columns, or
-one feature CSV plus a prediction CSV with ``model`` and ``target`` columns.
-The ``--demo`` mode is a deterministic smoke test for a clean installation.
+This is the X-FORCE Fig. 6 workflow: 150 aligned frames from the compact XYZ,
+the three-model 450-row prediction CSV, 390 SOAP plus 17 structural features,
+GradientBoostingRegressor, 5-fold CV, and TreeSHAP. It intentionally does not
+consume the four-model CSV, 2-concentration data, or Dual-X ID/OOD/NEB data.
 """
 
 from __future__ import annotations
@@ -15,82 +14,99 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from ase.io import read
+from ase.neighborlist import neighbor_list
+from dscribe.descriptors import SOAP
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import KFold, cross_val_score
-from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
+from shap_feature_labels import all_feature_names
 
-def _demo_frame() -> pd.DataFrame:
-    rng = np.random.default_rng(42)
-    x = rng.normal(size=(150, 12))
-    y = 0.8 * x[:, 0] - 0.4 * x[:, 3] ** 2 + 0.2 * x[:, 7] + rng.normal(0, 0.03, 150)
-    return pd.DataFrame(x, columns=[f"feature_{i:03d}" for i in range(x.shape[1])]).assign(
-        model="demo", target=np.abs(y)
-    )
+MODELS = ("FT - 600K", "FT - Multi-T", "Scratch")
 
 
-def _load(args: argparse.Namespace) -> pd.DataFrame:
-    if args.demo:
-        return _demo_frame()
-    if args.input:
-        return pd.read_csv(args.input)
-    if not args.features or not args.predictions:
-        raise SystemExit("provide --input, or both --features and --predictions")
-    features = pd.read_csv(args.features)
-    predictions = pd.read_csv(args.predictions)
-    keys = [args.key] if args.key in features.columns and args.key in predictions.columns else []
-    return predictions.merge(features, on=keys, how="inner", validate="one_to_one")
+def extract_features(xyz: Path) -> tuple[np.ndarray, list[str]]:
+    frames = read(xyz, index=":")
+    if len(frames) != 150 or any(len(frame) != 82 for frame in frames):
+        raise ValueError("Fig. 6 input must contain exactly 150 frames of 82 atoms")
+    soap = SOAP(species=["Cr", "Sb", "Te"], periodic=True, r_cut=5.0,
+                n_max=4, l_max=4, average="inner")
+    raw = np.asarray(soap.create(frames), dtype=float)
+    if raw.shape != (150, 390):
+        raise ValueError(f"expected SOAP shape (150, 390), got {raw.shape}")
+    scaled = StandardScaler().fit_transform(raw)
+    structural = []
+    for atoms in frames:
+        i, _, distances = neighbor_list("ijd", atoms, cutoff=5.0)
+        coordination = np.bincount(i, minlength=len(atoms))
+        symbols = atoms.get_chemical_symbols()
+        structural.append([
+            len(atoms), atoms.get_volume(), atoms.get_volume() / len(atoms),
+            *atoms.cell.lengths(), *atoms.cell.angles(),
+            coordination.mean(), coordination.std(), distances.mean(), distances.std(), distances.min(),
+            symbols.count("Cr") / len(atoms), symbols.count("Sb") / len(atoms),
+            symbols.count("Te") / len(atoms),
+        ])
+    features = np.hstack([scaled, np.asarray(structural, dtype=float)])
+    return features, all_feature_names()
 
 
-def analyse(frame: pd.DataFrame, output: Path, target: str, model_col: str, seed: int) -> None:
+def load_aligned(xyz: Path, predictions: Path) -> tuple[pd.DataFrame, list[str]]:
+    features, names = extract_features(xyz)
+    pred = pd.read_csv(predictions)
+    required = {"model_name", "image_index", "total_energy_error_eV"}
+    missing = required - set(pred.columns)
+    if missing:
+        raise ValueError(f"prediction CSV missing columns: {sorted(missing)}")
+    if set(pred.model_name.unique()) != set(MODELS):
+        raise ValueError(f"expected exactly models {MODELS}, got {sorted(pred.model_name.unique())}")
+    if len(pred) != 450 or pred.image_index.min() != 0 or pred.image_index.max() != 149:
+        raise ValueError("expected 450 rows with image_index 0..149 for each model")
+    pred = pred.sort_values(["model_name", "image_index"]).reset_index(drop=True)
+    feature_rows = np.vstack([features[int(i)] for i in pred.image_index])
+    frame = pd.DataFrame(feature_rows, columns=names)
+    frame.insert(0, "image_index", pred.image_index.to_numpy())
+    frame.insert(0, "model_name", pred.model_name.to_numpy())
+    frame["target"] = pred.total_energy_error_eV.abs().to_numpy()
+    return frame, names
+
+
+def analyse(frame: pd.DataFrame, feature_names: list[str], output: Path, seed: int = 42) -> None:
     output.mkdir(parents=True, exist_ok=True)
-    ignored = {target, model_col}
-    feature_cols = [c for c in frame.columns if c not in ignored and pd.api.types.is_numeric_dtype(frame[c])]
-    if len(feature_cols) < 2:
-        raise ValueError("at least two numeric feature columns are required")
-    results, top_rows = [], []
-    for model_name, group in frame.groupby(model_col, sort=True):
-        group = group.dropna(subset=feature_cols + [target])
-        X, y = group[feature_cols], group[target].to_numpy(float)
-        if len(group) < 10:
-            raise ValueError(f"model {model_name!r} has only {len(group)} usable rows")
-        estimator = GradientBoostingRegressor(
-            n_estimators=200, learning_rate=0.05, max_depth=8, subsample=0.8, random_state=seed
-        )
+    metrics, top = [], []
+    for model in MODELS:
+        group = frame[frame.model_name == model].sort_values("image_index")
+        X, y = group[feature_names], group.target.to_numpy(float)
+        estimator = GradientBoostingRegressor(n_estimators=200, learning_rate=0.05,
+                                              max_depth=8, subsample=0.8, random_state=seed)
         cv = KFold(n_splits=5, shuffle=True, random_state=seed)
-        scores = cross_val_score(estimator, X, y, cv=cv, scoring="r2")
-        maes = -cross_val_score(estimator, X, y, cv=cv, scoring="neg_mean_absolute_error")
+        r2 = cross_val_score(estimator, X, y, cv=cv, scoring="r2")
+        mae = -cross_val_score(estimator, X, y, cv=cv, scoring="neg_mean_absolute_error")
         estimator.fit(X, y)
-        try:
-            import shap
-        except ImportError as exc:
-            raise SystemExit("TreeSHAP requires requirements-shap.txt (or install shap==0.46.0)") from exc
-        importance = np.abs(np.asarray(shap.TreeExplainer(estimator)(X).values)).mean(axis=0)
-        for rank, idx in enumerate(np.argsort(np.abs(importance))[::-1][:50], 1):
-            top_rows.append({"model": model_name, "rank": rank, "feature": feature_cols[idx],
-                             "mean_abs_shap_eV": float(abs(importance[idx])), "feature_index": int(idx)})
-        results.append({"model": model_name, "n_samples": len(group),
-                       "r2_in_sample": float(estimator.score(X, y)),
-                       "mae_in_sample": float(np.mean(np.abs(estimator.predict(X) - y))),
-                       "r2_5fold_cv": float(scores.mean()), "mae_5fold_cv": float(maes.mean())})
-    pd.DataFrame(results).to_csv(output / "shap_surrogate_r2.csv", index=False)
-    pd.DataFrame(top_rows).to_csv(output / "shap_top_features.csv", index=False)
+        import shap
+        values = np.asarray(shap.TreeExplainer(estimator)(X).values)
+        importance = np.abs(values).mean(axis=0)
+        for rank, idx in enumerate(np.argsort(importance)[::-1][:50], 1):
+            top.append({"model": model, "rank": rank, "feature": feature_names[idx],
+                        "mean_abs_shap_eV": importance[idx], "feature_index": idx})
+        metrics.append({"model": model, "n_samples": len(group),
+                        "r2_in_sample": estimator.score(X, y),
+                        "mae_in_sample": np.abs(estimator.predict(X) - y).mean(),
+                        "r2_5fold_cv": r2.mean(), "mae_5fold_cv": mae.mean()})
+    pd.DataFrame(metrics).to_csv(output / "shap_surrogate_r2_revised.csv", index=False)
+    pd.DataFrame(top).to_csv(output / "shap_top_features_revised.csv", index=False)
+    frame.to_csv(output / "shap_frame_aligned.csv", index=False)
 
 
 def main() -> None:
-    p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("--input", type=Path, help="CSV with model, target, and numeric feature columns")
-    p.add_argument("--features", type=Path)
-    p.add_argument("--predictions", type=Path)
-    p.add_argument("--key", default="frame", help="join key for split inputs")
-    p.add_argument("--target", default="target")
-    p.add_argument("--model-column", default="model")
-    p.add_argument("--output", type=Path, default=Path("results/shap"))
-    p.add_argument("--seed", type=int, default=42)
-    p.add_argument("--demo", action="store_true", help="run deterministic installation smoke test")
-    args = p.parse_args()
-    analyse(_load(args), args.output, args.target, args.model_column, args.seed)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--xyz", type=Path, required=True)
+    parser.add_argument("--predictions", type=Path, required=True)
+    parser.add_argument("--output", type=Path, required=True)
+    args = parser.parse_args()
+    frame, names = load_aligned(args.xyz, args.predictions)
+    analyse(frame, names, args.output)
 
 
 if __name__ == "__main__":

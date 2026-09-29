@@ -30,10 +30,10 @@ Current Overleaf commit containing these markers: `29310f4`
 | REV-A1 | 317 | partial | Fig. S3 clarified as a separate self-consistent MLFF-NEB operator, not the same quantity as Fig. 3d. |
 | REV-A6 / REV-C11 / REV-C12 | 349 | done-local | Latent-space claim softened from direct mechanism to consistency with task-level behavior; zero-stub issue noted as removed. |
 | REV-C11 | 359 | done-local | Fig. 5 caption now says original descriptor-space checks are primary; projected embeddings are visualization diagnostics. |
-| REV-A6 / REV-C13 | 372 | partial | SHAP text now describes a surrogate error model and reports current 5-fold CV R2 values. Final release hash still pending. |
+| REV-A6 / REV-C13 | 372 | done-local | SHAP text is aligned to the X-FORCE three-model, 150-frame lineage and reports the locked revised CV values. |
 | REV-A4 | 402 | done-local | Conclusion reframed as case-study-supported hypotheses. |
 | REV-A4 | 405 | done-local | Generality held as an outlook, not a fully established result. |
-| REV-C13 | 431 | pending-local | Code availability marked for SHAP pipeline release and cleanup of prior empty stubs. |
+| REV-C13 | 431 | done-local | X-FORCE inputs, aligned TreeSHAP scripts, lineage audit, environment, and release provenance are included. |
 
 ## Supplementary Information: `sn-article-SI.tex`
 
@@ -46,7 +46,7 @@ Current Overleaf commit containing these markers: `29310f4`
 | REV-C12 | 375 | done-local | Always-zero force-sensitivity placeholder channel removed from feature matrix and described as not used. |
 | REV-A1 | 416 | partial | Fig. S3 paragraph now says 0.41 eV is the Foundation model's self-consistent MLFF barrier. |
 | REV-A1 | 422 | partial | Fig. S3 caption now distinguishes MLFF-NEB path generation from fixed-geometry DFT-path scoring. |
-| REV-A6 / REV-C13 | 433 | partial | SHAP SI caption marked for surrogate CV R2 and final code-release provenance. |
+| REV-A6 / REV-C13 | 433 | done-local | SHAP SI table and lineage point to the locked revised outputs and release scripts. |
 
 ## Still Missing Before Final Submission
 

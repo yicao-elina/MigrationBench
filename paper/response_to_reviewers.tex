@@ -620,7 +620,7 @@ The SI latent-analysis methods and code-release notes are marked with \texttt{RE
 \noindent\textbf{Response.}
 We agree. We removed the misleading empty advertised source trees and released an executable input-driven SHAP workflow at \texttt{scripts/shap\_analysis.py}, together with pinned dependencies in \texttt{environment.yml} and \texttt{requirements-shap.txt}, plus the audit \texttt{docs/audit/c13\_empty\_stub\_audit.md}. The workflow fits the audited Gradient-Boosting surrogate, evaluates 5-fold CV fidelity, and computes TreeSHAP feature importances from the supplied aligned table.
 
-The cross-validated surrogate metrics reported in Response~A6 remain tied to the compact processed outputs in this release. Reproduction from new raw inputs requires supplying the explicitly documented aligned prediction/feature table; omitted cluster checkpoints are not represented as if they were public inputs.
+The cross-validated surrogate metrics reported in Response~A6 remain tied to the compact processed outputs in this release. The X-FORCE three-model input lineage, source MD5s, model scope, and exclusion of the four-model, 2-concentration, and Dual-X workflows are recorded in \texttt{docs/audit/shap\_source\_lineage.md}. Reproduction from new raw inputs requires supplying the explicitly documented aligned prediction/feature table; omitted cluster checkpoints are not represented as if they were public inputs. An independent local rerun reproduces the expected 150-frame/450-row alignment but is not numerically identical to the locked revised CSVs, so those outputs are not silently overwritten pending recovery of the exact historical regeneration implementation.
 
 The remaining release-level evidence is:
 
