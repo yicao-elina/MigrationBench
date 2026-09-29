@@ -1,0 +1,21 @@
+\begin{table*}[t!]
+\caption{\textbf{Measured multi-arm endpoint-relaxation summary.} Values are medians over the 47 historical endpoint sites for each of six host--dopant systems and each perturbation arm. ``Conv.'' reports the number of FIRE relaxations reaching $f_{\max}\leq0.03$ eV\,\AA$^{-1}$; $E_f$ is the final MACE energy, $F_{\max}$ the final maximum force, $d_{\max}$ the maximum atomic displacement from the perturbed input, and ``steps'' the FIRE step count. All 846 formal tasks passed the finite-value, topology, minimum-distance, displacement, and scientific-success gates. The Foundation-MACE model and fixed-cell FIRE protocol are the same across arms; this table reports model-relaxation observables, not DFT or magnetic conclusions.}
+\label{tab:multiarms_endpoint_relaxation}
+\centering\scriptsize
+\setlength{\tabcolsep}{3.0pt}\renewcommand{\arraystretch}{1.08}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{@{}l*{12}{r}@{}}\toprule
+ & \multicolumn{4}{c}{\textbf{Base}} & \multicolumn{4}{c}{\textbf{Perturb A: }$+x\,0.20$} & \multicolumn{4}{c}{\textbf{Perturb B: }$(-x,+y,+z)$} \\
+\cmidrule(lr){2-5}\cmidrule(lr){6-9}\cmidrule(lr){10-13}
+\textbf{System} & \textbf{Conv.} & $E_f$ & $F_{\max}$ & $d_{\max}$ & \textbf{Conv.} & $E_f$ & $F_{\max}$ & $d_{\max}$ & \textbf{Conv.} & $E_f$ & $F_{\max}$ & $d_{\max}$ \\
+ & (47) & (eV) & (eV/\AA) & (\AA) & (47) & (eV) & (eV/\AA) & (\AA) & (47) & (eV) & (eV/\AA) & (\AA) \\ \midrule
+Cr@Sb2Te3 & 47/47 & -299.679 & 0.027 & 0.024 & 47/47 & -299.690 & 0.028 & 0.196 & 47/47 & -299.696 & 0.026 & 0.192 \\
+V@Sb2Te3 & 47/47 & -299.465 & 0.027 & 0.130 & 47/47 & -299.478 & 0.026 & 0.231 & 47/47 & -299.462 & 0.025 & 0.235 \\
+Mn@Sb2Te3 & 47/47 & -299.344 & 0.027 & 0.132 & 47/47 & -299.343 & 0.028 & 0.227 & 47/47 & -299.343 & 0.027 & 0.231 \\
+Cr@Bi2Te3 & 47/47 & -300.835 & 0.026 & 0.473 & 47/47 & -300.823 & 0.026 & 0.489 & 47/47 & -300.834 & 0.027 & 0.471 \\
+V@Bi2Te3 & 47/47 & -300.594 & 0.026 & 0.495 & 47/47 & -300.609 & 0.026 & 0.527 & 47/47 & -300.581 & 0.026 & 0.551 \\
+Mn@Bi2Te3 & 47/47 & -300.708 & 0.028 & 0.499 & 47/47 & -300.708 & 0.026 & 0.528 & 47/47 & -300.707 & 0.027 & 0.532 \\
+\bottomrule\end{tabular}}
+\vspace{2pt}
+\parbox{0.98\textwidth}{\scriptsize \textit{Arm definitions.} Base is the unperturbed historical endpoint. Perturb A displaces the dopant by $(+0.20,0,0)$\,\AA; Perturb B uses $(-0.10,+0.14,+0.10)$\,\AA (norm $0.199$\,\AA). Medians summarize distributions and should not be read as endpoint-level equivalence.}
+\end{table*}

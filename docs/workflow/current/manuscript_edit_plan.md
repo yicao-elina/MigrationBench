@@ -14,9 +14,9 @@
 | §3.2 FT-600K accuracy | 0.16 eV could be overlap/seed artifact | N7, N9 | Checkpoint-scoped SOAP/RMSD audit passed; retain only if grouped-seed reruns also pass | leakage passed; seed evidence pending |
 | SI DFT Methods | Claims all calculations used 100/400 Ry, 4x4x1, and SOC; 377 audited inputs form 12 identities and none explicitly enables SOC | N24 | Replace universal claim with actual per-result calculator identities after cutoff, k-point, and spin decisions; explicit SOC is paused by user instruction | blocked on final protocol wording |
 | §3.4 latent analysis | t-SNE/PHATE overinterpreted | N12 | "Consistent with" language; original-space caveat | done-local draft |
-| §3.5 SHAP | Mechanistic claims about MACE from surrogate | N13 | Scope to surrogate sensitivity unless perturbation confirms | partial |
+| §3.5 SHAP | Mechanistic claims about MACE from surrogate | N13 | Scope to surrogate sensitivity; identify X-FORCE three-model lineage and disclose regeneration discrepancy | done-local; historical preprocessing discrepancy remains explicitly open |
 | Conclusion | Broad principles stated too strongly | N14, N8 | Hypotheses and future cross-system validation | done-local draft |
-| Data/code availability | Repo stubs and missing SHAP code | N13 | State actual scripts, dataset schema, provenance manifest | partial |
+| Data/code availability | Repo stubs and missing SHAP code | N13 | State actual scripts, dataset schema, provenance manifest, and Overleaf/GitHub source snapshot | done-local; see `docs/audit/c13_empty_stub_audit.md` and `docs/audit/overleaf_sync.md` |
 
 ## Figure And Table Edits
 

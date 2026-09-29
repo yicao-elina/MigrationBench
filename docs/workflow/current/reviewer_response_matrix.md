@@ -21,7 +21,7 @@
 | C10 | Ungrouped random train/test split | partial | N7, N9 | Explain grouped split and zero group overlap | Methods split description; retrained Table S1 | `[NUMBER-PENDING: grouped-split retrain]` |
 | C11 | Silhouette computed on t-SNE/PHATE embedding | done-local | N12 | Replace with original-space/PCA metrics; label embedding metric invalid baseline | Fig. 5 caption and SI robustness | none for local result; text still needs final integration |
 | C12 | Always-zero force-sensitivity stub | done-local | N12 | Remove/drop dead feature; note finite-difference feature as future work | Methods/SI latent feature description | none |
-| C13 | SHAP code absent and stubs | partial | N13 | Port real SHAP pipeline; remove/implement stubs; report R2 | Code availability and §3.5 | `[NUMBER-PENDING: final code release / perturbation]` |
+| C13 | SHAP code absent and stubs | done-local; numerical regeneration discrepancy disclosed | N13 | Release X-FORCE lineage, three-model inputs, aligned TreeSHAP scripts, dependencies, and stub audit; resolve historical preprocessing discrepancy before claiming bitwise regeneration | Code availability and §3.5 updated in `paper/revision1/` | GitHub C13 commit and Overleaf commit recorded in `docs/audit/overleaf_sync.md` |
 
 ## Reviewer Reply Dependency Logic
 

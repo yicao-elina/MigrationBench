@@ -60,7 +60,10 @@ SHAP results are not inputs to the MigrationBench Fig. 6 claim.
 - `data/processed/`: canonical analysis inputs; `data/published/`: review exports.
 - `registry/`: run/claim/reviewer ledgers and content hashes.
 - `figures/`, `tables/`: generated and publication-ready artifacts.
-- `paper/`: main text, SI, response letter, bibliography, and journal assets.
+- `paper/revision1/`: authoritative coauthor-edited Overleaf manuscript
+  snapshot, including the main text, SI, response letter, tables, figures, and
+  source ledger. The older flat `paper/` files are retained for legacy build
+  compatibility; see [`docs/audit/overleaf_sync.md`](docs/audit/overleaf_sync.md).
 - `docs/history/`: migration decisions and source snapshots.
 
 ## Operating rules

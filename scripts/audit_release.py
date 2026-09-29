@@ -60,7 +60,10 @@ def main() -> int:
             if not (root / target).is_file():
                 errors.append(f"missing manuscript target for {claim['claim_id']}: {target}")
 
-    absolute_path = re.compile(r"/(Users|home|scratch|data)/[^\s{}]+")
+    # Require a path boundary before the slash; relative repository paths such
+    # as ``revision1/appendix/data/...`` are not machine-specific absolute
+    # paths and must not be flagged.
+    absolute_path = re.compile(r"(?<![A-Za-z0-9_])/(Users|home|scratch|data)/[^\s{}]+")
     for path in (root / "paper").rglob("*.tex"):
         for number, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
             if absolute_path.search(line):
