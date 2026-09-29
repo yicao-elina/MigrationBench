@@ -1,72 +1,33 @@
-# Zero-Force And Data-Leakage Verdict
+# REV-C8: zero-force NEB exporter audit
 
-Date: 2026-09-09
+Audit date: 2026-09-29. The audit was run read-only on Rockfish against the declared historical and grouped training splits. The executable is `scripts/build_zero_force_training_manifest.py`; the complete frame-level manifest and summary are in `data/processed/cluster/training_provenance/`.
 
-## Verdict
+## Result
 
-CLEAN for the reported FT-600K, FT-MultiT, and scratch training runs checked here.
+PASS. The audit covered 9,163 frames across FT-600K, FT-MultiT, grouped FT-600K, and grouped Scratch-5% train/valid/test files. Every frame had a `forces:R:3` array. There were nine exact all-zero force frames, all nine explicitly marked `config_type=IsolatedAtom` and all one-atom Cr/Sb/Te isolated-atom reference records. There were **zero unclassified all-zero force frames**, zero NEB-derived zero-force frames, and no evidence that `neb_data_collector.py:442-443` or `neb_to_extended_xyz.py:278-282` supplied a training frame.
 
-I found no evidence that fabricated zero-force NEB frames were used in the reported training. The training logs point to `data_600K` and `data_Multi_T`, not to NEB proposal/evaluation files, and the force-column audit found no NEB provenance tags in those splits.
+The isolated-atom references are legitimate E0 records used by the training configuration, not fabricated NEB labels. They are retained in the manifest and classified separately so that a future audit cannot silently mistake them for a clean dataset.
 
-## Evidence
+| dataset family | train | valid | test | unclassified zero-force frames |
+|---|---:|---:|---:|---:|
+| historical FT-600K | 1,891 (3 isolated) | 236 | 237 | 0 |
+| historical FT-MultiT | 3,015 (3 isolated) | 376 | 377 | 0 |
+| grouped FT-600K | 1,786 (3 isolated) | 311 | 267 | 0 |
+| grouped Scratch-5% | 89 | 311 | 267 | 0 |
 
-### Training Log Lineage
+The historical FT-600K and FT-MultiT training logs point to `data_600K/` and `data_Multi_T/`, respectively; the grouped retraining scripts point to the hash-bound `data_grouped/` and `data_grouped_scratch5/` paths. No training script in the audited lineage points to NEB proposal/evaluation output.
 
-Reported FT-600K seed-123:
+## Reproduction
 
-- Log: `/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_run-123.log`
-- Training file loaded: `data_600K/train.xyz` with 1888 configs, 1888 energies, 1888 forces, 1888 stresses.
-- Validation file loaded: `data_600K/valid.xyz` with 236 configs.
-- Test file loaded: `data_600K/test.xyz` with 237 configs.
+The Rockfish run used Python 3.6-compatible standard-library parsing and the following source/script identity:
 
-Reported FT-600K seed-234 and seed-345 logs also load the same `data_600K/{train,valid,test}.xyz` splits.
+```text
+source_script = neb_data_collector.py:442-443; neb_to_extended_xyz.py:278-282
+remote_audit_root = /scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/c8_zero_force_audit
+```
 
-Reported FT-MultiT seed-123:
+The manifest records, per frame: dataset label, frame index, source file, source script label, source file SHA-256, atom count, force-array presence, exact-zero status, zero-force classification, maximum force, consecutive-zero run length, and the source header prefix containing trajectory/source metadata. The summary is fail-closed: `acceptance=PASS` only when the count of unclassified zero-force frames is zero.
 
-- Log: `/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_Multi_T/finetuned_MACE_multihead0804_run-123.log`
-- Training file loaded: `data_Multi_T/train.xyz` with 3012 configs, 3012 energies, 3012 forces, 3012 stresses.
-- Validation file loaded: `data_Multi_T/valid.xyz` with 376 configs.
-- Test file loaded: `data_Multi_T/test.xyz` with 377 configs.
+## Reviewer response text
 
-Reported scratch seed-123:
-
-- Log: `/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE_models_l1_0802/mace_l1_0802_run-123.log`
-- Training file loaded: `data_600K/train.xyz` with 1888 configs, 1888 energies, 1888 forces, 1888 stresses.
-
-### Force-Column Audit
-
-Raw CSV: `data_processed/cluster/training_provenance/zero_force_training_audit.csv`
-
-| Split | Frames | Frames With Force Columns | All-Zero Force Frames | NEB Tags |
-|---|---:|---:|---:|---|
-| `data_600K/train.xyz` | 1891 | 1891 | 3 | false |
-| `data_600K/valid.xyz` | 236 | 236 | 0 | false |
-| `data_600K/test.xyz` | 237 | 237 | 0 | false |
-| `data_Multi_T/train.xyz` | 3015 | 3015 | 3 | false |
-| `data_Multi_T/valid.xyz` | 376 | 376 | 0 | false |
-| `data_Multi_T/test.xyz` | 377 | 377 | 0 | false |
-
-The three all-zero-force frames in each training split are isolated atoms:
-
-- Cr isolated atom
-- Sb isolated atom
-- Te isolated atom
-
-Evidence file: `data_processed/cluster/training_provenance/isolated_atom_zero_force_frames.txt`
-
-These frames have `config_type=IsolatedAtom`, one atom, a 20 A cubic cell, and no NEB tags. They are consistent with isolated-atom/E0 references, not fabricated NEB labels.
-
-## Data-Leakage Controls Added
-
-The new pipeline makes the training/evaluation boundary explicit:
-
-- `record_type=dft_training_frame`: allowed for training only if real forces exist.
-- `record_type=dft_neb_reference`: evaluation/reference data, not training.
-- `record_type=mlff_neb_proposal`: MLFF-generated images, not DFT labels.
-- `path_id`, `source_run_id`, `split`, `calculator_label`, and `convergence_status` are required metadata.
-
-The dataset exporter no longer fabricates zero forces when force labels are unavailable.
-
-## Response-Letter Draft
-
-We audited the training lineage on Rockfish for the reported FT-600K, FT-MultiT, and scratch MACE runs. The MACE training logs show that the reported models loaded `data_600K/{train,valid,test}.xyz` or `data_Multi_T/{train,valid,test}.xyz`, each with matching energy/force/stress labels, and not the NEB proposal/evaluation files. A direct extxyz force-column audit found force columns in all checked frames and no NEB provenance tags. The only all-zero-force frames were three one-atom `config_type=IsolatedAtom` records for Cr, Sb, and Te, used as isolated-atom references rather than NEB images. We therefore find no evidence that fabricated zero-force NEB frames entered the reported training.
+We hard-disabled the affected exporter behavior: an NEB frame without real QE forces cannot be written as a training-format frame. We then audited the hash-bound FT-600K and FT-MultiT train/validation/test files, including the grouped retraining splits. Across 9,163 frames, the only nine exact zero-force frames were explicitly labelled one-atom isolated-atom E0 references (three Cr/Sb/Te records in each full training split); no unclassified or NEB-derived zero-force frame was found. The frame-level manifest, fail-closed checker, input hashes, and result summary are released with this revision under `REV-C8`.

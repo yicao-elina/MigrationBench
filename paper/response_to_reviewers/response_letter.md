@@ -270,18 +270,20 @@ None.
 forces into training-format extxyz files. They asked us to confirm whether those frames were used in the
 reported fine-tuning runs, and to fix the exporters.
 
-**Response.** We agree this is a serious provenance issue. The author's current reconstruction is that
-the affected zero-force NEB extxyz files were not used in the reported FT-600K or FT-MultiT training runs.
-We are treating this as something that needs written evidence, not memory. The remaining step is to
-archive the cluster-side training logs and file manifests showing that the reported models used AIMD
-training frames with real DFT forces, not the zero-force NEB exports.
+**Response.** We agree this is a serious provenance issue. A hash-bound Rockfish audit now covers 9,163
+frames across the reported FT-600K and FT-MultiT splits and the grouped retraining splits. The only nine
+exact all-zero force frames are explicitly labelled one-atom Cr/Sb/Te isolated-atom E0 references; zero
+unclassified or NEB-derived zero-force frames were found. The frame-level manifest, source checksums,
+fail-closed checker, and training provenance specification are released under `REV-C8`.
 
 The exporter behavior itself is being corrected so that forces are exported only when real forces are
 available. Otherwise the script must omit forces or stop with an explicit error; it must not write zeros
 as if they were DFT labels.
 
-**Placeholder before final submission.**  
-`[PLACEHOLDER: zero-force contamination audit verdict; training-log paths; sampled extxyz force checksums; patched exporter commit]`
+**Evidence.**  `docs/audit/revision1/zero_force_verdict.md`,
+`data/processed/cluster/training_provenance/zero_force_training_manifest.csv`,
+`data/processed/cluster/training_provenance/zero_force_training_summary.json`, and
+`scripts/build_zero_force_training_manifest.py`.
 
 **Marked manuscript location.**
 

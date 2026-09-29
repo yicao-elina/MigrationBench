@@ -1,0 +1,21 @@
+schema_version: "1.0"
+reviewer_item: REV-C8
+audit_script: scripts/build_zero_force_training_manifest.py
+source_script_label: "neb_data_collector.py:442-443; neb_to_extended_xyz.py:278-282"
+force_property: "forces:R:3"
+zero_force_policy: fail_on_unclassified_zero_force
+allowed_zero_force_class: isolated_atom_reference
+training_force_weight: 100.0
+rockfish:
+  grouped_root: /scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2
+  grouped_split: data_grouped
+  grouped_scratch5_split: data_grouped_scratch5
+  audit_output: c8_zero_force_audit
+historical_datasets:
+  FT600K: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K
+  FTMultiT: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_Multi_T
+result:
+  total_frames: 9163
+  total_all_zero_force_frames: 9
+  total_unclassified_zero_force_frames: 0
+  acceptance: PASS
