@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Create a hash-bound, frame-level audit manifest for training extxyz files."""
-import argparse, csv, hashlib, json, re
+import argparse, csv, hashlib, json, os, re
+from datetime import datetime
 from pathlib import Path
 
 PROP = re.compile(r'Properties=("[^"]+"|\S+)')
@@ -27,6 +28,7 @@ def prop_start(header: str):
 def audit(path: Path, dataset: str, source_script: str):
     rows, zeros, consecutive = [], [], 0
     file_hash = sha256(path)
+    file_mtime = datetime.utcfromtimestamp(os.path.getmtime(str(path))).isoformat() + 'Z'
     with path.open(errors='replace') as f:
         frame = 0
         while True:
@@ -46,8 +48,10 @@ def audit(path: Path, dataset: str, source_script: str):
             if is_zero: zeros.append(frame)
             is_isolated = 'config_type=IsolatedAtom' in header
             zero_class = 'isolated_atom_reference' if is_zero and is_isolated else ('unclassified_zero_force' if is_zero else 'nonzero')
+            exporter = 'none_detected' if not any(k in header for k in ('path_name=', 'path_id=', 'neb_image=', 'source_neb=')) else 'neb_exporter_lineage_present'
             rows.append({'dataset':dataset,'frame_index':frame,'source_file':str(path),
-                         'source_script':source_script,'source_sha256':file_hash,
+                         'source_script':source_script,'source_exporter':exporter,
+                         'source_file_mtime_utc':file_mtime,'source_sha256':file_hash,
                          'natoms':natoms,'has_force_array':bool(loc),'all_zero_force':is_zero,
                          'zero_force_class':zero_class,
                          'max_abs_force_eV_A':max([abs(v) for v in vals]) if vals else None,

@@ -26,7 +26,7 @@ source_script = neb_data_collector.py:442-443; neb_to_extended_xyz.py:278-282
 remote_audit_root = /scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/c8_zero_force_audit
 ```
 
-The manifest records, per frame: dataset label, frame index, source file, source script label, source file SHA-256, atom count, force-array presence, exact-zero status, zero-force classification, maximum force, consecutive-zero run length, and the source header prefix containing trajectory/source metadata. The summary is fail-closed: `acceptance=PASS` only when the count of unclassified zero-force frames is zero.
+The manifest records, per frame: dataset label, frame index, source file, source script label, explicit `source_exporter` classification, source-file mtime as export-time evidence, source file SHA-256, atom count, force-array presence, exact-zero status, zero-force classification, maximum force, consecutive-zero run length, and the source header prefix containing trajectory/source metadata. For these training files `source_exporter=none_detected`; the header contains no NEB pathway tags. The summary is fail-closed: `acceptance=PASS` only when the count of unclassified zero-force frames is zero.
 
 ## Reviewer response text
 
