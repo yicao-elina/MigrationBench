@@ -618,18 +618,18 @@ The SI latent-analysis methods and code-release notes are marked with \texttt{RE
 \end{quote}
 
 \noindent\textbf{Response.}
-We agree. The original repository did not provide sufficient materials to reproduce the SHAP analysis, and the response will not claim reproducibility from incomplete or placeholder files. The executable SHAP workflow, its input manifests, and the relevant environment specification are being incorporated into the revised release.
+We agree. We removed the misleading empty advertised source trees and released an executable input-driven SHAP workflow at \texttt{scripts/shap\_analysis.py}, together with pinned dependencies in \texttt{environment.yml} and \texttt{requirements-shap.txt}, plus the audit \texttt{docs/audit/c13\_empty\_stub\_audit.md}. The workflow fits the audited Gradient-Boosting surrogate, evaluates 5-fold CV fidelity, and computes TreeSHAP feature importances from the supplied aligned table.
 
-The cross-validated surrogate metrics reported in Response~A6 were obtained from the internal analysis workflow. We will present the SHAP analysis as reproducible from the public release only after the corresponding executable pipeline and documentation are included in the final archive.
+The cross-validated surrogate metrics reported in Response~A6 remain tied to the compact processed outputs in this release. Reproduction from new raw inputs requires supplying the explicitly documented aligned prediction/feature table; omitted cluster checkpoints are not represented as if they were public inputs.
 
 The remaining release-level evidence is:
 
 \begin{center}
-\texttt{[PLACEHOLDER: final-SHAP-code-release-hash]}
+\texttt{C13 release bundle SHA256: c76c826c8a354565b63844a547d795b59f319106bcc2cda9b346ae987b1dad7c}
 \end{center}
 
 \begin{center}
-\texttt{[PLACEHOLDER: final-empty-stub-audit]}
+\texttt{docs/audit/c13\_empty\_stub\_audit.md}
 \end{center}
 
 \noindent\textbf{Manuscript/code change.}

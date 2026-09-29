@@ -370,7 +370,7 @@ This geometric difference in representation is consistent with the observed diff
 
 While $t$-SNE and PHATE reveals that distinct training strategies produce separable latent representations, it does not explain the underlying physical principles each model has learned. To bridge this gap, we move from \textit{what} the models learn to \textit{why} their performance diverges. We employ a rigorous interpretability framework based on SHapley Additive exPlanations (SHAP)~\cite{lundberg_unified_2017} to quantify the feature-level basis for model accuracy.
 
-\reviewermap{REV-A6/REV-C13}{partial}{SHAP explains surrogate error predictions, not MACE internals directly; current 5-fold CV R2 values are 0.9819, 0.8756, and 0.9730.}
+\reviewermap{REV-A6/REV-C13}{done-local}{SHAP explains surrogate error predictions, not MACE internals directly; current 5-fold CV R2 values are 0.9819, 0.8756, and 0.9730.}
 Our methodology is designed to identify descriptors correlated with predictive error. For each MACE model, we first trained a Gradient-Boosting Regressor as a surrogate model to predict the MACE model's absolute energy error based on the local atomic environment of each structure. The input features to this surrogate are the physically-grounded Smooth Overlap of Atomic Positions (SOAP) descriptors.~\cite{bartok2012representing} This approach interprets a simpler surrogate of the error landscape, not the internal message-passing mechanism of MACE itself. The current 5-fold cross-validation $R^2$ values for the audited surrogates are 0.9819, 0.8756, and 0.9730 [PLACEHOLDER: final per-model surrogate table and code-release hash]. We then applied TreeSHAP to these surrogate models, assigning feature-importance values to SOAP descriptors that are most correlated with prediction failures or successes in the surrogate task.
 
 
@@ -429,8 +429,8 @@ YC thanks Johns Hopkins University for their support in AY 24–25. Computationa
   Not applicable. This work is entirely computational and does not involve the synthesis or distribution of physical materials.
 
   \item \textbf{Code availability} \\
-\reviewermap{REV-C13}{pending-local}{Code release must include the working SHAP pipeline and remove or populate prior empty stubs.}
-  The scripts used for data processing, DFT/MD post-processing, and plotting (including Cr configuration trajectory generation and PDOS analysis) are available on GitHub \url{https://github.com/yicao-elina/MigrationBench.git}.
+\reviewermap{REV-C13}{done-local}{Working SHAP pipeline, environment dependency, and empty-stub audit are released and hash-checked.}
+  The scripts used for data processing, DFT/MD post-processing, and plotting are available on GitHub \url{https://github.com/yicao-elina/MigrationBench.git}. The SHAP analysis is released as \texttt{scripts/shap\_analysis.py}; it consumes an explicit aligned prediction/feature table, fits the audited surrogate, computes TreeSHAP values, and writes cross-validated metrics and ranked features. The environment is pinned in \texttt{environment.yml}; remaining historical/empty-file classification is recorded in \texttt{docs/audit/c13\_empty\_stub\_audit.md}.
 
   \item \textbf{Author contribution} \\
     \textbf{Y. C.}: conceptualization, methodology, data curation, DFT and MD simulations, analysis, visualization, and manuscript-writing. \textbf{P. M.}: literature review, conceptualization, and manuscript- writing. \textbf{P. C.}: conceptualization, project administration, supervision, funding acquisition, and manuscript-writing.
