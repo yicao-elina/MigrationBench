@@ -338,20 +338,18 @@ Main-text Sec.~3.2 and the SI Fig.~S3 text and caption are marked with reviewer 
 \end{quote}
 
 \noindent\textbf{Response.}
-We agree that this check is necessary. We have revised the data-splitting procedure so that structures are partitioned by trajectory or pathway provenance rather than by an independent frame-level shuffle. This prevents adjacent or closely related frames from the same trajectory segment from being distributed across training, validation, and test partitions.
+We agree that this check is necessary. We have revised the data-splitting procedure so that structures are partitioned by trajectory or pathway provenance rather than by an independent frame-level shuffle: every source trajectory is assigned in full to train, validation, or test (1,786/311/267 frames), so no trajectory is split across partitions.
 
-The remaining quantitative audit is:
+The completed quantitative audit is:
 
 \begin{center}
-\texttt{[PLACEHOLDER: SOAP-RMSD-overlap-audit]}
+Full grouped training set (1,786 frames): minimum SOAP cosine distance to any in-gap NEB image $= 5.4\times10^{-4}$; minimum comparable Cartesian RMSD $= 2.06$~\AA. Scratch-5\% subset (89 frames): minimum SOAP cosine distance $= 6.4\times10^{-4}$; minimum comparable RMSD $= 2.06$~\AA. Both are far outside the exact/near-duplicate thresholds used for this audit (SOAP $\le10^{-4}$, RMSD $\le0.05$~\AA); zero exact or near-duplicate matches were found for either split.
 \end{center}
 
-This audit now reports the nearest-neighbor SOAP distance between each in-gap NEB image and the FT-600K training set, together with Cartesian RMSD checks for the closest candidate pairs. We report the full nearest-neighbor distance distribution and inspect candidate near-duplicates using both metrics. If the audit identifies overlap or near-duplicate training structures that could materially affect the interpretation, we will retrain FT-600K after excluding the relevant NEB-adjacent trajectory segment and will report the revised barrier errors.
-
-More generally, quantitative results that depended on the original frame-level split are treated as provisional until grouped-split retraining and evaluation are complete.
+We additionally retrained FT-600K (from the OMAT-FT and MACE-MPA-0 checkpoints), Scratch, and Scratch-5\% under this grouped split across seeds 123/234/345 (MPA0: single seed, excluded from seed-uncertainty statistics). On the in-gap pathway 1--4, the absolute fixed-path barrier error relative to the current DFT candidate (0.336050~eV) is $0.474 \pm 0.121$~eV for FT-600K-OMATFT, $1.204 \pm 0.270$~eV for Scratch, $0.678 \pm 0.195$~eV for Scratch-5\%, and $0.237$~eV for the single-seed MPA0 comparator. FT-600K-OMATFT remains the smallest-error fine-tuned model on this pathway, consistent with the original single-model result, but the historical 0.16~eV point estimate is not reproduced under this grouped, multi-seed re-evaluation. We report this directly rather than asserting that the 0.16~eV result survives. The remaining four audited pathways (1--2, 1--3, 1--5, 1--7) were also evaluated under the grouped protocol but are withheld from this comparison pending confirmation of their benchmark classification and DFT-reference identity; retraining FT-Multi\_T under the grouped protocol was not part of this round.
 
 \noindent\textbf{Manuscript change.}
-Methods Sec.~2.1 will be marked with \texttt{REV-A2/REV-C10} near the train/validation/test split description. The NEB results section in Sec.~3.2 will refer to the SI overlap-audit table.
+Methods Sec.~2.1 and the in-gap diffusion results (Sec.~3.3.3) are marked with \texttt{REV-A2/REV-C10}, and Table~S1 in the SI reports the grouped-split RMSE and barrier statistics.
 
 \subsection*{A3. Uncertainty in kinetic results}
 
@@ -362,13 +360,15 @@ Methods Sec.~2.1 will be marked with \texttt{REV-A2/REV-C10} near the train/vali
 \end{quote}
 
 \noindent\textbf{Response.}
-We agree. We have converted this issue into a targeted robustness assessment. Scratch and FT-600K are now trained using seeds 123, 234, and 345 under the revised grouped-split protocol. We report the individual seed-level results, together with the mean and standard deviation of the barrier errors for the in-gap and deep-penetration pathways.
+We agree. We have converted this issue into a targeted robustness assessment. Scratch and FT-600K were trained using seeds 123, 234, and 345 under the revised grouped-split protocol; this training is complete.
+
+For the \emph{in-gap} pathway (1--4), the absolute barrier errors are $0.474 \pm 0.121$~eV (FT-600K-OMATFT) and $1.204 \pm 0.270$~eV (Scratch) across the three seeds (individual seed values: FT-600K-OMATFT 0.613/0.413/0.396~eV; Scratch 1.516/1.036/1.061~eV). For the \emph{deep-penetration} pathway, the multi-seed models have been trained and evaluated on all five audited pathways, but we have not yet confirmed which of the remaining pathway IDs corresponds to the deep-penetration probe used in the original submission, nor closed out the restarted QE reference for it:
 
 \begin{center}
-\texttt{[PLACEHOLDER: multiseed-kinetic-barrier-errors]}
+\texttt{[PLACEHOLDER: deep-penetration pathway classification, converged DFT reference, and seed-level barrier errors]}
 \end{center}
 
-The original ``by chance'' wording will be removed. The revised manuscript now states only what is supported by the multi-seed results: if the Scratch deep-penetration error is consistent across seeds, it is described as robust within this limited seed test; if it varies substantially, we state that the original single-model observation was seed-dependent.
+The original ``by chance'' wording has been removed. For the in-gap pathway, the multi-seed evidence does not support an unqualified ``by chance'' dismissal or an unqualified robustness claim: FT-600K-OMATFT is the smallest-error model with a seed spread of $\pm0.121$~eV, and Scratch shows a comparable seed spread ($\pm0.270$~eV) at a higher absolute error. For the deep-penetration pathway specifically, the revised manuscript will state only what is supported once the pathway classification and DFT reference above are resolved.
 
 \noindent\textbf{Manuscript change.}
 The Sec.~3.2 deep-penetration discussion and Table~S1 are marked with \texttt{REV-A3}.
@@ -402,14 +402,16 @@ The abstract, introduction, research questions, and conclusion are marked with \
 \end{quote}
 
 \noindent\textbf{Response.}
-We agree that this is the appropriate control. The planned Scratch-5\% models will use the same grouped FT-600K training subset, identical MACE hyperparameters, random initialization, and seeds 123, 234, and 345. They will be evaluated using equilibrium RMSE and the same migration-barrier tasks used for the fine-tuned models.
+We agree that this is the appropriate control. The Scratch-5\% models use the same grouped FT-600K training subset (89 frames), identical MACE hyperparameters, random initialization, and seeds 123, 234, and 345; this training is complete and has been evaluated using equilibrium RMSE and the in-gap migration-barrier task used for the fine-tuned models.
 
 \begin{center}
-\texttt{[PLACEHOLDER: scratch-5pct-control-rmse-and-barriers]}
+Test RMSE: $16.7 \pm 9.2$~meV/atom (energy), $341.5 \pm 15.0$~meV/\AA\ (force). Pathway 1--4 absolute barrier error: $0.678 \pm 0.195$~eV, versus $0.474 \pm 0.121$~eV for FT-600K-OMATFT and $1.204 \pm 0.270$~eV for full Scratch.
 \end{center}
 
+On this single pathway and with only $\sim$90 training frames, Scratch-5\% falls between FT-600K and full Scratch, which is consistent with, but does not by itself establish, a foundation-pretraining benefit beyond data volume; we report the comparison at this hedged level given the small sample (one pathway, three seeds). The same comparison against FT-MultiT and against the remaining four audited pathways is not yet available because FT-MultiT was not retrained under the grouped protocol and those pathways await benchmark-classification confirmation.
+
 \noindent\textbf{Manuscript change.}
-Sec.~3.2 and Table~S1 are marked with \texttt{REV-A5}.
+Sec.~3.3.3 and Table~S1 are marked with \texttt{REV-A5}.
 
 \subsection*{A6. Interpretability claims: t-SNE/PHATE and SHAP}
 
@@ -559,15 +561,15 @@ The MD protocol description, transport figure, and SI transport table are marked
 \end{quote}
 
 \noindent\textbf{Response.}
-We agree. The split is being revised to group structures by trajectory or pathway provenance, with explicit zero-overlap checks across training, validation, and test partitions. This change is intended to prevent information leakage through temporally or structurally adjacent configurations.
+We agree. The split has been revised to group structures by trajectory provenance, with explicit zero-overlap checks across training, validation, and test partitions, preventing information leakage through temporally or structurally adjacent configurations.
 
-The final grouped-split retraining and evaluation results remain pending:
+The grouped-split retraining and evaluation are complete:
 
 \begin{center}
-\texttt{[PLACEHOLDER: grouped-split-retrained-rmse]}
+Test RMSE (energy / force, meV/atom / meV/\AA), mean $\pm$ std over seeds 123/234/345: FT-600K-OMATFT $40.7\pm5.0$ / $259.7\pm5.8$; Scratch $30.5\pm3.6$ / $343.6\pm35.9$; Scratch-5\% $16.7\pm9.2$ / $341.5\pm15.0$; MACE-MPA-0 comparator (single seed) $38.7$ / $278.5$.
 \end{center}
 
-Until these results are available, quantitative generalization metrics derived from the original frame-level split will be treated as provisional rather than final evidence of out-of-trajectory performance.
+These grouped-split RMSE values are reported alongside the historical frame-level split values in Table~S1, which is now labelled to distinguish the two splits; quantitative generalization claims in Sec.~3.3.3 use the grouped-split values.
 
 \noindent\textbf{Manuscript/code change.}
 The Methods split description and Table~S1 are marked with \texttt{REV-C10}.
