@@ -309,20 +309,27 @@ Using the current audited pathway~1--4 reference, the fixed-geometry results are
 
 \begin{table}[h]
 \centering
-\caption{Fixed-geometry MLFF barriers evaluated on the DFT NEB pathway~1--4.}
-\begin{tabular}{lrrr}
+\caption{Historical versus current grouped-split fixed-geometry results for pathway~1--4.}
+\begin{tabular}{lcc}
 \toprule
-Model & MLFF barrier (eV) & DFT reference (eV) & Signed error (eV) \\
+Quantity & Value & Interpretation \\
 \midrule
-MACE Foundation & 1.024296 & 0.336050 & +0.688246 \\
-MACE Scratch & 4.537677 & 0.336050 & +4.201627 \\
-MACE FT-600K & 0.496792 & 0.336050 & +0.160742 \\
-MACE FT-MultiT & 0.823040 & 0.336050 & +0.486990 \\
+DFT reference candidate & 0.336050~eV & provisional \texttt{neb.out} value \\
+Historical MACE FT-600K barrier & 0.496792~eV & frame-level, single model \\
+Historical absolute error & 0.160742~eV & $0.496792-0.336050$; not reproduced \\
+Grouped OMAT-FT absolute error & $0.474\pm0.121$~eV & seeds 123/234/345 \\
+Grouped Scratch absolute error & $1.204\pm0.270$~eV & seeds 123/234/345 \\
+Grouped Scratch-5\% absolute error & $0.678\pm0.195$~eV & seeds 123/234/345 \\
+Grouped MPA0 comparator & 0.237~eV & single seed; no uncertainty estimate \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+The historical $0.16$~eV value is therefore retained only to explain the reviewer comment; it is not substituted for, or identified with, the current DFT reference of $0.336050$~eV. The complete seed-level comparison, including explicit placeholders for the unresolved deep-penetration and grouped FT-Multi$_T$ measurements, is maintained in the grouped comparison table used by the manuscript/SI.
+
 The 0.41~eV value in SI Fig.~S3 is now described as the Foundation model's self-consistent MLFF-NEB barrier rather than a fixed-path DFT-reference error, for better clarity. We have also removed language implying that this result is ``exceptional.'' Instead, the revised text will describe it more narrowly as evidence that the Foundation model can produce a stable path under its own NEB optimization protocol.
+
+As an additional matched fixed-path check, we evaluated ten Foundation checkpoints (MP-0b3, MPA0, OMAT-0 small/medium, MH-0/MH-1, Agnesi medium, and three Agnesi stress/density variants) on the same five pathway-1--4 images. The four representative checkpoints MP-0b3, MPA0, OMAT-0 medium, and MH-1 gave barriers of 1.503, 1.791, 1.602, and 1.841~eV, respectively, relative to the provisional 0.336050~eV DFT candidate. Their absolute errors therefore range from 1.17 to 1.50~eV, and MPA0 is not the kinetic-accuracy winner in this completed comparison. The ten individual profiles and family-aggregated profiles are added to the SI. The family bands represent sub-model variation, not seed uncertainty; all foundation checkpoints are single-checkpoint comparisons. The complete preflight manifest, raw profiles, profile diagnostics, and SHA256 ledger are released with the revision artifacts.
 
 We have added a side-by-side SI table reporting, for each NEB result, the pathway, endpoint definition, image source, relaxation engine, energy engine, barrier definition, DFT reference where applicable, and convergence status.
 

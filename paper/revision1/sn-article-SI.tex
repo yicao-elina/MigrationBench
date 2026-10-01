@@ -253,20 +253,21 @@ All developed Machine-Learned Force Fields (MLFFs) show low near-equilibrium ene
 
 \begin{table}[htbp]
     \centering
-    \caption{Grouped-split (trajectory-level) retraining results, 3 seeds (123/234/345) unless noted. Barrier error is the absolute fixed-path error on in-gap pathway 1--4 relative to the DFT candidate reference (0.336050~eV, provisional pending final QE convergence).}
+    \caption{\textbf{Grouped-split (trajectory-level) MACE comparison across accuracy and migration probes.} Values are 3-seed means $\pm$ sample standard deviations (seeds 123/234/345) unless noted. Barrier error is the absolute fixed-path error on in-gap pathway 1--4 relative to the provisional DFT candidate reference (0.336050~eV, pending final QE convergence). Deep-penetration and grouped FT-Multi$_T$ values remain explicit placeholders.}
     \label{tab:mace_performance_grouped}
-    \begin{tabular}{lccc}
+    \begin{tabular}{lcccc}
         \toprule
-        \textbf{Model (grouped split)} & \textbf{Test RMSE E (meV/atom)} & \textbf{Test RMSE F (meV/\AA)} & \textbf{Pathway 1--4 $|$error$|$ (eV)} \\
+        \textbf{Model (grouped split)} & \textbf{Test RMSE E (meV/atom)} & \textbf{Test RMSE F (meV/\AA)} & \textbf{Pathway 1--4 $|$error$|$ (eV)} & \textbf{Deep penetration $|$error$|$ (eV)} \\
         \midrule
-        FT-600K (OMAT-FT start) & $40.7 \pm 5.0$ & $259.7 \pm 5.8$ & $0.474 \pm 0.121$ \\
-        Scratch & $30.5 \pm 3.6$ & $343.6 \pm 35.9$ & $1.204 \pm 0.270$ \\
-        Scratch-5\% & $16.7 \pm 9.2$ & $341.5 \pm 15.0$ & $0.678 \pm 0.195$ \\
-        FT-600K (MACE-MPA-0 start, single seed) & $38.7$ & $278.5$ & $0.237$ \\
+        FT-600K (OMAT-FT start) & $40.7 \pm 5.0$ & $259.7 \pm 5.8$ & $0.474 \pm 0.121$ & \texttt{[PLACEHOLDER]} \\
+        Scratch & $30.5 \pm 3.6$ & $343.6 \pm 35.9$ & $1.204 \pm 0.270$ & \texttt{[PLACEHOLDER]} \\
+        Scratch-5\% & $16.7 \pm 9.2$ & $341.5 \pm 15.0$ & $0.678 \pm 0.195$ & \texttt{[PLACEHOLDER]} \\
+        FT-600K (MACE-MPA-0 start, single seed) & $38.7$ & $278.5$ & $0.237$ & \texttt{[PLACEHOLDER]} \\
+        FT-Multi$_T$ (grouped) & \texttt{[PLACEHOLDER]} & \texttt{[PLACEHOLDER]} & \texttt{[PLACEHOLDER]} & \texttt{[PLACEHOLDER]} \\
         \bottomrule
     \end{tabular}
 \end{table}
-Barrier statistics use the same five NEB images per pathway as the historical evaluation. FT-Multi\_T was not retrained under the grouped protocol in this round and is not included in this table. Pathways 1--2, 1--3, 1--5, and 1--7 were also evaluated under the grouped protocol but are withheld from this table pending confirmation of their benchmark classification and DFT-reference identity.
+Barrier statistics use the same five NEB images per pathway as the historical evaluation. FT-Multi\_T was not retrained under the grouped protocol in this round; its row is therefore a placeholder rather than a zero. Pathways 1--2, 1--3, 1--5, and 1--7 were also evaluated under the grouped protocol but are withheld from this table pending confirmation of their benchmark classification and DFT-reference identity.
 
 A deeper analysis of the training dynamics reveals important characteristics of the models. The model trained from scratch exhibits a relatively small gap between training (67.1 meV/\AA) and validation (76.1 meV/\AA) force RMSEs. While this suggests only moderate overfitting, its high error across all datasets indicates that it underfits the true physical interactions.
 
@@ -447,6 +448,17 @@ These features were concatenated into a single vector per configuration, normali
 \subsubsection{In-Gap Diffusion}
 \reviewermap{REV-A2/REV-A5/REV-C10}{done-local}{In-gap hierarchy is now supported by grouped-split, multi-seed retraining, overlap audit, and Scratch-5\% control (Table~\ref{tab:mace_performance_grouped}).}
 This pathway tests interpolative accuracy, as the atomic environments are expected to be closer to equilibrium configurations than the deep-penetration path. Under the grouped split, train--test proximity audit, and 3-seed retraining (Table~\ref{tab:mace_performance_grouped}), FT-600K (OMAT-FT start) remains the lowest fixed-path barrier-error fine-tuned model on pathway 1--4 ($0.474 \pm 0.121$~eV), followed by Scratch-5\% ($0.678 \pm 0.195$~eV) and Scratch ($1.204 \pm 0.270$~eV); the historical single-seed frame-level estimate of 0.16~eV is not reproduced under this grouped, multi-seed protocol. This single-pathway comparison supports task-relevant fine-tuning as a contributing factor but is not extended to the other audited pathways or to FT-Multi\_T, which was not part of this grouped-retraining round.
+
+For a matched foundation-model comparison, we evaluated ten single-checkpoint models on the same five fixed images. The four main representatives (MP-0b3, MPA0, OMAT-0 medium, and MH-1) produced pathway-1--4 barriers of 1.503, 1.791, 1.602, and 1.841~eV, respectively, against the provisional DFT reference of 0.336050~eV. The ten individual profiles are shown in Fig.~\ref{fig:foundation_profiles}a and the family means with pointwise $\pm1$ standard-deviation bands are shown in Fig.~\ref{fig:foundation_profiles}b. The family bands describe variation among sub-models within each foundation family, not seed uncertainty. The profiles are qualitatively smooth but systematically elevated relative to the DFT reference, reinforcing that equilibrium accuracy and fixed-path migration fidelity are distinct observables.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\textwidth]{revision1/figures/foundation_grouped/path_1-4_energy_profiles_corrected.pdf}
+    \hfill
+    \includegraphics[width=0.49\textwidth]{revision1/figures/foundation_grouped/path_1-4_energy_profiles_family_aggregated.pdf}
+    \caption{\textbf{Foundation-model fixed-path energy profiles for pathway~1--4.} (a) Relative-energy profiles for all ten foundation checkpoints evaluated on the same five DFT-path images. (b) Family-aggregated profiles for Agnesi, MH, MP, and OMAT; shaded bands denote pointwise $\pm1$ standard deviation across sub-models within each family, not training-seed uncertainty. The DFT reference is the provisional 0.336050~eV barrier candidate. These are fixed-image single-point profiles; no model-relaxed NEB convergence is implied.}
+    \label{fig:foundation_profiles}
+\end{figure}
 
 \subsubsection{Deep Penetration}
 This pathway creates severe lattice distortions as Cr pushes through covalently bonded layers, accessing configurations far from the training distribution. The universal failure at transition states, despite accurate endpoint predictions, reveals how models trained on near-equilibrium data develop strong inductive biases that break down for strained configurations.
