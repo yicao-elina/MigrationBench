@@ -169,8 +169,8 @@ The multi-temperature fine-tuning model (FT-Multi\_T) was constructed by combini
 
 For the 600~K single-temperature fine-tuning model (FT-600K), we selected exactly 5\% of frames from the 600~K AIMD trajectories. Subsampling was performed independently for each trajectory via uniform temporal downsampling (i.e., retaining every $N$th step), which is equivalent to uniform random sampling due to the absence of periodic temporal correlations. The subsampled frames were merged into a single dataset containing approximately 1000 configurations. This subset captures the full structural variability at 600~K, a temperature representative of realistic thermoelectric operating conditions, lying near two-thirds of the melting point of Sb$_2$Te$_3$ and exhibiting significant anharmonic dynamics without structural degradation.
 
-\reviewermap{REV-A2/REV-C10}{pending}{Grouped split and train/test overlap audit must be documented once SOAP/RMSD values are available.}
-Both FT-600K and FT-Multi\_T models were compared using the same split-generation rule so that differences between models are not produced by repartitioning alone. Splits are assigned at the trajectory/configuration-family level rather than independently per frame, preventing near-duplicate structures from appearing in both training and test partitions. We additionally audit benchmark-path proximity using nearest-neighbor SOAP distance and Cartesian RMSD to the training set [PLACEHOLDER: FT-600K and FT-Multi-T nearest-neighbor SOAP/RMSD statistics]. These values will be reported with the final benchmark-path proximity table.
+\reviewermap{REV-A2/REV-C10}{done-local}{Grouped split and train/test overlap audit are complete for FT-600K (OMAT-FT/MPA0 starts) and Scratch/Scratch-5\%; SOAP/RMSD values are reported below.}
+FT-600K, Scratch, and Scratch-5\% were retrained under a grouped split in which entire source trajectories are assigned to train, validation, or test, preventing near-duplicate structures from appearing in both training and test partitions (1,786/311/267 frames for the full grouped split; 89/311/267 for Scratch-5\%). We additionally audit benchmark-path proximity using nearest-neighbor SOAP cosine distance and Cartesian RMSD between each in-gap NEB image and the training set. For the full grouped training set, the minimum SOAP cosine distance is $5.4\times10^{-4}$ and the minimum comparable RMSD is 2.06~\AA; for the Scratch-5\% subset, the corresponding values are $6.4\times10^{-4}$ and 2.06~\AA. No exact or near-duplicate NEB-image/training-frame matches were found under the declared thresholds (SOAP $\le10^{-4}$, RMSD $\le0.05$~\AA) for either split. FT-Multi\_T was not included in this grouped-retraining round, so its proximity statistics remain historical (frame-level split) and are not reported here.
 % corresponding structures occupy identical partitions in both cases.
 
 % Fine-tuning foundation models for chemically complex chalcogenides requires balancing adaptation to new bonding motifs against preservation of transferable learned representations. The unified protocol described above provides a controlled and reproducible framework for evaluating domain adaptation across temperatures and data regimes.
@@ -231,10 +231,10 @@ Both FT-600K and FT-Multi\_T models were compared using the same split-generatio
 \section{Supplementary Materials}
 \subsection{MACE Model Performance Evaluation by RMSE}
 
-\reviewermap{REV-A2/REV-C10}{pending}{RMSE table is retained as a near-equilibrium baseline; grouped-split retraining and SOAP/RMSD overlap audits remain pending.}
-All developed Machine-Learned Force Fields (MLFFs) show low near-equilibrium energy and force errors in the current parity-plot audit (Figure~\ref{fig:mace_parity}), which compares model predictions to the reference DFT calculations. The performance of each model across the training, validation, and test sets is quantitatively summarized in Table~\ref{tab:mace_performance_detailed}. These values are used as a baseline pointwise-accuracy diagnostic rather than as final evidence of out-of-trajectory generalization. The final grouped-split retraining and benchmark-path proximity audit will report updated RMSE values and nearest-neighbor SOAP/RMSD distances [PLACEHOLDER: grouped-split-retrained-rmse and SOAP-RMSD-overlap-audit].
+\reviewermap{REV-A2/REV-C10}{done-local}{RMSE table is retained as a near-equilibrium baseline (historical frame-level split); grouped-split retraining and SOAP/RMSD overlap audits are now reported in Table~\ref{tab:mace_performance_grouped} below.}
+All developed Machine-Learned Force Fields (MLFFs) show low near-equilibrium energy and force errors in the current parity-plot audit (Figure~\ref{fig:mace_parity}), which compares model predictions to the reference DFT calculations. The performance of each model across the training, validation, and test sets is quantitatively summarized in Table~\ref{tab:mace_performance_detailed}. These values are used as a baseline pointwise-accuracy diagnostic rather than as final evidence of out-of-trajectory generalization. Table~\ref{tab:mace_performance_grouped} reports the corresponding grouped-split, multi-seed retraining RMSE values and the pathway-1--4 barrier-error statistics used to address REV-A2/REV-A3/REV-A5/REV-C10.
 
-\reviewermap{REV-A3/REV-A5}{pending-cluster}{Final tables will add kinetic multi-seed uncertainty and Scratch-5 percent same-data-volume control once runs are complete.}
+\reviewermap{REV-A3/REV-A5}{partial}{Grouped-split multi-seed retraining (Scratch, FT-600K, Scratch-5\%) is complete; kinetic uncertainty and Scratch-5\% control are reported for the in-gap pathway (Table~\ref{tab:mace_performance_grouped}), deep-penetration statistics remain pending.}
 \begin{table}[htbp]
     \centering
     \caption{Performance metrics for MACE models across training, validation, and test sets. The FT-600K metrics are the mean $\pm$ standard deviation across three independent training runs with different random seeds.}
@@ -250,6 +250,24 @@ All developed Machine-Learned Force Fields (MLFFs) show low near-equilibrium ene
         \bottomrule
     \end{tabular}
 \end{table}
+
+\begin{table}[htbp]
+    \centering
+    \caption{\textbf{Grouped-split (trajectory-level) MACE comparison across accuracy and migration probes.} Values are 3-seed means $\pm$ sample standard deviations (seeds 123/234/345) unless noted. Barrier error is the absolute fixed-path error on in-gap pathway 1--4 relative to the provisional DFT candidate reference (0.336050~eV, pending final QE convergence). Deep-penetration and grouped FT-Multi$_T$ values remain explicit placeholders.}
+    \label{tab:mace_performance_grouped}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Model (grouped split)} & \textbf{Test RMSE E (meV/atom)} & \textbf{Test RMSE F (meV/\AA)} & \textbf{Pathway 1--4 $|$error$|$ (eV)} & \textbf{Deep penetration $|$error$|$ (eV)} \\
+        \midrule
+        FT-600K (OMAT-FT start) & $40.7 \pm 5.0$ & $259.7 \pm 5.8$ & $0.474 \pm 0.121$ & \texttt{[PLACEHOLDER]} \\
+        Scratch & $30.5 \pm 3.6$ & $343.6 \pm 35.9$ & $1.204 \pm 0.270$ & \texttt{[PLACEHOLDER]} \\
+        Scratch-5\% & $16.7 \pm 9.2$ & $341.5 \pm 15.0$ & $0.678 \pm 0.195$ & \texttt{[PLACEHOLDER]} \\
+        FT-600K (MACE-MPA-0 start, single seed) & $38.7$ & $278.5$ & $0.237$ & \texttt{[PLACEHOLDER]} \\
+        FT-Multi$_T$ (grouped) & \texttt{[PLACEHOLDER]} & \texttt{[PLACEHOLDER]} & \texttt{[PLACEHOLDER]} & \texttt{[PLACEHOLDER]} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+Barrier statistics use the same five NEB images per pathway as the historical evaluation. FT-Multi\_T was not retrained under the grouped protocol in this round; its row is therefore a placeholder rather than a zero. Pathways 1--2, 1--3, 1--5, and 1--7 were also evaluated under the grouped protocol but are withheld from this table pending confirmation of their benchmark classification and DFT-reference identity.
 
 A deeper analysis of the training dynamics reveals important characteristics of the models. The model trained from scratch exhibits a relatively small gap between training (67.1 meV/\AA) and validation (76.1 meV/\AA) force RMSEs. While this suggests only moderate overfitting, its high error across all datasets indicates that it underfits the true physical interactions.
 
@@ -428,13 +446,24 @@ These features were concatenated into a single vector per configuration, normali
 \end{figure}
 
 \subsubsection{In-Gap Diffusion}
-\reviewermap{REV-A2/REV-A5/REV-C10}{pending}{In-gap hierarchy is provisional until overlap audit, grouped split, and Scratch-5 percent control are complete.}
-This pathway tests interpolative accuracy, as the atomic environments are expected to be closer to equilibrium configurations than the deep-penetration path. The current single-model comparison suggests that task-relevant fine-tuning can improve fixed-path barrier accuracy, but the interpretation remains provisional until the train--test proximity audit, grouped-split retraining, and Scratch-5\% same-data-volume control are complete [PLACEHOLDER: in-gap SOAP/RMSD audit and Scratch-5\% control].
+\reviewermap{REV-A2/REV-A5/REV-C10}{done-local}{In-gap hierarchy is now supported by grouped-split, multi-seed retraining, overlap audit, and Scratch-5\% control (Table~\ref{tab:mace_performance_grouped}).}
+This pathway tests interpolative accuracy, as the atomic environments are expected to be closer to equilibrium configurations than the deep-penetration path. Under the grouped split, train--test proximity audit, and 3-seed retraining (Table~\ref{tab:mace_performance_grouped}), FT-600K (OMAT-FT start) remains the lowest fixed-path barrier-error fine-tuned model on pathway 1--4 ($0.474 \pm 0.121$~eV), followed by Scratch-5\% ($0.678 \pm 0.195$~eV) and Scratch ($1.204 \pm 0.270$~eV); the historical single-seed frame-level estimate of 0.16~eV is not reproduced under this grouped, multi-seed protocol. This single-pathway comparison supports task-relevant fine-tuning as a contributing factor but is not extended to the other audited pathways or to FT-Multi\_T, which was not part of this grouped-retraining round.
+
+For a matched foundation-model comparison, we evaluated ten single-checkpoint models on the same five fixed images. The four main representatives (MP-0b3, MPA0, OMAT-0 medium, and MH-1) produced pathway-1--4 barriers of 1.503, 1.791, 1.602, and 1.841~eV, respectively, against the provisional DFT reference of 0.336050~eV. The ten individual profiles are shown in Fig.~\ref{fig:foundation_profiles}a and the family means with pointwise $\pm1$ standard-deviation bands are shown in Fig.~\ref{fig:foundation_profiles}b. The family bands describe variation among sub-models within each foundation family, not seed uncertainty. The profiles are qualitatively smooth but systematically elevated relative to the DFT reference, reinforcing that equilibrium accuracy and fixed-path migration fidelity are distinct observables.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\textwidth]{revision1/figures/foundation_grouped/path_1-4_energy_profiles_corrected.pdf}
+    \hfill
+    \includegraphics[width=0.49\textwidth]{revision1/figures/foundation_grouped/path_1-4_energy_profiles_family_aggregated.pdf}
+    \caption{\textbf{Foundation-model fixed-path energy profiles for pathway~1--4.} (a) Relative-energy profiles for all ten foundation checkpoints evaluated on the same five DFT-path images. (b) Family-aggregated profiles for Agnesi, MH, MP, and OMAT; shaded bands denote pointwise $\pm1$ standard deviation across sub-models within each family, not training-seed uncertainty. The DFT reference is the provisional 0.336050~eV barrier candidate. These are fixed-image single-point profiles; no model-relaxed NEB convergence is implied.}
+    \label{fig:foundation_profiles}
+\end{figure}
 
 \subsubsection{Deep Penetration}
 This pathway creates severe lattice distortions as Cr pushes through covalently bonded layers, accessing configurations far from the training distribution. The universal failure at transition states, despite accurate endpoint predictions, reveals how models trained on near-equilibrium data develop strong inductive biases that break down for strained configurations.
 
-The scratch model's lower error on this OOD task is therefore treated cautiously. Because the path samples highly strained configurations and the current DFT NEB references are being consolidated through restarted QE calculations, we do not interpret the lower error as evidence of a more physical PES. The completed analysis will report the converged DFT reference and multi-seed model statistics [PLACEHOLDER: deep-penetration reference barriers, model barrier errors, and seed variance]. The robust conclusion at this stage is that near-equilibrium test errors are insufficient predictors of rare-event barrier accuracy.
+The scratch model's lower error on this OOD task is therefore treated cautiously. Grouped-split, multi-seed retraining of Scratch, FT-600K, and Scratch-5\% is now complete, but the deep-penetration pathway identity among the remaining audited pathways (1--2, 1--3, 1--5, 1--7) and their DFT-reference convergence status have not yet been confirmed, so model barrier errors for this specific OOD probe remain pending [PLACEHOLDER: deep-penetration pathway classification, converged DFT reference, and multi-seed barrier errors]. The robust conclusion at this stage is that near-equilibrium test errors are insufficient predictors of rare-event barrier accuracy.
 \subsubsection{Implications for MLFF Development}
 
 These findings highlight critical considerations for practical MLFF deployment:
