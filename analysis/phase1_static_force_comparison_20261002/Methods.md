@@ -23,6 +23,15 @@ assumed dopant mapping.
 
 ## Model evaluation
 
+For consistency with the manuscript and earlier benchmark tables, the canonical
+display names are `Scratch`, `FT-600K`, `FT-MultiT`, and `Foundation`. The stable
+machine identifiers remain `from_scratch`, `naive_ft`, `multi_t`, and
+`foundation`, respectively. `FT-600K` denotes the single-temperature model
+whose provenance path contains `MACE-multihead_600K`; `FT-MultiT` denotes the
+multi-temperature fine-tuned model. The `Foundation` display label refers to
+the OMAT foundation checkpoint, while `OMAT` remains explicit in provenance
+metadata and file paths.
+
 Each snapshot was evaluated once with each existing model (16 evaluations total)
 using the Rockfish MACE environment and a single A100 GPU. The run was submitted
 as Slurm job 31511914. The evaluator recorded model path, observed SHA256, input
@@ -42,7 +51,7 @@ largest pairwise force-vector spread at each step. Geometry diagnostics include
 cell volume, minimum periodic pair distance, and local-shell population.
 
 Absolute energies are retained, but cross-model energy offsets are not interpreted
-as physical ranking because the Foundation-OMAT energy zero differs from the
+as physical ranking because the Foundation energy zero differs from the
 Cr-specific models by approximately 1.9 million eV for this 2,050-atom cell.
 Within-model energy changes and pairwise force/stress differences are the
 interpretable quantities in this phase.

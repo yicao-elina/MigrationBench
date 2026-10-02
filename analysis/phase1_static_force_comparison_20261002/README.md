@@ -4,6 +4,18 @@ This directory is an isolated, additive artifact. It contains the exact common
 inputs, source/model provenance, 16 Rockfish single-point outputs, analysis CSVs,
 and Plot Atlas-style publication figures.
 
+Canonical model display names used consistently in figures, tables, and prose:
+
+| Stable model ID | Canonical display name | Provenance meaning |
+|---|---|---|
+| `from_scratch` | Scratch | model trained from scratch |
+| `naive_ft` | FT-600K | single-temperature 600 K fine-tuning |
+| `multi_t` | FT-MultiT | multi-temperature fine-tuning |
+| `foundation` | Foundation | OMAT foundation checkpoint |
+
+The stable IDs remain unchanged in machine-readable records; only human-facing
+labels use the canonical names above.
+
 Main entry points:
 
 - `inputs/snapshot_manifest.json`: exact step selection, species/cell/PBC/key-atom checks.

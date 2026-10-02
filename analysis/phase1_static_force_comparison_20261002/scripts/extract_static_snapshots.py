@@ -93,7 +93,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--source", required=True, type=Path)
     ap.add_argument("--output-dir", required=True, type=Path)
-    ap.add_argument("--label", default="from-scratch-reference")
+    ap.add_argument("--label", default="Scratch-reference")
     args = ap.parse_args()
     out = args.output_dir
     out.mkdir(parents=True, exist_ok=True)

@@ -35,7 +35,7 @@ ATLAS_PALETTE = get_palette("nature_gdml_accuracy")
 ATLAS_SEQUENTIAL = get_palette("descriptor_reduction")["sequential"]
 COLORS = dict(zip(("from_scratch", "naive_ft", "multi_t", "foundation"), ATLAS_PALETTE["categorical"][:4]))
 COLORS["ensemble"] = ATLAS_PALETTE["neutral"]
-LABELS = {"foundation": "Foundation-OMAT", "naive_ft": "naive-FT", "multi_t": "multi-T FT", "from_scratch": "from-scratch", "ensemble": "4-model mean"}
+LABELS = {"foundation": "Foundation", "naive_ft": "FT-600K", "multi_t": "FT-MultiT", "from_scratch": "Scratch", "ensemble": "4-model mean"}
 
 
 def style_axis(ax):
