@@ -281,7 +281,7 @@ Notably, both fine-tuning strategies—whether using single-temperature (600 K) 
 \begin{figure}[ht]
     \includegraphics[width=0.8\textwidth]{Fig/NeurIPS2025-AI4MAT-figure2.png}
     \centering
-    \caption{\textbf{Radial distribution function (RDF) analysis of Cr-doped Sb$_2$Te$_3$ at 600 K.} (a) Schematic illustration of the local atomic environment around a Cr dopant (purple) in the Sb$_2$Te$_3$ lattice, showing the first coordination shell of Te atoms (gold) and second-shell Sb atoms (orange). The dashed circles indicate the radial distances used for RDF calculation. (b-f) Computed RDFs for different atom pairs from molecular dynamics simulations: (b) Ab initio molecular dynamics (AIMD) ground truth reference, (c) MACE foundation model without fine-tuning, (d) MACE model trained from scratch on Cr-Sb$_2$Te$_3$ data, (e) MACE model fine-tuned with 600 K AIMD data (``FT - 600K''), and (f) MACE model fine-tuned with multi-temperature AIMD data (``FT - Multi-T''). All simulations were performed at 600 K with 5$\times$5$\times$1 supercells for 200 ps. The RDF peaks correspond to characteristic interatomic distances in the doped structure, with the first peak representing nearest-neighbor correlations.}
+    \caption{\textbf{Radial distribution function (RDF) analysis of Cr-doped Sb$_2$Te$_3$ at 600 K.} (a) Schematic illustration of the local atomic environment around a Cr dopant (purple) in the Sb$_2$Te$_3$ lattice, showing the first coordination shell of Te atoms (gold) and second-shell Sb atoms (orange). The dashed circles indicate the radial distances used for RDF calculation. (b-f) Computed RDFs for different atom pairs from molecular dynamics simulations: (b) Ab initio molecular dynamics (AIMD) ground truth reference, (c) MACE foundation model without fine-tuning, (d) MACE model trained from scratch on Cr-Sb$_2$Te$_3$ data, (e) MACE model fine-tuned with 600 K AIMD data (``FT-600K''), and (f) MACE model fine-tuned with multi-temperature AIMD data (``FT-MultiT''). All simulations were performed at 600 K with 5$\times$5$\times$1 supercells for 200 ps. The RDF peaks correspond to characteristic interatomic distances in the doped structure, with the first peak representing nearest-neighbor correlations.}
     \label{fig:rdf}
 \end{figure}
 
@@ -295,7 +295,7 @@ The thermal conductivity analysis reveals even more fundamental differences. The
 
 \begin{table}[htbp]
     \centering
-    \caption{\textbf{Audited molecular-dynamics transport metrics.} Values are computed from the Revision~1 local re-analysis with block uncertainties. The FT-600K transport trajectory remains quarantined because the current local source corresponds to the shorter naive-FT run rather than the corrected long-run protocol.}
+    \caption{\textbf{Audited molecular-dynamics transport metrics.} Values are computed from the Revision~1 local re-analysis with block uncertainties. The FT-600K transport trajectory remains quarantined because the current local source corresponds to the shorter FT-600K run rather than the corrected long-run protocol.}
     \label{tab:md_transport_revised}
     \input{tables/md_transport_metrics.tex}
 \end{table}

@@ -115,8 +115,8 @@ Model barriers and errors:
 
 | Model | Barrier (eV) | Signed Error vs DFT (eV) |
 |---|---:|---:|
-| MACE FT - 600K | 0.4967923920 | +0.1607424058 |
-| MACE FT - Multi-T | 0.8230399404 | +0.4869899542 |
+| FT-600K | 0.4967923920 | +0.1607424058 |
+| FT-MultiT | 0.8230399404 | +0.4869899542 |
 | MACE Foundation | 1.0242956897 | +0.6882457035 |
 | MACE Scratch | 4.5376770418 | +4.2016270556 |
 

@@ -20,7 +20,7 @@ def main() -> None:
     root = Path(__file__).resolve().parents[1]
     data = root / "data" / "processed"
     dft = pick(rows(data / "dft_neb_barriers.csv"), path="1-4")
-    shap = pick(rows(data / "shap_surrogate_r2_revised.csv"), model="FT - 600K")
+    shap = pick(rows(data / "shap_surrogate_r2_revised.csv"), model="FT-600K")
     md = pick(rows(data / "md_transport_metrics.csv"), model="FT-MultiT")
     barrier = dft.get("barrier_eV") or dft.get("barrier_ev")
     r2 = shap.get("r2_5fold_cv")

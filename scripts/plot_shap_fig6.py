@@ -20,9 +20,9 @@ def main() -> None:
     pivot = top.pivot_table(index="feature", columns="model", values="mean_abs_shap_eV", fill_value=0)
     pivot = pivot.loc[pivot.max(axis=1).sort_values(ascending=False).index]
     fig, axes = plt.subplots(1, 2, figsize=(12, 6), gridspec_kw={"width_ratios": [1, 1.25]})
-    best = top[top.model == "FT - Multi-T"].sort_values("mean_abs_shap_eV").tail(20)
+    best = top[top.model == "FT-MultiT"].sort_values("mean_abs_shap_eV").tail(20)
     axes[0].barh(best.feature, best.mean_abs_shap_eV, color="#68ACE5")
-    axes[0].set_title("FT–Multi-T surrogate")
+    axes[0].set_title("FT-MultiT surrogate")
     axes[0].set_xlabel("mean |TreeSHAP| (eV)")
     image = axes[1].imshow(pivot.to_numpy(), aspect="auto", cmap="Blues")
     axes[1].set_xticks(range(len(pivot.columns)), pivot.columns, rotation=35, ha="right")

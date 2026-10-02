@@ -61,7 +61,7 @@ These protocols therefore answer different questions: fixed-geometry evaluation 
 energy prediction on a DFT-defined path, whereas self-consistent MLFF NEB tests whether the model's
 forces can generate a stable migration path. For the audited in-gap path 1-4, the current
 fixed-geometry barriers are 1.024~eV for MACE Foundation, 4.538~eV for MACE Scratch, 0.497~eV for
-FT--600K, and 0.823~eV for FT--MultiT, corresponding to signed errors of +0.688, +4.202, +0.161,
+FT-600K, and 0.823~eV for FT--MultiT, corresponding to signed errors of +0.688, +4.202, +0.161,
 and +0.487~eV relative to the current DFT reference candidate of 0.336050~eV. The Foundation
 self-consistent MLFF NEB barrier reported in Fig.~S3 is 0.41~eV; this value is a model-relaxed
 MLFF barrier, not a fixed-path DFT-reference error. We therefore report the two protocols
@@ -120,7 +120,7 @@ migration. (a) Visualization of the endpoint structures used to initialize the d
 MLFF barrier of 0.41~eV. This self-consistent MLFF NEB protocol is distinct from the fixed-geometry
 DFT-path energy evaluation shown in the main text. (c) The evolution of the relative system energy
 (top panel) and maximum force ($f_{\max}$, bottom panel) during the MLFF NEB optimization for each
-model. The Foundation model converges smoothly under this protocol, whereas Scratch, FT--600K, and
+model. The Foundation model converges smoothly under this protocol, whereas Scratch, FT-600K, and
 FT--MultiT exhibit unstable force growth leading to termination.}
 ```
 
