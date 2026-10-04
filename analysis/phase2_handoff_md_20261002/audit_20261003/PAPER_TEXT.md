@@ -46,13 +46,18 @@ The neighboring snapshots provide a bounded context check rather than a new
 causal claim. Starting from 460000, Foundation-OMAT crosses the force gate at
 step 460180 while from-scratch, naive-FT, and Multi-T remain finite and below
 all catastrophic gates for the 2 ps handoff. The 462200 state is already a
-stress/context state at the handoff boundary: all four models cross a
-diagnostic force gate at the source step, so those four runs are retained only
-as counterfactual context and are not used as evidence that the models create
-the initial stress state. For both snapshots, the input, position, momentum,
-cell, species, and PBC checks pass across all four models. The complete audit
-is in `analysis/phase2_context_handoff_20261004/CONTEXT_RESULTS.md` and
-`audit_results.json`.
+stress/collapse context state at the handoff boundary: its input minimum
+distance is 0.629 Å, below the 1.5 Å physical gate, and all four models cross
+a diagnostic force gate at the source step. Those four runs are therefore
+retained only as counterfactual context and are not evidence that the models
+create the initial stress state; they are excluded from DFT input selection.
+In the physically admissible 460000 context window, Foundation-OMAT first
+crosses the force gate at step 460180, with Te atom 582 as the maximum-force
+atom, while the other three models remain below the catastrophic gates for 2
+ps. For both snapshots, the input, position, momentum, cell, species, and PBC
+checks pass across all four models. The complete audit and local neighborhoods
+are in `analysis/phase2_context_handoff_20261004/CONTEXT_RESULTS.md`,
+`audit_results.json`, and `context_anomaly_local_neighborhood.json`.
 
 Taken together with the canonical 461800/462000 handoff, the publishable
 conclusion is: under exactly matched positions, momenta, cell, species and MD
