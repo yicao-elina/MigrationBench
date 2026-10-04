@@ -24,6 +24,13 @@ force spread increases from 1.29 eV Å^-1 at step 460000 to 5.07, 55.22, and
 4,565.24 eV Å^-1. This is a clear geometry/force-integrity failure regime, not
 ordinary small model noise.
 
+The 0.629 Å step-462200 configuration is therefore marked as a nonphysical
+instability regime and is excluded from formal DFT, diffusion, and barrier
+statistics. Importantly, this static panel evaluates model responses on
+preselected identical geometries; force disagreement alone does not establish
+that the geometry itself was already destined to collapse, or identify which
+integration, thermostat, or local-PES mechanism initiated the later runaway.
+
 At the first two snapshots, pairwise mean vector-force differences remain about
 0.14–0.23 eV Å^-1. At step 462000 they increase to 0.17–0.46 eV Å^-1, and at
 step 462200 the largest pairwise mean difference is 6.69 eV Å^-1 (FT-MultiT vs
@@ -31,18 +38,20 @@ FT-600K). The largest-disagreement atoms are Te at step 460000 and Sb at the
 later three steps; the local 3 Å shell contains 4–5 atoms.
 
 The verified Cr set contains 50 atoms. Its maximum force norm at step 462200 is
-5.73 eV Å^-1 (Scratch), 8.81 eV Å^-1 (FT-600K), 7.74 eV Å^-1 (FT-MultiT), and
-5.71 eV Å^-1 (Foundation). At step 462000 Foundation has a
+5.73 eV Å^-1 (Scratch), 8.81 eV Å^-1 (FT-600K), 7.74 eV Å^-1 (FT-MultiT),
+and 5.71 eV Å^-1 (Foundation). At step 462000 Foundation has a
 14.28 eV Å^-1 maximum Cr force, while the other three models range from 4.61 to
 7.66 eV Å^-1.
 
 ## Evidence-bounded conclusion
 
 The four models agree moderately on the first two common configurations but
-diverge sharply as the shared Scratch trajectory enters a collapsed local
-geometry. The result supports a model-disagreement/trajectory-integrity warning,
-not a ranking of model accuracy, transfer gain, or DFT fidelity. The Foundation
-energy offset further prevents direct absolute-energy ranking in this setup.
+diverge sharply on the later configurations, including an explicitly collapsed
+source snapshot. The result supports a model-disagreement/trajectory-integrity
+warning, not a ranking of model accuracy, transfer gain, or DFT fidelity. The
+Foundation energy offset further prevents direct absolute-energy ranking in
+this setup. The causal interpretation is deferred to the matched handoff and
+integrator/thermostat sensitivity audits.
 
 ## Recommendation for Phase 2/3
 
