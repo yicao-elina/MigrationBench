@@ -1,0 +1,28 @@
+# MigrationBench completion audit — 2026-10-04 04:30 EDT
+
+This audit preserves the original scope. `PASS` means current artifacts prove
+the requirement; `PENDING` means the requirement is not yet scientifically
+achieved.
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| Plot Atlas repaired and two Phase-2 figures rendered | PASS | `phase2_handoff_md_20261002/audit_20261003/figures/plot_env.json`, SVG/PNG/PDF outputs, Plot Atlas smoke tests |
+| First divergence step saved per canonical run | PASS | `phase2_handoff_md_20261002/audit_20261003/results/first_divergence_by_run.csv/.json` |
+| Frame-aligned force, velocity, temperature, energy, distance, displacement and coordination metrics | PASS | `phase2_handoff_md_20261002/audit_20261003/results/frame_aligned_metrics.csv` |
+| First anomalous atom and local Cr/Sb/Te neighborhood | PASS | `first_anomaly_local_neighborhood.jsonl` |
+| Canonical trajectory first-frame hashes match inputs | PASS | `first_frame_hash_audit.jsonl`, `audit_summary.json` |
+| Phase-1 0.629 Å frame excluded from formal DFT/diffusion statistics | PASS | `phase1_static_force_comparison_20261002/Results.md`, Phase-2 `PAPER_TEXT.md` |
+| NVE, dt 0.5/1/2 fs, zero/weak/current Langevin sensitivity | PASS | `phase2_integrator_sensitivity_20261003/SENSITIVITY_RESULTS.md`, 48/48 completed runs |
+| Normal, bounded-shift and runaway DFT input geometries selected | PASS | `phase3_dft_recovery_20261004/qe_inputs_reconstructed/`, all active cases pass local minimum-distance gate |
+| Same local geometries evaluated by all four MACE models | PASS | `mace_results/mace_reconstructed.json`, 16/16 GPU evaluations, job 31590216 |
+| Within-model ΔE and force-response table/figure | PASS | `mace_within_model_comparison.csv`, `figures/mace_reconstruction_diagnostic.{png,svg,pdf}` |
+| QE finite energies and forces for the four DFT cases | PENDING | Recovery array `31589865_[0-3]` is still `PENDING (Priority)`; results directory is empty |
+| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PENDING | Cannot be evaluated until the QE array produces outputs |
+| Formal DFT validation gate | PENDING / 0 accepted | Existing production jobs were canceled; no accepted identity-preserving full-cell result exists |
+
+## Current completion decision
+
+The Phase-2/P1 dynamical-stability evidence chain is complete and paper-ready.
+The full objective is not complete because the DFT single-point acceptance and
+DFT-vs-MACE comparison remain unverified. The goal must remain active; no
+formal DFT causal claim is permitted.
