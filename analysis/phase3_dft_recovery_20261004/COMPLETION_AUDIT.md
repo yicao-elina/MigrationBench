@@ -8,9 +8,9 @@ achieved.
 |---|---|---|
 | Plot Atlas repaired and two Phase-2 figures rendered | PASS | `phase2_handoff_md_20261002/audit_20261003/figures/plot_env.json`, SVG/PNG/PDF outputs, Plot Atlas smoke tests |
 | First divergence step saved per canonical run | PASS | `phase2_handoff_md_20261002/audit_20261003/results/first_divergence_by_run.csv/.json` |
-| Frame-aligned force, velocity, temperature, energy, distance, displacement and coordination metrics | PASS | `phase2_handoff_md_20261002/audit_20261003/results/frame_aligned_metrics.csv` |
+| Frame-aligned force, velocity, temperature, energy, distance, displacement and coordination metrics | PARTIAL | `frame_aligned_metrics.csv` proves the 461800/462000 canonical pair; additive 460000/462200 context handoff `31591778_[0-7]` is still pending |
 | First anomalous atom and local Cr/Sb/Te neighborhood | PASS | `first_anomaly_local_neighborhood.jsonl` |
-| Canonical trajectory first-frame hashes match inputs | PASS | `first_frame_hash_audit.jsonl`, `audit_summary.json` |
+| Canonical trajectory first-frame hashes match inputs | PARTIAL | Hash audit proves all 8 canonical 461800/462000 runs; 460000/462200 context hash audit awaits `31591778_[0-7]` |
 | Phase-1 0.629 Å frame excluded from formal DFT/diffusion statistics | PASS | `phase1_static_force_comparison_20261002/Results.md`, Phase-2 `PAPER_TEXT.md` |
 | NVE, dt 0.5/1/2 fs, zero/weak/current Langevin sensitivity | PASS | `phase2_integrator_sensitivity_20261003/SENSITIVITY_RESULTS.md`, 48/48 completed runs |
 | Normal, bounded-shift and runaway DFT input geometries selected | PASS | `phase3_dft_recovery_20261004/qe_inputs_reconstructed/`, all active cases pass local minimum-distance gate |
