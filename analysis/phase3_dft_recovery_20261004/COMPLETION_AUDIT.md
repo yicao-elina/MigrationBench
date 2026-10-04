@@ -1,4 +1,4 @@
-# MigrationBench completion audit — 2026-10-04 04:30 EDT
+# MigrationBench completion audit — 2026-10-04 11:07 EDT
 
 This audit preserves the original scope. `PASS` means current artifacts prove
 the requirement; `PENDING` means the requirement is not yet scientifically
@@ -16,8 +16,8 @@ achieved.
 | Normal, bounded-shift and runaway DFT input geometries selected | PASS | `phase3_dft_recovery_20261004/qe_inputs_reconstructed/`, all active cases pass local minimum-distance gate |
 | Same local geometries evaluated by all four MACE models | PASS | `mace_results/mace_reconstructed.json`, 16/16 GPU evaluations, job 31590216 |
 | Within-model ΔE and force-response table/figure | PASS | `mace_within_model_comparison.csv`, `figures/mace_reconstruction_diagnostic.{png,svg,pdf}` |
-| QE finite energies and forces for the four DFT cases | PENDING | Recovery array `31589865_[0-3]` is still `PENDING (Priority)`; results directory is empty |
-| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PENDING | Cannot be evaluated until the QE array produces outputs |
+| QE finite energies and forces for the four DFT cases | PENDING | `31589865_[0-3]` terminated `255` after OOM at 160G; isolated 48-MPI smoke `31600819_0` is running under `phase3_dft_recovery_20261004_retry2_48mpi`; `results_reconstructed/qe_gate_audit.json` records 0 accepted |
+| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PENDING | The failed 160G array has no finite SCF/force output; retry gate is not yet evaluable |
 | Formal DFT validation gate | PENDING / 0 accepted | Existing production jobs were canceled; no accepted identity-preserving full-cell result exists |
 
 ## Current completion decision
