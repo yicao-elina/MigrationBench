@@ -128,6 +128,14 @@ bath, and supports a stronger model-dependent PES-instability interpretation
 for these states. It does not prove that timestep and thermostat effects are
 irrelevant, and it does not identify the original long-trajectory mechanism.
 
+Across the six settings, Foundation-OMAT first crosses a gate at steps
+461970--462210 for the 461800 input and 462010--462040 for 462000; the
+corresponding from-scratch ranges are 461910--462210 and 462020--462060.
+The first gate is force-dominated in 5/6 Foundation-OMAT runs at 461800 and
+all from-scratch runs, with one Foundation-OMAT 461800 run first crossing the
+velocity gate. This timing spread is a numerical-sensitivity result, not a
+claim that the exact gate step is invariant.
+
 Naive-FT and Multi-T remain stable for the 461800 state across all six
 settings. For 462000 they remain below the catastrophic gates across all six
 settings but show bounded structural displacement; this is a bounded/shifted
