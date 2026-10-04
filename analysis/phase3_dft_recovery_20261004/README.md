@@ -35,6 +35,8 @@ and normal QE termination.
 4. `evaluate_reconstructed_mace.py` evaluates the same local geometries with
    all four canonical MACE models for force comparison. Cross-model absolute
    energy ranking is intentionally not reported.
+5. `analyze_mace_reconstruction.py` reports only within-model energy changes
+   relative to the normal 461800 input and force amplification ratios.
 
 No result is promoted to the formal DFT gate by this package.
 
