@@ -30,6 +30,22 @@ long-trajectory chemical mechanism. Naive-FT and Multi-T are stable for the
 461800 state and bounded/structurally shifted for the 462000 state; neither
 classification is a diffusivity or DFT-validation result.
 
+For the two unstable models, the first-gate timing remains finite across all
+six settings rather than appearing only at the current Langevin condition:
+
+| Input | Model | First-gate range (absolute step) | Median first-gate step | Gate types |
+|---:|---|---:|---:|---|
+| 461800 | Foundation-OMAT | 461970--462210 | 462030 | force (5/6), velocity (1/6) |
+| 461800 | From-scratch | 461910--462210 | 462020 | force (6/6) |
+| 462000 | Foundation-OMAT | 462010--462040 | 462020 | force (6/6) |
+| 462000 | From-scratch | 462020--462060 | 462050 | force (6/6) |
+
+The `dt=0.5 fs` runs generally delay the first gate but do not restore a
+bounded trajectory. This supports rejecting a failure explanation based only
+on the current thermostat or timestep, while retaining the stated limitation
+that numerical settings can change the detailed crossing time and later
+trajectory.
+
 The machine-readable evidence is in `audit_20261004_final/`, especially
 `sensitivity_summary.csv`, `sensitivity_summary.json`, and
 `audit_summary.json`.
