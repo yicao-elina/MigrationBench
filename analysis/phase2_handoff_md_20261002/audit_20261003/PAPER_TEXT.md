@@ -102,6 +102,27 @@ settings. For 462000 they remain below the catastrophic gates across all six
 settings but show bounded structural displacement; this is a bounded/shifted
 counterfactual, not formal structural or diffusivity validation.
 
+## Additive local-cell force diagnostic
+
+To locate a DFT-comparable onset without using the nonphysical 0.629 Å frame,
+we constructed four provenance-tracked 81-atom local-cell reconstructions:
+the normal 461800 input, the Multi-T bounded/shifted 2 ps endpoint, and the
+first force-gate frames for Foundation-OMAT and from-scratch from the 461800
+handoff. All four pass the local 1.5 Å minimum-distance gate and have
+full-trajectory-to-local mapping error below 6×10^-13 Å. Evaluating the same
+local cells with the four MACE models gives a within-model force-response
+diagnostic: the from-scratch model's maximum force increases by 19.7–24.3×
+relative to the normal local cell at its runaway-onset reconstruction, while
+Foundation-OMAT increases by 4.6–5.3×. These values are not cross-model
+absolute energy rankings and are not a substitute for DFT; the full table,
+model hashes, and force arrays are retained in the Phase 3 recovery package.
+
+The corresponding QE array is isolated and remains separately gated. Until
+its outputs show finite energy and all 81 forces, explicit SCF convergence,
+normal `JOB DONE` termination, and matching input hashes, this local-cell
+diagnostic is reported as `RECONSTRUCTION / REPRODUCED_SCOPE_LIMITED` and the
+formal DFT gate remains zero.
+
 ## Figure and provenance outputs
 
 - `figures/phase2_handoff_timeseries.{png,svg,pdf}`: four aligned diagnostics,
