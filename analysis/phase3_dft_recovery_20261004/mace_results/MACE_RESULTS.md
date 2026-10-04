@@ -11,3 +11,7 @@ They are not full-cell validation and absolute energy ranking across models is n
 | runaway_scratch_461800_step462060 | 42.1240 | 81.2073 | 35.0423 | 38.7369 |
 
 The full per-atom force arrays, energy values, model hashes, and input hashes are in `mace_reconstructed.json` and `mace_summary.csv`.
+
+The Plot Atlas-rendered auxiliary figure is
+`figures/mace_reconstruction_diagnostic.{png,svg,pdf}`. It is explicitly
+labelled as a local-cell reconstruction diagnostic and is not DFT validation.
