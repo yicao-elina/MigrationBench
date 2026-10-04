@@ -34,7 +34,33 @@ than 5 Å from their initial unwrapped positions.
 The canonical trajectories contain 202 frames per run (initial frame plus
 200 saved integration frames). First-frame normalized hashes match the input
 positions, momenta, cell, species, and PBC for all 8/8 runs. The aligned
-frame table and hash audit are retained in `results/`.
+frame table and hash audit are retained in `results/`. The additive context
+campaign extends the same frame-aligned and initial-state audit to the
+neighboring retained snapshots 460000 and 462200; it contains 8/8 complete
+runs and 1,616 aligned rows in
+`analysis/phase2_context_handoff_20261004/frame_aligned_metrics.csv`.
+
+## Context-snapshot audit
+
+The neighboring snapshots provide a bounded context check rather than a new
+causal claim. Starting from 460000, Foundation-OMAT crosses the force gate at
+step 460180 while from-scratch, naive-FT, and Multi-T remain finite and below
+all catastrophic gates for the 2 ps handoff. The 462200 state is already a
+stress/context state at the handoff boundary: all four models cross a
+diagnostic force gate at the source step, so those four runs are retained only
+as counterfactual context and are not used as evidence that the models create
+the initial stress state. For both snapshots, the input, position, momentum,
+cell, species, and PBC checks pass across all four models. The complete audit
+is in `analysis/phase2_context_handoff_20261004/CONTEXT_RESULTS.md` and
+`audit_results.json`.
+
+Taken together with the canonical 461800/462000 handoff, the publishable
+conclusion is: under exactly matched positions, momenta, cell, species and MD
+parameters, Foundation-OMAT and from-scratch can undergo catastrophic
+divergence within 2 ps while naive-FT/Multi-T remain finite or only structurally
+shifted. This supports a model-dependent dynamical-stability difference near
+the tested states, but does not prove that the initial state was a DFT minimum
+or that the original long-trajectory mechanism has been uniquely identified.
 
 ## Mechanism-level interpretation
 
