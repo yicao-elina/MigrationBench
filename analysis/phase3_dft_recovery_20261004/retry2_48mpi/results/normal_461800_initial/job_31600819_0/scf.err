@@ -1,0 +1,10 @@
+[mpiexec@c043] check_exit_codes (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:117): unable to run bstrap_proxy on c043 (pid 1254810, exit code 65280)
+[mpiexec@c043] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:159): check exit codes error
+[mpiexec@c043] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:212): poll for event error
+[mpiexec@c043] HYD_bstrap_setup (../../../../../src/pm/i_hydra/libhydra/bstrap/src/intel/i_hydra_bstrap.c:1065): error waiting for event
+[mpiexec@c043] HYD_print_bstrap_setup_error_message (../../../../../src/pm/i_hydra/mpiexec/intel/i_mpiexec.c:1026): error setting up the bootstrap proxies
+[mpiexec@c043] Possible reasons:
+[mpiexec@c043] 1. Host is unavailable. Please check that all hosts are available.
+[mpiexec@c043] 2. Cannot launch hydra_bstrap_proxy or it crashed on one of the hosts. Make sure hydra_bstrap_proxy is available on all hosts and it has right permissions.
+[mpiexec@c043] 3. Firewall refused connection. Check that enough ports are allowed in the firewall and specify them with the I_MPI_PORT_RANGE variable.
+[mpiexec@c043] 4. slurm bootstrap cannot launch processes on remote host. You may try using -bootstrap option to select alternative launcher.
