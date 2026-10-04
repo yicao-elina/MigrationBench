@@ -37,6 +37,9 @@ and normal QE termination.
    energy ranking is intentionally not reported.
 5. `analyze_mace_reconstruction.py` reports only within-model energy changes
    relative to the normal 461800 input and force amplification ratios.
+6. After all four QE cases pass, `make_dft_vs_mace_table.py` compares DFT
+   forces and within-method energy changes to each MACE model. It refuses to
+   produce a table while any QE case is missing or rejected.
 
 No result is promoted to the formal DFT gate by this package.
 

@@ -41,6 +41,8 @@ def parse_output(path: Path) -> dict:
     ):
         force_vectors.append([float(x.replace("D", "E").replace("d", "e")) for x in match.groups()])
     force_norms = [RY_BOHR_TO_EV_A * sum(x * x for x in vector) ** 0.5 for vector in force_vectors]
+    force_vectors_eV_A = [[RY_BOHR_TO_EV_A * component for component in vector]
+                          for vector in force_vectors]
     convergence = bool(re.search(r"convergence has been achieved", text, flags=re.IGNORECASE))
     job_done = "JOB DONE" in text
     errors = re.findall(r"(?:Error in routine|convergence NOT achieved|stopping\s+due|%%%%%%%%%%%%)", text, flags=re.IGNORECASE)
@@ -50,6 +52,7 @@ def parse_output(path: Path) -> dict:
         "total_energy_finite": energy_ry is not None and finite(energy_ry),
         "force_count": len(force_vectors),
         "force_finite": bool(force_norms) and all(finite(x) for x in force_norms),
+        "force_vectors_eV_A": force_vectors_eV_A,
         "max_force_eV_A": max(force_norms) if force_norms else None,
         "scf_converged": convergence,
         "job_done": job_done,
