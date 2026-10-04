@@ -1,0 +1,30 @@
+{
+  "schema_version": "3.0",
+  "created_at_utc": "2026-09-17T04:04:15.153846+00:00",
+  "branch_id": "dft_endpoint_unique_056_from_mace_s42",
+  "job_name": "mb_dft_ep_unique056_s42_v3",
+  "seed": 42,
+  "scientific_role": "dft_refinement_retry_v3_higher_parallelism",
+  "raw_site_id": "unique_056",
+  "source_mace_task_id": "epmlff_028_unique_056_base",
+  "source_mace_extxyz": "work/endpoint_relax_campaign/mace_endpoint_results_clean_v2/results/epmlff_028_unique_056_base/mace_relaxed.extxyz",
+  "source_mace_energy_eV": -177382.18360557378,
+  "source_template_qe_input": "/Users/alina/Project/26MIgrationBench/data_raw/site_search_qe/qe_inputs/unique_056/relax.in",
+  "relax_input": "work/endpoint_relax_campaign/dft_endpoint_inputs_retry_v3_from_mace/dft_endpoint_unique_056_from_mace_s42/relax.in",
+  "fixed_cell": true,
+  "cell_source": "MACE relaxed extxyz Lattice written to QE CELL_PARAMETERS angstrom",
+  "v3_reason": "v2 DFT endpoint jobs reached ~21-22 h before first ionic force step with 2 MPI ranks; v3 keeps endpoint geometry but uses 16 MPI ranks and explicit QE max_seconds.",
+  "resources": {
+    "walltime": "24:00:00",
+    "pw_max_seconds": 82800,
+    "nstep": 200,
+    "ntasks": 16,
+    "memory": "160G"
+  },
+  "roles": [
+    {
+      "path_id": "cov_020_same_gap_lateral_coordination_switch_unique_056_to_unique_067",
+      "role": "start"
+    }
+  ]
+}
