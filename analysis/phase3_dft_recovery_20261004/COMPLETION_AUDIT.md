@@ -16,8 +16,8 @@ achieved.
 | Normal, bounded-shift and runaway DFT input geometries selected | PASS | `phase3_dft_recovery_20261004/qe_inputs_reconstructed/`, all active cases pass local minimum-distance gate |
 | Same local geometries evaluated by all four MACE models | PASS | `mace_results/mace_reconstructed.json`, 16/16 GPU evaluations, job 31590216 |
 | Within-model ΔE and force-response table/figure | PASS | `mace_within_model_comparison.csv`, `figures/mace_reconstruction_diagnostic.{png,svg,pdf}` |
-| QE finite energies and forces for the four DFT cases | PENDING | `31589865_[0-3]` terminated `255` after OOM at 160G; 48-MPI smoke `31600819_0` failed before QE at Intel-MPI bootstrap; corrected 16-MPI/185G smoke `31603847_[0]` is running; `results_reconstructed/qe_gate_audit.json` records 0 accepted |
-| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PENDING | The 160G array has no finite SCF/force output and the 48-MPI retry has empty `scf.out`; corrected fork-launcher retry has reached QE but its gate is not yet complete |
+| QE finite energies and forces for the four DFT cases | PENDING | `31589865_[0-3]` and `31603847_[0]` terminated after SCF memory OOM; `31600819_0` failed before QE at Intel-MPI bootstrap; corrected 48-MPI/fork smoke `31612712_[0]` is running; `results_reconstructed/qe_gate_audit.json` records 0 accepted |
+| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PENDING | Prior retries have no accepted gate output; current 48-MPI/fork smoke has entered QE but is not yet complete |
 | Formal DFT validation gate | PENDING / 0 accepted | Existing production jobs were canceled; no accepted identity-preserving full-cell result exists |
 
 ## Current completion decision
