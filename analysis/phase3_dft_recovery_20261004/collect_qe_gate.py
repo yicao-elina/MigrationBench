@@ -12,7 +12,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 REMOTE_ROOT = Path("/scratch16/pclancy3/yi/phase3_dft_recovery_20261004")
-INPUT_ROOT = ROOT / "qe_inputs_reconstructed"
+# Force-enabled derived inputs preserve the canonical geometry/cell and all
+# DFT settings, adding only CONTROL tprnfor=.true. so QE emits 81 forces.
+INPUT_ROOT = ROOT / "qe_inputs_force"
 RESULT_ROOT = ROOT / "results_reconstructed"
 RY_BOHR_TO_EV_A = 13.605693009 / 0.529177210903
 
@@ -93,7 +95,9 @@ def main() -> None:
                 else "REJECTED"
             )
             rows.append(parsed)
-    (RESULT_ROOT / "qe_gate_audit.json").write_text(json.dumps({"job": "31589865", "rows": rows}, indent=2) + "\n")
+    (RESULT_ROOT / "qe_gate_audit.json").write_text(
+        json.dumps({"job": "force-enabled-reconstruction", "rows": rows}, indent=2) + "\n"
+    )
     for row in rows:
         print(row["case"], row["status"], row.get("output", ""))
 

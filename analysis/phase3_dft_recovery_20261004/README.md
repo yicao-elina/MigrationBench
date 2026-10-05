@@ -27,11 +27,15 @@ and normal QE termination.
 
 1. `make_reconstructed_inputs.py` maps each local atom to the canonical full
    trajectory atom and writes the four QE inputs plus a JSON mapping ledger.
-2. `submit_reconstructed_array.slurm` runs isolated non-magnetic fixed-geometry
-   QE single points with the same PBE+D3, 70/280 Ry, cold-smearing, 2x2x2
-   method as the Phase-3 input contract.
-3. `collect_qe_gate.py` accepts only finite energy/forces, explicit SCF
-   convergence, `JOB DONE`, and matching input/source hashes.
+2. `make_force_enabled_inputs.py` derives `qe_inputs_force/` by adding only
+   `tprnfor = .true.` to the canonical QE control block. Geometry, cell,
+   pseudopotentials, PBE+D3, 70/280 Ry, cold-smearing, and 2x2x2 settings are
+   unchanged; the canonical and derived input hashes are both recorded.
+3. The retry Slurm scripts run isolated non-magnetic fixed-geometry QE single
+   points with the force-enabled inputs and an input-preserving `-ndiag 1`
+   memory decomposition.
+4. `collect_qe_gate.py` accepts only finite energy/81 finite forces, explicit
+   SCF convergence, `JOB DONE`, and the exact force-enabled input hash.
 4. `evaluate_reconstructed_mace.py` evaluates the same local geometries with
    all four canonical MACE models for force comparison. Cross-model absolute
    energy ranking is intentionally not reported.
