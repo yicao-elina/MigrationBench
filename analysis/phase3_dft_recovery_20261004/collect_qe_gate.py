@@ -31,17 +31,29 @@ def finite(value: float) -> bool:
     return math.isfinite(value)
 
 
-def parse_output(path: Path) -> dict:
+def parse_output(path: Path, nat: int) -> dict:
     text = path.read_text(errors="replace")
     energy_matches = re.findall(r"!\s+total energy\s*=\s*([-+0-9.EeDd]+)\s+Ry", text)
     energy_ry = float(energy_matches[-1].replace("D", "E").replace("d", "e")) if energy_matches else None
-    force_vectors = []
-    for match in re.finditer(
-        r"force\s*=\s*([-+0-9.EeDd]+)\s+([-+0-9.EeDd]+)\s+([-+0-9.EeDd]+)",
+    force_blocks = re.findall(
+        r"Forces acting on atoms.*?(?=Total force\s*=|$)",
         text,
+        flags=re.IGNORECASE | re.DOTALL,
+    )
+    final_force_block = force_blocks[-1] if force_blocks else ""
+    force_matches = list(re.finditer(
+        r"force\s*=\s*([-+0-9.EeDd]+)\s+([-+0-9.EeDd]+)\s+([-+0-9.EeDd]+)",
+        final_force_block,
         flags=re.IGNORECASE,
-    ):
-        force_vectors.append([float(x.replace("D", "E").replace("d", "e")) for x in match.groups()])
+    ))
+    # QE prints several force-component contributions inside the final force
+    # section; the last nat rows immediately before Total force are the total
+    # per-atom forces used for the gate.
+    force_matches = force_matches[-nat:] if len(force_matches) >= nat else force_matches
+    force_vectors = [
+        [float(x.replace("D", "E").replace("d", "e")) for x in match.groups()]
+        for match in force_matches
+    ]
     force_norms = [RY_BOHR_TO_EV_A * sum(x * x for x in vector) ** 0.5 for vector in force_vectors]
     force_vectors_eV_A = [[RY_BOHR_TO_EV_A * component for component in vector]
                           for vector in force_vectors]
@@ -53,6 +65,7 @@ def parse_output(path: Path) -> dict:
         "total_energy_ry": energy_ry,
         "total_energy_finite": energy_ry is not None and finite(energy_ry),
         "force_count": len(force_vectors),
+        "force_block_count": len(force_blocks),
         "force_finite": bool(force_norms) and all(finite(x) for x in force_norms),
         "force_vectors_eV_A": force_vectors_eV_A,
         "max_force_eV_A": max(force_norms) if force_norms else None,
@@ -73,7 +86,7 @@ def main() -> None:
             rows.append({"case": case, "status": "MISSING_OUTPUT", "input_sha256": sha256(input_path)})
             continue
         for output in outputs:
-            parsed = parse_output(output)
+            parsed = parse_output(output, metadata["nat"])
             parsed.update(
                 {
                     "case": case,
@@ -87,7 +100,7 @@ def main() -> None:
                 "DIAGNOSTIC_ACCEPTED"
                 if parsed["total_energy_finite"]
                 and parsed["force_finite"]
-                and parsed["force_count"] >= metadata["nat"]
+                and parsed["force_count"] == metadata["nat"]
                 and parsed["scf_converged"]
                 and parsed["job_done"]
                 and not parsed["error_markers"]

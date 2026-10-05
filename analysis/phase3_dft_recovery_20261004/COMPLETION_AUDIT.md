@@ -16,8 +16,8 @@ achieved.
 | Normal, bounded-shift and runaway DFT input geometries selected | PASS | `phase3_dft_recovery_20261004/qe_inputs_reconstructed/`, all active cases pass local minimum-distance gate |
 | Same local geometries evaluated by all four MACE models | PASS | `mace_results/mace_reconstructed.json`, 16/16 GPU evaluations, job 31590216 |
 | Within-model ΔE and force-response table/figure | PASS | `mace_within_model_comparison.csv`, `figures/mace_reconstruction_diagnostic.{png,svg,pdf}` |
-| QE finite energies and forces for the four DFT cases | PENDING | `31631020_[0]` completed energy/SCF successfully but emitted zero forces because canonical `scf.in` lacks `tprnfor`; force-enabled smoke `31649829_[0]` is pending; prior resource/transport failures remain rejected; `results_reconstructed/qe_gate_audit.json` records 0 accepted |
-| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PENDING | The energy smoke passed only the energy/SCF subset; no force-enabled case has passed the full gate |
+| QE finite energies and forces for the four DFT cases | PENDING | Force-enabled smoke `31649829_[0]` passed with finite energy, 81 finite forces, SCF convergence, `JOB DONE`, no QE error marker, and matching derived-input SHA256; formal array `31662332_[0-3]` is pending; prior resource/transport failures remain rejected |
+| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PENDING | The force smoke passes the diagnostic subset, but the formal four-case array has not yet produced four accepted results; `make_dft_vs_mace_table.py` remains withheld |
 | Formal DFT validation gate | PENDING / 0 accepted | Existing production jobs were canceled; no accepted identity-preserving full-cell result exists |
 
 ## Current completion decision
