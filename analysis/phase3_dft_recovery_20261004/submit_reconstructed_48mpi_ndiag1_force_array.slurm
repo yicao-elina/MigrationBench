@@ -10,6 +10,9 @@
 #SBATCH --partition=parallel
 #SBATCH --account=pclancy3
 #SBATCH --mem=185G
+# c372 accepted the allocation but failed both assigned tasks before QE at
+# the input/run-directory preflight; keep this retry isolated from that node.
+#SBATCH --exclude=c372
 #SBATCH --array=0-3
 #SBATCH --output=slurm-%A_%a.out
 #SBATCH --error=slurm-%A_%a.err
@@ -32,9 +35,20 @@ esac
 
 INPUT="$INPUT_ROOT/$CASE/scf.in"
 RUN="$ROOT/results/$CASE/job_${SLURM_JOB_ID}_${SLURM_ARRAY_TASK_ID}"
-test -s "$INPUT"
-mkdir -p "$RUN/out"
-cp "$INPUT" "$RUN/scf.in"
+if [[ ! -s "$INPUT" || ! -r "$INPUT" ]]; then
+  echo "preflight input missing or unreadable: $INPUT" >&2
+  ls -ld "$INPUT_ROOT" "$INPUT_ROOT/$CASE" 2>&1 || true
+  exit 43
+fi
+if ! mkdir -p "$RUN/out"; then
+  echo "preflight run-directory creation failed: $RUN" >&2
+  ls -ld "$ROOT" "$ROOT/results" "$ROOT/results/$CASE" 2>&1 || true
+  exit 44
+fi
+if ! cp "$INPUT" "$RUN/scf.in"; then
+  echo "preflight input copy failed: $INPUT -> $RUN/scf.in" >&2
+  exit 45
+fi
 cd "$RUN"
 echo "job=$SLURM_JOB_ID array=$SLURM_ARRAY_TASK_ID case=$CASE"
 echo "pw=$(command -v pw.x)"
