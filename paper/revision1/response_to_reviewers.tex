@@ -165,6 +165,8 @@
 % -------------------------------------------------
 % References and hyperlinks
 % -------------------------------------------------
+\usepackage[numbers,sort&compress]{natbib}
+
 \usepackage[
     colorlinks=true,
     linkcolor=darkblue,
@@ -485,12 +487,12 @@ Sec.~3.4, the Fig.~5 caption, Sec.~3.5, and the Fig.~6 caption are marked with \
 \end{quote}
 
 \noindent\textbf{Response.}
-We agree. We have added the requested citations and a paragraph explicitly describing the relationship to the earlier report. The revised introduction positions the present work relative to recent studies of MACE fine-tuning for Li-ion diffusion, migration-barrier evaluation using foundation MLIPs, and systematic softening of universal MLIP potential-energy surfaces.
+We agree. We have added a dedicated related-work comparison in the Introduction and clarified the interpretation of the softening result in Sec.~3.2. The comparison now distinguishes three complementary contributions: Alghamdi et al.~\citep{alghamdi2025maceLiF} compare MACE fine-tuning strategies for Li diffusion in LiF using nanosecond-scale MD and Arrhenius observables; Bheemaguli et al.~\citep{bheemaguli2026mlipBarriers} benchmark zero-shot foundation MLIPs coupled to NEB over 574 battery migration paths, including barrier, classification, and local-geometry metrics; and Deng et al.~\citep{deng2025softening} establish systematic underprediction of energy, force, and PES curvature in universal MLIPs and its data-efficient correction. We now cite the latter as prior work and describe it as the mechanism motivating our case-specific diagnostics, rather than presenting ``softening'' as a new phenomenon.
 
-The revised manuscript also clarifies the additions relative to the earlier report, including expanded transport analysis, self-consistent NEB stability analysis, surrogate-based SHAP analysis, and interlayer-sliding analysis. Statements relying on the corrected MD protocol and final reproducibility materials will be updated after those revision items are completed.
+We also state explicitly that arXiv:2509.00090 was disseminated as a non-archival AI4Mat workshop report~\citep{cao2025migration}. The present manuscript is therefore an expanded journal study, not a duplicate publication. Relative to that report, it adds the formal fixed-path versus self-relaxed NEB distinction, separate local and collective displacement probes, representation and surrogate-error diagnostics, provenance-aware grouped splitting and nearest-neighbor overlap audits, and targeted multi-seed/data-volume controls. These additions let us make a narrower and more auditable claim: migration pathways are task-conditioned diagnostics whose interpretation depends on path identity, training provenance, model initialization, and convergence status.
 
 \noindent\textbf{Manuscript change.}
-The introduction, Sec.~3.2, softening discussion, and bibliography are marked with \texttt{REV-A7}.
+The Introduction, Sec.~3.2, softening discussion, and bibliography are marked with \texttt{REV-A7}; the former literature placeholder has been removed and the citation keys have been verified in \texttt{sn-bibliography.bib}.
 
 \subsection*{C8. Fabricated all-zero forces in NEB exporters}
 
@@ -644,6 +646,9 @@ Sec.~3.5 and Code Availability are marked with \texttt{REV-C13}.
 % The response structure and the principal conceptual corrections are in place. Completed items include the clarification of the Fig.~3d/Fig.~S3 protocol distinction, the scope revisions, the related-work positioning, the descriptor-space and projection-sensitivity re-analysis, and the SHAP surrogate cross-validation audit.
 
 % The main remaining items are final QE NEB convergence, SOAP/RMSD overlap auditing, grouped-split multi-seed retraining, the Scratch-5\% control, corrected matched-protocol FT-600K MD, and final code-release evidence for the exporter and SHAP-pipeline fixes.
+
+\bibliographystyle{unsrtnat}
+\bibliography{sn-bibliography}
 
 
 \end{document}
