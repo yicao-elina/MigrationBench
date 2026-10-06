@@ -21,8 +21,8 @@ from plot_atlas import apply_publication_style, get_palette, panel_label, save_f
 
 ROOT = Path(__file__).resolve().parents[1]
 RESULTS = ROOT / 'work/remote_results/runs'
-OUT = ROOT / 'outputs/figures'
-DATA = ROOT / 'outputs/figure_data'
+OUT = ROOT / 'figures'
+DATA = ROOT / 'data'
 OUT.mkdir(parents=True, exist_ok=True); DATA.mkdir(parents=True, exist_ok=True)
 
 SYSTEMS = ['Cr@Sb2Te3', 'V@Sb2Te3', 'Mn@Sb2Te3', 'Cr@Bi2Te3', 'V@Bi2Te3', 'Mn@Bi2Te3']
@@ -32,7 +32,12 @@ ARM_COLORS = {'base': '#1F4E79', 'perturb_a_dx020': '#D9772B', 'perturb_b_tilt02
 
 def load_rows():
     by_task = {}
-    for path in glob.glob(str(RESULTS / 'task_*/mace_relax_summary.json')):
+    source_paths = glob.glob(str(RESULTS / 'task_*/mace_relax_summary.json'))
+    if not source_paths:
+        # Use the checked-in, audited summary when the remote-result staging
+        # tree is unavailable (for example, on a clean manuscript checkout).
+        return pd.DataFrame(json.loads((DATA / 'endpoint_level_summary.json').read_text())).sort_values(['system','site_num','arm']).reset_index(drop=True)
+    for path in source_paths:
         row = json.loads(Path(path).read_text())
         by_task.setdefault(row['task']['task_id'], row)
     assert len(by_task) == 846, len(by_task)
@@ -168,7 +173,7 @@ def fig3(df):
     vals=np.array(vals); im=ax.imshow(vals,cmap='RdBu_r',norm=TwoSlopeNorm(0,np.nanmin(vals),np.nanmax(vals)),aspect='auto')
     ax.set(yticks=range(6),yticklabels=SYSTEMS,xticks=range(3),xticklabels=['A-base','B-base','B-A'],title='Host$\\times$dopant interaction');
     for i in range(6):
-        for j in range(3): ax.text(j,i,f'{vals[i,j]:+.3f}',ha='center',va='center',fontsize=7,fontweight='bold')
+        for j in range(3): ax.text(j,i,f'{vals[i,j]:+.2f}',ha='center',va='center',fontsize=7,fontweight='bold')
     cb=fig.colorbar(im,ax=ax,pad=.02,aspect=24); cb.set_label('Displacement response (\\AA)'); panel_label(ax,'C',-.15,1.10)
     # D: median steps and force jointly, system colors and arm markers
     ax=axes[1,1]
