@@ -305,7 +305,7 @@ We agree that the original manuscript did not distinguish these two calculations
 
 Thus, Fig.~3d evaluates whether a model reproduces the barrier along a fixed DFT path, whereas Fig.~S3 evaluates whether the model can generate a stable migration path under model-in-the-loop NEB optimization. To better clarify this distinction, additional language has been added to explain the purpose and goal of each test.
 
-For the fixed-geometry in-gap pathway 1--4, the archived QE \texttt{neb.out} calculation gives a DFT barrier of 0.34~eV. However, this archived NEB calculation does not yet meet our final convergence criterion. We therefore treat this value as provisional: it will either be retained with an explicit convergence qualification or replaced by \texttt{[PLACEHOLDER: final-QE-1-4-barrier]} after completion of the restartable QE NEB closure calculation.
+For the fixed-geometry in-gap pathway 1--4, the archived QE \texttt{neb.out} calculation gives a DFT barrier of 0.34~eV. However, this archived NEB calculation does not yet meet our final convergence criterion. We therefore treat 0.34~eV as a provisional candidate: if the restartable QE closure calculation changes the converged value, both the manuscript table entry and the plotted DFT profile will be replaced before submission.
 
 Using the current audited pathway~1--4 reference, the fixed-geometry results are:
 
@@ -355,7 +355,7 @@ The completed quantitative audit is:
 Full grouped training set (1,786 frames): minimum SOAP cosine distance to any in-gap NEB image $= 5.4\times10^{-4}$; minimum comparable Cartesian RMSD $= 2.06$~\AA. Scratch-5\% subset (89 frames): minimum SOAP cosine distance $= 6.4\times10^{-4}$; minimum comparable RMSD $= 2.06$~\AA. Both are far outside the exact/near-duplicate thresholds used for this audit (SOAP $\le10^{-4}$, RMSD $\le0.05$~\AA); zero exact or near-duplicate matches were found for either split.
 \end{center}
 
-We additionally retrained FT-600K (from the OMAT-FT and MACE-MPA-0 checkpoints), Scratch, and Scratch-5\% under this grouped split across seeds 123/234/345 (MPA0: single seed, excluded from seed-uncertainty statistics). On the in-gap pathway 1--4, the absolute fixed-path barrier error relative to the current DFT candidate (0.34~eV) is $0.47 \pm 0.12$~eV for FT-600K-OMATFT, $1.20 \pm 0.27$~eV for Scratch, $0.68 \pm 0.20$~eV for Scratch-5\%, and $0.24$~eV for the single-seed MPA0 comparator. FT-600K-OMATFT remains the smallest-error fine-tuned model on this pathway, consistent with the original single-model result, but the historical 0.16~eV point estimate is not reproduced under this grouped, multi-seed re-evaluation. We report this directly rather than asserting that the 0.16~eV result survives. The remaining four audited pathways (1--2, 1--3, 1--5, 1--7) were also evaluated under the grouped protocol but are withheld from this comparison pending confirmation of their benchmark classification and DFT-reference identity; retraining FT-Multi\_T under the grouped protocol was not part of this round.
+We additionally retrained FT-600K (from the OMAT-FT and MACE-MPA-0 checkpoints), Scratch, and Scratch-5\% under this grouped split across seeds 123/234/345 (MPA0: single seed, excluded from seed-uncertainty statistics). On the in-gap pathway 1--4, the absolute fixed-path barrier error relative to the current DFT candidate (0.34~eV) is $0.47 \pm 0.12$~eV for FT-600K-OMATFT, $1.20 \pm 0.27$~eV for Scratch, $0.68 \pm 0.20$~eV for Scratch-5\%, and $0.24$~eV for the single-seed MPA0 comparator. FT-600K-OMATFT remains the smallest-error fine-tuned model on this pathway, consistent with the original single-model result, but the historical 0.16~eV point estimate is not reproduced under this grouped, multi-seed re-evaluation. We report this directly rather than asserting that the 0.16~eV result survives. The remaining audited paths are not pooled into a single deep-penetration score: 1--2 and 1--3 are deep-penetration candidates by the source-site definition, 1--5 requires a geometry recheck, 1--6 is mixed/ambiguous, 1--7 is an in-gap candidate, and 1--8 is a probable deep-penetration auxiliary path. Their classifications and DFT-quality status are documented in the SI audit table; retraining FT-Multi\_T under the grouped protocol was not part of this round.
 
 \noindent\textbf{Manuscript change.}
 Methods Sec.~2.1 and the in-gap diffusion results (Sec.~3.3.3) are marked with \texttt{REV-A2/REV-C10}, and Table~S1 in the SI reports the grouped-split RMSE and barrier statistics.
@@ -371,13 +371,11 @@ Methods Sec.~2.1 and the in-gap diffusion results (Sec.~3.3.3) are marked with \
 \noindent\textbf{Response.}
 We agree. We have converted this issue into a targeted robustness assessment. Scratch and FT-600K were trained using seeds 123, 234, and 345 under the revised grouped-split protocol; this training is complete.
 
-For the \emph{in-gap} pathway (1--4), the absolute barrier errors are $0.47 \pm 0.12$~eV (FT-600K-OMATFT) and $1.20 \pm 0.27$~eV (Scratch) across the three seeds (individual seed values: FT-600K-OMATFT 0.61/0.41/0.40~eV; Scratch 1.52/1.04/1.06~eV). For the \emph{deep-penetration} pathway, the multi-seed models have been trained and evaluated on all five audited pathways, but we have not yet confirmed which of the remaining pathway IDs corresponds to the deep-penetration probe used in the original submission, nor closed out the restarted QE reference for it:
+For the higher-distortion pathway family, the independent audit now identifies 1--2 and 1--3 as deep-penetration candidates, 1--5 as requiring a geometry recheck, 1--6 as mixed/ambiguous, and 1--8 as probable deep penetration but not a defensible canonical three-bin match. The archived/candidate DFT references also remain subject to the formal convergence gate. We therefore do not report a pooled deep-penetration mean or model ranking in this revision; the remaining blocker is explicit DFT closure and path-level classification, not an untracked numerical placeholder.
 
-\begin{center}
-\texttt{[PLACEHOLDER: deep-penetration pathway classification, converged DFT reference, and seed-level barrier errors]}
-\end{center}
+\noindent\textbf{Outstanding gate.} A final deep-penetration comparison requires the restarted QE reference and a path-resolved, seed-level error table. Until those are available, this reviewer request is addressed by reporting the completed in-gap uncertainty and explicitly withholding the higher-distortion model ranking.
 
-The original ``by chance'' wording has been removed. For the in-gap pathway, the multi-seed evidence does not support an unqualified ``by chance'' dismissal or an unqualified robustness claim: FT-600K-OMATFT is the smallest-error model with a seed spread of $\pm0.12$~eV, and Scratch shows a comparable seed spread ($\pm0.27$~eV) at a higher absolute error. For the deep-penetration pathway specifically, the revised manuscript will state only what is supported once the pathway classification and DFT reference above are resolved.
+The original ``by chance'' wording has been removed. For the in-gap pathway, the multi-seed evidence does not support an unqualified ``by chance'' dismissal or an unqualified robustness claim: FT-600K-OMATFT is the smallest-error model with a seed spread of $\pm0.12$~eV, and Scratch shows a comparable seed spread ($\pm0.27$~eV) at a higher absolute error. We distinguish this model-level seed variation from path-level variation across migration classes and do not combine them into a single uncertainty value. For the higher-distortion family, the revised manuscript reports the audit boundary and withholds a model ranking until path classification and DFT closure are complete.
 
 \noindent\textbf{Manuscript change.}
 The Sec.~3.2 deep-penetration discussion and Table~S1 are marked with \texttt{REV-A3}.
@@ -489,7 +487,7 @@ Sec.~3.4, the Fig.~5 caption, Sec.~3.5, and the Fig.~6 caption are marked with \
 \noindent\textbf{Response.}
 We agree. We have added a dedicated related-work comparison in the Introduction and clarified the interpretation of the softening result in Sec.~3.2. The comparison now distinguishes three complementary contributions: Alghamdi et al.~\citep{alghamdi2025maceLiF} compare MACE fine-tuning strategies for Li diffusion in LiF using nanosecond-scale MD and Arrhenius observables; Bheemaguli et al.~\citep{bheemaguli2026mlipBarriers} benchmark zero-shot foundation MLIPs coupled to NEB over 574 battery migration paths, including barrier, classification, and local-geometry metrics; and Deng et al.~\citep{deng2025softening} establish systematic underprediction of energy, force, and PES curvature in universal MLIPs and its data-efficient correction. We now cite the latter as prior work and describe it as the mechanism motivating our case-specific diagnostics, rather than presenting ``softening'' as a new phenomenon.
 
-We also state explicitly that arXiv:2509.00090 was disseminated as a non-archival AI4Mat workshop report~\citep{cao2025migration}. The present manuscript is therefore an expanded journal study, not a duplicate publication. Relative to that report, it adds the formal fixed-path versus self-relaxed NEB distinction, separate local and collective displacement probes, representation and surrogate-error diagnostics, provenance-aware grouped splitting and nearest-neighbor overlap audits, and targeted multi-seed/data-volume controls. These additions let us make a narrower and more auditable claim: migration pathways are task-conditioned diagnostics whose interpretation depends on path identity, training provenance, model initialization, and convergence status.
+We also state explicitly that arXiv:2509.00090 was disseminated as a non-archival AI4Mat workshop report~\citep{cao2025migration}. The present manuscript is therefore an expanded journal study, not a duplicate publication. Relative to that report, it adds the formal fixed-path versus self-relaxed NEB distinction, separate local and collective displacement probes, representation and surrogate-error diagnostics, provenance-aware grouped splitting and nearest-neighbor overlap audits, and targeted multi-seed/data-volume controls. These additions let us make a narrower and more auditable claim: migration pathways are direct tests of model behavior away from equilibrium whose interpretation depends on path identity, training provenance, model initialization, and convergence status.
 
 \noindent\textbf{Manuscript change.}
 The Introduction, Sec.~3.2, softening discussion, and bibliography are marked with \texttt{REV-A7}; the former literature placeholder has been removed and the citation keys have been verified in \texttt{sn-bibliography.bib}.
@@ -521,7 +519,7 @@ Methods data provenance and Code Availability are marked with \texttt{REV-C8}. N
 \end{quote}
 
 \noindent\textbf{Response.}
-We agree. The original FT-600K transport value is not retained as a final model comparison because it was obtained under a non-comparable protocol. It has therefore been quarantined pending completion of a corrected matched-protocol calculation.
+We agree. The original FT-600K transport value is not retained as a final model comparison because it was obtained with a shorter trajectory and a different sampling protocol from the comparison runs. In the revised manuscript, ``excluded from ranking'' means that the value remains in the provenance record but is not used to order models or support a quantitative transport claim.
 
 The current local transport re-analysis is summarized below:
 
@@ -547,16 +545,12 @@ Preliminary estimate under the matched local re-analysis \\
 FT-600K &
 $(3.9 \pm 4.0)\times10^{-8}$ &
 $(0.9 \pm 1.2)\times10^{-2}$ &
-Previous protocol non-comparable; quarantined \\
+Previous protocol non-comparable; provenance only, excluded from ranking \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The corrected FT-600K calculation remains pending:
-
-\begin{center}
-\texttt{[PLACEHOLDER: corrected-FT600K-MD-transport]}
-\end{center}
+The matched-protocol, multi-seed FT-600K closure calculation remains pending. Until it is complete, the available transport curves are described as best estimates under the available trajectories, not as converged coefficients, and no model-ranking conclusion is drawn.
 
 \noindent\textbf{Manuscript/code change.}
 The MD protocol description, transport figure, and SI transport table are marked with \texttt{REV-C9}.
