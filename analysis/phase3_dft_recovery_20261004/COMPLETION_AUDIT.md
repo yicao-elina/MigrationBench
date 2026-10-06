@@ -1,4 +1,4 @@
-# MigrationBench completion audit — 2026-10-04 11:07 EDT
+# MigrationBench completion audit — 2026-10-06
 
 This audit preserves the original scope. `PASS` means current artifacts prove
 the requirement; `PENDING` means the requirement is not yet scientifically
@@ -16,14 +16,14 @@ achieved.
 | Normal, bounded-shift and runaway DFT input geometries selected | PASS | `phase3_dft_recovery_20261004/qe_inputs_reconstructed/`, all active cases pass local minimum-distance gate |
 | Same local geometries evaluated by all four MACE models | PASS | `mace_results/mace_reconstructed.json`, 16/16 GPU evaluations, job 31590216 |
 | Within-model ΔE and force-response table/figure | PASS | `mace_within_model_comparison.csv`, `figures/mace_reconstruction_diagnostic.{png,svg,pdf}` |
-| QE finite energies and forces for the four DFT cases | PENDING | Force-enabled smoke `31649829_[0]` passed; formal tasks 1 and 2 of `31662332_[0-3]` passed the complete gate; tasks 0 and 3 failed before QE on `c372` and are being retried as `31673546_[0,3]`; prior resource/transport failures remain rejected |
-| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PENDING | Two formal cases are accepted, but normal and runaway-scratch still require successful retry; `make_dft_vs_mace_table.py` remains withheld |
-| Formal DFT validation gate | PENDING / 2 accepted | Formal QE gate is partially complete; no accepted four-case identity-preserving DFT result exists yet |
+| QE finite energies and forces for the four DFT cases | PASS (diagnostic scope) | Force-enabled smoke `31649829_[0]` passed; formal tasks 1 and 2 of `31662332_[0-3]` and retry tasks 0/3 of `31673546_[0,3]` all passed finite energy, 81 finite forces, SCF, `JOB DONE`, no QE error marker, and force-input SHA256 gates |
+| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PASS (diagnostic scope) | `collect_qe_gate.py` reports all four cases `DIAGNOSTIC_ACCEPTED`; `make_dft_vs_mace_table.py` generated `results_reconstructed/DFT_VS_MACE.md` and `dft_vs_mace_within_method.csv` |
+| Formal DFT validation gate | PENDING / full-cell scope withheld | The 81-atom local-cell results remain `RECONSTRUCTION / REPRODUCED_SCOPE_LIMITED`; they are not promoted to formal full-cell identity-preserving DFT validation |
 
 ## Current completion decision
 
 The Phase-2/P1 dynamical-stability evidence chain is complete and paper-ready,
 including the retained 460000/462200 context snapshots.
-The full objective is not complete because the DFT single-point acceptance and
-DFT-vs-MACE comparison remain unverified. The goal must remain active; no
-formal DFT causal claim is permitted.
+The four-case local-cell DFT diagnostic and within-method DFT-vs-MACE table
+are complete. The full-cell formal DFT validation boundary remains withheld,
+and no full-cell DFT causal claim is permitted.

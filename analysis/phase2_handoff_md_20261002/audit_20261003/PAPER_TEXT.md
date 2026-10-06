@@ -95,14 +95,20 @@ directly.
 
 ## Phase 3 DFT boundary
 
-The real 81-atom QE array jobs 31537708 and 31537709 ended as `CANCELLED`
-after 00:47:53. No accepted DFT single-point result with finite energy and
-forces, explicit SCF convergence, normal QE termination, and verified
-identity/cell provenance is available from that array. The 81-atom local-tile
-inputs are documented approximations and are not a substitute for a formal
-full-cell or identity-preserving DFT comparison. Accordingly, the formal DFT
-validation gate remains **0 accepted structures** and no DFT-based causal
-claim is made here.
+The recovered 81-atom local-cell QE diagnostic passed for all four selected
+states. The force-enabled inputs add only `tprnfor = .true.` to the canonical
+control block; the geometry, cell, PBE+D3 settings, cutoffs, k-points, and
+input hashes are preserved. Each case has finite total energy, 81 finite
+forces, explicit SCF convergence, normal `JOB DONE` termination, no QE error
+marker, and a manifest-matching force-input SHA256. The accepted outputs and
+gate audit are retained in
+`analysis/phase3_dft_recovery_20261004/results_reconstructed/`.
+
+These are still 81-atom local-cell reconstructions from the full 2050-atom
+trajectory, so they are reported as `RECONSTRUCTION /
+REPRODUCED_SCOPE_LIMITED`, not as formal full-cell or identity-preserving DFT
+validation. The separate formal full-cell DFT gate remains withheld and no
+full-cell DFT causal claim is made here.
 
 ## Completed P1 sensitivity gate
 
@@ -156,11 +162,12 @@ Foundation-OMAT increases by 4.6–5.3×. These values are not cross-model
 absolute energy rankings and are not a substitute for DFT; the full table,
 model hashes, and force arrays are retained in the Phase 3 recovery package.
 
-The corresponding QE array is isolated and remains separately gated. Until
-its outputs show finite energy and all 81 forces, explicit SCF convergence,
-normal `JOB DONE` termination, and matching input hashes, this local-cell
-diagnostic is reported as `RECONSTRUCTION / REPRODUCED_SCOPE_LIMITED` and the
-formal DFT gate remains zero.
+The corresponding QE array now passes the local-cell diagnostic gate for all
+four cases. `DFT_VS_MACE.md` and `dft_vs_mace_within_method.csv` report DFT
+energy changes relative to `normal_461800_initial` within DFT and MACE energy
+changes relative to the same normal case within each MACE model. No absolute
+cross-model energy ranking is reported. The force arrays, gate audit, input
+hashes, and model hashes remain inspectable in the recovery package.
 
 ## Figure and provenance outputs
 
