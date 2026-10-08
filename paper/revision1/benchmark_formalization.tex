@@ -6,13 +6,13 @@
 \subsection{Formal Benchmark Definition}
 \label{sec:benchmark_formalization}
 
-The central object of this benchmark is not a single scalar RMSE, but a family of task-conditioned measurement operators applied to the same candidate force field. Let a configuration be denoted by
+The central object of this benchmark is not a single scalar RMSE, but a family of process-conditioned measurement operators applied to the same candidate force field. Let a configuration be denoted by
 \[
     x=(\mathbf R,\mathbf Z,\mathbf h)\in\mathcal X,
 \]
 where $\mathbf R$ contains atomic coordinates, $\mathbf Z$ atomic identities, and $\mathbf h$ the simulation cell. A reference electronic-structure model defines an energy $E_{\mathrm D}(x)$ and force field $\mathbf F_{\mathrm D}(x)=-\nabla_{\mathbf R}E_{\mathrm D}(x)$. A candidate MLFF $M$ defines $E_M(x)$ and $\mathbf F_M(x)=-\nabla_{\mathbf R}E_M(x)$.
 
-\begin{definition}[Equilibrium and task-conditioned evaluation distributions]
+\begin{definition}[Equilibrium and process-conditioned evaluation distributions]
 \label{def:distributions}
 The conventional equilibrium test distribution is
 \[

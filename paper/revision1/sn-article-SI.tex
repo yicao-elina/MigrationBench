@@ -253,7 +253,7 @@ All developed Machine-Learned Force Fields (MLFFs) show low near-equilibrium ene
 
 \begin{table}[htbp]
     \centering
-\caption{\textbf{Grouped-split (trajectory-level) MACE comparison across accuracy and migration probes.} Values are 3-seed means $\pm$ sample standard deviations (seeds 123/234/345) unless noted. Barrier error is the absolute fixed-path error on in-gap pathway 1--4 relative to the provisional DFT candidate reference (0.34~eV, pending final QE convergence). Deep-penetration values are not ranked because the path-family and DFT-reference audits are not jointly closed; grouped FT-Multi$_T$ values were not generated in this retraining round.}
+\caption{\textbf{Grouped-split (trajectory-level) MACE comparison across accuracy and migration probes.} Values are 3-seed means $\pm$ sample standard deviations (seeds 123/234/345) unless noted. Barrier error is the absolute fixed-path error on in-gap pathway 1--4 relative to the provisional DFT reference estimate (0.34~eV, pending final QE convergence). Deep-penetration values are not ranked because the path-family and DFT-reference audits are not jointly closed; grouped FT-Multi$_T$ values were not generated in this retraining round.}
     \label{tab:mace_performance_grouped}
     \begin{tabular}{lcccc}
         \toprule
@@ -273,7 +273,7 @@ A deeper analysis of the training dynamics reveals important characteristics of 
 
 In contrast, the fine-tuned models display a more pronounced overfitting behavior, characterized by a large gap between their low training RMSEs and higher validation RMSEs. For instance, the FT-MultiT model shows a 142\% increase in force RMSE from the training (20.3 meV/\AA) to the validation set (49.1 meV/\AA). This aggressive fitting is expected when fine-tuning on smaller, more specialized datasets. The high standard deviation in the FT-600K model's training RMSE (11.8 meV/\AA) also suggests a sensitivity to initialization during the training process.
 
-Despite the strong overfitting signals, the fine-tuned models show lower errors than the scratch model on the current near-equilibrium test partition. Because the original split did not fully enforce trajectory/pathway grouping, we treat these RMSE values as provisional until the grouped-split retraining is complete. The robust conclusion is methodological: standard accuracy metrics like RMSE are insufficient for comprehensive MLFF evaluation. Even when parity plots appear strong, they do not capture performance on physical properties such as energy barriers and transport phenomena, motivating the more extensive, property-driven benchmarks presented in the main text.
+The fine-tuned models show lower errors than the scratch model on the current near-equilibrium test partition. Table~\ref{tab:mace_performance_grouped} reports the grouped-split values used for the leakage-controlled comparison. RMSE is a pointwise baseline; the barrier and transport analyses below measure process fidelity.
 
 \begin{figure}[ht]
     \includegraphics[width=0.8\textwidth]{Fig/NeurIPS2025-AI4MAT-SI1.pdf}
@@ -310,14 +310,12 @@ Notably, both fine-tuning strategies—whether using single-temperature (600 K) 
 A detailed analysis of the pressure profiles reveals subtle but important differences between models. The zero-shot MACE Foundation model equilibrates to a slightly different average pressure than the models trained or fine-tuned on our in-house AIMD data. This is likely a consequence of the foundation model being trained on a vast dataset of materials at their 0K equilibrium volumes. A minor mismatch between the foundation model's predicted equilibrium lattice parameters and the true DFT values for our specific Cr:Sb$_2$Te$_3$ system at 600K manifests as a persistent non-zero average pressure in an NVT simulation. The fine-tuned and scratch models, having been trained explicitly on data from this system's true ensemble, do not exhibit this deviation.
 
 \subsection{Transport Property Analysis}
-\reviewermap{REV-C9}{pending-cluster}{Transport interpretation is excluded from final ranking until corrected matched-protocol FT-600K MD and multi-seed uncertainty are complete.}
-The transport-property analysis is retained as a protocol-audit target rather than a final ranking claim. The original FT-600K trajectory used a shorter trajectory and a different sampling protocol from the comparison runs, so its diffusivity and thermal-conductivity values are retained for provenance but excluded from cross-model ranking. The available curves are best estimates in the absence of substantially longer, matched-protocol simulations; they are not converged coefficients. A corrected matched-protocol, multi-seed calculation is required before the qualitative hypothesis about high-temperature training and effective-PES softening can be tested quantitatively.
-
-The thermal-conductivity analysis is therefore interpreted only after trajectory length, sampling interval, and block uncertainty are made comparable across models. This point is central to the revision: collective transport observables are useful MLFF probes, but they must be evaluated under matched simulation protocols before supporting model-ranking conclusions.
+\reviewermap{REV-C9}{pending-cluster}{Transport values remain excluded from final ranking until corrected matched-protocol FT-600K MD and multi-seed uncertainty are complete.}
+The original FT-600K trajectory is shorter and uses a different sampling protocol from the comparison runs. Its diffusivity and thermal-conductivity values are retained for provenance but excluded from cross-model ranking; under the current trajectories, they are best estimates rather than converged coefficients. The comparison uses matched trajectory length, sampling interval, and block uncertainty before supporting a model-ranking conclusion.
 
 \begin{table}[htbp]
     \centering
-    \caption{\textbf{Audited molecular-dynamics transport metrics.} Values are computed from the Revision~1 local re-analysis with block uncertainties. The FT-600K row is shown for provenance but is excluded from cross-model ranking because the current local source corresponds to the shorter FT-600K run rather than the corrected matched-protocol analysis.}
+    \caption{\textbf{Audited molecular-dynamics transport metrics.} Values are computed from the Revision~1 local re-analysis with block uncertainties. The FT-600K row is shown for provenance but is excluded from cross-model ranking because its trajectory is shorter and sampled differently from the corrected matched-protocol analysis.}
     \label{tab:md_transport_revised}
     \input{revision1/tables/md_transport_metrics.tex}
 \end{table}
@@ -325,7 +323,7 @@ The thermal-conductivity analysis is therefore interpreted only after trajectory
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.9\textwidth]{revision1/figures/fig_md_msd_kappa_revised.pdf}
-    \caption{\textbf{Revision~1 transport re-analysis with block uncertainty.} (a) Mean-squared displacement fits used to estimate diffusion coefficients. (b) Green--Kubo running integrals for thermal conductivity. (c) Block-averaged thermal conductivities over the 100--200~ps integration window. The FT-600K value is shown for traceability but is excluded from ranking pending the corrected matched-protocol trajectory.}
+    \caption{\textbf{Revision~1 transport re-analysis with block uncertainty.} (a) Mean-squared displacement fits used to estimate diffusion coefficients. (b) Green--Kubo running integrals for thermal conductivity. (c) Block-averaged thermal conductivities over the 100--200~ps integration window. The FT-600K value is shown for traceability but is excluded from ranking because its trajectory is shorter and sampled differently from the comparison runs.}
     \label{fig:md_transport_revised}
 \end{figure}
 
@@ -464,11 +462,11 @@ These features were concatenated into a single vector per configuration, normali
     \end{tabular}
 \end{table}
 
-The 61-atom fixed-image evaluations for paths 1--2 through 1--8 are finite, but they remain single-point model evaluations on historical or candidate DFT images. The independent audit reports residual and SCF-quality limitations, so these profiles are used to identify path-dependent failure modes rather than to claim converged DFT barriers. In particular, ``deep penetration'' denotes entry of Cr into the interior of a covalently bonded QL, whereas ``in-gap'' denotes motion within the vdW gap; a mixed or ambiguous path is not forced into either category.
+The 61-atom fixed-image evaluations for paths 1--2 through 1--8 are finite, but they remain single-point model evaluations on historical or candidate DFT images. The independent audit reports residual and SCF-quality limitations, so these profiles are used to identify path-dependent failure modes rather than to claim converged DFT barriers. In particular, ``deep penetration'' denotes entry of Cr into the interior of a covalently bonded QL, whereas ``in-gap'' denotes motion within the vdW gap; a mixed or ambiguous path is not forced into either category. Path tortuosity describes the winding geometry of a trajectory, whereas lattice distortion describes the displacement of the surrounding QL; the deep-penetration label is based on the latter structural event, not on tortuosity alone.
 
 \subsubsection{In-Gap Diffusion}
 \reviewermap{REV-A2/REV-A5/REV-C10}{done-local}{In-gap hierarchy is now supported by grouped-split, multi-seed retraining, overlap audit, and Scratch-5\% control (Table~\ref{tab:mace_performance_grouped}).}
-This pathway provides a controlled test of fixed-path energetic fidelity. Under the grouped split, train--test proximity audit, and 3-seed retraining (Table~\ref{tab:mace_performance_grouped}), FT-600K (OMAT-FT start) remains the lowest fixed-path barrier-error fine-tuned model on pathway 1--4 ($0.47 \pm 0.12$~eV), followed by Scratch-5\% ($0.68 \pm 0.20$~eV) and Scratch ($1.20 \pm 0.27$~eV); the historical single-seed frame-level estimate of 0.16~eV is not reproduced under this grouped, multi-seed protocol. This single-pathway comparison supports task-relevant fine-tuning as a contributing factor but is not extended to the other audited pathways or to FT-Multi\_T, which was not part of this grouped-retraining round. The $\pm$ values here quantify model-level seed variation; they do not include path-level variation across the audited path family.
+This pathway provides a controlled test of fixed-path energetic fidelity. Under the grouped split, train--test proximity audit, and 3-seed retraining (Table~\ref{tab:mace_performance_grouped}), FT-600K (OMAT-FT start) has the lowest fixed-path barrier error on pathway 1--4 ($0.47 \pm 0.12$~eV), followed by Scratch-5\% ($0.68 \pm 0.20$~eV) and Scratch ($1.20 \pm 0.27$~eV); the historical single-seed frame-level estimate of 0.16~eV is not reproduced under this grouped, multi-seed protocol. The comparison is limited to pathway 1--4; FT-Multi\_T was not part of this grouped-retraining round. The $\pm$ values quantify model-level seed variation, while path-level variation remains unresolved across the audited path family.
 
 For a matched foundation-model comparison, we evaluated ten single-checkpoint models on the same five fixed images. The four main representatives (MP-0b3, MPA0, OMAT-0 medium, and MH-1) produced pathway-1--4 barriers of 1.50, 1.79, 1.60, and 1.84~eV, respectively, against the provisional DFT reference of 0.34~eV. The ten individual profiles are shown in Fig.~\ref{fig:foundation_profiles}a and the family means with pointwise $\pm1$ standard-deviation bands are shown in Fig.~\ref{fig:foundation_profiles}b. The family bands describe variation among sub-models within each foundation family, not seed uncertainty. The profiles are qualitatively smooth but systematically elevated relative to the DFT reference, reinforcing that equilibrium accuracy and fixed-path migration fidelity are distinct observables.
 
@@ -484,7 +482,7 @@ For a matched foundation-model comparison, we evaluated ten single-checkpoint mo
 \subsubsection{Deep Penetration}
 Deep penetration is defined here as Cr entering the interior of a covalently bonded QL, which can require substantial lattice distortion. The audit does not support pooling all higher-distortion candidates into one quantitative OOD score: 1--2 and 1--3 are deep-penetration candidates by the source-site definition, 1--5 requires a geometry recheck, 1--6 is mixed/ambiguous, and 1--8 is a probable deep-penetration auxiliary path. Their historical or candidate DFT references also remain subject to the stated quality gates.
 
-Some fixed-path profiles on these candidates show large model-dependent errors, but the present evidence does not establish that Scratch is superior for deep penetration. Grouped multi-seed retraining supplies model-level uncertainty for the completed in-gap comparison; it does not close the independent path-level classification or DFT-convergence uncertainty for this OOD family. We therefore withhold a deep-penetration model ranking. The robust conclusion at this stage is that near-equilibrium test errors are insufficient predictors of rare-event barrier accuracy.
+The higher-distortion profiles vary across models, but the current audit does not identify a defensible Scratch ranking. Grouped multi-seed retraining supplies model-level uncertainty for the completed in-gap comparison; path-level classification and DFT-convergence uncertainty remain open for this OOD family.
 \subsubsection{Implications for MLFF Development}
 
 These findings highlight critical considerations for practical MLFF deployment:
@@ -502,7 +500,7 @@ The results motivate advanced strategies like uncertainty-guided active learning
 
 To directly assess the practical performance of each model on a physically critical task, we performed a Nudged Elastic Band (NEB) calculation for a Cr atom migration event, as shown in Figure~\ref{fig:neb_benchmark}. This calculation serves as an effective and challenging probe to distinguish the models' stability and predictive accuracy when exploring unseen transition-state geometries. The results reveal a dramatic difference in performance that is not apparent from the RMSE metrics alone.
 
-Both the Scratch and fine-tuned models (FT-600K and FT-MultiT) show a rapid increase in the maximum image force ($f_{max}$) during the NEB optimization, rather than relaxation toward the convergence threshold (Fig.~\ref{fig:neb_benchmark}c). These runs terminate before a converged band is obtained. This observation establishes a self-relaxed NEB stability failure for this test, but it does not by itself identify the microscopic cause or prove catastrophic forgetting; the interpolated images may contain configurations outside the models' stable force manifold.
+Both the Scratch and fine-tuned models (FT-600K and FT-MultiT) show a rapid increase in the maximum image force ($f_{max}$) during the NEB optimization, and the runs terminate before a converged band is obtained (Fig.~\ref{fig:neb_benchmark}c). These runs establish self-relaxed NEB instability for this test; the microscopic cause is not resolved by the present data.
 
 \reviewermap{REV-A1}{partial}{SI Fig. S3 is self-consistent MLFF NEB; 0.41 eV is a model-reported MLFF barrier, not a fixed-path DFT-reference error.}
 In contrast, the MACE foundation model, without any system-specific fine-tuning, completes this self-consistent MLFF-NEB optimization and reports a barrier of 0.41~eV on the path that it optimizes (Figure~\ref{fig:neb_benchmark}b). This value should not be compared as if it were the same observable as the fixed-path error in Fig.~3d of the main text. In the main-text fixed-path task, all models score the same DFT-relaxed images; in the Supplementary Fig.~S3 task, each model supplies the forces that determine the evolving band. Thus, Fig.~S3 supports the narrower conclusion that the zero-shot foundation model is more stable for unconstrained NEB optimization in this test, while Fig.~3d shows that the same model is not quantitatively accurate when asked to score the audited DFT path.
@@ -526,7 +524,7 @@ In contrast, the MACE foundation model, without any system-specific fine-tuning,
 \begin{figure}[htbp]
     \centering
     \includegraphics[width=0.95\textwidth]{revision1/figures/figS_latent_robustness.pdf}
-    \caption{\textbf{Latent-space robustness and original-descriptor checks.} The t-SNE panels show sensitivity to perplexity and seed, while the summary panel compares projected separability with original-descriptor-space silhouette scores. These checks support using the embeddings as qualitative diagnostics rather than stand-alone mechanistic proof.}
+    \caption{\textbf{Latent-space robustness and original-descriptor checks.} The t-SNE panels show sensitivity to perplexity and seed, while the summary panel compares projected separability with original-descriptor-space silhouette scores.}
     \label{fig:latent_robustness_revised}
 \end{figure}
 
