@@ -137,6 +137,7 @@ srun --export=ALL singularity exec --nv --cleanenv "$SIF" \
     export NVARCH=Linux_x86_64
     export NVCOMPILERS=/opt/nvidia/hpc_sdk
     export PATH=/usr/local/qe/bin:/usr/local/bin:$PATH
+    export LD_LIBRARY_PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/comm_libs/openmpi/openmpi-3.1.5/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/comm_libs/12.3/openmpi4/openmpi-4.1.5/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/24.3/compilers/lib:${LD_LIBRARY_PATH:-}
     export OMP_NUM_THREADS=11
     export OMP_STACKSIZE=2G
     export CUDA_LAUNCH_BLOCKING=1
