@@ -31,6 +31,8 @@ RESTART_FROM="${RESTART_FROM:-$ROOT/results_smoke/2L-Cu__neb-QLs_6887697}"
 SIF=/azwestus3/pclancy3_lab/ycao73/qe-7.3.1.sif
 PSEUDO=/home/ycao73/ONCVPseudoPack/SG15_v1.2/UPF/PBE
 SMOKE_NSTEP="${SMOKE_NSTEP:-2}"
+WRAPPER_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+WRAPPER_SHA256="$(sha256sum "$WRAPPER_PATH" | awk '{print $1}')"
 
 [[ "$SMOKE_NSTEP" =~ ^[1-9][0-9]*$ ]]
 for f in neb.in pw_1.in pw_2.in; do test -s "$INPUT_DIR/$f"; done
@@ -139,6 +141,8 @@ fi
   echo "scratch_source=$SCRATCH_SOURCE"
   echo "qe_outdir=$QE_OUTDIR"
   echo "container=$SIF"
+  echo "wrapper=$WRAPPER_PATH"
+  echo "wrapper_sha256=$WRAPPER_SHA256"
   echo "qe_version=7.3.1"
   echo "runtime_overrides=restart_mode=$RUN_MODE,nstep_path=$SMOKE_NSTEP,disk_io=none,outdir=node_local"
   echo "mpi_tmpdir=$TMP_DIR"
