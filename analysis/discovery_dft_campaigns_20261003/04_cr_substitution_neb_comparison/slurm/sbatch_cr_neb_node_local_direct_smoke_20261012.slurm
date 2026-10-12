@@ -136,12 +136,21 @@ srun --export=ALL singularity exec --nv --cleanenv "$SIF" \
     export NVHPC=/opt/nvidia/hpc_sdk
     export NVARCH=Linux_x86_64
     export NVCOMPILERS=/opt/nvidia/hpc_sdk
-    export PATH=/opt/qe/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/compilers/bin:$PATH
-    export LD_LIBRARY_PATH=/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/compilers/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/math_libs/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/cuda/lib64:${LD_LIBRARY_PATH:-}
+    export OPAL_PREFIX=/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/comm_libs/12.8/hpcx/hpcx-2.22.1/ompi
+    export PATH=/opt/qe/bin:$OPAL_PREFIX/bin:/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/compilers/bin:$PATH
+    export LD_LIBRARY_PATH=$OPAL_PREFIX/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/compilers/lib:/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/math_libs/lib64:/opt/nvidia/hpc_sdk/Linux_x86_64/25.3/cuda/lib64:${LD_LIBRARY_PATH:-}
     export OMP_NUM_THREADS=11
     export OMP_STACKSIZE=2G
     export OMPI_MCA_opal_cuda_support=false
+    export OMPI_MCA_prte_tmpdir_base="${TMPDIR}"
+    export OMPI_MCA_orte_tmpdir_base="${TMPDIR}"
+    export OMPI_MCA_orte_base_help_aggregate=0
+    export UCX_MEMTYPE_CACHE=n
+    export UCX_TLS=self,shm,tcp
     export CUDA_LAUNCH_BLOCKING=1
+    export HWLOC_HIDE_ERRORS=1
+    export OMPI_MCA_hwloc_base_binding_policy=none
+    export OMPI_MCA_rmaps_base_mapping_policy=slot
     echo "launcher=container_direct_neb_x"
     exec neb.x -in neb.in
   ' > neb.out 2> neb.err
