@@ -142,7 +142,10 @@ fi
   echo "launcher=container_direct_neb_x_qe731_nosrun"
   df -h "$TMP_ROOT"
   df -ih "$TMP_ROOT"
-  sha256sum source_neb.in source_pw_1.in source_pw_2.in neb.in pw_1.in pw_2.in "$(basename "$RESTART_FILE")"
+  sha256sum source_neb.in source_pw_1.in source_pw_2.in neb.in pw_1.in pw_2.in
+  if [[ -n "$RESTART_FILE" && -s "initial_$(basename "$RESTART_FILE")" ]]; then
+    sha256sum "initial_$(basename "$RESTART_FILE")"
+  fi
   for p in Cr_PBE_FR.SG15v1.2.UPF Sb_PBE_FR.SG15v1.2.UPF Te_PBE_FR.SG15v1.2.UPF; do
     [[ -r "$PSEUDO/$p" ]] && sha256sum "$PSEUDO/$p"
   done
