@@ -198,6 +198,9 @@ wfc_bytes="$(find "$QE_OUTDIR" -type f \( -name 'wfc*' -o -name '*.wfc*' \) -pri
 image_numeric_rows="$(grep -E '^[[:space:]]*[0-9]+[[:space:]]+[-+]?[0-9][0-9.eEdD+-]*([[:space:]]|$)' neb.out 2>/dev/null | wc -l)"
 finite_image_rows=0
 (( image_numeric_rows >= 10 )) && finite_image_rows=1 || true
+barrier_lines="$(grep -Ec 'activation energy \((->|<-)\)[[:space:]]*=[[:space:]]*[-+]?[0-9][0-9.eEdD+-]*' neb.out 2>/dev/null || true)"
+finite_barriers=0
+(( barrier_lines >= 2 )) && finite_barriers=1 || true
 if [[ -n "$RESTART_FILE" && -s "$RESTART_FILE" ]]; then
   restart_sha_after="$(sha256sum "initial_$(basename "$RESTART_FILE")" 2>/dev/null | awk '{print $1}')"
 else
@@ -221,6 +224,7 @@ gate=0
 [[ "$job_done" == 1 ]] || gate=1
 [[ "$image_dirs" -ge 10 ]] || gate=1
 [[ "$finite_image_rows" == 1 ]] || gate=1
+[[ "$finite_barriers" == 1 ]] || gate=1
 [[ "$wfc_bytes" == 0 ]] || gate=1
 if [[ "$RUN_MODE" == restart ]]; then
   [[ "$restart_accepted" == 1 ]] || gate=1
@@ -234,6 +238,8 @@ fi
   echo "image_dirs=$image_dirs"
   echo "image_numeric_rows=$image_numeric_rows"
   echo "finite_image_rows=$finite_image_rows"
+  echo "barrier_lines=$barrier_lines"
+  echo "finite_barriers=$finite_barriers"
   echo "wfc_bytes=$wfc_bytes"
   echo "restart_input=$restart_input"
   echo "restart_path_staged=$restart_path_staged"
