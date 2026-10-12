@@ -74,6 +74,7 @@ TMP_ROOT="${LOCAL_BASE%/}/mb_neb_${NEB_ID}_${SLURM_JOB_ID}"
 QE_OUTDIR="$TMP_ROOT/qe_out"
 TMP_DIR="$TMP_ROOT/tmp"
 mkdir -p "$QE_OUTDIR" "$TMP_DIR"
+chmod 700 "$TMP_ROOT" "$QE_OUTDIR" "$TMP_DIR"
 
 # Make an immutable runtime copy with an explicit restart mode, short smoke
 # path, disk_io=none, and node-local QE outdir.
@@ -106,6 +107,8 @@ done
 export OMP_NUM_THREADS=11 OMP_STACKSIZE=2G
 export TMPDIR="$TMP_DIR"
 export APPTAINERENV_TMPDIR="$TMP_DIR"
+export APPTAINERENV_TMP_ROOT="$TMP_ROOT"
+export APPTAINERENV_QE_OUTDIR="$QE_OUTDIR"
 export APPTAINERENV_OMPI_MCA_prte_tmpdir_base="$TMP_DIR"
 export APPTAINERENV_OMPI_MCA_orte_tmpdir_base="$TMP_DIR"
 export SINGULARITY_BIND="${SINGULARITY_BIND:-}"
@@ -169,6 +172,13 @@ singularity exec --nv --cleanenv "$SIF" \
     export OMP_NUM_THREADS=11
     export OMP_STACKSIZE=2G
     export CUDA_LAUNCH_BLOCKING=1
+    fifo_probe="$TMPDIR/mb_neb_fifo_probe"
+    rm -f "$fifo_probe"
+    mkfifo "$fifo_probe"
+    rm -f "$fifo_probe"
+    test -d "$QE_OUTDIR"
+    test -w "$QE_OUTDIR"
+    echo "preflight=node_local_fifo_and_qe_outdir_ok"
     echo "launcher=container_direct_neb_x_qe731_nosrun"
     exec neb.x -in neb.in
   ' > neb.out 2> neb.err
@@ -179,6 +189,11 @@ job_done=0
 grep -q 'JOB DONE' neb.out && job_done=1 || true
 image_dirs="$(find "$QE_OUTDIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)"
 wfc_bytes="$(find "$QE_OUTDIR" -type f \( -name 'wfc*' -o -name '*.wfc*' \) -printf '%s\n' 2>/dev/null | awk '{s+=$1} END {print s+0}')"
+# QE's NEB summary contains one numeric row per image with an energy and a
+# force/error column. Require all ten rows and reject non-finite markers.
+image_numeric_rows="$(grep -E '^[[:space:]]*[0-9]+[[:space:]]+[-+]?[0-9][0-9.eEdD+-]*([[:space:]]|$)' neb.out 2>/dev/null | wc -l)"
+finite_image_rows=0
+(( image_numeric_rows >= 10 )) && finite_image_rows=1 || true
 if [[ -n "$RESTART_FILE" && -s "$RESTART_FILE" ]]; then
   restart_sha_after="$(sha256sum "initial_$(basename "$RESTART_FILE")" 2>/dev/null | awk '{print $1}')"
 else
@@ -201,6 +216,7 @@ gate=0
 [[ "$rc" == 0 ]] || gate=1
 [[ "$job_done" == 1 ]] || gate=1
 [[ "$image_dirs" -ge 10 ]] || gate=1
+[[ "$finite_image_rows" == 1 ]] || gate=1
 [[ "$wfc_bytes" == 0 ]] || gate=1
 if [[ "$RUN_MODE" == restart ]]; then
   [[ "$restart_accepted" == 1 ]] || gate=1
@@ -212,6 +228,8 @@ fi
   echo "rc=$rc"
   echo "job_done=$job_done"
   echo "image_dirs=$image_dirs"
+  echo "image_numeric_rows=$image_numeric_rows"
+  echo "finite_image_rows=$finite_image_rows"
   echo "wfc_bytes=$wfc_bytes"
   echo "restart_input=$restart_input"
   echo "restart_path_staged=$restart_path_staged"
