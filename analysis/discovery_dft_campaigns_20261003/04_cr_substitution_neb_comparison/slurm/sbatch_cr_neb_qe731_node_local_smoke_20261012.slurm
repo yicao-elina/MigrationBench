@@ -35,15 +35,28 @@ SMOKE_NSTEP="${SMOKE_NSTEP:-2}"
 [[ "$SMOKE_NSTEP" =~ ^[1-9][0-9]*$ ]]
 for f in neb.in pw_1.in pw_2.in; do test -s "$INPUT_DIR/$f"; done
 test -r "$SIF"
-RESTART_FILE="$(find "$RESTART_FROM" -maxdepth 1 -type f -name '*.path' -print -quit)"
-test -s "$RESTART_FILE"
+
+# A .path file alone is not a QE restart: neb.x also needs the per-image
+# QE data/WFC state.  Detect that explicitly; otherwise use the canonical
+# ten-image geometry from neb.in and run a genuine from_scratch smoke.
+RESTART_FILE="$(find "$RESTART_FROM" -maxdepth 1 -type f -name '*.path' -print -quit 2>/dev/null || true)"
+RESTART_IMAGE_COUNT=0
+RUN_MODE=from_scratch
+if [[ -n "$RESTART_FILE" && -s "$RESTART_FILE" ]]; then
+  RESTART_IMAGE_COUNT="$(find "$RESTART_FROM" -type f \( -name 'data-file-schema.xml' -o -name 'data-file.xml' -o -name 'wfc*' \) -print 2>/dev/null | wc -l)"
+  if (( RESTART_IMAGE_COUNT >= 10 )); then
+    RUN_MODE=restart
+  fi
+fi
 
 mkdir -p "$RUN"
 cd "$RUN"
 for f in neb.in pw_1.in pw_2.in; do
   cp "$INPUT_DIR/$f" "source_$f"
 done
-cp "$RESTART_FILE" "$(basename "$RESTART_FILE")"
+if [[ -n "$RESTART_FILE" && -s "$RESTART_FILE" ]]; then
+  cp "$RESTART_FILE" "initial_$(basename "$RESTART_FILE")"
+fi
 
 # Prefer Discovery's per-job LOCAL_SCRATCH; SLURM_TMPDIR is a compatible
 # fallback.  /tmp is retained only as a diagnostic portability fallback.
@@ -64,13 +77,13 @@ mkdir -p "$QE_OUTDIR" "$TMP_DIR"
 
 # Make an immutable runtime copy with an explicit restart mode, short smoke
 # path, disk_io=none, and node-local QE outdir.
-awk -v n="$SMOKE_NSTEP" -v q="$QE_OUTDIR" '
+awk -v n="$SMOKE_NSTEP" -v mode="$RUN_MODE" '
   BEGIN { in_path=0; have_restart=0; have_nstep=0 }
   /^[[:space:]]*&PATH/ { in_path=1; print; next }
-  in_path && /^[[:space:]]*restart_mode[[:space:]]*=/ { print "  restart_mode = '\''restart'\''"; have_restart=1; next }
+  in_path && /^[[:space:]]*restart_mode[[:space:]]*=/ { print "  restart_mode = '\''" mode "'\''"; have_restart=1; next }
   in_path && /^[[:space:]]*nstep_path[[:space:]]*=/ { print "  nstep_path = " n; have_nstep=1; next }
   in_path && /^[[:space:]]*\/[[:space:]]*$/ {
-    if (!have_restart) print "  restart_mode = '\''restart'\''"
+    if (!have_restart) print "  restart_mode = '\''" mode "'\''"
     if (!have_nstep) print "  nstep_path = " n
     in_path=0
   }
@@ -103,7 +116,11 @@ export APPTAINERENV_OMP_NUM_THREADS="$OMP_NUM_THREADS"
 export APPTAINERENV_OMP_STACKSIZE="$OMP_STACKSIZE"
 export APPTAINER_BIND="${APPTAINER_BIND:+$APPTAINER_BIND,}$TMP_ROOT:$TMP_ROOT,$ROOT:$ROOT"
 
-RESTART_SHA_BEFORE="$(sha256sum "$(basename "$RESTART_FILE")" | awk '{print $1}')"
+if [[ -n "$RESTART_FILE" && -s "$RESTART_FILE" ]]; then
+  RESTART_SHA_BEFORE="$(sha256sum "initial_$(basename "$RESTART_FILE")" | awk '{print $1}')"
+else
+  RESTART_SHA_BEFORE=NA
+fi
 {
   date
   hostname
@@ -113,12 +130,14 @@ RESTART_SHA_BEFORE="$(sha256sum "$(basename "$RESTART_FILE")" | awk '{print $1}'
   echo "restart_from=$RESTART_FROM"
   echo "restart_file=$(basename "$RESTART_FILE")"
   echo "restart_sha_before=$RESTART_SHA_BEFORE"
+  echo "run_mode=$RUN_MODE"
+  echo "restart_image_state_files=$RESTART_IMAGE_COUNT"
   echo "scratch_root=$TMP_ROOT"
   echo "scratch_source=$SCRATCH_SOURCE"
   echo "qe_outdir=$QE_OUTDIR"
   echo "container=$SIF"
   echo "qe_version=7.3.1"
-  echo "runtime_overrides=restart_mode=restart,nstep_path=$SMOKE_NSTEP,disk_io=none,outdir=node_local"
+  echo "runtime_overrides=restart_mode=$RUN_MODE,nstep_path=$SMOKE_NSTEP,disk_io=none,outdir=node_local"
   echo "mpi_tmpdir=$TMP_DIR"
   echo "launcher=container_direct_neb_x_qe731_nosrun"
   df -h "$TMP_ROOT"
@@ -157,15 +176,19 @@ job_done=0
 grep -q 'JOB DONE' neb.out && job_done=1 || true
 image_dirs="$(find "$QE_OUTDIR" -mindepth 1 -maxdepth 1 -type d 2>/dev/null | wc -l)"
 wfc_bytes="$(find "$QE_OUTDIR" -type f \( -name 'wfc*' -o -name '*.wfc*' \) -printf '%s\n' 2>/dev/null | awk '{s+=$1} END {print s+0}')"
-restart_sha_after="$(sha256sum "$(basename "$RESTART_FILE")" 2>/dev/null | awk '{print $1}')"
+if [[ -n "$RESTART_FILE" && -s "$RESTART_FILE" ]]; then
+  restart_sha_after="$(sha256sum "initial_$(basename "$RESTART_FILE")" 2>/dev/null | awk '{print $1}')"
+else
+  restart_sha_after=NA
+fi
 restart_path_staged=0
-[[ -s "$(basename "$RESTART_FILE")" ]] && restart_path_staged=1
+[[ -n "$RESTART_FILE" && -s "initial_$(basename "$RESTART_FILE")" ]] && restart_path_staged=1
 grep -Eq 'restart_mode[[:space:]]*=[[:space:]]*'"'"'restart'"'"'' neb.in && restart_input=1 || restart_input=0
 # QE does not emit a uniform restart banner in every neb.x build.  A staged
 # path plus a successful 10-image initialization is the auditable acceptance
 # criterion; record whether neb.x rewrote the path as additional evidence.
 restart_accepted=0
-if [[ "$restart_path_staged" == 1 && "$restart_input" == 1 && "$image_dirs" -ge 10 ]]; then restart_accepted=1; fi
+if [[ "$RUN_MODE" == restart && "$restart_path_staged" == 1 && "$restart_input" == 1 && "$image_dirs" -ge 10 ]]; then restart_accepted=1; fi
 grep -E 'JOB DONE|neb:|image|Error in routine|MPI|FIO|errno|nan|inf|convergence NOT achieved|restart' neb.out neb.err > gate_markers.txt || true
 find "$QE_OUTDIR" -maxdepth 3 -type f -printf '%P\t%s\n' 2>/dev/null | sort > qe_output_manifest.tsv || true
 du -sh "$TMP_ROOT" > scratch_usage_before_cleanup.txt 2>/dev/null || true
@@ -176,7 +199,11 @@ gate=0
 [[ "$job_done" == 1 ]] || gate=1
 [[ "$image_dirs" -ge 10 ]] || gate=1
 [[ "$wfc_bytes" == 0 ]] || gate=1
-[[ "$restart_accepted" == 1 ]] || gate=1
+if [[ "$RUN_MODE" == restart ]]; then
+  [[ "$restart_accepted" == 1 ]] || gate=1
+else
+  grep -Eq 'restart_mode[[:space:]]*=[[:space:]]*'"'"'from_scratch'"'"'' neb.in || gate=1
+fi
 ! grep -qiE 'Error in routine|stopping|MPI_Init|FIO|errno|nan|inf|CANNOT CREATE FIFO' neb.out neb.err || gate=1
 {
   echo "rc=$rc"
