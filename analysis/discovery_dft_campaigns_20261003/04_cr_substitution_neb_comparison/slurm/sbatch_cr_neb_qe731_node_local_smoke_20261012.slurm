@@ -120,7 +120,7 @@ RESTART_SHA_BEFORE="$(sha256sum "$(basename "$RESTART_FILE")" | awk '{print $1}'
   echo "qe_version=7.3.1"
   echo "runtime_overrides=restart_mode=restart,nstep_path=$SMOKE_NSTEP,disk_io=none,outdir=node_local"
   echo "mpi_tmpdir=$TMP_DIR"
-  echo "launcher=container_direct_neb_x_qe731"
+  echo "launcher=container_direct_neb_x_qe731_nosrun"
   df -h "$TMP_ROOT"
   df -ih "$TMP_ROOT"
   sha256sum source_neb.in source_pw_1.in source_pw_2.in neb.in pw_1.in pw_2.in "$(basename "$RESTART_FILE")"
@@ -130,7 +130,7 @@ RESTART_SHA_BEFORE="$(sha256sum "$(basename "$RESTART_FILE")" | awk '{print $1}'
 } > runtime_provenance.txt
 
 set +e
-srun --export=ALL singularity exec --nv --cleanenv "$SIF" \
+singularity exec --nv --cleanenv "$SIF" \
   bash --noprofile --norc -c '
     set -euo pipefail
     export NVHPC=/opt/nvidia/hpc_sdk
@@ -147,7 +147,7 @@ srun --export=ALL singularity exec --nv --cleanenv "$SIF" \
     export OMP_NUM_THREADS=11
     export OMP_STACKSIZE=2G
     export CUDA_LAUNCH_BLOCKING=1
-    echo "launcher=container_direct_neb_x_qe731"
+    echo "launcher=container_direct_neb_x_qe731_nosrun"
     exec neb.x -in neb.in
   ' > neb.out 2> neb.err
 rc=$?
