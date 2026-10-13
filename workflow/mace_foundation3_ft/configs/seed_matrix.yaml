@@ -1,0 +1,207 @@
+schema_version: "1.0"
+campaign_id: mace_foundation3_ft_seed123_20261013
+description: >-
+  Additive foundation-lineage comparison: MACE-MPA-0, MACE-MP-0b3, and the
+  separately gated MACE-POLAR-1-M exploratory transfer branch, each fine-tuned
+  on FT-600K and FT-MultiT with training seed 123.
+
+remote_root: /scratch16/pclancy3/yi/mace_foundation3_ft_seed123_20261013
+
+environment:
+  bootstrap: /data/apps/go.sh
+  conda_sh: /data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/etc/profile.d/conda.sh
+  conda_env: mace
+  polar_venv: /scratch16/pclancy3/yi/mace_polar_venv_20261013
+  polar_install_command: >-
+    python -m pip install --no-cache-dir mace-torch==0.3.16
+    git+https://github.com/WillBaldwin0/graph_electrostatics.git@v0.4.4
+
+slurm:
+  sbatch: /cm/shared/apps/slurm/23.02.2/bin/sbatch
+  slurm_conf: /cm/shared/apps/slurm/var/etc/slurm/slurm.conf
+  account: pclancy3_gpu
+  qos: qos_gpu
+  partition: a100
+  gres: gpu:1
+  cpus_per_task: 12
+  ntasks_per_node: 4
+  time: 2-00:00:00
+  mem: 0
+
+foundation_models:
+  mpa0:
+    canonical_name: medium-mpa-0
+    label: MACE-MPA-0
+    role: public_zero_shot_foundation
+    model_type: MACE
+    model_family: material_foundation
+    comparability: primary_material_baseline
+    training_lineage: MPTrj+sAlex, PBE+U
+    source: /scratch16/pclancy3/yi/mace_foundation3_ft_seed123_20261013/models/mace-mpa-0-medium.model
+    sha256: 75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638
+    public_url: https://github.com/ACEsuit/mace-mp/releases/download/mace_mpa_0/mace-mpa-0-medium.model
+  mp0b3:
+    canonical_name: medium-0b3
+    label: MACE-MP-0b3
+    role: public_zero_shot_foundation
+    model_type: MACE
+    model_family: material_foundation
+    comparability: primary_material_baseline
+    training_lineage: MPTrj, PBE+U, second-generation MP model
+    source: /scratch16/pclancy3/yi/mace_foundation3_ft_seed123_20261013/models/mace-mp-0b3-medium.model
+    sha256: 2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012
+    public_url: https://github.com/ACEsuit/mace-mp/releases/download/mace_mp_0b3/mace-mp-0b3-medium.model
+  polar1m:
+    canonical_name: polar-1-m
+    label: MACE-POLAR-1-M
+    role: public_zero_shot_foundation
+    model_type: PolarMACE
+    model_family: electrostatic_foundation_transfer
+    comparability: exploratory_not_primary_material_baseline
+    training_lineage: OMol25, omegaB97M-V, explicit long-range electrostatics and polarizable multipoles
+    source: /scratch16/pclancy3/yi/mace_foundation3_ft_seed123_20261013/models/MACE-POLAR-1-M.model
+    sha256: fab8b8713c832f31a2a853aaa22fd638be8a369cbf5095e6b3e982a18d10e93a
+    public_url: https://github.com/ACEsuit/mace-foundations/releases/download/mace_polar_1/MACE-POLAR-1-M.model
+    official_docs: https://mace-docs.readthedocs.io/en/latest/guide/polar_mace.html
+    polar_data_contract:
+      required_structure_info: [charge, spin, external_field]
+      pbc_handling: auto
+      graph_longrange_version: 0.4.4
+
+datasets:
+  ft600k:
+    label: FT-600K grouped A2
+    root: /scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped
+    split_manifest: /scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/grouped_split_summary.json
+    files:
+      train.xyz: 04b1369d0da0b630c55aa6da6b3f85ea9ff4bffb107de804ead6fe7214fa34b8
+      valid.xyz: aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502
+      test.xyz: d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab
+  multit:
+    label: Multi-T grouped A2
+    root: /scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT
+    split_manifest: /scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT/grouped_split_summary.json
+    files:
+      train.xyz: b240052d557fb27b41af6fb31ad80b25261d96f9667050ca83fcbdb922694f9b
+      valid.xyz: 44d2877ccd9d4ddbf3c470d7a6c5f2b794802a9b03444d211b89237df99dd117
+      test.xyz: 5adcf16c7220eae90bd2d9a9f792e2dce281e1300bdbb86054ef94e255188648
+
+families:
+  mpa0_ft600k:
+    label: FT-600K from MACE-MPA-0
+    foundation_model: mpa0
+    dataset: ft600k
+    output_dir_template: training/mpa0/ft600k_seed{seed}
+    runtime: core
+    e0s: isolated
+    multiheads_finetuning: true
+  mpa0_multit:
+    label: FT-MultiT from MACE-MPA-0
+    foundation_model: mpa0
+    dataset: multit
+    output_dir_template: training/mpa0/multit_seed{seed}
+    runtime: core
+    e0s: isolated
+    multiheads_finetuning: true
+  mp0b3_ft600k:
+    label: FT-600K from MACE-MP-0b3
+    foundation_model: mp0b3
+    dataset: ft600k
+    output_dir_template: training/mp0b3/ft600k_seed{seed}
+    runtime: core
+    e0s: isolated
+    multiheads_finetuning: true
+  mp0b3_multit:
+    label: FT-MultiT from MACE-MP-0b3
+    foundation_model: mp0b3
+    dataset: multit
+    output_dir_template: training/mp0b3/multit_seed{seed}
+    runtime: core
+    e0s: isolated
+    multiheads_finetuning: true
+  polar1m_ft600k:
+    label: FT-600K from MACE-POLAR-1-M
+    foundation_model: polar1m
+    dataset: ft600k
+    output_dir_template: training/polar1m/ft600k_seed{seed}
+    runtime: polar
+    e0s: isolated
+    multiheads_finetuning: false
+  polar1m_multit:
+    label: FT-MultiT from MACE-POLAR-1-M
+    foundation_model: polar1m
+    dataset: multit
+    output_dir_template: training/polar1m/multit_seed{seed}
+    runtime: polar
+    e0s: isolated
+    multiheads_finetuning: false
+
+training:
+  seeds: [123]
+  model: MACE
+  polar_model: PolarMACE
+  smoke_max_num_epochs: 1
+  num_channels: 32
+  max_L: 1
+  r_max: 6.0
+  hidden_irreps: "128x0e + 128x1o"
+  batch_size: 32
+  valid_batch_size: 16
+  max_num_epochs: 1000
+  swa: true
+  start_swa: 200
+  ema: true
+  ema_decay: 0.99
+  eval_interval: 50
+  patience: 20
+  forces_weight: 10.0
+  energy_weight: 1.0
+  stress_weight: 0.0
+  energy_key: energy
+  forces_key: forces
+  device: cuda
+  artifact_candidates:
+    - "{name}_stagetwo.model"
+    - "{name}_stage_two.model"
+    - "{name}.model"
+
+md:
+  enabled: true
+  input: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-omat/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz
+  input_sha256: 445cd9b2dd0a902594b925b9228b9c121995b980864a8c5331f994d87cd02a99
+  input_frame: -1
+  initial_absolute_step: 200000
+  target_step: 1000000
+  timestep_fs: 1.0
+  temperature_K: 600.0
+  friction: 0.01
+  write_interval_steps: 200
+  checkpoint_interval_steps: 25000
+  md_velocity_seed_by_training_seed:
+    "123": 1100
+  device: cuda
+  required_natoms: 2050
+  required_pbc: [true, true, true]
+  min_distance_A: 0.5
+  max_temperature_K: 5000.0
+  max_force_eV_A: 100.0
+
+neb:
+  enabled: false
+  status: pending_input_manifest
+  input_manifest: null
+  runner_script: src/migrationbench/run_mlff_neb.py
+  output_root: neb
+
+analysis:
+  original_plot_recipe: paper/revision1/appendix/scripts/plot_campaign_atlas.py
+  output_dir: publication_artifacts
+  report_hfacf: false
+  report_diffusion_from_smoke: false
+  required_formats: [png, svg, pdf]
+
+release:
+  github_repo: https://github.com/yicao-elina/MigrationBench.git
+  overleaf_remote: https://git.overleaf.com/693b515e50f0071cb03b505c
+  branch: codex/foundation3-ft-seed123-20261013
+  raw_data_policy: immutable_archive_with_sha256
