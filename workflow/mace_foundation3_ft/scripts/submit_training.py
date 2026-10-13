@@ -16,6 +16,7 @@ def main() -> None:
     parser.add_argument("--families", required=True, help="comma-separated family IDs")
     parser.add_argument("--runtime", required=True, choices=["core", "polar"])
     parser.add_argument("--smoke", action="store_true")
+    parser.add_argument("--afterok", help="Slurm job or array element required to pass")
     parser.add_argument("--submit", action="store_true", help="actually call sbatch; default is dry-run")
     args = parser.parse_args()
     cfg = yaml.safe_load(args.config.read_text())
@@ -50,6 +51,8 @@ def main() -> None:
         f"--error={Path(cfg['remote_root']) / 'logs' / ('train-%A_%a-' + args.runtime + '.err')}",
         f"--export={export}", str(script),
     ]
+    if args.afterok:
+        cmd.insert(-1, f"--dependency=afterok:{args.afterok}")
     print(" ".join(cmd))
     if not args.submit:
         print("DRY_RUN: add --submit only after the corresponding smoke/preflight policy passes")
@@ -65,10 +68,12 @@ def main() -> None:
         "config": str(args.config.resolve()),
         "runtime": args.runtime,
         "phase": phase,
+        "afterok": args.afterok,
         "families": families,
         "jobs": jobs,
     }
-    out = Path(cfg["remote_root"]) / f"submission_training_{args.runtime}_{phase}.json"
+    family_tag = families[0] if len(families) == 1 else "all"
+    out = Path(cfg["remote_root"]) / f"submission_training_{args.runtime}_{phase}_{family_tag}.json"
     if out.exists():
         raise SystemExit(f"refusing to overwrite submission record: {out}")
     out.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")

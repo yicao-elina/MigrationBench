@@ -55,6 +55,8 @@ def main() -> None:
 
     dataset = cfg["datasets"][family["dataset"]]
     campaign_root = Path(os.environ.get("CAMPAIGN_OUTPUT_ROOT", cfg["remote_root"]))
+    if args.smoke:
+        campaign_root = campaign_root / "smoke"
     root = campaign_root / family["output_dir_template"].format(seed=seed)
     if root.exists():
         raise SystemExit(f"refusing to overwrite existing output directory: {root}")
@@ -135,6 +137,7 @@ def main() -> None:
         ),
         "training_completion_state": "started",
         "smoke": bool(args.smoke),
+        "output_phase": "smoke" if args.smoke else "production",
         "slurm_job_id": os.environ.get("SLURM_JOB_ID"),
         "hostname": os.uname().nodename,
         "started_at_utc": datetime.now(timezone.utc).isoformat(),
