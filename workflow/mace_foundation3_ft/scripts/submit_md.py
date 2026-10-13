@@ -15,6 +15,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", required=True, type=Path)
     parser.add_argument("--families", required=True)
+    parser.add_argument("--afterok", help="model-gate job or array element required to pass")
     parser.add_argument("--submit", action="store_true")
     args = parser.parse_args()
     cfg = yaml.safe_load(args.config.read_text())
@@ -62,6 +63,8 @@ def main() -> None:
         f"--error={Path(cfg['remote_root']) / 'logs' / ('md-%A_%a-' + runtime + '.err')}",
         f"--export={export_arg}", str(script),
     ]
+    if args.afterok:
+        cmd.insert(-1, f"--dependency=afterok:{args.afterok}")
     print(json.dumps({"jobs": jobs, "runtime": runtime, "command": cmd}, indent=2))
     if not args.submit:
         print("DRY_RUN: add --submit only after smoke and model-gate evidence is reviewed")
@@ -77,9 +80,11 @@ def main() -> None:
         "config_sha256": config_sha256,
         "families": families,
         "runtime": runtime,
+        "afterok": args.afterok,
         "jobs": [{"family": family, "training_seed": seed} for family, seed in jobs],
     }
-    out = Path(cfg["remote_root"]) / f"submission_md_{runtime}.json"
+    family_tag = families[0] if len(families) == 1 else "all"
+    out = Path(cfg["remote_root"]) / f"submission_md_{runtime}_{family_tag}.json"
     if out.exists():
         raise SystemExit(f"refusing to overwrite submission record: {out}")
     out.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
