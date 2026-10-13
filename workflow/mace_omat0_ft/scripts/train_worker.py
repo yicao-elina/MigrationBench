@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """Run one configuration-defined MACE fine-tuning task and write its manifest."""
-from __future__ import annotations
-
 import argparse
 import hashlib
 import json
@@ -25,6 +23,7 @@ def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True, type=Path)
     ap.add_argument("--index", required=True, type=int)
+    ap.add_argument("--smoke", action="store_true")
     args = ap.parse_args()
     cfg = yaml.safe_load(args.config.read_text())
     seeds = [int(x) for x in cfg["training"]["seeds"]]
@@ -32,10 +31,14 @@ def main() -> None:
     if not 0 <= args.index < len(jobs):
         raise SystemExit(f"invalid array index {args.index}; expected 0..{len(jobs)-1}")
     family_id, seed = jobs[args.index]
+    if args.smoke:
+        family_id = cfg["training"]["smoke_family"]
+        seed = int(cfg["training"]["smoke_seed"])
     family = cfg["families"][family_id]
     dataset = cfg["datasets"][family["dataset"]]
     foundation = cfg["foundation_models"][cfg["selected_foundation_model"]]
-    root = Path(cfg["remote_root"]) / "training" / family_id / f"seed{seed}"
+    campaign_root = Path(os.environ.get("CAMPAIGN_OUTPUT_ROOT", cfg["remote_root"]))
+    root = campaign_root / "training" / family_id / f"seed{seed}"
     root.mkdir(parents=True, exist_ok=True)
     manifest_path = root / "training_manifest.json"
     if manifest_path.exists():
@@ -48,7 +51,9 @@ def main() -> None:
         if not path.is_file() or sha256(path) != expected:
             raise SystemExit(f"dataset preflight failed: {path}")
     name = f"{family_id}_seed{seed}"
-    t = cfg["training"]
+    t = dict(cfg["training"])
+    if args.smoke:
+        t["max_num_epochs"] = cfg["training"]["smoke_max_num_epochs"]
     cmd = [
         "mace_run_train", f"--name={name}", f"--model_dir={root}", f"--log_dir={root}",
         f"--checkpoints_dir={root}", f"--results_dir={root}",
@@ -74,6 +79,7 @@ def main() -> None:
         "foundation_model_sha256": foundation["sha256"], "dataset_id": family["dataset"],
         "dataset_files": {str(p): sha256(p) for p in files}, "command": cmd,
         "slurm_job_id": os.environ.get("SLURM_JOB_ID"), "hostname": os.uname().nodename,
+        "smoke": bool(args.smoke),
     }
     (root / "preflight.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     subprocess.run(cmd, check=True)

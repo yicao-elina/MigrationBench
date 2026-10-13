@@ -1,7 +1,5 @@
 #!/usr/bin/env python3
 """Validate a configuration-driven OMAT-0 FT campaign without submitting jobs."""
-from __future__ import annotations
-
 import argparse
 import hashlib
 import json

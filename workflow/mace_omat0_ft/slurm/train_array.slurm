@@ -16,4 +16,8 @@ source /data/apps/helpers/singularity.sh 2>/dev/null || true
 source "$MACE_CONDA_SH"
 conda activate "$MACE_CONDA_ENV"
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-4}"
-python3 "$(dirname "$CAMPAIGN_CONFIG")/../scripts/train_worker.py" --config "$CAMPAIGN_CONFIG" --index "$SLURM_ARRAY_TASK_ID"
+SMOKE_ARG=()
+if [[ "${TRAIN_SMOKE:-0}" == "1" ]]; then
+  SMOKE_ARG=(--smoke)
+fi
+python3 "$(dirname "$CAMPAIGN_CONFIG")/../scripts/train_worker.py" --config "$CAMPAIGN_CONFIG" --index "$SLURM_ARRAY_TASK_ID" "${SMOKE_ARG[@]}"

@@ -15,6 +15,8 @@ environment:
     - openmpi/4.1.6
 
 slurm:
+  sbatch: /cm/shared/apps/slurm/23.02.2/bin/sbatch
+  slurm_conf: /cm/shared/apps/slurm/var/etc/slurm/slurm.conf
   account: pclancy3_gpu
   qos: qos_gpu
   partition: a100
@@ -72,6 +74,9 @@ families:
 
 training:
   seeds: [123, 234, 345]
+  smoke_family: ft600k_omat0
+  smoke_seed: 123
+  smoke_max_num_epochs: 1
   model: MACE
   num_channels: 32
   max_L: 1
