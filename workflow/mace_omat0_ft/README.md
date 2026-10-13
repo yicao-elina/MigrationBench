@@ -52,6 +52,26 @@ The last command is a dry run. The six training jobs are submitted only after
 the remote preflight passes and with the explicit `--submit` flag. All output
 is under the configured `remote_root`; existing campaigns are not reused.
 
+### NEB release gate
+
+Start from `configs/neb_manifest.example.yaml`, fill in the endpoint/path
+hashes and DFT provenance, then set `neb.enabled: true` in the campaign config.
+The submission remains a dry run unless `--submit` is supplied:
+
+```bash
+python3 workflow/mace_omat0_ft/scripts/submit_neb.py \
+  --config workflow/mace_omat0_ft/configs/seed_matrix.yaml \
+  --neb-manifest /path/to/approved_neb_manifest.yaml
+```
+
+The array contains one task per family × training seed × enabled NEB mode.
+Fixed-path scoring only evaluates the supplied images. Self-relaxed MLFF-NEB
+uses the repository's audited runner and records its model/input hashes. Both
+outputs are MLFF preconditioners/proposals; the publication barrier must still
+come from the separately provenance-checked DFT NEB campaign. A non-empty
+output directory, unapproved manifest, missing endpoint hash, or inconsistent
+image topology blocks submission rather than triggering an implicit repair.
+
 ## Model comparison question
 
 This campaign isolates the effect of the foundation checkpoint. The existing
