@@ -15,6 +15,7 @@ def main() -> None:
     ap.add_argument("--config", required=True, type=Path)
     ap.add_argument("--submit", action="store_true", help="actually call sbatch; default is dry-run")
     ap.add_argument("--smoke", action="store_true", help="submit one 1-epoch compatibility smoke")
+    ap.add_argument("--afterok", help="submit behind a successful Slurm job id")
     args = ap.parse_args()
     cfg = yaml.safe_load(args.config.read_text())
     seeds = cfg["training"]["seeds"]
@@ -38,6 +39,8 @@ def main() -> None:
         f"--time={slurm['time']}", f"--mem={slurm['mem']}", f"--array=0-{array_max}",
         f"--export={export}", str(script),
     ]
+    if args.afterok:
+        cmd.insert(-1, "--dependency=afterok:%s" % args.afterok)
     print(" ".join(cmd))
     if not args.submit:
         print("DRY_RUN: add --submit only after remote preflight passes")
@@ -45,7 +48,7 @@ def main() -> None:
     submit_env = os.environ.copy()
     submit_env["SLURM_CONF"] = slurm.get("slurm_conf", "/cm/shared/apps/slurm/var/etc/slurm/slurm.conf")
     job_id = subprocess.check_output(cmd, universal_newlines=True, env=submit_env).strip()
-    record = {"submitted_at_utc": datetime.now(timezone.utc).isoformat(), "job_id": job_id, "command": cmd, "config": str(args.config.resolve()), "smoke": args.smoke, "jobs": [{"family": f, "training_seed": s} for f in cfg["families"] for s in seeds]}
+    record = {"submitted_at_utc": datetime.now(timezone.utc).isoformat(), "job_id": job_id, "command": cmd, "config": str(args.config.resolve()), "smoke": args.smoke, "afterok": args.afterok, "jobs": [{"family": f, "training_seed": s} for f in cfg["families"] for s in seeds]}
     out = Path(cfg["remote_root"]) / "submission_training.json"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
