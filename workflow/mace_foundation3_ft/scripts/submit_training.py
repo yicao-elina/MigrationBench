@@ -46,6 +46,8 @@ def main() -> None:
         f"--partition={slurm['partition']}", f"--gres={slurm['gres']}",
         f"--cpus-per-task={slurm['cpus_per_task']}", f"--ntasks-per-node={slurm['ntasks_per_node']}",
         f"--time={slurm['time']}", f"--mem={slurm['mem']}", f"--array=0-{array_max}",
+        f"--output={Path(cfg['remote_root']) / 'logs' / ('train-%A_%a-' + args.runtime + '.out')}",
+        f"--error={Path(cfg['remote_root']) / 'logs' / ('train-%A_%a-' + args.runtime + '.err')}",
         f"--export={export}", str(script),
     ]
     print(" ".join(cmd))

@@ -122,17 +122,58 @@ def main() -> None:
             "ase": package_version("ase"),
             "graph_longrange": package_version("graph_longrange"),
         },
+        "environment_manifest": str(root / "environment_manifest.json"),
         "artifact_path": None,
         "artifact_sha256": None,
-        "training_log": str(root / f"{name}.log"),
+        "training_log": str(
+            campaign_root
+            / "logs"
+            / (
+                f"train-{os.environ.get('SLURM_ARRAY_JOB_ID', os.environ.get('SLURM_JOB_ID', 'local'))}_"
+                f"{os.environ.get('SLURM_ARRAY_TASK_ID', args.index)}-{family['runtime']}.out"
+            )
+        ),
         "training_completion_state": "started",
         "smoke": bool(args.smoke),
         "slurm_job_id": os.environ.get("SLURM_JOB_ID"),
         "hostname": os.uname().nodename,
         "started_at_utc": datetime.now(timezone.utc).isoformat(),
     }
+    freeze = subprocess.run(
+        [sys.executable, "-m", "pip", "freeze"],
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    (root / "environment_manifest.json").write_text(
+        json.dumps(
+            {
+                "campaign_id": cfg["campaign_id"],
+                "family": family_id,
+                "training_seed": seed,
+                "python": payload["runtime"],
+                "pip_freeze": freeze.stdout.splitlines(),
+                "pip_freeze_returncode": freeze.returncode,
+                "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+            },
+            indent=2,
+            sort_keys=True,
+        )
+        + "\n"
+    )
     (root / "preflight.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
-    subprocess.run(command, check=True)
+    try:
+        subprocess.run(command, check=True)
+    except subprocess.CalledProcessError as exc:
+        payload.update(
+            {
+                "training_completion_state": "failed",
+                "failure_returncode": exc.returncode,
+                "failed_at_utc": datetime.now(timezone.utc).isoformat(),
+            }
+        )
+        (root / "training_failure.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
+        raise
 
     artifact = None
     for pattern in train["artifact_candidates"]:
@@ -147,6 +188,7 @@ def main() -> None:
         "artifact_sha256": sha256(artifact),
         "training_completion_state": "completed",
         "completed_at_utc": datetime.now(timezone.utc).isoformat(),
+        "test_metrics": sorted(str(path) for path in root.rglob("*") if path.is_file() and "test" in path.name.lower()),
     })
     (root / "training_manifest.json").write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n")
     print(json.dumps(payload, indent=2, sort_keys=True))
