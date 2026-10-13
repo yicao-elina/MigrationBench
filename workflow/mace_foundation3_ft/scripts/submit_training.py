@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Submit a filtered smoke or production training array after local validation."""
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -20,6 +21,7 @@ def main() -> None:
     parser.add_argument("--submit", action="store_true", help="actually call sbatch; default is dry-run")
     args = parser.parse_args()
     cfg = yaml.safe_load(args.config.read_text())
+    config_sha256 = hashlib.sha256(args.config.read_bytes()).hexdigest()
     families = [item.strip() for item in args.families.split(",") if item.strip()]
     if not families or not set(families) <= set(cfg["families"]):
         raise SystemExit("unknown or empty family filter")
@@ -66,6 +68,7 @@ def main() -> None:
         "job_id": job_id,
         "command": cmd,
         "config": str(args.config.resolve()),
+        "config_sha256": config_sha256,
         "runtime": args.runtime,
         "phase": phase,
         "afterok": args.afterok,

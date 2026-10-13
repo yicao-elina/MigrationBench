@@ -92,8 +92,11 @@ def main():
     campaign_root = args.output_root or Path(cfg["remote_root"])
     run_dir = campaign_root / "md" / family_id / ("seed%d" % training_seed)
     if run_dir.exists():
-        raise SystemExit("refusing to overwrite existing MD output directory: %s" % run_dir)
-    run_dir.parent.mkdir(parents=True, exist_ok=True)
+        if not (run_dir / "status.json").is_file():
+            raise SystemExit("existing MD directory has no status.json; refusing ambiguous restart: %s" % run_dir)
+    else:
+        run_dir.parent.mkdir(parents=True, exist_ok=True)
+        run_dir.mkdir(exist_ok=False)
     training_manifest = Path(cfg["remote_root"]) / family["output_dir_template"].format(seed=training_seed) / "training_manifest.json"
     if not training_manifest.is_file():
         raise SystemExit("missing completed training manifest: %s" % training_manifest)
@@ -124,7 +127,7 @@ def main():
         raise SystemExit("initial checkpoint failed atom/PBC/finite-state gate")
     target = int(md["target_step"])
     segment = run_dir / ("segment_from_%09d.extxyz" % step)
-    metrics = run_dir / ("metrics_from_%09d.csv" % step)
+    metrics = run_dir / ("metrics.csv" if not (run_dir / "metrics.csv").exists() else "metrics_from_%09d.csv" % step)
     if segment.exists() or metrics.exists():
         raise SystemExit("refusing to overwrite an existing segment or metrics file")
 
@@ -140,7 +143,11 @@ def main():
         "segment": str(segment), "metrics": str(metrics), "natoms": len(atoms),
         "pbc": [bool(x) for x in atoms.pbc],
     }
-    atomic_json(run_dir / "run_manifest.json", manifest)
+    run_manifest_path = run_dir / "run_manifest.json"
+    if run_manifest_path.exists():
+        run_manifest_path = run_dir / ("run_manifest_from_%09d.json" % step)
+    manifest["run_manifest"] = str(run_manifest_path)
+    atomic_json(run_manifest_path, manifest)
     with ledger_path.open("a") as fh:
         fh.write(json.dumps({"event": "segment_start", "step": step, "segment": str(segment)}) + "\n")
 
@@ -159,12 +166,12 @@ def main():
     current = {"step": step}
     rows = []
     bad_reason = None
-    fields = ["step", "time_ps", "energy_eV", "temperature_K", "max_force_eV_A", "min_distance_A"]
+    fields = ["step", "time_ps", "energy_eV", "temperature_K", "max_force_eV_A", "min_distance_A", "stress_finite"]
 
     def checkpoint(reason):
         payload = dict(manifest)
-        payload.update({"last_step": current["step"], "reason": reason, "rng_state": rng.bit_generator.state})
         write(str(restart_path), atoms, format="extxyz", append=False)
+        payload.update({"last_step": current["step"], "time_fs": float(current["step"]), "reason": reason, "rng_state": rng.bit_generator.state, "checkpoint_sha256": sha256(restart_path)})
         atomic_json(status_path, payload)
 
     def record():
@@ -173,12 +180,16 @@ def main():
         forces = np.asarray(atoms.get_forces(), dtype=float)
         energy = float(atoms.get_potential_energy())
         temp = temperature(atoms)
+        try:
+            stress_finite = bool(np.isfinite(np.asarray(atoms.get_stress(), dtype=float)).all())
+        except Exception:
+            stress_finite = None
         dmin = min_distance(atoms) if current["step"] % 1000 == 0 else float("nan")
         atoms.info.update({"step": current["step"], "absolute_step": current["step"], "time_fs": float(current["step"])})
         write(str(segment), atoms, append=segment.exists(), format="extxyz")
-        row = {"step": current["step"], "time_ps": current["step"] * 0.001, "energy_eV": energy, "temperature_K": temp, "max_force_eV_A": float(np.abs(forces).max()), "min_distance_A": dmin}
+        row = {"step": current["step"], "time_ps": current["step"] * 0.001, "energy_eV": energy, "temperature_K": temp, "max_force_eV_A": float(np.abs(forces).max()), "min_distance_A": dmin, "stress_finite": stress_finite}
         rows.append(row)
-        bad = (not finite_state(atoms, int(md["required_natoms"]), md["required_pbc"]) or not np.isfinite(forces).all() or not np.isfinite(energy) or not np.isfinite(temp) or temp > float(md.get("max_temperature_K", 5000.0)) or row["max_force_eV_A"] > float(md.get("max_force_eV_A", 100.0)) or (np.isfinite(dmin) and dmin < float(md.get("min_distance_A", 0.5))))
+        bad = (not finite_state(atoms, int(md["required_natoms"]), md["required_pbc"]) or not np.isfinite(forces).all() or not np.isfinite(energy) or not np.isfinite(temp) or stress_finite is False or temp > float(md.get("max_temperature_K", 5000.0)) or row["max_force_eV_A"] > float(md.get("max_force_eV_A", 100.0)) or (np.isfinite(dmin) and dmin < float(md.get("min_distance_A", 0.5))))
         if bad:
             bad_reason = "scientific_threshold"
         if STOP or bad:

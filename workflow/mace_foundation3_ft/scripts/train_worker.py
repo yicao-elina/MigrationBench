@@ -98,6 +98,8 @@ def main() -> None:
     payload = {
         "schema_version": "1.0",
         "campaign_id": cfg["campaign_id"],
+        "config_path": str(args.config),
+        "config_sha256": sha256(args.config),
         "foundation_name": foundation["canonical_name"],
         "foundation_id": family["foundation_model"],
         "foundation_path": str(model),

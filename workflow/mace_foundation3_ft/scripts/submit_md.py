@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Submit MD only for selected families with completed training/model gates."""
 import argparse
+import hashlib
 import json
 import os
 import subprocess
@@ -17,6 +18,7 @@ def main() -> None:
     parser.add_argument("--submit", action="store_true")
     args = parser.parse_args()
     cfg = yaml.safe_load(args.config.read_text())
+    config_sha256 = hashlib.sha256(args.config.read_bytes()).hexdigest()
     families = [item.strip() for item in args.families.split(",") if item.strip()]
     if not families or not set(families) <= set(cfg["families"]):
         raise SystemExit("unknown or empty family filter")
@@ -56,6 +58,8 @@ def main() -> None:
         f"--partition={slurm['partition']}", f"--gres={slurm['gres']}",
         f"--cpus-per-task={slurm['cpus_per_task']}", f"--ntasks-per-node={slurm['ntasks_per_node']}",
         f"--time={slurm['time']}", f"--mem={slurm['mem']}", f"--array=0-{len(jobs) - 1}",
+        f"--output={Path(cfg['remote_root']) / 'logs' / ('md-%A_%a-' + runtime + '.out')}",
+        f"--error={Path(cfg['remote_root']) / 'logs' / ('md-%A_%a-' + runtime + '.err')}",
         f"--export={export_arg}", str(script),
     ]
     print(json.dumps({"jobs": jobs, "runtime": runtime, "command": cmd}, indent=2))
@@ -70,6 +74,7 @@ def main() -> None:
         "job_id": job_id,
         "command": cmd,
         "config": str(args.config.resolve()),
+        "config_sha256": config_sha256,
         "families": families,
         "runtime": runtime,
         "jobs": [{"family": family, "training_seed": seed} for family, seed in jobs],

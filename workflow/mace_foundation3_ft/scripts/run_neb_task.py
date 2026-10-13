@@ -12,10 +12,12 @@ import csv
 import hashlib
 import importlib.metadata
 import json
+import os
 import subprocess
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import Optional
 
 import numpy as np
 import yaml
@@ -30,7 +32,7 @@ def sha256_file(path: Path) -> str:
     return digest.hexdigest()
 
 
-def require_hash(path: Path, expected: str | None, label: str) -> str:
+def require_hash(path: Path, expected: Optional[str], label: str) -> str:
     if not path.is_file():
         raise SystemExit(f"{label} does not exist: {path}")
     actual = sha256_file(path)
@@ -39,7 +41,7 @@ def require_hash(path: Path, expected: str | None, label: str) -> str:
     return actual
 
 
-def software_versions() -> dict[str, str | None]:
+def software_versions() -> dict[str, Optional[str]]:
     values = {}
     for distribution in ("ase", "mace-torch", "torch"):
         try:
@@ -101,7 +103,7 @@ def load_images(spec: dict):
 
 
 def load_model(config: dict, family: str, seed: int) -> tuple[Path, dict]:
-    training_manifest = Path(config["remote_root"]) / "training" / family / f"seed{seed}" / "training_manifest.json"
+    training_manifest = Path(config["remote_root"]) / config["families"][family]["output_dir_template"].format(seed=seed) / "training_manifest.json"
     if not training_manifest.is_file():
         raise SystemExit(f"Missing training manifest: {training_manifest}")
     payload = json.loads(training_manifest.read_text())
@@ -160,13 +162,17 @@ def main() -> None:
     if manifest_spec.get("status") not in {"approved", "ready"}:
         raise SystemExit("NEB input manifest must have status: approved or ready")
     seeds = [int(x) for x in config["training"]["seeds"]]
-    jobs = [(family, seed, mode) for family in config["families"] for seed in seeds for mode in config["neb"]["modes"] if manifest_spec["protocol"].get(mode, {}).get("enabled", False)]
+    requested = os.environ.get("NEB_FAMILIES")
+    family_ids = [item.strip() for item in requested.split(",")] if requested else list(config["families"])
+    family_ids = [item for item in family_ids if item]
+    jobs = [(family, seed, mode) for family in family_ids for seed in seeds for mode in config["neb"]["modes"] if manifest_spec["protocol"].get(mode, {}).get("enabled", False)]
     if args.index < 0 or args.index >= len(jobs):
         raise SystemExit(f"NEB array index {args.index} outside 0..{len(jobs)-1}")
     family, seed, mode = jobs[args.index]
     model_path, model_record = load_model(config, family, seed)
+    foundation = config["foundation_models"][config["families"][family]["foundation_model"]]
     images, input_record = load_images(manifest_spec)
-    out_dir = Path(config["remote_root"]) / config["neb"].get("output_root", "neb") / family / f"seed{seed}" / mode
+    out_dir = Path(config["remote_root"]) / config["neb"].get("output_root", "neb") / config["families"][family]["foundation_model"] / family / f"seed{seed}" / mode
     if out_dir.exists() and any(out_dir.iterdir()):
         raise SystemExit(f"Refusing to overwrite non-empty NEB output: {out_dir}")
     out_dir.mkdir(parents=True, exist_ok=False)
@@ -191,7 +197,7 @@ def main() -> None:
         result = {"outputs": {"runner_manifest": str(out_dir / "mlff_neb_manifest.json")}}
     else:
         raise SystemExit(f"Unsupported NEB mode: {mode}")
-    record = {"schema_version": "1.0", "created_at_utc": datetime.now(timezone.utc).isoformat(), "family": family, "training_seed": seed, "mode": mode, "model": model_record, "model_path": str(model_path), "model_sha256": sha256_file(model_path), "input_manifest": str(args.neb_manifest.resolve()), "input_manifest_sha256": input_manifest_hash, "input": input_record, "software_versions": software_versions(), "result": result, "scientific_boundary": manifest_spec["scientific_boundary"]}
+    record = {"schema_version": "1.0", "created_at_utc": datetime.now(timezone.utc).isoformat(), "family": family, "training_seed": seed, "mode": mode, "foundation_name": foundation["canonical_name"], "model_type": foundation["model_type"], "model": model_record, "model_path": str(model_path), "model_sha256": sha256_file(model_path), "input_manifest": str(args.neb_manifest.resolve()), "input_manifest_sha256": input_manifest_hash, "input": input_record, "software_versions": software_versions(), "result": result, "scientific_boundary": manifest_spec["scientific_boundary"]}
     (out_dir / "neb_task_manifest.json").write_text(json.dumps(record, indent=2, sort_keys=True) + "\n")
     print(json.dumps(record, indent=2, sort_keys=True))
 
