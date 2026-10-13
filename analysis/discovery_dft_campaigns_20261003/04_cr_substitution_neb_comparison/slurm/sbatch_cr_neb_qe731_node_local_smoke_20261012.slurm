@@ -1,14 +1,16 @@
 #!/bin/bash
-# Independent Cr-NEB restart smoke.  This is not a production result.
+# Independent Cr-NEB node-local wrapper.  RUN_KIND=smoke is a short
+# end-to-end test; RUN_KIND=production preserves the canonical path length.
 # It keeps QE and MPI temporary I/O on Discovery's per-job node-local
 # filesystem; the project filesystem stores only auditable text/results.
-# Submit with: sbatch --export=ALL,NEB_ID=2L-Cu__neb-QLs <this-file>
+# Smoke:      sbatch --export=ALL,NEB_ID=2L-Cu__neb-QLs,RUN_KIND=smoke <this-file>
+# Production: sbatch --export=ALL,NEB_ID=2L-Cu__neb-QLs,RUN_KIND=production <this-file>
 # The restart artifact is taken from RESTART_FROM and is never modified.
 #
 # This wrapper is intentionally separate from the failed project-scratch
 # smoke 6887697.  Do not overwrite that result or its preserved scratch.
 #SBATCH --job-name=mb_neb_qe731
-#SBATCH --time=08:00:00
+#SBATCH --time=72:00:00
 #SBATCH -N 1
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=11
@@ -26,15 +28,30 @@ set -euo pipefail
 CAMPAIGN=/azwestus3/pclancy3_lab/ycao73/MigrationBench/discovery_dft_20261003
 ROOT="$CAMPAIGN/cr_substitution_neb_comparison"
 INPUT_DIR="${INPUT_ROOT:-$ROOT/inputs}/$NEB_ID"
-RUN="$ROOT/results_smoke/${NEB_ID}_${SLURM_JOB_ID}_node_local_restart"
-RESTART_FROM="${RESTART_FROM:-$ROOT/results_smoke/2L-Cu__neb-QLs_6887697}"
+RUN_KIND="${RUN_KIND:-smoke}"
+case "$RUN_KIND" in
+  smoke)
+    RESULTS_ROOT="$ROOT/results_smoke"
+    RESTART_FROM="${RESTART_FROM:-$ROOT/results_smoke/2L-Cu__neb-QLs_6887697}"
+    NSTEP_PATH="${SMOKE_NSTEP:-2}"
+    ;;
+  production)
+    RESULTS_ROOT="$ROOT/results"
+    RESTART_FROM="${RESTART_FROM:-$ROOT/no_restart_artifact}"
+    NSTEP_PATH="${NSTEP_PATH:-1000}"
+    ;;
+  *)
+    echo "ERROR: RUN_KIND must be smoke or production" >&2
+    exit 2
+    ;;
+esac
+RUN="$RESULTS_ROOT/${NEB_ID}_${SLURM_JOB_ID}_node_local"
 SIF=/azwestus3/pclancy3_lab/ycao73/qe-7.3.1.sif
 PSEUDO=/home/ycao73/ONCVPseudoPack/SG15_v1.2/UPF/PBE
-SMOKE_NSTEP="${SMOKE_NSTEP:-2}"
 WRAPPER_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
 WRAPPER_SHA256="$(sha256sum "$WRAPPER_PATH" | awk '{print $1}')"
 
-[[ "$SMOKE_NSTEP" =~ ^[1-9][0-9]*$ ]]
+[[ "$NSTEP_PATH" =~ ^[1-9][0-9]*$ ]]
 for f in neb.in pw_1.in pw_2.in; do test -s "$INPUT_DIR/$f"; done
 test -r "$SIF"
 
@@ -78,9 +95,9 @@ TMP_DIR="$TMP_ROOT/tmp"
 mkdir -p "$QE_OUTDIR" "$TMP_DIR"
 chmod 700 "$TMP_ROOT" "$QE_OUTDIR" "$TMP_DIR"
 
-# Make an immutable runtime copy with an explicit restart mode, short smoke
-# path, disk_io=none, and node-local QE outdir.
-awk -v n="$SMOKE_NSTEP" -v mode="$RUN_MODE" '
+# Make an immutable runtime copy with an explicit restart mode, canonical or
+# short path length, disk_io=none, and node-local QE outdir.
+awk -v n="$NSTEP_PATH" -v mode="$RUN_MODE" '
   BEGIN { in_path=0; have_restart=0; have_nstep=0 }
   /^[[:space:]]*&PATH/ { in_path=1; print; next }
   in_path && /^[[:space:]]*restart_mode[[:space:]]*=/ { print "  restart_mode = '\''" mode "'\''"; have_restart=1; next }
@@ -131,6 +148,7 @@ fi
   hostname
   echo "neb_id=$NEB_ID"
   echo "job_id=$SLURM_JOB_ID"
+  echo "run_kind=$RUN_KIND"
   echo "run=$RUN"
   echo "restart_from=$RESTART_FROM"
   echo "restart_file=$(basename "$RESTART_FILE")"
@@ -144,7 +162,7 @@ fi
   echo "wrapper=$WRAPPER_PATH"
   echo "wrapper_sha256=$WRAPPER_SHA256"
   echo "qe_version=7.3.1"
-  echo "runtime_overrides=restart_mode=$RUN_MODE,nstep_path=$SMOKE_NSTEP,disk_io=none,outdir=node_local"
+  echo "runtime_overrides=restart_mode=$RUN_MODE,nstep_path=$NSTEP_PATH,disk_io=none,outdir=node_local"
   echo "mpi_tmpdir=$TMP_DIR"
   echo "launcher=container_direct_neb_x_qe731_nosrun"
   df -h "$TMP_ROOT"
