@@ -76,7 +76,9 @@ def main() -> None:
     (output_root / "logs").mkdir(parents=True, exist_ok=True)
     submit_env = os.environ.copy()
     submit_env["SLURM_CONF"] = slurm["slurm_conf"]
-    job_id = subprocess.check_output(cmd, text=True, env=submit_env).strip()
+    # Rockfish's login default is Python 3.6; universal_newlines is the
+    # compatible spelling of text=True there.
+    job_id = subprocess.check_output(cmd, universal_newlines=True, env=submit_env).strip()
     phase = "smoke" if args.smoke else "production"
     record = {
         "submitted_at_utc": datetime.now(timezone.utc).isoformat(),
