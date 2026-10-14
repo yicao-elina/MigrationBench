@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Submit one static model gate behind one production training task."""
+"""Submit one static model gate, optionally behind production training."""
 import argparse
 import hashlib
 import json
@@ -17,7 +17,7 @@ def main() -> None:
     parser.add_argument("--config", required=True, type=Path)
     parser.add_argument("--family", required=True)
     parser.add_argument("--training-seed", required=True, type=int)
-    parser.add_argument("--afterok", required=True)
+    parser.add_argument("--afterok", default="", help="completed production job or array element")
     parser.add_argument("--output-root", type=Path, help="training root for this attempt")
     parser.add_argument("--attempt", default="", help="non-overwriting submission-record suffix")
     parser.add_argument("--submit", action="store_true")
@@ -66,9 +66,10 @@ def main() -> None:
         f"--output={output_root / 'logs' / ('model-gate-' + args.family + '-%j.out')}",
         f"--error={output_root / 'logs' / ('model-gate-' + args.family + '-%j.err')}",
         f"--export={export}",
-        f"--dependency=afterok:{args.afterok}",
-        str(script),
     ]
+    if args.afterok:
+        command.append(f"--dependency=afterok:{args.afterok}")
+    command.append(str(script))
     print(" ".join(command))
     if not args.submit:
         print("DRY_RUN: add --submit only after production dependency review")
@@ -80,7 +81,7 @@ def main() -> None:
     record = {
         "submitted_at_utc": datetime.now(timezone.utc).isoformat(),
         "job_id": job_id,
-        "afterok": args.afterok,
+        "afterok": args.afterok or None,
         "family": args.family,
         "training_seed": args.training_seed,
         "device": args.device,
