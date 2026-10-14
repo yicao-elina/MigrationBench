@@ -13,6 +13,13 @@ source-frame hashes, execution-to-canonical mapping, and scientific status.
 The absence of those heavyweight files from Git is a storage boundary, not a
 claim that the underlying data are absent.
 
+The repeatability audit is retained in `run_summary.csv`,
+`initial_state_audit.csv`, `diagnostic_manifest.json` and
+`failure_attribution_results_discussion.md`. The manuscript-facing composite
+is regenerated from the compact MLIP tables by
+`paper/revision1/scripts/render_from_scratch_failure_attribution.py`; its
+output manifest is stored beside the rendered figure.
+
 Run from the repository root:
 
 ```bash

@@ -403,6 +403,23 @@ The following physically interpretable descriptors were extracted from MD trajec
 
 These features were concatenated into a single vector per configuration, normalized, and projected using t-SNE (perplexity=30, learning rate=200) for visualization. The feature matrix excludes an earlier always-zero placeholder channel intended for a future force-sensitivity descriptor; this channel contained no physical information and is not included in the feature dimension reported for the original-space silhouette calculation. A finite-difference force-sensitivity descriptor is left as future work rather than used in the present benchmark.
 
+\input{revision1/appendix/from_scratch_mlip_candidate_selection_methods.tex}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.98\textwidth]{revision1/figures/figS_from_scratch_failure_attribution.pdf}
+    \caption{\textbf{From-scratch failure-attribution screen and candidate selection.} (a) Conceptual map of the provenance-preserving operator: the 639 saved 2050-atom periodic configurations are classified by trajectory stage, evaluated on the same geometry with three hash-identified checkpoints, and ranked by paired force disagreement before selecting the 20 prepared-only DFT-priority rows. The local environment drawn in this panel is schematic and is not an atomistic reconstruction of a selected frame. (b) Static maximum-force distributions for all 639 candidates, grouped by source stage and checkpoint. The dashed line is an instability-scale guide for visual orientation, not a universal physical threshold. (c) Paired cross-model force spread versus the range of maximum force across checkpoints. (d) Median maximum force by stage and training seed. The quantitative panels are descriptive static-MLIP diagnostics; they do not establish DFT correctness or a causal mechanism for the MD runaway.}
+    \label{fig:from_scratch_failure_attribution}
+\end{figure}
+
+\subsection{Three-model static diagnosis of the failure stages}
+
+The candidate screen was designed to preserve the distinction between a source-trajectory label and a new MLIP result. The early-stable, pre-onset, precursor, threshold/terminal and 1-ns-stable groups contain 207, 216, 208, 7 and 1 configurations, respectively. Each configuration was evaluated without relaxation by all three registered checkpoints, with the training seed recorded separately from the MD velocity seed. The resulting 1917 rows were finite and contained no duplicate candidate--model pairs.
+
+The stage-wise medians in Fig.~\ref{fig:from_scratch_failure_attribution}b,d show a marked increase in static maximum force at the threshold/terminal stage. The median values for seeds 123, 234 and 345 were approximately 133, 172 and 359~eV~\AA$^{-1}$, respectively, compared with 3--12~eV~\AA$^{-1}$ in the precursor group and approximately 3--6~eV~\AA$^{-1}$ in the stable groups. The elevated seed-234 values in otherwise stable groups and the separation of the three threshold medians caution against reading the effect as a single universal instability threshold. Rather, the result is consistent with model- and configuration-dependent amplification in an extrapolative region.
+
+The paired scatter in Fig.~\ref{fig:from_scratch_failure_attribution}c provides the more direct cross-model diagnostic: configurations with a larger range of checkpoint maximum forces generally also have a larger ensemble force spread. We use this relationship to prioritize independent reference calculations, not as a calibrated uncertainty estimate. In particular, a large spread cannot identify the DFT-correct model, and the present full-cell DFT calculation is resource-gated. The 20 selected structures therefore remain \texttt{prepared\_only}; reduced-cell periodic inputs are reconstructions that require separate identity and convergence checks before they can support a mechanism claim.
+
 \subsection{Evaluation Metrics Definitions}
 \begin{itemize}
 \item \textbf{Force MAE}: $\frac{1}{3N} \sum_{i=1}^{N} \sum_{\alpha=x,y,z} |F_{i,\alpha}^{\text{MLFF}} - F_{i,\alpha}^{\text{DFT}}|$
