@@ -38,7 +38,12 @@ def main() -> None:
     args = parser.parse_args()
     cfg = yaml.safe_load(args.config.read_text())
     requested = os.environ.get("CAMPAIGN_FAMILIES")
-    family_ids = [item.strip() for item in requested.split(",")] if requested else list(cfg["families"])
+    if requested:
+        # Slurm --export uses commas as its own field separator, so filtered
+        # arrays encode the family list with pipes to keep it one variable.
+        family_ids = [item.strip() for item in requested.replace("|", ",").split(",")]
+    else:
+        family_ids = list(cfg["families"])
     family_ids = [item for item in family_ids if item]
     seeds = [int(value) for value in cfg["training"]["seeds"]]
     jobs = [(family_id, seed) for family_id in family_ids for seed in seeds]
@@ -61,6 +66,7 @@ def main() -> None:
     if root.exists():
         raise SystemExit(f"refusing to overwrite existing output directory: {root}")
     root.parent.mkdir(parents=True, exist_ok=True)
+    root.mkdir(parents=False, exist_ok=False)
 
     model = Path(foundation["source"])
     if not model.is_file() or sha256(model) != foundation["sha256"]:

@@ -46,7 +46,8 @@ def main() -> None:
     output_root = (args.output_root or Path(cfg["remote_root"])).resolve()
     env = {
         "CAMPAIGN_CONFIG": str(args.config.resolve()),
-        "CAMPAIGN_FAMILIES": ",".join(families),
+        # Commas delimit --export fields in Slurm; train_worker decodes pipes.
+        "CAMPAIGN_FAMILIES": "|".join(families),
         "MACE_BOOTSTRAP": cfg["environment"]["bootstrap"],
         "MACE_CONDA_SH": cfg["environment"]["conda_sh"],
         "MACE_CONDA_ENV": cfg["environment"]["conda_env"],
@@ -55,6 +56,8 @@ def main() -> None:
         "CAMPAIGN_OUTPUT_ROOT": str(output_root),
         "TRAIN_SMOKE": "1" if args.smoke else "0",
     }
+    if os.environ.get("CAMPAIGN_GIT_COMMIT"):
+        env["CAMPAIGN_GIT_COMMIT"] = os.environ["CAMPAIGN_GIT_COMMIT"]
     export = "ALL," + ",".join(f"{key}={value}" for key, value in env.items())
     script = args.config.parent.parent / "slurm" / "train_array.slurm"
     array_max = len(jobs) - 1
@@ -86,6 +89,7 @@ def main() -> None:
         "command": cmd,
         "config": str(args.config.resolve()),
         "config_sha256": config_sha256,
+        "code_commit": os.environ.get("CAMPAIGN_GIT_COMMIT"),
         "runtime": args.runtime,
         "phase": phase,
         "attempt": args.attempt or "primary",
