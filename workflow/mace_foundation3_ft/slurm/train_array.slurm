@@ -18,7 +18,6 @@ export SLURM_CONF="${SLURM_CONF:-/cm/shared/apps/slurm/var/etc/slurm/slurm.conf}
 set +u
 source "$MACE_BOOTSTRAP"
 source /data/apps/helpers/singularity.sh 2>/dev/null || true
-set -u
 if [[ "$MACE_RUNTIME" == "polar" ]]; then
   : "${MACE_POLAR_VENV:?MACE_POLAR_VENV is required for PolarMACE}"
   source "$MACE_POLAR_VENV/bin/activate"
@@ -26,6 +25,7 @@ else
   source "$MACE_CONDA_SH"
   conda activate "$MACE_CONDA_ENV"
 fi
+set -u
 export OMP_NUM_THREADS="${SLURM_CPUS_PER_TASK:-4}"
 SMOKE_ARG=()
 if [[ "${TRAIN_SMOKE:-0}" == "1" ]]; then
