@@ -1,0 +1,51 @@
+{
+  "schema": "migrationbench_release_manifest_v1",
+  "release_name": "from_scratch_mlip_candidate_selection_20261013",
+  "status": "MLIP_RELEASE_VERIFIED_DFT_PENDING",
+  "source_commit": "captured in the pull request commit",
+  "rebuild_commands": [
+    "python workflow/from_scratch_mlip_candidates/20261013/categorize_dft_candidates.py",
+    "python workflow/from_scratch_mlip_candidates/20261013/build_manifest.py --source results_all_replicates/dft_candidates_prepared_only/manifest.csv --output candidate_manifest_639.csv",
+    "sbatch workflow/from_scratch_mlip_candidates/20261013/run_mlip_candidate_chunk.slurm",
+    "sbatch workflow/from_scratch_mlip_candidates/20261013/run_collect_mlip.slurm",
+    "python workflow/from_scratch_mlip_candidates/20261013/reconcile_mlip_results.py --results analysis --canonical-manifest candidate_manifest_639.csv --model-registry models_rockfish.tsv --output results_reconciled",
+    "python workflow/from_scratch_mlip_candidates/20261013/make_mlip_analysis.py --results results_reconciled --output figures",
+    "python workflow/from_scratch_mlip_candidates/20261013/select_dft_batch.py --analysis results_reconciled --candidate-manifest candidate_manifest_639.csv --output dft_batch_20261013 --n 20",
+    "python scripts/validate_from_scratch_mlip_candidate_selection.py"
+  ],
+  "compact_evidence": {
+    "root": "data/raw_compact/revision1/from_scratch_failure_attribution_20261013",
+    "files": {
+      "candidate_categorization.csv": "33dbb8e4990a4eb335af7a0105e7fe7c5e42fc8a53c25dc7855ed6370baa4eb9",
+      "candidate_category_summary.csv": "141527a87fe62f2b3c2a83dad3854aa8d86df6ae6c95727e43257eaa6942a875",
+      "candidate_manifest_639.csv": "65937709eed9562d1c16cadbf91e2d40c0769e777eef55bb912d6de71d0d486c",
+      "MODEL_REGISTRY.tsv": "6d2a9eadd7f2b24e4892862de5d200c4b53e124a0a2019a3d7b60d5f39e55d58",
+      "candidate_execution_mapping.csv": "68fee83fc16d1fa5c27ec38fbdd39a1ee11c51a66e64f4424eda6f60c026a3d7",
+      "wave_01_manifest.csv": "292f57c9bc95cee2253aedfe74f1f953839aad54031c6c6998702f1554925b2a",
+      "mlip_dft_selection.csv": "6b68429b5da5440feb2fab3081b4afe7cc6a7b0f7ea87203ce441537dffa060d",
+      "dft_batch_selection_remote.csv": "78c1b5038761a14960836dccdd7899b77c3e4cfe9cc9464ce4f253315d207c6d1",
+      "dft_batch_selection_manifest.json": "3f8239b5135ac175e6168775c2ef4310117a9a6bce087ed50ed384faec9470a3",
+      "mlip_analysis_manifest.json": "5b2601680c37740b1e33257a8447c199041b4f236db8275986d1e752e55e5992",
+      "CLAIM_EVIDENCE_MATRIX.tsv": "1a0a40ba111b4075cf3bf75b01fc383ba6709cfe3794b23a734a9c2e443bf60b",
+      "full_cell_resource_gate.md": "20e2d71327ade87f41b620aee477a214c76f8b9a947a60de8c8cb3d915c2180a",
+      "SUBMISSION_RECORD.json": "d5a0d603fdc03025592abdaedfa93a43f76dc6bdd5cd352b36d579f701e73593"
+    }
+  },
+  "external_evidence": {
+    "models": "three checkpoint paths and hashes in MODEL_REGISTRY.tsv",
+    "source_snapshots": "2050-atom PBC extxyz paths and SHA256 values in candidate_categorization.csv",
+    "rockfish_mlips": ["31923402", "31923441_[0-31%2]", "31924087"],
+    "reduced_cell_dft": {
+      "job": "31924176_[0-19%2]",
+      "status": "SUBMITTED_PENDING",
+      "root": "/scratch16/pclancy3/yi/dft_mlip_selected_20261013",
+      "mode": "local_periodic_shell",
+      "natoms": 120
+    }
+  },
+  "scientific_gaps": [
+    "full-cell 2050-atom QE is resource-gated",
+    "the 120-atom PBC shell is a reconstruction, not exact full-cell parity",
+    "no DFT correctness or causal mechanism claim is accepted before QE gates pass"
+  ]
+}
