@@ -136,7 +136,7 @@ def main() -> None:
         "artifact_path": None,
         "artifact_sha256": None,
         "training_log": str(
-            campaign_root
+            Path(os.environ.get("CAMPAIGN_LOG_ROOT", str(campaign_root)))
             / "logs"
             / (
                 f"train-{os.environ.get('SLURM_ARRAY_JOB_ID', os.environ.get('SLURM_JOB_ID', 'local'))}_"

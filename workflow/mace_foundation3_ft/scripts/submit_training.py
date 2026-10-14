@@ -54,6 +54,7 @@ def main() -> None:
         "MACE_POLAR_VENV": cfg["environment"]["polar_venv"],
         "MACE_RUNTIME": args.runtime,
         "CAMPAIGN_OUTPUT_ROOT": str(output_root),
+        "CAMPAIGN_LOG_ROOT": str(output_root),
         "TRAIN_SMOKE": "1" if args.smoke else "0",
     }
     if os.environ.get("CAMPAIGN_GIT_COMMIT"):

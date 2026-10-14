@@ -24,12 +24,14 @@ def main() -> None:
     parser.add_argument("--config", required=True, type=Path)
     parser.add_argument("--family", required=True)
     parser.add_argument("--training-seed", required=True, type=int)
+    parser.add_argument("--output-root", type=Path, help="training root for this attempt")
     parser.add_argument("--device", default="cuda")
     args = parser.parse_args()
     cfg = yaml.safe_load(args.config.read_text())
     family = cfg["families"][args.family]
     foundation = cfg["foundation_models"][family["foundation_model"]]
-    root = Path(cfg["remote_root"]) / family["output_dir_template"].format(seed=args.training_seed)
+    output_root = (args.output_root or Path(cfg["remote_root"])).resolve()
+    root = output_root / family["output_dir_template"].format(seed=args.training_seed)
     manifest_path = root / "training_manifest.json"
     if not manifest_path.is_file():
         raise SystemExit(f"missing training manifest: {manifest_path}")
@@ -76,6 +78,7 @@ def main() -> None:
         "energy_finite": bool(np.isfinite(energy)),
         "min_distance_A": float(np.nanmin(distances)),
         "runtime_device": args.device,
+        "output_root": str(output_root),
     }
     result["pass"] = bool(
         result["force_finite"]
