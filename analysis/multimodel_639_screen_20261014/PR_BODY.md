@@ -2,7 +2,7 @@
 
 This PR packages the complete 639-candidate static MLIP comparison as a provenance-first evidence bundle.
 
-![Four-panel 639-candidate, 12-model diagnostic](https://raw.githubusercontent.com/yicao-elina/MigrationBench/codex/multimodel-639-evidence-pr/analysis/multimodel_639_screen_20261014/figures/fig_multimodel_639_overview.png)
+![Four-panel 639-candidate, 12-model diagnostic](https://raw.githubusercontent.com/yicao-elina/MigrationBench/codex/multimodel-639-evidence-pr/analysis/multimodel_639_screen_20261014/figures/fig_multimodel_639_overview_family_grouped.png)
 
 ### Verified computation
 
@@ -14,6 +14,14 @@ This PR packages the complete 639-candidate static MLIP comparison as a provenan
 - Rockfish production array `31981441`: 32/32 tasks completed, exit code 0.
 - Corrected collector `31986653`: completed with remote status `VERIFIED`.
 - Combined matrix: 7,668 rows = 639 candidates × 12 models; 0 failed rows; 0 duplicate candidate–model pairs.
+
+The updated family-grouped figure uses colour for the four manuscript-level
+families (From Scratch, Foundation / zero-shot, FT-600K and FT-MultiT) and
+arm/hatch for the three within-family entries. The three FT entries are true
+training-seed replicas. The Foundation entries are three checkpoint variants,
+and the From Scratch entries contain two Lmax2 branches plus a distinct
+baseline branch; these are therefore not twelve exchangeable random-seed
+replicas.
 
 ### Scientific result
 
@@ -40,6 +48,7 @@ These results establish model divergence and descriptor-space distribution shift
 - JSON manifests parse successfully.
 - All analysis scripts pass Python syntax compilation.
 - The PDF is one-page, unencrypted, and rendered by Plot Atlas; the PNG was visually inspected.
+- The family-grouped PDF/PNG were rendered with enlarged axis/tick/legend typography and visually inspected.
 
 ### Follow-up
 
