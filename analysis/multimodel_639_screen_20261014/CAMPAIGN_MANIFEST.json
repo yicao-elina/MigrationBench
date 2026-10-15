@@ -1,0 +1,51 @@
+{
+  "schema": "migrationbench_multimodel_639_static_screen_v1",
+  "status": "VERIFIED",
+  "created": "2026-10-14",
+  "candidate_count": 639,
+  "new_model_count": 9,
+  "full_comparison_model_count": 12,
+  "candidate_source": "analysis/from_scratch_failure_attribution_20261011/mlip_candidate_campaign_20261013/candidate_manifest_639.csv",
+  "candidate_provenance": {
+    "sources": ["original", "reproduce-1", "reproduce-2"],
+    "training_seeds": [123, 234, 345],
+    "run_count": 9,
+    "sampling_policy": "stage-balanced failure-attribution candidates; not time-weighted MD sampling"
+  },
+  "protocol": {
+    "task": "static MACE single-point energy and forces",
+    "geometry_relaxation": false,
+    "md_continuation": false,
+    "chunk_size": 20,
+    "array_tasks": 32,
+    "array_concurrency": 2,
+    "device": "cuda",
+    "dtype": "float64",
+    "rockfish_environment": "/data/pclancy3/yi/.conda/envs/mace",
+    "worker_script": "run_mlip_candidate_chunk.py"
+  },
+  "rockfish": {
+    "production_array_job": "31981441",
+    "collector_job": "31981595",
+    "collector_retry_job": "31986653",
+    "smoke_job": "31981392",
+    "root": "/scratch16/pclancy3/yi/mace_multimodel_639_screen_20261014"
+  },
+  "publication_boundary": "Finite paired MLIP static evidence; not DFT correctness, not a causal proof, and not a new MD transport result.",
+  "verification": {
+    "production_array_tasks": 32,
+    "production_array_completed": 32,
+    "production_array_exit_code": 0,
+    "new_model_rows": 5751,
+    "new_model_failed_rows": 0,
+    "new_model_duplicate_candidate_model_pairs": 0,
+    "combined_rows": 7668,
+    "combined_failed_rows": 0,
+    "combined_duplicate_candidate_model_pairs": 0,
+    "combined_analysis_manifest": "analysis/combined_analysis_manifest.json",
+    "combined_analysis_manifest_sha256": "425caf157962e908abc6b09aabde47fe8408291e96886d695be4e44e9a5c31f9",
+    "figure_manifest": "figures/figure_manifest.json",
+    "figure_status": "RECONSTRUCTION",
+    "figure_pdf_sha256": "8728c3acef70bd020101c422908ab2b1530cdda4165204ec593dd09d489c1311"
+  }
+}
