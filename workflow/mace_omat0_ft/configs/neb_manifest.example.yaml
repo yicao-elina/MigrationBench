@@ -1,0 +1,56 @@
+schema_version: "1.0"
+campaign_id: mace_omat0_ft_seedmatrix_20261013
+
+# Copy this file to a campaign-specific manifest and fill every path/hash.
+# Do not enable NEB in seed_matrix.yaml until this manifest is complete.
+status: pending_review
+material: Cr-Sb2Te3
+expected_nimages: 7
+expected_natoms: null
+cell_pbc: [true, true, true]
+
+# Use exactly one of these input modes. Paths may be local or Rockfish paths.
+input:
+  kind: images
+  images: /path/to/initial_path.extxyz
+  images_sha256: null
+  # kind: endpoints
+  # initial: /path/to/initial.extxyz
+  # initial_sha256: null
+  # final: /path/to/final.extxyz
+  # final_sha256: null
+  # interpolation: idpp
+
+# Record the reference calculation that generated the endpoints/path.
+reference:
+  method: DFT-QE
+  functional: null
+  pseudopotential: null
+  spin_orbit: null
+  source_manifest: /path/to/reference_manifest.json
+  source_manifest_sha256: null
+
+protocol:
+  fixed_path_single_point:
+    enabled: true
+    device: cpu
+    default_dtype: float64
+  self_relaxed_mlff_neb:
+    enabled: true
+    device: cuda
+    default_dtype: float64
+    n_images: 7
+    fmax_eV_A: 0.03
+    max_steps: 500
+    spring_constant: 0.1
+    climb: false
+    seed: 42
+    migrant_element: Cr
+    migrant_tether_k: 0.0
+    host_tether_k: 0.0
+
+# The final barrier label must still come from the DFT campaign, not MLFF NEB.
+scientific_boundary:
+  mlff_role: preconditioner_or_proposal
+  report_mlff_as_dft_barrier: false
+  dft_result_required_for_publication: true

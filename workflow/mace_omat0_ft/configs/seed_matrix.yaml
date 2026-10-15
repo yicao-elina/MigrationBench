@@ -1,0 +1,154 @@
+schema_version: "1.0"
+campaign_id: mace_omat0_ft_seedmatrix_20261013
+description: >-
+  Reproducible FT-600K and FT-MultiT training from the public zero-shot
+  MACE-OMAT-0 medium model, with three independent training seeds.
+
+remote_root: /scratch16/pclancy3/yi/mace_omat0_ft_seedmatrix_20261013
+
+environment:
+  bootstrap: /data/apps/go.sh
+  singularity_helpers: /data/apps/helpers/singularity.sh
+  conda_sh: /data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/etc/profile.d/conda.sh
+  conda_env: mace
+  modules:
+    - openmpi/4.1.6
+
+slurm:
+  sbatch: /cm/shared/apps/slurm/23.02.2/bin/sbatch
+  slurm_conf: /cm/shared/apps/slurm/var/etc/slurm/slurm.conf
+  account: pclancy3_gpu
+  qos: qos_gpu
+  partition: a100
+  gres: gpu:1
+  cpus_per_task: 12
+  ntasks_per_node: 4
+  time: 2-00:00:00
+  mem: 0
+
+foundation_models:
+  public_omat0_medium:
+    label: Foundation-OMAT-0-zero-shot-medium
+    role: public_zero_shot_foundation
+    source: /scratch16/pclancy3/yi/foundation_grouped_benchmark_20261001/models/mace-omat-0-medium.model
+    sha256: d4b14be9afa294eebdbe31a0280b26a0fa29715771e978cbfd3ca24e0d90307a
+    public_url: https://github.com/ACEsuit/mace-mp/releases/download/mace_omat_0/mace-omat-0-medium.model
+  omat_ft_matpes_pbe:
+    label: OMAT-FT-MATPES-PBE
+    role: comparison_foundation_finetuned
+    source: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model
+    sha256: e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0
+    public_url: https://github.com/ACEsuit/mace-foundations/releases/download/mace_matpes_0/MACE-matpes-pbe-omat-ft.model
+
+selected_foundation_model: public_omat0_medium
+
+datasets:
+  ft600k:
+    label: FT-600K grouped A2
+    root: /scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped
+    split_manifest: /scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/grouped_split_summary.json
+    files:
+      train.xyz: 04b1369d0da0b630c55aa6da6b3f85ea9ff4bffb107de804ead6fe7214fa34b8
+      valid.xyz: aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502
+      test.xyz: d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab
+  multit:
+    label: Multi-T grouped A2
+    root: /scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT
+    split_manifest: /scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT/grouped_split_summary.json
+    files:
+      train.xyz: b240052d557fb27b41af6fb31ad80b25261d96f9667050ca83fcbdb922694f9b
+      valid.xyz: 44d2877ccd9d4ddbf3c470d7a6c5f2b794802a9b03444d211b89237df99dd117
+      test.xyz: 5adcf16c7220eae90bd2d9a9f792e2dce281e1300bdbb86054ef94e255188648
+
+families:
+  ft600k_omat0:
+    label: FT-600K from public OMAT-0
+    dataset: ft600k
+    e0s: isolated
+    multiheads_finetuning: true
+  multit_omat0:
+    label: FT-MultiT from public OMAT-0
+    dataset: multit
+    e0s: isolated
+    multiheads_finetuning: true
+
+training:
+  seeds: [123, 234, 345]
+  smoke_family: ft600k_omat0
+  smoke_seed: 123
+  smoke_max_num_epochs: 1
+  model: MACE
+  num_channels: 32
+  max_L: 1
+  r_max: 6.0
+  hidden_irreps: "128x0e + 128x1o"
+  batch_size: 32
+  valid_batch_size: 16
+  max_num_epochs: 1000
+  swa: true
+  start_swa: 200
+  ema: true
+  ema_decay: 0.99
+  eval_interval: 50
+  patience: 20
+  forces_weight: 10.0
+  energy_weight: 1.0
+  stress_weight: 0.0
+  energy_key: energy
+  forces_key: forces
+  device: cuda
+  artifact_candidates:
+    - "{name}_stagetwo.model"
+    - "{name}_stage_two.model"
+    - "{name}.model"
+
+md:
+  enabled: true
+  input: /data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-omat/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz
+  input_sha256: 445cd9b2dd0a902594b925b9228b9c121995b980864a8c5331f994d87cd02a99
+  input_frame: -1
+  initial_absolute_step: 200000
+  target_step: 1000000
+  timestep_fs: 1.0
+  temperature_K: 600.0
+  friction: 0.01
+  write_interval_steps: 200
+  checkpoint_interval_steps: 25000
+  md_velocity_seed_by_training_seed:
+    "123": 1100
+    "234": 1200
+    "345": 1300
+  device: cuda
+  required_natoms: 2050
+  required_pbc: [true, true, true]
+
+neb:
+  enabled: false
+  status: pending_input_manifest
+  input_manifest: null
+  runner_script: src/migrationbench/run_mlff_neb.py
+  output_root: neb
+  modes:
+    - fixed_path_single_point
+    - self_relaxed_mlff_neb
+  image_count: 7
+  fmax_eV_A: 0.03
+  max_steps: 500
+  device: cpu
+  note: >-
+    Enable only after an endpoint/path manifest identifies the endpoint hashes,
+    cell/PBC, DFT method, and image ordering. Fixed-path scoring and self-NEB
+    must remain separate outputs.
+
+analysis:
+  original_plot_recipe: paper/revision1/appendix/scripts/plot_campaign_atlas.py
+  output_dir: publication_artifacts
+  report_hfacf: false
+  report_diffusion_from_smoke: false
+  required_formats: [png, svg, pdf]
+
+release:
+  github_repo: https://github.com/yicao-elina/MigrationBench.git
+  overleaf_remote: https://git.overleaf.com/693b515e50f0071cb03b505c
+  branch: codex/omat0-ft-e2e-20261013
+  raw_data_policy: immutable_archive_with_sha256
