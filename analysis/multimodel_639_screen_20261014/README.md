@@ -46,3 +46,18 @@ be silently relabelled as the public MATPES-PBE OMAT-FT foundation model.
   with the final Git commit after review.
 - `RESULTS_AND_DISCUSSION.md` contains the full interpretation and explicit
   DFT/causality boundaries.
+
+## Family-grouped figure release
+
+`figures/fig_multimodel_639_overview_family_grouped.{png,pdf,svg}` is the
+updated four-panel Plot Atlas reconstruction. In panels a and b, colour is
+the primary family encoding and the three within-family arms are separated by
+their ordered labels/hatches. Panels c and d retain candidate-stage colours,
+because those panels describe configuration stage and descriptor/force-spread
+distributions rather than model family.
+
+The exact mapping is recorded in `MODEL_GROUPING.tsv` and summarized in
+`MODEL_GROUPING.md`. FT-600K and FT-MultiT are true three-training-seed
+comparisons; the Foundation entries are three checkpoint variants, and the
+From Scratch entries contain two Lmax2 branches plus a distinct baseline
+branch.
