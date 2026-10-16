@@ -163,7 +163,11 @@ def main() -> None:
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "status": "DRAFT",
         "scientific_policy": "Do not promote PROVENANCE_PARTIAL or UNVERIFIED candidates to final claims without closing gates.",
-        "selection_file": str(selection_path.relative_to(REPO_ROOT)),
+        "selection_file": (
+            str(selection_path.relative_to(REPO_ROOT))
+            if selection_path.is_relative_to(REPO_ROOT)
+            else str(selection_path)
+        ),
         "candidates": candidates,
         "artifacts": artifacts,
         "rebuild_command": "python paper_evidence/scripts/build_release_package.py --release-id <id> --selection paper_evidence/release_selection.tsv --out paper_evidence/releases/<id>",
