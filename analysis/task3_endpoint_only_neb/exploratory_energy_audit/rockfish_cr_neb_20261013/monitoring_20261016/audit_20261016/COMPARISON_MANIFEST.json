@@ -1,0 +1,34 @@
+{
+  "audit_date": "2026-10-16",
+  "scope": "Rockfish Cr substitution versus existing Cu/Li/Na comparison; fixed-path MLIP diagnostic",
+  "rockfish_root": "/scratch16/pclancy3/yi/MigrationBench_rockfish_cr_neb_20261013",
+  "rockfish_status": "COMPLETED_BUT_SCF_WARNING",
+  "comparison_package": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_vs_culinas_systematic_20261015",
+  "comparison_status": "PROVISIONAL_DIAGNOSTIC_ONLY",
+  "comparison_rows": {
+    "model_barriers_long": 120,
+    "model_by_path_summary": 120,
+    "path_class_summary": 12,
+    "dopants": ["Cu", "Li", "Na", "Cr"],
+    "path_classes": ["within-QL", "in-gap diffusion", "gap → QL"]
+  },
+  "fixed_path_mlip": {
+    "model_count": 10,
+    "path_count": 3,
+    "image_rows": 300,
+    "all_finite": true,
+    "protocol": "same-geometry fixed-path single-point evaluation on saved Rockfish Cr images",
+    "not_self_relaxed_neb": true
+  },
+  "derived_artifacts": {
+    "rockfish_cr_qe_summary.csv": "579b1c4d80343e7dc76c3795184df0aa83fa5c5f970579cae75cb4d932d4d68c",
+    "rockfish_cr_foundation_image_profiles.csv": "c349cff50dded975f3489d2586095709565a55b7aa3b855f2cc5ae50af007bda",
+    "rockfish_cr_foundation_barrier_table.csv": "af209f47b70cfcef2f30a3db46e44ba0e9628d3a8d34e1120531b67bca3d2bad",
+    "rockfish_cr_foundation_manifest.json": "f1e74ce1c3662f7c6979cfe1773f65dc728e2a6ef865183955739fbe5655c29c",
+    "cr_vs_culinas_model_barriers_long.csv": "64e2281e635caac4d02da7096a107fbd48b9b834fc34573b7b144cf6112eb193",
+    "cr_vs_culinas_path_class_summary.csv": "7dd379b9ef0822899a6482471fd9ffee6646052f0ee7ba774d0e6fb7cbf9618a",
+    "cr_vs_culinas_publication_report.md": "7b90ef24534d86a8333c04a7788e99e65f400a7e664e6bce60700e59fd88d75d",
+    "cr_vs_culinas_manifest.json": "f40a9cbfd745134d1897fbb911459208fb945f7dab743756616bb75c1e6d50db"
+  },
+  "publication_boundary": "Do not merge Cr warning-contaminated QE values into a clean converged-barrier table or final paper claim. A clean rerun is a user decision blocker and was not submitted."
+}
