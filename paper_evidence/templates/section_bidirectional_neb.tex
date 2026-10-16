@@ -1,0 +1,37 @@
+% Copy this file into a release's tex/ directory and edit the prose only after
+% checking the claim-to-artifact matrix and the candidate scientific status.
+\subsection{Directional activation energies}
+\label{sec:directional-activation}
+
+For a fixed NEB energy trace with images ordered from endpoint 1 to endpoint
+10, we report both directions. The forward value is
+\(E^{\rightarrow}_{\mathrm{act}}=\max_i(E_i-E_1)\), while the reverse value
+is \(E^{\leftarrow}_{\mathrm{act}}=\max_i(E_i-E_{10})\). Thus, a downhill
+forward trace can still have a nonzero reverse activation energy. These two
+numbers are not two different calculations; they are directional summaries of
+the same fixed path.
+
+Figure~\ref{fig:gap2ql-bidirectional} and Table~\ref{tab:gap2ql-bidirectional}
+show the paired forward and reverse values for the gap-to-QL comparison. The associated table and geometry audit
+must be included in the evidence package before this paragraph is promoted from
+`DRAFT` to `SUPPORTED`.
+
+\begin{figure}[t]
+  \centering
+  \includegraphics[width=\linewidth]{figures/figure_gap2ql_bidirectional_activation.pdf}
+  \caption{Forward and reverse activation energies extracted from the same
+  fixed NEB traces. Replace the caption with the release-specific scientific
+  status and cite the corresponding table and claim matrix row.}
+  \label{fig:gap2ql-bidirectional}
+\end{figure}
+
+\begin{table}[t]
+  \centering
+  \begin{tabular}{ll}
+    Direction & Definition \\
+    Forward & $\max_i(E_i-E_1)$ \\
+    Reverse & $\max_i(E_i-E_{10})$ \\
+  \end{tabular}
+  \caption{Definitions used by the bidirectional activation-energy summary. Replace with the release-specific table and cite its source CSV.}
+  \label{tab:gap2ql-bidirectional}
+\end{table}
