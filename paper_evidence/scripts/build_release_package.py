@@ -34,6 +34,21 @@ def read_tsv(path: Path) -> list[dict[str, str]]:
         return list(csv.DictReader(handle, delimiter="\t"))
 
 
+def latex_text(value: str) -> str:
+    """Escape the small set of characters that commonly break LaTeX text."""
+    replacements = {
+        "\\": r"\textbackslash{}",
+        "&": r"\&",
+        "%": r"\%",
+        "$": r"\$",
+        "#": r"\#",
+        "_": r"\_",
+        "{": r"\{",
+        "}": r"\}",
+    }
+    return "".join(replacements.get(char, char) for char in value)
+
+
 def copy_artifact(source: Path, destination: Path, release_root: Path) -> dict[str, str]:
     if not source.is_file():
         raise FileNotFoundError(source)
@@ -108,19 +123,35 @@ def main() -> None:
             item for item in artifacts
             if item["release_path"].startswith(f"figures/{candidate_id}__")
         )
+        table = next(
+            item for item in artifacts
+            if item["release_path"].startswith(f"tables/{candidate_id}__")
+        )
         figure_name = Path(figure["release_path"]).name
+        table_name = Path(table["release_path"]).name
         tex_lines.extend([
-            f"\\subsection{{{candidate['title']}}}",
+            f"\\subsection{{{latex_text(candidate['title'])}}}",
             f"% Candidate {candidate_id} v{candidate['version']} status: {candidate['status']}",
             "% Replace this placeholder with reviewed manuscript prose.",
-            f"Candidate status: \\texttt{{{candidate['status']}}}.\\\\",
+            f"Candidate status: \\texttt{{{latex_text(candidate['status'])}}}.\\\\",
             "",
             "\\begin{figure}[t]",
             "  \\centering",
             f"  \\includegraphics[width=\\linewidth]{{{figure_name}}}",
-            f"  \\caption{{{candidate['title']}. Replace this caption after reviewing the claim matrix and source manifest.}}",
+            f"  \\caption{{{latex_text(candidate['title'])}. Replace this caption after reviewing the claim matrix and source manifest.}}",
             f"  \\label{{fig:{candidate_id.lower()}}}",
             "\\end{figure}",
+            "",
+            f"Table~\\ref{{tab:{candidate_id.lower()}}} points to the compact source table \\texttt{{{latex_text(table_name)}}}; replace this placeholder with the reviewed tabular result.",
+            "\\begin{table}[t]",
+            "  \\centering",
+            "  \\begin{tabular}{ll}",
+            "    Candidate & Status \\\\",
+            f"    {candidate_id} & \\texttt{{{latex_text(candidate['status'])}}} \\\\",
+            "  \\end{tabular}",
+            f"  \\caption{{Placeholder table for {latex_text(candidate['title'])}; populate from the release CSV after claim review.}}",
+            f"  \\label{{tab:{candidate_id.lower()}}}",
+            "\\end{table}",
             "",
         ])
     tex_path = out / "tex/evidence_bundle.tex"
