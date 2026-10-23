@@ -1,0 +1,38 @@
+{
+  "bundle_commit": "07b9521796aa8c44d291d379b32b0d4b12a5823a",
+  "claim_matrix": "paper_handoff/PAPER_CLAIM_EVIDENCE_MATRIX.tsv",
+  "handoff_manifest": "paper_handoff/OVERLEAF_HANDOFF_MANIFEST.tsv",
+  "key_artifact_hashes": {
+    "NATURE_READY_RESULTS_AND_DISCUSSION_20261023.md": "e48e3b98b0a0a5fc0c2885c1218fe7b702c95a6cbb8e29c1b02e03c799cf80d7",
+    "figures/FIG1_ENDPOINT47_LATTICE_SITE_DISTRIBUTION.pdf": "46faf4d153ddc37a0fd65b725641a23e83c3c9f85befc8b3b78cd0a554dbd267",
+    "figures/FIG2_RETRY21_DFT_ENERGY_STRUCTURE.pdf": "0f4ce07c0eabd84fdd308a3b55b0d148d59ef769155a02c3f64176799de1a64f",
+    "figures/FIG3_FOUR_MODEL_BASIN_SENSITIVITY.pdf": "f2bcd59b5478668bd3075723a6a080769d6eba05ad75817bebb34638cd61f2a0",
+    "figures/FIG4_MACE12_SOURCE_GEOMETRY_DISAGREEMENT.pdf": "b93fbdeace2562e47929f3a3278c10fa3548042fd57363d034ab22dc825820e5",
+    "processed/DFT_MACE_ERROR_ELIGIBILITY.tsv": "0f187edd88536d8d503832c99b13f6f19bf9ac0ee349fc9850c594588926e688",
+    "tables/TABLE1_DFT47_GEOMETRY_ENERGY_AND_ENSEMBLE_SUMMARY.tsv": "ae0afcdae7050de924e9b6735fa8143b15ba5caae17a5c70075c64237128464e",
+    "tables/TABLE2_LEGACY_FOUR_MODEL_SENSITIVITY.tsv": "a6dda2795f61e413ba2ba923189d0f2682dbcd4579616e33a2efff2a9ba852ae",
+    "tables/TABLE3_MACE12_STRUCTURAL_ASSOCIATIONS.tsv": "3add4ceb740d405d9d4df840fbbc4999873614489b768218c1019770ea0c6c16"
+  },
+  "overleaf_version": "PENDING_USER_HANDOFF",
+  "package": "dft_mace_47_site_error_attribution_20261023",
+  "rebuild_commands": [
+    "python scripts/build_attribution_package.py",
+    "python scripts/integrate_source_geometry_ensemble.py",
+    "python scripts/build_publication_tables.py",
+    "python scripts/render_publication_figures.py"
+  ],
+  "release_status": "READY_FOR_REVIEW_NOT_YET_MERGED",
+  "repository": "https://github.com/yicao-elina/MigrationBench.git",
+  "required_overleaf_checks": [
+    "Compile from a clean checkout",
+    "Visual-inspect every figure panel at journal scale",
+    "Compare rendered table values with TSV sources",
+    "Record the Overleaf Git commit/version beside bundle_commit"
+  ],
+  "scientific_boundaries": [
+    "No stable/metastable/unstable labels",
+    "No migration barrier or transport claim",
+    "No calibrated MACE-DFT absolute error until matched DFT final XYZ is archived",
+    "Foundation label means OMAT-derived fine-tuned legacy Foundation"
+  ]
+}
