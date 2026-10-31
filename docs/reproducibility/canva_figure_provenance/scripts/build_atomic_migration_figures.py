@@ -176,6 +176,8 @@ def downsample_xy(x: np.ndarray, y: np.ndarray, max_points: int = 500) -> tuple[
 
 
 FIXED_ENSEMBLE = WILEY / "analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv"
+GROUPED_NORMALIZED = WILEY / "analysis/cr_interlayer_sliding_grouped_20261025/results/tables/NORMALIZED_PROFILES.tsv"
+GROUPED_QE = WILEY / "analysis/cr_interlayer_sliding_grouped_20261025/source_tables/foundation_2x2_QE_REFERENCE.tsv"
 SELF_RELAXED_ENSEMBLE = WILEY / "analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/figure_revisions/foundation_class_4x3_R03_fontplus2pt/data/foundation_class_4x3_R03_fontplus2pt/foundation_model_profiles_9models_4x3_R03.tsv"
 SELF_RELAXED_QE = WILEY / "analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/figure_revisions/foundation_class_4x3_R03_fontplus2pt/data/foundation_class_4x3_R03_fontplus2pt/foundation_model_qe_reference_profiles_4x3_R03.tsv"
 FIXED_ENSEMBLE_PATHS = {
@@ -202,6 +204,16 @@ ENSEMBLE_MARKERS = {
     "FT-MultiT": MODEL_MARKERS["FT-MultiT"],
     "Foundation": MODEL_MARKERS["Foundation"],
 }
+
+GROUPED_FAMILIES = ["Foundation", "Scratch-600K", "Scratch-MultiT", "FT-600K", "FT-MultiT"]
+GROUPED_PAIRS = ["Scratch-600K", "Scratch-MultiT", "FT-600K", "FT-MultiT"]
+GROUPED_COLORS = {family: COLORS[family] for family in GROUPED_FAMILIES}
+GROUPED_MARKERS = {family: MODEL_MARKERS[family] for family in GROUPED_FAMILIES}
+
+
+def grouped_display_label(family: str, n: int) -> str:
+    unit = "checkpoint variants" if family == "Foundation" else "seeds"
+    return f"{family} (n={n} {unit})"
 
 
 def ensemble_display_label(family: str, n: int) -> str:
@@ -247,6 +259,83 @@ def profile_ensemble_summary(rows: list[dict[str, str]], path_key: str, group_fi
             "sd": np.nanstd(aligned, axis=0, ddof=1) if len(replicate_ids) > 1 else np.full(len(image_indices), np.nan),
             "n": len(replicate_ids),
             "replicate_ids": replicate_ids,
+        }
+    return result
+
+
+def grouped_profile_summary(rows: list[dict[str, str]], system: str, method: str) -> dict[str, dict[str, np.ndarray | int | list[str]]]:
+    """Summarize the current grouped Cr profiles by family and registered seed.
+
+    The source table contains two distinct observables (fixed-path single-point
+    scoring and endpoint-only MLIP NEB proxy) and two systems.  They are kept
+    separate here; no path, method, or model family is pooled across those
+    boundaries.
+    """
+    result = {}
+    subset = [r for r in rows if r.get("system") == system and r.get("method") == method]
+    for family in GROUPED_FAMILIES:
+        group_rows = [r for r in subset if r.get("model_label") == family]
+        by_id = defaultdict(dict)
+        for r in group_rows:
+            model_id = r.get("model_id", "")
+            image_index = f(r, "image_index")
+            x = f(r, "image_fraction")
+            y = f(r, "relative_energy_eV")
+            if not model_id or not np.isfinite(image_index) or not np.isfinite(x) or not np.isfinite(y):
+                continue
+            by_id[model_id][int(image_index)] = (x, y)
+        replicate_ids = sorted(mid for mid, values in by_id.items() if values)
+        if not replicate_ids:
+            continue
+        image_indices = sorted(set().union(*(set(by_id[mid]) for mid in replicate_ids)))
+        aligned = np.full((len(replicate_ids), len(image_indices)), np.nan)
+        x_aligned = np.full(len(image_indices), np.nan)
+        for j, image_index in enumerate(image_indices):
+            xs = []
+            for i, mid in enumerate(replicate_ids):
+                if image_index in by_id[mid]:
+                    x, y = by_id[mid][image_index]
+                    xs.append(x)
+                    aligned[i, j] = y
+            if xs:
+                x_aligned[j] = float(np.nanmean(xs))
+        result[family] = {
+            "x": x_aligned,
+            "values": aligned,
+            "mean": np.nanmean(aligned, axis=0),
+            "sd": np.nanstd(aligned, axis=0, ddof=1) if len(replicate_ids) > 1 else np.full(len(image_indices), np.nan),
+            "n": len(replicate_ids),
+            "replicate_ids": replicate_ids,
+            "image_indices": image_indices,
+        }
+    return result
+
+
+def grouped_paired_mae(
+    rows: list[dict[str, str]], qe_rows: list[dict[str, str]], system: str, method: str
+) -> dict[str, dict[str, np.ndarray | float | int | list[str]]]:
+    """Return per-replica MAE against the same retained DFT image positions."""
+    summaries = grouped_profile_summary(rows, system, method)
+    qe_by_image = {
+        int(f(r, "image_index")): f(r, "relative_energy_eV")
+        for r in qe_rows
+        if r.get("system") == system and np.isfinite(f(r, "image_index")) and np.isfinite(f(r, "relative_energy_eV"))
+    }
+    result = {}
+    for family, summary in summaries.items():
+        image_indices = list(summary["image_indices"])
+        values = np.asarray(summary["values"], dtype=float)
+        qe = np.array([qe_by_image.get(i, np.nan) for i in image_indices], dtype=float)
+        per_replicate = np.nanmean(np.abs(values - qe[None, :]), axis=1)
+        finite = np.isfinite(per_replicate)
+        if not finite.any():
+            continue
+        result[family] = {
+            "values": per_replicate[finite],
+            "mean": float(np.nanmean(per_replicate[finite])),
+            "sd": float(np.nanstd(per_replicate[finite], ddof=1)) if finite.sum() > 1 else np.nan,
+            "n": int(finite.sum()),
+            "replicate_ids": [mid for mid, keep in zip(summary["replicate_ids"], finite) if keep],
         }
     return result
 
@@ -513,48 +602,114 @@ def fig3(out: Path) -> tuple[dict[str, str], list[Path]]:
 
 
 def fig4(out: Path) -> tuple[dict[str, str], list[Path]]:
-    src = WILEY / "analysis/neb_cross_element_triptychs_20261024/data/Cr_fixed_path_representative_profiles.tsv"
-    rows = load_cr_profiles(); fixed_rows = read_rows(FIXED_ENSEMBLE)
-    paths = [("within_gap", "Within-gap"), ("gap_to_ql", "Gap-to-QL / into-QL"), ("within_ql", "Within-QL")]
-    fig = plt.figure(figsize=(11.2, 6.3))
-    gs = fig.add_gridspec(2, 3, height_ratios=[1.05, .72], hspace=.42, wspace=.28)
-    diffs=[]
-    for col, (key, title) in enumerate(paths):
-        ax = fig.add_subplot(gs[0, col]); grouped = profile_lookup(rows, key); summaries = profile_ensemble_summary(fixed_rows, key)
-        for family in ENSEMBLE_FAMILIES:
+    # Figure 4 uses the current grouped Rockfish/local review table because it
+    # is the audited source that distinguishes Scratch-600K from Scratch-MultiT.
+    # Each line panel is paired with its own MAE cluster below it; the pair is
+    # over the same ten retained image positions, with replicate SD whiskers.
+    rows = read_rows(GROUPED_NORMALIZED)
+    qe_rows = read_rows(GROUPED_QE)
+    panels = [
+        ("bulk", "fixed", "Bulk · fixed path"),
+        ("cr_in_gap", "fixed", "Cr-in-gap · fixed path"),
+        ("bulk", "self", "Bulk · self-relaxed proxy"),
+        ("cr_in_gap", "self", "Cr-in-gap · self-relaxed proxy"),
+    ]
+    fig = plt.figure(figsize=(14.2, 7.8))
+    gs = fig.add_gridspec(2, 4, height_ratios=[1.25, .92], hspace=.52, wspace=.30)
+    legend_handles = []
+    for col, (system, method, title) in enumerate(panels):
+        ax = fig.add_subplot(gs[0, col])
+        summaries = grouped_profile_summary(rows, system, method)
+        for family in GROUPED_FAMILIES:
             if family in summaries:
-                plot_mean_sd(ax, summaries[family], ensemble_display_label(family, int(summaries[family]["n"])), ENSEMBLE_COLORS[family], ENSEMBLE_MARKERS[family], lw=1.55)
-        qe_rows = sorted(grouped.get("QE reference", []), key=lambda r:f(r,"image_index"))
-        qe = np.array([f(r,"relative_energy_eV") for r in qe_rows])
-        if qe.size:
-            qx = np.array([f(r,"s") for r in qe_rows])
-            ax.plot(qx, qe, marker="D", ms=3.1, lw=1.25, ls="--", color=COLORS["QE reference"], markerfacecolor="white", label="QE reference")
-        ax.set_title(chr(97+col)+"  "+title, loc="left"); ax.set_xlabel("path coordinate, $s$"); ax.set_ylabel("relative E (eV)"); style_ax(ax)
+                plot_mean_sd(
+                    ax,
+                    summaries[family],
+                    grouped_display_label(family, int(summaries[family]["n"])),
+                    GROUPED_COLORS[family],
+                    GROUPED_MARKERS[family],
+                    lw=1.45,
+                )
+        ref = sorted(
+            [r for r in qe_rows if r.get("system") == system],
+            key=lambda r: f(r, "image_index"),
+        )
+        if ref:
+            ax.plot(
+                np.array([f(r, "image_fraction") for r in ref]),
+                np.array([f(r, "relative_energy_eV") for r in ref]),
+                marker="D",
+                ms=3.0,
+                lw=1.2,
+                ls="--",
+                color=COLORS["QE reference"],
+                markerfacecolor="white",
+                label="DFT retained path · SCF warning",
+            )
+        ax.set_title(chr(97 + col) + "  " + title, loc="left")
+        ax.set_xlabel("image coordinate, $s$")
+        ax.set_ylabel("relative E (eV)")
+        if method == "self":
+            ax.text(.98, .04, "endpoint-only MLIP proxy", transform=ax.transAxes, ha="right", va="bottom", fontsize=6.2, color="#9A6A00")
+        style_ax(ax)
         if col == 0:
-            legend_ax = ax
-        if qe.size and "From-scratch" in summaries and "FT-600K" in summaries:
-            scratch = np.nanmean(np.abs(np.asarray(summaries["From-scratch"]["values"]) - qe[None, :]), axis=1)
-            ft = np.nanmean(np.abs(np.asarray(summaries["FT-600K"]["values"]) - qe[None, :]), axis=1)
-            scratch_ids = summaries["From-scratch"]["replicate_ids"]; ft_ids = summaries["FT-600K"]["replicate_ids"]
-            scratch_by_seed = {re.search(r"seed(\d+)", mid).group(1): value for mid, value in zip(scratch_ids, scratch) if re.search(r"seed(\d+)", mid)}
-            ft_by_seed = {re.search(r"seed(\d+)", mid).group(1): value for mid, value in zip(ft_ids, ft) if re.search(r"seed(\d+)", mid)}
-            paired = np.array([scratch_by_seed[s] - ft_by_seed[s] for s in sorted(set(scratch_by_seed) & set(ft_by_seed))])
-            if paired.size:
-                diffs.append((title, float(np.nanmean(paired)), float(np.nanstd(paired, ddof=1)) if paired.size > 1 else np.nan))
-    axd=fig.add_subplot(gs[1,:])
-    if diffs:
-        names=[d[0] for d in diffs]; vals=[d[1] for d in diffs]; errs=[d[2] for d in diffs]
-        axd.axhline(0,color="#222222",lw=1.0,ls=(0,(4,2)))
-        axd.bar(range(len(vals)), vals, color=["#6E9E75" if v>0 else "#B23A48" for v in vals], alpha=.85, edgecolor="#111111", lw=.5)
-        axd.errorbar(range(len(vals)), vals, yerr=[e if np.isfinite(e) else 0 for e in errs], fmt="none", ecolor="#222222", capsize=3, lw=1.0, zorder=6)
-        axd.set_xticks(range(len(vals)), names); axd.set_ylabel("scratch MAE − FT MAE (eV)")
-    axd.set_title("D  Paired diagnostic gain (mean ± SD across registered seeds)", loc="left"); style_ax(axd)
-    if 'legend_ax' in locals():
-        handles, labels = legend_ax.get_legend_handles_labels()
-        fig.legend(handles, labels, frameon=False, fontsize=5.8, ncol=5,
-                   loc="upper center", bbox_to_anchor=(.50, .965))
-    fig.suptitle("Figure 4 | Where target adaptation stops transferring", x=.02, ha="left", y=.995, fontsize=TITLE_SIZE, fontweight="bold")
-    assets=save_figure(fig,out,"figure04_cross_environment_transfer"); return assets,[src, FIXED_ENSEMBLE]
+            legend_handles, legend_labels = ax.get_legend_handles_labels()
+
+        axb = fig.add_subplot(gs[1, col])
+        stats = grouped_paired_mae(rows, qe_rows, system, method)
+        # Make the requested pairing explicit: each cluster is Foundation
+        # (reference) beside exactly one target family.
+        cluster_x = np.arange(len(GROUPED_PAIRS), dtype=float)
+        bar_width = .30
+        offsets = {"Foundation": -bar_width / 2, "target": bar_width / 2}
+        for i, family in enumerate(GROUPED_PAIRS):
+            for role, plotted_family in (("Foundation", "Foundation"), ("target", family)):
+                stat = stats.get(plotted_family, {})
+                mean = float(stat.get("mean", np.nan))
+                err = float(stat.get("sd", np.nan))
+                xbar = cluster_x[i] + offsets[role]
+                axb.bar(
+                    xbar,
+                    mean,
+                    yerr=err if np.isfinite(err) else 0.0,
+                    color=GROUPED_COLORS[plotted_family],
+                    alpha=.88,
+                    width=bar_width,
+                    edgecolor="#111111",
+                    linewidth=.5,
+                    error_kw={"ecolor": "#222222", "capsize": 2.5, "elinewidth": 1.0},
+                )
+                values = np.asarray(stat.get("values", []), dtype=float)
+                values = values[np.isfinite(values)]
+                if values.size:
+                    jitter = np.linspace(-.055, .055, values.size) if values.size > 1 else np.array([0.0])
+                    axb.scatter(np.full(values.size, xbar) + jitter, values, s=8, color="#222222", zorder=5)
+        axb.set_xticks(cluster_x, ["vs Scratch\n600K", "vs Scratch\nMultiT", "vs FT\n600K", "vs FT\nMultiT"], rotation=0)
+        axb.set_ylabel("MAE vs DFT (eV)")
+        axb.set_title(chr(101 + col) + "  Foundation-reference paired MAE", loc="left", fontsize=8.5)
+        axb.set_ylim(bottom=0)
+        style_ax(axb)
+
+    if legend_handles:
+        fig.legend(
+            legend_handles,
+            legend_labels,
+            frameon=False,
+            fontsize=5.8,
+            ncol=6,
+            loc="upper center",
+            bbox_to_anchor=(.50, .965),
+        )
+    fig.suptitle(
+        "Figure 4 | Foundation-reference transfer across paired NEB observables",
+        x=.02,
+        ha="left",
+        y=.995,
+        fontsize=TITLE_SIZE,
+        fontweight="bold",
+    )
+    assets = save_figure(fig, out, "figure04_cross_environment_transfer")
+    return assets, [GROUPED_NORMALIZED, GROUPED_QE]
 
 
 def fig5(out: Path) -> tuple[dict[str, str], list[Path]]:
@@ -685,6 +840,7 @@ def write_tables(out: Path) -> list[Path]:
         ["route","source registry","observed model/seed scope","reference/protocol","current status","publication action"],
         ["Scratch / FT parity","analysis/rmse_train_test_20261026/MODEL_REGISTRY.tsv","4 families × 3 seeds; train/test summary","QE parity; force and energy fields","PUBLICATION_PROVISIONAL","resolve energy unit and held-out strata before claims"],
         ["Cr fixed images","analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv","registered seeds/variants: 3 per scratch/FT family; 3 Foundation variants (FT-MultiT in-gap finite n=2)","fixed images; QE SCF-warning reference","SUPPORTING_DIAGNOSTIC","retain G1 warning; show mean ± sample SD; do not call barrier"],
+        ["Cr grouped paired NEB","analysis/cr_interlayer_sliding_grouped_20261025/results/tables/NORMALIZED_PROFILES.tsv","Foundation checkpoint variants n=3; Scratch-600K/Scratch-MultiT/FT-600K/FT-MultiT n=3 registered seeds","fixed-path single-point and endpoint-only MLIP NEB proxy; retained DFT path carries SCF warning","RECONSTRUCTION_DIAGNOSTIC","keep fixed/self and bulk/Cr-in-gap strata separate; do not call self proxy a DFT barrier"],
         ["Foundation self-relaxed paths","analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/figure_revisions/foundation_class_4x3_R03_fontplus2pt/data/foundation_class_4x3_R03_fontplus2pt/foundation_model_profiles_9models_4x3_R03.tsv","Cr ensemble: MACE-MP n=5; MACE-OMAT-0 n=2; MACE-MH n=2","endpoint-only IDPP initialization; campaign stopped for repair","EXCLUDE_FROM_MAIN_CLAIM","recover canonical run logs and geometry/endpoint gates; show mean ± sample SD"],
         ["1 ns MD","analysis/md_1ns_updated_publication_figure_20261025/md15_inputs.tsv","15 model IDs; 3 seeds for FT/Scratch groups","observed horizon, CN/RDF/VACF/MSD","PROVISIONAL_RAW_TRAJECTORIES_EXTERNAL","audit common initial state and trajectory integrity"],
         ["Interlayer sliding","analysis/foundation_interlayer_sliding_10model_20261024/MODEL_REGISTRY.tsv","10 checkpoints; class aggregation","fixed image + endpoint-only self proxy; QE SCF warning","RECONSTRUCTION_DIAGNOSTIC","retain class-SD semantics; do not rank physical barriers"],
@@ -708,6 +864,16 @@ def write_tables(out: Path) -> list[Path]:
     for key in ("within_gap","gap_to_ql","within_ql"):
         summary=profile_ensemble_summary(fixed_rows,key)
         fixed_counts.append(key+": "+"; ".join(f"{family} n={int(summary[family]['n'])}" for family in ENSEMBLE_FAMILIES if family in summary))
+    grouped_rows = read_rows(GROUPED_NORMALIZED)
+    grouped_counts = []
+    for system, method, title in [
+        ("bulk", "fixed", "Bulk fixed"),
+        ("cr_in_gap", "fixed", "Cr-in-gap fixed"),
+        ("bulk", "self", "Bulk self"),
+        ("cr_in_gap", "self", "Cr-in-gap self"),
+    ]:
+        summary = grouped_profile_summary(grouped_rows, system, method)
+        grouped_counts.append(title + ": " + "; ".join(f"{family} n={int(summary[family]['n'])}" for family in GROUPED_FAMILIES if family in summary))
     self_rows=read_rows(SELF_RELAXED_ENSEMBLE)
     self_counts=[]
     for key in ("within_gap","gap_to_ql","within_ql"):
@@ -719,7 +885,7 @@ def write_tables(out: Path) -> list[Path]:
         ["figure/panels","source","replicate unit and grouping","uncertainty encoding","observed counts","missingness/outlier rule","visual/data acceptance gate"],
         ["Figure 2 C–D","analysis/rmse_train_test_20261026/parity_summary.csv","registered seeds within model family","C: mean ± SD error bars; D: median with Q1–Q3 whiskers","seed counts are read from summary table","no imputation; finite rows only","every family with n>1 has visible uncertainty; labels match exact model palette"],
         ["Figure 3 A–C",str(FIXED_ENSEMBLE.relative_to(WILEY)),"registered seed/model IDs within route family","mean ± sample SD shaded band; MAE panel mean ± SD whisker"," | ".join(fixed_counts),"missing image rows excluded; FT-MultiT in-gap retains finite n=2","no single-seed family line; QE is deterministic dashed reference only"],
-        ["Figure 4 A–D",str(FIXED_ENSEMBLE.relative_to(WILEY)),"registered seed/model IDs within route family; paired seeds in D","mean ± sample SD shaded bands; paired MAE mean ± SD whiskers"," | ".join(fixed_counts),"pairing uses seed intersection only; no synthetic pairs","route and paired-difference panels carry uncertainty or deterministic-reference semantics"],
+        ["Figure 4 A–H",str(GROUPED_NORMALIZED.relative_to(WILEY)) + " + " + str(GROUPED_QE.relative_to(WILEY)),"Foundation checkpoint variants n=3 plus Scratch-600K/Scratch-MultiT/FT-600K/FT-MultiT registered seeds n=3; paired by the same ten retained image positions","mean ± sample SD shaded bands in each NEB profile; each corresponding cluster bar is MAE vs retained DFT path with mean ± SD whisker and replicate points"," | ".join(grouped_counts),"fixed/self and bulk/Cr-in-gap strata remain separate; finite rows only; no imputation or synthetic seed","Foundation is the first/reference bar in every cluster; exact five-family palette; endpoint-only self panels remain explicitly labelled as proxies"],
         ["Figure 5 A–D",str(SELF_RELAXED_ENSEMBLE.relative_to(WILEY)),"Cr Foundation model variants grouped by MACE class","mean ± sample SD shaded band"," | ".join(self_counts),"only finite model profiles included; no barrier imputation","class n shown in legend and matrix; blocked status remains explicit"],
         ["Figure 6 A–F","analysis/md_1ns_updated_publication_figure_20261025/md15_analysis_r03/series/*.csv","registered trajectories grouped by family","mean ± sample SD shaded bands; observed-horizon bars mean ± SD whiskers; coordination error bars","; ".join(f"{k} n={v}" for k,v in sorted(md_counts.items())),"observed horizons retained; non-finite values excluded; no extrapolation","all trajectory-derived lines have bands; incomplete families remain visible as short observed domains"],
         ["Figure 7 A–D","analysis/foundation_interlayer_sliding_10model_20261024/results/tables/IMAGE_PROFILES.tsv","registered Foundation model variants grouped by MACE class","mean ± sample SD shaded bands","MACE-MP n=5; MACE-OMAT-0 n=3; MACE-MH n=2","finite profiles only; QE reference deterministic","class bands and legend use exact Foundation class palette"],
@@ -732,7 +898,7 @@ def write_tables(out: Path) -> list[Path]:
 def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources: list[Path]) -> Path:
     manifest={
         "schema_version":"atomic_migration_blueprint_figure_package_v1",
-        "revision":"R02h",
+        "revision":"R02i",
         "status":"REVIEW_PACKAGE_NOT_SCIENTIFIC_ACCEPTANCE",
         "generated_by":str(Path(__file__).resolve()),
         "source_root":str(WILEY),
