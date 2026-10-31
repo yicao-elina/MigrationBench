@@ -81,3 +81,29 @@ file under the analysis directory has the expected byte count but is a
 zero-filled/empty PDF at audit time. The staging copy is therefore not used as
 the integrity authority; the Download copy and the source tables/manifests
 are retained as the recoverable evidence.
+
+## Atomic Migration blueprint review package
+
+The blueprint-derived build and review handoff is contained in:
+
+- [`BLUEPRINT_FIGURE_TODO.md`](BLUEPRINT_FIGURE_TODO.md): figure-by-figure
+  source paths, additional plots, blockers, and execution order;
+- [`DATA_AND_VISUAL_ACCEPTANCE_CRITERIA.md`](DATA_AND_VISUAL_ACCEPTANCE_CRITERIA.md):
+  data, provenance, numerical, visual, and independent-signoff gates;
+- [`INDEPENDENT_REVIEWER_BRIEF.md`](../../../INDEPENDENT_REVIEWER_BRIEF.md)
+  and [`review/`](../../../review/): independent reviewer protocol and
+  current Figure 1–8/Table 1–2 findings;
+- [`CANVA_PLACEMENT_MAP.md`](../../../CANVA_PLACEMENT_MAP.md): current Canva
+  page correspondence, new blueprint slots, and placeholder rules;
+- [`FIGURE_RELEASE_STATUS.tsv`](../../../FIGURE_RELEASE_STATUS.tsv):
+  conservative release state for each figure/table;
+- [`manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json`](manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json):
+  absolute source paths and source hashes;
+- [`figures/atomic_migration_blueprint_canvas_board.svg`](figures/atomic_migration_blueprint_canvas_board.svg):
+  completed local composition board for Canva import/review, with explicit
+  warning and blocked placeholders.
+
+The builder is [`scripts/build_atomic_migration_figures.py`](scripts/build_atomic_migration_figures.py).
+It is additive and writes only inside this worktree. The current package is a
+review package, not scientific acceptance; no external Canva page was
+overwritten because the connector required reauthentication at build time.
