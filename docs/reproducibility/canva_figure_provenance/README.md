@@ -99,11 +99,17 @@ The blueprint-derived build and review handoff is contained in:
   conservative release state for each figure/table;
 - [`manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json`](manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json):
   absolute source paths and source hashes;
+- [`tables/UNCERTAINTY_AUDIT.tsv`](tables/UNCERTAINTY_AUDIT.tsv):
+  per-figure replicate units, observed counts, missingness rules, and visual/data
+  acceptance gates for shaded intervals and bar whiskers;
 - [`figures/atomic_migration_blueprint_canvas_board.svg`](figures/atomic_migration_blueprint_canvas_board.svg):
   completed local composition board for Canva import/review, with explicit
   warning and blocked placeholders.
 
 The builder is [`scripts/build_atomic_migration_figures.py`](scripts/build_atomic_migration_figures.py).
-It is additive and writes only inside this worktree. The current package is a
-review package, not scientific acceptance; no external Canva page was
+It is additive and writes only inside this worktree. The current R02h package
+contains standalone editable PDF/SVG plus PNG previews for Figures 1–8 and a
+review-board composite. Every aggregate line has a mean ± sample SD shaded
+interval, and every aggregate bar has mean ± sample SD whiskers; the package is
+still a review package, not scientific acceptance. No external Canva page was
 overwritten because the connector required reauthentication at build time.
