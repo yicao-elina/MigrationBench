@@ -192,33 +192,6 @@ def draw_hexbin(ax: plt.Axes, x: np.ndarray, y: np.ndarray, *, extent: tuple[flo
     )
 
 
-def draw_vector_density_mesh(
-    ax: plt.Axes,
-    x: np.ndarray,
-    y: np.ndarray,
-    *,
-    extent: tuple[float, float, float, float],
-    norm: LogNorm,
-    bins: int = 36,
-):
-    """Draw a full-data local count heatmap as editable vector cells."""
-    x0, x1, y0, y1 = extent
-    counts, xedges, yedges = np.histogram2d(x, y, bins=(bins, bins), range=((x0, x1), (y0, y1)))
-    counts = counts.T
-    counts[counts == 0] = np.nan
-    return ax.pcolormesh(
-        xedges,
-        yedges,
-        counts,
-        cmap="magma",
-        norm=norm,
-        shading="flat",
-        linewidth=0.0,
-        edgecolors="none",
-        rasterized=False,
-    )
-
-
 def add_vector_colorbar(fig: plt.Figure, reference_ax: plt.Axes, norm: LogNorm, label: str) -> None:
     """Add a discrete, fully vector count colorbar beside one panel row."""
     bbox = reference_ax.get_position()
@@ -468,19 +441,47 @@ def energy_inset_limits(panel: dict[str, np.ndarray]) -> tuple[float, float, flo
     return center - half_width, center + half_width, center - half_width, center + half_width
 
 
+def energy_zero_reference(panel: dict[str, np.ndarray], extent: tuple[float, float, float, float]) -> float:
+    """Return a data-derived DFT anchor for a local, relative-energy inset.
+
+    The anchor is the median DFT energy of the held-out observations that lie
+    in the selected local core.  It is subtracted from both the DFT and MLIP
+    axes, so the parity residual and all correlations are unchanged.  The
+    absolute-energy panel remains visible as the provenance/context view.
+    """
+    x = np.asarray(panel["test_x"], dtype=float)
+    x0, x1, _, _ = extent
+    local = x[np.isfinite(x) & (x >= x0) & (x <= x1)]
+    if local.size == 0:
+        local = x[np.isfinite(x)]
+    if local.size == 0:
+        raise RuntimeError("Cannot define an energy zero reference from an empty panel")
+    return float(np.median(local))
+
+
 def add_energy_inset(ax: plt.Axes, panel: dict[str, np.ndarray], family: str) -> tuple[float, float, float, float]:
-    """Add a boxed local train/test energy view inside the full-context panel."""
-    extent = energy_inset_limits(panel)
-    x0, x1, y0, y1 = extent
+    """Add a boxed, hexbin, relative-energy train/test view.
+
+    The local inset uses ``E_rel = E - E0`` on both axes.  ``E0`` is computed
+    from the held-out DFT core for this family and applied identically to the
+    DFT and MLIP values.  This centers the physically relevant energy core
+    without changing any model error or rank statistic.
+    """
+    absolute_extent = energy_inset_limits(panel)
+    energy_offset = energy_zero_reference(panel, absolute_extent)
+    x0, x1, y0, y1 = (value - energy_offset for value in absolute_extent)
+    extent = (x0, x1, y0, y1)
     inset = ax.inset_axes([0.50, 0.065, 0.46, 0.39], zorder=6)
     inset.set_facecolor("white")
     inset.patch.set_alpha(0.96)
-    all_x = np.concatenate((panel["train_x"], panel["test_x"]))
-    all_y = np.concatenate((panel["train_y"], panel["test_y"]))
-    inset_norm = count_norm([(all_x, all_y)], extent, gridsize=36)
-    draw_vector_density_mesh(inset, all_x, all_y, extent=extent, norm=inset_norm, bins=18).set_alpha(0.62)
+    all_x = np.concatenate((panel["train_x"], panel["test_x"])) - energy_offset
+    all_y = np.concatenate((panel["train_y"], panel["test_y"])) - energy_offset
+    inset_norm = count_norm([(all_x, all_y)], extent, gridsize=18)
+    draw_hexbin(inset, all_x, all_y, extent=extent, norm=inset_norm, gridsize=18).set_alpha(0.62)
     tr_x, tr_y = sample_points(panel["train_x"], panel["train_y"], 2400)
     te_x, te_y = sample_points(panel["test_x"], panel["test_y"], 2400)
+    tr_x, tr_y = tr_x - energy_offset, tr_y - energy_offset
+    te_x, te_y = te_x - energy_offset, te_y - energy_offset
     inset.scatter(tr_x, tr_y, s=22, color="#8d8d8d", alpha=0.34, linewidths=0, zorder=3)
     inset.scatter(te_x, te_y, s=26, color=COLORS[family], alpha=0.92, linewidths=0, zorder=4)
     inset.plot([x0, x1], [x0, x1], linestyle=(0, (5, 3)), color="#cf2e2e", linewidth=1.5, zorder=2)
@@ -488,8 +489,7 @@ def add_energy_inset(ax: plt.Axes, panel: dict[str, np.ndarray], family: str) ->
     inset.set_ylim(y0, y1)
     inset.xaxis.set_major_locator(mpl.ticker.MaxNLocator(nbins=3))
     inset.yaxis.set_major_locator(mpl.ticker.MaxNLocator(nbins=3))
-    local_energy_offset = float(np.round(0.5 * (x0 + x1)))
-    relative_formatter = mpl.ticker.FuncFormatter(lambda value, _: f"{value - local_energy_offset:+.2f}")
+    relative_formatter = mpl.ticker.FormatStrFormatter("%+.2f")
     inset.xaxis.set_major_formatter(relative_formatter)
     inset.yaxis.set_major_formatter(relative_formatter)
     inset.tick_params(axis="both", which="major", direction="out", length=4, width=0.9, pad=2, labelsize=TICK_SIZE)
@@ -501,7 +501,7 @@ def add_energy_inset(ax: plt.Axes, panel: dict[str, np.ndarray], family: str) ->
     inset.text(
         0.97,
         0.95,
-        rf"$E_0={local_energy_offset:.0f}\ \mathrm{{eV}}$",
+        rf"$E_0={energy_offset:.0f}\ \mathrm{{eV}}$",
         transform=inset.transAxes,
         ha="right",
         va="top",
@@ -512,7 +512,7 @@ def add_energy_inset(ax: plt.Axes, panel: dict[str, np.ndarray], family: str) ->
         spine.set_visible(True)
         spine.set_linewidth(1.25)
         spine.set_color("#111111")
-    return extent
+    return absolute_extent
 
 
 def render_project(arrays: dict[tuple[str, str, str], dict[str, np.ndarray]]) -> tuple[dict[str, str], dict[str, object]]:
@@ -610,7 +610,15 @@ def render_project(arrays: dict[tuple[str, str, str], dict[str, np.ndarray]]) ->
         "correlation_basis": "all finite held-out test parity observations pooled across seeds per family",
         "hexbin_basis": "all finite train plus held-out test parity observations pooled across seeds per family",
         "point_overlay": "deterministic evenly spaced vector sample, max 2200 train and max 2200 held-out test points per panel",
-        "energy_inset": "per-family local square inset centered on the densest held-out test energy core, with deterministic vector train/test overlays",
+        "energy_inset": "per-family local inset centered on the densest held-out test energy core; both axes use hexbin count density and deterministic vector train/test overlays",
+        "energy_normalization": {
+            "formula": "E_rel = E - E0",
+            "reference": "E0 is the median held-out DFT energy within the selected local core for each family",
+            "applied_to": "DFT and MLIP axes identically inside the inset",
+            "absolute_context": "the main energy panels retain absolute DFT/MLIP energy values",
+            "effect_on_error": "translation only; parity residuals, RMSE, Spearman, and Pearson are unchanged",
+            "no_synthetic_points": True,
+        },
         "force_focus": {
             "method": "shared square limits of -5.25 to +5.25 eV/A for the full force row, retaining the central distribution with light visual whitespace",
             "outside_fraction": {

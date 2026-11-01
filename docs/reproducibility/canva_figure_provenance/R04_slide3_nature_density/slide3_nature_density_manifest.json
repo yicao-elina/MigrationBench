@@ -26,7 +26,15 @@
     "correlation_basis": "all finite held-out test parity observations pooled across seeds per family",
     "hexbin_basis": "all finite train plus held-out test parity observations pooled across seeds per family",
     "point_overlay": "deterministic evenly spaced vector sample, max 2200 train and max 2200 held-out test points per panel",
-    "energy_inset": "per-family local square inset centered on the densest held-out test energy core, with deterministic vector train/test overlays",
+    "energy_inset": "per-family local inset centered on the densest held-out test energy core; both axes use hexbin count density and deterministic vector train/test overlays",
+    "energy_normalization": {
+      "formula": "E_rel = E - E0",
+      "reference": "E0 is the median held-out DFT energy within the selected local core for each family",
+      "applied_to": "DFT and MLIP axes identically inside the inset",
+      "absolute_context": "the main energy panels retain absolute DFT/MLIP energy values",
+      "effect_on_error": "translation only; parity residuals, RMSE, Spearman, and Pearson are unchanged",
+      "no_synthetic_points": true
+    },
     "force_focus": {
       "method": "shared square limits of -5.25 to +5.25 eV/A for the full force row, retaining the central distribution with light visual whitespace",
       "outside_fraction": {
