@@ -349,6 +349,160 @@ def plot_mean_sd(ax, summary: dict[str, np.ndarray | int | list[str]], label: st
         ax.fill_between(x, lo, hi, color=color, alpha=alpha, linewidth=0, zorder=0)
 
 
+def finite_values(values) -> np.ndarray:
+    arr = np.asarray(list(values), dtype=float)
+    return arr[np.isfinite(arr)]
+
+
+def mean_sd(values) -> tuple[float, float]:
+    arr = finite_values(values)
+    if arr.size == 0:
+        return np.nan, np.nan
+    return float(np.mean(arr)), float(np.std(arr, ddof=1)) if arr.size > 1 else np.nan
+
+
+def plot_family_cluster_bars(
+    ax,
+    categories: list[str],
+    values_by_family: dict[str, list[np.ndarray]],
+    family_order: list[str],
+    colors: dict[str, str],
+    *,
+    ylabel: str,
+    title: str,
+    rotate: float = 0,
+    y_min: float | None = None,
+    width_fraction: float = .80,
+) -> None:
+    """Full-campaign grouped bars with replica points and sample-SD whiskers."""
+    x = np.arange(len(categories), dtype=float)
+    width = width_fraction / max(len(family_order), 1)
+    for j, family in enumerate(family_order):
+        means = []
+        errors = []
+        family_values = values_by_family.get(family, [np.array([])] * len(categories))
+        for values in family_values:
+            m, s = mean_sd(values)
+            means.append(m); errors.append(0.0 if not np.isfinite(s) else s)
+        offset = (j - (len(family_order) - 1) / 2) * width
+        xpos = x + offset
+        ax.bar(
+            xpos,
+            means,
+            yerr=errors,
+            width=width * .92,
+            color=colors[family],
+            alpha=.88,
+            edgecolor="#111111",
+            linewidth=.45,
+            capsize=2.5,
+            error_kw={"ecolor": "#222222", "elinewidth": 1.0},
+            label=family,
+            zorder=2,
+        )
+        for i, values in enumerate(family_values):
+            vals = finite_values(values)
+            if vals.size:
+                jitter = np.linspace(-width * .22, width * .22, vals.size) if vals.size > 1 else np.array([0.0])
+                ax.scatter(np.full(vals.size, xpos[i]) + jitter, vals, s=10, color="#222222", zorder=5)
+    ax.set_xticks(x, categories, rotation=rotate, ha="right" if rotate else "center")
+    ax.set_ylabel(ylabel)
+    ax.set_title(title, loc="left")
+    if y_min is not None:
+        ax.set_ylim(bottom=y_min)
+    style_ax(ax)
+
+
+def plot_reference_pair_bars(
+    ax,
+    categories: list[str],
+    reference_values: list[np.ndarray],
+    target_values: dict[str, list[np.ndarray]],
+    reference_label: str,
+    target_order: list[str],
+    colors: dict[str, str],
+    *,
+    ylabel: str,
+    title: str,
+    tick_labels: list[str] | None = None,
+    y_min: float | None = 0,
+) -> None:
+    """Explicit reference-vs-target clusters, preserving every replica."""
+    x = np.arange(len(categories), dtype=float)
+    width = .30
+    for i, target in enumerate(target_order):
+        for role, family, xpos in (
+            ("reference", reference_label, x[i] - width / 2),
+            ("target", target, x[i] + width / 2),
+        ):
+            values = reference_values[i] if role == "reference" else target_values[target][i]
+            m, s = mean_sd(values)
+            ax.bar(
+                xpos,
+                m,
+                yerr=0.0 if not np.isfinite(s) else s,
+                width=width,
+                color=colors[family],
+                alpha=.88,
+                edgecolor="#111111",
+                linewidth=.5,
+                capsize=2.5,
+                error_kw={"ecolor": "#222222", "elinewidth": 1.0},
+                zorder=2,
+            )
+            vals = finite_values(values)
+            if vals.size:
+                jitter = np.linspace(-.055, .055, vals.size) if vals.size > 1 else np.array([0.0])
+                ax.scatter(np.full(vals.size, xpos) + jitter, vals, s=10, color="#222222", zorder=5)
+    ax.set_xticks(x, tick_labels or categories)
+    ax.set_ylabel(ylabel)
+    ax.set_title(title, loc="left")
+    if y_min is not None:
+        ax.set_ylim(bottom=y_min)
+    style_ax(ax)
+
+
+def plot_observed_vs_target_dumbbell(
+    ax,
+    families: list[str],
+    values_by_family: dict[str, np.ndarray],
+    target: float,
+    colors: dict[str, str],
+    *,
+    xlabel: str,
+    title: str,
+) -> None:
+    """Horizontal observed-vs-target dumbbell with all replica observations."""
+    y = np.arange(len(families), dtype=float)[::-1]
+    ax.axvline(target, color="#222222", lw=1.1, ls=(0, (4, 2)), zorder=1)
+    for yi, family in zip(y, families):
+        vals = finite_values(values_by_family.get(family, []))
+        m, s = mean_sd(vals)
+        if not np.isfinite(m):
+            continue
+        ax.plot([m, target], [yi, yi], color=colors[family], lw=2.0, alpha=.75, zorder=2)
+        ax.errorbar(m, yi, xerr=0.0 if not np.isfinite(s) else s, fmt="o", ms=5.5, color=colors[family],
+                    markerfacecolor="white", markeredgewidth=1.0, capsize=2.5, lw=1.0, zorder=5)
+        if vals.size:
+            jitter = np.linspace(-.12, .12, vals.size) if vals.size > 1 else np.array([0.0])
+            ax.scatter(vals, np.full(vals.size, yi) + jitter, s=10, color="#222222", zorder=6)
+        ax.scatter([target], [yi], marker="D", s=34, color="#222222", facecolors="white", linewidths=.9, zorder=5)
+    ax.set_yticks(y, families)
+    ax.set_xlabel(xlabel)
+    ax.set_title(title, loc="left")
+    style_ax(ax)
+    ax.legend(
+        handles=[
+            Line2D([], [], color="#222222", ls=(0, (4, 2)), lw=1.1, label="1 ns target"),
+            Line2D([], [], marker="o", markerfacecolor="white", markeredgecolor="#222222", color="none", ms=5, label="family mean ± SD"),
+            Line2D([], [], marker="o", color="#222222", linestyle="", ms=4, label="replica"),
+        ],
+        frameon=False,
+        fontsize=6.5,
+        loc="lower right",
+    )
+
+
 def class_profile_summary(rows: list[dict[str, str]], path_key: str, classes: list[str]) -> dict[str, dict[str, np.ndarray | int | list[str]]]:
     """Summarize the Cr self-relaxed Foundation ensemble by registered class."""
     result = {}
@@ -440,16 +594,25 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
         ax.annotate("", xy=(x2, y2), xytext=(x1, y1), arrowprops={"arrowstyle": "->", "lw": 1.2, "color": "#555555"})
 
     ax = fig.add_subplot(gs[0, 2])
-    counts = defaultdict(int)
-    for r in rows:
-        counts[r.get("task_label", "unlabelled")] += 1
-    labels = ["L0 reference", "L1 thermal", "L2 NEB", "L3 sliding"]
-    keys = groups
-    vals = [counts[k] for k in keys]
-    ax.barh(labels[::-1], vals[::-1], color=[group_colors[k] for k in keys[::-1]], edgecolor="#111111", lw=0.5)
-    for i, v in enumerate(vals[::-1]): ax.text(v + max(vals) * .02, i, f"n={v}", va="center", fontsize=7.5, fontweight="bold")
+    # Full campaign coverage: retain every source split/protocol instead of
+    # collapsing each task layer to a single total bar.
+    coverage_splits = ["train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer", "mlip_self_neb", "mlip_interlayer_self"]
+    coverage_labels = ["L0 reference", "L1 thermal", "L2 NEB", "L3 sliding"]
+    coverage_colors = {
+        "train": "#8DA9BF", "valid": "#B7C8D6", "test": "#5D8B9E",
+        "md_sample": "#6E9E75", "dft_neb": "#C4547A", "dft_interlayer": "#E68F1D",
+        "mlip_self_neb": "#9A6A00", "mlip_interlayer_self": "#D5A238",
+    }
+    y = np.arange(len(groups), dtype=float)
+    width = .82 / len(coverage_splits)
+    for j, split in enumerate(coverage_splits):
+        vals = [sum(1 for r in rows if r.get("task_label") == group and r.get("split") == split) for group in groups]
+        offset = (j - (len(coverage_splits) - 1) / 2) * width
+        ax.barh(y + offset, vals, height=width * .9, color=coverage_colors[split], edgecolor="#111111", linewidth=.35, label=split)
+    ax.set_yticks(y, coverage_labels)
     ax.set_xlabel("structure rows")
-    ax.set_title("C  Task coverage", loc="left")
+    ax.set_title("C  Full campaign coverage by source split", loc="left")
+    ax.legend(frameon=False, fontsize=5.0, ncol=2, loc="upper left", bbox_to_anchor=(0, -0.20))
     style_ax(ax)
     fig.suptitle("Figure 1 | Task-conditioned benchmark and configuration universe", x=0.02, ha="left", y=1.02, fontsize=TITLE_SIZE, fontweight="bold")
     assets = save_figure(fig, out, "figure01_task_conditioned_universe")
@@ -505,17 +668,49 @@ def fig2(out: Path) -> tuple[dict[str, str], list[Path]]:
     axb.legend(handles=handles, frameon=False, fontsize=7, loc="upper left")
 
     families = ["Scratch-600K", "FT-600K", "Scratch-MultiT", "FT-MultiT"]
+    split_order = ["train", "test"]
+    split_labels = {"train": "train", "test": "held-out test"}
     for metric, ax, key in [("Energy RMSE", axc, "energy_rmse_meV_per_atom"), ("Force RMSE", axf, "force_rmse_meV_A")]:
-        for i, fam in enumerate(families):
-            vals = [f(r, key) for r in summary if r.get("model", "") == fam and r.get("split") == "test"]
-            seeds = [f(r, key) for r in summary if r.get("model", "") == fam and r.get("split") == "test"]
-            if not vals: continue
-            mean, sd = np.mean(vals), np.std(vals, ddof=1) if len(vals) > 1 else 0
-            ax.errorbar(i, mean, yerr=sd, fmt="o", ms=5, color=COLORS[fam], capsize=3, lw=1.0)
-            ax.scatter([i] * len(seeds), seeds, s=18, facecolors="white", edgecolors=COLORS[fam], linewidths=1.1, zorder=5)
-        ax.set_xticks(range(len(families)), ["Scratch\n600K", "FT\n600K", "Scratch\nMultiT", "FT\nMultiT"])
+        x = np.arange(len(families), dtype=float)
+        width = .32
+        for j, split in enumerate(split_order):
+            for i, fam in enumerate(families):
+                vals = [f(r, key) for r in summary if r.get("model", "") == fam and r.get("split") == split]
+                vals = finite_values(vals)
+                if vals.size == 0:
+                    continue
+                m, s = mean_sd(vals)
+                xpos = x[i] + (j - .5) * width
+                ax.bar(
+                    xpos,
+                    m,
+                    yerr=0.0 if not np.isfinite(s) else s,
+                    width=width * .9,
+                    color=COLORS[fam],
+                    alpha=.30 if split == "train" else .88,
+                    hatch="///" if split == "train" else None,
+                    edgecolor="#111111",
+                    linewidth=.45,
+                    capsize=2.5,
+                    error_kw={"ecolor": "#222222", "elinewidth": 1.0},
+                    zorder=2,
+                )
+                jitter = np.linspace(-.05, .05, vals.size) if vals.size > 1 else np.array([0.0])
+                ax.scatter(np.full(vals.size, xpos) + jitter, vals, s=9, color="#222222", zorder=5)
+        ax.set_xticks(x, ["Scratch\n600K", "FT\n600K", "Scratch\nMultiT", "FT\nMultiT"])
         ax.set_ylabel(key.replace("_", " "))
-        ax.set_title(("C  " if ax is axc else "F  ") + metric + " by seed", loc="left")
+        ax.set_title(("C  " if ax is axc else "F  ") + metric + " · full train/test campaign", loc="left")
+        ax.set_ylim(bottom=0)
+        if ax is axc:
+            ax.legend(
+                handles=[
+                    patches.Patch(facecolor="#777777", alpha=.30, hatch="///", edgecolor="#111111", label="train"),
+                    patches.Patch(facecolor="#777777", alpha=.88, edgecolor="#111111", label="held-out test"),
+                ],
+                frameon=False,
+                fontsize=6.0,
+                loc="upper right",
+            )
         style_ax(ax)
     axd.set_title("D  Distribution by held-out trajectory", loc="left")
     trajectories = sorted({x[1] for x in all_frame})
@@ -552,53 +747,63 @@ def profile_lookup(rows: list[dict[str, str]], path_key: str) -> dict[str, list[
 
 
 def fig3(out: Path) -> tuple[dict[str, str], list[Path]]:
-    src = WILEY / "analysis/neb_cross_element_triptychs_20261024/data/Cr_fixed_path_representative_profiles.tsv"
-    rows = load_cr_profiles(); grouped = profile_lookup(rows, "within_gap")
-    fixed_rows = read_rows(FIXED_ENSEMBLE)
-    summaries = profile_ensemble_summary(fixed_rows, "within_gap")
-    fig = plt.figure(figsize=(10.6, 6.5))
-    gs = fig.add_gridspec(2, 2, height_ratios=[1.15, .85], hspace=.42, wspace=.32)
-    axa, axb, axc = fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, :])
-    qe_rows = sorted(grouped.get("QE reference", []), key=lambda r: f(r, "image_index"))
+    rows = read_rows(GROUPED_NORMALIZED)
+    qe_rows = read_rows(GROUPED_QE)
+    system, method = "cr_in_gap", "fixed"
+    summaries = grouped_profile_summary(rows, system, method)
+    qe_rows = sorted([r for r in qe_rows if r.get("system") == system], key=lambda r: f(r, "image_index"))
+    qe_by_image = {int(f(r, "image_index")): f(r, "relative_energy_eV") for r in qe_rows}
     qe = np.array([f(r, "relative_energy_eV") for r in qe_rows])
-    qx = np.array([f(r, "s") for r in qe_rows])
-    for family in ENSEMBLE_FAMILIES:
+    qx = np.array([f(r, "image_fraction") for r in qe_rows])
+    fig = plt.figure(figsize=(11.4, 6.5))
+    gs = fig.add_gridspec(2, 2, height_ratios=[1.15, .85], hspace=.46, wspace=.34)
+    axa, axb, axc = fig.add_subplot(gs[0, 0]), fig.add_subplot(gs[0, 1]), fig.add_subplot(gs[1, :])
+    for family in GROUPED_FAMILIES:
         if family in summaries:
-            plot_mean_sd(axa, summaries[family], ensemble_display_label(family, int(summaries[family]["n"])), ENSEMBLE_COLORS[family], ENSEMBLE_MARKERS[family], lw=1.7)
+            plot_mean_sd(axa, summaries[family], grouped_display_label(family, int(summaries[family]["n"])), GROUPED_COLORS[family], GROUPED_MARKERS[family], lw=1.55)
     if qe.size:
-        axa.plot(qx, qe, marker="D", ms=3.4, lw=1.3, ls="--", color=COLORS["QE reference"], markerfacecolor="white", label="QE reference")
-    axa.set_xlabel("normalized image coordinate, $s$"); axa.set_ylabel("relative energy (eV)")
-    axa.set_title("A  Same fixed QE images", loc="left")
-    # The SCF warning is recorded in the manifest and caption metadata rather
-    # than as a prose strip inside the data panel.
+        axa.plot(qx, qe, marker="D", ms=3.4, lw=1.3, ls="--", color=COLORS["QE reference"], markerfacecolor="white", label="DFT retained path · SCF warning")
+    axa.set_xlabel("image coordinate, $s$"); axa.set_ylabel("relative energy (eV)")
+    axa.set_title("A  Cr-in-gap fixed images", loc="left")
     style_ax(axa)
-    metrics = []
-    if qe.size:
-        for family in ENSEMBLE_FAMILIES:
-            if family not in summaries:
-                continue
-            values = np.asarray(summaries[family]["values"], dtype=float)
-            per_replicate = np.nanmean(np.abs(values - qe[None, :]), axis=1)
-            metrics.append((family, float(np.nanmean(per_replicate)), float(np.nanstd(per_replicate, ddof=1))))
-    for i, (family, mae, sd) in enumerate(metrics):
-        axb.errorbar(i, mae, yerr=sd if np.isfinite(sd) else None, fmt="o", ms=4.5, color=ENSEMBLE_COLORS[family],
-                     markerfacecolor="white", markeredgewidth=.9, capsize=2.5, lw=1.0, zorder=5)
-    axb.set_xticks(range(len(metrics)), [x[0].replace("From-scratch", "Scratch") for x in metrics], rotation=25, ha="right")
-    axb.set_ylabel("MAE versus QE (eV)"); axb.set_title("B  Replicate uncertainty on fixed images", loc="left"); style_ax(axb)
-    for family in ENSEMBLE_FAMILIES:
+    paired_targets = ["Scratch-600K", "Scratch-MultiT", "FT-600K", "FT-MultiT"]
+    pair_categories = ["Scratch-600K", "Scratch-MultiT", "FT-600K", "FT-MultiT"]
+    paired_stats = grouped_paired_mae(rows, read_rows(GROUPED_QE), system, method)
+    if qe.size and "Foundation" in paired_stats:
+        reference_mae = np.asarray(paired_stats["Foundation"]["values"], dtype=float)
+        target_mae = {family: [np.asarray(paired_stats[family]["values"], dtype=float)] * len(pair_categories) for family in paired_targets if family in paired_stats}
+        plot_reference_pair_bars(
+            axb,
+            pair_categories,
+            [reference_mae] * len(pair_categories),
+            target_mae,
+            "Foundation",
+            paired_targets,
+            GROUPED_COLORS,
+            ylabel="MAE versus DFT (eV)",
+            title="B  Foundation-reference paired MAE · full campaign",
+            tick_labels=["vs Scratch\n600K", "vs Scratch\nMultiT", "vs FT\n600K", "vs FT\nMultiT"],
+        )
+        axb.legend(handles=[patches.Patch(facecolor=GROUPED_COLORS[f], edgecolor="#111111", label=f) for f in ["Foundation", *paired_targets]], frameon=False, fontsize=5.5, ncol=2, loc="upper right")
+    else:
+        axb.set_title("B  Foundation-reference paired MAE · unavailable", loc="left")
+        style_ax(axb)
+    for family in GROUPED_FAMILIES:
         if family in summaries and qe.size:
             summary = summaries[family]
-            residual_mean = np.asarray(summary["mean"]) - qe
+            image_indices = list(summary["image_indices"])
+            qe_aligned = np.array([qe_by_image.get(i, np.nan) for i in image_indices], dtype=float)
+            residual_mean = np.asarray(summary["mean"]) - qe_aligned
             residual_sd = np.asarray(summary["sd"])
-            axc.plot(np.asarray(summary["x"]), residual_mean, marker=ENSEMBLE_MARKERS[family], ms=3.2, lw=1.45, color=ENSEMBLE_COLORS[family], label=ensemble_display_label(family, int(summary["n"])))
+            axc.plot(np.asarray(summary["x"]), residual_mean, marker=GROUPED_MARKERS[family], ms=3.0, lw=1.4, color=GROUPED_COLORS[family], label=grouped_display_label(family, int(summary["n"])))
             finite_band = np.isfinite(residual_sd)
-            axc.fill_between(np.asarray(summary["x"]), np.where(finite_band, residual_mean - residual_sd, np.nan), np.where(finite_band, residual_mean + residual_sd, np.nan), color=ENSEMBLE_COLORS[family], alpha=.16, linewidth=0)
+            axc.fill_between(np.asarray(summary["x"]), np.where(finite_band, residual_mean - residual_sd, np.nan), np.where(finite_band, residual_mean + residual_sd, np.nan), color=GROUPED_COLORS[family], alpha=.16, linewidth=0)
     axc.axhline(0, color="#222222", ls=(0, (4, 2)), lw=1.0)
-    axc.set_xlabel("image index"); axc.set_ylabel("model − QE residual (eV)"); axc.set_title("C  Residual diagnostic across fixed images", loc="left"); style_ax(axc)
-    axc.legend(frameon=False, ncol=3, fontsize=6.4, loc="upper center")
-    fig.suptitle("Figure 3 | Within-gap: paired fixed-image evidence", x=.02, ha="left", y=.995, fontsize=TITLE_SIZE, fontweight="bold")
+    axc.set_xlabel("image coordinate, $s$"); axc.set_ylabel("model − DFT residual (eV)"); axc.set_title("C  Residual diagnostic across fixed images", loc="left"); style_ax(axc)
+    axc.legend(frameon=False, ncol=3, fontsize=5.8, loc="upper center")
+    fig.suptitle("Figure 3 | Cr-in-gap: Foundation-reference fixed-image evidence", x=.02, ha="left", y=.995, fontsize=TITLE_SIZE, fontweight="bold")
     assets = save_figure(fig, out, "figure03_within_gap_fixed_images")
-    return assets, [src, FIXED_ENSEMBLE]
+    return assets, [GROUPED_NORMALIZED, GROUPED_QE]
 
 
 def fig4(out: Path) -> tuple[dict[str, str], list[Path]]:
@@ -746,8 +951,8 @@ def fig5(out: Path) -> tuple[dict[str, str], list[Path]]:
 
 
 def fig6(out: Path) -> tuple[dict[str, str], list[Path]]:
-    root=WILEY/"analysis/md_1ns_updated_publication_figure_20261025"; status_path=root/"MD15_FIGURE_DATA_R06G.tsv"; summary_path=root/"MD15_CN_GROUP_SUMMARY_R06G.tsv"; analysis=root/"md15_analysis_r03"
-    status=read_rows(status_path); summary=read_rows(summary_path); by_id={r["model_id"]:r for r in status}
+    root=WILEY/"analysis/md_1ns_updated_publication_figure_20261025"; status_path=root/"MD15_FIGURE_DATA_R06G.tsv"; analysis=root/"md15_analysis_r03"
+    status=read_rows(status_path); by_id={r["model_id"]:r for r in status}
     fig=plt.figure(figsize=(11.6,7.4)); gs=fig.add_gridspec(2,3,hspace=.44,wspace=.33)
     axa,axb,axc=[fig.add_subplot(gs[0,i]) for i in range(3)]; axd,axe,axf=[fig.add_subplot(gs[1,i]) for i in range(3)]
     family_colors={"Foundation":COLORS["Foundation"],"FT-600K":COLORS["FT-600K"],"FT-MultiT":COLORS["FT-MultiT"],"Scratch-600K":COLORS["Scratch-600K"],"Scratch-MultiT":COLORS["Scratch-MultiT"]}
@@ -774,24 +979,42 @@ def fig6(out: Path) -> tuple[dict[str, str], list[Path]]:
     horizon_by_family=defaultdict(list)
     for r in status: horizon_by_family[r.get("family","")].append(f(r,"last_time_ps"))
     fam_order=[fam for fam in ["Foundation","FT-600K","FT-MultiT","Scratch-600K","Scratch-MultiT"] if fam in horizon_by_family]
-    xh=np.arange(len(fam_order)); hmeans=[]; hsd=[]
-    for fam in fam_order:
-        vals=np.asarray(horizon_by_family[fam],dtype=float); hmeans.append(float(np.nanmean(vals))); hsd.append(float(np.nanstd(vals,ddof=1)) if len(vals)>1 else np.nan)
-    axb.bar(xh,hmeans,color=[family_colors[f] for f in fam_order],alpha=.86,width=.72,edgecolor="#111111",linewidth=.45)
-    axb.errorbar(xh,hmeans,yerr=[e if np.isfinite(e) else 0 for e in hsd],fmt="none",ecolor="#222222",capsize=3,lw=1.0,zorder=5)
-    for j,fam in enumerate(fam_order):
-        vals=np.asarray(horizon_by_family[fam],dtype=float); jitter=np.linspace(-.14,.14,len(vals)) if len(vals)>1 else np.array([0.])
-        axb.scatter(xh[j]+jitter,vals,s=12,color="#222222",zorder=6)
-    axb.axhline(1000,color="#222222",ls=(0,(4,2)),lw=1.0); axb.set_xticks(xh,[f.replace("Scratch-","Scratch\n") for f in fam_order],rotation=0); axb.set_ylabel("observed duration (ps)"); axb.set_title("B  Observed horizon, mean ± SD",loc="left",fontsize=9); style_ax(axb)
-    pairs=sorted({r["pair"] for r in summary}); groups=sorted({r["group"] for r in summary}); xbase=np.arange(len(pairs)); width=.18
-    for j,g in enumerate(groups):
-        q=[next((r for r in summary if r["group"]==g and r["pair"]==p),None) for p in pairs]; vals=np.array([f(r,"mean_neighbors_per_center") if r else np.nan for r in q]); errs=np.array([f(r,"std_neighbors_per_center") if r else 0 for r in q]); axc.errorbar(xbase+(j-1.5)*width,vals,yerr=errs,fmt="o",color=family_colors.get(g,"#777777"),label=g,capsize=2,lw=1.0)
-    axc.set_xticks(xbase,pairs,rotation=25,ha="right"); axc.set_ylabel("neighbors per center"); axc.set_title("C  Coordination",loc="left",fontsize=9); axc.legend(frameon=False,fontsize=6.8); style_ax(axc)
+    plot_observed_vs_target_dumbbell(
+        axb,
+        fam_order,
+        {fam: finite_values(horizon_by_family[fam]) for fam in fam_order},
+        1000.0,
+        family_colors,
+        xlabel="observed duration (ps)",
+        title="B  Observed horizon vs 1 ns target",
+    )
+    coord_keys = {
+        "Cr-Sb": "d_cn_cr_sb_neighbors_per_center",
+        "Cr-Te": "d_cn_cr_te_neighbors_per_center",
+        "Sb-Te": "d_cn_sb_te_neighbors_per_center",
+    }
+    coord_values = {
+        fam: [finite_values(f(r, key) for r in status if r.get("family") == fam) for key in coord_keys.values()]
+        for fam in fam_order
+    }
+    plot_family_cluster_bars(
+        axc,
+        list(coord_keys),
+        coord_values,
+        fam_order,
+        family_colors,
+        ylabel="neighbors per center",
+        title="C  Coordination · 15-model campaign",
+        rotate=20,
+        y_min=0,
+        width_fraction=.90,
+    )
+    axc.legend(frameon=False, fontsize=5.8, ncol=2, loc="upper left")
     axd.set_xlabel("r (Å)"); axd.set_ylabel("g$_{CrCr}$(r)"); axd.set_title("D  RDF mean ± SD",loc="left"); style_ax(axd)
     axe.set_xlabel("lag (ps)"); axe.set_ylabel("normalized VACF"); axe.set_title("E  Velocity memory mean ± SD",loc="left"); style_ax(axe)
     axf.set_xlabel("lag (ps)"); axf.set_ylabel("MSD (Å$^2$)"); axf.set_title("F  Observed Cr motion mean ± SD",loc="left"); style_ax(axf)
     fig.suptitle("Figure 6 | Matched MD stability, structure and motion",x=.02,ha="left",y=.995,fontsize=TITLE_SIZE,fontweight="bold")
-    assets=save_figure(fig,out,"figure06_matched_md_diagnostics"); return assets,[status_path,summary_path,*file_paths]
+    assets=save_figure(fig,out,"figure06_matched_md_diagnostics"); return assets,[status_path,*file_paths]
 
 
 def fig7(out: Path) -> tuple[dict[str, str], list[Path]]:
@@ -883,11 +1106,12 @@ def write_tables(out: Path) -> list[Path]:
     md_counts=Counter(r.get("family","") for r in md_status)
     audit_rows=[
         ["figure/panels","source","replicate unit and grouping","uncertainty encoding","observed counts","missingness/outlier rule","visual/data acceptance gate"],
-        ["Figure 2 C–D","analysis/rmse_train_test_20261026/parity_summary.csv","registered seeds within model family","C: mean ± SD error bars; D: median with Q1–Q3 whiskers","seed counts are read from summary table","no imputation; finite rows only","every family with n>1 has visible uncertainty; labels match exact model palette"],
-        ["Figure 3 A–C",str(FIXED_ENSEMBLE.relative_to(WILEY)),"registered seed/model IDs within route family","mean ± sample SD shaded band; MAE panel mean ± SD whisker"," | ".join(fixed_counts),"missing image rows excluded; FT-MultiT in-gap retains finite n=2","no single-seed family line; QE is deterministic dashed reference only"],
-        ["Figure 4 A–H",str(GROUPED_NORMALIZED.relative_to(WILEY)) + " + " + str(GROUPED_QE.relative_to(WILEY)),"Foundation checkpoint variants n=3 plus Scratch-600K/Scratch-MultiT/FT-600K/FT-MultiT registered seeds n=3; paired by the same ten retained image positions","mean ± sample SD shaded bands in each NEB profile; each corresponding cluster bar is MAE vs retained DFT path with mean ± SD whisker and replicate points"," | ".join(grouped_counts),"fixed/self and bulk/Cr-in-gap strata remain separate; finite rows only; no imputation or synthetic seed","Foundation is the first/reference bar in every cluster; exact five-family palette; endpoint-only self panels remain explicitly labelled as proxies"],
+        ["Figure 1 C","analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv","complete task map grouped by source split and task layer","deterministic counts; no uncertainty interval is applicable","L0/L1/L2/L3 rows are retained by source split","finite task labels only; no synthetic counts or reclassification","all source-split bars are visible with explicit split legend; this is coverage, not a model-performance claim"],
+        ["Figure 2 C/F","analysis/rmse_train_test_20261026/parity_summary.csv","Scratch-600K/Scratch-MultiT/FT-600K/FT-MultiT; train and held-out test strata; n=3 registered seeds per family/stratum","full clustered bars: mean ± sample SD whiskers plus all seed points; train uses hatch and held-out test uses solid fill","each of 4 families has train n=3 and test n=3","no imputation; finite rows only; train/test are not pooled","complete four-family palette, explicit train/test encoding, and visible whiskers/replicates in every cluster"],
+        ["Figure 3 A–C",str(GROUPED_NORMALIZED.relative_to(WILEY)) + " + " + str(GROUPED_QE.relative_to(WILEY)),"Foundation/Scratch-600K/Scratch-MultiT/FT-600K/FT-MultiT; n=3 registered rows per family on the retained fixed-image stratum","A/C mean ± sample SD shaded bands; B four explicit Foundation-reference pair clusters with mean ± SD whiskers and replicate points","Cr-in-gap fixed: Foundation n=3; Scratch-600K n=3; Scratch-MultiT n=3; FT-600K n=3; FT-MultiT n=3","finite image rows only; DFT retained path remains deterministic and SCF-warning-labelled","no legacy From-scratch aggregation; complete five-family palette and Foundation reference in every pair"],
+        ["Figure 4 A–H",str(GROUPED_NORMALIZED.relative_to(WILEY)) + " + " + str(GROUPED_QE.relative_to(WILEY)),"Foundation checkpoint variants n=3 plus Scratch-600K/Scratch-MultiT/FT-600K/FT-MultiT registered seeds n=3; paired by the same ten retained image positions","mean ± sample SD shaded bands in each NEB profile; each corresponding cluster bar is an explicit Foundation-reference pair with mean ± SD whisker and replicate points"," | ".join(grouped_counts),"fixed/self and bulk/Cr-in-gap strata remain separate; finite rows only; no imputation or synthetic seed","Foundation is the first/reference bar in every cluster; exact five-family palette; endpoint-only self panels remain explicitly labelled as proxies"],
         ["Figure 5 A–D",str(SELF_RELAXED_ENSEMBLE.relative_to(WILEY)),"Cr Foundation model variants grouped by MACE class","mean ± sample SD shaded band"," | ".join(self_counts),"only finite model profiles included; no barrier imputation","class n shown in legend and matrix; blocked status remains explicit"],
-        ["Figure 6 A–F","analysis/md_1ns_updated_publication_figure_20261025/md15_analysis_r03/series/*.csv","registered trajectories grouped by family","mean ± sample SD shaded bands; observed-horizon bars mean ± SD whiskers; coordination error bars","; ".join(f"{k} n={v}" for k,v in sorted(md_counts.items())),"observed horizons retained; non-finite values excluded; no extrapolation","all trajectory-derived lines have bands; incomplete families remain visible as short observed domains"],
+        ["Figure 6 A–F","analysis/md_1ns_updated_publication_figure_20261025/MD15_FIGURE_DATA_R06G.tsv + md15_analysis_r03/series/*.csv","Foundation/FT-600K/FT-MultiT/Scratch-600K/Scratch-MultiT; n=3 model IDs per family","A/D–F mean ± sample SD shaded bands; B full-family observed-vs-1 ns dumbbell with mean ± SD whiskers and all model points; C three-category clustered bars with mean ± SD whiskers and all model points","; ".join(f"{k} n={v}" for k,v in sorted(md_counts.items())),"observed horizons retained; non-finite values excluded; no extrapolation; coordination uses complete status rows","complete five-family palette, all 15 model IDs represented, target line explicit, and no incomplete four-group summary is used"],
         ["Figure 7 A–D","analysis/foundation_interlayer_sliding_10model_20261024/results/tables/IMAGE_PROFILES.tsv","registered Foundation model variants grouped by MACE class","mean ± sample SD shaded bands","MACE-MP n=5; MACE-OMAT-0 n=3; MACE-MH n=2","finite profiles only; QE reference deterministic","class bands and legend use exact Foundation class palette"],
         ["Figures 1 and 8","configuration-universe tables","scatter/status/diagram panels; no line or bar summary","N/A: no aggregate curve/bar is shown","N/A","finite plotted coordinates only","no uncertainty claim is made for non-aggregate panels"],
     ]
@@ -898,7 +1122,7 @@ def write_tables(out: Path) -> list[Path]:
 def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources: list[Path]) -> Path:
     manifest={
         "schema_version":"atomic_migration_blueprint_figure_package_v1",
-        "revision":"R02i",
+        "revision":"R02j",
         "status":"REVIEW_PACKAGE_NOT_SCIENTIFIC_ACCEPTANCE",
         "generated_by":str(Path(__file__).resolve()),
         "source_root":str(WILEY),

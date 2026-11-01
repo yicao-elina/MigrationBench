@@ -107,14 +107,22 @@ The blueprint-derived build and review handoff is contained in:
   warning and blocked placeholders.
 
 The builder is [`scripts/build_atomic_migration_figures.py`](scripts/build_atomic_migration_figures.py).
-It is additive and writes only inside this worktree. The current R02i package
+It is additive and writes only inside this worktree. The current R02j package
 contains standalone editable PDF/SVG plus PNG previews for Figures 1–8 and a
 review-board composite. Every aggregate line has a mean ± sample SD shaded
 interval, and every aggregate bar has mean ± sample SD whiskers; the package is
 still a review package, not scientific acceptance. No external Canva page was
 overwritten because the connector required reauthentication at build time.
 
-Figure 4 is the current Foundation-reference paired revision: it uses the
+The paired/bar grammar is now unified across the package: Figure 1C uses
+complete source-split coverage clusters; Figures 2C/F use complete four-family
+train/held-out clusters; Figure 3B uses explicit Foundation-reference pairs;
+Figure 4 keeps its four NEB-stratum pair clusters; and Figure 6B/C use a full
+five-family dumbbell plus complete 15-model coordination clusters. All such
+clusters retain finite replica/model points and sample-SD whiskers, with the
+registered family colors and no single-seed or partial-family summary.
+
+Figure 4 remains the current Foundation-reference paired revision: it uses the
 grouped Cr profile table that explicitly separates Foundation, Scratch-600K,
 Scratch-MultiT, FT-600K, and FT-MultiT. Each line panel has its own four
 Foundation-reference pair clusters (one target family per pair) with
