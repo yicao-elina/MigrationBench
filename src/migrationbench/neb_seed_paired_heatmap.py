@@ -4,7 +4,7 @@ This module deliberately keeps a fixed DFT image path separate from
 self-relaxed MLFF-NEB.  It accepts one row per
 model/checkpoint/route/image on an identical fixed geometry and produces:
 
-* a 12 x 3 task-performance heatmap (four families x three seeds);
+* a seed-preserving task-performance heatmap (four families x three seeds);
 * a descriptive, hierarchical similarity map of the full image-wise errors;
 * a bubble similarity matrix using the reference figure's visual grammar.
 
@@ -215,7 +215,14 @@ def read_and_validate(
         dataset_statuses=statuses,
         fixed_path_only=True,
     )
-    return frame.sort_values(["model_family", "training_seed", "path_id", "image_index"]), audit
+    family_order = list(dict.fromkeys(frame["model_family"].astype(str)))
+    path_order = list(dict.fromkeys(frame["path_id"].astype(str)))
+    frame = frame.assign(
+        _family_order=pd.Categorical(frame["model_family"].astype(str), categories=family_order, ordered=True),
+        _path_order=pd.Categorical(frame["path_id"].astype(str), categories=path_order, ordered=True),
+    )
+    frame = frame.sort_values(["_family_order", "training_seed", "_path_order", "image_index"])
+    return frame.drop(columns=["_family_order", "_path_order"]), audit
 
 
 def derive_tables(frame: pd.DataFrame, baseline_family: str | None) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
@@ -283,7 +290,7 @@ def _draw_family_strip(axis: plt.Axes, families: list[str], colors: dict[str, st
 
 
 def render_performance_heatmap(metrics: pd.DataFrame, out_dir: Path) -> list[Path]:
-    """Render a fixed-order 12 x 3 MAE heatmap; every seed stays visible."""
+    """Render a fixed-order family-seed by route MAE heatmap."""
     _publication_style()
     families = _family_order(metrics)
     paths = _path_order(metrics)

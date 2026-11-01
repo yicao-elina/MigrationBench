@@ -1,7 +1,7 @@
 # Fixed-path NEB seed-paired heatmap
 
-This bundle turns a complete `4 model families × 3 training seeds × 3 fixed
-DFT paths × image grid` table into publication-ready, editable figures.  It
+This bundle turns the complete current `4 model families × 3 training seeds ×
+2 fixed DFT paths × 10-image grid` table into publication-ready, editable figures.  It
 does not equate a self-relaxed MLFF-NEB path with the retained DFT geometry,
 and it does not turn Foundation checkpoint variants into training-seed
 replicates.
@@ -11,8 +11,8 @@ replicates.
 The first attachment is a correlation bubble matrix: circle color is the sign
 of a correlation, circle area is its magnitude, and asterisks normally denote
 a significance test.  It is useful here for **descriptive similarity of full
-image-wise error signatures**.  It is not appropriate to correlate the three
-route-level MAEs alone: three values cannot support a meaningful correlation
+image-wise error signatures**.  It is not appropriate to correlate a small
+number of route-level MAEs alone: a few values cannot support a meaningful correlation
 or p-value.  The real figure therefore omits asterisks because NEB image errors
 are also serially correlated along a path.
 
@@ -41,7 +41,7 @@ The renderer produces the following in PNG, editable PDF, and editable SVG.
 
 For a family comparison, `seed 123` is paired only with `seed 123` from the
 other family on the same path and the same fixed DFT image grid.  The output
-`NEB_SEED_MATCHED_FAMILY_EFFECTS.tsv` preserves all three differences; it does
+`NEB_SEED_MATCHED_FAMILY_EFFECTS.tsv` preserves all route-wise differences; it does
 not claim p-values with `n = 3`.
 
 ## Input and current readiness
@@ -52,32 +52,41 @@ The validator requires identical model/DFT geometry hashes, non-finite checks,
 one row per `model_id × path_id × image_index`, three distinct seed labels per
 family, and the fixed-path observable.
 
-The local `neb_fixed_vs_self_matrix_20261019` ledger is an excellent source of
-the three retained paths and the seed-resolved fixed-path profiles, but it does
-**not** currently supply an eligible four-family × three-seed DFT-matched
-energy-error table: it has three seeded families, while its Foundation entries
-are checkpoint variants with `training_seed = NA`.  Its current DFT references
-also record an SCF-warning status.  This bundle therefore ships only a clearly
-labelled synthetic fixture for visual/technical QA, not a scientific result.
+The complete current four-family seed set is recovered from
+`analysis/sliding_four_model_campaign_20261024/results/tables/fixed_profiles.csv`:
+`Scratch-MultiT`, `Scratch-600K`, `FT-600K`, and `FT-MultiT`, each with seeds
+123/234/345.  Foundation checkpoints are excluded.  The complete common
+fixed-path coverage in this campaign is two routes: `pristine` and
+`Cr-in-gap`; the third NEB route does not have the same four-family × three-seed
+coverage and is therefore not pooled into this release.
+
+The DFT reference is the campaign's retained `1.bulk` / `2.cr-in-gap` table
+and carries `COMPLETED_BUT_SCF_WARNING`; model outputs are finite diagnostic
+supporting evidence.  The input is consequently labelled
+`PROVENANCE_PARTIAL`: these are real campaign-derived scores, but not an
+unconditional publication-grade DFT validation claim.
 
 ## Rebuild
 
 From the repository root (with the project environment active):
 
 ```bash
-PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/make_synthetic_demo.py \
-  --output analysis/neb_seed_paired_heatmap_20261031/fixtures/neb_seed_energy_errors_synthetic.tsv
+PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/build_campaign_input.py \
+  --campaign-root /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/sliding_four_model_campaign_20261024 \
+  --output analysis/neb_seed_paired_heatmap_20261031/raw_input/NEB_FIXED_PATH_CAMPAIGN_20261024.tsv
 
 PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/render_neb_seed_paired_heatmaps.py \
-  --input analysis/neb_seed_paired_heatmap_20261031/fixtures/neb_seed_energy_errors_synthetic.tsv \
+  --input analysis/neb_seed_paired_heatmap_20261031/raw_input/NEB_FIXED_PATH_CAMPAIGN_20261024.tsv \
   --output-dir analysis/neb_seed_paired_heatmap_20261031/figures \
   --processed-dir analysis/neb_seed_paired_heatmap_20261031/processed \
-  --allow-synthetic-demo
+  --expected-paths 2 \
+  --baseline-family 'Scratch-MultiT'
 ```
 
-Replace the fixture with a `dataset_status=VERIFIED` input once the fourth
-family and DFT geometry-matched reference profiles are available.  Omit
-`--allow-synthetic-demo` for that production render.
+The checked-in campaign input is the real four-family, two-route table built
+by `build_campaign_input.py`; no `--allow-synthetic-demo` flag is used for
+this render.  The synthetic fixture and reference-style demos remain only as
+isolated visual smoke-test assets and are explicitly named as synthetic.
 
 ## Scientific boundary
 
