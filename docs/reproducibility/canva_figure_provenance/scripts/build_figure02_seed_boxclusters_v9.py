@@ -60,6 +60,8 @@ MODEL_SHORT = {
     "FT-MultiT": "FT\nMultiT",
 }
 SEED_HATCH = {"123": "", "234": "///", "345": "\\\\\\"}
+LAYOUT_SPACING = 2.20
+BRACKET_STEP = 0.42
 
 
 def _atom_based_cr_class(record: dict[str, object]) -> str:
@@ -212,7 +214,7 @@ def _comparison_pairs(families: list[str]) -> list[tuple[str, str, str]]:
 def _draw_bracket(ax, x1: float, x2: float, y: float, label: str) -> None:
     h = 0.045
     ax.plot([x1, x1, x2, x2], [y, y + h, y + h, y], color="#222222", linewidth=1.8, zorder=7, clip_on=False)
-    ax.text((x1 + x2) / 2.0, y + h + 0.015, label, ha="center", va="bottom", fontsize=18, fontweight="bold", zorder=8)
+    ax.text((x1 + x2) / 2.0, y + h + 0.015, label, ha="center", va="bottom", fontsize=19, fontweight="bold", zorder=8)
 
 
 def _box_and_points(
@@ -279,7 +281,7 @@ def _seed_handles() -> list[Patch]:
 
 
 def _group_layout(category_index: int, family_index: int, seed_index: int, n_families: int) -> tuple[float, float, float]:
-    spacing = 2.20
+    spacing = LAYOUT_SPACING
     if n_families == 2:
         family_offsets = np.asarray([-0.36, 0.36])
         seed_offsets = np.asarray([-0.13, 0.0, 0.13])
@@ -300,13 +302,13 @@ def _style_axis(ax) -> None:
         ax.spines[spine].set_linewidth(1.8)
         ax.spines[spine].set_color("#111111")
     for label in [*ax.get_xticklabels(), *ax.get_yticklabels()]:
-        label.set_fontsize(18)
+        label.set_fontsize(20)
         label.set_fontweight("bold")
-    ax.xaxis.label.set_fontsize(20)
+    ax.xaxis.label.set_fontsize(22)
     ax.xaxis.label.set_fontweight("bold")
-    ax.yaxis.label.set_fontsize(20)
+    ax.yaxis.label.set_fontsize(22)
     ax.yaxis.label.set_fontweight("bold")
-    ax.title.set_fontsize(20)
+    ax.title.set_fontsize(22)
     ax.title.set_fontweight("bold")
 
 
@@ -337,7 +339,7 @@ def _collect_limits(
     combined = np.concatenate(log_arrays)
     low = float(np.floor(np.nanmin(combined) - 0.18))
     raw_high = float(np.nanmax(combined))
-    return low, raw_high, raw_high + 0.40 + 0.42 * len(_comparison_pairs(families))
+    return low, raw_high, raw_high + 0.40 + BRACKET_STEP * len(_comparison_pairs(families))
 
 
 def clustered_box_figure(
@@ -357,7 +359,7 @@ def clustered_box_figure(
     metrics = [("energy", "Energy RMSE (meV atom$^{-1}$)"), ("force", "Force RMSE (meV Å$^{-1}$)")]
     fig, axes = plt.subplots(2, 1, figsize=(29.0 if len(families) == 4 else 18.5, 13.8), squeeze=False)
     comparison_manifest: dict[str, object] = {}
-    category_spacing = 2.20
+    category_spacing = LAYOUT_SPACING
     model_centers = []
     for category_index in range(len(categories)):
         for family_index, family in enumerate(families):
@@ -429,7 +431,7 @@ def clustered_box_figure(
                     continue
                 _, x1, _ = _group_layout(category_index, family_index_lookup[family_a], 1, len(families))
                 _, x2, _ = _group_layout(category_index, family_index_lookup[family_b], 1, len(families))
-                _draw_bracket(ax, float(x1), float(x2), raw_high + 0.15 + level * 0.42, _sig_label(pvalue))
+                _draw_bracket(ax, float(x1), float(x2), raw_high + 0.15 + level * BRACKET_STEP, _sig_label(pvalue))
             comparison_manifest[metric][category] = pair_pvalues
 
         _set_log_exponent_axis(ax, (low, bracket_high))
@@ -448,7 +450,7 @@ def clustered_box_figure(
                     transform=ax.get_xaxis_transform(),
                     ha="center",
                     va="top",
-                    fontsize=18,
+                    fontsize=20,
                     fontweight="bold",
                 )
             ax.set_xlabel(xlabel, labelpad=58)
@@ -456,9 +458,9 @@ def clustered_box_figure(
         ax.set_title(f"{chr(65 + row_index)}  {ylabel.split(' RMSE')[0]} distribution", loc="left", pad=10)
         _style_axis(ax)
 
-    family_legend = fig.legend(handles=_family_handles(families), frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.985), ncol=min(4, len(families)), fontsize=18, prop={"weight": "bold", "size": 18})
-    seed_legend = fig.legend(handles=_seed_handles(), frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.935), ncol=3, fontsize=18, prop={"weight": "bold", "size": 18})
-    fig.suptitle(title, y=1.045, fontsize=22, fontweight="bold")
+    family_legend = fig.legend(handles=_family_handles(families), frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.985), ncol=min(4, len(families)), fontsize=20, prop={"weight": "bold", "size": 20})
+    seed_legend = fig.legend(handles=_seed_handles(), frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.935), ncol=3, fontsize=20, prop={"weight": "bold", "size": 20})
+    fig.suptitle(title, y=1.045, fontsize=24, fontweight="bold")
     fig.subplots_adjust(left=0.09, right=0.985, bottom=0.23, top=0.83, hspace=0.42)
     return base.save(fig, out_dir, stem), comparison_manifest
 
@@ -468,11 +470,11 @@ def _house_style() -> None:
     plt.rcParams.update(
         {
             "font.size": 18,
-            "axes.titlesize": 20,
-            "axes.labelsize": 20,
-            "xtick.labelsize": 18,
-            "ytick.labelsize": 18,
-            "legend.fontsize": 18,
+            "axes.titlesize": 22,
+            "axes.labelsize": 22,
+            "xtick.labelsize": 20,
+            "ytick.labelsize": 20,
+            "legend.fontsize": 20,
             "axes.linewidth": 1.8,
         }
     )
