@@ -472,8 +472,8 @@ def _render_total_performance_heatmap_legacy(total_metrics: pd.DataFrame, out_di
     ax_group.set_xlim(0, len(column_order))
     ax_group.set_ylim(0, 1)
     group_specs = [
-        (0, 3, "Migration / fixed pathway"),
-        (3, 6, "Migration / self-relaxed"),
+        (0, 3, "Fixed-path\nmigration"),
+        (3, 6, "Self-relaxed\nmigration"),
         (6, 8, "Sliding"),
     ]
     for start, end, label in group_specs:
@@ -613,18 +613,25 @@ def render_total_performance_heatmap(
         # The vertical eV colorbar is the sole color legend.  Keeping only one
         # color legend gives the size/wedge key enough room and lets the matrix
         # rather than header whitespace own the companion figure.
-        height_ratios = (0.15, 0.12, 1.0) if aggregate_view else (0.13, 0.10, 1.0)
+        # Reserve a clear header band above the matrix so the rotated path
+        # labels never sit on top of the first row's bubbles.
+        height_ratios = (0.15, 0.20, 1.0) if aggregate_view else (0.13, 0.18, 1.0)
         fig = plt.figure(figsize=(width, height), layout="constrained")
         grid = fig.add_gridspec(
             3, 5, height_ratios=height_ratios,
-            width_ratios=(0.56, 1.72, 7.35, 0.50, 0.10),
+            # Keep the vertical regime labels close to the model tick labels;
+            # the former wide spacer made “Scratch/Fine-tuning/Foundation”
+            # look detached from the rows they annotate.
+            width_ratios=(0.25, 1.35, 7.35, 0.50, 0.10),
             hspace=0.025, wspace=0.025,
         )
         ax_size = fig.add_subplot(grid[0, 0:3])
-        ax_group = fig.add_subplot(grid[1, 2:4])
-        ax_row_header = fig.add_subplot(grid[1, 1])
-        ax_model_group = fig.add_subplot(grid[2, 0])
-        ax_labels = fig.add_subplot(grid[2, 1])
+        # The task header must use exactly the matrix column, not the matrix
+        # plus colorbar.  Likewise, the row-group brace spans the label gutter
+        # and is therefore physically adjacent to the tick labels.
+        ax_group = fig.add_subplot(grid[1, 2])
+        ax_row_header = fig.add_subplot(grid[1, 0:2])
+        ax_model_group = fig.add_subplot(grid[2, 0:2])
         ax = fig.add_subplot(grid[2, 2])
         ax_cbar = fig.add_subplot(grid[2, 3])
 
@@ -663,35 +670,54 @@ def render_total_performance_heatmap(
 
         ax_group.set_xlim(0, len(column_order))
         ax_group.set_ylim(0, 1)
-        group_specs = [(0, 3, "Migration / fixed pathway"), (3, 6, "Migration / self-relaxed"), (6, 8, "Sliding")]
+        group_specs = [(0, 3, "Fixed-path\nmigration"), (3, 6, "Self-relaxed\nmigration"), (6, 8, "Sliding")]
         for start, end, label in group_specs:
             if end <= len(column_order):
                 ax_group.plot([start + 0.04, end - 0.04], [0.20, 0.20], color="#111111", linewidth=2.5, solid_capstyle="butt")
                 ax_group.text((start + end) / 2, 0.72, label, ha="center", va="center", fontsize=11.4, fontweight="bold")
         ax_group.axis("off")
         ax_row_header.axis("off")
-        ax_row_header.text(0.0, 0.20, "Model", ha="left", va="center", fontsize=11.4, fontweight="bold")
+        ax_row_header.text(0.94, 0.20, "Model", ha="right", va="center", fontsize=11.4, fontweight="bold")
 
         ax_model_group.set_xlim(0, 1)
         ax_model_group.set_ylim(nrows, 0)
+        # Broad regime braces (Scratch/Fine-tuning/Foundation) are anchored
+        # to the exact row extents.  A second, inner brace marks each trained
+        # model family across its three seeds, giving the requested visual
+        # aggregation for 600K and MultiT without repeating Scratch/FT text.
+        family_ranges: list[tuple[int, int, str]] = []
+        family_start = 0
+        while family_start < len(row_order):
+            family_id = row_order[family_start].split(" / ", 1)[0]
+            family_end = family_start + 1
+            while family_end < len(row_order) and row_order[family_end].split(" / ", 1)[0] == family_id:
+                family_end += 1
+            family_ranges.append((family_start, family_end, family_id))
+            family_start = family_end
         for start, end, label in _group_ranges(row_order):
-            top = start + 0.10
-            bottom = end - 0.10
-            ax_model_group.plot([0.93, 0.93], [top, bottom], color="#111111", linewidth=2.4, solid_capstyle="butt")
-            ax_model_group.plot([0.67, 0.93], [top, top], color="#111111", linewidth=2.4, solid_capstyle="butt")
-            ax_model_group.plot([0.67, 0.93], [bottom, bottom], color="#111111", linewidth=2.4, solid_capstyle="butt")
-            ax_model_group.text(0.31, (start + end) / 2, label, ha="center", va="center", rotation=90, fontsize=10.9, fontweight="bold")
+            top = start + 0.08
+            bottom = end - 0.08
+            ax_model_group.plot([0.35, 0.35], [top, bottom], color="#111111", linewidth=2.7, solid_capstyle="butt")
+            ax_model_group.plot([0.35, 0.50], [top, top], color="#111111", linewidth=2.7, solid_capstyle="butt")
+            ax_model_group.plot([0.35, 0.50], [bottom, bottom], color="#111111", linewidth=2.7, solid_capstyle="butt")
+            ax_model_group.text(0.25, (start + end) / 2, label, ha="center", va="center", rotation=90, fontsize=10.9, fontweight="bold")
+        for start, end, _ in family_ranges:
+            if end - start <= 1:
+                continue
+            top = start + 0.16
+            bottom = end - 0.16
+            ax_model_group.plot([0.87, 0.87], [top, bottom], color="#111111", linewidth=2.1, solid_capstyle="butt")
+            ax_model_group.plot([0.87, 0.98], [top, top], color="#111111", linewidth=2.1, solid_capstyle="butt")
+            ax_model_group.plot([0.87, 0.98], [bottom, bottom], color="#111111", linewidth=2.1, solid_capstyle="butt")
         ax_model_group.axis("off")
 
-        ax_labels.set_xlim(0, 1)
-        ax_labels.set_ylim(nrows, 0)
-        for index, row_id in enumerate(row_order):
-            kind = str(row_kinds.iloc[index])
-            label = _display_label(row_id, kind)
-            weight = "bold" if kind in {"trained_family", "foundation_checkpoint"} else "normal"
-            ax_labels.text(0.0, index + 0.5, label, ha="left", va="center", fontsize=10.9, fontweight=weight)
-        ax_labels.axis("off")
-
+        # Keep row labels on the matrix axis itself.  A separate unconstrained
+        # label axis can acquire a slightly different physical bounding box
+        # under ``layout="constrained"`` (especially once the colorbar or
+        # rotated column labels are added), which makes labels drift from the
+        # circles by a fraction of a row.  Tick labels share the exact data
+        # transform used by the bubbles, so each label is guaranteed to sit at
+        # the centre of its corresponding matrix row.
         color_matrix = color_values.to_numpy(float)
         error_matrix = errors.to_numpy(float)
         cmap = plt.get_cmap("plasma_r")
@@ -718,8 +744,16 @@ def render_total_performance_heatmap(
         ax.set_aspect("equal", adjustable="box")
         ax.set_xticks(np.arange(len(column_order)) + 0.5, labels, rotation=48, ha="right", rotation_mode="anchor", fontsize=10.9, fontweight="bold")
         ax.xaxis.tick_top()
-        ax.tick_params(axis="x", length=0, pad=6)
-        ax.set_yticks([])
+        ax.tick_params(axis="x", length=0, pad=18)
+        display_labels = []
+        for index, row_id in enumerate(row_order):
+            kind = str(row_kinds.iloc[index])
+            display_labels.append(_display_label(row_id, kind))
+        ax.set_yticks(np.arange(nrows) + 0.5, display_labels)
+        ax.tick_params(axis="y", length=0, pad=8, labelsize=10.9)
+        for index, tick in enumerate(ax.get_yticklabels()):
+            kind = str(row_kinds.iloc[index])
+            tick.set_fontweight("bold" if kind in {"trained_family", "foundation_checkpoint"} else "normal")
         ax.set_facecolor("white")
         for boundary in (3, 6):
             if boundary < len(column_order):

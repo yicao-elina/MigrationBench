@@ -3,7 +3,9 @@
 Migration values are absolute errors against the canonical DFT forward barrier:
 ``abs(model_barrier_eV - dft_forward_barrier_eV)``. Fixed-path rows use the
 model forward barrier; IDPP self-relaxed rows use the endpoint-only barrier
-proxy and are admitted only when they are converged primary evidence. Sliding
+proxy and are admitted as primary evidence by default. An explicit diagnostic
+mode can retain finite terminal values from non-converged retries while keeping
+their scientific/publication status unchanged. Sliding
 rows use the fixed-path peak relative energy and its DFT peak error, so every
 task column exposes both a predicted energy value and a comparable energy
 error to the downstream bubble heatmap.
@@ -137,6 +139,7 @@ def _prepare_migration_records(
     source_artifact: Path,
     dft_references: dict[str, float],
     dft_reference_artifact: Path,
+    include_diagnostic_self: bool = False,
 ) -> list[dict[str, object]]:
     """Normalize migration rows and derive an absolute DFT barrier error."""
     required = {
@@ -183,7 +186,13 @@ def _prepare_migration_records(
             str(item.get("scientific_status")) == "CONVERGED"
             and str(item.get("publication_status")) == "PRIMARY_EVIDENCE"
         ):
-            item["value_eV_selected"] = np.nan
+            if not include_diagnostic_self:
+                item["value_eV_selected"] = np.nan
+            else:
+                item["error_definition"] = (
+                    "abs(model barrier - canonical DFT forward barrier); "
+                    "terminal diagnostic value retained after extension, non-converged"
+                )
         item["error_definition"] = "abs(model barrier - canonical DFT forward barrier)"
         records.append(item)
     return records
@@ -241,6 +250,7 @@ def build_total_table(
     scratch600k_migration: Path | None = None,
     dft_reference: Path | None = None,
     sliding_image_input: Path | None = None,
+    include_diagnostic_self: bool = False,
 ) -> pd.DataFrame:
     if dft_reference is None:
         raise ValueError("dft_reference is required to compute migration barrier errors")
@@ -258,6 +268,7 @@ def build_total_table(
         source_artifact=migration_matrix,
         dft_references=dft_references,
         dft_reference_artifact=dft_reference,
+        include_diagnostic_self=include_diagnostic_self,
     )
     if scratch600k_migration is not None:
         scratch = pd.read_csv(scratch600k_migration, sep="\t")
@@ -272,6 +283,7 @@ def build_total_table(
                 source_artifact=scratch600k_migration,
                 dft_references=dft_references,
                 dft_reference_artifact=dft_reference,
+                include_diagnostic_self=include_diagnostic_self,
             )
         )
 
@@ -389,6 +401,14 @@ def main() -> None:
     parser.add_argument("--scratch600k-migration", type=Path)
     parser.add_argument("--dft-reference", type=Path, required=True)
     parser.add_argument("--sliding-image-input", type=Path, required=True)
+    parser.add_argument(
+        "--include-diagnostic-self",
+        action="store_true",
+        help=(
+            "retain finite terminal values for non-converged self-relaxed retries; "
+            "scientific/publication status remains diagnostic"
+        ),
+    )
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     result = build_total_table(
@@ -397,6 +417,7 @@ def main() -> None:
         args.scratch600k_migration,
         args.dft_reference,
         args.sliding_image_input,
+        args.include_diagnostic_self,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     _write_tsv(result, args.output)

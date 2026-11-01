@@ -165,7 +165,9 @@ def test_total_dot_table_has_frozen_order_and_scientific_coverage() -> None:
     ]
     assert expanded["color_value_eV"].equals(expanded["predicted_value_eV"])
     scratch = table.loc[table["row_id"].eq("Scratch-600K")]
-    assert scratch.loc[scratch["column_id"].eq("migration_within_ql_self"), "n_available"].item() == 2
+    # The 2026-11-01 extension campaign recovered the formerly missing
+    # Scratch-600K s123 within-QL self-relaxed value.
+    assert scratch.loc[scratch["column_id"].eq("migration_within_ql_self"), "n_available"].item() == 3
     omat = table.loc[
         table["row_id"].eq("OMAT-0") & table["column_id"].eq("migration_within_ql_self")
     ].iloc[0]

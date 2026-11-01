@@ -120,7 +120,12 @@ def _load_dft_reference(path: Path) -> dict[str, float]:
     return dict(zip(frame["ground_truth_id"].astype(str), pd.to_numeric(frame["forward_barrier_eV"], errors="coerce")))
 
 
-def _foundation_migration_rows(path: Path, dft_reference: Path) -> pd.DataFrame:
+def _foundation_migration_rows(
+    path: Path,
+    dft_reference: Path,
+    *,
+    include_diagnostic_self: bool = False,
+) -> pd.DataFrame:
     frame = pd.read_csv(path, sep="\t")
     required = {
         "model_id",
@@ -160,14 +165,15 @@ def _foundation_migration_rows(path: Path, dft_reference: Path) -> pd.DataFrame:
     )
     frame["dft_reference_barrier_eV"] = frame["path_id"].map(dft)
     frame["raw_error_eV"] = (frame["model_barrier_eV"] - frame["dft_reference_barrier_eV"]).abs()
-    frame.loc[
-        ~(
-            frame["scientific_status"].eq("CONVERGED")
-            & frame["publication_status"].eq("PRIMARY_EVIDENCE")
-        )
-        & frame["observable"].eq("SELF_RELAXED_ENDPOINT_ONLY_NEB"),
-        "raw_error_eV",
-    ] = np.nan
+    if not include_diagnostic_self:
+        frame.loc[
+            ~(
+                frame["scientific_status"].eq("CONVERGED")
+                & frame["publication_status"].eq("PRIMARY_EVIDENCE")
+            )
+            & frame["observable"].eq("SELF_RELAXED_ENDPOINT_ONLY_NEB"),
+            "raw_error_eV",
+        ] = np.nan
     return frame
 
 
@@ -175,8 +181,14 @@ def _foundation_rows(
     migration_path: Path,
     sliding_path: Path,
     dft_reference: Path,
+    *,
+    include_diagnostic_self: bool = False,
 ) -> list[dict[str, object]]:
-    migration = _foundation_migration_rows(migration_path, dft_reference)
+    migration = _foundation_migration_rows(
+        migration_path,
+        dft_reference,
+        include_diagnostic_self=include_diagnostic_self,
+    )
     sliding = pd.read_csv(sliding_path)
     sliding = sliding.loc[sliding["model_id"].astype(str).isin(FOUNDATION_SLIDING_MODELS)].copy()
     rows: list[dict[str, object]] = []
@@ -316,6 +328,7 @@ def build_dot_tables(
     foundation_migration: Path,
     foundation_sliding: Path,
     dft_reference: Path,
+    include_diagnostic_self: bool = False,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     total = pd.read_csv(total_metrics, sep="\t")
     required = {
@@ -326,7 +339,14 @@ def build_dot_tables(
     if missing:
         raise ValueError(f"total performance table lacks required columns: {', '.join(missing)}")
     expanded = _trained_seed_rows(total)
-    expanded.extend(_foundation_rows(foundation_migration, foundation_sliding, dft_reference))
+    expanded.extend(
+        _foundation_rows(
+            foundation_migration,
+            foundation_sliding,
+            dft_reference,
+            include_diagnostic_self=include_diagnostic_self,
+        )
+    )
     expanded = _add_energy_color_values(pd.DataFrame(expanded))
     expanded_order = [
         f"{family} / s{seed}" for family in TRAINED_ROWS for seed in SEEDS
@@ -416,11 +436,18 @@ def build_dot_table(
     foundation_migration: Path,
     foundation_sliding: Path,
     dft_reference: Path | None = None,
+    include_diagnostic_self: bool = False,
 ) -> pd.DataFrame:
     """Backward-compatible aggregate-table entry point."""
     if dft_reference is None:
         dft_reference = foundation_migration.parents[1] / "dft_reference" / "canonical_dft_barriers.tsv"
-    return build_dot_tables(total_metrics, foundation_migration, foundation_sliding, dft_reference)[0]
+    return build_dot_tables(
+        total_metrics,
+        foundation_migration,
+        foundation_sliding,
+        dft_reference,
+        include_diagnostic_self=include_diagnostic_self,
+    )[0]
 
 
 def main() -> None:
@@ -429,11 +456,23 @@ def main() -> None:
     parser.add_argument("--foundation-migration", type=Path, required=True)
     parser.add_argument("--foundation-sliding", type=Path, required=True)
     parser.add_argument("--dft-reference", type=Path, required=True)
+    parser.add_argument(
+        "--include-diagnostic-self",
+        action="store_true",
+        help=(
+            "retain finite terminal values for non-converged Foundation self-relaxed retries; "
+            "scientific/publication status remains diagnostic"
+        ),
+    )
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--seed-expanded-output", type=Path, required=True)
     args = parser.parse_args()
     aggregate, expanded = build_dot_tables(
-        args.total_metrics, args.foundation_migration, args.foundation_sliding, args.dft_reference
+        args.total_metrics,
+        args.foundation_migration,
+        args.foundation_sliding,
+        args.dft_reference,
+        args.include_diagnostic_self,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     _write_tsv(aggregate, args.output)
