@@ -171,7 +171,9 @@ def _draw_temperature_strip(
         )
 
     v9._set_log_exponent_axis(ax, (low, high))
-    ax.set_xlim(TEMP_CENTERS[TEMP_CATEGORIES[0]] - 1.28, TEMP_CENTERS[TEMP_CATEGORIES[-1]] + 1.28)
+    # Align the first broken x-axis segment with the left y-axis so the two
+    # axes meet cleanly instead of leaving a visible gap.
+    ax.set_xlim(TEMP_CENTERS[TEMP_CATEGORIES[0]] - GROUP_HALF_WIDTH, TEMP_CENTERS[TEMP_CATEGORIES[-1]] + GROUP_HALF_WIDTH)
     tick_positions = [
         TEMP_CENTERS[category] + TEMP_FAMILY_OFFSETS[family]
         for category in categories

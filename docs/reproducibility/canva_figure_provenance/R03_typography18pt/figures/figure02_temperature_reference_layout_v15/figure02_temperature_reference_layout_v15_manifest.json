@@ -1,0 +1,159 @@
+{
+  "status": "RECONSTRUCTION",
+  "previous_version": "b9ea87e",
+  "purpose": "wider non-overlapping temperature seed boxes with the first broken x-axis segment joined to the y-axis",
+  "layout": {
+    "temperature_box_width": 0.135,
+    "seed_offsets": [
+      -0.16,
+      0.0,
+      0.16
+    ],
+    "y_axis_join": "first x-axis segment starts at left y-axis x coordinate",
+    "composite_canvas_inches": [
+      16.0,
+      16.0
+    ],
+    "overview_canvas_inches": [
+      10.5,
+      10.5
+    ]
+  },
+  "data": {
+    "source_mode": "readable_packaged_per_frame_csv",
+    "frame_root": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity",
+    "splits_merged": [
+      "train",
+      "test"
+    ],
+    "isolated_atoms_excluded": true,
+    "temperature_families": [
+      "Scratch-MultiT",
+      "FT-MultiT"
+    ],
+    "overview_families": [
+      "Scratch-600K",
+      "FT-600K",
+      "Scratch-MultiT",
+      "FT-MultiT"
+    ],
+    "seeds": [
+      "123",
+      "234",
+      "345"
+    ],
+    "overview_scope": "all physical trajectory classes pooled within family and seed; train + test merged",
+    "significance": {
+      "temperature": "Scratch-MultiT vs FT-MultiT",
+      "overview": [
+        "Scratch vs FT · 600K",
+        "Scratch vs FT · MultiT",
+        "600K vs MultiT · FT"
+      ],
+      "test": "paired two-sided t-test on three seed-level aggregates; exploratory n=3; no multiplicity correction"
+    }
+  },
+  "outputs": {
+    "temperature": {
+      "png": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant04_by_temperature_class_reference_grouped_seed_boxclusters_compact.png",
+      "pdf": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant04_by_temperature_class_reference_grouped_seed_boxclusters_compact.pdf",
+      "svg": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant04_by_temperature_class_reference_grouped_seed_boxclusters_compact.svg"
+    },
+    "overview": {
+      "png": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant06_scratch_vs_ft_overview_shared_legend_square.png",
+      "pdf": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant06_scratch_vs_ft_overview_shared_legend_square.pdf",
+      "svg": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant06_scratch_vs_ft_overview_shared_legend_square.svg"
+    },
+    "composite": {
+      "png": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant04_temperature_plus_scratch_ft_shared_legend_square.png",
+      "pdf": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant04_temperature_plus_scratch_ft_shared_legend_square.pdf",
+      "svg": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v15/variant04_temperature_plus_scratch_ft_shared_legend_square.svg"
+    }
+  },
+  "statistics": {
+    "temperature": {
+      "energy": {
+        "300K": {
+          "Scratch vs FT · MultiT": {
+            "p_value": 0.5343189305022095,
+            "marker": "ns",
+            "n_seed_pairs": 3
+          }
+        },
+        "600K": {
+          "Scratch vs FT · MultiT": {
+            "p_value": 0.4529673117389438,
+            "marker": "ns",
+            "n_seed_pairs": 3
+          }
+        },
+        "1200K": {
+          "Scratch vs FT · MultiT": {
+            "p_value": 0.1485128332861096,
+            "marker": "ns",
+            "n_seed_pairs": 3
+          }
+        }
+      },
+      "force": {
+        "300K": {
+          "Scratch vs FT · MultiT": {
+            "p_value": 0.00029186753649629494,
+            "marker": "***",
+            "n_seed_pairs": 3
+          }
+        },
+        "600K": {
+          "Scratch vs FT · MultiT": {
+            "p_value": 0.14966299536626756,
+            "marker": "ns",
+            "n_seed_pairs": 3
+          }
+        },
+        "1200K": {
+          "Scratch vs FT · MultiT": {
+            "p_value": 0.00010950666848409919,
+            "marker": "***",
+            "n_seed_pairs": 3
+          }
+        }
+      }
+    },
+    "overview": {
+      "energy": {
+        "Scratch vs FT · 600K": {
+          "p_value": 0.04322379885692126,
+          "marker": "*",
+          "n_seed_pairs": 3
+        },
+        "Scratch vs FT · MultiT": {
+          "p_value": 0.47931832669143826,
+          "marker": "ns",
+          "n_seed_pairs": 3
+        },
+        "600K vs MultiT · FT": {
+          "p_value": 0.05719080312971724,
+          "marker": "ns",
+          "n_seed_pairs": 3
+        }
+      },
+      "force": {
+        "Scratch vs FT · 600K": {
+          "p_value": 0.020683706568420838,
+          "marker": "*",
+          "n_seed_pairs": 3
+        },
+        "Scratch vs FT · MultiT": {
+          "p_value": 0.13572061012808262,
+          "marker": "ns",
+          "n_seed_pairs": 3
+        },
+        "600K vs MultiT · FT": {
+          "p_value": 0.00679215384255195,
+          "marker": "**",
+          "n_seed_pairs": 3
+        }
+      }
+    }
+  }
+}
