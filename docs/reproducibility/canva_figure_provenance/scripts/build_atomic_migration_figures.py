@@ -25,6 +25,7 @@ import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 import numpy as np
 from matplotlib.lines import Line2D
+from scipy.spatial import ConvexHull
 
 WORKTREE = Path(__file__).resolve().parents[4]
 WILEY = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench")
@@ -80,6 +81,26 @@ SERIES_MARKERS = {
     "FT-600K": MODEL_MARKERS["FT-600K"],
     "FT-MultiT": MODEL_MARKERS["FT-MultiT"],
     "Foundation (OMAT-FT)": MODEL_MARKERS["Foundation"],
+}
+
+# Figure 1A follows the task-conditioned display grammar used by the Canva
+# slide-1 source.  These are task-map colors, not the frozen model-family
+# palette above; the latter remains unchanged in Figures 2--7.
+TASK_GROUPS = ["L0 DFT Reference", "L1 Thermal Equilibrium", "L2 NEB Migration", "L3 Layer Sliding"]
+TASK_MAP_COLORS = {
+    "L0 DFT Reference": "#6E8793",
+    "L1 Thermal Equilibrium": "#7658C7",
+    "L2 NEB Migration": "#2D7FB5",
+    "L3 Layer Sliding": "#E8792F",
+}
+TASK_SUBLEVEL_COLORS = {
+    "Static DFT": "#587482",
+    "DFT-AIMD": "#4B3199",
+    "MLIP-MD": "#A28DE2",
+    "DFT Fixed": "#1F5D88",
+    "MLIP Relaxed": "#69A9D3",
+    "DFT Sliding": "#C45C20",
+    "MLIP Sliding": "#F3B16F",
 }
 
 
@@ -572,30 +593,155 @@ def aligned_mean_sd(series: list[tuple[np.ndarray, np.ndarray]], points: int = 4
     return grid, mean, sd
 
 
+def _ood_marker_sizes(rows: list[dict[str, str]]) -> tuple[np.ndarray, float]:
+    """Map the measured feature-space distance-to-training to marker area."""
+    values = np.asarray([f(row, "distance_to_training") for row in rows], dtype=float)
+    finite = values[np.isfinite(values)]
+    reference = float(np.nanpercentile(finite, 98)) if finite.size else 1.0
+    reference = max(reference, 1e-12)
+    normalized = np.clip(np.nan_to_num(values, nan=0.0) / reference, 0.0, 1.4)
+    return 18.0 + 220.0 * np.power(normalized, 0.68), reference
+
+
+def _add_task_hulls(ax: plt.Axes, rows: list[dict[str, str]]) -> None:
+    """Add translucent measured task envelopes in the task-conditioned display."""
+    for task in TASK_GROUPS:
+        task_rows = [row for row in rows if row.get("task_group") == task]
+        xy = np.asarray([[f(row, "x_pca"), f(row, "y_pca")] for row in task_rows], dtype=float)
+        xy = xy[np.isfinite(xy).all(axis=1)]
+        if len(xy) < 3 or len(np.unique(xy, axis=0)) < 3:
+            continue
+        try:
+            hull = ConvexHull(xy)
+        except Exception:
+            continue
+        color = TASK_MAP_COLORS[task]
+        alpha = 0.035 if task == "L0 DFT Reference" else 0.095
+        ax.add_patch(
+            patches.Polygon(
+                xy[hull.vertices],
+                closed=True,
+                facecolor=color,
+                edgecolor=color,
+                linewidth=1.25,
+                alpha=alpha * 0.55,
+                zorder=0,
+            )
+        )
+
+
+def _add_task_path_lines(ax: plt.Axes, rows: list[dict[str, str]]) -> None:
+    """Draw only the source-provided paths, preserving protocol line semantics."""
+    path_groups: dict[str, list[dict[str, str]]] = defaultdict(list)
+    for row in rows:
+        key = row.get("path_key", "")
+        if key and key.lower() != "nan":
+            path_groups[key].append(row)
+    for path_rows in path_groups.values():
+        path_rows = sorted(path_rows, key=lambda row: (f(row, "frame", np.inf), f(row, "sample_frame", np.inf)))
+        xy = np.asarray([[f(row, "x_pca"), f(row, "y_pca")] for row in path_rows], dtype=float)
+        finite = np.isfinite(xy).all(axis=1)
+        if finite.sum() < 2:
+            continue
+        task = path_rows[0].get("task_group", "")
+        protocol = path_rows[0].get("protocol_style", "")
+        ax.plot(
+            xy[finite, 0],
+            xy[finite, 1],
+            color=TASK_MAP_COLORS.get(task, "#777777"),
+            linewidth=0.58,
+            alpha=0.18,
+            linestyle="--" if protocol == "self-relaxed" else "-",
+            zorder=1,
+        )
+
+
 def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
     src = WILEY / "analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv"
     rows = read_rows(src)
-    fig = plt.figure(figsize=(18.0, 8.8))
+    groups = TASK_GROUPS
+    marker_sizes, ood_reference = _ood_marker_sizes(rows)
+    for row, size in zip(rows, marker_sizes):
+        row["_ood_marker_size"] = float(size)
+
+    fig = plt.figure(figsize=(18.0, 9.8))
     gs = fig.add_gridspec(1, 3, width_ratios=[1.35, 1.0, 0.9], wspace=0.52)
     ax = fig.add_subplot(gs[0, 0])
-    groups = ["L0 DFT Reference", "L1 Thermal Equilibrium", "L2 NEB Migration", "L3 Layer Sliding"]
-    group_colors = {groups[0]: "#8DA9BF", groups[1]: "#6E9E75", groups[2]: "#C4547A", groups[3]: "#E68F1D"}
-    markers = {"train": ".", "valid": "^", "test": "s", "md_sample": "o", "dft_neb": "D", "dft_interlayer": "P"}
-    for group in groups:
-        for split, marker in markers.items():
-            sub = [r for r in rows if r.get("task_label") == group and r.get("split") == split]
-            x = np.array([f(r, "x_pca") for r in sub]); y = np.array([f(r, "y_pca") for r in sub])
-            mask = np.isfinite(x) & np.isfinite(y)
-            if mask.any():
-                ax.scatter(x[mask], y[mask], s=8 if marker == "." else 18, marker=marker,
-                           color=group_colors[group], alpha=0.35 if marker == "." else 0.8,
-                           linewidths=0.2, edgecolors="white", label=group if split == "train" else None)
+
+    # Keep the primary panel on the source-provided common SOAP/PCA axes.  No
+    # task anchors, per-task translations, rank equalization, or aspect-ratio
+    # manipulation is applied.  Optional UMAP/t-SNE candidates are rendered in
+    # a separate comparison package and must not be mistaken for PCA.
+    markers = {"train": ".", "valid": "^", "test": "s", "md_sample": "o", "dft_neb": "D", "dft_interlayer": "P", "mlip_self_neb": "X", "mlip_interlayer_self": "P"}
+    split_order = list(markers)
+    # Match the first Figure 1A point-cloud contract: direct reference/MD/DFT
+    # rows are shown as points; MLIP self-relaxed NEB/sliding rows remain
+    # available as complete source-provided paths and in panel C, but are not
+    # rendered as hundreds of independent foreground markers.
+    visible_point_splits = {"train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer"}
+    visible_rows = [row for row in rows if row.get("split") in visible_point_splits]
+    _add_task_hulls(ax, visible_rows)
+    group_colors = {"L0 DFT Reference": "#8DA9BF", "L1 Thermal Equilibrium": "#6E9E75", "L2 NEB Migration": "#C4547A", "L3 Layer Sliding": "#E68F1D"}
+    for task in TASK_GROUPS:
+        for split in split_order:
+            if split not in visible_point_splits:
+                continue
+            sub = [row for row in rows if row.get("task_group") == task and row.get("split") == split]
+            if not sub:
+                continue
+            x = np.asarray([f(row, "x_pca") for row in sub], dtype=float)
+            y = np.asarray([f(row, "y_pca") for row in sub], dtype=float)
+            size = np.asarray([row["_ood_marker_size"] for row in sub], dtype=float)
+            finite = np.isfinite(x) & np.isfinite(y) & np.isfinite(size)
+            if not finite.any():
+                continue
+            marker = markers[split]
+            ax.scatter(
+                x[finite],
+                y[finite],
+                s=size[finite],
+                marker=marker,
+                color=group_colors[task],
+                alpha=0.28 if marker == "." else 0.78,
+                linewidths=0.22 if marker != "." else 0.0,
+                edgecolors="white" if marker != "." else "none",
+                zorder=2 if marker == "." else 3,
+            )
+
     ax.set_xlabel("SOAP PCA 1")
     ax.set_ylabel("SOAP PCA 2")
     ax.set_title("A  Configuration universe", loc="left")
     style_ax(ax)
-    handles = [Line2D([], [], marker="o", linestyle="", color=group_colors[g], label=g, markersize=6) for g in groups]
-    ax.legend(handles=handles, frameon=False, fontsize=LEGEND_SIZE, loc="upper left")
+    task_handles = [Line2D([], [], marker="o", linestyle="", color=group_colors[task], label=task, markersize=7) for task in TASK_GROUPS]
+    q50 = float(np.nanpercentile([f(row, "distance_to_training") for row in rows], 50))
+    q90 = float(np.nanpercentile([f(row, "distance_to_training") for row in rows], 90))
+    size_values = [0.0, q50, q90]
+    size_handles = [
+        Line2D(
+            [], [], linestyle="", marker="o", color="#555555", markerfacecolor="#555555", markeredgecolor="white",
+            markersize=float(np.sqrt(18.0 + 220.0 * np.power(min(value / ood_reference, 1.4), 0.68))),
+            label=label,
+        )
+        for value, label in zip(size_values, ["near train", "intermediate", "far OOD"])
+    ]
+    encoding_handles = [
+        *task_handles,
+        *size_handles,
+        Line2D([], [], color="#555555", linewidth=1.2, linestyle="-", label="fixed / sliding path"),
+        Line2D([], [], color="#555555", linewidth=1.2, linestyle="--", label="self-relaxed path"),
+    ]
+    ax.legend(
+        handles=encoding_handles,
+        frameon=False,
+        fontsize=LEGEND_SIZE,
+        ncol=3,
+        loc="upper left",
+        bbox_to_anchor=(0.0, -0.22),
+        borderaxespad=0.0,
+        handlelength=1.1,
+        columnspacing=0.8,
+        handletextpad=0.45,
+    )
 
     ax = fig.add_subplot(gs[0, 1])
     ax.set_axis_off()
@@ -634,7 +780,7 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
     ax.set_title("C  Full campaign coverage by source split", loc="left")
     ax.legend(frameon=False, fontsize=LEGEND_SIZE, ncol=2, loc="upper left", bbox_to_anchor=(0, -0.24))
     style_ax(ax)
-    fig.subplots_adjust(left=.06, right=.99, bottom=.26, top=.86)
+    fig.subplots_adjust(left=.06, right=.99, bottom=.40, top=.86)
     fig.suptitle("Figure 1 | Task-conditioned benchmark and configuration universe", x=0.02, ha="left", y=.985, fontsize=TITLE_SIZE, fontweight="bold")
     assets = save_figure(fig, out, "figure01_task_conditioned_universe")
     return assets, [src]
@@ -1177,7 +1323,7 @@ def write_tables(out: Path) -> list[Path]:
 def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources: list[Path]) -> Path:
     manifest={
         "schema_version":"atomic_migration_blueprint_figure_package_v1",
-        "revision":"R03_typography18pt",
+        "revision":"R06_clean_raw_pca",
         "status":"REVIEW_PACKAGE_NOT_SCIENTIFIC_ACCEPTANCE",
         "generated_by":str(Path(__file__).resolve()),
         "source_root":str(WILEY),
@@ -1210,7 +1356,19 @@ def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources:
         "series_markers": SERIES_MARKERS,
         "figures":figure_assets,
         "source_hashes":{str(p):sha256(p) for p in sources if p.exists()},
-        "notes":["This is an additive pre-import review package; the source PR and historical figure outputs are not overwritten.","All blocked panels are explicit placeholders; no synthetic observations are used.","SCF-warning, endpoint-only proxy, legacy and provisional states remain separate.","Every aggregate line panel uses a finite replicate ensemble with a shaded mean ± sample SD band; every aggregate bar panel uses mean ± sample SD whiskers.","Figure 2 C/F clusters are sourced from the complete parity summary; one provider-backed auxiliary frame archive is omitted only from the non-summary scatter layer.","Figure 6 B/C remain complete for all five families and 15 model IDs from the status table; provider-backed auxiliary line files are omitted only where they do not materialize locally.","The selected-figure build intentionally does not create the full-package tables directory; use the PR package manifest and source hashes for provenance."]
+        "figure1a_coordinate_semantics": {
+            "source_table": "comprehensive_task_map_points.csv",
+            "coordinates": "source-provided x_pca/y_pca from the common Cr-local SOAP/PCA fit; no task anchor, translation, rank equalization, or post-hoc movement",
+            "axis_labels": ["SOAP PCA 1", "SOAP PCA 2"],
+            "metric_warning": "PCA axes retain the source feature-space projection; nonlinear UMAP/t-SNE candidates are kept separate and are not substituted into the PCA panel",
+            "task_clusters": "very light convex hulls over the direct point rows shown in panel A, shown only as a visual aid and not used to move points",
+            "path_lines": "not rendered in the clean primary PCA panel because the complete MD/NEB path set creates a spiderweb; source-provided path_key rows remain available in the embedding audit and manifest-linked source table",
+            "foreground_point_splits": ["train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer"],
+            "marker_area": "distance_to_training, percentile-normalized; larger area means farther feature-space OOD",
+            "point_hue": "task group color, matching the original R03 Figure 1A grammar",
+            "not_confounded_with": "rms_delta_A remains a structural Cr-shell distortion field in the source table and is not relabelled as OOD"
+        },
+        "notes":["This is an additive pre-import review package; the source PR and historical figure outputs are not overwritten.","All blocked panels are explicit placeholders; no synthetic observations are used.","SCF-warning, endpoint-only proxy, legacy and provisional states remain separate.","Every aggregate line panel uses a finite replicate ensemble with a shaded mean ± sample SD band; every aggregate bar panel uses mean ± sample SD whiskers.","Figure 1A retains the source-provided raw SOAP/PCA coordinates and the first-version foreground point contract: MLIP self-relaxed NEB/sliding rows remain complete in panel C but are not rendered as hundreds of foreground scatter markers.","The clean primary PCA panel omits the full source path-line set to avoid a spiderweb; path-aware diagnostics remain in the separate embedding audit.","Existing UMAP and t-SNE coordinates are compared separately in the R05 embedding audit; no post-hoc task translation is used.","Figure 1A point area uses distance_to_training for OOD and does not relabel Cr-shell structural distortion as OOD.","Figure 2 C/F clusters are sourced from the complete parity summary; one provider-backed auxiliary frame archive is omitted only from the non-summary scatter layer.","Figure 6 B/C remain complete for all five families and 15 model IDs from the status table; provider-backed auxiliary line files are omitted only where they do not materialize locally.","The selected-figure build intentionally does not create the full-package tables directory; use the PR package manifest and source hashes for provenance."]
     }
     p=out/"manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json"; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+"\n"); return p
 
