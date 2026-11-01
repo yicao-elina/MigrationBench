@@ -1,0 +1,64 @@
+{
+  "script": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/scripts/build_slide3_nature_density.py",
+  "font": "Arial",
+  "min_text_size_pt": 18,
+  "reference_style_demo": {
+    "data_status": "synthetic deterministic style proof only"
+  },
+  "slide3_parity_density": {
+    "data_root": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/rmse_train_test_20261026",
+    "summary_sha256": "31b20e0378cde7a3fa826f1e2ea29ef54263c6868a33739902c30a744f3453e0",
+    "input_matrix": "24 parity NPZ outputs: 4 families x 3 seeds x 2 splits; family/seed/split parsed from exact eval_id filenames",
+    "families": [
+      "Scratch-600K",
+      "FT-600K",
+      "Scratch-MultiT",
+      "FT-MultiT"
+    ],
+    "splits": [
+      "train",
+      "test"
+    ],
+    "metric_rows": [
+      "energy",
+      "force"
+    ],
+    "correlation_basis": "all finite held-out test parity observations pooled across seeds per family",
+    "hexbin_basis": "all finite train plus held-out test parity observations pooled across seeds per family",
+    "point_overlay": "deterministic evenly spaced vector sample, max 2200 train and max 2200 held-out test points per panel",
+    "energy_inset": "per-family local square inset centered on the densest held-out test energy core, with deterministic vector train/test overlays",
+    "force_focus": {
+      "method": "shared square limits of -5.25 to +5.25 eV/A for the full force row, retaining the central distribution with light visual whitespace",
+      "outside_fraction": {
+        "Scratch-600K": {
+          "train": 0.0,
+          "test": 5.8066951194701844e-05
+        },
+        "FT-600K": {
+          "train": 0.0,
+          "test": 0.00012581172758863168
+        },
+        "Scratch-MultiT": {
+          "train": 0.0,
+          "test": 0.0003779987616692182
+        },
+        "FT-MultiT": {
+          "train": 0.0,
+          "test": 5.302245073190992e-05
+        }
+      }
+    },
+    "min_text_size_pt": 18,
+    "palette": {
+      "FT-600K": "#002E71",
+      "FT-MultiT": "#67ACE5",
+      "Scratch-600K": "#FF9F1B",
+      "Scratch-MultiT": "#F4C95D"
+    },
+    "outputs": {
+      "png": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_nature_density/figures/slide3_parity_density_train_test.png",
+      "pdf": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_nature_density/figures/slide3_parity_density_train_test.pdf",
+      "svg": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_nature_density/figures/slide3_parity_density_train_test.svg"
+    }
+  }
+}
