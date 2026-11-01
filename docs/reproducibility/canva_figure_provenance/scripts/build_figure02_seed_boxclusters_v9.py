@@ -34,7 +34,7 @@ FRAME_ROOT = PACKAGED_DATA / "raw_rockfish_parity"
 SUMMARY_PATH = PACKAGED_DATA / "parity_summary.csv"
 OUT_DEFAULT = WORKTREE / (
     "docs/reproducibility/canva_figure_provenance/"
-    "R03_typography18pt/figures/figure02_seed_boxclusters_v8"
+    "R03_typography18pt/figures/figure02_seed_boxclusters_v9"
 )
 
 COLORS = base.COLORS
@@ -44,17 +44,15 @@ TEMP_LABELS = base.TEMP_LABELS
 CR_LABELS = base.CR_LABELS
 
 TEMP_CATEGORIES = ["300K", "600K", "1200K"]
-CR_CATEGORIES = ["Cr0", "Cr1", "Cr2", "Cr3", "Cr4"]
+# The packaged frame records include the atom count.  The 2L bulk reference is
+# 80 atoms, so Cr count is derived from n_atoms rather than inferred from a
+# trajectory name such as ``o3_t1``.  There is no common 80-atom trajectory in
+# this release; therefore the trajectory view is intentionally omitted.
+BULK_ATOMS = 80
+CR_CATEGORIES = [f"Cr{i}" for i in range(1, 7)]
+CR_LABELS = {f"Cr{i}": f"{i} Cr" for i in range(1, 7)}
 MULTIT_FAMILIES = ["Scratch-MultiT", "FT-MultiT"]
 ALL_TRAJECTORY_FAMILIES = ["Scratch-600K", "FT-600K", "Scratch-MultiT", "FT-MultiT"]
-TRAJECTORIES = [
-    "2L_o3_t1_600K_aimd_1",
-    "2L_octo_Cr1_v2_600K_aimd_1",
-]
-TRAJECTORY_LABELS = {
-    TRAJECTORIES[0]: "O3 t1\nNo Cr · 600 K",
-    TRAJECTORIES[1]: "Octahedral Cr1\n1 Cr · 600 K",
-}
 MODEL_SHORT = {
     "Scratch-600K": "Scratch\n600K",
     "FT-600K": "FT\n600K",
@@ -62,6 +60,64 @@ MODEL_SHORT = {
     "FT-MultiT": "FT\nMultiT",
 }
 SEED_HATCH = {"123": "", "234": "///", "345": "\\\\\\"}
+
+
+def _atom_based_cr_class(record: dict[str, object]) -> str:
+    """Return the Cr class supported by the recorded atom count.
+
+    The 80-atom 2L bulk is the zero-Cr reference.  The isolated-atom
+    reference is kept auditable but is not a 2L Cr-count class.
+    """
+    if str(record["trajectory"]) == "isolated_atoms_SG15":
+        return "isolated"
+    n_atoms = int(round(float(record["n_atoms"])))
+    if n_atoms < BULK_ATOMS:
+        return f"n_atoms_{n_atoms}"
+    return f"Cr{n_atoms - BULK_ATOMS}"
+
+
+def _apply_atom_based_cr_classes(records: list[dict[str, object]]) -> list[dict[str, object]]:
+    for record in records:
+        record["cr"] = _atom_based_cr_class(record)
+    return records
+
+
+def _trajectory_atom_audit(records: list[dict[str, object]]) -> dict[str, object]:
+    audit: dict[str, dict[str, object]] = {}
+    for record in records:
+        trajectory = str(record["trajectory"])
+        entry = audit.setdefault(trajectory, {"n_atoms": set(), "inferred_cr": set(), "families": set(), "seeds": set()})
+        entry["n_atoms"].add(int(round(float(record["n_atoms"]))))
+        entry["inferred_cr"].add(str(record["cr"]))
+        entry["families"].add(str(record["family"]))
+        entry["seeds"].add(str(record["seed"]))
+    normalized = {}
+    for trajectory, entry in sorted(audit.items()):
+        normalized[trajectory] = {
+            "n_atoms": sorted(entry["n_atoms"]),
+            "inferred_cr": sorted(entry["inferred_cr"]),
+            "families": sorted(entry["families"]),
+            "seeds": sorted(entry["seeds"]),
+        }
+    no_cr = [
+        trajectory
+        for trajectory, entry in normalized.items()
+        if entry["inferred_cr"] == ["Cr0"]
+        and set(ALL_TRAJECTORY_FAMILIES).issubset(entry["families"])
+        and set(SEEDS).issubset(entry["seeds"])
+    ]
+    return {
+        "bulk_reference_atoms": BULK_ATOMS,
+        "trajectory_atom_counts": normalized,
+        "common_no_cr_trajectories": no_cr,
+        "trajectory_view": "EXCLUDED_FROM_OUTPUT" if not no_cr else "AVAILABLE",
+        "trajectory_view_reason": (
+            "No common 80-atom bulk/no-Cr trajectory is present in the packaged frame records; "
+            "O3 t1 is 84 atoms and is therefore Cr4."
+            if not no_cr
+            else "A common no-Cr trajectory is available."
+        ),
+    }
 
 
 def _metric_value(record: dict[str, object], metric: str) -> float:
@@ -149,14 +205,13 @@ def _comparison_pairs(families: list[str]) -> list[tuple[str, str, str]]:
     return [
         ("Scratch-600K", "FT-600K", "Scratch vs FT · 600K"),
         ("Scratch-MultiT", "FT-MultiT", "Scratch vs FT · MultiT"),
-        ("Scratch-600K", "Scratch-MultiT", "600K vs MultiT · Scratch"),
         ("FT-600K", "FT-MultiT", "600K vs MultiT · FT"),
     ]
 
 
 def _draw_bracket(ax, x1: float, x2: float, y: float, label: str) -> None:
     h = 0.045
-    ax.plot([x1, x1, x2, x2], [y, y + h, y + h, y], color="#222222", linewidth=1.0, zorder=7, clip_on=False)
+    ax.plot([x1, x1, x2, x2], [y, y + h, y + h, y], color="#222222", linewidth=1.8, zorder=7, clip_on=False)
     ax.text((x1 + x2) / 2.0, y + h + 0.015, label, ha="center", va="bottom", fontsize=18, fontweight="bold", zorder=8)
 
 
@@ -197,12 +252,12 @@ def _box_and_points(
         boxprops={
             "facecolor": color,
             "edgecolor": "#111111",
-            "linewidth": 0.85,
+            "linewidth": 1.45,
             "alpha": 0.72,
         },
-        medianprops={"color": "#111111", "linewidth": 1.35},
-        whiskerprops={"color": "#111111", "linewidth": 0.85},
-        capprops={"color": "#111111", "linewidth": 0.85},
+        medianprops={"color": "#111111", "linewidth": 2.0},
+        whiskerprops={"color": "#111111", "linewidth": 1.45},
+        capprops={"color": "#111111", "linewidth": 1.45},
     )
     for patch in result["boxes"]:
         patch.set_hatch(SEED_HATCH[seed])
@@ -224,17 +279,35 @@ def _seed_handles() -> list[Patch]:
 
 
 def _group_layout(category_index: int, family_index: int, seed_index: int, n_families: int) -> tuple[float, float, float]:
-    spacing = 1.85
+    spacing = 2.20
     if n_families == 2:
-        family_offsets = np.asarray([-0.30, 0.30])
-        seed_offsets = np.asarray([-0.095, 0.0, 0.095])
-        box_width = 0.12
+        family_offsets = np.asarray([-0.36, 0.36])
+        seed_offsets = np.asarray([-0.13, 0.0, 0.13])
+        box_width = 0.10
     else:
-        family_offsets = np.asarray([-0.56, -0.19, 0.19, 0.56])
-        seed_offsets = np.asarray([-0.095, 0.0, 0.095])
-        box_width = 0.105
+        family_offsets = np.asarray([-0.66, -0.22, 0.22, 0.66])
+        seed_offsets = np.asarray([-0.13, 0.0, 0.13])
+        box_width = 0.09
     center = category_index * spacing
     return float(center + family_offsets[family_index] + seed_offsets[seed_index]), float(center + family_offsets[family_index]), box_width
+
+
+def _style_axis(ax) -> None:
+    base.style_axis(ax)
+    ax.tick_params(axis="both", which="major", direction="out", length=8, width=1.8)
+    ax.tick_params(axis="both", which="minor", direction="out", length=4, width=1.2)
+    for spine in ("left", "bottom"):
+        ax.spines[spine].set_linewidth(1.8)
+        ax.spines[spine].set_color("#111111")
+    for label in [*ax.get_xticklabels(), *ax.get_yticklabels()]:
+        label.set_fontsize(18)
+        label.set_fontweight("bold")
+    ax.xaxis.label.set_fontsize(20)
+    ax.xaxis.label.set_fontweight("bold")
+    ax.yaxis.label.set_fontsize(20)
+    ax.yaxis.label.set_fontweight("bold")
+    ax.title.set_fontsize(20)
+    ax.title.set_fontweight("bold")
 
 
 def _short_category_label(category: str, group_key: str) -> str:
@@ -264,7 +337,7 @@ def _collect_limits(
     combined = np.concatenate(log_arrays)
     low = float(np.floor(np.nanmin(combined) - 0.18))
     raw_high = float(np.nanmax(combined))
-    return low, raw_high, raw_high + 0.35 + 0.23 * len(_comparison_pairs(families))
+    return low, raw_high, raw_high + 0.40 + 0.42 * len(_comparison_pairs(families))
 
 
 def clustered_box_figure(
@@ -282,9 +355,9 @@ def clustered_box_figure(
     records = _all_records_for(records, group_key=group_key, categories=categories)
     aggregate = merged_aggregate(records, group_key, categories)
     metrics = [("energy", "Energy RMSE (meV atom$^{-1}$)"), ("force", "Force RMSE (meV Å$^{-1}$)")]
-    fig, axes = plt.subplots(2, 1, figsize=(24.0 if len(families) == 4 else 18.5, 13.2), squeeze=False)
+    fig, axes = plt.subplots(2, 1, figsize=(29.0 if len(families) == 4 else 18.5, 13.8), squeeze=False)
     comparison_manifest: dict[str, object] = {}
-    category_spacing = 1.85
+    category_spacing = 2.20
     model_centers = []
     for category_index in range(len(categories)):
         for family_index, family in enumerate(families):
@@ -354,16 +427,16 @@ def clustered_box_figure(
                 pair_pvalues[description] = {"p_value": pvalue, "marker": _sig_label(pvalue), "n_seed_pairs": 3}
                 if not np.isfinite(pvalue):
                     continue
-                x1 = category_index * category_spacing + np.asarray([-0.56, -0.19, 0.19, 0.56])[family_index_lookup[family_a]] if len(families) == 4 else category_index * category_spacing + np.asarray([-0.30, 0.30])[family_index_lookup[family_a]]
-                x2 = category_index * category_spacing + np.asarray([-0.56, -0.19, 0.19, 0.56])[family_index_lookup[family_b]] if len(families) == 4 else category_index * category_spacing + np.asarray([-0.30, 0.30])[family_index_lookup[family_b]]
-                _draw_bracket(ax, float(x1), float(x2), raw_high + 0.13 + level * 0.23, _sig_label(pvalue))
+                _, x1, _ = _group_layout(category_index, family_index_lookup[family_a], 1, len(families))
+                _, x2, _ = _group_layout(category_index, family_index_lookup[family_b], 1, len(families))
+                _draw_bracket(ax, float(x1), float(x2), raw_high + 0.15 + level * 0.42, _sig_label(pvalue))
             comparison_manifest[metric][category] = pair_pvalues
 
         _set_log_exponent_axis(ax, (low, bracket_high))
         tick_positions = [center for _, _, center in model_centers]
         tick_labels = [MODEL_SHORT[family] for _, family, _ in model_centers]
         ax.set_xticks(tick_positions, tick_labels)
-        ax.set_xlim(-0.95, (len(categories) - 1) * category_spacing + 0.95)
+        ax.set_xlim(-1.10, (len(categories) - 1) * category_spacing + 1.10)
         if row_index == 0:
             ax.tick_params(labelbottom=False)
         else:
@@ -381,20 +454,36 @@ def clustered_box_figure(
             ax.set_xlabel(xlabel, labelpad=58)
         ax.set_ylabel(ylabel)
         ax.set_title(f"{chr(65 + row_index)}  {ylabel.split(' RMSE')[0]} distribution", loc="left", pad=10)
-        base.style_axis(ax)
+        _style_axis(ax)
 
-    fig.legend(handles=_family_handles(families), frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.985), ncol=min(4, len(families)), fontsize=18)
-    fig.legend(handles=_seed_handles(), frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.935), ncol=3, fontsize=18)
+    family_legend = fig.legend(handles=_family_handles(families), frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.985), ncol=min(4, len(families)), fontsize=18, prop={"weight": "bold", "size": 18})
+    seed_legend = fig.legend(handles=_seed_handles(), frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.935), ncol=3, fontsize=18, prop={"weight": "bold", "size": 18})
     fig.suptitle(title, y=1.045, fontsize=22, fontweight="bold")
     fig.subplots_adjust(left=0.09, right=0.985, bottom=0.23, top=0.83, hspace=0.42)
     return base.save(fig, out_dir, stem), comparison_manifest
 
 
-def build(out_dir: Path) -> dict[str, object]:
+def _house_style() -> None:
     base.house_style()
+    plt.rcParams.update(
+        {
+            "font.size": 18,
+            "axes.titlesize": 20,
+            "axes.labelsize": 20,
+            "xtick.labelsize": 18,
+            "ytick.labelsize": 18,
+            "legend.fontsize": 18,
+            "axes.linewidth": 1.8,
+        }
+    )
+
+
+def build(out_dir: Path) -> dict[str, object]:
+    _house_style()
     out_dir.mkdir(parents=True, exist_ok=True)
     base.FRAME_ROOT = FRAME_ROOT
-    records = base.read_frame_records()
+    records = _apply_atom_based_cr_classes(base.read_frame_records())
+    trajectory_audit = _trajectory_atom_audit(records)
     sources = [SUMMARY_PATH, *sorted(FRAME_ROOT.glob("*__per_frame.csv"))]
 
     outputs = {}
@@ -421,23 +510,10 @@ def build(out_dir: Path) -> dict[str, object]:
         stem="variant05_by_cr_count_class_merged_seed_boxclusters",
         out_dir=out_dir,
     )
-    outputs["trajectory"], significance["trajectory"] = clustered_box_figure(
-        records,
-        families=ALL_TRAJECTORY_FAMILIES,
-        group_key="trajectory",
-        categories=TRAJECTORIES,
-        labels=TRAJECTORY_LABELS,
-        xlabel="common trajectory identity · train + test merged",
-        title="Figure 2 revision | fair common-trajectory comparison",
-        stem="variant03_by_common_trajectory_seed_boxclusters",
-        out_dir=out_dir,
-    )
-
     frame_counts = {}
     for view, group_key, categories, families in [
         ("temperature", "temperature", TEMP_CATEGORIES, MULTIT_FAMILIES),
         ("cr_count", "cr", CR_CATEGORIES, FAMILIES),
-        ("trajectory", "trajectory", TRAJECTORIES, ALL_TRAJECTORY_FAMILIES),
     ]:
         frame_counts[view] = {
             f"{family}/{seed}/{category}": int(
@@ -457,7 +533,7 @@ def build(out_dir: Path) -> dict[str, object]:
     manifest = {
         "status": "RECONSTRUCTION",
         "purpose": "seed-resolved nested boxplots with complete frame-level point overlays",
-        "commits": {"previous_violin_baseline": "a779398", "current_boxcluster_revision": "pending"},
+        "commits": {"previous_violin_baseline": "a779398", "previous_boxcluster_revision": "9998bd7", "current_boxcluster_revision": "pending"},
         "grammar": {
             "cluster": "one model cluster per category",
             "sub_box": "one box per seed (123, 234, 345) within each model cluster",
@@ -467,6 +543,12 @@ def build(out_dir: Path) -> dict[str, object]:
             "significance": "paired two-sided t-test on log10 seed-level aggregates, n=3 paired seeds; markers are ns, *, **, ***, ****",
             "train_test": "train and held-out test frame records merged for all category and selected-trajectory views",
             "model_colors": "R04 / Canva slide-5 palette",
+            "seed_spacing": "three seed boxes are separated by explicit center offsets and box widths; no seed boxes overlap",
+            "significance_comparisons": [
+                "Scratch vs FT · 600K",
+                "Scratch vs FT · MultiT",
+                "600K vs MultiT · FT",
+            ],
         },
         "data": {
             "source_mode": "readable_packaged_per_frame_csv",
@@ -476,10 +558,10 @@ def build(out_dir: Path) -> dict[str, object]:
             "seeds": SEEDS,
             "splits_merged": base.SPLITS,
             "frame_point_counts": frame_counts,
+            "trajectory_audit": trajectory_audit,
             "trajectory_selection": {
-                "no_cr": TRAJECTORIES[0],
-                "with_cr": TRAJECTORIES[1],
-                "selection_rule": "common trajectory identity present for all four families and all three seeds; both selected identities are 600 K train trajectories",
+                "status": "EXCLUDED_FROM_OUTPUT",
+                "selection_rule": "retain a trajectory view only if a common 80-atom bulk/no-Cr identity is present for all four families and all three seeds",
             },
             "significance_tests": significance,
             "multiple_testing": "no correction applied; markers are exploratory seed-level diagnostics with n=3",
@@ -496,12 +578,12 @@ def build(out_dir: Path) -> dict[str, object]:
             for name, files in outputs.items()
         },
     }
-    manifest_path = out_dir / "figure02_seed_boxclusters_v8_manifest.json"
+    manifest_path = out_dir / "figure02_seed_boxclusters_v9_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
-    caption_path = out_dir / "figure02_seed_boxclusters_v8_caption.md"
+    caption_path = out_dir / "figure02_seed_boxclusters_v9_caption.md"
     caption_path.write_text(
         "# Figure 2 seed-resolved nested boxplots\n\n"
-        "Train and held-out-test frame records are merged. Each model cluster contains three sub-boxplots, one for each seed; every sub-boxplot retains all finite frame-level scatter points for that seed. Boxes are computed in log10-RMSE coordinates and show the median, IQR, and 1.5-IQR whiskers. Black points and whiskers show the mean and sample SD of the three seed-level aggregate RMSE values. Significance brackets use paired two-sided t-tests on the three log10 seed-level aggregates and are exploratory because n=3. The trajectory comparison uses the common 600 K training identities O3 t1 (no Cr) and octahedral Cr1 (1 Cr), which are present for all four model families and all three seeds.\n"
+        "Train and held-out-test frame records are merged. Each model cluster contains three non-overlapping sub-boxplots, one for each seed; every sub-boxplot retains all finite frame-level scatter points for that seed. Boxes are computed in log10-RMSE coordinates and show the median, IQR, and 1.5-IQR whiskers. Black points and whiskers show the mean and sample SD of the three seed-level aggregate RMSE values. Significance brackets use paired two-sided t-tests on the three log10 seed-level aggregates and are exploratory because n=3; the retained comparisons are Scratch vs FT at 600 K, Scratch vs FT for MultiT, and FT 600 K vs FT MultiT. Cr classes are derived from n_atoms minus the 80-atom 2L bulk reference. No common 80-atom bulk/no-Cr trajectory is present, so the trajectory panel is excluded; O3 t1 is 84 atoms and is classified as Cr4.\n"
     )
     return {"outputs": outputs, "manifest": str(manifest_path), "caption": str(caption_path)}
 
