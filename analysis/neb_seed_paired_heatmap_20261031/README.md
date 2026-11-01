@@ -91,10 +91,11 @@ the sliding route metrics and the migration `TIER1_RESULT_MATRIX.tsv`.
   `SELF_RELAXED_ENDPOINT_ONLY_NEB`.
 - Self-relaxed summary rows select `initialization_method == IDPP`. The
   alternative `MIC_LINEAR` rows remain in the source audit but are not pooled.
-- The migration campaign contains `From-scratch`, `FT-600K`, and `FT-MultiT`
-  seeds, but no `Scratch-600K` model rows. The total table includes those
-  expected Scratch-600K slots as `NOT_AVAILABLE_IN_SOURCE_CAMPAIGN` and the
-  figure renders them as `NA`.
+- The canonical Scratch-600K fill campaign is included under
+  `raw_input/scratch_600k_migration_20261101/`. It has all three registered
+  seeds and all three routes: fixed-path is 9/9 finite; IDPP self-relaxed is
+  7/9 `CONVERGED/PRIMARY_EVIDENCE`. The two nonconverged IDPP cells remain
+  `NONCONVERGED/DIAGNOSTIC_ONLY` and render as `NA` in the main matrix.
 - Migration checkpoint hashes are not assumed identical to the sliding
   campaign hashes. Therefore the figure uses separate campaign-labelled rows
   and does not claim a single cross-task checkpoint identity.
@@ -115,6 +116,7 @@ PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/build_ca
 PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/build_total_performance_metrics.py \
   --sliding-metrics analysis/neb_seed_paired_heatmap_20261031/processed/NEB_MODEL_SEED_ROUTE_METRICS.tsv \
   --migration-matrix /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/derived_r01/TIER1_RESULT_MATRIX.tsv \
+  --scratch600k-migration analysis/neb_seed_paired_heatmap_20261031/raw_input/scratch_600k_migration_20261101/processed/SCRATCH600K_MIGRATION_RESULT_MATRIX.tsv \
   --output analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_METRICS.tsv
 
 PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/render_neb_seed_paired_heatmaps.py \

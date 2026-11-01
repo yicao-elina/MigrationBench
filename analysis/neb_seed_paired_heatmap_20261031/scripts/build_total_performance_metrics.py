@@ -82,12 +82,71 @@ def _append_unit_rows(
         )
 
 
-def build_total_table(sliding_metrics: Path, migration_matrix: Path) -> pd.DataFrame:
+def _prepare_migration_records(frame: pd.DataFrame, *, source_artifact: Path) -> list[dict[str, object]]:
+    """Normalize one migration result matrix while preserving publication gates."""
+    required = {
+        "model_family",
+        "model_id",
+        "training_seed",
+        "path_class",
+        "observable",
+        "initialization_method",
+        "scientific_status",
+        "publication_status",
+    }
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"migration source lacks required columns: {', '.join(missing)}")
+    frame = frame.copy()
+    frame["training_seed"] = pd.to_numeric(frame["training_seed"], errors="coerce").astype("Int64")
+    if "barrier_proxy_eV" not in frame:
+        if "value_eV" not in frame:
+            raise ValueError("migration source needs barrier_proxy_eV or value_eV")
+        frame["barrier_proxy_eV"] = frame["value_eV"]
+    records: list[dict[str, object]] = []
+    for record in frame.itertuples(index=False):
+        route = PATH_MAP.get(str(record.path_class))
+        if route is None:
+            raise ValueError(f"unrecognized migration path class: {record.path_class}")
+        if record.observable == "FIXED_PATH_SINGLE_POINT":
+            observable_key = "fixed"
+        elif record.observable == "SELF_RELAXED_ENDPOINT_ONLY_NEB" and record.initialization_method == "IDPP":
+            observable_key = "self"
+        else:
+            continue
+        item = record._asdict()
+        item["route"] = route
+        item["observable_key"] = observable_key
+        item["source_artifact"] = str(source_artifact)
+        item["value_eV_selected"] = _finite_or_nan(item.get("barrier_proxy_eV"))
+        if observable_key == "self" and not (
+            str(item.get("scientific_status")) == "CONVERGED"
+            and str(item.get("publication_status")) == "PRIMARY_EVIDENCE"
+        ):
+            item["value_eV_selected"] = np.nan
+        records.append(item)
+    return records
+
+
+def build_total_table(
+    sliding_metrics: Path,
+    migration_matrix: Path,
+    scratch600k_migration: Path | None = None,
+) -> pd.DataFrame:
     sliding = pd.read_csv(sliding_metrics, sep="\t")
     migration = pd.read_csv(migration_matrix, sep="\t")
     migration = migration.loc[migration["model_family"].astype(str) != "Foundation"].copy()
     migration["training_seed"] = pd.to_numeric(migration["training_seed"], errors="coerce").astype("Int64")
     migration = migration.loc[migration["training_seed"].isin(SEEDS)].copy()
+    records = _prepare_migration_records(migration, source_artifact=migration_matrix)
+    if scratch600k_migration is not None:
+        scratch = pd.read_csv(scratch600k_migration, sep="\t")
+        scratch = scratch.loc[scratch["model_family"].astype(str) == "Scratch-600K"].copy()
+        scratch["training_seed"] = pd.to_numeric(scratch["training_seed"], errors="coerce").astype("Int64")
+        scratch = scratch.loc[scratch["training_seed"].isin(SEEDS)].copy()
+        if scratch.empty:
+            raise ValueError("Scratch-600K migration source has no expected seed rows")
+        records.extend(_prepare_migration_records(scratch, source_artifact=scratch600k_migration))
 
     rows: list[dict[str, object]] = []
     sliding_order = {(family, seed): f"SLIDING::{family}::s{seed}" for family in SLIDING_FAMILIES for seed in SEEDS}
@@ -121,32 +180,23 @@ def build_total_table(sliding_metrics: Path, migration_matrix: Path) -> pd.DataF
             status = {column_id: ("FINITE_DIAGNOSTIC", "SUPPORTING_EVIDENCE") for column_id, _, _, _ in COLUMNS[:2]}
             _append_unit_rows(rows, base=base, values=values, status_by_column=status)
 
-    migration_lookup: dict[tuple[str, int, str, str], pd.Series] = {}
-    for record in migration.itertuples(index=False):
-        route = PATH_MAP.get(str(record.path_class))
-        if route is None:
-            raise ValueError(f"unrecognized migration path class: {record.path_class}")
-        if record.observable == "FIXED_PATH_SINGLE_POINT":
-            observable_key = "fixed"
-        elif record.observable == "SELF_RELAXED_ENDPOINT_ONLY_NEB" and record.initialization_method == "IDPP":
-            observable_key = "self"
-        else:
-            continue
-        key = (str(record.model_family), int(record.training_seed), route, observable_key)
+    migration_lookup: dict[tuple[str, int, str, str], dict[str, object]] = {}
+    for record in records:
+        key = (str(record["model_family"]), int(record["training_seed"]), str(record["route"]), str(record["observable_key"]))
         if key in migration_lookup:
             raise ValueError(f"duplicate selected migration row: {key}")
-        migration_lookup[key] = pd.Series(record._asdict())
+        migration_lookup[key] = record
 
     for family in MIGRATION_FAMILIES:
         for seed in SEEDS:
             unit_id = f"MIGRATION::{family}::s{seed}"
-            available = migration.loc[
-                (migration["model_family"].astype(str) == family)
-                & (migration["training_seed"] == seed)
+            available_records = [
+                record for key, record in migration_lookup.items() if key[0] == family and key[1] == seed
             ]
-            model_id = str(available["model_id"].iloc[0]) if not available.empty else None
-            model_sha = str(available["model_sha256"].iloc[0]) if not available.empty else None
-            dataset_status = "PROVENANCE_PARTIAL" if not available.empty else "NOT_AVAILABLE_IN_SOURCE_CAMPAIGN"
+            model_id = str(available_records[0].get("model_id")) if available_records else None
+            model_sha = str(available_records[0].get("model_sha256")) if available_records else None
+            source_artifact = str(available_records[0].get("source_artifact")) if available_records else str(migration_matrix)
+            dataset_status = "PROVENANCE_PARTIAL" if available_records else "NOT_AVAILABLE_IN_SOURCE_CAMPAIGN"
             base = _base_row(
                 unit_id=unit_id,
                 row_label=f"Migration · {family} · s{seed}",
@@ -154,7 +204,7 @@ def build_total_table(sliding_metrics: Path, migration_matrix: Path) -> pd.DataF
                 model_family=family,
                 model_id=model_id,
                 training_seed=seed,
-                source_artifact=str(migration_matrix),
+                source_artifact=source_artifact,
                 model_sha256=model_sha,
                 dataset_status=dataset_status,
             )
@@ -165,7 +215,7 @@ def build_total_table(sliding_metrics: Path, migration_matrix: Path) -> pd.DataF
                 route = column_id.removeprefix("migration_").removesuffix("_fixed").removesuffix("_self")
                 key = (family, seed, route, "self" if is_self else "fixed")
                 record = migration_lookup.get(key)
-                values[column_id] = _finite_or_nan(record.get("barrier_proxy_eV")) if record is not None else np.nan
+                values[column_id] = record.get("value_eV_selected", np.nan) if record is not None else np.nan
                 if record is None:
                     statuses[column_id] = ("NOT_AVAILABLE", "DIAGNOSTIC_ONLY")
                 else:
@@ -181,9 +231,10 @@ def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sliding-metrics", type=Path, required=True)
     parser.add_argument("--migration-matrix", type=Path, required=True)
+    parser.add_argument("--scratch600k-migration", type=Path, help="Canonical Scratch-600K migration fill matrix")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
-    result = build_total_table(args.sliding_metrics, args.migration_matrix)
+    result = build_total_table(args.sliding_metrics, args.migration_matrix, args.scratch600k_migration)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     result.to_csv(args.output, sep="\t", index=False)
     print(f"wrote {len(result)} rows for {result['unit_id'].nunique()} units to {args.output}")

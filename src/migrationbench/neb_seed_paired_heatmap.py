@@ -795,6 +795,18 @@ def render_bundle(
         performance_products = render_total_performance_heatmap(total_metrics, output_dir)
     else:
         performance_products = render_performance_heatmap(metrics, output_dir)
+    additional_inputs: list[dict[str, object]] = []
+    if total_metrics_path is not None:
+        total_metrics = pd.read_csv(total_metrics_path, sep="\t")
+        for source in [total_metrics_path, *total_metrics["source_artifact"].dropna().astype(str).unique()]:
+            path = Path(source)
+            additional_inputs.append(
+                {
+                    "path": str(path.resolve()) if path.exists() else str(path),
+                    "exists": path.exists(),
+                    "sha256": _sha256(path) if path.is_file() else None,
+                }
+            )
     products = (
         render_reference_bubble_demo(output_dir)
         + render_reference_clustered_heatmap_demo(output_dir)
@@ -806,6 +818,7 @@ def render_bundle(
         "schema_version": "migrationbench_neb_seed_paired_heatmap_v2",
         "code": {"path": str(Path(__file__).resolve()), "sha256": _sha256(Path(__file__).resolve())},
         "input": {"path": str(input_path.resolve()), "sha256": _sha256(input_path)},
+        "additional_inputs": additional_inputs,
         "input_audit": asdict(audit),
         "analytic_boundary": (
             "The sliding block is fixed-path DFT-matched MAE. The migration block is "
