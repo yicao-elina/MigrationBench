@@ -105,8 +105,8 @@ The blueprint-derived build and review handoff is contained in:
   acceptance gates for shaded intervals and bar whiskers;
 - [`R06_clean_raw_pca/figures/figure01_task_conditioned_universe.svg`](R06_clean_raw_pca/figures/figure01_task_conditioned_universe.svg):
   approved editable Figure 1 composite for Canva import/review;
-- [`R03_typography18pt_final/figures/figure02_near_equilibrium_parity.svg`](R03_typography18pt_final/figures/figure02_near_equilibrium_parity.svg):
-  approved editable Figure 2 vector output;
+- [`R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_temperature_plus_scratch_ft_shared_legend_square.svg`](R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_temperature_plus_scratch_ft_shared_legend_square.svg):
+  latest approved editable Figure 2 composite vector output;
 - [`R04_slide3_nature_density/figures/slide3_parity_density_train_test.svg`](R04_slide3_nature_density/figures/slide3_parity_density_train_test.svg):
   separate parity-density diagnostic retained as the current Slide-3 asset.
 

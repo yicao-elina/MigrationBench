@@ -1,3 +1,0 @@
-# Figure 2 v10 compact and seed-pooled revisions
-
-The temperature panel uses compact, non-overlapping seed-resolved boxes with larger typography. The exploratory surface-boxplot maps Cr count, model family, and log10 RMSE into three dimensions; its median, IQR surfaces, and 1.5-IQR envelopes are retained as a diagnostic but are not selected as the primary paper-facing view. The primary Cr-count view pools all three seeds inside one box per model and Cr1–Cr6 class while retaining all frame-level points. Train and held-out-test records are merged. O3 t1 has 84 atoms and is therefore Cr4 under the 80-atom bulk reference; no common 80-atom no-Cr trajectory is available.

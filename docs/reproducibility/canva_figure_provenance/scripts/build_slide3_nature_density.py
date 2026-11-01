@@ -439,7 +439,10 @@ def energy_inset_limits(panel: dict[str, np.ndarray]) -> tuple[float, float, flo
     center_x = 0.5 * (xedges[i] + xedges[i + 1])
     center_y = 0.5 * (yedges[j] + yedges[j + 1])
     bin_width = max(float(xedges[i + 1] - xedges[i]), float(yedges[j + 1] - yedges[j]))
-    half_width = max(0.12, 6.0 * bin_width)
+    # The previous local window left too much empty space around the energy
+    # core.  Keep a small visual margin while making the distribution occupy
+    # more of the inset, without clipping the dense test region.
+    half_width = max(0.105, 5.2 * bin_width)
     center = 0.5 * (center_x + center_y)
     return center - half_width, center + half_width, center - half_width, center + half_width
 
