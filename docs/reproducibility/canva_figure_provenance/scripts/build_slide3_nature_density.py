@@ -37,8 +37,11 @@ from matplotlib.patches import Rectangle
 
 
 WORKTREE = Path(__file__).resolve().parents[4]
-DATA_ROOT = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/rmse_train_test_20261026")
-RAW_ROOT = DATA_ROOT / "raw/rockfish_parity"
+PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+LOCAL_DATA = PACKAGE_ROOT / "data"
+EXTERNAL_DATA_ROOT = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/rmse_train_test_20261026")
+DATA_ROOT = LOCAL_DATA / "figure02" if (LOCAL_DATA / "figure02").is_dir() else EXTERNAL_DATA_ROOT
+RAW_ROOT = LOCAL_DATA / "figure02/raw_rockfish_parity" if (LOCAL_DATA / "figure02/raw_rockfish_parity").is_dir() else DATA_ROOT / "raw/rockfish_parity"
 SUMMARY_PATH = DATA_ROOT / "parity_summary.csv"
 OUT_ROOT = WORKTREE / "docs/reproducibility/canva_figure_provenance/R04_slide3_nature_density"
 FIG_ROOT = OUT_ROOT / "figures"

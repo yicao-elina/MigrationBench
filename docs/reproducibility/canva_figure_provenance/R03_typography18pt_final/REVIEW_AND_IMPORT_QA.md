@@ -1,6 +1,6 @@
 # R03 typography and Canva import QA
 
-This is an additive review package generated from PR #14 commit `935e492`. It contains only Figures 1, 2, 3, 4 and 6; the historical R04/R02 outputs remain untouched.
+This is the publication-final review package generated from PR #14 commit `935e492`. Figure 1 is the approved R06 clean raw-PCA package; Figures 2, 3, 4 and 6 remain in this directory. Historical exploratory outputs are removed from the active tree and retained only in Git history/archive snapshots.
 
 ## Pre-import checks
 
@@ -13,6 +13,7 @@ This is an additive review package generated from PR #14 commit `935e492`. It co
 - Figure 6B/C retain the complete five-family dumbbell and 15-model coordination clusters from the audited status table.
 - Energy profile axes use `ΔE (eV)` and image/path axes use `Reaction Coordinate`.
 - PDF and SVG are emitted as vector outputs; PNG is only the visual QA raster preview.
+- Reproduction inputs used by the final renderers are vendored under `../data/`; large raw trajectories, checkpoints and remote scratch collections remain pointer-only.
 
 ## Data-boundary notes
 

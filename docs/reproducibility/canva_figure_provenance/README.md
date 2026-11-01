@@ -16,12 +16,13 @@ comparison with the staging outputs.
 
 ## What is and is not committed
 
-This PR commits the reproducibility index only: paths, hashes, rebuild
-commands, source manifests, and explicit scientific/status boundaries. Large
-raw trajectories, remote Rockfish outputs, model checkpoints, and 1 ns
-trajectory collections remain at their existing local or remote locations.
-They are pointer-only here because copying them into Git would create a second
-authority and would not make the remote paths available to another machine.
+This release commits the publication-final vector/raster plots, rebuild scripts,
+vendored derived tables needed by those renderers, source manifests, and explicit
+scientific/status boundaries. Large raw trajectories, remote Rockfish outputs,
+model checkpoints, and 1 ns trajectory collections remain at their existing local
+or remote locations. They are pointer-only here because copying them into Git
+would create a second authority and would not make the remote paths available to
+another machine.
 
 The analysis packages referenced by this index were found under
 `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis` during the
@@ -97,22 +98,27 @@ The blueprint-derived build and review handoff is contained in:
   page correspondence, new blueprint slots, and placeholder rules;
 - [`FIGURE_RELEASE_STATUS.tsv`](../../../FIGURE_RELEASE_STATUS.tsv):
   conservative release state for each figure/table;
-- [`manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json`](manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json):
-  absolute source paths and source hashes;
+- [`R03_typography18pt_final/manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json`](R03_typography18pt_final/manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json):
+  publication-final Figure 1/2/3/4/6 paths, local derived-data pointers and source hashes;
 - [`tables/UNCERTAINTY_AUDIT.tsv`](tables/UNCERTAINTY_AUDIT.tsv):
   per-figure replicate units, observed counts, missingness rules, and visual/data
   acceptance gates for shaded intervals and bar whiskers;
-- [`figures/atomic_migration_blueprint_canvas_board.svg`](figures/atomic_migration_blueprint_canvas_board.svg):
-  completed local composition board for Canva import/review, with explicit
-  warning and blocked placeholders.
+- [`R06_clean_raw_pca/figures/figure01_task_conditioned_universe.svg`](R06_clean_raw_pca/figures/figure01_task_conditioned_universe.svg):
+  approved editable Figure 1 composite for Canva import/review;
+- [`R03_typography18pt_final/figures/figure02_near_equilibrium_parity.svg`](R03_typography18pt_final/figures/figure02_near_equilibrium_parity.svg):
+  approved editable Figure 2 vector output;
+- [`R04_slide3_nature_density/figures/slide3_parity_density_train_test.svg`](R04_slide3_nature_density/figures/slide3_parity_density_train_test.svg):
+  separate parity-density diagnostic retained as the current Slide-3 asset.
 
-The builder is [`scripts/build_atomic_migration_figures.py`](scripts/build_atomic_migration_figures.py).
-It is additive and writes only inside this worktree. The current R02j package
-contains standalone editable PDF/SVG plus PNG previews for Figures 1–8 and a
-review-board composite. Every aggregate line has a mean ± sample SD shaded
-interval, and every aggregate bar has mean ± sample SD whiskers; the package is
-still a review package, not scientific acceptance. No external Canva page was
-overwritten because the connector required reauthentication at build time.
+The builder is [`scripts/build_atomic_migration_figures.py`](scripts/build_atomic_migration_figures.py),
+with the standalone Figure 1A builder at
+[`scripts/build_figure01a_clean_panel.py`](scripts/build_figure01a_clean_panel.py).
+The active publication-final outputs are R06 Figure 1 plus the R03 final Figures
+2, 3, 4 and 6. Vendored derived inputs are under [`data/`](data/); large raw
+trajectories, checkpoints and remote scratch collections remain pointer-only.
+Every aggregate line has a mean ± sample SD shaded interval, and every aggregate
+bar has mean ± sample SD whiskers. No external Canva page was overwritten because
+the connector required reauthentication at build time.
 
 The paired/bar grammar is now unified across the package: Figure 1C uses
 complete source-split coverage clusters; Figures 2C/F use complete four-family

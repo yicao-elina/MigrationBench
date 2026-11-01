@@ -17,6 +17,9 @@ from build_atomic_migration_figures import (
     AXIS_LABEL_SIZE,
     DFT_SPLIT_MARKERS,
     LEGEND_SIZE,
+    POINT_SPLIT_MARKERS,
+    packaged_data,
+    TASK_DISPLAY_COLORS,
     TASK_MARKERS,
     TASK_GROUPS,
     _add_task_hulls,
@@ -29,14 +32,12 @@ from build_atomic_migration_figures import (
 
 
 WILEY = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench")
-SRC = WILEY / "analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv"
+SRC = packaged_data(
+    "figure01/comprehensive_task_map_points.csv",
+    WILEY / "analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv",
+)
 OUT = Path(__file__).resolve().parents[1] / "R06_clean_raw_pca" / "figures"
-GROUP_COLORS = {
-    "L0 DFT Reference": "#8DA9BF",
-    "L1 Thermal Equilibrium": "#6E9E75",
-    "L2 NEB Migration": "#C4547A",
-    "L3 Layer Sliding": "#E68F1D",
-}
+GROUP_COLORS = TASK_DISPLAY_COLORS
 VISIBLE_SPLITS = ("train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer")
 
 
@@ -63,7 +64,7 @@ def main() -> None:
             finite = np.isfinite(x) & np.isfinite(y) & np.isfinite(size)
             if not finite.any():
                 continue
-            marker = TASK_MARKERS[task]
+            marker = POINT_SPLIT_MARKERS[split]
             dense_split = split in {"train", "valid", "test"}
             ax.scatter(
                 x[finite],

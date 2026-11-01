@@ -30,6 +30,26 @@ from scipy.spatial import ConvexHull
 WORKTREE = Path(__file__).resolve().parents[4]
 WILEY = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench")
 ATLAS = Path("/Users/alina/Documents/Codex/plot_library_recovered")
+PACKAGE_ROOT = Path(__file__).resolve().parents[1]
+LOCAL_DATA = PACKAGE_ROOT / "data"
+
+
+def packaged_data(relative: str, external: Path) -> Path:
+    """Use vendored derived data when present, retaining the audited fallback."""
+    candidate = LOCAL_DATA / relative
+    return candidate if candidate.exists() else external
+
+
+def packaged_dir(relative: str, external: Path) -> Path:
+    """Use a vendored data directory when present, retaining the audited fallback."""
+    candidate = LOCAL_DATA / relative
+    return candidate if candidate.is_dir() else external
+
+
+STYLE_SOURCE = packaged_data(
+    "style/FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json",
+    WILEY / "analysis/sliding_four_model_campaign_20261024/config/FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json",
+)
 sys.path.insert(0, str(ATLAS / "src"))
 from plot_atlas import aggregate_profile_rows, apply_publication_style, get_palette, plot_profile_ensemble  # noqa: E402
 
@@ -84,10 +104,14 @@ SERIES_MARKERS = {
 }
 
 # Figure 1A follows the task-conditioned display grammar used by the Canva
-# slide-1 source.  These are task-map colors, not the frozen model-family
-# palette above; the latter remains unchanged in Figures 2--7.
+# slide-1 source.  Task is encoded by color, while the DFT source split is
+# encoded by point shape.  These are task-map colors, not the frozen
+# model-family palette above; the latter remains unchanged in Figures 2--7.
 TASK_GROUPS = ["L0 DFT Reference", "L1 Thermal Equilibrium", "L2 NEB Migration", "L3 Layer Sliding"]
 TASK_MARKERS = {
+    # Task legend keeps the established four-task shape map. Actual
+    # foreground point shapes come from POINT_SPLIT_MARKERS below so the
+    # DFT train/valid/test split remains visible in the cloud as well.
     "L0 DFT Reference": "o",
     "L1 Thermal Equilibrium": "^",
     "L2 NEB Migration": "D",
@@ -98,11 +122,28 @@ DFT_SPLIT_MARKERS = {
     "DFT - valid": "^",
     "DFT - test": "s",
 }
+POINT_SPLIT_MARKERS = {
+    "train": "o",
+    "valid": "^",
+    "test": "s",
+    "md_sample": "o",
+    "dft_neb": "D",
+    "dft_interlayer": "P",
+}
 TASK_MAP_COLORS = {
     "L0 DFT Reference": "#6E8793",
     "L1 Thermal Equilibrium": "#7658C7",
     "L2 NEB Migration": "#2D7FB5",
     "L3 Layer Sliding": "#E8792F",
+}
+# Display colors used by the actual Figure 1A foreground points and their
+# corresponding cluster envelopes. Keep this separate from TASK_MAP_COLORS,
+# which is retained for source-level task semantics elsewhere in the package.
+TASK_DISPLAY_COLORS = {
+    "L0 DFT Reference": "#8DA9BF",
+    "L1 Thermal Equilibrium": "#6E9E75",
+    "L2 NEB Migration": "#C4547A",
+    "L3 Layer Sliding": "#E68F1D",
 }
 TASK_SUBLEVEL_COLORS = {
     "Static DFT": "#587482",
@@ -227,9 +268,18 @@ def downsample_xy(x: np.ndarray, y: np.ndarray, max_points: int = 500) -> tuple[
     return x[idx], y[idx]
 
 
-FIXED_ENSEMBLE = WILEY / "analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv"
-GROUPED_NORMALIZED = WILEY / "analysis/cr_interlayer_sliding_grouped_20261025/results/tables/NORMALIZED_PROFILES.tsv"
-GROUPED_QE = WILEY / "analysis/cr_interlayer_sliding_grouped_20261025/source_tables/foundation_2x2_QE_REFERENCE.tsv"
+FIXED_ENSEMBLE = packaged_data(
+    "figure03_04/fixed_path_long.tsv",
+    WILEY / "analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv",
+)
+GROUPED_NORMALIZED = packaged_data(
+    "figure03_04/NORMALIZED_PROFILES.tsv",
+    WILEY / "analysis/cr_interlayer_sliding_grouped_20261025/results/tables/NORMALIZED_PROFILES.tsv",
+)
+GROUPED_QE = packaged_data(
+    "figure03_04/foundation_2x2_QE_REFERENCE.tsv",
+    WILEY / "analysis/cr_interlayer_sliding_grouped_20261025/source_tables/foundation_2x2_QE_REFERENCE.tsv",
+)
 SELF_RELAXED_ENSEMBLE = WILEY / "analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/figure_revisions/foundation_class_4x3_R03_fontplus2pt/data/foundation_class_4x3_R03_fontplus2pt/foundation_model_profiles_9models_4x3_R03.tsv"
 SELF_RELAXED_QE = WILEY / "analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/figure_revisions/foundation_class_4x3_R03_fontplus2pt/data/foundation_class_4x3_R03_fontplus2pt/foundation_model_qe_reference_profiles_4x3_R03.tsv"
 FIXED_ENSEMBLE_PATHS = {
@@ -626,7 +676,7 @@ def _add_task_hulls(ax: plt.Axes, rows: list[dict[str, str]]) -> None:
             hull = ConvexHull(xy)
         except Exception:
             continue
-        color = TASK_MAP_COLORS[task]
+        color = TASK_DISPLAY_COLORS[task]
         alpha = 0.035 if task == "L0 DFT Reference" else 0.095
         ax.add_patch(
             patches.Polygon(
@@ -668,7 +718,10 @@ def _add_task_path_lines(ax: plt.Axes, rows: list[dict[str, str]]) -> None:
 
 
 def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
-    src = WILEY / "analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv"
+    src = packaged_data(
+        "figure01/comprehensive_task_map_points.csv",
+        WILEY / "analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv",
+    )
     rows = read_rows(src)
     groups = TASK_GROUPS
     marker_sizes, ood_reference = _ood_marker_sizes(rows)
@@ -691,7 +744,7 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
     visible_point_splits = {"train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer"}
     visible_rows = [row for row in rows if row.get("split") in visible_point_splits]
     _add_task_hulls(ax, visible_rows)
-    group_colors = {"L0 DFT Reference": "#8DA9BF", "L1 Thermal Equilibrium": "#6E9E75", "L2 NEB Migration": "#C4547A", "L3 Layer Sliding": "#E68F1D"}
+    group_colors = TASK_DISPLAY_COLORS
     for task in TASK_GROUPS:
         for split in split_order:
             if split not in visible_point_splits:
@@ -705,7 +758,7 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
             finite = np.isfinite(x) & np.isfinite(y) & np.isfinite(size)
             if not finite.any():
                 continue
-            marker = TASK_MARKERS[task]
+            marker = POINT_SPLIT_MARKERS[split]
             dense_split = split in {"train", "valid", "test"}
             ax.scatter(
                 x[finite],
@@ -812,10 +865,11 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
 
 
 def fig2(out: Path) -> tuple[dict[str, str], list[Path]]:
-    root = WILEY / "analysis/rmse_train_test_20261026"
-    summary_path = root / "parity_summary.csv"
+    external_root = WILEY / "analysis/rmse_train_test_20261026"
+    summary_path = packaged_data("figure02/parity_summary.csv", external_root / "parity_summary.csv")
+    frame_root = packaged_dir("figure02/raw_rockfish_parity", external_root / "raw/rockfish_parity")
     summary = read_rows(summary_path)
-    per_files = sorted((root / "raw/rockfish_parity").glob("*_test__per_frame.csv"))
+    per_files = sorted(frame_root.glob("*_test__per_frame.csv"))
     fig = plt.figure(figsize=(18.0, 12.2))
     gs = fig.add_gridspec(2, 3, height_ratios=[1.0, .9], hspace=.66, wspace=.42)
     axa, axb, axc = [fig.add_subplot(gs[0, i]) for i in range(3)]
@@ -930,7 +984,10 @@ def fig2(out: Path) -> tuple[dict[str, str], list[Path]]:
 
 
 def load_cr_profiles() -> list[dict[str, str]]:
-    return read_rows(WILEY / "analysis/neb_cross_element_triptychs_20261024/data/Cr_fixed_path_representative_profiles.tsv")
+    return read_rows(packaged_data(
+        "figure03_04/Cr_fixed_path_representative_profiles.tsv",
+        WILEY / "analysis/neb_cross_element_triptychs_20261024/data/Cr_fixed_path_representative_profiles.tsv",
+    ))
 
 
 def profile_lookup(rows: list[dict[str, str]], path_key: str) -> dict[str, list[dict[str, str]]]:
@@ -1152,7 +1209,9 @@ def fig5(out: Path) -> tuple[dict[str, str], list[Path]]:
 
 
 def fig6(out: Path) -> tuple[dict[str, str], list[Path]]:
-    root=WILEY/"analysis/md_1ns_updated_publication_figure_20261025"; status_path=root/"MD15_FIGURE_DATA_R06G.tsv"; analysis=root/"md15_analysis_r03"
+    external_root = WILEY / "analysis/md_1ns_updated_publication_figure_20261025"
+    status_path = packaged_data("figure06/MD15_FIGURE_DATA_R06G.tsv", external_root / "MD15_FIGURE_DATA_R06G.tsv")
+    analysis = packaged_dir("figure06/md15_analysis_r03", external_root / "md15_analysis_r03")
     status=read_rows(status_path); by_id={r["model_id"]:r for r in status}
     fig=plt.figure(figsize=(18.0,12.0)); gs=fig.add_gridspec(2,3,hspace=.66,wspace=.42)
     axa,axb,axc=[fig.add_subplot(gs[0,i]) for i in range(3)]; axd,axe,axf=[fig.add_subplot(gs[1,i]) for i in range(3)]
@@ -1328,7 +1387,10 @@ def write_tables(out: Path) -> list[Path]:
     for key in ("within_gap","gap_to_ql","within_ql"):
         summary=class_profile_summary(self_rows,key,["MACE-MP","MACE-OMAT-0","MACE-MH"])
         self_counts.append(key+": "+"; ".join(f"{group} n={int(summary[group]['n'])}" for group in ["MACE-MP","MACE-OMAT-0","MACE-MH"] if group in summary))
-    md_status=read_rows(WILEY/"analysis/md_1ns_updated_publication_figure_20261025/MD15_FIGURE_DATA_R06G.tsv")
+    md_status=read_rows(packaged_data(
+        "figure06/MD15_FIGURE_DATA_R06G.tsv",
+        WILEY/"analysis/md_1ns_updated_publication_figure_20261025/MD15_FIGURE_DATA_R06G.tsv",
+    ))
     md_counts=Counter(r.get("family","") for r in md_status)
     audit_rows=[
         ["figure/panels","source","replicate unit and grouping","uncertainty encoding","observed counts","missingness/outlier rule","visual/data acceptance gate"],
@@ -1361,8 +1423,8 @@ def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources:
         "revision":"R06_clean_raw_pca",
         "status":"REVIEW_PACKAGE_NOT_SCIENTIFIC_ACCEPTANCE",
         "generated_by":str(Path(__file__).resolve()),
-        "source_root":str(WILEY),
-        "style_source":str(WILEY / "analysis/sliding_four_model_campaign_20261024/config/FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json"),
+        "source_root":str(PACKAGE_ROOT),
+        "style_source":str(STYLE_SOURCE),
         "visual_grammar": {
             "font_family": "Arial",
             "editable_outputs": ["pdf", "svg"],
@@ -1400,6 +1462,7 @@ def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources:
             "path_lines": "not rendered in the clean primary PCA panel because the complete MD/NEB path set creates a spiderweb; source-provided path_key rows remain available in the embedding audit and manifest-linked source table",
             "foreground_point_splits": ["train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer"],
             "task_marker_legend": {
+                "encoding": "task color plus established task-shape key; actual foreground point shape is source split",
                 "L0 DFT Reference": "o",
                 "L1 Thermal Equilibrium": "^",
                 "L2 NEB Migration": "D",
@@ -1412,10 +1475,10 @@ def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources:
             },
             "marker_area": "distance_to_training, percentile-normalized; larger area means farther feature-space OOD",
             "point_hue": "task group color, matching the original R03 Figure 1A grammar",
-            "point_shape": "task group marker; source-split coverage remains explicit in panel C",
+            "point_shape": "source split marker in panel A: train=o, valid=^, test=s; md_sample=o, dft_neb=D, dft_interlayer=P",
             "not_confounded_with": "rms_delta_A remains a structural Cr-shell distortion field in the source table and is not relabelled as OOD"
         },
-        "notes":["This is an additive pre-import review package; the source PR and historical figure outputs are not overwritten.","All blocked panels are explicit placeholders; no synthetic observations are used.","SCF-warning, endpoint-only proxy, legacy and provisional states remain separate.","Every aggregate line panel uses a finite replicate ensemble with a shaded mean ± sample SD band; every aggregate bar panel uses mean ± sample SD whiskers.","Figure 1A retains the source-provided raw SOAP/PCA coordinates and the first-version foreground point contract: MLIP self-relaxed NEB/sliding rows remain complete in panel C but are not rendered as hundreds of foreground scatter markers.","The clean primary PCA panel omits the full source path-line set to avoid a spiderweb; path-aware diagnostics remain in the source table and pre-cleanup snapshot.","Superseded UMAP and t-SNE candidates are preserved only in the pre-cleanup snapshot commit; no post-hoc task translation is used in the canonical PCA panel.","Figure 1A point area uses distance_to_training for OOD and does not relabel Cr-shell structural distortion as OOD.","Figure 2 C/F clusters are sourced from the complete parity summary; one provider-backed auxiliary frame archive is omitted only from the non-summary scatter layer.","Figure 6 B/C remain complete for all five families and 15 model IDs from the status table; provider-backed auxiliary line files are omitted only where they do not materialize locally.","The selected-figure build intentionally does not create the full-package tables directory; use the PR package manifest and source hashes for provenance."]
+        "notes":["This is an additive pre-import review package; the source PR and historical figure outputs are not overwritten.","All blocked panels are explicit placeholders; no synthetic observations are used.","SCF-warning, endpoint-only proxy, legacy and provisional states remain separate.","Every aggregate line panel uses a finite replicate ensemble with a shaded mean ± sample SD band; every aggregate bar panel uses mean ± sample SD whiskers.","Figure 1A retains the source-provided raw SOAP/PCA coordinates and the first-version foreground point contract: MLIP self-relaxed NEB/sliding rows remain complete in panel C but are not rendered as hundreds of foreground scatter markers.","The clean primary PCA panel omits the full source path-line set to avoid a spiderweb; path-aware diagnostics remain in the source table and pre-cleanup snapshot.","Superseded UMAP and t-SNE candidates are preserved only in the pre-cleanup snapshot commit; no post-hoc task translation is used in the canonical PCA panel.","Figure 1A point area uses distance_to_training for OOD and does not relabel Cr-shell structural distortion as OOD.","Figure 1A uses task color plus source-split point shape in the actual foreground cloud: train circles, valid triangles, and test squares.","Figure 2 C/F clusters are sourced from the complete parity summary; one provider-backed auxiliary frame archive is omitted only from the non-summary scatter layer.","Figure 6 B/C remain complete for all five families and 15 model IDs from the status table; provider-backed auxiliary line files are omitted only where they do not materialize locally.","The selected-figure build intentionally does not create the full-package tables directory; use the PR package manifest and source hashes for provenance."]
     }
     p=out/"manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json"; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+"\n"); return p
 
