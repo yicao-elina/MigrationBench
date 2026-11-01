@@ -16,6 +16,7 @@ from matplotlib.lines import Line2D
 from build_atomic_migration_figures import (
     AXIS_LABEL_SIZE,
     LEGEND_SIZE,
+    TASK_MARKERS,
     TASK_GROUPS,
     _add_task_hulls,
     _ood_marker_sizes,
@@ -35,8 +36,7 @@ GROUP_COLORS = {
     "L2 NEB Migration": "#C4547A",
     "L3 Layer Sliding": "#E68F1D",
 }
-MARKERS = {"train": ".", "valid": "^", "test": "s", "md_sample": "o", "dft_neb": "D", "dft_interlayer": "P"}
-VISIBLE_SPLITS = set(MARKERS)
+VISIBLE_SPLITS = ("train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer")
 
 
 def main() -> None:
@@ -52,7 +52,7 @@ def main() -> None:
     fig.subplots_adjust(left=0.17, right=0.98, bottom=0.29, top=0.88)
     _add_task_hulls(ax, visible_rows)
     for task in TASK_GROUPS:
-        for split, marker in MARKERS.items():
+        for split in VISIBLE_SPLITS:
             sub = [row for row in visible_rows if row.get("task_group") == task and row.get("split") == split]
             if not sub:
                 continue
@@ -62,16 +62,18 @@ def main() -> None:
             finite = np.isfinite(x) & np.isfinite(y) & np.isfinite(size)
             if not finite.any():
                 continue
+            marker = TASK_MARKERS[task]
+            dense_split = split in {"train", "valid", "test"}
             ax.scatter(
                 x[finite],
                 y[finite],
                 s=size[finite],
                 marker=marker,
                 color=GROUP_COLORS[task],
-                alpha=0.28 if marker == "." else 0.78,
-                linewidths=0.22 if marker != "." else 0.0,
-                edgecolors="white" if marker != "." else "none",
-                zorder=2 if marker == "." else 3,
+                alpha=0.28 if dense_split else 0.78,
+                linewidths=0.12 if dense_split else 0.22,
+                edgecolors="white",
+                zorder=2 if dense_split else 3,
             )
 
     plotted = np.asarray([[f(row, "x_pca"), f(row, "y_pca")] for row in visible_rows], dtype=float)
@@ -85,7 +87,13 @@ def main() -> None:
     ax.set_title("A  Configuration universe", loc="left")
     style_ax(ax)
 
-    task_handles = [Line2D([], [], marker="o", linestyle="", color=GROUP_COLORS[task], label=task, markersize=7) for task in TASK_GROUPS]
+    task_handles = [
+        Line2D(
+            [], [], marker=TASK_MARKERS[task], linestyle="", color=GROUP_COLORS[task],
+            markeredgecolor="white", label=task, markersize=8.5,
+        )
+        for task in TASK_GROUPS
+    ]
     size_handles = [
         Line2D([], [], marker="o", linestyle="", color="#555555", markerfacecolor="#555555", markeredgecolor="white", markersize=float(np.sqrt(size)), label=label)
         for size, label in zip([18.0, 70.0, 190.0], ["near train", "intermediate", "far OOD"])
@@ -96,7 +104,7 @@ def main() -> None:
         fontsize=LEGEND_SIZE,
         ncol=2,
         loc="upper left",
-        bbox_to_anchor=(0.0, -0.24),
+        bbox_to_anchor=(0.0, -0.25),
         borderaxespad=0.0,
         handletextpad=0.45,
         columnspacing=0.9,

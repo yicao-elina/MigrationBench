@@ -87,6 +87,12 @@ SERIES_MARKERS = {
 # slide-1 source.  These are task-map colors, not the frozen model-family
 # palette above; the latter remains unchanged in Figures 2--7.
 TASK_GROUPS = ["L0 DFT Reference", "L1 Thermal Equilibrium", "L2 NEB Migration", "L3 Layer Sliding"]
+TASK_MARKERS = {
+    "L0 DFT Reference": "o",
+    "L1 Thermal Equilibrium": "^",
+    "L2 NEB Migration": "D",
+    "L3 Layer Sliding": "P",
+}
 TASK_MAP_COLORS = {
     "L0 DFT Reference": "#6E8793",
     "L1 Thermal Equilibrium": "#7658C7",
@@ -672,8 +678,7 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
     # task anchors, per-task translations, rank equalization, or aspect-ratio
     # manipulation is applied.  Optional UMAP/t-SNE candidates are rendered in
     # a separate comparison package and must not be mistaken for PCA.
-    markers = {"train": ".", "valid": "^", "test": "s", "md_sample": "o", "dft_neb": "D", "dft_interlayer": "P", "mlip_self_neb": "X", "mlip_interlayer_self": "P"}
-    split_order = list(markers)
+    split_order = ["train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer", "mlip_self_neb", "mlip_interlayer_self"]
     # Match the first Figure 1A point-cloud contract: direct reference/MD/DFT
     # rows are shown as points; MLIP self-relaxed NEB/sliding rows remain
     # available as complete source-provided paths and in panel C, but are not
@@ -695,24 +700,31 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
             finite = np.isfinite(x) & np.isfinite(y) & np.isfinite(size)
             if not finite.any():
                 continue
-            marker = markers[split]
+            marker = TASK_MARKERS[task]
+            dense_split = split in {"train", "valid", "test"}
             ax.scatter(
                 x[finite],
                 y[finite],
                 s=size[finite],
                 marker=marker,
                 color=group_colors[task],
-                alpha=0.28 if marker == "." else 0.78,
-                linewidths=0.22 if marker != "." else 0.0,
-                edgecolors="white" if marker != "." else "none",
-                zorder=2 if marker == "." else 3,
+                alpha=0.28 if dense_split else 0.78,
+                linewidths=0.12 if dense_split else 0.22,
+                edgecolors="white",
+                zorder=2 if dense_split else 3,
             )
 
     ax.set_xlabel("SOAP PCA 1")
     ax.set_ylabel("SOAP PCA 2")
     ax.set_title("A  Configuration universe", loc="left")
     style_ax(ax)
-    task_handles = [Line2D([], [], marker="o", linestyle="", color=group_colors[task], label=task, markersize=7) for task in TASK_GROUPS]
+    task_handles = [
+        Line2D(
+            [], [], marker=TASK_MARKERS[task], linestyle="", color=group_colors[task],
+            markeredgecolor="white", label=task, markersize=8.5,
+        )
+        for task in TASK_GROUPS
+    ]
     q50 = float(np.nanpercentile([f(row, "distance_to_training") for row in rows], 50))
     q90 = float(np.nanpercentile([f(row, "distance_to_training") for row in rows], 90))
     size_values = [0.0, q50, q90]
@@ -736,7 +748,7 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
         fontsize=LEGEND_SIZE,
         ncol=3,
         loc="upper left",
-        bbox_to_anchor=(0.0, -0.22),
+        bbox_to_anchor=(0.0, -0.23),
         borderaxespad=0.0,
         handlelength=1.1,
         columnspacing=0.8,
@@ -1321,6 +1333,16 @@ def write_tables(out: Path) -> list[Path]:
 
 
 def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources: list[Path]) -> Path:
+    manifest_figures = dict(figure_assets)
+    standalone = out / "figures"
+    standalone_assets = {
+        "builder": "docs/reproducibility/canva_figure_provenance/scripts/build_figure01a_clean_panel.py",
+        "png": str(standalone / "figure01a_clean_raw_pca.png"),
+        "pdf": str(standalone / "figure01a_clean_raw_pca.pdf"),
+        "svg": str(standalone / "figure01a_clean_raw_pca.svg"),
+    }
+    if all(Path(path).exists() for key, path in standalone_assets.items() if key != "builder"):
+        manifest_figures["figure01a_standalone"] = standalone_assets
     manifest={
         "schema_version":"atomic_migration_blueprint_figure_package_v1",
         "revision":"R06_clean_raw_pca",
@@ -1354,7 +1376,7 @@ def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources:
         "model_palette": COLORS,
         "model_markers": MODEL_MARKERS,
         "series_markers": SERIES_MARKERS,
-        "figures":figure_assets,
+        "figures":manifest_figures,
         "source_hashes":{str(p):sha256(p) for p in sources if p.exists()},
         "figure1a_coordinate_semantics": {
             "source_table": "comprehensive_task_map_points.csv",
@@ -1364,11 +1386,18 @@ def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources:
             "task_clusters": "very light convex hulls over the direct point rows shown in panel A, shown only as a visual aid and not used to move points",
             "path_lines": "not rendered in the clean primary PCA panel because the complete MD/NEB path set creates a spiderweb; source-provided path_key rows remain available in the embedding audit and manifest-linked source table",
             "foreground_point_splits": ["train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer"],
+            "task_marker_legend": {
+                "L0 DFT Reference": "o",
+                "L1 Thermal Equilibrium": "^",
+                "L2 NEB Migration": "D",
+                "L3 Layer Sliding": "P"
+            },
             "marker_area": "distance_to_training, percentile-normalized; larger area means farther feature-space OOD",
             "point_hue": "task group color, matching the original R03 Figure 1A grammar",
+            "point_shape": "task group marker; source-split coverage remains explicit in panel C",
             "not_confounded_with": "rms_delta_A remains a structural Cr-shell distortion field in the source table and is not relabelled as OOD"
         },
-        "notes":["This is an additive pre-import review package; the source PR and historical figure outputs are not overwritten.","All blocked panels are explicit placeholders; no synthetic observations are used.","SCF-warning, endpoint-only proxy, legacy and provisional states remain separate.","Every aggregate line panel uses a finite replicate ensemble with a shaded mean ± sample SD band; every aggregate bar panel uses mean ± sample SD whiskers.","Figure 1A retains the source-provided raw SOAP/PCA coordinates and the first-version foreground point contract: MLIP self-relaxed NEB/sliding rows remain complete in panel C but are not rendered as hundreds of foreground scatter markers.","The clean primary PCA panel omits the full source path-line set to avoid a spiderweb; path-aware diagnostics remain in the separate embedding audit.","Existing UMAP and t-SNE coordinates are compared separately in the R05 embedding audit; no post-hoc task translation is used.","Figure 1A point area uses distance_to_training for OOD and does not relabel Cr-shell structural distortion as OOD.","Figure 2 C/F clusters are sourced from the complete parity summary; one provider-backed auxiliary frame archive is omitted only from the non-summary scatter layer.","Figure 6 B/C remain complete for all five families and 15 model IDs from the status table; provider-backed auxiliary line files are omitted only where they do not materialize locally.","The selected-figure build intentionally does not create the full-package tables directory; use the PR package manifest and source hashes for provenance."]
+        "notes":["This is an additive pre-import review package; the source PR and historical figure outputs are not overwritten.","All blocked panels are explicit placeholders; no synthetic observations are used.","SCF-warning, endpoint-only proxy, legacy and provisional states remain separate.","Every aggregate line panel uses a finite replicate ensemble with a shaded mean ± sample SD band; every aggregate bar panel uses mean ± sample SD whiskers.","Figure 1A retains the source-provided raw SOAP/PCA coordinates and the first-version foreground point contract: MLIP self-relaxed NEB/sliding rows remain complete in panel C but are not rendered as hundreds of foreground scatter markers.","The clean primary PCA panel omits the full source path-line set to avoid a spiderweb; path-aware diagnostics remain in the source table and pre-cleanup snapshot.","Superseded UMAP and t-SNE candidates are preserved only in the pre-cleanup snapshot commit; no post-hoc task translation is used in the canonical PCA panel.","Figure 1A point area uses distance_to_training for OOD and does not relabel Cr-shell structural distortion as OOD.","Figure 2 C/F clusters are sourced from the complete parity summary; one provider-backed auxiliary frame archive is omitted only from the non-summary scatter layer.","Figure 6 B/C remain complete for all five families and 15 model IDs from the status table; provider-backed auxiliary line files are omitted only where they do not materialize locally.","The selected-figure build intentionally does not create the full-package tables directory; use the PR package manifest and source hashes for provenance."]
     }
     p=out/"manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json"; p.parent.mkdir(parents=True,exist_ok=True); p.write_text(json.dumps(manifest,indent=2,ensure_ascii=False)+"\n"); return p
 
