@@ -1,0 +1,54 @@
+{
+  "input_sha256": "cbf62a71ac637da217725d9e92bf13458cad1e2caeb20398ca7b1bdf116a97e4",
+  "records": 120,
+  "quantitative_circles": 120,
+  "source_status_counts": {
+    "FINITE_DIAGNOSTIC": 75,
+    "CONVERGED": 42,
+    "NONCONVERGED": 3
+  },
+  "raw_energy_range_eV": [
+    0.0,
+    26.541890718987705
+  ],
+  "absolute_error_range_eV": [
+    0.0,
+    24.696990718987703
+  ],
+  "recomputed_errors_match": true,
+  "color_clipped": 0,
+  "size_clipped": 0,
+  "reference_eV": {
+    "migration_in_gap_fixed": 1.524299,
+    "migration_gap_to_ql_fixed": 0.0,
+    "migration_within_ql_fixed": 1.8449,
+    "migration_in_gap_self": 1.524299,
+    "migration_gap_to_ql_self": 0.0,
+    "migration_within_ql_self": 1.8449,
+    "sliding_pristine_fixed": 1.653834726,
+    "sliding_cr_in_gap_fixed": 2.5708301675
+  },
+  "size_mapping": {
+    "quantity": "absolute_error_eV",
+    "range_eV": [
+      0,
+      25
+    ],
+    "mapping": "s = s_min + (s_max - s_min) * sqrt(error / 25 eV)",
+    "note": "s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle",
+    "diameter_relative_to_row_pitch": {
+      "minimum": 0.2,
+      "maximum": 0.82
+    }
+  },
+  "color_mapping": {
+    "quantity": "predicted_value_eV",
+    "range_eV": [
+      0,
+      27
+    ],
+    "transform": "PowerNorm gamma=0.40",
+    "palette": "light blue to cyan blue to dark navy; zero is pale blue and still visible"
+  },
+  "product_rendering": "All finite source values rendered directly; source statuses are provenance only."
+}

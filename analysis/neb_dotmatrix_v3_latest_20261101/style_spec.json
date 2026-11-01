@@ -1,0 +1,60 @@
+{
+  "width_mm": 183,
+  "main_height_mm": 250,
+  "standalone_matrix_height_mm": 171,
+  "font": "Helvetica (Helvetica-compatible)",
+  "type_pt": {
+    "panel_letter": 12,
+    "panel_title": 10,
+    "matrix_row": 9,
+    "matrix_column": 8.2,
+    "legend_heading": 9.5,
+    "legend_text": 9,
+    "axes": 9.2,
+    "tick": 8.5
+  },
+  "strategy_colors": {
+    "Foundation": "#95d1b1",
+    "Fine-tuning": "#36b3c0",
+    "Scratch": "#2f83b8"
+  },
+  "task_colors": [
+    "#fabab9",
+    "#f26ea6",
+    "#74297e"
+  ],
+  "color_encoding": {
+    "quantity": "predicted_value_eV",
+    "range_eV": [
+      0,
+      27
+    ],
+    "transform": "PowerNorm gamma=0.40",
+    "palette": "light blue to cyan blue to dark navy; zero is pale blue and still visible"
+  },
+  "size_encoding": {
+    "quantity": "absolute_error_eV",
+    "range_eV": [
+      0,
+      25
+    ],
+    "mapping": "s = s_min + (s_max - s_min) * sqrt(error / 25 eV)",
+    "note": "s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle",
+    "diameter_relative_to_row_pitch": {
+      "minimum": 0.2,
+      "maximum": 0.82
+    }
+  },
+  "status_handling": "All 120 supplied finite observations are rendered as product metrics using quantitative color and area. Original run status remains in plotted_values.tsv and audit.json for provenance.",
+  "matrix_coordinate_limits": {
+    "x": [
+      -4.1,
+      13.25
+    ],
+    "y": [
+      18.4,
+      -3.9
+    ]
+  },
+  "quantitative_scatter_area_pt2": 44
+}
