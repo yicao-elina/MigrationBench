@@ -24,8 +24,8 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from matplotlib.colors import Normalize, TwoSlopeNorm
-from matplotlib.patches import Rectangle, Wedge
+from matplotlib.colors import Normalize, PowerNorm, TwoSlopeNorm
+from matplotlib.patches import Circle, Rectangle, Wedge
 from scipy.cluster.hierarchy import dendrogram, leaves_list, linkage
 from scipy.spatial.distance import pdist
 
@@ -531,29 +531,56 @@ def render_total_performance_heatmap(
     out_dir: Path,
     seed_expanded: pd.DataFrame | None = None,
 ) -> list[Path]:
-    """Render predicted-energy color bubbles and an error-sized companion figure.
+    """Render raw-energy color bubbles and an error-sized companion figure.
 
-    Color is the column-normalized predicted energy value. Bubble area is the
-    absolute predicted-energy error in eV. Aggregate trained-family bubbles
-    retain three seed-colored wedges, while the seed-expanded companion has
-    one full bubble per seed/checkpoint.
+    Color is the original predicted barrier/peak energy in eV on one global
+    power scale (gamma=0.40), so low-energy cells retain resolution without
+    column-wise normalization.  Bubble radius is determined by absolute
+    predicted-energy error.  The aggregate view retains three seed wedges;
+    the seed-expanded view has one circle per seed/checkpoint.
     """
     _publication_style()
     required = {
         "row_id", "row_label", "model_kind", "column_id", "column_label",
-        "task_block", "predicted_value_eV", "error_eV", "value_color_01",
+        "task_block", "predicted_value_eV", "error_eV", "color_value_eV",
     }
     missing = sorted(required - set(total_metrics.columns))
     if missing:
         raise ValueError(f"dot performance table lacks required columns: {', '.join(missing)}")
 
-    def _render(table: pd.DataFrame, stem: Path, split_seeds: bool) -> Path:
+    def _model_group(row_id: str) -> str:
+        if row_id.startswith("Scratch-"):
+            return "Scratch"
+        if row_id.startswith("FT-"):
+            return "Fine-tuning"
+        return "Foundation"
+
+    def _display_label(row_id: str, model_kind: str) -> str:
+        if model_kind not in {"trained_seed", "trained_family"}:
+            return row_id
+        family, separator, seed = row_id.partition(" / ")
+        short_family = family.removeprefix("Scratch-").removeprefix("FT-")
+        return f"{short_family} / {seed}" if separator else short_family
+
+    def _group_ranges(row_order: list[str]) -> list[tuple[int, int, str]]:
+        groups: list[tuple[int, int, str]] = []
+        start = 0
+        while start < len(row_order):
+            label = _model_group(row_order[start])
+            end = start + 1
+            while end < len(row_order) and _model_group(row_order[end]) == label:
+                end += 1
+            groups.append((start, end, label))
+            start = end
+        return groups
+
+    def _render(table: pd.DataFrame, stem: Path, aggregate_view: bool) -> Path:
         table = table.copy()
         table["row_id"] = table["row_id"].astype(str)
         table["column_id"] = table["column_id"].astype(str)
         column_order = [column for column in TOTAL_COLUMN_ORDER if column in set(table["column_id"])]
         row_order = list(dict.fromkeys(table["row_id"]))
-        colors = table.pivot(index="row_id", columns="column_id", values="value_color_01").reindex(
+        color_values = table.pivot(index="row_id", columns="column_id", values="color_value_eV").reindex(
             index=row_order, columns=column_order
         )
         errors = table.pivot(index="row_id", columns="column_id", values="error_eV").reindex(
@@ -563,159 +590,136 @@ def render_total_performance_heatmap(
         row_kinds = table.drop_duplicates("row_id").set_index("row_id")["model_kind"].reindex(row_order)
         labels = table.drop_duplicates("column_id").set_index("column_id")["column_label"].reindex(column_order).tolist()
         nrows = len(row_order)
-        height = 8.8 if not split_seeds else 18.2
-        height_ratios = (0.24, 0.17, 1.0) if not split_seeds else (0.35, 0.25, 1.0)
-        fig = plt.figure(figsize=(15.8, height), layout="constrained")
+        width, height = (10.6, 10.8) if aggregate_view else (10.6, 18.4)
+        # The vertical eV colorbar is the sole color legend.  Keeping only one
+        # color legend gives the size/wedge key enough room and lets the matrix
+        # rather than header whitespace own the companion figure.
+        height_ratios = (0.15, 0.12, 1.0) if aggregate_view else (0.13, 0.10, 1.0)
+        fig = plt.figure(figsize=(width, height), layout="constrained")
         grid = fig.add_gridspec(
-            3, 6, height_ratios=height_ratios,
-            width_ratios=(0.58, 2.45, 0.16, 7.4, 0.82, 0.16),
-            hspace=0.02, wspace=0.035,
+            3, 5, height_ratios=height_ratios,
+            width_ratios=(0.56, 1.72, 7.35, 0.50, 0.10),
+            hspace=0.025, wspace=0.025,
         )
-        ax_size = fig.add_subplot(grid[0, 0:2])
-        ax_color = fig.add_subplot(grid[0, 3:5])
-        ax_group = fig.add_subplot(grid[1, 3:5])
+        ax_size = fig.add_subplot(grid[0, 0:3])
+        ax_group = fig.add_subplot(grid[1, 2:4])
         ax_row_header = fig.add_subplot(grid[1, 1])
         ax_model_group = fig.add_subplot(grid[2, 0])
         ax_labels = fig.add_subplot(grid[2, 1])
-        ax = fig.add_subplot(grid[2, 3])
-        ax_cbar = fig.add_subplot(grid[2, 4])
+        ax = fig.add_subplot(grid[2, 2])
+        ax_cbar = fig.add_subplot(grid[2, 3])
 
         error_values = pd.to_numeric(errors.stack(), errors="coerce")
         finite_errors = error_values[np.isfinite(error_values)]
         error_max = max(0.05, float(finite_errors.max())) if len(finite_errors) else 1.0
+        raw_energy_values = pd.to_numeric(color_values.stack(), errors="coerce")
+        finite_energies = raw_energy_values[np.isfinite(raw_energy_values)]
+        if len(finite_energies) == 0:
+            raise ValueError("total-performance plot requires at least one finite predicted energy")
+        color_max = float(np.ceil(float(finite_energies.max())))
+        color_norm = PowerNorm(gamma=0.40, vmin=0.0, vmax=max(0.05, color_max))
 
         def _radius(error: float) -> float:
             if not np.isfinite(error):
                 return 0.0
             fraction = np.clip(float(error) / error_max, 0.0, 1.0)
-            return 0.11 + 0.23 * np.sqrt(fraction)
+            return 0.09 + 0.27 * np.sqrt(fraction)
 
-        ax_size.set_xlim(0, 8.8)
+        ax_size.set_xlim(0, 10.0)
         ax_size.set_ylim(0, 1)
         ax_size.axis("off")
-        ax_size.text(0.0, 0.82, "Size = absolute\nenergy error (eV)", ha="left", va="center", fontsize=12.7, fontweight="bold")
-        for position, fraction, label in zip((0.8, 2.4, 4.0), (0.0, 0.5, 1.0), ("0", f"{error_max / 2:.2f}", f"{error_max:.2f}")):
+        ax_size.text(0.0, 0.82, "Circle size = absolute energy error", ha="left", va="center", fontsize=11.0, fontweight="bold")
+        for position, fraction, label in zip((1.10, 3.15, 5.20), (0.0, 0.5, 1.0), ("0", f"{error_max / 2:.2f}", f"{error_max:.2f}")):
             radius = _radius(fraction * error_max)
-            ax_size.scatter(position, 0.36, s=48 + 1250 * radius**2, color="#111111", edgecolors="none")
-            ax_size.text(position, 0.04, f"{label} eV", ha="center", va="bottom", fontsize=11.7)
-        if split_seeds:
-            ax_size.text(5.25, 0.82, "Seed wedges", ha="left", va="center", fontsize=12.7, fontweight="bold")
-            center = (5.42, 0.36)
+            ax_size.scatter(position, 0.36, s=42 + 880 * radius**2, color="#111111", edgecolors="none")
+            ax_size.text(position, 0.04, f"{label} eV", ha="center", va="bottom", fontsize=9.1)
+        if aggregate_view:
+            ax_size.text(6.65, 0.82, "Aggregate seed wedges", ha="left", va="center", fontsize=10.4, fontweight="bold")
+            center = (7.00, 0.36)
             for start, end in ((90, 210), (210, 330), (330, 450)):
                 ax_size.add_patch(Wedge(center, 0.22, start, end, facecolor="#777777", edgecolor="white", linewidth=0.8))
-            ax_size.text(5.85, 0.36, "s123  ·  s234  ·  s345", ha="left", va="center", fontsize=11.7)
+            ax_size.text(7.40, 0.36, "s123  ·  s234  ·  s345", ha="left", va="center", fontsize=9.4)
         else:
-            ax_size.text(5.25, 0.36, "one circle = one seed/checkpoint", ha="left", va="center", fontsize=11.7, color="#444444")
-
-        ax_color.set_axis_off()
-        gradient = np.linspace(0, 1, 256)[np.newaxis, :]
-        ax_color.imshow(gradient, aspect="auto", cmap="plasma", extent=(0, 1, 0.30, 0.58))
-        ax_color.text(0.0, 0.04, "Low predicted energy", ha="left", va="bottom", fontsize=11.7)
-        ax_color.text(1.0, 0.04, "High predicted energy", ha="right", va="bottom", fontsize=11.7)
-        ax_color.text(0.0, 0.84, "Color = column-normalized predicted energy value [0, 1]", ha="left", va="center", fontsize=12.7, fontweight="bold")
+            ax_size.text(6.75, 0.36, "one circle = one seed/checkpoint", ha="left", va="center", fontsize=10.0, color="#444444")
 
         ax_group.set_xlim(0, len(column_order))
         ax_group.set_ylim(0, 1)
         group_specs = [(0, 3, "Migration / fixed pathway"), (3, 6, "Migration / self-relaxed"), (6, 8, "Sliding")]
         for start, end, label in group_specs:
             if end <= len(column_order):
-                ax_group.plot([start + 0.03, end - 0.03], [0.20, 0.20], color="#111111", linewidth=3.2, solid_capstyle="butt")
-                ax_group.text((start + end) / 2, 0.72, label, ha="center", va="center", fontsize=13.2, fontweight="bold")
+                ax_group.plot([start + 0.04, end - 0.04], [0.20, 0.20], color="#111111", linewidth=2.5, solid_capstyle="butt")
+                ax_group.text((start + end) / 2, 0.72, label, ha="center", va="center", fontsize=11.4, fontweight="bold")
         ax_group.axis("off")
         ax_row_header.axis("off")
-        ax_row_header.text(1.0, 0.20, "Model", ha="right", va="center", fontsize=13.0, fontweight="bold")
+        ax_row_header.text(0.0, 0.20, "Model", ha="left", va="center", fontsize=11.4, fontweight="bold")
 
         ax_model_group.set_xlim(0, 1)
         ax_model_group.set_ylim(nrows, 0)
-        group_rows = (
-            [(0, 2, "Scratch"), (2, 4, "FT"), (4, 7, "Foundation")]
-            if split_seeds
-            else [(0, 6, "Scratch"), (6, 12, "FT"), (12, 15, "Foundation")]
-        )
-        for start, end, label in group_rows:
-            if end > nrows:
-                continue
+        for start, end, label in _group_ranges(row_order):
             top = start + 0.10
             bottom = end - 0.10
-            ax_model_group.plot([0.68, 0.68], [top, bottom], color="#111111", linewidth=3.0, solid_capstyle="butt")
-            ax_model_group.plot([0.36, 0.68], [top, top], color="#111111", linewidth=3.0, solid_capstyle="butt")
-            ax_model_group.plot([0.36, 0.68], [bottom, bottom], color="#111111", linewidth=3.0, solid_capstyle="butt")
-            ax_model_group.text(0.10, (start + end) / 2, label, ha="center", va="center", rotation=90, fontsize=12.2, fontweight="bold")
+            ax_model_group.plot([0.93, 0.93], [top, bottom], color="#111111", linewidth=2.4, solid_capstyle="butt")
+            ax_model_group.plot([0.67, 0.93], [top, top], color="#111111", linewidth=2.4, solid_capstyle="butt")
+            ax_model_group.plot([0.67, 0.93], [bottom, bottom], color="#111111", linewidth=2.4, solid_capstyle="butt")
+            ax_model_group.text(0.31, (start + end) / 2, label, ha="center", va="center", rotation=90, fontsize=10.9, fontweight="bold")
         ax_model_group.axis("off")
 
         ax_labels.set_xlim(0, 1)
         ax_labels.set_ylim(nrows, 0)
-        for index, label in enumerate(row_labels.tolist()):
-            kind = row_kinds.iloc[index]
+        for index, row_id in enumerate(row_order):
+            kind = str(row_kinds.iloc[index])
+            label = _display_label(row_id, kind)
             weight = "bold" if kind in {"trained_family", "foundation_checkpoint"} else "normal"
-            ax_labels.text(1.0, index + 0.5, str(label), ha="right", va="center", fontsize=12.6 if split_seeds else 12.2, fontweight=weight)
+            ax_labels.text(0.0, index + 0.5, label, ha="left", va="center", fontsize=10.9, fontweight=weight)
         ax_labels.axis("off")
 
-        color_values = colors.to_numpy(float)
+        color_matrix = color_values.to_numpy(float)
         error_matrix = errors.to_numpy(float)
-        cmap = plt.get_cmap("plasma")
-        seed_color_cols = [f"value_color_seed_{seed}" for seed in (123, 234, 345)]
+        cmap = plt.get_cmap("plasma_r")
+        seed_color_cols = [f"color_value_seed_{seed}_eV" for seed in (123, 234, 345)]
         for row_index, row_id in enumerate(row_order):
             for col_index, column_id in enumerate(column_order):
-                color_value = color_values[row_index, col_index]
+                color_value = color_matrix[row_index, col_index]
                 error_value = error_matrix[row_index, col_index]
                 if not np.isfinite(color_value) or not np.isfinite(error_value):
                     continue
                 radius = _radius(error_value)
-                if split_seeds and row_kinds.iloc[row_index] == "trained_family" and all(col in table.columns for col in seed_color_cols):
+                if aggregate_view and row_kinds.iloc[row_index] == "trained_family" and all(col in table.columns for col in seed_color_cols):
                     cell = table.loc[(table["row_id"] == row_id) & (table["column_id"] == column_id)].iloc[0]
                     for start, end, color_col in zip((90, 210, 330), (210, 330, 450), seed_color_cols):
                         seed_color = pd.to_numeric(pd.Series([cell.get(color_col)]), errors="coerce").iloc[0]
                         seed_color = float(seed_color) if pd.notna(seed_color) and np.isfinite(float(seed_color)) else np.nan
-                        color = cmap(seed_color) if np.isfinite(seed_color) else "#E6E6E6"
+                        color = cmap(color_norm(seed_color)) if np.isfinite(seed_color) else "#E6E6E6"
                         ax.add_patch(Wedge((col_index + 0.5, row_index + 0.5), radius, start, end, facecolor=color, edgecolor="white", linewidth=0.75, zorder=3))
                     ax.add_patch(Wedge((col_index + 0.5, row_index + 0.5), radius, 90, 450, facecolor="none", edgecolor="#222222", linewidth=0.45, zorder=4))
-                elif split_seeds:
-                    ax.add_patch(Wedge((col_index + 0.5, row_index + 0.5), radius, 0, 360, facecolor=cmap(color_value), edgecolor="none", zorder=3))
                 else:
-                    fraction = np.clip(float(error_value) / error_max, 0.0, 1.0)
-                    ax.scatter(
-                        col_index + 0.5,
-                        row_index + 0.5,
-                        s=55 + 1120 * np.sqrt(fraction),
-                        color=cmap(color_value),
-                        edgecolors="none",
-                        zorder=3,
-                    )
+                    ax.add_patch(Circle((col_index + 0.5, row_index + 0.5), radius, facecolor=cmap(color_norm(color_value)), edgecolor="none", zorder=3))
         ax.set_xlim(0, len(column_order))
         ax.set_ylim(nrows, 0)
-        ax.set_aspect("equal" if split_seeds else "auto", adjustable="box")
-        ax.set_xticks(np.arange(len(column_order)) + 0.5, labels, rotation=48, ha="right", rotation_mode="anchor", fontsize=12.3, fontweight="bold")
+        ax.set_aspect("equal", adjustable="box")
+        ax.set_xticks(np.arange(len(column_order)) + 0.5, labels, rotation=48, ha="right", rotation_mode="anchor", fontsize=10.9, fontweight="bold")
         ax.xaxis.tick_top()
-        ax.tick_params(axis="x", length=0, pad=8)
+        ax.tick_params(axis="x", length=0, pad=6)
         ax.set_yticks([])
         ax.set_facecolor("white")
         for boundary in (3, 6):
             if boundary < len(column_order):
                 ax.axvline(boundary, color="#111111", linewidth=2.4, zorder=5)
-        if not split_seeds and nrows >= 15:
-            for boundary in (3, 9):
-                if boundary < nrows:
-                    ax.axhline(boundary, color="#666666", linewidth=1.2, zorder=5)
-            for boundary in (6, 12):
-                if boundary < nrows:
-                    ax.axhline(boundary, color="#111111", linewidth=2.4, zorder=5)
-        elif split_seeds and nrows >= 7:
-            for boundary in (2, 4):
-                if boundary < nrows:
-                    ax.axhline(boundary, color="#111111", linewidth=2.4, zorder=5)
+        for _, boundary, _ in _group_ranges(row_order)[:-1]:
+            ax.axhline(boundary, color="#111111", linewidth=1.9, zorder=5)
         for spine in ax.spines.values():
             spine.set_visible(False)
-        colorbar = fig.colorbar(mpl.cm.ScalarMappable(norm=Normalize(vmin=0.0, vmax=1.0), cmap=cmap), cax=ax_cbar)
-        colorbar.set_label("Predicted energy value\n(column-normalized)", fontsize=12.3, fontweight="bold")
-        colorbar.ax.tick_params(labelsize=11.4, length=3)
-        colorbar.set_ticks([0.0, 0.5, 1.0])
+        colorbar = fig.colorbar(mpl.cm.ScalarMappable(norm=color_norm, cmap=cmap), cax=ax_cbar)
+        colorbar.set_label("Color: predicted barrier / peak energy (eV)\nraw values; global power scale ($\\gamma$ = 0.40)\nlower = yellow; higher = purple", fontsize=10.0, fontweight="bold")
+        colorbar.ax.tick_params(labelsize=9.7, length=3)
+        candidate_ticks = (0.0, 0.5, 1.0, 2.0, 5.0, 10.0, 20.0, color_max)
+        colorbar.set_ticks(list(dict.fromkeys(tick for tick in candidate_ticks if tick <= color_max)))
         path = _save_figure(fig, stem)[0]
         return path
 
-    products = [_render(total_metrics, out_dir / "fig_neb_seed_performance_heatmap", split_seeds=True)]
+    products = [_render(total_metrics, out_dir / "fig_neb_seed_performance_heatmap", aggregate_view=True)]
     if seed_expanded is not None:
-        products.append(_render(seed_expanded, out_dir / "fig_neb_seed_performance_heatmap_seed_expanded", split_seeds=False))
+        products.append(_render(seed_expanded, out_dir / "fig_neb_seed_performance_heatmap_seed_expanded", aggregate_view=False))
     return [path for product in products for path in product.parent.glob(product.stem + ".*")]
 
 
@@ -1041,11 +1045,13 @@ def render_bundle(
         ),
         "total_performance_visual_contract": (
             "Rows are model families/checkpoint variants. Columns are ordered migration "
-            "fixed pathway, migration self-relaxed, and sliding. Color is a per-column "
-            "predicted-energy min-max value in [0, 1]; circle area encodes absolute "
-            "predicted-energy error in eV. Aggregate trained-family values are means "
+            "fixed pathway, migration self-relaxed, and sliding. Color is the raw "
+            "predicted barrier/peak energy in eV on one global PowerNorm display scale "
+            "(gamma=0.40; lower values yellow and higher values purple); circle radius "
+            "encodes absolute predicted-energy error in eV. Aggregate trained-family values are means "
             "over seeds 123/234/345; each trained-family circle is split into one wedge "
-            "per seed. Scratch, FT, and Foundation use vertical bracket groups. The "
+            "per seed. Rows follow Scratch 600K then MultiT, FT 600K then MultiT, and "
+            "Foundation checkpoints. Scratch, Fine-tuning, and Foundation use compact vertical bracket groups. The "
             "companion seed-expanded figure has 15 rows: 12 trained seed units and "
             "three single-checkpoint Foundation rows."
         ),

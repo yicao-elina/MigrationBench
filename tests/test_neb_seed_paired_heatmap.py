@@ -93,14 +93,15 @@ def test_dft_energy_mismatch_is_rejected(tmp_path: Path) -> None:
 
 def test_total_dot_table_has_frozen_order_and_scientific_coverage() -> None:
     builder = _load_dot_builder()
-    table = builder.build_dot_table(
+    table, expanded = builder.build_dot_tables(
         ANALYSIS / "processed/NEB_TOTAL_PERFORMANCE_METRICS.tsv",
         ANALYSIS / "raw_input/foundation_migration_20261019/TIER1_RESULT_MATRIX.tsv",
         ANALYSIS / "raw_input/sliding_foundation_20261024/fixed_metrics_per_model.csv",
+        ANALYSIS / "raw_input/dft_reference/canonical_dft_barriers.tsv",
     )
     assert table["row_id"].drop_duplicates().tolist() == [
-        "Scratch-MultiT",
         "Scratch-600K",
+        "Scratch-MultiT",
         "FT-600K",
         "FT-MultiT",
         "MP-0B3",
@@ -118,11 +119,12 @@ def test_total_dot_table_has_frozen_order_and_scientific_coverage() -> None:
         "sliding_cr_in_gap_fixed",
     ]
     assert len(table) == 56
-    assert table["value_color_01"].dropna().between(0.0, 1.0).all()
-    assert table["score_01"].dropna().between(0.0, 1.0).all()
+    assert table["color_value_eV"].equals(table["predicted_value_eV"])
+    assert table["color_vmin_eV"].dropna().eq(0.0).all()
+    assert table["color_vmax_eV"].dropna().gt(table["color_value_eV"].dropna().max()).all()
     assert set(table["metric_type"]) == {"barrier_error"}
     assert table["error_eV"].dropna().ge(0.0).all()
-    assert table["score_direction"].dropna().unique().tolist() == ["higher_predicted_value"]
+    assert table["color_transform"].dropna().unique().tolist() == ["global_powernorm_gamma_0.40"]
     scratch_fixed = table.loc[
         table["row_id"].eq("Scratch-600K") & table["column_id"].eq("migration_in_gap_fixed")
     ].iloc[0]
@@ -130,7 +132,17 @@ def test_total_dot_table_has_frozen_order_and_scientific_coverage() -> None:
     assert scratch_fixed["predicted_value_eV"] == scratch_fixed["raw_value_eV"]
     assert scratch_fixed["error_eV"] >= 0.0
     assert scratch_fixed["aggregation"] == "mean_over_training_seeds"
-    assert {"score_seed_123", "score_seed_234", "score_seed_345"}.issubset(table.columns)
+    assert {"color_value_seed_123_eV", "color_value_seed_234_eV", "color_value_seed_345_eV"}.issubset(table.columns)
+    assert expanded["row_id"].drop_duplicates().tolist() == [
+        *(f"Scratch-600K / s{seed}" for seed in (123, 234, 345)),
+        *(f"Scratch-MultiT / s{seed}" for seed in (123, 234, 345)),
+        *(f"FT-600K / s{seed}" for seed in (123, 234, 345)),
+        *(f"FT-MultiT / s{seed}" for seed in (123, 234, 345)),
+        "MP-0B3",
+        "OMAT-0",
+        "MPA0",
+    ]
+    assert expanded["color_value_eV"].equals(expanded["predicted_value_eV"])
     scratch = table.loc[table["row_id"].eq("Scratch-600K")]
     assert scratch.loc[scratch["column_id"].eq("migration_within_ql_self"), "n_available"].item() == 2
     omat = table.loc[

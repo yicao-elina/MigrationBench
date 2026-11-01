@@ -1,8 +1,8 @@
 # NEB seed-paired heatmap atlas
 
 This bundle turns the current seed-resolved NEB evidence into publication-ready,
-editable figures. The compact total-performance figure has seven model rows:
-four trained families aggregated over seeds 123/234/345 and three matched
+editable figures. The compact total-performance figure has seven model rows,
+ordered as Scratch 600K, Scratch MultiT, FT 600K, FT MultiT, then three matched
 Foundation checkpoints (`MP-0B3`, `OMAT-0`, `MPA0`). Each trained-family
 circle is split into three seed wedges. A companion seed-expanded figure has
 15 rows: the 12 trained model-seed units plus the three single-checkpoint
@@ -120,18 +120,19 @@ Scratch-600K fill matrix, and
 - The final column order is frozen as: migration fixed pathway (`in-gap`,
   `gap→QL`, `within QL`), migration self-relaxed (`in-gap`, `gap→QL`,
   `within QL`), then sliding (`pristine`, `Cr-in-gap`).
-- Each column is transformed independently across the 15 seed/checkpoint units
-  to a predicted-energy min-max color value in `[0, 1]`; purple/blue means a
-  lower predicted energy and yellow means a higher predicted energy. This
-  color normalization is only for visual comparison across heterogeneous
-  columns and does not replace the raw eV values in the processed tables.
-- Bubble area is driven by the absolute predicted-energy error in eV, not by
+- Color is the **raw predicted barrier/peak energy in eV**, not a per-column
+  normalization. A single global PowerNorm display transform (`gamma=0.40`,
+  range `0–27 eV`) gives the dense 0–2 eV region useful color resolution while
+  retaining the high-energy tail. Yellow is lower predicted energy and purple
+  is higher predicted energy; the colorbar ticks remain in eV.
+- Circle radius is driven by the absolute predicted-energy error in eV, not by
   seed availability. Aggregate trained-family rows use the arithmetic mean
   error over available seeds; the seed-expanded figure uses per-seed errors.
-  Missing or scientifically excluded cells are left blank; they are not
-  zero-filled. Typography was increased by approximately 3 pt relative to
-  the previous render, with thick horizontal task bars and model-family
-  brackets retained as the hierarchy cues.
+  The Expanded matrix uses equal physical row/column spacing and a maximum
+  radius below half a cell, so neighbouring bubbles cannot overlap. Missing or
+  scientifically excluded cells are left blank; they are not zero-filled.
+  Compact group brackets sit directly beside shortened model labels (`600K`,
+  `MultiT`) and retain the full canonical names in the processed TSVs.
 - The three Foundation rows are selected because the same checkpoint hashes are
   present in the Foundation sliding campaign and the T1 migration matrix. The
   migration self-relaxed block uses IDPP only and requires

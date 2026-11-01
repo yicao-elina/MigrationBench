@@ -1,7 +1,9 @@
 """Build seed-expanded and seed-aggregated bubble-heatmap tables.
 
-Color is computed from the predicted energy value, column by column, with the
-larger predicted value mapped to the brighter end of a [0, 1] color scale.
+Color is computed from the unnormalized predicted energy value in eV using
+one global, nonlinear display transform.  The transform only allocates visual
+resolution across the strongly right-skewed values; it does not change the
+stored energy value or compare each column on a separate scale.
 Bubble size is the absolute predicted-energy error in eV. Trained-family
 cells in the aggregate table are arithmetic means over available seeds; the
 three seed color values and errors are retained for the split-bubble renderer.
@@ -26,7 +28,7 @@ DOT_COLUMNS = [
     ("sliding_pristine_fixed", "pristine", "Sliding", "barrier_error"),
     ("sliding_cr_in_gap_fixed", "Cr-in-gap", "Sliding", "barrier_error"),
 ]
-MODEL_ROWS = ["Scratch-MultiT", "Scratch-600K", "FT-600K", "FT-MultiT", "MP-0B3", "OMAT-0", "MPA0"]
+MODEL_ROWS = ["Scratch-600K", "Scratch-MultiT", "FT-600K", "FT-MultiT", "MP-0B3", "OMAT-0", "MPA0"]
 TRAINED_ROWS = MODEL_ROWS[:4]
 SEEDS = [123, 234, 345]
 FAMILY_ALIAS = {"From-scratch": "Scratch-MultiT"}
@@ -292,23 +294,20 @@ def _trained_seed_rows(total: pd.DataFrame) -> list[dict[str, object]]:
     return rows
 
 
-def _add_seed_scores(frame: pd.DataFrame) -> pd.DataFrame:
+def _add_energy_color_values(frame: pd.DataFrame) -> pd.DataFrame:
+    """Record the raw-energy color channel and one global display transform."""
     frame = frame.copy()
-    scores = pd.Series(np.nan, index=frame.index, dtype=float)
-    for _, group in frame.groupby("column_id", sort=False):
-        values = pd.to_numeric(group["predicted_value_eV"], errors="coerce")
-        finite = values[np.isfinite(values)]
-        if len(finite) == 0:
-            continue
-        minimum, maximum = float(finite.min()), float(finite.max())
-        if maximum > minimum:
-            scores.loc[group.index] = (values - minimum) / (maximum - minimum)
-        else:
-            scores.loc[group.index] = 1.0
-    frame["value_color_01"] = scores
-    frame["score_01"] = scores
-    frame["score_direction"] = "higher_predicted_value"
-    frame["color_scale"] = "column_minmax_predicted_energy_01_across_15_units"
+    values = pd.to_numeric(frame["predicted_value_eV"], errors="coerce")
+    finite = values[np.isfinite(values)]
+    if finite.empty:
+        raise ValueError("no finite predicted energies are available for the color scale")
+    if (finite < 0).any():
+        raise ValueError("predicted barrier/peak energies must be non-negative")
+    frame["color_value_eV"] = values
+    frame["color_vmin_eV"] = 0.0
+    frame["color_vmax_eV"] = float(np.ceil(float(finite.max())))
+    frame["color_transform"] = "global_powernorm_gamma_0.40"
+    frame["color_scale"] = "raw_predicted_energy_eV_global"
     return frame
 
 
@@ -328,7 +327,7 @@ def build_dot_tables(
         raise ValueError(f"total performance table lacks required columns: {', '.join(missing)}")
     expanded = _trained_seed_rows(total)
     expanded.extend(_foundation_rows(foundation_migration, foundation_sliding, dft_reference))
-    expanded = _add_seed_scores(pd.DataFrame(expanded))
+    expanded = _add_energy_color_values(pd.DataFrame(expanded))
     expanded_order = [
         f"{family} / s{seed}" for family in TRAINED_ROWS for seed in SEEDS
     ] + MODEL_ROWS[4:]
@@ -347,13 +346,11 @@ def build_dot_tables(
             selected = family_rows.loc[family_rows["column_id"].eq(column_id)].copy()
             values = pd.to_numeric(selected["predicted_value_eV"], errors="coerce")
             errors = pd.to_numeric(selected["absolute_error_eV"], errors="coerce")
-            scores = pd.to_numeric(selected["value_color_01"], errors="coerce")
             finite = values[np.isfinite(values) & np.isfinite(errors)]
             finite_errors = errors[np.isfinite(values) & np.isfinite(errors)]
-            finite_scores = scores[np.isfinite(scores)]
-            seed_score = {
-                f"value_color_seed_{seed}": float(selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "value_color_01"].iloc[0])
-                if not selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "score_01"].empty
+            seed_color = {
+                f"color_value_seed_{seed}_eV": float(selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "predicted_value_eV"].iloc[0])
+                if not selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "predicted_value_eV"].empty
                 else np.nan
                 for seed in SEEDS
             }
@@ -380,14 +377,13 @@ def build_dot_tables(
                 source_artifact=_unique_join(selected["source_artifact"]),
                 model_sha256=_unique_join(selected["model_sha256"]),
             )
-            row.update(seed_score)
+            row.update(seed_color)
             row.update(seed_error)
-            for seed in SEEDS:
-                row[f"score_seed_{seed}"] = row[f"value_color_seed_{seed}"]
-            row["value_color_01"] = float(finite_scores.mean()) if len(finite_scores) else np.nan
-            row["score_01"] = row["value_color_01"]
-            row["score_direction"] = "higher_predicted_value"
-            row["color_scale"] = "column_minmax_predicted_energy_01_across_15_units"
+            row["color_value_eV"] = row["predicted_value_eV"]
+            row["color_vmin_eV"] = 0.0
+            row["color_vmax_eV"] = float(expanded["color_vmax_eV"].iloc[0])
+            row["color_transform"] = "global_powernorm_gamma_0.40"
+            row["color_scale"] = "raw_predicted_energy_eV_global"
             row["scientific_status"] = "AGGREGATED_FROM_SEED_ROWS"
             row["publication_status"] = "DERIVED_SUMMARY"
             aggregate_rows.append(row)
@@ -397,15 +393,12 @@ def build_dot_tables(
             cell = selected.loc[selected["column_id"].eq(column_id)].iloc[0]
             row = cell.to_dict()
             row.update({"row_id": label, "row_label": label, "aggregation": "single_checkpoint"})
-            row["value_color_seed_123"] = np.nan
-            row["value_color_seed_234"] = np.nan
-            row["value_color_seed_345"] = np.nan
+            row["color_value_seed_123_eV"] = np.nan
+            row["color_value_seed_234_eV"] = np.nan
+            row["color_value_seed_345_eV"] = np.nan
             row["error_seed_123"] = np.nan
             row["error_seed_234"] = np.nan
             row["error_seed_345"] = np.nan
-            row["score_seed_123"] = np.nan
-            row["score_seed_234"] = np.nan
-            row["score_seed_345"] = np.nan
             aggregate_rows.append(row)
     aggregate = pd.DataFrame(aggregate_rows)
     aggregate["row_id"] = pd.Categorical(aggregate["row_id"], categories=MODEL_ROWS, ordered=True)
