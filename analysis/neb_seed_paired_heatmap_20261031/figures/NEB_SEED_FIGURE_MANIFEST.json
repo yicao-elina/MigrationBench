@@ -3,7 +3,7 @@
     {
       "exists": true,
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_METRICS.tsv",
-      "sha256": "65354d1afede914c8c5fd34125ce20f268556b43786cc99579192d1633f38b56"
+      "sha256": "38a43a7b9ba8552d36b369c62a1385d8dd55a791e84cec0464ff129230d66ce7"
     },
     {
       "exists": true,
@@ -23,19 +23,29 @@
     {
       "exists": true,
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_DOT_METRICS.tsv",
-      "sha256": "a4250f20fae89aec0b39591a6c4340ea7c5fdc9330261e48f5afdb366241b0fe"
+      "sha256": "db3b491df31357fe3e320c66deab1dc963f57513ac1e0375b1da784050127024"
+    },
+    {
+      "exists": true,
+      "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/raw_input/dft_reference/canonical_dft_barriers.tsv",
+      "sha256": "1a89f178f97f360f9bb6185d6b1372b31356a976b6177a36c1f15439d4bec298"
     },
     {
       "exists": true,
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/raw_input/sliding_foundation_20261024/fixed_metrics_per_model.csv",
       "sha256": "5cf471808f3c1a290bdbb033a59df21c78626149ec6cb31ddb999876124639e9"
+    },
+    {
+      "exists": true,
+      "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv",
+      "sha256": "6c59f19338387fa3eb07f0f9aef8c61c01f444d8ebba527a45bc875e0a4edea5"
     }
   ],
-  "analytic_boundary": "The sliding block is fixed-path DFT-matched MAE. The migration block is a separately sourced barrier-proxy summary; fixed-path and self-relaxed migration values are never pooled or called DFT errors.",
+  "analytic_boundary": "The sliding block is fixed-path DFT-matched MAE. The migration block is absolute error against the canonical DFT forward barrier; fixed-path and self-relaxed migration values remain separate and are not pooled.",
   "cluster_interpretation": "rows are sorted by mean absolute image-wise error; the descriptive map is not causal training lineage",
   "code": {
     "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/src/migrationbench/neb_seed_paired_heatmap.py",
-    "sha256": "45bd3aaf91dcf34a5de63d0f95bdd8416efb60b5f5ed332d14a4713a8fd853f4"
+    "sha256": "a0d8d7ea45edda65d40c9167e57029215d802c427cb6cda462495f94dabf8c46"
   },
   "input": {
     "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/raw_input/NEB_FIXED_PATH_CAMPAIGN_20261024.tsv",
@@ -71,11 +81,15 @@
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_DOT_METRICS.tsv",
-      "sha256": "a4250f20fae89aec0b39591a6c4340ea7c5fdc9330261e48f5afdb366241b0fe"
+      "sha256": "db3b491df31357fe3e320c66deab1dc963f57513ac1e0375b1da784050127024"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_METRICS.tsv",
-      "sha256": "65354d1afede914c8c5fd34125ce20f268556b43786cc99579192d1633f38b56"
+      "sha256": "38a43a7b9ba8552d36b369c62a1385d8dd55a791e84cec0464ff129230d66ce7"
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv",
+      "sha256": "6c59f19338387fa3eb07f0f9aef8c61c01f444d8ebba527a45bc875e0a4edea5"
     }
   ],
   "products": [
@@ -85,11 +99,11 @@
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_reference1_bubble_matrix_synthetic.pdf",
-      "sha256": "05d92bc40a8c455ea8c35d26a0b3ca58f0bd2d1ada422681264b6325a7978330"
+      "sha256": "9f2ca7e9575a0dde355985c07827e994af98ba5f4cf6361c39547094aa3083fb"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_reference1_bubble_matrix_synthetic.svg",
-      "sha256": "cc6ac8bd3066736ecae78019dd8f80e013d8b043adf4dcf5cfe99b282917c395"
+      "sha256": "0d150a52e45e0fbca3ce7e39eb756f6e1a6a21099a3eab7b7c1d0d5bb104f726"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_reference2_clustered_heatmap_synthetic.png",
@@ -97,23 +111,35 @@
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_reference2_clustered_heatmap_synthetic.pdf",
-      "sha256": "6bfbed7c6c966b0a5e3b665c99cb45ef3c067e0cef2fbc3982c991a9df4e33d6"
+      "sha256": "045dbd9bf35a24cfdeff87ba65510d9e0608eb36c6327840fd4c755d8667bd6f"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_reference2_clustered_heatmap_synthetic.svg",
-      "sha256": "d9cb1d3fc8944f9356a85e6948c38fc04f9359da51f39ce455a79fc48d07d9ea"
-    },
-    {
-      "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap.png",
-      "sha256": "76b9528eb6ed9fe2eb979585f1bc2ea55c8aea0650c59203750db11256c49d5c"
+      "sha256": "65dac8098c0801ba5d2fca44aec33f5b441583b7038e41eefce3d13512075320"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap.pdf",
-      "sha256": "84431a7ecbac938650be86da8b993292b76de522c27e7ecf3871ba219acc0bb0"
+      "sha256": "103b319d78827dfa28635b81ac668a85d128691ffd1d52f39311ad1f9d96277d"
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap.png",
+      "sha256": "792a788586fa3f309f84fcc318c586e20a261424191ec6b4b380c86cf9983dc5"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap.svg",
-      "sha256": "e9772d40f4d35d2cf0fc1decbcc5752f1781be81befba0d052c58ef4d3ced879"
+      "sha256": "06db6c91641f72498a489108b221eefd6bc5dbbe71ef4857a95a79e53a99578f"
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap_seed_expanded.svg",
+      "sha256": "458bd55bbb2e91a353207a1105c0a338a919c182461d6f309743f12f3eb5b38d"
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap_seed_expanded.pdf",
+      "sha256": "c430b95274199e2ca028ac11f63703813c4cf13982cac076f1b383e753cc066c"
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap_seed_expanded.png",
+      "sha256": "4942312d702fe972abd69626df90a37e8960f3c9ca3500f2b0c85890f026f3dc"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_error_lineage_clustermap.png",
@@ -121,11 +147,11 @@
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_error_lineage_clustermap.pdf",
-      "sha256": "23d5c5cdd21c426dfabcece9cbe1f8cf0c4ffd87324657d6db466e6bc3c7dca9"
+      "sha256": "648f948620240bb2a0d6be7750404f030bca9c27c1a47765d27d9a8d941b4f89"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_error_lineage_clustermap.svg",
-      "sha256": "e76e1385790be7172958566b6624340482c501b600927385e75273d38f7e093e"
+      "sha256": "84f15b8fa394e47a780a2b0a5f80a48322f5219816220b3517883592d0658816"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_error_similarity_bubble_matrix.png",
@@ -133,13 +159,13 @@
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_error_similarity_bubble_matrix.pdf",
-      "sha256": "d89f5704ec46d26ff75b02020a591750240934c86e8bead991b8e7e177574c27"
+      "sha256": "d64fd9147484319eac5cc8b4c72920d5474da1de39b3b19a25a7792fcb4ef390"
     },
     {
       "path": "/Users/alina/.codex/worktrees/neb-seed-pairing-heatmap/analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_error_similarity_bubble_matrix.svg",
-      "sha256": "59350df6f3b16a5b0148fb4f851787696fae6c6d39c2bec6d1a006c27a9b4d87"
+      "sha256": "d62bbf5ced8139acc6706a6b416b9e7a095135a5ab094f2854f67890ffe940fb"
     }
   ],
-  "schema_version": "migrationbench_neb_seed_paired_heatmap_v2",
-  "total_performance_visual_contract": "Rows are model families/checkpoint variants. Columns are ordered migration fixed pathway, migration self-relaxed, and sliding. Color is a per-column lower-is-better min-max score in [0, 1]; circle area is accepted/available replicate coverage. Main trained-family values are medians over seeds 123/234/345."
+  "schema_version": "migrationbench_neb_seed_paired_heatmap_v3",
+  "total_performance_visual_contract": "Rows are model families/checkpoint variants. Columns are ordered migration fixed pathway, migration self-relaxed, and sliding. Color is a per-column lower-is-better min-max score in [0, 1]; circle area is accepted/available replicate coverage. Aggregate trained-family values are means over seeds 123/234/345; each trained-family circle is split into one wedge per seed. The companion seed-expanded figure has 15 rows: 12 trained seed units and three single-checkpoint Foundation rows."
 }
