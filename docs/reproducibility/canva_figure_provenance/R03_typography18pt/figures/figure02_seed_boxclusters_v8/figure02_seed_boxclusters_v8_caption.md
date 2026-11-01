@@ -1,0 +1,3 @@
+# Figure 2 seed-resolved nested boxplots
+
+Train and held-out-test frame records are merged. Each model cluster contains three sub-boxplots, one for each seed; every sub-boxplot retains all finite frame-level scatter points for that seed. Boxes are computed in log10-RMSE coordinates and show the median, IQR, and 1.5-IQR whiskers. Black points and whiskers show the mean and sample SD of the three seed-level aggregate RMSE values. Significance brackets use paired two-sided t-tests on the three log10 seed-level aggregates and are exploratory because n=3. The trajectory comparison uses the common 600 K training identities O3 t1 (no Cr) and octahedral Cr1 (1 Cr), which are present for all four model families and all three seeds.

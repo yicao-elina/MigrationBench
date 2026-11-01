@@ -1,0 +1,704 @@
+{
+  "status": "RECONSTRUCTION",
+  "purpose": "seed-resolved nested boxplots with complete frame-level point overlays",
+  "commits": {
+    "previous_violin_baseline": "a779398",
+    "current_boxcluster_revision": "pending"
+  },
+  "grammar": {
+    "cluster": "one model cluster per category",
+    "sub_box": "one box per seed (123, 234, 345) within each model cluster",
+    "raw_points": "all finite frame-level values for that family/seed/category, jittered only horizontally",
+    "box_statistics": "median, IQR, and standard 1.5-IQR whiskers in log10-RMSE coordinates; fliers are not hidden because all raw points remain visible",
+    "seed_summary": "black mean point and sample SD whisker computed from the three seed-level aggregate RMSE values",
+    "significance": "paired two-sided t-test on log10 seed-level aggregates, n=3 paired seeds; markers are ns, *, **, ***, ****",
+    "train_test": "train and held-out test frame records merged for all category and selected-trajectory views",
+    "model_colors": "R04 / Canva slide-5 palette"
+  },
+  "data": {
+    "source_mode": "readable_packaged_per_frame_csv",
+    "summary_path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/parity_summary.csv",
+    "frame_root": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity",
+    "families": [
+      "Scratch-600K",
+      "FT-600K",
+      "Scratch-MultiT",
+      "FT-MultiT"
+    ],
+    "seeds": [
+      "123",
+      "234",
+      "345"
+    ],
+    "splits_merged": [
+      "train",
+      "test"
+    ],
+    "frame_point_counts": {
+      "temperature": {
+        "Scratch-MultiT/123/300K": 823,
+        "Scratch-MultiT/123/600K": 2361,
+        "Scratch-MultiT/123/1200K": 239,
+        "Scratch-MultiT/234/300K": 823,
+        "Scratch-MultiT/234/600K": 2361,
+        "Scratch-MultiT/234/1200K": 239,
+        "Scratch-MultiT/345/300K": 823,
+        "Scratch-MultiT/345/600K": 2361,
+        "Scratch-MultiT/345/1200K": 239,
+        "FT-MultiT/123/300K": 823,
+        "FT-MultiT/123/600K": 2361,
+        "FT-MultiT/123/1200K": 239,
+        "FT-MultiT/234/300K": 823,
+        "FT-MultiT/234/600K": 2361,
+        "FT-MultiT/234/1200K": 239,
+        "FT-MultiT/345/300K": 823,
+        "FT-MultiT/345/600K": 2361,
+        "FT-MultiT/345/1200K": 239
+      },
+      "cr_count": {
+        "Scratch-600K/123/Cr0": 643,
+        "Scratch-600K/123/Cr1": 160,
+        "Scratch-600K/123/Cr2": 306,
+        "Scratch-600K/123/Cr3": 441,
+        "Scratch-600K/123/Cr4": 500,
+        "Scratch-600K/234/Cr0": 643,
+        "Scratch-600K/234/Cr1": 160,
+        "Scratch-600K/234/Cr2": 306,
+        "Scratch-600K/234/Cr3": 441,
+        "Scratch-600K/234/Cr4": 500,
+        "Scratch-600K/345/Cr0": 643,
+        "Scratch-600K/345/Cr1": 160,
+        "Scratch-600K/345/Cr2": 306,
+        "Scratch-600K/345/Cr3": 441,
+        "Scratch-600K/345/Cr4": 500,
+        "FT-600K/123/Cr0": 643,
+        "FT-600K/123/Cr1": 160,
+        "FT-600K/123/Cr2": 306,
+        "FT-600K/123/Cr3": 441,
+        "FT-600K/123/Cr4": 500,
+        "FT-600K/234/Cr0": 643,
+        "FT-600K/234/Cr1": 160,
+        "FT-600K/234/Cr2": 306,
+        "FT-600K/234/Cr3": 441,
+        "FT-600K/234/Cr4": 500,
+        "FT-600K/345/Cr0": 643,
+        "FT-600K/345/Cr1": 160,
+        "FT-600K/345/Cr2": 306,
+        "FT-600K/345/Cr3": 441,
+        "FT-600K/345/Cr4": 500,
+        "Scratch-MultiT/123/Cr0": 882,
+        "Scratch-MultiT/123/Cr1": 160,
+        "Scratch-MultiT/123/Cr2": 1011,
+        "Scratch-MultiT/123/Cr3": 441,
+        "Scratch-MultiT/123/Cr4": 929,
+        "Scratch-MultiT/234/Cr0": 882,
+        "Scratch-MultiT/234/Cr1": 160,
+        "Scratch-MultiT/234/Cr2": 1011,
+        "Scratch-MultiT/234/Cr3": 441,
+        "Scratch-MultiT/234/Cr4": 929,
+        "Scratch-MultiT/345/Cr0": 882,
+        "Scratch-MultiT/345/Cr1": 160,
+        "Scratch-MultiT/345/Cr2": 1011,
+        "Scratch-MultiT/345/Cr3": 441,
+        "Scratch-MultiT/345/Cr4": 929,
+        "FT-MultiT/123/Cr0": 882,
+        "FT-MultiT/123/Cr1": 160,
+        "FT-MultiT/123/Cr2": 1011,
+        "FT-MultiT/123/Cr3": 441,
+        "FT-MultiT/123/Cr4": 929,
+        "FT-MultiT/234/Cr0": 882,
+        "FT-MultiT/234/Cr1": 160,
+        "FT-MultiT/234/Cr2": 1011,
+        "FT-MultiT/234/Cr3": 441,
+        "FT-MultiT/234/Cr4": 929,
+        "FT-MultiT/345/Cr0": 882,
+        "FT-MultiT/345/Cr1": 160,
+        "FT-MultiT/345/Cr2": 1011,
+        "FT-MultiT/345/Cr3": 441,
+        "FT-MultiT/345/Cr4": 929
+      },
+      "trajectory": {
+        "Scratch-600K/123/2L_o3_t1_600K_aimd_1": 170,
+        "Scratch-600K/123/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "Scratch-600K/234/2L_o3_t1_600K_aimd_1": 170,
+        "Scratch-600K/234/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "Scratch-600K/345/2L_o3_t1_600K_aimd_1": 170,
+        "Scratch-600K/345/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "FT-600K/123/2L_o3_t1_600K_aimd_1": 170,
+        "FT-600K/123/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "FT-600K/234/2L_o3_t1_600K_aimd_1": 170,
+        "FT-600K/234/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "FT-600K/345/2L_o3_t1_600K_aimd_1": 170,
+        "FT-600K/345/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "Scratch-MultiT/123/2L_o3_t1_600K_aimd_1": 170,
+        "Scratch-MultiT/123/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "Scratch-MultiT/234/2L_o3_t1_600K_aimd_1": 170,
+        "Scratch-MultiT/234/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "Scratch-MultiT/345/2L_o3_t1_600K_aimd_1": 170,
+        "Scratch-MultiT/345/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "FT-MultiT/123/2L_o3_t1_600K_aimd_1": 170,
+        "FT-MultiT/123/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "FT-MultiT/234/2L_o3_t1_600K_aimd_1": 170,
+        "FT-MultiT/234/2L_octo_Cr1_v2_600K_aimd_1": 160,
+        "FT-MultiT/345/2L_o3_t1_600K_aimd_1": 170,
+        "FT-MultiT/345/2L_octo_Cr1_v2_600K_aimd_1": 160
+      }
+    },
+    "trajectory_selection": {
+      "no_cr": "2L_o3_t1_600K_aimd_1",
+      "with_cr": "2L_octo_Cr1_v2_600K_aimd_1",
+      "selection_rule": "common trajectory identity present for all four families and all three seeds; both selected identities are 600 K train trajectories"
+    },
+    "significance_tests": {
+      "temperature": {
+        "energy": {
+          "300K": {
+            "Scratch vs FT": {
+              "p_value": 0.5343189305022095,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "600K": {
+            "Scratch vs FT": {
+              "p_value": 0.4529673117389438,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "1200K": {
+            "Scratch vs FT": {
+              "p_value": 0.1485128332861096,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          }
+        },
+        "force": {
+          "300K": {
+            "Scratch vs FT": {
+              "p_value": 0.00029186753649629494,
+              "marker": "***",
+              "n_seed_pairs": 3
+            }
+          },
+          "600K": {
+            "Scratch vs FT": {
+              "p_value": 0.14966299536626756,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "1200K": {
+            "Scratch vs FT": {
+              "p_value": 0.00010950666848409919,
+              "marker": "***",
+              "n_seed_pairs": 3
+            }
+          }
+        }
+      },
+      "cr_count": {
+        "energy": {
+          "Cr0": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.026204214491799074,
+              "marker": "*",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.3364405531635316,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.39830910247119483,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.10157847222016697,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "Cr1": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.3147657528958621,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.09411888778165656,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.03029863790574461,
+              "marker": "*",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.13767124058407387,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "Cr2": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.8831176492788362,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.6585432065862569,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.2710724619442121,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.1559939198335398,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "Cr3": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.4700102603434664,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.003503437243295622,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.18089428310807804,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.1520666237460519,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "Cr4": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.8986353102701993,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.43202051861877894,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.029016789915637876,
+              "marker": "*",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.08813873819441476,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          }
+        },
+        "force": {
+          "Cr0": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.04093723531610149,
+              "marker": "*",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.23493352719144597,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.6065746679918146,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.08723796120691236,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "Cr1": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.005242926638399742,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 1.2397842181016236e-05,
+              "marker": "****",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.09391842082014724,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.9623472951458805,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "Cr2": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.0014601976435888412,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.0001762606548327639,
+              "marker": "***",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.14016406886966126,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.6621777152129532,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "Cr3": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.0027288633180688132,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.00015857118378129865,
+              "marker": "***",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.019963068186196385,
+              "marker": "*",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.880304090265651,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "Cr4": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.003889590639154932,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.006754006368228764,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.0014178847305478938,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.0012900532597763725,
+              "marker": "**",
+              "n_seed_pairs": 3
+            }
+          }
+        }
+      },
+      "trajectory": {
+        "energy": {
+          "2L_o3_t1_600K_aimd_1": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.2929801716355004,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.0035348316178593023,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.4873809310472814,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.2458697689408927,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "2L_octo_Cr1_v2_600K_aimd_1": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.3147657528958621,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.09411888778165656,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.03029863790574461,
+              "marker": "*",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.13767124058407387,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          }
+        },
+        "force": {
+          "2L_o3_t1_600K_aimd_1": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.005918464866324746,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 0.0004214700635771109,
+              "marker": "***",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.02607951352346752,
+              "marker": "*",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.8859170026309187,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          },
+          "2L_octo_Cr1_v2_600K_aimd_1": {
+            "Scratch vs FT · 600K": {
+              "p_value": 0.005242926638399742,
+              "marker": "**",
+              "n_seed_pairs": 3
+            },
+            "Scratch vs FT · MultiT": {
+              "p_value": 1.2397842181016236e-05,
+              "marker": "****",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · Scratch": {
+              "p_value": 0.09391842082014724,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            },
+            "600K vs MultiT · FT": {
+              "p_value": 0.9623472951458805,
+              "marker": "ns",
+              "n_seed_pairs": 3
+            }
+          }
+        }
+      }
+    },
+    "multiple_testing": "no correction applied; markers are exploratory seed-level diagnostics with n=3"
+  },
+  "sources": [
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/parity_summary.csv",
+      "sha256": "31b20e0378cde7a3fa826f1e2ea29ef54263c6868a33739902c30a744f3453e0",
+      "size_bytes": 8444
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed123_test__per_frame.csv",
+      "sha256": "37a3bfd1ddf1864034ed02dedfe667b2c35d78eeea51287a6eccbf8c64e9cec5",
+      "size_bytes": 27959
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed123_train__per_frame.csv",
+      "sha256": "ca606c150b9e7252b594db0273e25a809d7802afb4ce36da3ad1f5b6bc78bf6a",
+      "size_bytes": 194312
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed234_test__per_frame.csv",
+      "sha256": "abea5bfe5eeacf986fd754dbff4f81421b1cb5d382fcca18f3ad246b2b445416",
+      "size_bytes": 27986
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed234_train__per_frame.csv",
+      "sha256": "a10cb4d15bdd9fe306c9610c0901dad9f872f9a0ede1b13f0195a1f97b6f3df4",
+      "size_bytes": 193653
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed345_test__per_frame.csv",
+      "sha256": "023c1e6dc724b2c75dc295a5e3f5e8fc9ec971b1942396a2ed79dfb5a6393f04",
+      "size_bytes": 28006
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed345_train__per_frame.csv",
+      "sha256": "d2bed2952baf1afb8127ad52a1a07e06a618d05b47a47f657934742d220143b0",
+      "size_bytes": 193948
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed123_test__per_frame.csv",
+      "sha256": "4697c488228221d39d67051631168858de65c6db81b894fbc9df4f380b9f5468",
+      "size_bytes": 82576
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed123_train__per_frame.csv",
+      "sha256": "198069c5995d2b5bfff350ac2848d621e17f4be133f08192caa86fc22c8b01f9",
+      "size_bytes": 290040
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed234_test__per_frame.csv",
+      "sha256": "b4f5959073745dfaed561442729fc5e0b2458ac0fda32159e90342c429b6b3bd",
+      "size_bytes": 82578
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed234_train__per_frame.csv",
+      "sha256": "e5f68cfda310f87f926fff45f2f63c17c0516db14d69b3cdb6988f62d4af686a",
+      "size_bytes": 290226
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed345_test__per_frame.csv",
+      "sha256": "94658ac92c7676fb212178083eb3a2f44bd249c2f12e71b67cb4e8bc9e262d94",
+      "size_bytes": 82483
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed345_train__per_frame.csv",
+      "sha256": "8652dbff7789dee264d58b2d9fb303a8c5fb94877bc4d62583748e75be3ee9fa",
+      "size_bytes": 290385
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed123_test__per_frame.csv",
+      "sha256": "fbcd56cdaf581d1646fef23a24ad3ee3b8a8d09da34842f312f1a15e6bc31593",
+      "size_bytes": 27954
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed123_train__per_frame.csv",
+      "sha256": "35d4adb9d678fd0ec358594ca3667c9147ed4b1f5bdb726675e6b94a35fe1427",
+      "size_bytes": 193002
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed234_test__per_frame.csv",
+      "sha256": "ebefa4faf8ed8dfc480704151a6d293e37c42a33f661cb8980b722f064e657b2",
+      "size_bytes": 28016
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed234_train__per_frame.csv",
+      "sha256": "1bc770fd633608f3af97c0d3b77b794d84e839a9378d68f14e8033e55fa2b0c0",
+      "size_bytes": 192237
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed345_test__per_frame.csv",
+      "sha256": "6f9661b8709d66e04b94f269e3f0cddd3a148b18bc0300538eb07ce80ad80b94",
+      "size_bytes": 27963
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed345_train__per_frame.csv",
+      "sha256": "c3663c6eabb6c62f2e0a7b53d4dcfa4b8f09df72413bed1eb23b2d93762a7e3e",
+      "size_bytes": 192826
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed123_test__per_frame.csv",
+      "sha256": "7681413905752b28f23f17dfb2de7b031dc17a6c0d6a6b94d33837b69364447b",
+      "size_bytes": 82485
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed123_train__per_frame.csv",
+      "sha256": "9ac387ec1e843c9a2a0ffb0a056b150fcd2c931dfb1a6940e525dd2ff50550ab",
+      "size_bytes": 288075
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed234_test__per_frame.csv",
+      "sha256": "cc0b30464699ab017b244b36e4566f2054af2b4a3ab062c4daedcbed0735d82a",
+      "size_bytes": 82511
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed234_train__per_frame.csv",
+      "sha256": "bc5423eb42b3a53393dd64abfb0ee3e7084d42e9913cfff4dc5714ec4c4738fb",
+      "size_bytes": 288493
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed345_test__per_frame.csv",
+      "sha256": "8647c163ab22555a924d4086e2bf3cb8c970ca7140febae77301a0954d5859b6",
+      "size_bytes": 82447
+    },
+    {
+      "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed345_train__per_frame.csv",
+      "sha256": "822654efc50634acc88038adad89839a9f7550240d9ac29e44e4fa15e6f73d8b",
+      "size_bytes": 287742
+    }
+  ],
+  "outputs": {
+    "temperature": {
+      "png": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant04_by_temperature_class_merged_multit_seed_boxclusters.png",
+        "sha256": "06785bca5526c76e8089810a9b34850783bae522724bfd1ecd1085acc3d122be",
+        "size_bytes": 1431271
+      },
+      "pdf": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant04_by_temperature_class_merged_multit_seed_boxclusters.pdf",
+        "sha256": "45b8d625cf858791478df83fedfd392ecc0268d88f90659cee23bd377b86bf20",
+        "size_bytes": 657611
+      },
+      "svg": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant04_by_temperature_class_merged_multit_seed_boxclusters.svg",
+        "sha256": "693f3bef1e86cfc51ed85e9249ea5a3b2bdfe6dfe4a075321152d731e0e23569",
+        "size_bytes": 6753313
+      }
+    },
+    "cr_count": {
+      "png": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant05_by_cr_count_class_merged_seed_boxclusters.png",
+        "sha256": "bc7f7c172b2e19e904a3d266a6d335462b2a8c7987eae02b344643ca461866c9",
+        "size_bytes": 2350636
+      },
+      "pdf": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant05_by_cr_count_class_merged_seed_boxclusters.pdf",
+        "sha256": "64814a23b57c2a4a2620a311469ba0239d3b36648758cbe795bf442b34538ded",
+        "size_bytes": 1064506
+      },
+      "svg": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant05_by_cr_count_class_merged_seed_boxclusters.svg",
+        "sha256": "50ed3bd8ae73c227cf5e045cf2ca3695d1bd69d910ea86aaeda28d19cadd2bc5",
+        "size_bytes": 11001300
+      }
+    },
+    "trajectory": {
+      "png": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant03_by_common_trajectory_seed_boxclusters.png",
+        "sha256": "d92a0cc94c69c7e154fe212328396b6c7a76deb1cca2d08b4ad75eacddea7d6d",
+        "size_bytes": 1140415
+      },
+      "pdf": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant03_by_common_trajectory_seed_boxclusters.pdf",
+        "sha256": "1b3e62d3101648c1b4311858748465618f94d35b44abc5fccd85d55310188042",
+        "size_bytes": 198075
+      },
+      "svg": {
+        "path": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_seed_boxclusters_v8/variant03_by_common_trajectory_seed_boxclusters.svg",
+        "sha256": "fd335e0d12bd3cebe75ba5a2b0bb600412181e857015ebe5631b36c98f089046",
+        "size_bytes": 1441474
+      }
+    }
+  }
+}
