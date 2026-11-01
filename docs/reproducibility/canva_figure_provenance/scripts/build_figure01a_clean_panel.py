@@ -15,6 +15,7 @@ from matplotlib.lines import Line2D
 
 from build_atomic_migration_figures import (
     AXIS_LABEL_SIZE,
+    DFT_SPLIT_MARKERS,
     LEGEND_SIZE,
     TASK_MARKERS,
     TASK_GROUPS,
@@ -94,12 +95,19 @@ def main() -> None:
         )
         for task in TASK_GROUPS
     ]
+    dft_split_handles = [
+        Line2D(
+            [], [], marker=marker, linestyle="", color="#777777", markerfacecolor="#888888",
+            markeredgecolor="white", label=label, markersize=8.0,
+        )
+        for label, marker in DFT_SPLIT_MARKERS.items()
+    ]
     size_handles = [
         Line2D([], [], marker="o", linestyle="", color="#555555", markerfacecolor="#555555", markeredgecolor="white", markersize=float(np.sqrt(size)), label=label)
         for size, label in zip([18.0, 70.0, 190.0], ["near train", "intermediate", "far OOD"])
     ]
     ax.legend(
-        handles=[*task_handles, *size_handles],
+        handles=[*task_handles, *dft_split_handles, *size_handles],
         frameon=False,
         fontsize=LEGEND_SIZE,
         ncol=2,

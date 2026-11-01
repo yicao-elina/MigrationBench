@@ -93,6 +93,11 @@ TASK_MARKERS = {
     "L2 NEB Migration": "D",
     "L3 Layer Sliding": "P",
 }
+DFT_SPLIT_MARKERS = {
+    "DFT - train": "o",
+    "DFT - valid": "^",
+    "DFT - test": "s",
+}
 TASK_MAP_COLORS = {
     "L0 DFT Reference": "#6E8793",
     "L1 Thermal Equilibrium": "#7658C7",
@@ -725,6 +730,13 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
         )
         for task in TASK_GROUPS
     ]
+    dft_split_handles = [
+        Line2D(
+            [], [], marker=marker, linestyle="", color="#777777", markerfacecolor="#888888",
+            markeredgecolor="white", label=label, markersize=8.0,
+        )
+        for label, marker in DFT_SPLIT_MARKERS.items()
+    ]
     q50 = float(np.nanpercentile([f(row, "distance_to_training") for row in rows], 50))
     q90 = float(np.nanpercentile([f(row, "distance_to_training") for row in rows], 90))
     size_values = [0.0, q50, q90]
@@ -738,6 +750,7 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
     ]
     encoding_handles = [
         *task_handles,
+        *dft_split_handles,
         *size_handles,
         Line2D([], [], color="#555555", linewidth=1.2, linestyle="-", label="fixed / sliding path"),
         Line2D([], [], color="#555555", linewidth=1.2, linestyle="--", label="self-relaxed path"),
@@ -1391,6 +1404,11 @@ def write_manifest(out: Path, figure_assets: dict[str, dict[str, str]], sources:
                 "L1 Thermal Equilibrium": "^",
                 "L2 NEB Migration": "D",
                 "L3 Layer Sliding": "P"
+            },
+            "dft_split_legend": {
+                "DFT - train": "o",
+                "DFT - valid": "^",
+                "DFT - test": "s"
             },
             "marker_area": "distance_to_training, percentile-normalized; larger area means farther feature-space OOD",
             "point_hue": "task group color, matching the original R03 Figure 1A grammar",
