@@ -1,0 +1,96 @@
+{
+  "schema_version": "atomic_migration_blueprint_figure_package_v1",
+  "revision": "R04_task_conditioned_ood",
+  "status": "REVIEW_PACKAGE_NOT_SCIENTIFIC_ACCEPTANCE",
+  "generated_by": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/scripts/build_atomic_migration_figures.py",
+  "source_root": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench",
+  "style_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/sliding_four_model_campaign_20261024/config/FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json",
+  "visual_grammar": {
+    "font_family": "Arial",
+    "editable_outputs": [
+      "pdf",
+      "svg"
+    ],
+    "raster_preview": "png",
+    "axes": "heavy black spines, outward ticks, no decorative grid",
+    "title_weight": "bold",
+    "minimum_authored_text_pt": 18,
+    "title_pt": 22,
+    "panel_title_pt": 20,
+    "axis_label_pt": 20,
+    "tick_pt": 18,
+    "legend_pt": 18,
+    "energy_axis_label": "ΔE (eV)",
+    "reaction_coordinate_label": "Reaction Coordinate",
+    "shared_legend_placement": "below overall figure",
+    "caveats": "kept in manifest/status metadata rather than prose strips inside data panels",
+    "uncertainty": {
+      "line_charts": "mean ± sample SD across registered seeds or explicit model variants; rendered as shaded bands",
+      "bar_charts": "mean ± sample SD rendered as whiskers; replicate points retained where available",
+      "single_reference": "QE reference is deterministic and shown as a dashed line without an uncertainty band",
+      "missing_replicates": "missing or non-finite rows are excluded; no imputation, synthetic seed, or extrapolation"
+    }
+  },
+  "model_palette": {
+    "Foundation": "#CF4520",
+    "FT-600K": "#002E71",
+    "FT-MultiT": "#67ACE5",
+    "Scratch-600K": "#FF9F1B",
+    "Scratch-MultiT": "#F4C95D",
+    "QE reference": "#222222",
+    "MACE-MP": "#D5A238",
+    "MACE-OMAT-0": "#D85A45",
+    "MACE-MH": "#5D8B56"
+  },
+  "model_markers": {
+    "Foundation": "v",
+    "FT-600K": "s",
+    "FT-MultiT": "^",
+    "Scratch-600K": "D",
+    "Scratch-MultiT": "D"
+  },
+  "series_markers": {
+    "From-scratch (seed 123)": "D",
+    "FT-600K (seed 123)": "s",
+    "FT-MultiT (seed 234)": "^",
+    "Foundation (OMAT-0-M)": "v",
+    "From-scratch (full AIMD)": "D",
+    "FT-600K": "s",
+    "FT-MultiT": "^",
+    "Foundation (OMAT-FT)": "v"
+  },
+  "figures": {
+    "figure01": {
+      "png": "docs/reproducibility/canva_figure_provenance/R04_task_conditioned_ood/figures/figure01_task_conditioned_universe.png",
+      "pdf": "docs/reproducibility/canva_figure_provenance/R04_task_conditioned_ood/figures/figure01_task_conditioned_universe.pdf",
+      "svg": "docs/reproducibility/canva_figure_provenance/R04_task_conditioned_ood/figures/figure01_task_conditioned_universe.svg"
+    }
+  },
+  "source_hashes": {
+    "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv": "a3c478bbcf2bf8e976d3d5e9f3e3ea680802aac77d49119dad54f9398cc35f94"
+  },
+  "figure1a_coordinate_semantics": {
+    "source_table": "comprehensive_task_map_points.csv",
+    "coordinates": "display_x/display_y from common Cr-local SOAP -> shared PCA -> UMAP, followed by task-local centering/scaling; within-task geometry is preserved",
+    "axis_labels": [
+      "Feature-map axis 1",
+      "Feature-map axis 2"
+    ],
+    "metric_warning": "task-conditioned display coordinates are for visual organization, not quantitative inter-task distance claims",
+    "task_clusters": "translucent convex hulls over the measured task_group rows",
+    "path_lines": "source-provided path_key rows sorted by frame/sample_frame; solid fixed/sliding and dashed self-relaxed",
+    "marker_area": "distance_to_training, percentile-normalized; larger area means farther feature-space OOD",
+    "point_hue": "sublevel color; task hue is reserved for hulls and task labels",
+    "not_confounded_with": "rms_delta_A remains a structural Cr-shell distortion field in the source table and is not relabelled as OOD"
+  },
+  "notes": [
+    "This is an additive pre-import review package; the source PR and historical figure outputs are not overwritten.",
+    "All blocked panels are explicit placeholders; no synthetic observations are used.",
+    "SCF-warning, endpoint-only proxy, legacy and provisional states remain separate.",
+    "Every aggregate line panel uses a finite replicate ensemble with a shaded mean ± sample SD band; every aggregate bar panel uses mean ± sample SD whiskers.",
+    "Figure 1A uses the existing Canva slide-1 task-conditioned display geometry, measured task hulls and source path lines; it uses distance_to_training for point area so OOD is not conflated with Cr-shell structural distortion.",
+    "Figure 2 C/F clusters are sourced from the complete parity summary; one provider-backed auxiliary frame archive is omitted only from the non-summary scatter layer.",
+    "Figure 6 B/C remain complete for all five families and 15 model IDs from the status table; provider-backed auxiliary line files are omitted only where they do not materialize locally.",
+    "The selected-figure build intentionally does not create the full-package tables directory; use the PR package manifest and source hashes for provenance."
+  ]
+}
