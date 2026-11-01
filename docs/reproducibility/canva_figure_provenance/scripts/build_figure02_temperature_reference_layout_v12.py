@@ -30,6 +30,7 @@ TEMP_FAMILY_OFFSETS = {"Scratch-MultiT": -0.58, "FT-MultiT": 0.58}
 SEED_OFFSETS = np.asarray([-0.105, 0.0, 0.105])
 TEMP_BOX_WIDTH = 0.085
 GROUP_HALF_WIDTH = 1.02
+RIGHT_MARGIN = 0.45
 BRACKET_STEP = 0.60
 
 
@@ -173,7 +174,10 @@ def _draw_temperature_strip(
     v9._set_log_exponent_axis(ax, (low, high))
     # Align the first broken x-axis segment with the left y-axis so the two
     # axes meet cleanly instead of leaving a visible gap.
-    ax.set_xlim(TEMP_CENTERS[TEMP_CATEGORIES[0]] - GROUP_HALF_WIDTH, TEMP_CENTERS[TEMP_CATEGORIES[-1]] + GROUP_HALF_WIDTH)
+    ax.set_xlim(
+        TEMP_CENTERS[TEMP_CATEGORIES[0]] - GROUP_HALF_WIDTH,
+        TEMP_CENTERS[TEMP_CATEGORIES[-1]] + GROUP_HALF_WIDTH + RIGHT_MARGIN,
+    )
     tick_positions = [
         TEMP_CENTERS[category] + TEMP_FAMILY_OFFSETS[family]
         for category in categories
