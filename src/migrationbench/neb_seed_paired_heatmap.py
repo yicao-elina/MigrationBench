@@ -93,6 +93,7 @@ def _write_tsv(frame: pd.DataFrame, path: Path) -> None:
 
 
 def _save_figure(fig: plt.Figure, stem: Path) -> list[Path]:
+    _apply_typography(fig)
     outputs: list[Path] = []
     for suffix in (".png", ".pdf", ".svg"):
         path = stem.with_suffix(suffix)
@@ -105,6 +106,24 @@ def _save_figure(fig: plt.Figure, stem: Path) -> list[Path]:
         outputs.append(path)
     plt.close(fig)
     return outputs
+
+
+def _apply_typography(fig: plt.Figure, *, increase_pt: float = 2.0) -> None:
+    """Apply the requested final-size typography to every exported figure.
+
+    The renderer contains several independent panels with explicit local text
+    sizes.  Applying the final-size override at export time keeps those panel
+    recipes consistent while ensuring that all x/y tick labels and axis
+    labels are visibly bold.
+    """
+    for text in fig.findobj(mpl.text.Text):
+        if text.get_text():
+            text.set_fontsize(text.get_fontsize() + increase_pt)
+    for axis in fig.axes:
+        axis.xaxis.label.set_fontweight("bold")
+        axis.yaxis.label.set_fontweight("bold")
+        for tick in (*axis.get_xticklabels(), *axis.get_yticklabels()):
+            tick.set_fontweight("bold")
 
 
 def _publication_style() -> None:

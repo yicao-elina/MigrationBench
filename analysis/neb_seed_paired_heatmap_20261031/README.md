@@ -9,6 +9,10 @@ circle is split into three seed wedges. A companion seed-expanded figure has
 Foundation rows. The migration columns are barrier errors against the
 canonical DFT forward barrier, not raw barrier proxies.
 
+The final export override increases every non-empty text artist by 2 pt and
+bolds all x/y tick labels and axis labels; this is applied consistently to the
+PNG, PDF, and SVG products at save time.
+
 ## What the two reference styles encode
 
 The first attachment is a correlation bubble matrix: circle color is the sign

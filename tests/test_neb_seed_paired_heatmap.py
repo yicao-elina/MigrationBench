@@ -1,11 +1,17 @@
+import importlib.util
 import subprocess
 import sys
-import importlib.util
 from pathlib import Path
 
+import matplotlib.pyplot as plt
 import pandas as pd
 
-from migrationbench.neb_seed_paired_heatmap import derive_tables, read_and_validate, render_bundle
+from migrationbench.neb_seed_paired_heatmap import (
+    _apply_typography,
+    derive_tables,
+    read_and_validate,
+    render_bundle,
+)
 
 ROOT = Path(__file__).resolve().parents[1]
 ANALYSIS = ROOT / "analysis" / "neb_seed_paired_heatmap_20261031"
@@ -61,6 +67,21 @@ def test_render_bundle_exports_editable_and_processed_products(tmp_path: Path) -
     assert (processed / "NEB_MODEL_SEED_ROUTE_METRICS.tsv").is_file()
     metrics = pd.read_csv(processed / "NEB_MODEL_SEED_ROUTE_METRICS.tsv", sep="\t")
     assert metrics.shape[0] == 36
+
+
+def test_export_typography_bumps_and_bolds_axis_text() -> None:
+    fig, axis = plt.subplots()
+    axis.set_xticks([0, 1], ["route A", "route B"])
+    axis.set_yticks([0, 1], ["model A", "model B"])
+    axis.set_xlabel("X axis")
+    axis.set_ylabel("Y axis")
+    baseline = axis.get_xticklabels()[0].get_fontsize()
+    _apply_typography(fig)
+    assert axis.get_xticklabels()[0].get_fontsize() == baseline + 2.0
+    assert axis.get_yticklabels()[0].get_fontweight() == "bold"
+    assert axis.xaxis.label.get_fontweight() == "bold"
+    assert axis.yaxis.label.get_fontweight() == "bold"
+    plt.close(fig)
 
 
 def test_geometry_hash_mismatch_is_rejected(tmp_path: Path) -> None:
