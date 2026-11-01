@@ -4,9 +4,9 @@ This module deliberately keeps a fixed DFT image path separate from
 self-relaxed MLFF-NEB.  It accepts one row per
 model/checkpoint/route/image on an identical fixed geometry and produces:
 
-* a seed-preserving task-performance heatmap (four families x three seeds);
-* a descriptive, hierarchical similarity map of the full image-wise errors;
-* a bubble similarity matrix using the reference figure's visual grammar.
+* a seed-preserving task-performance heatmap with sliding and migration blocks;
+* a ranked signed-error map with overall image-wise and row-wise summaries;
+* a normalized bubble similarity matrix using the reference figure's visual grammar.
 
 The dendrogram is a similarity summary of error signatures.  It is not a
 training-lineage or a statistical significance claim.
@@ -55,6 +55,16 @@ REQUIRED_COLUMNS = {
 FIXED_PATH_OBSERVABLE = "FIXED_PATH_SINGLE_POINT"
 FAMILY_COLORS = ("#1B5E8A", "#E17C05", "#2A9D8F", "#8C4FA4")
 TASK_COLORS = ("#4C78A8", "#F58518", "#54A24B")
+TOTAL_COLUMN_ORDER = [
+    "sliding_pristine_fixed",
+    "sliding_cr_in_gap_fixed",
+    "migration_in_gap_fixed",
+    "migration_gap_to_ql_fixed",
+    "migration_within_ql_fixed",
+    "migration_in_gap_self",
+    "migration_gap_to_ql_self",
+    "migration_within_ql_self",
+]
 
 
 @dataclass(frozen=True)
@@ -372,39 +382,190 @@ def _signature_matrix(errors: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame,
     return pivot.reindex(index=unit_order), label_lookup.set_index("model_id"), paths
 
 
+def render_total_performance_heatmap(total_metrics: pd.DataFrame, out_dir: Path) -> list[Path]:
+    """Render the cross-campaign performance matrix with explicit missing cells."""
+    _publication_style()
+    required = {
+        "unit_id",
+        "row_label",
+        "campaign",
+        "model_family",
+        "training_seed",
+        "column_id",
+        "column_label",
+        "value_eV",
+        "metric_type",
+    }
+    missing = sorted(required - set(total_metrics.columns))
+    if missing:
+        raise ValueError(f"total performance table lacks required columns: {', '.join(missing)}")
+    column_order = [column for column in TOTAL_COLUMN_ORDER if column in set(total_metrics["column_id"])]
+    row_order = list(dict.fromkeys(total_metrics["unit_id"].astype(str)))
+    table = total_metrics.copy()
+    table["unit_id"] = table["unit_id"].astype(str)
+    table["column_id"] = table["column_id"].astype(str)
+    values = table.pivot(index="unit_id", columns="column_id", values="value_eV").reindex(
+        index=row_order, columns=column_order
+    )
+    display_labels = {
+        "sliding_pristine_fixed": "Pristine\nMAE",
+        "sliding_cr_in_gap_fixed": "Cr-in-gap\nMAE",
+        "migration_in_gap_fixed": "Within gap\nfixed",
+        "migration_gap_to_ql_fixed": "Gap→QL\nfixed",
+        "migration_within_ql_fixed": "Within QL\nfixed",
+        "migration_in_gap_self": "Within gap\nself",
+        "migration_gap_to_ql_self": "Gap→QL\nself",
+        "migration_within_ql_self": "Within QL\nself",
+    }
+    short_labels = [display_labels[column] for column in column_order]
+    row_labels = table.drop_duplicates("unit_id").set_index("unit_id")["row_label"].reindex(row_order)
+    row_families = table.drop_duplicates("unit_id").set_index("unit_id")["model_family"].reindex(row_order).astype(str)
+    row_campaigns = table.drop_duplicates("unit_id").set_index("unit_id")["campaign"].reindex(row_order).astype(str)
+
+    z_values = values.astype(float).copy()
+    for column in column_order:
+        observed = z_values[column].dropna()
+        deviation = float(observed.std(ddof=0)) if not observed.empty else 0.0
+        z_values[column] = 0.0 if deviation == 0 else (z_values[column] - observed.mean()) / deviation
+    finite_z = z_values.to_numpy(float)
+    limit = max(1.0, float(np.nanmax(np.abs(finite_z))) if np.isfinite(finite_z).any() else 1.0)
+    masked = np.ma.masked_invalid(z_values.to_numpy(float))
+    cmap = plt.get_cmap("RdBu_r").copy()
+    cmap.set_bad("#E7E7E7")
+
+    families = list(dict.fromkeys(row_families.tolist()))
+    family_colors = _family_palette(families)
+    campaign_colors = {"sliding": "#4C78A8", "migration": "#B85C38"}
+    fig = plt.figure(figsize=(15.6, 10.0), layout="constrained")
+    grid = fig.add_gridspec(
+        3,
+        6,
+        height_ratios=(0.22, 0.22, 1.0),
+        width_ratios=(0.10, 0.10, 1.42, 5.3, 0.75, 0.18),
+        hspace=0.04,
+        wspace=0.035,
+    )
+    ax_task = fig.add_subplot(grid[0, 3])
+    ax_summary_label = fig.add_subplot(grid[1, 2])
+    ax_summary = fig.add_subplot(grid[1, 3])
+    ax_summary_cbar = fig.add_subplot(grid[1, 4])
+    ax_campaign = fig.add_subplot(grid[2, 0])
+    ax_family = fig.add_subplot(grid[2, 1])
+    ax_labels = fig.add_subplot(grid[2, 2])
+    ax = fig.add_subplot(grid[2, 3])
+    ax_row_summary = fig.add_subplot(grid[2, 4])
+    cax = fig.add_subplot(grid[2, 5])
+
+    ax_task.set_xlim(0, len(column_order))
+    ax_task.set_ylim(0, 1)
+    group_specs = [
+        (0, 2, "Sliding\nfixed-path MAE", "#4C78A8"),
+        (2, 5, "Migration\nfixed-path barrier proxy", "#E17C05"),
+        (5, 8, "Migration\nself-relaxed barrier proxy", "#2A9D8F"),
+    ]
+    for start, end, label, color in group_specs:
+        if end <= len(column_order):
+            ax_task.add_patch(Rectangle((start, 0.15), end - start, 0.6, facecolor=color, edgecolor="white", linewidth=1.0))
+            ax_task.text((start + end) / 2, 0.47, label, ha="center", va="center", fontsize=10.0, fontweight="bold", color="white")
+    ax_task.set_axis_off()
+
+    summary = values.abs().mean(axis=0).to_numpy(float)
+    summary_image = ax_summary.imshow(summary[np.newaxis, :], cmap="OrRd", aspect="auto", interpolation="nearest")
+    ax_summary.set_xticks([])
+    ax_summary.set_yticks([0], [""], fontsize=8)
+    ax_summary.set_ylabel("Mean |value|", fontsize=8.8, fontweight="bold", rotation=0, labelpad=48, va="center")
+    ax_summary_label.set_axis_off()
+    ax_summary_cbar.set_axis_off()
+    summary_cbar = fig.colorbar(summary_image, ax=ax_summary, cax=ax_summary_cbar, orientation="vertical")
+    summary_cbar.set_label("Mean |value| (eV)", fontsize=8.8, fontweight="bold")
+    summary_cbar.ax.tick_params(labelsize=8, length=2)
+
+    _draw_family_strip(ax_family, row_families.tolist(), family_colors)
+    _draw_family_strip(ax_campaign, row_campaigns.tolist(), campaign_colors)
+    ax_labels.set_xlim(0, 1)
+    ax_labels.set_ylim(len(row_order), 0)
+    for index, label in enumerate(row_labels.tolist()):
+        ax_labels.text(1.0, index + 0.5, label, ha="right", va="center", fontsize=8.9, fontweight="bold")
+    ax_labels.set_axis_off()
+
+    norm = TwoSlopeNorm(vmin=-limit, vcenter=0.0, vmax=limit)
+    image = ax.imshow(masked, cmap=cmap, norm=norm, aspect="auto", interpolation="nearest")
+    ax.set_xticks(np.arange(len(column_order)), short_labels, fontsize=8.6, fontweight="bold")
+    ax.xaxis.tick_top()
+    ax.tick_params(axis="x", length=0, pad=27)
+    ax.set_yticks([])
+    ax.set_xticks(np.arange(-0.5, len(column_order), 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(row_order), 1), minor=True)
+    ax.grid(which="minor", color="#D4D4D4", linewidth=0.75)
+    ax.tick_params(which="minor", bottom=False, left=False)
+    for index in range(len(row_order) - 1):
+        if row_campaigns.iloc[index] != row_campaigns.iloc[index + 1] or row_families.iloc[index] != row_families.iloc[index + 1]:
+            ax.axhline(index + 0.5, color="#222222", linewidth=1.15)
+    for index in (2, 5):
+        if index < len(column_order):
+            ax.axvline(index - 0.5, color="#222222", linewidth=1.2)
+    for row_index, unit in enumerate(row_order):
+        for column_index, column in enumerate(column_order):
+            value = values.loc[unit, column]
+            if pd.isna(value):
+                ax.text(column_index, row_index, "NA", ha="center", va="center", color="#666666", fontsize=7.6, fontweight="bold")
+            else:
+                contrast = "white" if abs(z_values.loc[unit, column]) > limit * 0.62 else "#151515"
+                ax.text(column_index, row_index, f"{value:.2f}", ha="center", va="center", color=contrast, fontsize=8.1, fontweight="bold")
+    for spine in ax.spines.values():
+        spine.set_linewidth(1.05)
+        spine.set_color("#222222")
+
+    row_summary = values.abs().mean(axis=1).to_numpy(float)
+    ax_row_summary.imshow(row_summary[:, np.newaxis], cmap="OrRd", aspect="auto", interpolation="nearest")
+    ax_row_summary.set_xticks([0], ["Mean\n|value|"], fontsize=8.6, fontweight="bold")
+    ax_row_summary.xaxis.tick_top()
+    ax_row_summary.tick_params(axis="x", length=0, pad=28)
+    ax_row_summary.set_yticks([])
+    for row_index, value in enumerate(row_summary):
+        text = "NA" if not np.isfinite(value) else f"{value:.2f}"
+        ax_row_summary.text(0, row_index, text, ha="center", va="center", color="#151515", fontsize=8.0, fontweight="bold")
+    for spine in ax_row_summary.spines.values():
+        spine.set_linewidth(1.05)
+        spine.set_color("#222222")
+    colorbar = fig.colorbar(image, cax=cax)
+    colorbar.set_label("Within-column standardized score\n(lower is bluer)", fontsize=9.5, fontweight="bold")
+    colorbar.ax.tick_params(labelsize=8.5, length=3)
+    return _save_figure(fig, out_dir / "fig_neb_seed_performance_heatmap")
+
+
 def render_lineage_clustermap(errors: pd.DataFrame, out_dir: Path) -> list[Path]:
-    """Render a correlation-distance dendrogram of image-wise signed errors."""
+    """Render a ranked signed-error heatmap with an overall error summary row."""
     _publication_style()
     matrix, labels, paths = _signature_matrix(errors)
     raw = matrix.to_numpy(float)
     if raw.shape[0] < 3:
-        raise ValueError("a lineage heatmap needs at least three model-seed units")
-    if np.any(np.std(raw, axis=1) == 0):
-        raise ValueError("cannot cluster a constant image-wise error signature")
-    row_linkage = linkage(pdist(raw, metric="correlation"), method="average")
-    row_order = leaves_list(row_linkage)
+        raise ValueError("an error heatmap needs at least three model-seed units")
+    row_mean_abs = np.mean(np.abs(raw), axis=1)
+    row_order = np.argsort(-row_mean_abs, kind="stable")
     ordered = matrix.iloc[row_order]
     ordered_labels = labels.reindex(ordered.index)
     maximum = max(0.05, float(np.nanquantile(np.abs(raw), 0.98)))
     maximum = max(maximum, 0.10)
-    fig = plt.figure(figsize=(14.0, 7.0), layout="constrained")
+    overall_mean_abs = np.mean(np.abs(raw), axis=0)
+    fig = plt.figure(figsize=(14.2, 7.4), layout="constrained")
     grid = fig.add_gridspec(
         3,
-        5,
-        height_ratios=(0.13, 0.07, 1.0),
-        width_ratios=(0.95, 0.12, 0.20, 4.6, 0.16),
+        6,
+        height_ratios=(0.14, 0.18, 1.0),
+        width_ratios=(0.12, 0.20, 1.4, 4.9, 0.64, 0.18),
         hspace=0.03,
         wspace=0.03,
     )
     ax_task = fig.add_subplot(grid[0, 3])
-    ax_dendrogram = fig.add_subplot(grid[2, 0])
+    ax_overall_label = fig.add_subplot(grid[1, 2])
+    ax_overall = fig.add_subplot(grid[1, 3])
+    ax_overall_cbar = fig.add_subplot(grid[1, 4])
     ax_family = fig.add_subplot(grid[2, 1])
     ax_labels = fig.add_subplot(grid[2, 2])
     ax = fig.add_subplot(grid[2, 3])
-    cax = fig.add_subplot(grid[2, 4])
-    dendrogram(row_linkage, orientation="left", no_labels=True, color_threshold=0, above_threshold_color="#555555", ax=ax_dendrogram)
-    ax_dendrogram.invert_yaxis()
-    ax_dendrogram.set_axis_off()
+    ax_row_summary = fig.add_subplot(grid[2, 4])
+    cax = fig.add_subplot(grid[2, 5])
     families = _family_order(errors)
     palette = _family_palette(families)
     row_families = list(ordered_labels["model_family"].astype(str))
@@ -418,6 +579,13 @@ def render_lineage_clustermap(errors: pd.DataFrame, out_dir: Path) -> list[Path]
     image = ax.imshow(ordered.to_numpy(float), cmap="RdBu_r", norm=norm, interpolation="nearest", aspect="auto")
     ax.set_yticks([])
     ax.set_xticks([])
+    ax.set_xticks(np.arange(-0.5, ordered.shape[1], 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, len(ordered), 1), minor=True)
+    ax.grid(which="minor", color="#D8D8D8", linewidth=0.65)
+    ax.tick_params(which="minor", bottom=False, left=False)
+    for index in range(len(row_families) - 1):
+        if row_families[index] != row_families[index + 1]:
+            ax.axhline(index + 0.5, color="#222222", linewidth=1.15)
     for spine in ax.spines.values():
         spine.set_linewidth(1.05)
         spine.set_color("#222222")
@@ -434,6 +602,24 @@ def render_lineage_clustermap(errors: pd.DataFrame, out_dir: Path) -> list[Path]
         start += count
     ax.axvline(start - 0.5, color="#333333", linewidth=1.0)
     ax_task.set_axis_off()
+
+    overall_image = ax_overall.imshow(overall_mean_abs[np.newaxis, :], cmap="OrRd", aspect="auto", interpolation="nearest")
+    ax_overall.set_xticks([])
+    ax_overall.set_yticks([0], [""], fontsize=8)
+    ax_overall_label.set_axis_off()
+    ax_overall_label.text(1.0, 0.5, "Overall mean\n|error| (eV)", ha="right", va="center", fontsize=9.1, fontweight="bold")
+    overall_cbar = fig.colorbar(overall_image, cax=ax_overall_cbar, orientation="vertical")
+    overall_cbar.ax.tick_params(labelsize=8, length=2)
+    ax_row_summary.imshow(row_mean_abs[row_order, np.newaxis], cmap="OrRd", aspect="auto", interpolation="nearest")
+    ax_row_summary.set_xticks([0], ["Mean\n|error|"], fontsize=8.8, fontweight="bold")
+    ax_row_summary.xaxis.tick_top()
+    ax_row_summary.tick_params(axis="x", length=0, pad=28)
+    ax_row_summary.set_yticks([])
+    for index, value in enumerate(row_mean_abs[row_order]):
+        ax_row_summary.text(0, index, f"{value:.2f}", ha="center", va="center", fontsize=8.0, fontweight="bold")
+    for spine in ax_row_summary.spines.values():
+        spine.set_linewidth(1.05)
+        spine.set_color("#222222")
     colorbar = fig.colorbar(image, cax=cax)
     colorbar.set_label("Signed relative-energy error (eV)", fontsize=10.5, fontweight="bold")
     colorbar.ax.tick_params(labelsize=9.3, length=3)
@@ -447,6 +633,10 @@ def _bubble_matrix(
     output: Path,
     title: str,
     subtitle: str,
+    cmap: str = "RdBu",
+    vmin: float = -1.0,
+    vmax: float = 1.0,
+    colorbar_label: str = "Correlation",
 ) -> list[Path]:
     _publication_style()
     count = len(labels)
@@ -459,8 +649,8 @@ def _bubble_matrix(
         yy.ravel(),
         s=np.square(np.abs(values)) * scale + 4,
         c=values,
-        cmap="RdBu",
-        norm=Normalize(vmin=-1, vmax=1),
+        cmap=cmap,
+        norm=Normalize(vmin=vmin, vmax=vmax),
         marker="o",
         edgecolors="none",
         alpha=0.97,
@@ -478,22 +668,38 @@ def _bubble_matrix(
     for spine in ax.spines.values():
         spine.set_visible(False)
     colorbar = fig.colorbar(scatter, ax=ax, fraction=0.046, pad=0.02)
-    colorbar.set_label("Correlation", fontsize=10.5, fontweight="bold")
+    colorbar.set_label(colorbar_label, fontsize=10.5, fontweight="bold")
     colorbar.ax.tick_params(labelsize=9.5, length=3)
     return _save_figure(fig, output)
 
 
-def render_similarity_bubble_matrix(errors: pd.DataFrame, out_dir: Path) -> list[Path]:
-    """Render Figure-1-style error-signature correlations without p-value stars."""
+def _normalized_similarity(errors: pd.DataFrame) -> tuple[np.ndarray, list[str]]:
     matrix, labels, _ = _signature_matrix(errors)
     correlations = np.corrcoef(matrix.to_numpy(float))
-    display_labels = list(labels.reindex(matrix.index)["unit"])
+    off_diagonal = correlations[~np.eye(correlations.shape[0], dtype=bool)]
+    minimum = float(np.nanmin(off_diagonal))
+    maximum = float(np.nanmax(off_diagonal))
+    if maximum <= minimum:
+        similarity = np.ones_like(correlations)
+    else:
+        similarity = (correlations - minimum) / (maximum - minimum)
+    np.fill_diagonal(similarity, 1.0)
+    return similarity, list(labels.reindex(matrix.index)["unit"])
+
+
+def render_similarity_bubble_matrix(errors: pd.DataFrame, out_dir: Path) -> list[Path]:
+    """Render Figure-1-style normalized error-signature similarity without stars."""
+    similarity, display_labels = _normalized_similarity(errors)
     return _bubble_matrix(
-        correlations,
+        similarity,
         display_labels,
         output=out_dir / "fig_neb_seed_error_similarity_bubble_matrix",
         title="NEB error-signature similarity",
-        subtitle="Circle area is |r|; color is r. No significance symbols: NEB images are not independent samples.",
+        subtitle="Circle area and color encode off-diagonal correlation normalized to [0, 1].",
+        cmap="YlGnBu",
+        vmin=0.0,
+        vmax=1.0,
+        colorbar_label="Normalized correlation similarity [0, 1]",
     )
 
 
@@ -563,6 +769,7 @@ def render_bundle(
     expected_paths: int | None = 3,
     baseline_family: str | None = None,
     allow_synthetic_demo: bool = False,
+    total_metrics_path: Path | None = None,
 ) -> dict[str, object]:
     """Build all source tables and vector/raster figures from one input table."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -578,23 +785,37 @@ def render_bundle(
     errors.to_csv(processed_dir / "NEB_IMAGEWISE_ENERGY_ERRORS.tsv", sep="\t", index=False)
     metrics.to_csv(processed_dir / "NEB_MODEL_SEED_ROUTE_METRICS.tsv", sep="\t", index=False)
     effects.to_csv(processed_dir / "NEB_SEED_MATCHED_FAMILY_EFFECTS.tsv", sep="\t", index=False)
+    similarity, similarity_labels = _normalized_similarity(errors)
+    pd.DataFrame(similarity, index=similarity_labels, columns=similarity_labels).to_csv(
+        processed_dir / "NEB_ERROR_SIGNATURE_SIMILARITY_01.tsv", sep="\t"
+    )
+    if total_metrics_path is not None:
+        total_metrics = pd.read_csv(total_metrics_path, sep="\t")
+        total_metrics.to_csv(processed_dir / "NEB_TOTAL_PERFORMANCE_METRICS.tsv", sep="\t", index=False)
+        performance_products = render_total_performance_heatmap(total_metrics, output_dir)
+    else:
+        performance_products = render_performance_heatmap(metrics, output_dir)
     products = (
         render_reference_bubble_demo(output_dir)
         + render_reference_clustered_heatmap_demo(output_dir)
-        + render_performance_heatmap(metrics, output_dir)
+        + performance_products
         + render_lineage_clustermap(errors, output_dir)
         + render_similarity_bubble_matrix(errors, output_dir)
     )
     manifest = {
-        "schema_version": "migrationbench_neb_seed_paired_heatmap_v1",
+        "schema_version": "migrationbench_neb_seed_paired_heatmap_v2",
         "code": {"path": str(Path(__file__).resolve()), "sha256": _sha256(Path(__file__).resolve())},
         "input": {"path": str(input_path.resolve()), "sha256": _sha256(input_path)},
         "input_audit": asdict(audit),
         "analytic_boundary": (
-            "Fixed-path DFT-retained image scores only. Self-relaxed MLFF-NEB and "
-            "fixed-path values are never pooled."
+            "The sliding block is fixed-path DFT-matched MAE. The migration block is "
+            "a separately sourced barrier-proxy summary; fixed-path and self-relaxed "
+            "migration values are never pooled or called DFT errors."
         ),
-        "cluster_interpretation": "descriptive error-signature similarity, not causal training lineage",
+        "cluster_interpretation": (
+            "rows are sorted by mean absolute image-wise error; the descriptive map "
+            "is not causal training lineage"
+        ),
         "products": [{"path": str(path.resolve()), "sha256": _sha256(path)} for path in products],
         "processed_tables": [
             {"path": str(path.resolve()), "sha256": _sha256(path)}
