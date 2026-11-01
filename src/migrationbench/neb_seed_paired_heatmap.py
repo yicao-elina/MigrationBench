@@ -4,7 +4,7 @@ This module deliberately keeps a fixed DFT image path separate from
 self-relaxed MLFF-NEB.  It accepts one row per
 model/checkpoint/route/image on an identical fixed geometry and produces:
 
-* a seed-preserving task-performance heatmap with sliding and migration blocks;
+* a seed-preserving error map plus a model-by-task performance bubble heatmap;
 * a ranked signed-error map with overall image-wise and row-wise summaries;
 * a normalized bubble similarity matrix using the reference figure's visual grammar.
 
@@ -56,14 +56,14 @@ FIXED_PATH_OBSERVABLE = "FIXED_PATH_SINGLE_POINT"
 FAMILY_COLORS = ("#1B5E8A", "#E17C05", "#2A9D8F", "#8C4FA4")
 TASK_COLORS = ("#4C78A8", "#F58518", "#54A24B")
 TOTAL_COLUMN_ORDER = [
-    "sliding_pristine_fixed",
-    "sliding_cr_in_gap_fixed",
     "migration_in_gap_fixed",
     "migration_gap_to_ql_fixed",
     "migration_within_ql_fixed",
     "migration_in_gap_self",
     "migration_gap_to_ql_self",
     "migration_within_ql_self",
+    "sliding_pristine_fixed",
+    "sliding_cr_in_gap_fixed",
 ]
 
 
@@ -383,154 +383,140 @@ def _signature_matrix(errors: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame,
 
 
 def render_total_performance_heatmap(total_metrics: pd.DataFrame, out_dir: Path) -> list[Path]:
-    """Render the cross-campaign performance matrix with explicit missing cells."""
+    """Render the compact model-by-task score/coverage bubble heatmap."""
     _publication_style()
     required = {
-        "unit_id",
+        "row_id",
         "row_label",
-        "campaign",
-        "model_family",
-        "training_seed",
+        "model_kind",
         "column_id",
         "column_label",
-        "value_eV",
-        "metric_type",
+        "task_block",
+        "raw_value_eV",
+        "score_01",
+        "coverage_fraction",
     }
     missing = sorted(required - set(total_metrics.columns))
     if missing:
-        raise ValueError(f"total performance table lacks required columns: {', '.join(missing)}")
+        raise ValueError(f"dot performance table lacks required columns: {', '.join(missing)}")
     column_order = [column for column in TOTAL_COLUMN_ORDER if column in set(total_metrics["column_id"])]
-    row_order = list(dict.fromkeys(total_metrics["unit_id"].astype(str)))
+    row_order = list(dict.fromkeys(total_metrics["row_id"].astype(str)))
     table = total_metrics.copy()
-    table["unit_id"] = table["unit_id"].astype(str)
+    table["row_id"] = table["row_id"].astype(str)
     table["column_id"] = table["column_id"].astype(str)
-    values = table.pivot(index="unit_id", columns="column_id", values="value_eV").reindex(
-        index=row_order, columns=column_order
-    )
-    display_labels = {
-        "sliding_pristine_fixed": "Pristine\nMAE",
-        "sliding_cr_in_gap_fixed": "Cr-in-gap\nMAE",
-        "migration_in_gap_fixed": "Within gap\nfixed",
-        "migration_gap_to_ql_fixed": "Gap→QL\nfixed",
-        "migration_within_ql_fixed": "Within QL\nfixed",
-        "migration_in_gap_self": "Within gap\nself",
-        "migration_gap_to_ql_self": "Gap→QL\nself",
-        "migration_within_ql_self": "Within QL\nself",
-    }
-    short_labels = [display_labels[column] for column in column_order]
-    row_labels = table.drop_duplicates("unit_id").set_index("unit_id")["row_label"].reindex(row_order)
-    row_families = table.drop_duplicates("unit_id").set_index("unit_id")["model_family"].reindex(row_order).astype(str)
-    row_campaigns = table.drop_duplicates("unit_id").set_index("unit_id")["campaign"].reindex(row_order).astype(str)
+    scores = table.pivot(index="row_id", columns="column_id", values="score_01").reindex(index=row_order, columns=column_order)
+    coverage = table.pivot(index="row_id", columns="column_id", values="coverage_fraction").reindex(index=row_order, columns=column_order)
+    row_labels = table.drop_duplicates("row_id").set_index("row_id")["row_label"].reindex(row_order)
+    row_kinds = table.drop_duplicates("row_id").set_index("row_id")["model_kind"].reindex(row_order)
+    labels = table.drop_duplicates("column_id").set_index("column_id")["column_label"].reindex(column_order).tolist()
 
-    z_values = values.astype(float).copy()
-    for column in column_order:
-        observed = z_values[column].dropna()
-        deviation = float(observed.std(ddof=0)) if not observed.empty else 0.0
-        z_values[column] = 0.0 if deviation == 0 else (z_values[column] - observed.mean()) / deviation
-    finite_z = z_values.to_numpy(float)
-    limit = max(1.0, float(np.nanmax(np.abs(finite_z))) if np.isfinite(finite_z).any() else 1.0)
-    masked = np.ma.masked_invalid(z_values.to_numpy(float))
-    cmap = plt.get_cmap("RdBu_r").copy()
-    cmap.set_bad("#E7E7E7")
-
-    families = list(dict.fromkeys(row_families.tolist()))
-    family_colors = _family_palette(families)
-    campaign_colors = {"sliding": "#4C78A8", "migration": "#B85C38"}
-    fig = plt.figure(figsize=(15.6, 10.0), layout="constrained")
+    fig = plt.figure(figsize=(13.2, 6.9), layout="constrained")
     grid = fig.add_gridspec(
         3,
-        6,
-        height_ratios=(0.22, 0.22, 1.0),
-        width_ratios=(0.10, 0.10, 1.42, 5.3, 0.75, 0.18),
-        hspace=0.04,
+        5,
+        height_ratios=(0.26, 0.22, 1.0),
+        width_ratios=(1.85, 0.22, 6.0, 0.84, 0.16),
+        hspace=0.02,
         wspace=0.035,
     )
-    ax_task = fig.add_subplot(grid[0, 3])
-    ax_summary_label = fig.add_subplot(grid[1, 2])
-    ax_summary = fig.add_subplot(grid[1, 3])
-    ax_summary_cbar = fig.add_subplot(grid[1, 4])
-    ax_campaign = fig.add_subplot(grid[2, 0])
-    ax_family = fig.add_subplot(grid[2, 1])
-    ax_labels = fig.add_subplot(grid[2, 2])
-    ax = fig.add_subplot(grid[2, 3])
-    ax_row_summary = fig.add_subplot(grid[2, 4])
-    cax = fig.add_subplot(grid[2, 5])
+    ax_size = fig.add_subplot(grid[0, 0:2])
+    ax_color = fig.add_subplot(grid[0, 2:4])
+    ax_group = fig.add_subplot(grid[1, 2:4])
+    ax_row_header = fig.add_subplot(grid[1, 0])
+    ax_labels = fig.add_subplot(grid[2, 0])
+    ax = fig.add_subplot(grid[2, 2])
+    ax_cbar = fig.add_subplot(grid[2, 3])
 
-    ax_task.set_xlim(0, len(column_order))
-    ax_task.set_ylim(0, 1)
+    # Reference-style top legend: circle area is coverage and color is a [0, 1] score.
+    ax_size.set_xlim(0, 5.5)
+    ax_size.set_ylim(0, 1)
+    ax_size.axis("off")
+    ax_size.text(0.0, 0.80, "Dot area = accepted / available replicates", ha="left", va="center", fontsize=9.8, fontweight="bold")
+    for position, fraction, label in zip((1.7, 2.55, 3.45), (1 / 3, 2 / 3, 1.0), ("1/3", "2/3", "3/3")):
+        ax_size.scatter(position, 0.34, s=42 + 330 * fraction, color="#111111", edgecolors="none")
+        ax_size.text(position, 0.02, label, ha="center", va="bottom", fontsize=8.8)
+    ax_size.text(4.25, 0.34, "Foundation cells use 1/1", ha="left", va="center", fontsize=8.8, color="#444444")
+
+    ax_color.set_axis_off()
+    gradient = np.linspace(1, 0, 256)[np.newaxis, :]
+    ax_color.imshow(gradient, aspect="auto", cmap="plasma", extent=(0, 1, 0.28, 0.56))
+    ax_color.text(0.0, 0.04, "High score", ha="left", va="bottom", fontsize=8.8)
+    ax_color.text(1.0, 0.04, "Low score", ha="right", va="bottom", fontsize=8.8)
+    ax_color.text(0.0, 0.83, "Color = column-normalized performance", ha="left", va="center", fontsize=9.8, fontweight="bold")
+
+    ax_group.set_xlim(0, len(column_order))
+    ax_group.set_ylim(0, 1)
     group_specs = [
-        (0, 2, "Sliding\nfixed-path MAE", "#4C78A8"),
-        (2, 5, "Migration\nfixed-path barrier proxy", "#E17C05"),
-        (5, 8, "Migration\nself-relaxed barrier proxy", "#2A9D8F"),
+        (0, 3, "Migration / fixed pathway"),
+        (3, 6, "Migration / self-relaxed"),
+        (6, 8, "Sliding"),
     ]
-    for start, end, label, color in group_specs:
+    for start, end, label in group_specs:
         if end <= len(column_order):
-            ax_task.add_patch(Rectangle((start, 0.15), end - start, 0.6, facecolor=color, edgecolor="white", linewidth=1.0))
-            ax_task.text((start + end) / 2, 0.47, label, ha="center", va="center", fontsize=10.0, fontweight="bold", color="white")
-    ax_task.set_axis_off()
+            ax_group.plot([start + 0.03, end - 0.03], [0.20, 0.20], color="#111111", linewidth=2.3, solid_capstyle="butt")
+            ax_group.text((start + end) / 2, 0.72, label, ha="center", va="center", fontsize=10.2, fontweight="bold")
+    ax_group.axis("off")
+    ax_row_header.axis("off")
+    ax_row_header.text(1.0, 0.20, "Model", ha="right", va="center", fontsize=10.0, fontweight="bold")
 
-    summary = values.abs().mean(axis=0).to_numpy(float)
-    summary_image = ax_summary.imshow(summary[np.newaxis, :], cmap="OrRd", aspect="auto", interpolation="nearest")
-    ax_summary.set_xticks([])
-    ax_summary.set_yticks([0], [""], fontsize=8)
-    ax_summary.set_ylabel("Mean |value|", fontsize=8.8, fontweight="bold", rotation=0, labelpad=48, va="center")
-    ax_summary_label.set_axis_off()
-    ax_summary_cbar.set_axis_off()
-    summary_cbar = fig.colorbar(summary_image, ax=ax_summary, cax=ax_summary_cbar, orientation="vertical")
-    summary_cbar.set_label("Mean |value| (eV)", fontsize=8.8, fontweight="bold")
-    summary_cbar.ax.tick_params(labelsize=8, length=2)
-
-    _draw_family_strip(ax_family, row_families.tolist(), family_colors)
-    _draw_family_strip(ax_campaign, row_campaigns.tolist(), campaign_colors)
     ax_labels.set_xlim(0, 1)
     ax_labels.set_ylim(len(row_order), 0)
     for index, label in enumerate(row_labels.tolist()):
-        ax_labels.text(1.0, index + 0.5, label, ha="right", va="center", fontsize=8.9, fontweight="bold")
-    ax_labels.set_axis_off()
+        weight = "bold" if row_kinds.iloc[index] == "trained_family" else "normal"
+        ax_labels.text(1.0, index + 0.5, label, ha="right", va="center", fontsize=10.2, fontweight=weight)
+    ax_labels.axis("off")
 
-    norm = TwoSlopeNorm(vmin=-limit, vcenter=0.0, vmax=limit)
-    image = ax.imshow(masked, cmap=cmap, norm=norm, aspect="auto", interpolation="nearest")
-    ax.set_xticks(np.arange(len(column_order)), short_labels, fontsize=8.6, fontweight="bold")
+    yy, xx = np.indices(scores.shape)
+    score_values = scores.to_numpy(float)
+    coverage_values = coverage.to_numpy(float)
+    finite = np.isfinite(score_values)
+    cmap = plt.get_cmap("plasma")
+    if finite.any():
+        ax.scatter(
+            xx[finite],
+            yy[finite],
+            s=42 + 330 * coverage_values[finite],
+            c=score_values[finite],
+            cmap=cmap,
+            vmin=0.0,
+            vmax=1.0,
+            edgecolors="none",
+            alpha=0.96,
+            zorder=3,
+        )
+    missing_cells = ~finite
+    if missing_cells.any():
+        ax.scatter(
+            xx[missing_cells],
+            yy[missing_cells],
+            s=28 + 40 * np.nan_to_num(coverage_values[missing_cells]),
+            facecolors="#E7E7E7",
+            edgecolors="#B9B9B9",
+            linewidths=0.9,
+            zorder=2,
+        )
+    ax.set_xlim(-0.55, len(column_order) - 0.45)
+    ax.set_ylim(len(row_order) - 0.55, -0.55)
+    ax.set_xticks(np.arange(len(column_order)), labels, rotation=48, ha="right", rotation_mode="anchor", fontsize=9.4, fontweight="bold")
     ax.xaxis.tick_top()
-    ax.tick_params(axis="x", length=0, pad=27)
+    ax.tick_params(axis="x", length=0, pad=8)
     ax.set_yticks([])
-    ax.set_xticks(np.arange(-0.5, len(column_order), 1), minor=True)
-    ax.set_yticks(np.arange(-0.5, len(row_order), 1), minor=True)
-    ax.grid(which="minor", color="#D4D4D4", linewidth=0.75)
-    ax.tick_params(which="minor", bottom=False, left=False)
-    for index in range(len(row_order) - 1):
-        if row_campaigns.iloc[index] != row_campaigns.iloc[index + 1] or row_families.iloc[index] != row_families.iloc[index + 1]:
-            ax.axhline(index + 0.5, color="#222222", linewidth=1.15)
-    for index in (2, 5):
-        if index < len(column_order):
-            ax.axvline(index - 0.5, color="#222222", linewidth=1.2)
-    for row_index, unit in enumerate(row_order):
-        for column_index, column in enumerate(column_order):
-            value = values.loc[unit, column]
-            if pd.isna(value):
-                ax.text(column_index, row_index, "NA", ha="center", va="center", color="#666666", fontsize=7.6, fontweight="bold")
-            else:
-                contrast = "white" if abs(z_values.loc[unit, column]) > limit * 0.62 else "#151515"
-                ax.text(column_index, row_index, f"{value:.2f}", ha="center", va="center", color=contrast, fontsize=8.1, fontweight="bold")
+    ax.set_facecolor("white")
+    for boundary in (2.5, 5.5):
+        if boundary < len(column_order):
+            ax.axvline(boundary, color="#111111", linewidth=1.35, zorder=4)
+    if len(row_order) > 4:
+        ax.axhline(3.5, color="#111111", linewidth=1.25, zorder=4)
     for spine in ax.spines.values():
-        spine.set_linewidth(1.05)
-        spine.set_color("#222222")
+        spine.set_visible(False)
 
-    row_summary = values.abs().mean(axis=1).to_numpy(float)
-    ax_row_summary.imshow(row_summary[:, np.newaxis], cmap="OrRd", aspect="auto", interpolation="nearest")
-    ax_row_summary.set_xticks([0], ["Mean\n|value|"], fontsize=8.6, fontweight="bold")
-    ax_row_summary.xaxis.tick_top()
-    ax_row_summary.tick_params(axis="x", length=0, pad=28)
-    ax_row_summary.set_yticks([])
-    for row_index, value in enumerate(row_summary):
-        text = "NA" if not np.isfinite(value) else f"{value:.2f}"
-        ax_row_summary.text(0, row_index, text, ha="center", va="center", color="#151515", fontsize=8.0, fontweight="bold")
-    for spine in ax_row_summary.spines.values():
-        spine.set_linewidth(1.05)
-        spine.set_color("#222222")
-    colorbar = fig.colorbar(image, cax=cax)
-    colorbar.set_label("Within-column standardized score\n(lower is bluer)", fontsize=9.5, fontweight="bold")
-    colorbar.ax.tick_params(labelsize=8.5, length=3)
+    colorbar = fig.colorbar(
+        mpl.cm.ScalarMappable(norm=Normalize(vmin=0.0, vmax=1.0), cmap=cmap),
+        cax=ax_cbar,
+    )
+    colorbar.set_label("Performance score\n[0, 1]", fontsize=9.3, fontweight="bold")
+    colorbar.ax.tick_params(labelsize=8.4, length=3)
+    colorbar.set_ticks([0.0, 0.5, 1.0])
     return _save_figure(fig, out_dir / "fig_neb_seed_performance_heatmap")
 
 
@@ -770,6 +756,7 @@ def render_bundle(
     baseline_family: str | None = None,
     allow_synthetic_demo: bool = False,
     total_metrics_path: Path | None = None,
+    dot_metrics_path: Path | None = None,
 ) -> dict[str, object]:
     """Build all source tables and vector/raster figures from one input table."""
     output_dir.mkdir(parents=True, exist_ok=True)
@@ -792,13 +779,34 @@ def render_bundle(
     if total_metrics_path is not None:
         total_metrics = pd.read_csv(total_metrics_path, sep="\t")
         total_metrics.to_csv(processed_dir / "NEB_TOTAL_PERFORMANCE_METRICS.tsv", sep="\t", index=False)
-        performance_products = render_total_performance_heatmap(total_metrics, output_dir)
+        if dot_metrics_path is not None:
+            dot_metrics = pd.read_csv(dot_metrics_path, sep="\t")
+            dot_metrics.to_csv(processed_dir / "NEB_TOTAL_PERFORMANCE_DOT_METRICS.tsv", sep="\t", index=False)
+            performance_products = render_total_performance_heatmap(dot_metrics, output_dir)
+        else:
+            performance_products = render_total_performance_heatmap(total_metrics, output_dir)
     else:
         performance_products = render_performance_heatmap(metrics, output_dir)
     additional_inputs: list[dict[str, object]] = []
     if total_metrics_path is not None:
         total_metrics = pd.read_csv(total_metrics_path, sep="\t")
-        for source in [total_metrics_path, *total_metrics["source_artifact"].dropna().astype(str).unique()]:
+        source_cells = [
+            token
+            for cell in total_metrics["source_artifact"].dropna().astype(str).unique()
+            for token in cell.split(";")
+            if token
+        ]
+        sources = [total_metrics_path, *source_cells]
+        if dot_metrics_path is not None:
+            dot_metrics = pd.read_csv(dot_metrics_path, sep="\t")
+            dot_source_cells = [
+                token
+                for cell in dot_metrics["source_artifact"].dropna().astype(str).unique()
+                for token in cell.split(";")
+                if token
+            ]
+            sources.extend([dot_metrics_path, *dot_source_cells])
+        for source in dict.fromkeys(sources):
             path = Path(source)
             additional_inputs.append(
                 {
@@ -824,6 +832,12 @@ def render_bundle(
             "The sliding block is fixed-path DFT-matched MAE. The migration block is "
             "a separately sourced barrier-proxy summary; fixed-path and self-relaxed "
             "migration values are never pooled or called DFT errors."
+        ),
+        "total_performance_visual_contract": (
+            "Rows are model families/checkpoint variants. Columns are ordered migration "
+            "fixed pathway, migration self-relaxed, and sliding. Color is a per-column "
+            "lower-is-better min-max score in [0, 1]; circle area is accepted/available "
+            "replicate coverage. Main trained-family values are medians over seeds 123/234/345."
         ),
         "cluster_interpretation": (
             "rows are sorted by mean absolute image-wise error; the descriptive map "

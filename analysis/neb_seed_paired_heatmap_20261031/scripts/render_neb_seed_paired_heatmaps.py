@@ -14,6 +14,7 @@ def main() -> None:
     parser.add_argument("--output-dir", type=Path, required=True)
     parser.add_argument("--processed-dir", type=Path, required=True)
     parser.add_argument("--total-metrics", type=Path, help="Optional cross-campaign tidy performance table")
+    parser.add_argument("--dot-metrics", type=Path, help="Optional aggregated score/coverage bubble table")
     parser.add_argument("--baseline-family", help="Family used for seed-matched effect tables; defaults to input order")
     parser.add_argument("--expected-families", type=int, default=4)
     parser.add_argument("--expected-seeds-per-family", type=int, default=3)
@@ -30,6 +31,7 @@ def main() -> None:
         baseline_family=args.baseline_family,
         allow_synthetic_demo=args.allow_synthetic_demo,
         total_metrics_path=args.total_metrics,
+        dot_metrics_path=args.dot_metrics,
     )
 
 

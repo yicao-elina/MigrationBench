@@ -1,5 +1,6 @@
 import subprocess
 import sys
+import importlib.util
 from pathlib import Path
 
 import pandas as pd
@@ -8,6 +9,16 @@ from migrationbench.neb_seed_paired_heatmap import derive_tables, read_and_valid
 
 ROOT = Path(__file__).resolve().parents[1]
 ANALYSIS = ROOT / "analysis" / "neb_seed_paired_heatmap_20261031"
+
+
+def _load_dot_builder():
+    path = ANALYSIS / "scripts" / "build_total_performance_dot_metrics.py"
+    spec = importlib.util.spec_from_file_location("build_total_performance_dot_metrics", path)
+    if spec is None or spec.loader is None:
+        raise AssertionError(f"cannot load {path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
 
 
 def _make_demo(path: Path) -> None:
@@ -78,3 +89,40 @@ def test_dft_energy_mismatch_is_rejected(tmp_path: Path) -> None:
         assert "dft_relative_energy_eV" in str(error)
     else:
         raise AssertionError("a fixed DFT image must have one reference energy across all models")
+
+
+def test_total_dot_table_has_frozen_order_and_scientific_coverage() -> None:
+    builder = _load_dot_builder()
+    table = builder.build_dot_table(
+        ANALYSIS / "processed/NEB_TOTAL_PERFORMANCE_METRICS.tsv",
+        ANALYSIS / "raw_input/foundation_migration_20261019/TIER1_RESULT_MATRIX.tsv",
+        ANALYSIS / "raw_input/sliding_foundation_20261024/fixed_metrics_per_model.csv",
+    )
+    assert table["row_id"].drop_duplicates().tolist() == [
+        "Scratch-MultiT",
+        "Scratch-600K",
+        "FT-600K",
+        "FT-MultiT",
+        "MP-0B3",
+        "OMAT-0",
+        "MPA0",
+    ]
+    assert table["column_id"].drop_duplicates().tolist() == [
+        "migration_in_gap_fixed",
+        "migration_gap_to_ql_fixed",
+        "migration_within_ql_fixed",
+        "migration_in_gap_self",
+        "migration_gap_to_ql_self",
+        "migration_within_ql_self",
+        "sliding_pristine_fixed",
+        "sliding_cr_in_gap_fixed",
+    ]
+    assert len(table) == 56
+    assert table["score_01"].dropna().between(0.0, 1.0).all()
+    scratch = table.loc[table["row_id"].eq("Scratch-600K")]
+    assert scratch.loc[scratch["column_id"].eq("migration_within_ql_self"), "n_available"].item() == 2
+    omat = table.loc[
+        table["row_id"].eq("OMAT-0") & table["column_id"].eq("migration_within_ql_self")
+    ].iloc[0]
+    assert pd.isna(omat["raw_value_eV"])
+    assert omat["n_available"] == 0

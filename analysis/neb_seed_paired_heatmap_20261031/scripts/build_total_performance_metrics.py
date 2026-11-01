@@ -12,14 +12,14 @@ SLIDING_FAMILIES = ["Scratch-MultiT", "Scratch-600K", "FT-600K", "FT-MultiT"]
 MIGRATION_FAMILIES = ["From-scratch", "Scratch-600K", "FT-600K", "FT-MultiT"]
 SEEDS = [123, 234, 345]
 COLUMNS = [
-    ("sliding_pristine_fixed", "Sliding / pristine\nfixed (MAE)", "sliding", "MAE"),
-    ("sliding_cr_in_gap_fixed", "Sliding / Cr-in-gap\nfixed (MAE)", "sliding", "MAE"),
     ("migration_in_gap_fixed", "Migration / within gap\nfixed (barrier)", "migration", "barrier_proxy"),
     ("migration_gap_to_ql_fixed", "Migration / gap→QL\nfixed (barrier)", "migration", "barrier_proxy"),
     ("migration_within_ql_fixed", "Migration / within QL\nfixed (barrier)", "migration", "barrier_proxy"),
     ("migration_in_gap_self", "Migration / within gap\nself-relaxed (barrier)", "migration", "barrier_proxy"),
     ("migration_gap_to_ql_self", "Migration / gap→QL\nself-relaxed (barrier)", "migration", "barrier_proxy"),
     ("migration_within_ql_self", "Migration / within QL\nself-relaxed (barrier)", "migration", "barrier_proxy"),
+    ("sliding_pristine_fixed", "Sliding / pristine\nfixed (MAE)", "sliding", "MAE"),
+    ("sliding_cr_in_gap_fixed", "Sliding / Cr-in-gap\nfixed (MAE)", "sliding", "MAE"),
 ]
 PATH_MAP = {
     "in-gap diffusion": "in_gap",
@@ -177,7 +177,11 @@ def build_total_table(
                 model_sha256=None,
                 dataset_status="PROVENANCE_PARTIAL",
             )
-            status = {column_id: ("FINITE_DIAGNOSTIC", "SUPPORTING_EVIDENCE") for column_id, _, _, _ in COLUMNS[:2]}
+            status = {
+                column_id: ("FINITE_DIAGNOSTIC", "SUPPORTING_EVIDENCE")
+                for column_id, _, _, _ in COLUMNS
+                if column_id.startswith("sliding_")
+            }
             _append_unit_rows(rows, base=base, values=values, status_by_column=status)
 
     migration_lookup: dict[tuple[str, int, str, str], dict[str, object]] = {}
@@ -210,7 +214,9 @@ def build_total_table(
             )
             values: dict[str, float] = {}
             statuses: dict[str, tuple[str, str]] = {}
-            for column_id, _, _, _ in COLUMNS[2:]:
+            for column_id, _, _, _ in COLUMNS:
+                if not column_id.startswith("migration_"):
+                    continue
                 is_self = column_id.endswith("_self")
                 route = column_id.removeprefix("migration_").removesuffix("_fixed").removesuffix("_self")
                 key = (family, seed, route, "self" if is_self else "fixed")

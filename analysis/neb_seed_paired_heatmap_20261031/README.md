@@ -1,13 +1,11 @@
 # NEB seed-paired heatmap atlas
 
 This bundle turns the current seed-resolved NEB evidence into publication-ready,
-editable figures. The sliding block contains the complete current
-`4 model families × 3 training seeds × 2 fixed DFT paths × 10-image grid`.
-The migration block is a separate campaign source with three routes and two
-observables; it is not silently treated as the same checkpoint universe. It
-does not equate a self-relaxed MLFF-NEB path with the retained DFT geometry,
-and it does not turn Foundation checkpoint variants into training-seed
-replicates.
+editable figures. The compact total-performance figure has seven model rows:
+four trained families aggregated over seeds 123/234/345 and three matched
+Foundation checkpoints (`MP-0B3`, `OMAT-0`, `MPA0`). It keeps the sliding and
+migration campaigns provenance-aware; it does not silently claim that a
+task-specific checkpoint hash is identical across campaigns.
 
 ## What the two reference styles encode
 
@@ -36,8 +34,11 @@ The renderer produces the following in PNG, editable PDF, and editable SVG.
   second reference grammar with deterministic synthetic values.
 - `fig_neb_seed_performance_heatmap`: one total matrix containing a sliding
   fixed-path MAE block, a migration fixed-path barrier-proxy block, and a
-  migration IDPP self-relaxed barrier-proxy block. Values are printed in eV;
-  the main fill is standardized within each column for visual comparison.
+  migration IDPP self-relaxed barrier-proxy block. The visual grammar follows
+  the supplied reference: rows are compact model labels, columns are grouped
+  task/method labels, color is a high-is-good score, and circle area is evidence
+  coverage. Raw values remain in `NEB_TOTAL_PERFORMANCE_DOT_METRICS.tsv`; the
+  figure intentionally avoids printing long values inside the cells.
   Missing campaign/model combinations are grey `NA`, never zero-filled.
 - `fig_neb_seed_error_lineage_clustermap`: signed image-wise sliding errors
   sorted from high to low by each model-seed's mean absolute error. The top
@@ -68,8 +69,10 @@ family, and the fixed-path observable.
 The complete current sliding four-family seed set is recovered from
 `analysis/sliding_four_model_campaign_20261024/results/tables/fixed_profiles.csv`:
 `Scratch-MultiT`, `Scratch-600K`, `FT-600K`, and `FT-MultiT`, each with seeds
-123/234/345.  Foundation checkpoints are excluded.  The complete common
-fixed-path coverage in this campaign is two routes: `pristine` and
+123/234/345. The same campaign contains three Foundation sliding checkpoints;
+their DFT-matched MAE rows are retained in
+`raw_input/sliding_foundation_20261024/fixed_metrics_per_model.csv`. The complete
+common fixed-path coverage is two routes: `pristine` and
 `Cr-in-gap`; the third NEB route does not have the same four-family × three-seed
 coverage and is therefore not pooled into this release.
 
@@ -79,7 +82,7 @@ supporting evidence.  The input is consequently labelled
 `PROVENANCE_PARTIAL`: these are real campaign-derived scores, but not an
 unconditional publication-grade DFT validation claim.
 
-### Total performance matrix provenance
+### Total performance matrix provenance and visual contract
 
 The total matrix is built by `scripts/build_total_performance_metrics.py` from
 the sliding route metrics and the migration `TIER1_RESULT_MATRIX.tsv`.
@@ -97,8 +100,24 @@ the sliding route metrics and the migration `TIER1_RESULT_MATRIX.tsv`.
   7/9 `CONVERGED/PRIMARY_EVIDENCE`. The two nonconverged IDPP cells remain
   `NONCONVERGED/DIAGNOSTIC_ONLY` and render as `NA` in the main matrix.
 - Migration checkpoint hashes are not assumed identical to the sliding
-  campaign hashes. Therefore the figure uses separate campaign-labelled rows
-  and does not claim a single cross-task checkpoint identity.
+  campaign hashes. The compact figure therefore uses model-family rows for
+  cross-task comparison, while the raw 24-unit table and source hashes retain
+  the task-specific checkpoint identity.
+- The final column order is frozen as: migration fixed pathway (`in-gap`,
+  `gap→QL`, `within QL`), migration self-relaxed (`in-gap`, `gap→QL`,
+  `within QL`), then sliding (`pristine`, `Cr-in-gap`).
+- Each column is transformed independently to a lower-is-better min-max score
+  in `[0, 1]`; yellow means high score and purple/blue means low score. This is
+  a rank-like visual score, not a claim that MAE and barrier proxies share one
+  physical unit.
+- Dot area is `n_available / n_expected`: trained-family rows use a median over
+  three seeds, while Foundation rows use one checkpoint (`1/1`). A small grey
+  open dot denotes a source cell excluded by the scientific gate, such as the
+  OMAT-0 within-QL self-relaxed diagnostic; it is not zero-filled.
+- The three Foundation rows are selected because the same checkpoint hashes are
+  present in the Foundation sliding campaign and the T1 migration matrix. The
+  migration self-relaxed block uses IDPP only and requires
+  `CONVERGED/PRIMARY_EVIDENCE`.
 
 Migration `barrier_proxy_eV` values are not DFT errors. They are a compact
 route-level diagnostic/proxy and must not be interpreted as the sliding MAE
@@ -115,15 +134,22 @@ PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/build_ca
 
 PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/build_total_performance_metrics.py \
   --sliding-metrics analysis/neb_seed_paired_heatmap_20261031/processed/NEB_MODEL_SEED_ROUTE_METRICS.tsv \
-  --migration-matrix /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/derived_r01/TIER1_RESULT_MATRIX.tsv \
+  --migration-matrix analysis/neb_seed_paired_heatmap_20261031/raw_input/foundation_migration_20261019/TIER1_RESULT_MATRIX.tsv \
   --scratch600k-migration analysis/neb_seed_paired_heatmap_20261031/raw_input/scratch_600k_migration_20261101/processed/SCRATCH600K_MIGRATION_RESULT_MATRIX.tsv \
   --output analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_METRICS.tsv
+
+PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/build_total_performance_dot_metrics.py \
+  --total-metrics analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_METRICS.tsv \
+  --foundation-migration analysis/neb_seed_paired_heatmap_20261031/raw_input/foundation_migration_20261019/TIER1_RESULT_MATRIX.tsv \
+  --foundation-sliding analysis/neb_seed_paired_heatmap_20261031/raw_input/sliding_foundation_20261024/fixed_metrics_per_model.csv \
+  --output analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_DOT_METRICS.tsv
 
 PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/render_neb_seed_paired_heatmaps.py \
   --input analysis/neb_seed_paired_heatmap_20261031/raw_input/NEB_FIXED_PATH_CAMPAIGN_20261024.tsv \
   --output-dir analysis/neb_seed_paired_heatmap_20261031/figures \
   --processed-dir analysis/neb_seed_paired_heatmap_20261031/processed \
   --total-metrics analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_METRICS.tsv \
+  --dot-metrics analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_DOT_METRICS.tsv \
   --expected-paths 2 \
   --baseline-family 'Scratch-MultiT'
 ```
