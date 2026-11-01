@@ -1,10 +1,11 @@
 """Build seed-expanded and seed-aggregated bubble-heatmap tables.
 
-The score is computed from the per-seed/checkpoint error table, column by
-column, with lower error mapped to a higher score in [0, 1].  Trained-family
+Color is computed from the predicted energy value, column by column, with the
+larger predicted value mapped to the brighter end of a [0, 1] color scale.
+Bubble size is the absolute predicted-energy error in eV. Trained-family
 cells in the aggregate table are arithmetic means over available seeds; the
-three seed scores are retained in separate columns for the split-bubble
-renderer.  Foundation checkpoints remain single rows.
+three seed color values and errors are retained for the split-bubble renderer.
+Foundation checkpoints remain single rows.
 """
 
 from __future__ import annotations
@@ -22,8 +23,8 @@ DOT_COLUMNS = [
     ("migration_in_gap_self", "in-gap", "Migration / self-relaxed", "barrier_error"),
     ("migration_gap_to_ql_self", "gap→QL", "Migration / self-relaxed", "barrier_error"),
     ("migration_within_ql_self", "within QL", "Migration / self-relaxed", "barrier_error"),
-    ("sliding_pristine_fixed", "pristine", "Sliding", "MAE"),
-    ("sliding_cr_in_gap_fixed", "Cr-in-gap", "Sliding", "MAE"),
+    ("sliding_pristine_fixed", "pristine", "Sliding", "barrier_error"),
+    ("sliding_cr_in_gap_fixed", "Cr-in-gap", "Sliding", "barrier_error"),
 ]
 MODEL_ROWS = ["Scratch-MultiT", "Scratch-600K", "FT-600K", "FT-MultiT", "MP-0B3", "OMAT-0", "MPA0"]
 TRAINED_ROWS = MODEL_ROWS[:4]
@@ -51,6 +52,11 @@ def _finite(value: object) -> float:
     return float(number) if pd.notna(number) and np.isfinite(float(number)) else np.nan
 
 
+def _write_tsv(frame: pd.DataFrame, path: Path) -> None:
+    text = frame.to_csv(sep="\t", index=False)
+    path.write_text("\n".join(line.rstrip("\t") for line in text.splitlines()) + "\n")
+
+
 def _unique_join(values: pd.Series) -> str:
     unique = list(dict.fromkeys(str(value) for value in values.dropna() if str(value) and str(value) != "nan"))
     return ";".join(unique)
@@ -74,7 +80,8 @@ def _base(
     column_label: str,
     task_block: str,
     metric_type: str,
-    value: float,
+    predicted_value: float,
+    error_eV: float,
     n_available: int,
     n_expected: int,
     aggregation: str,
@@ -92,7 +99,10 @@ def _base(
         "column_label": column_label,
         "task_block": task_block,
         "metric_type": metric_type,
-        "raw_value_eV": value,
+        "raw_value_eV": predicted_value,
+        "predicted_value_eV": predicted_value,
+        "error_eV": error_eV,
+        "absolute_error_eV": error_eV,
         "n_available": n_available,
         "n_expected": n_expected,
         "coverage_fraction": n_available / n_expected if n_expected else np.nan,
@@ -176,18 +186,33 @@ def _foundation_rows(
         for column_id, column_label, task_block, metric_type in DOT_COLUMNS:
             if column_id.startswith("migration_"):
                 selected = mig.loc[mig["column_id"].eq(column_id)].copy()
-                finite = pd.to_numeric(selected["raw_error_eV"], errors="coerce")
-                value = float(finite.iloc[0]) if len(finite) == 1 and np.isfinite(finite.iloc[0]) else np.nan
-                n_available = int(np.isfinite(finite).sum())
+                predicted = pd.to_numeric(selected["model_barrier_eV"], errors="coerce")
+                errors = pd.to_numeric(selected["raw_error_eV"], errors="coerce")
+                error = float(errors.iloc[0]) if len(errors) == 1 and np.isfinite(errors.iloc[0]) else np.nan
+                predicted_value = (
+                    float(predicted.iloc[0])
+                    if len(predicted) == 1 and np.isfinite(predicted.iloc[0]) and np.isfinite(error)
+                    else np.nan
+                )
+                n_available = int((np.isfinite(predicted) & np.isfinite(errors)).sum())
                 source = f"{migration_path};{dft_reference}"
                 model_sha = _unique_join(selected["model_sha256"])
                 status = _status_text(selected)
+                reference = float(selected["dft_reference_barrier_eV"].iloc[0]) if len(selected) == 1 else np.nan
             else:
                 system_id = "pristine" if column_id == "sliding_pristine_fixed" else "cr_in_gap"
                 selected = slide.loc[slide["system_id"].astype(str).eq(system_id)].copy()
-                finite = pd.to_numeric(selected["mae_dft_eV"], errors="coerce")
-                value = float(finite.iloc[0]) if len(finite) == 1 and np.isfinite(finite.iloc[0]) else np.nan
-                n_available = int(np.isfinite(finite).sum())
+                predicted = pd.to_numeric(selected["max_relative_energy_eV"], errors="coerce")
+                reference_values = pd.to_numeric(selected["dft_peak_eV"], errors="coerce")
+                errors = (predicted - reference_values).abs()
+                reference = float(reference_values.iloc[0]) if len(reference_values) == 1 and np.isfinite(reference_values.iloc[0]) else np.nan
+                error = float(errors.iloc[0]) if len(errors) == 1 and np.isfinite(errors.iloc[0]) else np.nan
+                predicted_value = (
+                    float(predicted.iloc[0])
+                    if len(predicted) == 1 and np.isfinite(predicted.iloc[0]) and np.isfinite(reference) and np.isfinite(error)
+                    else np.nan
+                )
+                n_available = int((np.isfinite(predicted) & np.isfinite(reference_values) & np.isfinite(errors)).sum())
                 source = str(sliding_path)
                 model_sha = _unique_join(selected["model_sha256"])
                 status = _status_text(selected)
@@ -199,7 +224,8 @@ def _foundation_rows(
                     column_label=column_label,
                     task_block=task_block,
                     metric_type=metric_type,
-                    value=value,
+                    predicted_value=predicted_value,
+                    error_eV=error,
                     n_available=n_available,
                     n_expected=1,
                     aggregation="single_checkpoint",
@@ -209,6 +235,12 @@ def _foundation_rows(
                 )
             row["scientific_status"] = str(selected["scientific_status"].iloc[0]) if not selected.empty else "NOT_AVAILABLE"
             row["publication_status"] = str(selected["publication_status"].iloc[0]) if not selected.empty else "DIAGNOSTIC_ONLY"
+            row["reference_value_eV"] = reference
+            row["error_definition"] = (
+                "abs(model barrier - canonical DFT forward barrier)"
+                if column_id.startswith("migration_")
+                else "abs(max model relative energy - max DFT relative energy)"
+            )
             rows.append(row)
     return rows
 
@@ -225,10 +257,12 @@ def _trained_seed_rows(total: pd.DataFrame) -> list[dict[str, object]]:
             ].copy()
             for column_id, column_label, task_block, metric_type in DOT_COLUMNS:
                 cell = selected.loc[selected["column_id"].eq(column_id)].copy()
-                cell_values = pd.to_numeric(cell["value_eV"], errors="coerce")
-                finite_cell = cell.loc[np.isfinite(cell_values)].copy()
-                value = _finite(finite_cell["value_eV"].iloc[0]) if not finite_cell.empty else np.nan
-                finite = int(np.isfinite(value))
+                cell_values = pd.to_numeric(cell["predicted_value_eV"], errors="coerce")
+                cell_errors = pd.to_numeric(cell["absolute_error_eV"], errors="coerce")
+                finite_cell = cell.loc[np.isfinite(cell_values) & np.isfinite(cell_errors)].copy()
+                predicted_value = _finite(finite_cell["predicted_value_eV"].iloc[0]) if not finite_cell.empty else np.nan
+                error = _finite(finite_cell["absolute_error_eV"].iloc[0]) if not finite_cell.empty else np.nan
+                finite = int(np.isfinite(predicted_value) and np.isfinite(error))
                 source_cell = finite_cell if not finite_cell.empty else cell
                 row = _base(
                         row_id=f"{family} / s{seed}",
@@ -239,7 +273,8 @@ def _trained_seed_rows(total: pd.DataFrame) -> list[dict[str, object]]:
                         column_label=column_label,
                         task_block=task_block,
                         metric_type=metric_type,
-                        value=value,
+                        predicted_value=predicted_value,
+                        error_eV=error,
                         n_available=finite,
                         n_expected=1,
                         aggregation="single_training_seed",
@@ -261,18 +296,19 @@ def _add_seed_scores(frame: pd.DataFrame) -> pd.DataFrame:
     frame = frame.copy()
     scores = pd.Series(np.nan, index=frame.index, dtype=float)
     for _, group in frame.groupby("column_id", sort=False):
-        values = pd.to_numeric(group["raw_value_eV"], errors="coerce")
+        values = pd.to_numeric(group["predicted_value_eV"], errors="coerce")
         finite = values[np.isfinite(values)]
         if len(finite) == 0:
             continue
         minimum, maximum = float(finite.min()), float(finite.max())
         if maximum > minimum:
-            scores.loc[group.index] = 1.0 - (values - minimum) / (maximum - minimum)
+            scores.loc[group.index] = (values - minimum) / (maximum - minimum)
         else:
             scores.loc[group.index] = 1.0
+    frame["value_color_01"] = scores
     frame["score_01"] = scores
-    frame["score_direction"] = "lower_is_better"
-    frame["color_scale"] = "column_minmax_score_01_across_15_units"
+    frame["score_direction"] = "higher_predicted_value"
+    frame["color_scale"] = "column_minmax_predicted_energy_01_across_15_units"
     return frame
 
 
@@ -283,7 +319,10 @@ def build_dot_tables(
     dft_reference: Path,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     total = pd.read_csv(total_metrics, sep="\t")
-    required = {"model_family", "column_id", "value_eV", "source_artifact", "model_sha256"}
+    required = {
+        "model_family", "column_id", "predicted_value_eV", "absolute_error_eV",
+        "source_artifact", "model_sha256",
+    }
     missing = sorted(required - set(total.columns))
     if missing:
         raise ValueError(f"total performance table lacks required columns: {', '.join(missing)}")
@@ -306,13 +345,21 @@ def build_dot_tables(
         family_rows = expanded.loc[expanded["row_id"].str.startswith(f"{family} / s")].copy()
         for column_id, column_label, task_block, metric_type in DOT_COLUMNS:
             selected = family_rows.loc[family_rows["column_id"].eq(column_id)].copy()
-            values = pd.to_numeric(selected["raw_value_eV"], errors="coerce")
-            scores = pd.to_numeric(selected["score_01"], errors="coerce")
-            finite = values[np.isfinite(values)]
+            values = pd.to_numeric(selected["predicted_value_eV"], errors="coerce")
+            errors = pd.to_numeric(selected["absolute_error_eV"], errors="coerce")
+            scores = pd.to_numeric(selected["value_color_01"], errors="coerce")
+            finite = values[np.isfinite(values) & np.isfinite(errors)]
+            finite_errors = errors[np.isfinite(values) & np.isfinite(errors)]
             finite_scores = scores[np.isfinite(scores)]
             seed_score = {
-                f"score_seed_{seed}": float(selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "score_01"].iloc[0])
+                f"value_color_seed_{seed}": float(selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "value_color_01"].iloc[0])
                 if not selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "score_01"].empty
+                else np.nan
+                for seed in SEEDS
+            }
+            seed_error = {
+                f"error_seed_{seed}": float(selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "absolute_error_eV"].iloc[0])
+                if not selected.loc[selected["training_seed"].astype(str).eq(str(seed)), "absolute_error_eV"].empty
                 else np.nan
                 for seed in SEEDS
             }
@@ -324,18 +371,23 @@ def build_dot_tables(
                 column_label=column_label,
                 task_block=task_block,
                 metric_type=metric_type,
-                value=float(finite.mean()) if len(finite) else np.nan,
+                predicted_value=float(finite.mean()) if len(finite) else np.nan,
+                error_eV=float(finite_errors.mean()) if len(finite_errors) else np.nan,
                 n_available=int(len(finite)),
                 n_expected=3,
                 aggregation="mean_over_training_seeds",
-                status_summary=_status_text(selected.loc[np.isfinite(values)]) if len(finite) else "NOT_AVAILABLE/DIAGNOSTIC_ONLY",
+            status_summary=_status_text(selected.loc[np.isfinite(values) & np.isfinite(errors)]) if len(finite) else "NOT_AVAILABLE/DIAGNOSTIC_ONLY",
                 source_artifact=_unique_join(selected["source_artifact"]),
                 model_sha256=_unique_join(selected["model_sha256"]),
             )
             row.update(seed_score)
-            row["score_01"] = float(finite_scores.mean()) if len(finite_scores) else np.nan
-            row["score_direction"] = "lower_is_better"
-            row["color_scale"] = "column_minmax_score_01_across_15_units"
+            row.update(seed_error)
+            for seed in SEEDS:
+                row[f"score_seed_{seed}"] = row[f"value_color_seed_{seed}"]
+            row["value_color_01"] = float(finite_scores.mean()) if len(finite_scores) else np.nan
+            row["score_01"] = row["value_color_01"]
+            row["score_direction"] = "higher_predicted_value"
+            row["color_scale"] = "column_minmax_predicted_energy_01_across_15_units"
             row["scientific_status"] = "AGGREGATED_FROM_SEED_ROWS"
             row["publication_status"] = "DERIVED_SUMMARY"
             aggregate_rows.append(row)
@@ -345,6 +397,12 @@ def build_dot_tables(
             cell = selected.loc[selected["column_id"].eq(column_id)].iloc[0]
             row = cell.to_dict()
             row.update({"row_id": label, "row_label": label, "aggregation": "single_checkpoint"})
+            row["value_color_seed_123"] = np.nan
+            row["value_color_seed_234"] = np.nan
+            row["value_color_seed_345"] = np.nan
+            row["error_seed_123"] = np.nan
+            row["error_seed_234"] = np.nan
+            row["error_seed_345"] = np.nan
             row["score_seed_123"] = np.nan
             row["score_seed_234"] = np.nan
             row["score_seed_345"] = np.nan
@@ -385,8 +443,8 @@ def main() -> None:
         args.total_metrics, args.foundation_migration, args.foundation_sliding, args.dft_reference
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    aggregate.to_csv(args.output, sep="\t", index=False)
-    expanded.to_csv(args.seed_expanded_output, sep="\t", index=False)
+    _write_tsv(aggregate, args.output)
+    _write_tsv(expanded, args.seed_expanded_output)
     print(f"wrote aggregate={len(aggregate)} rows and seed_expanded={len(expanded)} rows")
 
 

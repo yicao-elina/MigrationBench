@@ -36,13 +36,17 @@ The renderer produces the following in PNG, editable PDF, and editable SVG.
   second reference grammar with deterministic synthetic values.
 - `fig_neb_seed_performance_heatmap`: one total matrix containing migration
   fixed-path barrier-error, migration IDPP self-relaxed barrier-error, and
-  sliding fixed-path MAE blocks, in that order. Color is a column-normalized
-  high-is-good score; trained-family circles are split into seed 123/234/345
-  wedges and radius encodes available-seed coverage. Raw model barriers,
-  canonical DFT barriers, errors, and scores remain in the processed tables.
-- `fig_neb_seed_performance_heatmap_seed_expanded`: the same score grammar with
+  sliding fixed-path peak-energy blocks, in that order. Color encodes the
+  column-normalized predicted energy value itself; bubble size encodes the
+  absolute predicted-energy error in eV. Trained-family circles are split
+  into seed 123/234/345 wedges, with the aggregate radius based on the mean
+  available-seed error. Scratch, FT, and Foundation are shown as three
+  vertically bracketed model groups.
+- `fig_neb_seed_performance_heatmap_seed_expanded`: the same value-color/error-size
+  grammar with
   one row per training seed/checkpoint (15 rows total), making seed-to-seed
-  differences directly inspectable.
+  differences directly inspectable; each circle uses its own predicted-energy
+  error for size.
 - `fig_neb_seed_error_lineage_clustermap`: signed image-wise sliding errors
   sorted from high to low by each model-seed's mean absolute error. The top
   strip is the overall mean absolute error per image and the right strip is
@@ -92,8 +96,11 @@ the sliding route metrics, the migration `TIER1_RESULT_MATRIX.tsv`, the
 Scratch-600K fill matrix, and
 `raw_input/dft_reference/canonical_dft_barriers.tsv`.
 
-- Sliding columns are DFT-matched fixed-path `MAE_eV` for `pristine` and
-  `Cr-in-gap`.
+- Sliding columns use the fixed-path peak relative energy for `pristine` and
+  `Cr-in-gap`; `predicted_value_eV = max(model_relative_energy_eV)` and the
+  bubble-size error is `abs(predicted peak - max(dft_relative_energy_eV))`.
+  The existing image-profile `MAE_eV` remains available in
+  `NEB_MODEL_SEED_ROUTE_METRICS.tsv` as a separate diagnostic metric.
 - Migration columns are `abs(model barrier - canonical DFT forward barrier)`
   for `in-gap diffusion`, `gap-to-QL`, and `within-QL`, shown separately for
   `FIXED_PATH_SINGLE_POINT` and `SELF_RELAXED_ENDPOINT_ONLY_NEB`. Fixed rows
@@ -114,14 +121,17 @@ Scratch-600K fill matrix, and
   `gap→QL`, `within QL`), migration self-relaxed (`in-gap`, `gap→QL`,
   `within QL`), then sliding (`pristine`, `Cr-in-gap`).
 - Each column is transformed independently across the 15 seed/checkpoint units
-  to a lower-is-better min-max score
-  in `[0, 1]`; yellow means high score and purple/blue means low score. This is
-  a rank-like visual score, not a claim that MAE and barrier error share one
-  physical unit.
-- Bubble radius is `sqrt(n_available / n_expected)`: aggregate trained-family
-  rows use an arithmetic mean over available seeds, while Foundation rows use
-  one checkpoint (`1/1`). Missing or scientifically excluded cells are left
-  blank; they are not zero-filled.
+  to a predicted-energy min-max color value in `[0, 1]`; purple/blue means a
+  lower predicted energy and yellow means a higher predicted energy. This
+  color normalization is only for visual comparison across heterogeneous
+  columns and does not replace the raw eV values in the processed tables.
+- Bubble area is driven by the absolute predicted-energy error in eV, not by
+  seed availability. Aggregate trained-family rows use the arithmetic mean
+  error over available seeds; the seed-expanded figure uses per-seed errors.
+  Missing or scientifically excluded cells are left blank; they are not
+  zero-filled. Typography was increased by approximately 3 pt relative to
+  the previous render, with thick horizontal task bars and model-family
+  brackets retained as the hierarchy cues.
 - The three Foundation rows are selected because the same checkpoint hashes are
   present in the Foundation sliding campaign and the T1 migration matrix. The
   migration self-relaxed block uses IDPP only and requires
@@ -143,6 +153,7 @@ PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/build_ca
 
 PYTHONPATH=src python analysis/neb_seed_paired_heatmap_20261031/scripts/build_total_performance_metrics.py \
   --sliding-metrics analysis/neb_seed_paired_heatmap_20261031/processed/NEB_MODEL_SEED_ROUTE_METRICS.tsv \
+  --sliding-image-input analysis/neb_seed_paired_heatmap_20261031/raw_input/NEB_FIXED_PATH_CAMPAIGN_20261024.tsv \
   --migration-matrix analysis/neb_seed_paired_heatmap_20261031/raw_input/foundation_migration_20261019/TIER1_RESULT_MATRIX.tsv \
   --scratch600k-migration analysis/neb_seed_paired_heatmap_20261031/raw_input/scratch_600k_migration_20261101/processed/SCRATCH600K_MIGRATION_RESULT_MATRIX.tsv \
   --dft-reference analysis/neb_seed_paired_heatmap_20261031/raw_input/dft_reference/canonical_dft_barriers.tsv \
@@ -177,5 +188,6 @@ isolated visual smoke-test assets and are explicitly named as synthetic.
 The sliding error figures compare only `FIXED_PATH_SINGLE_POINT` energies on
 retained DFT images. The total performance matrix intentionally places
 migration fixed-path and `SELF_RELAXED_ENDPOINT_ONLY_NEB` barrier errors in
-separate labelled blocks; those values are not pooled with sliding MAE.
+separate labelled blocks; those values are not pooled with sliding peak-energy
+error. Image-profile MAE remains a separate diagnostic table.
 Neither `COMPLETED` nor finite MLFF output is itself a DFT-validation gate.

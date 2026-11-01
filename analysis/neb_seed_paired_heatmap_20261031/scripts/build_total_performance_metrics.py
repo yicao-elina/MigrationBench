@@ -1,10 +1,12 @@
-"""Build the total NEB/sliding matrix with explicit migration barrier errors.
+"""Build the total NEB/sliding matrix with predicted values and errors.
 
 Migration values are absolute errors against the canonical DFT forward barrier:
 ``abs(model_barrier_eV - dft_forward_barrier_eV)``. Fixed-path rows use the
 model forward barrier; IDPP self-relaxed rows use the endpoint-only barrier
 proxy and are admitted only when they are converged primary evidence. Sliding
-values remain DFT-matched fixed-path image-profile MAEs.
+rows use the fixed-path peak relative energy and its DFT peak error, so every
+task column exposes both a predicted energy value and a comparable energy
+error to the downstream bubble heatmap.
 """
 
 from __future__ import annotations
@@ -25,8 +27,8 @@ COLUMNS = [
     ("migration_in_gap_self", "Migration / in-gap\nself-relaxed |ΔE‡|", "migration", "barrier_error"),
     ("migration_gap_to_ql_self", "Migration / gap→QL\nself-relaxed |ΔE‡|", "migration", "barrier_error"),
     ("migration_within_ql_self", "Migration / within QL\nself-relaxed |ΔE‡|", "migration", "barrier_error"),
-    ("sliding_pristine_fixed", "Sliding / pristine\nfixed MAE", "sliding", "MAE"),
-    ("sliding_cr_in_gap_fixed", "Sliding / Cr-in-gap\nfixed MAE", "sliding", "MAE"),
+    ("sliding_pristine_fixed", "Sliding / pristine\nfixed peak |ΔE‡|", "sliding", "barrier_error"),
+    ("sliding_cr_in_gap_fixed", "Sliding / Cr-in-gap\nfixed peak |ΔE‡|", "sliding", "barrier_error"),
 ]
 PATH_MAP = {
     "in-gap diffusion": "in_gap",
@@ -38,6 +40,11 @@ PATH_MAP = {
 def _finite_or_nan(value: object) -> float:
     number = pd.to_numeric(pd.Series([value]), errors="coerce").iloc[0]
     return float(number) if pd.notna(number) and np.isfinite(float(number)) else np.nan
+
+
+def _write_tsv(frame: pd.DataFrame, path: Path) -> None:
+    text = frame.to_csv(sep="\t", index=False)
+    path.write_text("\n".join(line.rstrip("\t") for line in text.splitlines()) + "\n")
 
 
 def _load_dft_references(path: Path) -> dict[str, float]:
@@ -98,6 +105,9 @@ def _append_unit_rows(
                 "column_label": column_label,
                 "metric_type": metric_type,
                 "value_eV": values.get(column_id, np.nan),
+                "predicted_value_eV": detail.get("predicted_value_eV", np.nan),
+                "reference_value_eV": detail.get("reference_value_eV", np.nan),
+                "absolute_error_eV": detail.get("absolute_error_eV", values.get(column_id, np.nan)),
                 "model_barrier_eV": detail.get("model_barrier_eV", np.nan),
                 "dft_reference_barrier_eV": detail.get("dft_reference_barrier_eV", np.nan),
                 "error_definition": detail.get("error_definition", "DFT-matched fixed-path image-profile MAE"),
@@ -179,16 +189,66 @@ def _prepare_migration_records(
     return records
 
 
+def _load_sliding_peak_records(path: Path) -> dict[tuple[str, int, str], dict[str, object]]:
+    """Derive one predicted/DFT peak pair for each trained sliding unit."""
+    frame = pd.read_csv(path, sep="\t")
+    required = {
+        "model_family",
+        "model_id",
+        "training_seed",
+        "path_id",
+        "model_relative_energy_eV",
+        "dft_relative_energy_eV",
+        "model_sha256",
+        "dft_reference_id",
+    }
+    missing = sorted(required - set(frame.columns))
+    if missing:
+        raise ValueError(f"sliding image table lacks required columns: {', '.join(missing)}")
+    frame = frame.copy()
+    frame["training_seed"] = pd.to_numeric(frame["training_seed"], errors="coerce").astype("Int64")
+    frame["model_relative_energy_eV"] = pd.to_numeric(frame["model_relative_energy_eV"], errors="coerce")
+    frame["dft_relative_energy_eV"] = pd.to_numeric(frame["dft_relative_energy_eV"], errors="coerce")
+    records: dict[tuple[str, int, str], dict[str, object]] = {}
+    group_columns = ["model_family", "model_id", "training_seed", "path_id"]
+    for keys, group in frame.groupby(group_columns, sort=False, dropna=False):
+        family, model_id, seed, path_id = keys
+        if pd.isna(seed):
+            continue
+        model_profile = group["model_relative_energy_eV"].to_numpy(float)
+        dft_profile = group["dft_relative_energy_eV"].to_numpy(float)
+        if not np.isfinite(model_profile).all() or not np.isfinite(dft_profile).all():
+            predicted = reference = error = np.nan
+        else:
+            predicted = float(np.max(model_profile))
+            reference = float(np.max(dft_profile))
+            error = abs(predicted - reference)
+        key = (str(family), int(seed), str(path_id))
+        records[key] = {
+            "model_id": str(model_id),
+            "model_sha256": str(group["model_sha256"].iloc[0]),
+            "dft_reference_id": str(group["dft_reference_id"].iloc[0]),
+            "predicted_value_eV": predicted,
+            "reference_value_eV": reference,
+            "absolute_error_eV": error,
+        }
+    return records
+
+
 def build_total_table(
     sliding_metrics: Path,
     migration_matrix: Path,
     scratch600k_migration: Path | None = None,
     dft_reference: Path | None = None,
+    sliding_image_input: Path | None = None,
 ) -> pd.DataFrame:
     if dft_reference is None:
         raise ValueError("dft_reference is required to compute migration barrier errors")
+    if sliding_image_input is None:
+        raise ValueError("sliding_image_input is required to compute sliding peak values and errors")
     dft_references = _load_dft_references(dft_reference)
     sliding = pd.read_csv(sliding_metrics, sep="\t")
+    sliding_peaks = _load_sliding_peak_records(sliding_image_input)
     migration = pd.read_csv(migration_matrix, sep="\t")
     migration = migration.loc[migration["model_family"].astype(str) != "Foundation"].copy()
     migration["training_seed"] = pd.to_numeric(migration["training_seed"], errors="coerce").astype("Int64")
@@ -223,14 +283,24 @@ def build_total_table(
                 (sliding["model_family"].astype(str) == family)
                 & (pd.to_numeric(sliding["training_seed"], errors="coerce") == seed)
             ]
-            values = {
-                "sliding_pristine_fixed": _finite_or_nan(sub.loc[sub["path_id"] == "pristine", "mae_eV"].iloc[0])
-                if not sub.loc[sub["path_id"] == "pristine"].empty
-                else np.nan,
-                "sliding_cr_in_gap_fixed": _finite_or_nan(sub.loc[sub["path_id"] == "cr_in_gap", "mae_eV"].iloc[0])
-                if not sub.loc[sub["path_id"] == "cr_in_gap"].empty
-                else np.nan,
-            }
+            values: dict[str, float] = {}
+            details: dict[str, dict[str, object]] = {}
+            for column_id, path_id in (
+                ("sliding_pristine_fixed", "pristine"),
+                ("sliding_cr_in_gap_fixed", "cr_in_gap"),
+            ):
+                peak = sliding_peaks.get((family, seed, path_id), {})
+                values[column_id] = _finite_or_nan(peak.get("absolute_error_eV"))
+                details[column_id] = {
+                    "predicted_value_eV": peak.get("predicted_value_eV", np.nan),
+                    "reference_value_eV": peak.get("reference_value_eV", np.nan),
+                    "absolute_error_eV": peak.get("absolute_error_eV", np.nan),
+                    "model_barrier_eV": peak.get("predicted_value_eV", np.nan),
+                    "dft_reference_barrier_eV": peak.get("reference_value_eV", np.nan),
+                    "error_definition": "abs(max model relative energy - max DFT relative energy)",
+                    "dft_reference_id": peak.get("dft_reference_id", ""),
+                    "dft_reference_artifact": str(sliding_image_input),
+                }
             model_id = str(sub["model_id"].iloc[0]) if not sub.empty else None
             base = _base_row(
                 unit_id=unit_id,
@@ -239,7 +309,7 @@ def build_total_table(
                 model_family=family,
                 model_id=model_id,
                 training_seed=seed,
-                source_artifact=str(sliding_metrics),
+                source_artifact=f"{sliding_metrics};{sliding_image_input}",
                 model_sha256=str(sub["model_sha256"].iloc[0]) if "model_sha256" in sub and not sub.empty else None,
                 dataset_status="PROVENANCE_PARTIAL",
             )
@@ -248,7 +318,7 @@ def build_total_table(
                 for column_id, _, _, _ in COLUMNS
                 if column_id.startswith("sliding_") and np.isfinite(values[column_id])
             }
-            _append_unit_rows(rows, base=base, values=values, status_by_column=status)
+            _append_unit_rows(rows, base=base, values=values, status_by_column=status, details_by_column=details)
 
     migration_lookup: dict[tuple[str, int, str, str], dict[str, object]] = {}
     for record in records:
@@ -294,6 +364,9 @@ def build_total_table(
                 else:
                     statuses[column_id] = (str(record.get("scientific_status")), str(record.get("publication_status")))
                     details[column_id] = {
+                        "predicted_value_eV": record.get("model_barrier_eV", np.nan),
+                        "reference_value_eV": record.get("dft_reference_barrier_eV", np.nan),
+                        "absolute_error_eV": record.get("value_eV_selected", np.nan),
                         "model_barrier_eV": record.get("model_barrier_eV", np.nan),
                         "dft_reference_barrier_eV": record.get("dft_reference_barrier_eV", np.nan),
                         "error_definition": record.get("error_definition", ""),
@@ -315,13 +388,18 @@ def main() -> None:
     parser.add_argument("--migration-matrix", type=Path, required=True)
     parser.add_argument("--scratch600k-migration", type=Path)
     parser.add_argument("--dft-reference", type=Path, required=True)
+    parser.add_argument("--sliding-image-input", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     result = build_total_table(
-        args.sliding_metrics, args.migration_matrix, args.scratch600k_migration, args.dft_reference
+        args.sliding_metrics,
+        args.migration_matrix,
+        args.scratch600k_migration,
+        args.dft_reference,
+        args.sliding_image_input,
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
-    result.to_csv(args.output, sep="\t", index=False)
+    _write_tsv(result, args.output)
     print(f"wrote {len(result)} rows for {result['unit_id'].nunique()} units to {args.output}")
 
 

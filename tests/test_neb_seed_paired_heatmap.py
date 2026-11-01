@@ -118,12 +118,17 @@ def test_total_dot_table_has_frozen_order_and_scientific_coverage() -> None:
         "sliding_cr_in_gap_fixed",
     ]
     assert len(table) == 56
+    assert table["value_color_01"].dropna().between(0.0, 1.0).all()
     assert table["score_01"].dropna().between(0.0, 1.0).all()
-    assert set(table.loc[table["column_id"].str.startswith("migration_"), "metric_type"]) == {"barrier_error"}
+    assert set(table["metric_type"]) == {"barrier_error"}
+    assert table["error_eV"].dropna().ge(0.0).all()
+    assert table["score_direction"].dropna().unique().tolist() == ["higher_predicted_value"]
     scratch_fixed = table.loc[
         table["row_id"].eq("Scratch-600K") & table["column_id"].eq("migration_in_gap_fixed")
     ].iloc[0]
     assert scratch_fixed["raw_value_eV"] > 0.0
+    assert scratch_fixed["predicted_value_eV"] == scratch_fixed["raw_value_eV"]
+    assert scratch_fixed["error_eV"] >= 0.0
     assert scratch_fixed["aggregation"] == "mean_over_training_seeds"
     assert {"score_seed_123", "score_seed_234", "score_seed_345"}.issubset(table.columns)
     scratch = table.loc[table["row_id"].eq("Scratch-600K")]
