@@ -1,0 +1,3 @@
+# Figure 2 v12 reference-style temperature layout
+
+The temperature view uses a grouped reference-style layout rather than six boxed panels. Energy and force each occupy one horizontal strip with a shared within-row y scale across 300 K, 600 K, and 1200 K. Each temperature group is separated by whitespace, identified by a thick upper rule, and retains all three seed-resolved boxplots and all frame-level points. The composite uses one shared family/seed legend for the temperature strip and Scratch-vs-FT overview. Train and held-out test records are merged; isolated-atom reference records are excluded.
