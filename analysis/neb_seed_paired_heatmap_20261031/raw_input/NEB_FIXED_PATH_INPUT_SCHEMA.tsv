@@ -1,0 +1,22 @@
+column_name	required	level	meaning
+record_id	yes	image	stable input-row identifier
+model_family	yes	model	training-family label; do not use a checkpoint variant as a seed family
+model_id	yes	model	canonical checkpoint identity
+model_label	yes	model	display label
+training_seed	yes	model	training random seed; never substitute an NEB optimizer seed
+path_id	yes	image	stable NEB-route identity
+path_label	yes	path	human-readable route label
+image_index	yes	image	ordered fixed DFT image index
+reaction_coordinate	yes	image	normalized coordinate on the retained DFT path
+model_relative_energy_eV	yes	image	model single-point relative energy on that image
+dft_relative_energy_eV	yes	image	DFT relative energy on the identical image
+model_sha256	yes	model	exact checkpoint hash
+path_geometry_sha256	yes	path	ordered fixed image geometry hash used for model scoring
+dft_path_geometry_sha256	yes	path	ordered DFT reference image geometry hash; must equal path_geometry_sha256
+dft_reference_id	yes	path	DFT reference identity
+dft_reference_status	yes	path	DFT quality gate/status
+observable	yes	image	must be FIXED_PATH_SINGLE_POINT
+scientific_status	yes	image	scientific status of the model score
+publication_status	yes	image	claim eligibility; do not silently promote diagnostic rows
+source_profile_artifact	yes	image	raw/derived profile source path or immutable URI
+dataset_status	yes	dataset	VERIFIED, PROVENANCE_PARTIAL, RECONSTRUCTION, or SYNTHETIC_DEMONSTRATION
