@@ -274,8 +274,22 @@ def _family_handles(families: list[str]) -> list[Patch]:
 
 
 def _seed_handles() -> list[Patch]:
+    """Return high-contrast, seed-specific legend swatches.
+
+    The model family is already encoded by the fill color, so the seed key is
+    deliberately neutral: a white swatch with a strong outline and a distinct
+    hatch pattern.  This keeps the shared legend readable on the light
+    background while making the seed encoding match the box interiors.
+    """
     return [
-        Patch(facecolor="#777777", edgecolor="#111111", linewidth=0.7, alpha=0.72, hatch=SEED_HATCH[seed], label=f"seed {seed}")
+        Patch(
+            facecolor="white",
+            edgecolor="#111111",
+            linewidth=1.55,
+            alpha=1.0,
+            hatch=SEED_HATCH[seed],
+            label=f"seed {seed}",
+        )
         for seed in SEEDS
     ]
 
@@ -476,6 +490,7 @@ def _house_style() -> None:
             "ytick.labelsize": 20,
             "legend.fontsize": 20,
             "axes.linewidth": 1.8,
+            "hatch.linewidth": 1.35,
         }
     )
 
