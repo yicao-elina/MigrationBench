@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import csv
+import argparse
 import json
 import sys
 from collections import defaultdict
@@ -36,6 +37,8 @@ COLORS = base.COLORS
 FAMILIES = base.FAMILIES
 SEEDS = base.SEEDS
 SPLITS = ("train", "test")
+TRAIN_POINT_ALPHA = 0.05
+TEST_POINT_ALPHA = 0.90
 
 FAMILY_PREFIX = {
     "Scratch-600K": "scratch_600k",
@@ -123,6 +126,43 @@ def actual_hexbin_counts(x: np.ndarray, y: np.ndarray, extent: tuple[float, floa
     return counts[np.isfinite(counts) & (counts > 0)]
 
 
+def colors_from_hexbin(
+    collection: mpl.collections.PolyCollection,
+    x: np.ndarray,
+    y: np.ndarray,
+    norm: LogNorm,
+    *,
+    alpha: float,
+) -> np.ndarray:
+    """Map every point to the same magma count color used by the pooled hexbin.
+
+    The point layer is intentionally retained in full.  Nearest-hex assignment
+    only transfers the already-rendered pooled count color to each individual
+    point; it does not sample, aggregate, or change any plotted observation.
+    """
+    centers = np.asarray(collection.get_offsets(), dtype=float)
+    counts = np.asarray(collection.get_array(), dtype=float)
+    if centers.size == 0 or counts.size == 0:
+        return np.full((len(x), 4), (0.0, 0.0, 0.0, alpha), dtype=float)
+    counts = np.ma.filled(counts, np.nan)
+    valid = np.isfinite(counts) & (counts > 0)
+    centers = centers[valid]
+    counts = counts[valid]
+    if centers.size == 0:
+        return np.full((len(x), 4), (0.0, 0.0, 0.0, alpha), dtype=float)
+    rgba = mpl.colormaps["magma"](norm(np.clip(counts, norm.vmin, norm.vmax)))
+    points = np.column_stack((np.asarray(x, dtype=float), np.asarray(y, dtype=float)))
+    result = np.empty((len(points), 4), dtype=float)
+    # Chunking keeps the nearest-hex lookup bounded while preserving every row.
+    for start in range(0, len(points), 2048):
+        stop = min(start + 2048, len(points))
+        delta = points[start:stop, None, :] - centers[None, :, :]
+        nearest = np.argmin(np.einsum("ijk,ijk->ij", delta, delta), axis=1)
+        result[start:stop] = rgba[nearest]
+    result[:, 3] = alpha
+    return result
+
+
 def add_vector_colorbar(fig: plt.Figure, reference_ax: plt.Axes, norm: LogNorm) -> None:
     bbox = reference_ax.get_position()
     cax = fig.add_axes([bbox.x1 + 0.014, bbox.y0, 0.018, bbox.height])
@@ -150,7 +190,12 @@ def add_vector_colorbar(fig: plt.Figure, reference_ax: plt.Axes, norm: LogNorm) 
         spine.set_color("#111111")
 
 
-def render(panels: dict[str, dict[str, np.ndarray]], cluster_counts: dict[str, int]) -> tuple[dict[str, str], tuple[float, float, float, float], LogNorm]:
+def render(
+    panels: dict[str, dict[str, np.ndarray]],
+    cluster_counts: dict[str, int],
+    *,
+    out_root: Path = OUT_ROOT,
+) -> tuple[dict[str, str], tuple[float, float, float, float], LogNorm]:
     merged = []
     for panel in panels.values():
         merged.extend((panel["train_x"], panel["train_y"], panel["test_x"], panel["test_y"]))
@@ -177,9 +222,10 @@ def render(panels: dict[str, dict[str, np.ndarray]], cluster_counts: dict[str, i
         test_x, test_y = panel["test_x"], panel["test_y"]
         all_x = np.concatenate((train_x, test_x))
         all_y = np.concatenate((train_y, test_y))
-        ax.hexbin(all_x, all_y, gridsize=48, extent=extent, mincnt=1, cmap="magma", norm=norm, linewidths=0.0, edgecolors="none", rasterized=False)
-        ax.scatter(train_x, train_y, marker="o", s=8.0, facecolors="#9a9a9a", edgecolors="none", alpha=0.28, zorder=4)
-        ax.scatter(test_x, test_y, marker="o", s=9.0, facecolors="#111111", edgecolors="none", alpha=0.78, zorder=5)
+        pooled_hexbin = ax.hexbin(all_x, all_y, gridsize=48, extent=extent, mincnt=1, cmap="magma", norm=norm, linewidths=0.0, edgecolors="none", rasterized=False)
+        train_colors = colors_from_hexbin(pooled_hexbin, train_x, train_y, norm, alpha=TRAIN_POINT_ALPHA)
+        ax.scatter(train_x, train_y, marker="o", s=8.0, facecolors=train_colors, edgecolors="none", zorder=4)
+        ax.scatter(test_x, test_y, marker="o", s=9.0, facecolors="#111111", edgecolors="none", alpha=TEST_POINT_ALPHA, zorder=5)
         ax.plot([extent[0], extent[1]], [extent[0], extent[1]], linestyle=(0, (6, 4)), color="#cf2e2e", linewidth=2.2, zorder=3)
         ax.set_xlim(extent[0], extent[1])
         ax.set_ylim(extent[2], extent[3])
@@ -199,15 +245,15 @@ def render(panels: dict[str, dict[str, np.ndarray]], cluster_counts: dict[str, i
     fig.text(0.018, 0.50, r"MLIP $E/N-\langle E/N\rangle_{\mathrm{cluster}}$ (eV atom$^{-1}$)", ha="center", va="center", rotation=90, fontsize=AXIS_LABEL, fontweight="bold")
     fig.text(0.5, 0.985, "DFT reference vs MLIP prediction | cluster-centered complete train and held-out test energy", ha="center", va="top", fontsize=TITLE_SIZE, fontweight="bold")
     handles = [
-        Line2D([], [], marker="o", linestyle="", markerfacecolor="#9a9a9a", markeredgecolor="none", alpha=0.28, markersize=8, label="train"),
-        Line2D([], [], marker="o", linestyle="", markerfacecolor="#111111", markeredgecolor="none", alpha=0.78, markersize=8, label="held-out test"),
+        Line2D([], [], marker="o", linestyle="", markerfacecolor="#a34f83", markeredgecolor="none", alpha=TRAIN_POINT_ALPHA, markersize=8, label="train"),
+        Line2D([], [], marker="o", linestyle="", markerfacecolor="#111111", markeredgecolor="none", alpha=TEST_POINT_ALPHA, markersize=8, label="test"),
     ]
     fig.legend(handles=handles, loc="lower center", bbox_to_anchor=(0.5, 0.018), ncol=2, frameon=False, fontsize=LEGEND_SIZE, handletextpad=0.55, columnspacing=1.6)
     fig.subplots_adjust(left=0.075, right=0.925, bottom=0.21, top=0.87, wspace=0.12)
     add_vector_colorbar(fig, axes[0, -1], norm)
 
     stem = "slide3_energy_train_test_cluster_centered_heatmap"
-    paths = {ext: OUT_ROOT / "figures" / f"{stem}.{ext}" for ext in ("png", "pdf", "svg")}
+    paths = {ext: out_root / "figures" / f"{stem}.{ext}" for ext in ("png", "pdf", "svg")}
     paths["png"].parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(paths["png"], dpi=420, bbox_inches="tight", pad_inches=0.18, facecolor="white")
     fig.savefig(paths["pdf"], bbox_inches="tight", pad_inches=0.18, facecolor="white")
@@ -217,6 +263,10 @@ def render(panels: dict[str, dict[str, np.ndarray]], cluster_counts: dict[str, i
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--out-root", type=Path, default=OUT_ROOT, help="versioned output directory")
+    args = parser.parse_args()
+    out_root = args.out_root.resolve()
     base.setup_style()
     panels = {}
     cluster_centers = {}
@@ -232,8 +282,13 @@ def main() -> None:
         cluster_sizes[family] = sizes
         test_only_clusters[family] = test_only
         cluster_counts[family] = len(centers)
-    outputs, extent, norm = render(panels, cluster_counts)
+    outputs, extent, norm = render(panels, cluster_counts, out_root=out_root)
     manifest = {
+        "render_revision": "R04_train_alpha_magma_v4",
+        "publication_status": "RECONSTRUCTION",
+        "scientific_scope": "within-cluster train/test parity diagnostic; absolute-energy parity remains a separate required view",
+        "processing_script": str(Path(__file__).resolve()),
+        "processing_script_sha256": base.sha256(Path(__file__).resolve()),
         "data_root": str(base.DATA_ROOT),
         "raw_root": str(base.RAW_ROOT),
         "input_matrix": "24 parity NPZ outputs plus matching per-frame CSV labels: 4 families x 3 seeds x train/test",
@@ -242,7 +297,10 @@ def main() -> None:
         "split_alignment": "shared trajectory clusters use one common E0; test-only trajectories use a test-derived E0 and are explicitly recorded",
         "complete_data": "all finite train and held-out test frames are used in the heatmap and point overlays; no point sampling or clipping",
         "heatmap": "pooled train+test magma hexbin count density with shared LogNorm across family panels",
-        "overlay": "train points are gray with alpha 0.28; held-out test points are black with alpha 0.78",
+        "overlay": f"all train points are individually retained and mapped to the pooled magma count color with alpha {TRAIN_POINT_ALPHA:.2f}; held-out test points are black with alpha {TEST_POINT_ALPHA:.2f}",
+        "point_rendering": "nearest-hex color transfer only; no point sampling, aggregation, or observation removal",
+        "train_point_alpha": TRAIN_POINT_ALPHA,
+        "test_point_alpha": TEST_POINT_ALPHA,
         "cluster_counts": cluster_counts,
         "test_only_clusters": test_only_clusters,
         "cluster_centers_eV_per_atom": cluster_centers,
@@ -251,8 +309,14 @@ def main() -> None:
         "count_norm": {"vmin": float(norm.vmin), "vmax": float(norm.vmax)},
         "min_text_size_pt": MIN_TEXT,
         "outputs": outputs,
+        "input_hashes": {
+            str(path): base.sha256(path)
+            for path in [base.SUMMARY_PATH, *sorted(base.RAW_ROOT.glob("*_parity.npz")), *sorted(base.RAW_ROOT.glob("*_per_frame.csv"))]
+            if path.exists()
+        },
     }
-    manifest_path = OUT_ROOT / "slide3_energy_train_test_cluster_centered_heatmap_manifest.json"
+    manifest["output_hashes"] = {key: base.sha256(Path(value)) for key, value in outputs.items()}
+    manifest_path = out_root / "slide3_energy_train_test_cluster_centered_heatmap_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
     print(json.dumps({"outputs": outputs, "manifest": str(manifest_path)}, indent=2))
 
