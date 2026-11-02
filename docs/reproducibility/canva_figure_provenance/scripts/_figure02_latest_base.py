@@ -29,9 +29,11 @@ import numpy as np
 from matplotlib.lines import Line2D
 from matplotlib.patches import Patch
 
-WORKTREE = Path(__file__).resolve().parents[4]
-WILEY = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench")
-DATA_ROOT = WILEY / "analysis/rmse_train_test_20261026"
+from repro_paths import LOCAL_DATA, REPO_ROOT, external_path
+
+WORKTREE = REPO_ROOT
+PACKAGED_DATA = LOCAL_DATA / "figure02"
+DATA_ROOT = PACKAGED_DATA if PACKAGED_DATA.is_dir() else external_path("analysis/rmse_train_test_20261026")
 SUMMARY_PATH = DATA_ROOT / "parity_summary.csv"
 FRAME_ROOT = DATA_ROOT / "raw/rockfish_parity"
 SOURCE_SUMMARY_PATH = SUMMARY_PATH
@@ -47,7 +49,6 @@ SEEDS = ["123", "234", "345"]
 SPLITS = ["train", "test"]
 FONT = "Arial"
 
-WORKTREE = Path(__file__).resolve().parents[4]
 OUT_DEFAULT = (
     WORKTREE
     / "docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_clustered_v5_full_points"

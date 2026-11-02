@@ -29,12 +29,12 @@ from build_atomic_migration_figures import (
     set_house_style,
     style_ax,
 )
+from repro_paths import external_path
 
 
-WILEY = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench")
 SRC = packaged_data(
     "figure01/comprehensive_task_map_points.csv",
-    WILEY / "analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv",
+    external_path("analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv"),
 )
 OUT = Path(__file__).resolve().parents[1] / "R06_clean_raw_pca" / "figures"
 GROUP_COLORS = TASK_DISPLAY_COLORS

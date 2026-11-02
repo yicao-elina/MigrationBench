@@ -34,12 +34,11 @@ import numpy as np
 from matplotlib.colors import LogNorm
 from matplotlib.lines import Line2D
 from matplotlib.patches import Rectangle
+from repro_paths import LOCAL_DATA, REPO_ROOT, external_path
 
 
-WORKTREE = Path(__file__).resolve().parents[4]
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
-LOCAL_DATA = PACKAGE_ROOT / "data"
-EXTERNAL_DATA_ROOT = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/rmse_train_test_20261026")
+WORKTREE = REPO_ROOT
+EXTERNAL_DATA_ROOT = external_path("analysis/rmse_train_test_20261026")
 DATA_ROOT = LOCAL_DATA / "figure02" if (LOCAL_DATA / "figure02").is_dir() else EXTERNAL_DATA_ROOT
 RAW_ROOT = LOCAL_DATA / "figure02/raw_rockfish_parity" if (LOCAL_DATA / "figure02/raw_rockfish_parity").is_dir() else DATA_ROOT / "raw/rockfish_parity"
 SUMMARY_PATH = DATA_ROOT / "parity_summary.csv"

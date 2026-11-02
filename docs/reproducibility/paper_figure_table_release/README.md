@@ -57,6 +57,21 @@ python3 docs/reproducibility/canva_figure_provenance/validate_catalog.py
 git diff --check
 ```
 
+The vendored Figure 1/2 and R04 compact-data rebuilders are clone-relative.
+For pointer-only source families, provide the external audited repository
+explicitly; no script depends on the maintainer's original absolute path:
+
+```bash
+export MIGRATIONBENCH_EXTERNAL_ROOT=/path/to/Wiley-MigrationBench
+export PLOT_ATLAS_ROOT=/path/to/plot_library_recovered
+```
+
+`MIGRATIONBENCH_EXTERNAL_ROOT` is needed only for figures whose raw or
+processed source remains external. `PLOT_ATLAS_ROOT` is needed for the
+profile-ensemble builders; Figure 1A and the vendored parity builders do not
+require that checkout. Missing external inputs fail closed and are not
+replaced with synthetic observations.
+
 The catalog validator can require external Downloads/Rockfish paths. An
 `external_files_unavailable` result or a file-provider read failure is a
 provenance gap, not evidence that a pointer-only figure is vendored.

@@ -26,10 +26,11 @@ from scipy.stats import ttest_rel
 
 import _figure02_latest_base as base
 from _figure02_latest_aggregate import merged_aggregate
+from repro_paths import REPO_ROOT, LOCAL_DATA
 
 
-WORKTREE = Path("/Users/alina/.codex/worktrees/canva-figure-provenance")
-PACKAGED_DATA = WORKTREE / "docs/reproducibility/canva_figure_provenance/data/figure02"
+WORKTREE = REPO_ROOT
+PACKAGED_DATA = LOCAL_DATA / "figure02"
 FRAME_ROOT = PACKAGED_DATA / "raw_rockfish_parity"
 SUMMARY_PATH = PACKAGED_DATA / "parity_summary.csv"
 OUT_DEFAULT = WORKTREE / (

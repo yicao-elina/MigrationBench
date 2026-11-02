@@ -27,9 +27,11 @@ import numpy as np
 from matplotlib.lines import Line2D
 from scipy.spatial import ConvexHull
 
-WORKTREE = Path(__file__).resolve().parents[4]
-WILEY = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench")
-ATLAS = Path("/Users/alina/Documents/Codex/plot_library_recovered")
+from repro_paths import EXTERNAL_ROOT, PLOT_ATLAS_ROOT, REPO_ROOT, external_path
+
+WORKTREE = REPO_ROOT
+WILEY = EXTERNAL_ROOT or REPO_ROOT
+ATLAS = PLOT_ATLAS_ROOT or (REPO_ROOT / "vendor/plot_library_recovered")
 PACKAGE_ROOT = Path(__file__).resolve().parents[1]
 LOCAL_DATA = PACKAGE_ROOT / "data"
 
@@ -50,8 +52,21 @@ STYLE_SOURCE = packaged_data(
     "style/FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json",
     WILEY / "analysis/sliding_four_model_campaign_20261024/config/FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json",
 )
-sys.path.insert(0, str(ATLAS / "src"))
-from plot_atlas import aggregate_profile_rows, apply_publication_style, get_palette, plot_profile_ensemble  # noqa: E402
+if (ATLAS / "src").is_dir():
+    sys.path.insert(0, str(ATLAS / "src"))
+try:
+    from plot_atlas import aggregate_profile_rows, apply_publication_style, get_palette, plot_profile_ensemble  # noqa: E402
+    _PLOT_ATLAS_IMPORT_ERROR = None
+except ModuleNotFoundError as exc:  # keep Figure 1A usable without the optional atlas checkout
+    _PLOT_ATLAS_IMPORT_ERROR = exc
+
+    def _require_plot_atlas(*args, **kwargs):
+        raise RuntimeError(
+            "Plot Atlas is required for profile figures; install it or set "
+            "PLOT_ATLAS_ROOT=/path/to/plot_library_recovered"
+        ) from _PLOT_ATLAS_IMPORT_ERROR
+
+    aggregate_profile_rows = apply_publication_style = get_palette = plot_profile_ensemble = _require_plot_atlas
 
 
 OUT_DEFAULT = WORKTREE / "docs/reproducibility/canva_figure_provenance"
@@ -183,7 +198,8 @@ def sha256(path: Path) -> str | None:
 
 
 def set_house_style() -> None:
-    apply_publication_style(font_size=MIN_TEXT_SIZE)
+    if _PLOT_ATLAS_IMPORT_ERROR is None:
+        apply_publication_style(font_size=MIN_TEXT_SIZE)
     plt.rcParams.update(
         {
             "font.family": "sans-serif",
@@ -865,7 +881,7 @@ def fig1(out: Path) -> tuple[dict[str, str], list[Path]]:
 
 
 def fig2(out: Path) -> tuple[dict[str, str], list[Path]]:
-    external_root = WILEY / "analysis/rmse_train_test_20261026"
+    external_root = external_path("analysis/rmse_train_test_20261026")
     summary_path = packaged_data("figure02/parity_summary.csv", external_root / "parity_summary.csv")
     frame_root = packaged_dir("figure02/raw_rockfish_parity", external_root / "raw/rockfish_parity")
     summary = read_rows(summary_path)
@@ -1302,7 +1318,7 @@ def fig6(out: Path) -> tuple[dict[str, str], list[Path]]:
 
 
 def fig7(out: Path) -> tuple[dict[str, str], list[Path]]:
-    root=WILEY/"analysis/foundation_interlayer_sliding_10model_20261024/results/tables"; img_path=root/"IMAGE_PROFILES.tsv"; qe_path=root/"QE_REFERENCE.tsv"; srcs=[img_path,qe_path]
+    root=external_path("analysis/foundation_interlayer_sliding_10model_20261024/results/tables"); img_path=root/"IMAGE_PROFILES.tsv"; qe_path=root/"QE_REFERENCE.tsv"; srcs=[img_path,qe_path]
     img=read_rows(img_path); qe=read_rows(qe_path)
     model_class={"foundation_agnesi_large":"MACE-MP","foundation_agnesi_medium":"MACE-MP","foundation_agnesi_medium_density":"MACE-MP","foundation_agnesi_small_density":"MACE-MP","foundation_mp0b3":"MACE-MP","foundation_omat0_medium":"MACE-OMAT-0","foundation_omat0_small":"MACE-OMAT-0","foundation_matpes_pbe_omat_ft":"MACE-OMAT-0","foundation_mh0":"MACE-MH","foundation_mh1":"MACE-MH"}
     for r in img: r["model_class"]=model_class.get(r.get("model_id"),"unknown")
@@ -1326,7 +1342,7 @@ def fig7(out: Path) -> tuple[dict[str, str], list[Path]]:
 
 
 def fig8(out: Path) -> tuple[dict[str, str], list[Path]]:
-    src=WILEY/"analysis/migrationbench_universe_publication_20261026/derived/structure_universe_points.csv"; rows=read_rows(src)
+    src=external_path("analysis/migrationbench_universe_publication_20261026/derived/structure_universe_points.csv"); rows=read_rows(src)
     fig=plt.figure(figsize=(17.0,10.5)); gs=fig.add_gridspec(2,2,hspace=.62,wspace=.42); ax=fig.add_subplot(gs[0,0])
     layer_colors={"L0_reference":"#8DA9BF","L2_DFT_path":"#C4547A","L3_interlayer_self":"#E68F1D","L3_self_relaxed_NEB":"#6E9E75"}
     for layer,color in layer_colors.items():

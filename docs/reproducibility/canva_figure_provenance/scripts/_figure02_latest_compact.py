@@ -15,9 +15,10 @@ import numpy as np
 
 import _figure02_latest_seed as v9
 import _figure02_latest_layout as v12
+from repro_paths import REPO_ROOT
 
 
-WORKTREE = Path("/Users/alina/.codex/worktrees/canva-figure-provenance")
+WORKTREE = REPO_ROOT
 OUT_DEFAULT = WORKTREE / (
     "docs/reproducibility/canva_figure_provenance/"
     "R03_typography18pt/figures/figure02_temperature_reference_layout_v13"

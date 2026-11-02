@@ -41,6 +41,7 @@ from _figure02_latest_base import (
     sha256,
     style_axis,
 )
+from repro_paths import external_path
 
 
 OUT_DEFAULT = WORKTREE / (
@@ -280,9 +281,9 @@ def build(out_dir: Path, vector_dir: Path | None = None) -> dict[str, object]:
     out_dir.mkdir(parents=True, exist_ok=True)
     if vector_dir is None:
         records = read_frame_records()
-        source_root = Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/rmse_train_test_20261026/raw/rockfish_parity")
+        source_root = external_path("analysis/rmse_train_test_20261026/raw/rockfish_parity")
         sources = [
-            Path("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/rmse_train_test_20261026/parity_summary.csv"),
+            external_path("analysis/rmse_train_test_20261026/parity_summary.csv"),
             *sorted(source_root.glob("*__per_frame.csv")),
         ]
         source_mode = "per_frame_csv"
@@ -403,8 +404,8 @@ def build(out_dir: Path, vector_dir: Path | None = None) -> dict[str, object]:
         },
         "data": {
             "source_mode": source_mode,
-            "source_summary_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/rmse_train_test_20261026/parity_summary.csv",
-            "source_frame_root": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/rmse_train_test_20261026/raw/rockfish_parity",
+            "source_summary_path": str(external_path("analysis/rmse_train_test_20261026/parity_summary.csv")),
+            "source_frame_root": str(external_path("analysis/rmse_train_test_20261026/raw/rockfish_parity")),
             "families": FAMILIES,
             "temperature_families": MULTIT_FAMILIES,
             "seeds": SEEDS,
