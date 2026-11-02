@@ -1,5 +1,7 @@
 NEB dot-matrix v3
 
+Style label: new Nature-style NEB heatmap / dot-matrix product figure.
+
 Rebuild:
 python source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated
 
