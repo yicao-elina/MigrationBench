@@ -1,8 +1,8 @@
 # Canva figure provenance catalog
 
-Audit date: 2026-10-31 (America/Los_Angeles)
+Audit date: 2026-11-01 (America/Los_Angeles)
 
-This catalog maps the ten pages of the Canva design resolved from
+This catalog maps the ten historical pages of the Canva design resolved from
 `https://canva.link/r5g3b6fiw3kgn0f` to the local figure exports, raw inputs,
 processed tables, plotting/editing scripts, and provenance manifests. The
 Canva short link resolved to design `DAHZabm1B1g`.
@@ -13,6 +13,16 @@ full local path instead of replacing an unavailable external artifact with a
 plausible-looking repository-relative path. `DOWNLOAD_EVIDENCE.tsv` records
 the recent PDF copies found in `/Users/alina/Downloads` and their SHA256
 comparison with the staging outputs.
+
+The current user-supplied shortlink
+`https://canva.link/sjom0wludt7vh9u` resolves to design `DAHZXpLtN6U`.
+The redirect was checked on 2026-11-01, but page-level Canva inspection
+returned `REAUTH_REQUIRED`; therefore the old ten-page mapping is retained as
+historical evidence and is not silently relabelled as a verified page map for
+the new design. The current and historical design IDs are recorded in
+[`CANVA_DESIGN_METADATA.json`](CANVA_DESIGN_METADATA.json), and stable figure
+IDs are indexed in
+[`figures/publication/canva/CANVA_FIGURE_INDEX.tsv`](../../../figures/publication/canva/CANVA_FIGURE_INDEX.tsv).
 
 ## What is and is not committed
 
@@ -35,6 +45,12 @@ than in `origin/main`; the catalog therefore distinguishes:
   integrated;
 - `external_raw_path`: a Rockfish or Downloads path that is not vendored by
   this PR.
+
+The SQLite registry mirrors this boundary. `charts.chart_id` is the stable
+figure key, while `canva_designs`, `canva_pages`, `chart_sources`,
+`chart_links`, `chart_data_files`, and `chart_provenance` provide the external
+design/page and evidence relations. The additive migration is
+`analysis/migrationbench_asset_registry_20261025/migrations/001_canva_design_and_figure_relations.sql`.
 
 ## Rebuild entry points
 

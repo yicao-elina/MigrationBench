@@ -35,9 +35,13 @@ is not a scientific acceptance certificate.
 
 ## Canva connector status
 
-The Canva short-link/design was already catalogued by PR #14, but the connected
-Canva app currently returns `This app connection requires reauthentication`.
-Therefore this turn does not claim an external Canva write. Once the connection
-is reauthenticated, the page map above can be used to replace the existing
-exports or add the SVG/PNG board with the same page ordering. No layout decision
-should be changed without rerunning the visual gates.
+The previous catalog was recorded by PR #14 for
+`https://canva.link/r5g3b6fiw3kgn0f` and design `DAHZabm1B1g`. The current
+shortlink supplied for this audit is
+`https://canva.link/sjom0wludt7vh9u`, which resolves to design `DAHZXpLtN6U`.
+The redirect is recorded, but the connected Canva app currently returns
+`This app connection requires reauthentication`, so the current page count and
+thumbnails were not re-read. The page map above is therefore a historical
+catalog, not a claim that the new design is identical. No external Canva write
+was attempted. After reauthentication, re-run page-level inspection before
+changing any mapping or placement decision.
