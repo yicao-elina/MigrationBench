@@ -1,0 +1,50 @@
+{
+  "release_id": "migrationbench-paper-figures-tables-repro-2026-11-02",
+  "audit_date": "2026-11-02",
+  "base_branch": "codex/paper-figures-repro-base",
+  "feature_branch": "codex/paper-figures-repro-release",
+  "source_head": "972171b11e0bf41fc9592770cf687f538cbf1c7d",
+  "bundle_commit": "99c22ee22dd6bc60766cd66e3fb7e2125075c2ce",
+  "portability_commit": "cd9538e6b9af99e4f061b2f4a775054f5222f0cc",
+  "scope": {
+    "paper_figures": ["Figure1", "Figure2", "Figure3", "Figure4", "Figure5", "Figure6", "Figure7", "Figure8"],
+    "paper_tables": ["Table1", "Table2", "UncertaintyAudit"],
+    "canva_pages": ["CANVA-P01", "CANVA-P02", "CANVA-P03", "CANVA-P04", "CANVA-P05", "CANVA-P06", "CANVA-P07", "CANVA-P08", "CANVA-P09", "CANVA-P10"]
+  },
+  "canonical_indexes": {
+    "figure_release_status": "FIGURE_RELEASE_STATUS.tsv",
+    "canva_repo_index": "figures/publication/canva/CANVA_FIGURE_INDEX.tsv",
+    "canva_full_ledger": "docs/reproducibility/canva_figure_provenance/CANVA_FIGURE_REGISTRY.tsv",
+    "independent_reviews": [
+      "review/INDEPENDENT_REVIEW_FIG1_4.md",
+      "review/INDEPENDENT_REVIEW_FIG5_8_TABLES.md"
+    ]
+  },
+  "entity_registry": {
+    "database": "analysis/migrationbench_asset_registry_20261025/migrationbench_asset_registry.sqlite",
+    "stable_figure_key": "charts.chart_id",
+    "canva_design_table": "canva_designs",
+    "canva_page_table": "canva_pages",
+    "source_evidence_table": "chart_sources",
+    "relation_tables": ["chart_links", "chart_data_files", "chart_provenance"],
+    "migration": "analysis/migrationbench_asset_registry_20261025/migrations/001_canva_design_and_figure_relations.sql"
+  },
+  "plot_atlas_contracts": {
+    "mlip_parity": "mlip_parity",
+    "profile_ensemble": "profile_ensemble",
+    "atlas_repository": "external dependency; set PLOT_ATLAS_ROOT"
+  },
+  "status_policy": {
+    "reconstruction_is_not_exact_reproduction": true,
+    "pointer_only_is_not_vendored": true,
+    "qe_scf_warning_is_not_scientific_acceptance": true,
+    "endpoint_only_proxy_is_not_a_dft_mep": true,
+    "raw_trajectories_and_checkpoints": "external_pointer_with_hash_or_locator"
+  },
+  "external_dependencies": [
+    "large Rockfish/raw trajectory collections",
+    "model checkpoints",
+    "some exact Canva PDF exports",
+    "current Canva page-level verification pending connector reauthentication"
+  ]
+}

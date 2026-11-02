@@ -1,0 +1,317 @@
+{
+  "render_revision": "R04_energy_force_train_test_separated_v5",
+  "publication_status": "RECONSTRUCTION",
+  "scientific_scope": "within-cluster energy parity plus direct force-component parity, with train and held-out test rendered in separate rows",
+  "processing_script": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/scripts/build_slide3_energy_force_train_test_separated.py",
+  "processing_script_sha256": "264f0a51c12dd4bc0d3cee6c3dc176bc30d6fe1cc7e27ba10b9d04a9832dbfd9",
+  "data_root": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02",
+  "raw_root": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity",
+  "row_order": [
+    "energy train",
+    "energy test",
+    "force train",
+    "force test"
+  ],
+  "input_matrix": "24 parity NPZ outputs plus matching per-frame CSV labels: 4 families x 3 seeds x train/test",
+  "energy_normalization": "within each family and trajectory cluster, subtract the pooled train+test DFT E/N mean from both train and test DFT/MLIP E/N",
+  "force_definition": "direct DFT and MLIP force-component parity from force_ref_eV_A and force_pred_eV_A; all finite components are included",
+  "complete_data": "all finite energy frames and force components are read; energy is fully in view, while force is intentionally displayed on the requested -10 to +10 eV \u00c5^-1 window and out-of-window components are counted explicitly",
+  "rendering": "train and held-out test are never overlaid in the same panel; each row uses a separate split-specific magma hexbin; force display is fixed to [-10, 10] eV \u00c5^-1 on both axes",
+  "layout": {
+    "blocks": [
+      "energy",
+      "force"
+    ],
+    "within_block_rows": "train and test rows are compactly spaced",
+    "between_block_spacing": "dedicated spacer row separates energy and force blocks",
+    "shared_axis_labels": "one shared x and y label per metric block; train/test row labels retained"
+  },
+  "train_alpha": 0.5,
+  "test_alpha": 0.9,
+  "font_increment_pt": 4,
+  "column_spacing_target": "visible square-panel gaps are reduced to approximately the within-Energy-row gap by narrowing the canvas while preserving equal panel aspect",
+  "families": [
+    "Scratch-600K",
+    "FT-600K",
+    "Scratch-MultiT",
+    "FT-MultiT"
+  ],
+  "counts": {
+    "Scratch-600K": {
+      "energy": {
+        "train": 5358,
+        "test": 801
+      },
+      "force": {
+        "train": 1336032,
+        "test": 206658
+      }
+    },
+    "FT-600K": {
+      "energy": {
+        "train": 5358,
+        "test": 801
+      },
+      "force": {
+        "train": 1336032,
+        "test": 206658
+      }
+    },
+    "Scratch-MultiT": {
+      "energy": {
+        "train": 7977,
+        "test": 2301
+      },
+      "force": {
+        "train": 1983330,
+        "test": 584658
+      }
+    },
+    "FT-MultiT": {
+      "energy": {
+        "train": 7977,
+        "test": 2301
+      },
+      "force": {
+        "train": 1983330,
+        "test": 584658
+      }
+    }
+  },
+  "visible_counts": {
+    "Scratch-600K": {
+      "energy": {
+        "train": 5358,
+        "test": 801
+      },
+      "force": {
+        "train": 1336032,
+        "test": 206658
+      }
+    },
+    "FT-600K": {
+      "energy": {
+        "train": 5358,
+        "test": 801
+      },
+      "force": {
+        "train": 1336032,
+        "test": 206658
+      }
+    },
+    "Scratch-MultiT": {
+      "energy": {
+        "train": 7977,
+        "test": 2301
+      },
+      "force": {
+        "train": 1983330,
+        "test": 584552
+      }
+    },
+    "FT-MultiT": {
+      "energy": {
+        "train": 7977,
+        "test": 2301
+      },
+      "force": {
+        "train": 1983330,
+        "test": 584658
+      }
+    }
+  },
+  "force_out_of_window_counts": {
+    "Scratch-600K": {
+      "train": 0,
+      "test": 0
+    },
+    "FT-600K": {
+      "train": 0,
+      "test": 0
+    },
+    "Scratch-MultiT": {
+      "train": 0,
+      "test": 106
+    },
+    "FT-MultiT": {
+      "train": 0,
+      "test": 0
+    }
+  },
+  "statistics": {
+    "Scratch-600K": {
+      "energy": {
+        "train": {
+          "spearman": 0.8930310313806488,
+          "pearson": 0.9001326488707467
+        },
+        "test": {
+          "spearman": 0.44895381027866815,
+          "pearson": 0.463953865399635
+        }
+      },
+      "force": {
+        "train": {
+          "spearman": 0.9897186910417674,
+          "pearson": 0.9903153940408586
+        },
+        "test": {
+          "spearman": 0.8387724712081738,
+          "pearson": 0.804798372869529
+        }
+      }
+    },
+    "FT-600K": {
+      "energy": {
+        "train": {
+          "spearman": 0.8479680617917048,
+          "pearson": 0.8561103803137009
+        },
+        "test": {
+          "spearman": 0.4668295455582122,
+          "pearson": 0.43783869535715364
+        }
+      },
+      "force": {
+        "train": {
+          "spearman": 0.998638254577184,
+          "pearson": 0.9982416701050596
+        },
+        "test": {
+          "spearman": 0.884519431410836,
+          "pearson": 0.8828649813279623
+        }
+      }
+    },
+    "Scratch-MultiT": {
+      "energy": {
+        "train": {
+          "spearman": 0.8947813939073059,
+          "pearson": 0.930974939882986
+        },
+        "test": {
+          "spearman": 0.5241557537293486,
+          "pearson": 0.4552991818361866
+        }
+      },
+      "force": {
+        "train": {
+          "spearman": 0.9853153815481303,
+          "pearson": 0.9861761637231353
+        },
+        "test": {
+          "spearman": 0.8598755030949166,
+          "pearson": 0.7354891998923743
+        }
+      }
+    },
+    "FT-MultiT": {
+      "energy": {
+        "train": {
+          "spearman": 0.9464488210443797,
+          "pearson": 0.9635209062022345
+        },
+        "test": {
+          "spearman": 0.4327164316522764,
+          "pearson": 0.4427135394525615
+        }
+      },
+      "force": {
+        "train": {
+          "spearman": 0.9975640886194378,
+          "pearson": 0.996900887825153
+        },
+        "test": {
+          "spearman": 0.9038757750761105,
+          "pearson": 0.8992715616553495
+        }
+      }
+    }
+  },
+  "limits": {
+    "energy": [
+      -0.06367873280607456,
+      0.19908271669402894,
+      -0.06367873280607456,
+      0.19908271669402894
+    ],
+    "force": [
+      -10.0,
+      10.0,
+      -10.0,
+      10.0
+    ]
+  },
+  "count_norm": {
+    "energy": {
+      "vmin": 1.0,
+      "vmax": 1135.0
+    },
+    "force": {
+      "vmin": 1.0,
+      "vmax": 414903.0
+    }
+  },
+  "min_text_size_pt": 22,
+  "outputs": {
+    "png": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_energy_force_train_test_separated_v5/figures/slide3_energy_force_train_test_separated.png",
+    "pdf": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_energy_force_train_test_separated_v5/figures/slide3_energy_force_train_test_separated.pdf",
+    "svg": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_energy_force_train_test_separated_v5/figures/slide3_energy_force_train_test_separated.svg"
+  },
+  "input_hashes": {
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/parity_summary.csv": "31b20e0378cde7a3fa826f1e2ea29ef54263c6868a33739902c30a744f3453e0",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed123_test__parity.npz": "23d3fa1542a1f2e596c232d8444bfd4529014f5c7e74cf2df46ec162d64cd0c8",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed123_train__parity.npz": "64506548d2f1664936da633623fae47a3d92e641767c37891130c953a5fa555f",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed234_test__parity.npz": "0d7f19ad6dbdc0b0c9f9388196501018c6917af20d5e9e5cc0b23fc0f57258ce",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed234_train__parity.npz": "5214412ae28aa336612ac4c57fb81d518549df42355d859117fe5b803512e9c8",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed345_test__parity.npz": "e57fea098591a658abe5c2ff6a09f79fb73252d0426ae9307350dcc1df4fd756",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed345_train__parity.npz": "71da2bafbc536a26ab7b022817c939684b71e681ec1fc40d6c1ca6cdac7c90e5",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed123_test__parity.npz": "a22e3161335db769706c4064ab5adefbfb433e6a908adf6b7e0d5df6514e181c",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed123_train__parity.npz": "1347e01b244184a951402087c46e166cea8b3444689c008b9034feeb5f3e9fc5",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed234_test__parity.npz": "a35bdf25c88702773251a434784eb252c49ad5c87ea05dd242febf58cf381dd0",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed234_train__parity.npz": "f2fb1583669907c788782ee115d2ae9924e312f955a7791fe9f06365ca46f40f",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed345_test__parity.npz": "15ad429664170b7d5d16788783b0719af40825363987032a2c1daf601146a023",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed345_train__parity.npz": "acef70ae41fe2283b48d740b32bf94537fbadf8d67cf523f4a714e590dca8b37",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed123_test__parity.npz": "fb5dbe5aeb16a0acdb08930d5cdaee9b2cb79f84c7ceb34d4c4e7a3110db6a64",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed123_train__parity.npz": "cdb6aefad7b861e5be03a82b561406f604131556dbfc8135be772454d081bd10",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed234_test__parity.npz": "d7fbcef4e115f8e23a02d49a942fa9d5e366e1ac4b79d06c9bd2ef2449a06799",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed234_train__parity.npz": "afa269d8958dd5d160714ee266206c0b3d5f7f0020d36c612aeb49539a12bf26",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed345_test__parity.npz": "ba5e7cf644fdf608aaf2ca2597418498ae41d2da9840a93d9dd804808ff08160",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed345_train__parity.npz": "8155caaa8682dca621643cee870955f51ca5ad8265951b92ba36a3462bfb1fa3",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed123_test__parity.npz": "39a5a6f02e1541648335e3c5c7a7bf3df07a09d3bb78f39d27c23bfcece6eba0",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed123_train__parity.npz": "17f929dfffd267d246e199f2ba05c1d1498de323107ff807380a043baa1bf678",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed234_test__parity.npz": "942cedfd57fdb7df53662b43a1de7cebb5d1ea24bda558a90c07f140c2b6443a",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed234_train__parity.npz": "61013f457f0917a0a4ebac3a50af110b66c722f9797c324380aa60c05e15f168",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed345_test__parity.npz": "0504fb0d04025e4e1f783a94c12b1d9a20e280c3463716d80e87ef91c015413f",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed345_train__parity.npz": "ee5c9d1d1b135d2ab6097c6a8260428d4f809d9a456c96afce7ba2ae0fb465bd",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed123_test__per_frame.csv": "37a3bfd1ddf1864034ed02dedfe667b2c35d78eeea51287a6eccbf8c64e9cec5",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed123_train__per_frame.csv": "ca606c150b9e7252b594db0273e25a809d7802afb4ce36da3ad1f5b6bc78bf6a",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed234_test__per_frame.csv": "abea5bfe5eeacf986fd754dbff4f81421b1cb5d382fcca18f3ad246b2b445416",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed234_train__per_frame.csv": "a10cb4d15bdd9fe306c9610c0901dad9f872f9a0ede1b13f0195a1f97b6f3df4",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed345_test__per_frame.csv": "023c1e6dc724b2c75dc295a5e3f5e8fc9ec971b1942396a2ed79dfb5a6393f04",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_600k_seed345_train__per_frame.csv": "d2bed2952baf1afb8127ad52a1a07e06a618d05b47a47f657934742d220143b0",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed123_test__per_frame.csv": "4697c488228221d39d67051631168858de65c6db81b894fbc9df4f380b9f5468",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed123_train__per_frame.csv": "198069c5995d2b5bfff350ac2848d621e17f4be133f08192caa86fc22c8b01f9",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed234_test__per_frame.csv": "b4f5959073745dfaed561442729fc5e0b2458ac0fda32159e90342c429b6b3bd",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed234_train__per_frame.csv": "e5f68cfda310f87f926fff45f2f63c17c0516db14d69b3cdb6988f62d4af686a",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed345_test__per_frame.csv": "94658ac92c7676fb212178083eb3a2f44bd249c2f12e71b67cb4e8bc9e262d94",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/ft_multit_seed345_train__per_frame.csv": "8652dbff7789dee264d58b2d9fb303a8c5fb94877bc4d62583748e75be3ee9fa",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed123_test__per_frame.csv": "fbcd56cdaf581d1646fef23a24ad3ee3b8a8d09da34842f312f1a15e6bc31593",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed123_train__per_frame.csv": "35d4adb9d678fd0ec358594ca3667c9147ed4b1f5bdb726675e6b94a35fe1427",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed234_test__per_frame.csv": "ebefa4faf8ed8dfc480704151a6d293e37c42a33f661cb8980b722f064e657b2",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed234_train__per_frame.csv": "1bc770fd633608f3af97c0d3b77b794d84e839a9378d68f14e8033e55fa2b0c0",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed345_test__per_frame.csv": "6f9661b8709d66e04b94f269e3f0cddd3a148b18bc0300538eb07ce80ad80b94",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_600k_seed345_train__per_frame.csv": "c3663c6eabb6c62f2e0a7b53d4dcfa4b8f09df72413bed1eb23b2d93762a7e3e",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed123_test__per_frame.csv": "7681413905752b28f23f17dfb2de7b031dc17a6c0d6a6b94d33837b69364447b",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed123_train__per_frame.csv": "9ac387ec1e843c9a2a0ffb0a056b150fcd2c931dfb1a6940e525dd2ff50550ab",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed234_test__per_frame.csv": "cc0b30464699ab017b244b36e4566f2054af2b4a3ab062c4daedcbed0735d82a",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed234_train__per_frame.csv": "bc5423eb42b3a53393dd64abfb0ee3e7084d42e9913cfff4dc5714ec4c4738fb",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed345_test__per_frame.csv": "8647c163ab22555a924d4086e2bf3cb8c970ca7140febae77301a0954d5859b6",
+    "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity/scratch_multit_seed345_train__per_frame.csv": "822654efc50634acc88038adad89839a9f7550240d9ac29e44e4fa15e6f73d8b"
+  },
+  "output_hashes": {
+    "png": "74b03d80296bba9bd21b0476e63072e1dcd07aa2e4ef9be1a9a29e43c494fff7",
+    "pdf": "04e78d683ef4ce0eca670e8046f77195402cda5778ea47be2d86f2dc5d1a1cce",
+    "svg": "31d7ba75c3952ffe25c67d26c3e84caec00c04352d0ed0295ca79edcc09aae37"
+  }
+}
