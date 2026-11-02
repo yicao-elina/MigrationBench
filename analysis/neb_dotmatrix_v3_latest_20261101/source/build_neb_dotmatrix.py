@@ -45,10 +45,10 @@ STRATEGY={'Foundation':'#95d1b1','Fine-tuning':'#36b3c0','Scratch':'#2f83b8'}
 TASK=['#fabab9','#f26ea6','#74297e'];SEED={123:'o',234:'^',345:'s'}
 CMAP=colors.LinearSegmentedColormap.from_list('nature_energy_blue',['#e7eff6','#bed9e8','#7cb7d2','#3493bd','#166da7','#1d426b'])
 NORM=colors.PowerNorm(gamma=.40,vmin=0,vmax=27)
-plt.rcParams.update({'font.family':'Helvetica','font.size':9,'text.color':INK,'axes.labelcolor':INK,'axes.edgecolor':GREY,'xtick.color':INK,'ytick.color':INK,'axes.linewidth':.6,'xtick.major.width':.6,'ytick.major.width':.6,'xtick.major.size':3,'ytick.major.size':3,'pdf.fonttype':42,'svg.fonttype':'none','savefig.facecolor':'white','figure.facecolor':'white'})
-Y=np.array([0,1,2,3.6,4.6,5.6,6.85,7.85,8.85,10.45,11.45,12.45,13.7,14.7,15.7])
+plt.rcParams.update({'font.family':'Arial','font.size':11.5,'font.weight':'normal','text.color':INK,'axes.labelcolor':INK,'axes.labelweight':'normal','axes.titleweight':'normal','axes.edgecolor':GREY,'xtick.color':INK,'ytick.color':INK,'xtick.labelsize':11,'ytick.labelsize':11,'axes.linewidth':1.5,'xtick.major.width':1.4,'ytick.major.width':1.4,'xtick.major.size':5.2,'ytick.major.size':5.2,'xtick.minor.width':1.0,'ytick.minor.width':1.0,'xtick.minor.size':3.2,'ytick.minor.size':3.2,'pdf.fonttype':42,'svg.fonttype':'none','savefig.facecolor':'white','figure.facecolor':'white'})
+Y=np.array([.25,1.25,2.25,3.85,4.85,5.85,7.10,8.10,9.10,10.70,11.70,12.70,13.95,14.95,15.95])
 X=np.array([0,1,2,3.2,4.2,5.2,6.4,7.4])
-STYLE={'width_mm':183,'main_height_mm':250,'standalone_matrix_height_mm':171,'font':'Helvetica (Helvetica-compatible)','type_pt':{'panel_letter':12,'panel_title':10,'matrix_row':9,'matrix_column':8.2,'legend_heading':9.5,'legend_text':9,'axes':9.2,'tick':8.5},'strategy_colors':STRATEGY,'task_colors':TASK,'color_encoding':{'quantity':'predicted_value_eV','range_eV':[0,27],'transform':'PowerNorm gamma=0.40','palette':'light blue to cyan blue to dark navy; zero is pale blue and still visible'},'size_encoding':{'quantity':'absolute_error_eV','range_eV':[0,25],'mapping':'s = s_min + (s_max - s_min) * sqrt(error / 25 eV)','note':'s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle','diameter_relative_to_row_pitch':{'minimum':.20,'maximum':.82}},'status_handling':'All 120 supplied finite observations are rendered as product metrics using quantitative color and area. Original run status remains in plotted_values.tsv and audit.json for provenance.','matrix_coordinate_limits':{'x':[-4.1,13.25],'y':[18.4,-3.9]},'quantitative_scatter_area_pt2':44}
+STYLE={'width_mm':183,'main_height_mm':250,'standalone_matrix_height_mm':171,'font':'Arial','font_weight':'normal','type_pt':{'panel_letter':15,'panel_title':14,'matrix_row':10.2,'matrix_column':8.8,'legend_heading':11,'legend_text':10.2,'axes':12.4,'tick':11,'note':9.5},'matrix_column_rotation_deg':35,'matrix_column_y':-.95,'strategy_colors':STRATEGY,'task_colors':TASK,'color_encoding':{'quantity':'predicted_value_eV','range_eV':[0,27],'transform':'PowerNorm gamma=0.40','palette':'light blue to cyan blue to dark navy; zero is pale blue and still visible'},'size_encoding':{'quantity':'absolute_error_eV','range_eV':[0,25],'mapping':'s = s_min + (s_max - s_min) * sqrt(error / 25 eV)','note':'s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle','diameter_relative_to_row_pitch':{'minimum':.20,'maximum':.82}},'dft_reference_display_precision':2,'status_handling':'All 120 supplied finite observations are rendered as product metrics using quantitative color and area. Original run status remains in plotted_values.tsv and audit.json for provenance.','matrix_coordinate_limits':{'x':[-4.1,13.25],'y':[18.4,-3.9]},'quantitative_scatter_area_pt2':44}
 
 def save(fig,name):
     for ext in ['pdf','svg','png']:
@@ -56,30 +56,30 @@ def save(fig,name):
     plt.close(fig)
 
 def heading(ax,letter,text,x=0,y=1.04,gap=.045):
-    ax.text(x,y,letter,transform=ax.transAxes,fontsize=12,fontweight='bold',ha='left',va='bottom')
-    ax.text(x+gap,y+.003,text,transform=ax.transAxes,fontsize=10,ha='left',va='bottom')
+    ax.text(x,y,letter,transform=ax.transAxes,fontsize=STYLE['type_pt']['panel_letter'],fontweight='bold',ha='left',va='bottom')
+    ax.text(x+gap,y+.003,text,transform=ax.transAxes,fontsize=STYLE['type_pt']['panel_title'],fontweight='normal',ha='left',va='bottom')
 
 def schematic(ax):
     ax.axis('off');ax.set_xlim(0,1);ax.set_ylim(0,1)
     heading(ax,'a','Evaluation design',y=1.15)
-    ax.text(.012,.95,'Training strategies',fontsize=9.3)
-    ax.text(.55,.95,'Evaluation tasks',fontsize=9.3)
+    ax.text(.012,.95,'Training strategies',fontsize=12,fontweight='normal')
+    ax.text(.55,.95,'Evaluation tasks',fontsize=12,fontweight='normal')
     for x,(g,col) in zip([.085,.235,.385],STRATEGY.items()):
-        if g=='Foundation':ax.scatter([x-.027,x,x+.027],[.64]*3,c=col,s=33,edgecolors='#888888',linewidths=.35)
+        if g=='Foundation':ax.scatter([x-.027,x,x+.027],[.64]*3,c=col,s=40,edgecolors='#777777',linewidths=.7)
         else:
-            for yy in [.58,.70]:ax.scatter([x-.027,x,x+.027],[yy]*3,c=col,s=26,edgecolors='#888888',linewidths=.3)
-        ax.text(x,.29,g,ha='center',fontsize=9)
-        ax.text(x,.075,'3 checkpoints' if g=='Foundation' else '2 × 3 seeds',ha='center',fontsize=7.9,color='#555555')
-    ax.plot([.035,.035,.435,.435],[.51,.47,.47,.51],c=GREY,lw=.7)
-    ax.annotate('',xy=(.535,.47),xytext=(.435,.47),arrowprops={'arrowstyle':'->','lw':.7,'color':GREY,'mutation_scale':8})
-    ax.text(.488,.73,'All models',ha='center',fontsize=7.7,color='#555555')
-    ax.plot([.535,.535,.925],[.47,.855,.855],c=GREY,lw=.7)
+            for yy in [.58,.70]:ax.scatter([x-.027,x,x+.027],[yy]*3,c=col,s=32,edgecolors='#777777',linewidths=.7)
+        ax.text(x,.29,g,ha='center',fontsize=11,fontweight='normal')
+        ax.text(x,.075,'3 checkpoints' if g=='Foundation' else '2 × 3 seeds',ha='center',fontsize=9.7,fontweight='normal',color='#555555')
+    ax.plot([.035,.035,.435,.435],[.51,.47,.47,.51],c=GREY,lw=1.25)
+    ax.annotate('',xy=(.535,.47),xytext=(.435,.47),arrowprops={'arrowstyle':'->','lw':1.25,'color':GREY,'mutation_scale':10})
+    ax.text(.488,.73,'All models',ha='center',fontsize=10.5,fontweight='normal',color='#555555')
+    ax.plot([.535,.535,.925],[.47,.855,.855],c=GREY,lw=1.25)
     for x,color,label,count in zip([.55,.704,.858],TASK,['Fixed-path\nmigration','Self-relaxed\nmigration','Sliding'],['3 pathways','3 pathways','2 systems']):
-        ax.annotate('',xy=(x+.0685,.78),xytext=(x+.0685,.855),arrowprops={'arrowstyle':'->','color':GREY,'lw':.7,'mutation_scale':7})
+        ax.annotate('',xy=(x+.0685,.78),xytext=(x+.0685,.855),arrowprops={'arrowstyle':'->','color':GREY,'lw':1.15,'mutation_scale':9})
         ax.add_patch(patches.Rectangle((x,.13),.137,.65,facecolor=color,edgecolor='none'))
         tc='white' if color==TASK[-1] else INK
-        ax.text(x+.0685,.51,label,ha='center',va='center',fontsize=8.8,linespacing=1.12,color=tc)
-        ax.text(x+.0685,.235,count,ha='center',va='center',fontsize=8,color=tc)
+        ax.text(x+.0685,.51,label,ha='center',va='center',fontsize=10.5,fontweight='normal',linespacing=1.12,color=tc)
+        ax.text(x+.0685,.235,count,ha='center',va='center',fontsize=10,fontweight='normal',color=tc)
 
 def size_limits(ax):
     pitch_pt=ax.get_position().height*ax.figure.get_figheight()*72/(18.4+3.9)
@@ -93,60 +93,66 @@ def matrix(ax):
     heading(ax,'b','Predicted energy and barrier error',y=1.025)
     for j0,j1,label,color in [(0,2,'Fixed-path\nmigration',TASK[0]),(3,5,'Self-relaxed\nmigration',TASK[1]),(6,7,'Sliding',TASK[2])]:
         left,right=X[j0]-.5,X[j1]+.5
-        ax.plot([left,right],[-3.45,-3.45],c=INK,lw=1.4,solid_capstyle='butt')
-        ax.add_patch(patches.Rectangle((left,-3.13),right-left,1.25,facecolor=color,edgecolor='none'))
-        ax.text((left+right)/2,-2.505,label,ha='center',va='center',fontsize=8.7,linespacing=1.02,color='white' if color==TASK[-1] else INK)
-    # Use an ASCII arrow because Helvetica on macOS does not reliably embed the
+        ax.plot([left,right],[-3.65,-3.65],c=INK,lw=2.1,solid_capstyle='butt')
+        ax.add_patch(patches.Rectangle((left,-3.33),right-left,1.25,facecolor=color,edgecolor='none'))
+        ax.text((left+right)/2,-2.705,label,ha='center',va='center',fontsize=10,fontweight='normal',linespacing=1.02,color='white' if color==TASK[-1] else INK)
+    # Use an ASCII arrow because some Arial installations do not reliably embed the
     # Unicode right-arrow glyph in all PNG/PDF/SVG backends (it rendered as a
     # tofu square in the reference layout).  The text remains unambiguous while
     # keeping the column labels visually consistent across all export formats.
-    labs=['in-gap','gap ->\nQL','within\nQL','in-gap','gap ->\nQL','within\nQL','pristine','Cr-in-\ngap']
-    for x,lab in zip(X,labs):ax.text(x,-1.18,lab,ha='center',va='center',fontsize=8.2,linespacing=1.0)
+    labs=['in-gap','gap -> QL','within QL','in-gap','gap -> QL','within QL','pristine','Cr-in-gap']
+    for x,lab in zip(X,labs):
+        ax.text(x,STYLE['matrix_column_y'],lab,ha='center',va='center',rotation=STYLE['matrix_column_rotation_deg'],rotation_mode='anchor',fontsize=STYLE['type_pt']['matrix_column'],fontweight='normal')
     smin,smax,pitch_pt=size_limits(ax)
     for i,row in enumerate(ROWS):
         lab=row if i<3 else row.split(' / ')[0].split('-',1)[1].replace('600K','600 K').replace('MultiT','Multi-T')+' / '+row.split(' / ')[1]
-        ax.text(-.82,Y[i],lab,ha='right',va='center',fontsize=9)
+        ax.text(-.82,Y[i],lab,ha='right',va='center',fontsize=STYLE['type_pt']['matrix_row'],fontweight='normal')
         for j,col in enumerate(COLS):
             r=T.loc[(row,col)]
             # Product rendering uses the actual finite value from the completed
             # run for every cell.  Run-status provenance is retained in the
             # exported table/audit, but does not replace a measured value with a
             # diagnostic glyph in the product figure.
-            ax.scatter(X[j],Y[i],s=float(marker_size(r.absolute_error_eV,smin,smax)),c=[CMAP(NORM(r.predicted_value_eV))],edgecolors=EDGE,linewidths=.35,zorder=3)
+            ax.scatter(X[j],Y[i],s=float(marker_size(r.absolute_error_eV,smin,smax)),c=[CMAP(NORM(r.predicted_value_eV))],edgecolors=EDGE,linewidths=.8,zorder=3)
     for start,end,g in [(0,2,'Foundation'),(3,8,'Fine-tuning'),(9,14,'Scratch')]:
         top,bottom=Y[start]-.50,Y[end]+.50
         ax.add_patch(patches.Rectangle((-3.22,top),.16,bottom-top,facecolor=STRATEGY[g],edgecolor='none'))
-        ax.plot([-3.32,-3.49,-3.49,-3.32],[top,top,bottom,bottom],c=INK,lw=1.4,solid_capstyle='butt')
-        ax.text(-3.82,(top+bottom)/2,g,rotation=90,ha='center',va='center',fontsize=9)
+        ax.plot([-3.32,-3.49,-3.49,-3.32],[top,top,bottom,bottom],c=INK,lw=2.1,solid_capstyle='butt')
+        ax.text(-3.82,(top+bottom)/2,g,rotation=90,ha='center',va='center',fontsize=10.2,fontweight='normal')
     # An external legend bay follows the same hierarchy as the reference dot plot.
-    ax.text(8.80,-2.65,'Training strategy',ha='left',va='center',fontsize=9.5)
+    ax.text(8.80,-2.65,'Training strategy',ha='left',va='center',fontsize=STYLE['type_pt']['legend_heading'],fontweight='normal')
     for yy,(g,color) in zip([-1.15,.05,1.25],STRATEGY.items()):
-        ax.add_patch(patches.Rectangle((8.8,yy-.22),.28,.44,facecolor=color,edgecolor='#888888',lw=.4))
-        ax.text(9.27,yy,g,ha='left',va='center',fontsize=9)
-    ax.text(8.70,3.55,'Absolute\nerror (eV)',ha='left',va='center',fontsize=9.4,linespacing=1.15)
-    ax.text(11.10,3.55,'Predicted\nenergy (eV)',ha='left',va='center',fontsize=9.4,linespacing=1.15)
+        ax.add_patch(patches.Rectangle((8.8,yy-.22),.28,.44,facecolor=color,edgecolor='#888888',lw=.75))
+        ax.text(9.27,yy,g,ha='left',va='center',fontsize=STYLE['type_pt']['legend_text'],fontweight='normal')
+    ax.text(8.70,3.55,'Absolute\nerror (eV)',ha='left',va='center',fontsize=STYLE['type_pt']['legend_text'],fontweight='normal',linespacing=1.15)
+    ax.text(11.10,3.55,'Predicted\nenergy (eV)',ha='left',va='center',fontsize=STYLE['type_pt']['legend_text'],fontweight='normal',linespacing=1.15)
     for yy,e in zip([5.3,7.3,9.3,11.3,13.3],[0,.1,1,5,25]):
-        ax.scatter(9.02,yy,s=float(marker_size(e,smin,smax)),c='#2f83b8',edgecolors=EDGE,linewidths=.35)
-        ax.text(9.58,yy,f'{e:g}',ha='left',va='center',fontsize=9)
+        ax.scatter(9.02,yy,s=float(marker_size(e,smin,smax)),c='#2f83b8',edgecolors=EDGE,linewidths=.8)
+        ax.text(9.58,yy,f'{e:g}',ha='left',va='center',fontsize=STYLE['type_pt']['legend_text'],fontweight='normal')
     # Colorbar coordinates and ticks both use the same global PowerNorm.
     u=np.linspace(0,1,1001);vals=NORM.inverse((u[:-1]+u[1:])/2)
     ax.pcolormesh([11.22,11.60],np.linspace(13.5,5.0,1001),np.array([vals]).T,cmap=CMAP,norm=NORM,shading='flat',rasterized=True,antialiased=False)
     for e in [0,.1,.5,2,5,10,27]:
-        yy=13.5-8.5*float(NORM(e));ax.plot([11.60,11.74],[yy,yy],c=GREY,lw=.5)
-        ax.text(11.88,yy,f'{e:g}',ha='left',va='center',fontsize=8.7)
-    ax.text(8.70,15.2,'Area:\nsqrt scale',ha='left',va='center',fontsize=8.3,linespacing=1.2,color='#555555')
-    ax.text(11.10,15.2,'Power scale\n(gamma 0.40)',ha='left',va='center',fontsize=8.3,linespacing=1.2,color='#555555')
-    ax.text(-.50,17.4,'One circle = one checkpoint / training seed',fontsize=8.5,color='#555555',va='center')
-    ax.text(-.50,18.25,'Zero error retains a minimum visible dot.',fontsize=8.1,color='#555555',va='center')
+        yy=13.5-8.5*float(NORM(e));ax.plot([11.60,11.74],[yy,yy],c=GREY,lw=1.0)
+        ax.text(11.88,yy,f'{e:g}',ha='left',va='center',fontsize=9.8,fontweight='normal')
+    ax.text(8.70,15.2,'Area:\nsqrt scale',ha='left',va='center',fontsize=10,fontweight='normal',linespacing=1.2,color='#555555')
+    ax.text(11.10,15.2,'Power scale\n(gamma 0.40)',ha='left',va='center',fontsize=10,fontweight='normal',linespacing=1.2,color='#555555')
+    ax.text(-.50,17.4,'One circle = one checkpoint / training seed',fontsize=10,fontweight='normal',color='#555555',va='center')
+    ax.text(-.50,18.25,'Zero error retains a minimum visible dot.',fontsize=10,fontweight='normal',color='#555555',va='center')
 
 def axes_style(ax):
     for side in ['top','right']:ax.spines[side].set_visible(False)
-    ax.grid(False);ax.tick_params(labelsize=8.5,pad=2.5)
+    for side in ['left','bottom']:
+        ax.spines[side].set_linewidth(1.5)
+        ax.spines[side].set_color(GREY)
+    ax.grid(False);ax.tick_params(labelsize=STYLE['type_pt']['tick'],width=1.4,length=5.2,pad=3.5,labelcolor=INK)
+    for tick in ax.get_xticklabels()+ax.get_yticklabels():tick.set_fontweight('normal')
 
-def grouped_axis(ax):
-    ax.set_xlim(-.48,2.48);ax.set_xticks([0,1,2]);ax.set_xticklabels(['Foundation','Fine-\ntuning','Scratch'],fontsize=8.4,linespacing=1.1)
-    ax.tick_params(axis='x',length=0,pad=10)
-    for x,g in enumerate(STRATEGY):ax.plot([x-.40,x+.40],[-.045,-.045],transform=ax.get_xaxis_transform(),clip_on=False,c=STRATEGY[g],lw=2.5,solid_capstyle='butt')
+def grouped_axis(ax,compact=False):
+    labels=['Foundation','Fine-\ntuning','Scratch'] if compact else ['Foundation','Fine-tuning','Scratch']
+    ax.set_xlim(-.48,2.48);ax.set_xticks([0,1,2]);ax.set_xticklabels(labels,fontsize=9.2 if compact else 10.5,fontweight='normal',linespacing=1.05)
+    ax.tick_params(axis='x',length=0,pad=8 if compact else 12)
+    for x,g in enumerate(STRATEGY):ax.plot([x-.40,x+.40],[-.045,-.045],transform=ax.get_xaxis_transform(),clip_on=False,c=STRATEGY[g],lw=3.3,solid_capstyle='butt')
 
 def points(ax,col):
     for gi,g in enumerate(STRATEGY):
@@ -154,43 +160,45 @@ def points(ax,col):
         offsets=[-.28,0,.28] if len(q)==3 else [-.37,-.22,-.07,.07,.22,.37]
         for dx,(_,r) in zip(offsets,q.iterrows()):
             mk='D' if pd.isna(r.training_seed) else SEED[int(r.training_seed)]
-            ax.scatter(gi+dx,r.predicted_value_eV,s=44,marker=mk,c=STRATEGY[g],edgecolors='#777777',linewidths=.35,zorder=4,clip_on=False)
+            ax.scatter(gi+dx,r.predicted_value_eV,s=52,marker=mk,c=STRATEGY[g],edgecolors='#666666',linewidths=.8,zorder=4,clip_on=False)
 
-def within(ax,self_relaxed=False):
-    axes_style(ax);grouped_axis(ax);heading(ax,'d' if self_relaxed else 'c','Within QL: '+('self-relaxed' if self_relaxed else 'fixed'),x=-.18,y=1.055,gap=.13)
-    ax.set_ylabel('Predicted barrier (eV)',fontsize=9.2,labelpad=3.5)
+def within(ax,self_relaxed=False,compact=False):
+    axes_style(ax);grouped_axis(ax,compact=compact)
+    heading(ax,'d' if self_relaxed else 'c','Self-relaxed Path' if self_relaxed else 'Fixed Path',x=-.15,y=1.055,gap=.105)
+    ax.set_ylabel('Barrier (eV)' if compact else 'Predicted barrier (eV)',fontsize=11.6 if compact else STYLE['type_pt']['axes'],fontweight='normal',labelpad=1.5 if compact else 5)
     col=COLS[5] if self_relaxed else COLS[2];points(ax,col)
     ax.set_ylim(-.08,2.15) if self_relaxed else ax.set_ylim(-.9,29)
     ax.set_yticks([0,.5,1,1.5,2] if self_relaxed else [0,10,20])
-    ref=REF[col];ax.axhline(ref,c='#575757',ls=(0,(3,2)),lw=.75,zorder=1)
-    ax.text(2.43 if self_relaxed else -.43,ref+(.09 if self_relaxed else 1.2),'DFT 1.845',ha='right' if self_relaxed else 'left',va='bottom',fontsize=8,bbox={'facecolor':'white','edgecolor':'none','pad':.4})
+    ref=REF[col];ax.axhline(ref,c='#575757',ls=(0,(3,2)),lw=1.35,zorder=1)
+    ax.text(2.43 if self_relaxed else -.43,ref+(.09 if self_relaxed else 1.2),f'DFT {ref:.2f}',ha='right' if self_relaxed else 'left',va='bottom',fontsize=10,fontweight='normal',bbox={'facecolor':'white','edgecolor':'none','pad':.5})
 
-def sliding(ax):
-    axes_style(ax);heading(ax,'e','Sliding',x=-.18,y=1.055,gap=.13)
-    ax.set_xlim(-.55,1.55);ax.set_ylim(-.10,3.35);ax.set_yticks([0,1,2,3]);ax.set_ylabel('Predicted peak (eV)',fontsize=9.2,labelpad=3.5)
-    ax.set_xticks([0,1]);ax.set_xticklabels(['Pristine\nDFT 1.654','Cr-in-gap\nDFT 2.571'],fontsize=8.4,linespacing=1.25)
+def sliding(ax,compact=False):
+    axes_style(ax);heading(ax,'e','Sliding',x=-.15,y=1.055,gap=.105)
+    ax.set_xlim(-.55,1.55);ax.set_ylim(-.10,3.35);ax.set_yticks([0,1,2,3]);ax.set_ylabel('Peak (eV)' if compact else 'Predicted peak (eV)',fontsize=11.6 if compact else STYLE['type_pt']['axes'],fontweight='normal',labelpad=1.5 if compact else 5)
+    ax.set_xticks([0,1]);ax.set_xticklabels([f'Pristine\nDFT {REF[COLS[6]]:.2f}',f'Cr-in-gap\nDFT {REF[COLS[7]]:.2f}'],fontsize=9.8,fontweight='normal',linespacing=1.2)
     for k,col in enumerate(COLS[6:]):
-        ref=REF[col];ax.plot([k-.44,k+.44],[ref,ref],c='#575757',lw=.75,ls=(0,(3,2)))
+        ref=REF[col];ax.plot([k-.44,k+.44],[ref,ref],c='#575757',lw=1.35,ls=(0,(3,2)))
         for gi,g in enumerate(STRATEGY):
             q=D[(D.column_id==col)&(D.strategy==g)].set_index('row_id');q=q.loc[[r for r in ROWS if r in q.index]]
             for dd,(_,r) in zip(np.linspace(-.065,.065,len(q)),q.iterrows()):
-                ax.scatter(k+[-.28,0,.28][gi]+dd,r.predicted_value_eV,s=38,marker='D' if pd.isna(r.training_seed) else SEED[int(r.training_seed)],c=STRATEGY[g],edgecolors='#777777',linewidths=.35,zorder=4,clip_on=False)
+                ax.scatter(k+[-.28,0,.28][gi]+dd,r.predicted_value_eV,s=46,marker='D' if pd.isna(r.training_seed) else SEED[int(r.training_seed)],c=STRATEGY[g],edgecolors='#666666',linewidths=.8,zorder=4,clip_on=False)
 
-def point_legend(fig,y=.036,ncol=6):
-    hs=[Line2D([],[],c='#777777',marker='D',markersize=5.2,ls='',label='checkpoint')]+[Line2D([],[],c='#777777',marker=m,markersize=5.2,ls='',label=f's{s}') for s,m in SEED.items()]+[Line2D([],[],c='#575757',ls=(0,(3,2)),lw=.75,label='DFT')]
-    fig.legend(handles=hs,loc='lower center',bbox_to_anchor=(.51,y),ncol=ncol,frameon=False,fontsize=8.7,handlelength=1.1,handletextpad=.5,columnspacing=1.0)
+def point_legend(fig,y=.036,ncol=6,fontsize=12):
+    markersize=6.5 if fontsize >= 12 else 5.5
+    hs=[Line2D([],[],c='#777777',marker='D',markersize=markersize,ls='',label='checkpoint')]+[Line2D([],[],c='#777777',marker=m,markersize=markersize,ls='',label=f's{s}') for s,m in SEED.items()]+[Line2D([],[],c='#575757',ls=(0,(3,2)),lw=1.35,label='DFT')]
+    fig.legend(handles=hs,loc='lower center',bbox_to_anchor=(.51,y),ncol=ncol,frameon=False,fontsize=fontsize,prop={'weight':'normal'},handlelength=1.5,handletextpad=.6,columnspacing=1.1)
 
 def make_figures():
     fig=plt.figure(figsize=(183/25.4,250/25.4))
     schematic(fig.add_axes([.035,.86,.93,.105]));matrix(fig.add_axes([.035,.355,.93,.435]))
-    within(fig.add_axes([.09,.135,.25,.16]));within(fig.add_axes([.41,.135,.25,.16]),True);sliding(fig.add_axes([.73,.135,.25,.16]))
-    point_legend(fig);fig.text(.035,.016,'Quantitative panels use different linear y scales. Energy and error units: eV.',fontsize=8.0,color='#555555')
+    within(fig.add_axes([.09,.135,.225,.16]),compact=True);within(fig.add_axes([.395,.135,.225,.16]),True,compact=True);sliding(fig.add_axes([.70,.135,.225,.16]),compact=True)
+    point_legend(fig,fontsize=10.5);fig.text(.035,.016,'Quantitative panels use different linear y scales. Energy and error units: eV.',fontsize=STYLE['type_pt']['note'],fontweight='normal',color='#555555')
     save(fig,'NEB_main_figure')
     fig=plt.figure(figsize=(183/25.4,171/25.4));matrix(fig.add_axes([.035,.04,.93,.88]));save(fig,'NEB_dot_heatmap_v3')
     fig=plt.figure(figsize=(183/25.4,45/25.4));schematic(fig.add_axes([.035,.13,.93,.65]));save(fig,'NEB_panel_a_design_v3')
     for sr,n in [(False,'NEB_panel_c_fixed_within_QL_v3'),(True,'NEB_panel_d_self_relaxed_within_QL_v3')]:
-        fig=plt.figure(figsize=(105/25.4,90/25.4));within(fig.add_axes([.18,.29,.77,.55]),sr);point_legend(fig,y=.025,ncol=3);save(fig,n)
-    fig=plt.figure(figsize=(105/25.4,90/25.4));sliding(fig.add_axes([.18,.29,.77,.55]));point_legend(fig,y=.025,ncol=3);save(fig,'NEB_panel_e_sliding_v3')
+        fig=plt.figure(figsize=(105/25.4,90/25.4));within(fig.add_axes([.18,.34,.77,.46]),sr);point_legend(fig,y=.035,ncol=3,fontsize=10.5);save(fig,n)
+    fig=plt.figure(figsize=(105/25.4,90/25.4));sliding(fig.add_axes([.18,.34,.77,.46]));point_legend(fig,y=.035,ncol=3,fontsize=10.5);save(fig,'NEB_panel_e_sliding_v3')
 
 CAPTION='''NEB evaluation with a dual-encoded dot matrix. (a) All foundation checkpoints and trained models enter all evaluation blocks. Foundation comprises three checkpoints; fine-tuning and scratch each comprise two training regimes with three seeds per regime. (b) Each matrix position represents one checkpoint or training seed and one pathway or system. Circle fill encodes the supplied predicted barrier or peak energy in eV using a single global 0-27 eV blue scale with PowerNorm gamma=0.40. Circle area encodes absolute error in eV using a square-root area scale with a visible minimum: s = s_min + (s_max - s_min) sqrt(error / 25 eV). Here s is the scatter area parameter in pt^2, proportional to geometric circle area. Minimum and maximum marker diameters equal 0.20 and 0.82 times the matrix row pitch, respectively; zero error retains the minimum visible dot. Size legend circles are generated by the identical mapping used for matrix circles. All 120 supplied finite observations are rendered as quantitative product metrics; the original run status is retained only in plotted_values.tsv and audit.json for provenance. No energies or errors are clipped. (c,d) Within-QL predicted barriers for fixed-path and self-relaxed evaluations. (e) Sliding peak energies. Colors in a, c, d and e identify training strategy; shape in quantitative supporting panels identifies seed or checkpoint. Every dot-matrix observation uses a circle. Dashed lines mark the canonical DFT references. Points are horizontally separated for visibility; within trained strategies in c and d, 600K seeds appear left and MultiT seeds right. Panels c, d and e use different linear y scales. For migration, error is the absolute difference between model and canonical DFT forward barriers. For sliding, it is the absolute difference between model and DFT relative-energy maxima. Fixed-path migration and sliding are supporting diagnostics according to the supplied metadata; all supplied finite values are shown directly as product metrics. No confidence intervals or significance tests are inferred.'''
 
@@ -223,7 +231,7 @@ def note():
     y=para('主组图采用 183 × 250 mm 画布：a 为完整比较设计，b 为圆点矩阵，c / d / e 为放大的定量点图。独立矩阵采用 183 × 171 mm 画布，适合单独查看和继续排版。',y)
     y=para('所有散点支持图均扩大了 marker；种子形状和 checkpoint 形状保留，以便追踪来源。主圆点矩阵只用圆形，所有 finite 实测值均使用相同的颜色和面积编码。支持图颜色表示训练策略，矩阵圆点颜色表示能量；两个色彩域在图例和图注中明确区分。',y)
     y=para('复现命令：python source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated',y,small)
-    y=para('所需 Python 库：numpy、pandas、matplotlib、reportlab。字体使用系统 Helvetica；PDF 嵌入字体，SVG 保留可编辑文字。',y,small)
+    y=para('所需 Python 库：numpy、pandas、matplotlib、reportlab。字体使用系统 Arial；PDF 嵌入字体，SVG 保留可编辑文字。',y,small)
     y=para('plotted_values.tsv 包含原始能量、绝对误差、DFT 参考与显示状态。style_spec.json 记录字号、配色与映射公式；audit.json 保存输入哈希、原始范围和检查结果。全部数据精确重绘，未使用图像生成模型推断数值。',y,small)
     y=para('视觉依据为用户上传的 Nature Figure 1c 圆点图及此前提供的整套参考图片。字体、字号和几何尺寸是本次为可读性制定的输出规范，不冒充原论文源文件参数。',y,small)
     c.save()
@@ -232,15 +240,31 @@ def sources():
     (OUT/'style_spec.json').write_text(json.dumps(STYLE,ensure_ascii=False,indent=2))
     D['source_status']=D['scientific_status']
     D['matrix_status']='FINAL_METRIC: color=predicted energy; area=absolute error'
+    # Keep the raw DFT references for audit arithmetic and add a publication
+    # display field so every visible DFT energy is consistently formatted to
+    # two decimal places without changing the underlying metric.
+    D['dft_reference_display_eV']=D['dft_reference_eV'].map(lambda value: f'{value:.2f}')
     D.to_csv(OUT/'plotted_values.tsv',sep='\t',index=False)
-    audit={'input_sha256':hashlib.sha256(A.input.read_bytes()).hexdigest(),'records':120,'quantitative_circles':120,'source_status_counts':D['source_status'].value_counts().to_dict(),'raw_energy_range_eV':[D.predicted_value_eV.min(),D.predicted_value_eV.max()],'absolute_error_range_eV':[D.absolute_error_eV.min(),D.absolute_error_eV.max()],'recomputed_errors_match':True,'color_clipped':0,'size_clipped':0,'reference_eV':REF.to_dict(),'size_mapping':STYLE['size_encoding'],'color_mapping':STYLE['color_encoding'],'product_rendering':'All finite source values rendered directly; source statuses are provenance only.'}
+    audit={'input_sha256':hashlib.sha256(A.input.read_bytes()).hexdigest(),'records':120,'quantitative_circles':120,'source_status_counts':D['source_status'].value_counts().to_dict(),'raw_energy_range_eV':[D.predicted_value_eV.min(),D.predicted_value_eV.max()],'absolute_error_range_eV':[D.absolute_error_eV.min(),D.absolute_error_eV.max()],'recomputed_errors_match':True,'color_clipped':0,'size_clipped':0,'reference_eV':REF.to_dict(),'reference_display_precision_decimals':2,'reference_display_values':{key:f'{value:.2f}' for key,value in REF.items()},'size_mapping':STYLE['size_encoding'],'color_mapping':STYLE['color_encoding'],'product_rendering':'All finite source values rendered directly; source statuses are provenance only.'}
     (OUT/'audit.json').write_text(json.dumps(audit,indent=2));(OUT/'figure_caption.txt').write_text(CAPTION)
     (OUT/'source').mkdir(exist_ok=True)
     source_copy=OUT/'source/build_neb_dotmatrix.py'
     if Path(__file__).resolve()!=source_copy.resolve():
         shutil.copy2(__file__,source_copy)
-    (OUT/'data').mkdir(exist_ok=True);shutil.copy2(A.input,OUT/'data'/A.input.name)
-    (OUT/'README.txt').write_text('NEB dot-matrix v3\n\nRebuild:\npython source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated\n\nDependencies: numpy, pandas, matplotlib, reportlab.\nColor encodes predicted energy (0-27 eV, global PowerNorm gamma .40); circle area encodes absolute error (square-root area scale plus a minimum visible point). All 120 supplied finite values are drawn as product metrics. Original source statuses remain in plotted_values.tsv and audit.json for provenance, but no diagnostic-only glyph is placed in the product figure.\nThe matrix size legend is drawn by the same size function. All source values and DFT references are retained. See figure_caption.txt, style_spec.json and audit.json.\n')
+    (OUT/'data').mkdir(exist_ok=True)
+    data_copy=OUT/'data'/A.input.name
+    if Path(A.input).resolve()!=data_copy.resolve():
+        shutil.copy2(A.input,data_copy)
+    (OUT/'README.txt').write_text('NEB dot-matrix v3\n\nRebuild:\npython source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated\n\nDependencies: numpy, pandas, matplotlib, reportlab.\nColor encodes predicted energy (0-27 eV, global PowerNorm gamma .40); circle area encodes absolute error (square-root area scale plus a minimum visible point). All 120 supplied finite values are drawn as product metrics. Original source statuses remain in plotted_values.tsv and audit.json for provenance, but no diagnostic-only glyph is placed in the product figure.\nThe matrix size legend is drawn by the same size function. All source values and DFT references are retained. DFT reference labels in the product figures use two decimal places; raw reference values remain in plotted_values.tsv and audit.json. See figure_caption.txt, style_spec.json and audit.json.\n')
+    manifest_path=OUT/'NEB_DOTMATRIX_V3_LATEST_MANIFEST.json'
+    manifest=json.loads(manifest_path.read_text()) if manifest_path.exists() else {'schema':'neb-dotmatrix-v3-latest-manifest-v1'}
+    manifest.update({'input_sha256':hashlib.sha256(A.input.read_bytes()).hexdigest(),'records':len(D),'product_quantitative_circles':len(D),'source_status_counts':D['source_status'].value_counts().to_dict(),'reference_display_precision_decimals':2,'style_reference':{'font':STYLE['font'],'font_weight':STYLE['font_weight'],'type_pt':STYLE['type_pt'],'dft_reference_display_precision':2}})
+    products=[]
+    for path in sorted(OUT.rglob('*')):
+        if path.is_file() and path != manifest_path:
+            products.append({'path':str(path.relative_to(OUT)),'bytes':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
+    manifest['products']=products
+    manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
 
 if __name__=='__main__':
     make_figures();note();sources();print(json.dumps({'output':str(OUT),'pdf_count':len(list(OUT.glob('*.pdf'))),'records':len(D)}))
