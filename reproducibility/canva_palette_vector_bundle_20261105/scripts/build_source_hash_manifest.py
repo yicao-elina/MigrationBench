@@ -14,10 +14,18 @@ OUT = PACKAGE / "manifests/SOURCE_FILE_HASHES.tsv"
 
 
 def sha256(path: Path) -> str:
-    digest = hashlib.sha256()
+    # Git normalizes CRLF text files in this repository.  Hash text after the
+    # same LF normalization so the manifest is stable in the current worktree
+    # and after a fresh clone; binary arrays/archives remain byte-exact.
     with path.open("rb") as handle:
-        for block in iter(lambda: handle.read(1024 * 1024), b""):
-            digest.update(block)
+        prefix = handle.read(8192)
+    digest = hashlib.sha256()
+    if b"\x00" in prefix:
+        with path.open("rb") as handle:
+            for block in iter(lambda: handle.read(1024 * 1024), b""):
+                digest.update(block)
+    else:
+        digest.update(path.read_bytes().replace(b"\r\n", b"\n"))
     return digest.hexdigest()
 
 

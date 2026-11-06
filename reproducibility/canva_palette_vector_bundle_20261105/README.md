@@ -43,7 +43,7 @@ python3 scripts/build_source_hash_manifest.py
 - `SOURCE_PROVENANCE.tsv` is the figure-level map from page to output, renderer, plotted data, source archive, and scientific/publication status.
 - `SOURCE_POINTERS.tsv` records external raw trajectories, checkpoints, and provider-backed paths that are not materialized in Git.
 - `FAILURE_EXCLUSION_REGISTRY.tsv` records unavailable/provider-dataless files and nonconverged or diagnostic-only boundaries; they are not silently promoted to primary evidence.
-- `manifests/SOURCE_FILE_HASHES.tsv` is generated over every materialized file under `data/source_archive/`.
+- `manifests/SOURCE_FILE_HASHES.tsv` is generated over every materialized file under `data/source_archive/`; text-file hashes use LF normalization so they remain stable across Git checkouts.
 - Existing source campaign manifests, ledgers, release registries, and audit tables are retained under `data/source_archive/` wherever they are materialized.
 
 The bundle is a reproducible visual package, not a claim that every historical Canva input can be regenerated exactly. Large trajectories, model checkpoints, and provider-backed files remain explicit pointers with their original paths or source-manifest references.
