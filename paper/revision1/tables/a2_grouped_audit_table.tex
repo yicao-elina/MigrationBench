@@ -1,0 +1,19 @@
+\begin{table}[htbp]
+\centering
+\caption{\textbf{Grouped-split and overlap summary.} Fixed-path reference errors are absolute errors on the within-gap image set relative to the 0.336~eV QE image-set reference. G1 is marked UNCONVERGED in the current SI status table, so these are fixed-image reference errors rather than physical migration barriers. Three-initialization entries report mean $\pm$ sample standard deviation; MPA0 is a single-checkpoint comparator. The overlap rows report the minimum training-set distance across the 25 target images under the stated metrics.}
+\label{tab:a2_grouped_audit_summary}
+\begin{tabular}{lccc}
+\toprule
+Family/split & Test $E$ RMSE & Test $F$ RMSE & Within-gap $|$reference error$|$ \\
+ & (meV/atom) & (meV/\AA) & (eV) \\
+\midrule
+OMAT-FT, grouped & $40.7 \pm 5.0$ & $259.7 \pm 5.8$ & $0.47 \pm 0.12$ \\
+Scratch, grouped & $30.5 \pm 3.6$ & $343.6 \pm 35.9$ & $1.20 \pm 0.27$ \\
+Scratch-5\%, grouped & $16.7 \pm 9.2$ & $341.5 \pm 15.0$ & $0.68 \pm 0.20$ \\
+MPA0 (single checkpoint) & $38.7$ & $278.5$ & $0.24$ \\
+\midrule
+Full grouped overlap & 1,786 train frames & SOAP $5.4\times10^{-4}$ & RMSD 2.06~\AA{} \\
+Scratch-5\% overlap & 89 train frames & SOAP $6.4\times10^{-4}$ & RMSD 2.06~\AA{} \\
+\bottomrule
+\end{tabular}
+\end{table}

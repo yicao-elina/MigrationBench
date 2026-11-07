@@ -1,12 +1,12 @@
-\begin{tabular}{lllll}
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.22\linewidth}>{\centering\arraybackslash}p{0.13\linewidth}>{\centering\arraybackslash}p{0.25\linewidth}>{\centering\arraybackslash}p{0.25\linewidth}>{\raggedright\arraybackslash}p{0.15\linewidth}@{}}
 \toprule
-Model & $D$ (cm$^2$/s) & $R^2$ (MSD fit) & $\kappa$ (W\,m$^{-1}$\,K$^{-1}$) & Status \\
+Model family & Runs & \shortstack{$D_{xy}$, 200--500~ps\\(cm$^2$/s)} & \shortstack{$D_{xy}$, 500--900~ps\\(cm$^2$/s)} & Scope \\
 \midrule
-Foundation & $(0.7 \pm 7.9) \times 10^{-9}$ & 0.01 & $(2.4 \pm 8.6) \times 10^{-3}$ & VALID \\
-Scratch & $(-3.4 \pm 3.2) \times 10^{-9}$ & 0.00 & $(0.9 \pm 1.3) \times 10^{-2}$ & VALID \\
-FT-600K$^{\dagger}$ & $(3.9 \pm 4.0) \times 10^{-8}$ & 0.90 & $(0.9 \pm 1.2) \times 10^{-2}$ & \textbf{[INVALID-pending-JB-6]} \\
-FT-MultiT & $(4.8 \pm 4.8) \times 10^{-8}$ & 0.86 & $(2.0 \pm 1.7) \times 10^{-2}$ & VALID \\
+FT-600K & 3 seeds & $(3.96\pm3.78)\times10^{-7}$ & $(3.64\pm3.15)\times10^{-7}$ & stable \\
+FT-MultiT & 3 seeds & $(1.12\pm0.26)\times10^{-6}$ & $(1.08\pm0.10)\times10^{-6}$ & stable \\
+Foundation representatives & 2 stable & $(1.21\pm1.29)\times10^{-6}$ & $(1.71\pm1.50)\times10^{-6}$ & model spread \\
+From scratch & 3 failures & -- & -- & no $D_{xy}$ \\
 \bottomrule
-\multicolumn{5}{l}{\footnotesize $^{\dagger}$FT-600K 600 K run used steps=2000, interval=5 (\texttt{mace\_md\_eval\_0814.py}:359--360); quarantined pending JB-6.} \\
-\multicolumn{5}{l}{\footnotesize $D$: block-averaged MSD slope (6 blocks, fit window 5--200 ps). $\kappa$: Green--Kubo running integral averaged over 100--200 ps (6 blocks).} \\
+\multicolumn{5}{@{}p{0.94\linewidth}@{}}{\footnotesize Fine-tuned values are means $\pm$ sample standard deviations across training seeds 123, 234, and 345. Foundation values summarize stable representatives and are not training-seed uncertainties; all trajectories use velocity seed 1100. No same-campaign heat-flux record is available, so HFACF and thermal conductivity are not reported.\par} \\
 \end{tabular}

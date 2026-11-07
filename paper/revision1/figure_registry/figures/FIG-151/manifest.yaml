@@ -1,0 +1,57 @@
+schema_version: 1
+figure_id: FIG-151
+logical_figure: data/published/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/leakage_distance_distributions
+title: Leakage distance distributions
+group_id: ARCHIVE-LEAKAGE
+parent_group: ARCHIVE-LEAKAGE
+sibling_ids: []
+article_targets:
+- Methods/Results data provenance
+reviewer_status: DONE
+reviewer_links:
+- id: REV-A2
+  status: DONE
+  question: Rule out train/test overlap between in-gap NEB images and FT-600K training
+    frames.
+  completed_evidence: Grouped splitting and the SOAP/RMSD nearest-neighbor audit are
+    complete for the declared training scopes; the historical 0.16 eV point is not
+    silently reused.
+  still_required: No additional figure evidence is required for the completed scope;
+    retain the thresholds, source scope, and manifest in the final release.
+- id: REV-C10
+  status: DONE
+  question: Replace the frame-level random split with a grouped train/test split and
+    overlap audit.
+  completed_evidence: Grouped-split retraining, zero-overlap checks, and the revised
+    RMSE/barrier statistics are available for the declared models and seeds.
+  still_required: Keep historical frame-level values visibly labeled and use grouped
+    values for generalization claims.
+scientific_status: publication;audit
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.png
+asset_sha256: 9f23aa7b8fdc971bb4518d57aa735e25e032728ab11b2e143fc588498535bf44
+source_export: /Users/alina/Project/migrationbench-paper-repro/data/published/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/leakage_distance_distributions.png
+legacy_v1_page: ../figure_pages.tex#FIG-151
+evidence_candidates:
+  caption_discussion_source_candidates: []
+  raw_or_processed_data_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/data/published/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/leakage_audit.json
+  - /Users/alina/Project/migrationbench-paper-repro/data/published/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/leakage_distance_summary.csv
+  - /Users/alina/Project/migrationbench-paper-repro/data/published/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/leakage_distance_summary.json
+  - /Users/alina/Project/migrationbench-paper-repro/data/published/training_leakage_audit/checkpoint_finetuned_MACE_multihead0804_s42/nearest_neighbors.csv
+  plot_script_candidates: []
+authored_hashes:
+  page.tex: 93d6e84aa4eb16c472bd4c127a029cb1cb2830523b36795092aab6b57be156cc
+  figure.tex: cc3b82f7608b2f5705baaa04bd2e7478aefbfc2e1c4ff96faa624d804a6c597a
+  caption.tex: d514867425e465abe552b0120cf0e4f5f4198e45fd5be9d80c598873fe74fac6
+  results.tex: a6e520bdfeead1c673ce3d76abc0ce4676152392202790f3d1a75b62fac30ad8
+  discussion.tex: af3a0f28da1a95b5f2fe54c17a1f42664741f7bbce154a77fe528b393454554b
+  reviewer.tex: 1d759f290c034fb1d5830d5b0eea3baf0196f9bd3c6d77bdcf918ec3be93fcfb
+  evidence.tex: 3a9e4bd92d37bbda521887267d93617497def80d3a99c23030d5493eded89d66
+  article.tex: 81c24aa2f2ea01aebcbf6c1b6c9791fff92c9a6c2629bf0c6a49d245da1444ee
+  gap.tex: 1be8e3fe41e8b5bdc582352a0cef5bf6e424925d10c801e84bd7ca45af76016c
+migration_note: Migrated from frozen 211-page review book; authored fragments are
+  now the editable surface.
+evidence_metadata_source: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/figure_evidence_matrix.tsv
+hash_updated_by: figurectl update-hashes

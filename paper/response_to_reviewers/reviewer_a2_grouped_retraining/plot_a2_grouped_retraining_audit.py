@@ -115,7 +115,7 @@ def main() -> None:
         sds,
         family_colors,
         points=points,
-        ylabel="Pathway 1--4 absolute barrier error (eV)",
+        ylabel="Within-gap probe absolute barrier error (eV)",
     )
     for patch, color in zip(axes[0].patches[:3], family_colors):
         patch.set_facecolor(color)
@@ -143,7 +143,7 @@ def main() -> None:
     axes[0].set_xlim(-0.55, 3.55)
     axes[0].set_ylim(0, 1.8)
     axes[0].set_xlabel("Model", fontweight="bold", labelpad=7)
-    axes[0].set_ylabel("Pathway 1--4 absolute barrier error (eV)", fontweight="bold", labelpad=8)
+    axes[0].set_ylabel("Within-gap probe absolute barrier error (eV)", fontweight="bold", labelpad=8)
     axes[0].legend(
         handles=[
             Line2D([0], [0], color="#555555", linestyle=(0, (4, 2)), linewidth=1.4,

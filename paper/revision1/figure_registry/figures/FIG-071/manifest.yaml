@@ -1,0 +1,67 @@
+schema_version: 1
+figure_id: FIG-071
+logical_figure: analysis/from_scratch_ablation_md_20261005/remote_20ps_audit/figures/screening_msd_dxy
+title: Screening msd dxy
+group_id: MD-ABLATION-20PS
+parent_group: MD-ABLATION-20PS
+sibling_ids:
+- FIG-069
+- FIG-070
+article_targets:
+- 'Results/SI: ablation stability and transport-screen boundary'
+reviewer_status: PARTIAL
+reviewer_links:
+- id: REV-C9
+  status: PENDING
+  question: Resolve the asymmetric FT-600K MD transport protocol and its effect on
+    D and kappa.
+  completed_evidence: Legacy FT-600K transport values are quarantined and excluded
+    from ranking; the figure can document that boundary.
+  still_required: Run the corrected matched-protocol FT-600K long trajectory, block-average
+    D/kappa, and close the multi-seed uncertainty before reporting a final transport
+    comparison.
+- id: REV-A3
+  status: PARTIAL
+  question: Add seed-level uncertainty and test whether the deep-penetration result
+    is seed-stable rather than a chance outcome.
+  completed_evidence: Three-seed grouped in-gap comparisons and uncertainty are available
+    for the declared Scratch/FT-600K/Scratch-5% scope.
+  still_required: Complete path-resolved deep-penetration classification and restarted
+    QE references before reporting a pooled deep-penetration ranking.
+- id: REV-A5
+  status: PARTIAL
+  question: Add a Scratch-5% random-initialization control to separate foundation
+    pretraining from data-volume effects.
+  completed_evidence: The three-seed Scratch-5% control and the in-gap pathway comparison
+    are complete and can be shown with the stated small-sample caveat.
+  still_required: Do not generalize to FT-MultiT or all pathways until the corresponding
+    grouped retraining and path comparisons exist.
+scientific_status: audit
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.pdf
+asset_sha256: 07239024330ad2c84a526c7cffec65121aa6635e6ca2191930418d1a0ffeeced
+source_export: /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/remote_20ps_audit/figures/screening_msd_dxy.pdf
+legacy_v1_page: ../figure_pages.tex#FIG-071
+evidence_candidates:
+  caption_discussion_source_candidates: []
+  raw_or_processed_data_candidates:
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/remote_20ps_audit/retry_ledger.tsv
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/remote_20ps_audit/screening_summary.csv
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/remote_20ps_audit/screening_summary.json
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/remote_20ps_audit/selected_1ns.tsv
+  plot_script_candidates: []
+authored_hashes:
+  page.tex: 2936392b5a1631d56fbb8b7bb51efa2a98f96731ba055b9df8b8700564138f91
+  figure.tex: a72ed15c232c7f1f60eedca8ae689f2beee0a3fceef709746da75094252289df
+  caption.tex: 70edce8b143e7584a84ab5ac719013c0b62cea79f67a21fe67cd765fe88ec2ea
+  results.tex: 9912d7e6eb130e4ac38b0aca500bbdbb25c5c3d813c1491f055720843c63f731
+  discussion.tex: 5640581b4adaa78f0d3d9ed57e899175d421a64b09878cae7b347f8d4cc974be
+  reviewer.tex: c64ae3600428ea13e41a47f646d6571af4be2d6bd4646777ec841796eda81b47
+  evidence.tex: ffcb77173af2c458507c1bb81fc5db06586565a8e40262fbd5fb3e3700db76dd
+  article.tex: 3866b232cb0193144961cf807940ca526bf0ceecc4c759b818b751a9ec801b83
+  gap.tex: 0175974f65eac1bded131c9915ddcd4ef024d3599ad413f196b64cf443839b16
+migration_note: Migrated from frozen 211-page review book; authored fragments are
+  now the editable surface.
+evidence_metadata_source: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/figure_evidence_matrix.tsv
+hash_updated_by: figurectl update-hashes
