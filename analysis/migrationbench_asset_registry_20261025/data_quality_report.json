@@ -1,0 +1,87 @@
+{
+  "built_at": "2026-10-25T19:35:58.029814+00:00",
+  "source_of_truth": "/Users/alina/Project/migrationbench-paper-repro/analysis/migrationbench_asset_registry_20261025",
+  "counts": {
+    "sources": 5,
+    "model_families": 12,
+    "model_groups": 15,
+    "models": 35,
+    "model_group_members": 66,
+    "model_name_map": 35,
+    "model_aliases": 74,
+    "tasks": 16,
+    "task_groups": 10,
+    "task_group_members": 16,
+    "task_aliases": 18,
+    "task_group_aliases": 15,
+    "systems": 10,
+    "campaigns": 11,
+    "datasets": 15,
+    "coverage": 95,
+    "assets": 13,
+    "charts": 11,
+    "chart_panels": 21,
+    "chart_links": 90,
+    "chart_data_files": 20,
+    "chart_provenance": 11,
+    "gaps": 12,
+    "audit_log": 11
+  },
+  "checks": [
+    {
+      "check_name": "foreign_key_check",
+      "result": "PASS",
+      "details": "No foreign-key violations."
+    },
+    {
+      "check_name": "duplicate_model_ids",
+      "result": "PASS",
+      "details": "All model IDs are unique."
+    },
+    {
+      "check_name": "interlayer_reference_boundary",
+      "result": "PASS",
+      "details": "All interlayer coverage retains the DFT SCF-warning flag."
+    },
+    {
+      "check_name": "fixed_self_separation",
+      "result": "PASS",
+      "details": "5 fixed/self records are stored as distinct coverage rows."
+    },
+    {
+      "check_name": "excluded_model_visibility",
+      "result": "PASS",
+      "details": "1 excluded model artifact(s) retained in the registry."
+    },
+    {
+      "check_name": "standard_model_name_mapping",
+      "result": "PASS",
+      "details": "Every model has a standardized name/plot label."
+    },
+    {
+      "check_name": "task_group_mapping",
+      "result": "PASS",
+      "details": "Every task belongs to at least one task group."
+    },
+    {
+      "check_name": "chart_query_read_only_shape",
+      "result": "PASS",
+      "details": "All chart data queries are SELECT/WITH statements."
+    },
+    {
+      "check_name": "chart_asset_locator_presence",
+      "result": "PASS",
+      "details": "All rendered chart assets exist at build time."
+    },
+    {
+      "check_name": "chart_data_file_locator_presence",
+      "result": "PASS",
+      "details": "All linked chart data files exist at build time."
+    },
+    {
+      "check_name": "chart_provenance_completeness",
+      "result": "WARN",
+      "details": "10 rendered chart records have incomplete manifest/output provenance."
+    }
+  ]
+}

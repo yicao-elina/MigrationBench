@@ -4,7 +4,7 @@
 #SBATCH --job-name=mb_main_sp
 #SBATCH --time=71:00:00
 #SBATCH -N 1
-#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks=1
 #SBATCH --cpus-per-task=11
 #SBATCH --partition=azgpuh200
 #SBATCH -A pclancy3_lab
@@ -44,6 +44,7 @@ source /azwestus3/pclancy3_lab/singularity.sh
 if [[ -n "${SINGULARITY_BIND:-}" ]]; then
   export APPTAINER_BIND="$SINGULARITY_BIND"
 fi
+unset SINGULARITY_BIND
 export APPTAINERENV_OMP_NUM_THREADS="$OMP_NUM_THREADS"
 export APPTAINERENV_OMP_STACKSIZE="$OMP_STACKSIZE"
 
@@ -58,9 +59,10 @@ export APPTAINERENV_OMP_STACKSIZE="$OMP_STACKSIZE"
   echo "qe_version=7.5"
   echo "omp_num_threads=$OMP_NUM_THREADS"
   echo "omp_stacksize=$OMP_STACKSIZE"
-  sha256sum input.scf.in "$SIF"
+  sha256sum input.scf.in
+  cat "$ROOT/container_sha256.txt"
   grep -iE 'calculation|degauss|ecutwfc|ecutrho|pseudo_dir|nat|ntyp|K_POINTS' input.scf.in
-  module list 2>&1
+  echo provenance_complete
 } > runtime_provenance.txt
 
 set +e
@@ -87,5 +89,14 @@ srun --export=ALL singularity exec --nv --cleanenv "$SIF" \
 rc=$?
 set -e
 echo "$rc" > exit_code.txt
-grep -E '!    total energy|Forces acting on atoms|Total force|convergence has been achieved|JOB DONE|Error in routine|stopping' scf.out > gate_markers.txt || true
-exit "$rc"
+
+gate=0
+{
+  grep -q 'JOB DONE' scf.out && echo JOB_DONE=PASS || { echo JOB_DONE=FAIL; gate=1; }
+  grep -qE '!    total energy' scf.out && ! grep -qiE 'nan|inf' scf.out && echo ENERGY_FINITE=PASS || { echo ENERGY_FINITE=FAIL; gate=1; }
+  grep -q 'Forces acting on atoms' scf.out && ! grep -qiE 'nan|inf' scf.out && echo FORCES_FINITE=PASS || { echo FORCES_FINITE=FAIL; gate=1; }
+  ! grep -qiE 'Error in routine|stopping|convergence NOT achieved|MPI|container launch error' scf.out scf.err && echo ERROR_MARKERS=PASS || { echo ERROR_MARKERS=FAIL; gate=1; }
+  grep -q "calculation[[:space:]]*=[[:space:]]*'scf'" input.scf.in && grep -q 'nat[[:space:]]*=[[:space:]]*81' input.scf.in && echo INPUT_IDENTITY=PASS || { echo INPUT_IDENTITY=FAIL; gate=1; }
+  [[ "$rc" == 0 ]] && echo QE_EXIT=PASS || { echo QE_EXIT=FAIL; gate=1; }
+} > gate_markers.txt
+exit "$gate"

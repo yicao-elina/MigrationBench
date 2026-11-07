@@ -37,4 +37,4 @@ Line numbers refer to submitted `sn-article-final.tex`. Status codes:
 ## Coverage check
 - Reviewer main comments C1, C2, C3, I4, I5, I6, I7: mapped to response-letter sections A1–A7; every flagged quote above has an Edit ref (E1–E8) or a PENDING-data placeholder with a JB/LP owner.
 - Repo comments R1–R6: mapped to sections C8–C13 (R1→C8, R2→C9, R3→C10, R4→C11, R5→LP-2/LP-5 covered under A6/C11–C12, R6→C13).
-- Scratch-5% control (I5): no existing manuscript claim; new content pending JB-3 (response section A5).
+- Scratch-5% control (I5): grouped low-data control is now documented with 3-seed RMSE/barrier evidence and a path-resolved SI table; the exact approximately 1000-frame group-preserving ablation remains an explicit validation gap (response section A5).

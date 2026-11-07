@@ -1,0 +1,9 @@
+claim_id	claim	status	evidence	boundary
+DIST-01	The grouped split is trajectory/group level	VERIFIED	grouped_split_summary.json; grouped reference files	Whole AIMD trajectories are assigned to one partition; counts are 1786/311/267.
+DIST-02	Grouped train/valid/test distributions are shown with marginals	VERIFIED_DESCRIPTIVE	grouped_reference_embedding.csv	PCA is fit on grouped train only; this is a representation diagnostic, not a scalar OOD score.
+DIST-03	Fixed-path pathway-1--4 images are separated from grouped AIMD cells	VERIFIED_SCOPE_LIMITED	neb_1-4.extxyz; grouped_reference_embedding.csv	The fixed-path images are 61 atoms; grouped AIMD cells are 81--86 atoms.
+DIST-04	Archived static test-error points are retained for audit	AUDIT_ONLY_MIXED_EVIDENCE	static_error_points.csv	The manuscript-facing RMSE figure now uses the original Rockfish validation histories; the archived point table is not used as the main RMSE comparison.
+DIST-05	MLIP-generated MD clouds show configuration-space occupancy	DESCRIPTIVE_MLIP_ONLY	md_distribution_points.csv; FIG-004 continuation manifests	These are not DFT errors; the common MD velocity seed means model/checkpoint branches are not independent velocity replicas.
+DIST-06	Short-contact collapse frames are retained as status, not forced into SOAP	VERIFIED_FAILURE_BOUNDARY	md_distribution_points.csv	A 1.2 Angstrom precheck records short_contact_skipped rows before DScribe allocation.
+DIST-07	Failure/CAR is a separate diagnostic	VERIFIED_STATIC_DIAGNOSTIC	fig_failure_stage_grouped.pdf; 639-candidate MLIP outputs	Committee force spread is not calibrated uncertainty or DFT error.
+DIST-08	Original Rockfish RMSE histories are available for all four model families	DESCRIPTIVE_SINGLE_RUN	rockfish_training_rmse_eval.csv; rockfish_training_rmse_manifest.json	87 default-head mode=eval checkpoints from run 123 logs; these are validation histories, not grouped held-out test statistics or seed uncertainty.
