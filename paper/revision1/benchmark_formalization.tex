@@ -6,13 +6,13 @@
 \subsection{Formal Benchmark Definition}
 \label{sec:benchmark_formalization}
 
-The central object of this benchmark is not a single scalar RMSE, but a family of task-conditioned measurement operators applied to the same candidate force field. Let a configuration be denoted by
+The central object of this benchmark is not a single scalar RMSE, but a family of process-conditioned measurement operators applied to the same candidate MLIP. Let a configuration be denoted by
 \[
     x=(\mathbf R,\mathbf Z,\mathbf h)\in\mathcal X,
 \]
-where $\mathbf R$ contains atomic coordinates, $\mathbf Z$ atomic identities, and $\mathbf h$ the simulation cell. A reference electronic-structure model defines an energy $E_{\mathrm D}(x)$ and force field $\mathbf F_{\mathrm D}(x)=-\nabla_{\mathbf R}E_{\mathrm D}(x)$. A candidate MLFF $M$ defines $E_M(x)$ and $\mathbf F_M(x)=-\nabla_{\mathbf R}E_M(x)$.
+where $\mathbf R$ contains atomic coordinates, $\mathbf Z$ atomic identities, and $\mathbf h$ the simulation cell. A reference electronic-structure model defines an energy $E_{\mathrm D}(x)$ and force vector $\mathbf F_{\mathrm D}(x)=-\nabla_{\mathbf R}E_{\mathrm D}(x)$. A candidate MLIP $M$ defines $E_M(x)$ and $\mathbf F_M(x)=-\nabla_{\mathbf R}E_M(x)$.
 
-\begin{definition}[Equilibrium and task-conditioned evaluation distributions]
+\begin{definition}[Equilibrium and process-conditioned evaluation distributions]
 \label{def:distributions}
 The conventional equilibrium test distribution is
 \[
@@ -82,10 +82,10 @@ and then optimized by a reference or model-specific NEB operator. A path is reta
 \subsubsection{Fixed-Path and Self-Relaxed NEB Operators}
 \label{sec:neb_operators_formal}
 
-The apparent discrepancy between a fixed-path barrier in Fig.~\ref{fig:barrier} and a self-consistent MLFF-NEB barrier in Fig.~S3 is resolved by defining two different operators.
+Fixed-path scoring (Fig.~\ref{fig:barrier}) and self-relaxed NEB (Fig.~\ref{fig:neb_benchmark}) are two different operators, defined here.
 
 \paragraph{Reference DFT path.}
-For a task $\tau$, the DFT NEB operator returns a converged reference path
+For a task $\tau$, the DFT NEB operator returns a reference path
 \[
     \Gamma_{\mathrm D,\tau}^{*}
     =
@@ -104,7 +104,7 @@ The DFT barrier is
 \]
 
 \paragraph{Fixed-path scoring.}
-The fixed-path MLFF operator evaluates model energies on the same DFT-relaxed images:
+The fixed-path MLIP operator evaluates model energies on the same DFT-relaxed images:
 \[
     \Delta E_{\mathrm{fixed}}^{\ddagger}(M,\tau)
     =
@@ -115,8 +115,8 @@ The fixed-path MLFF operator evaluates model energies on the same DFT-relaxed im
 \]
 It measures whether $M$ assigns the correct potential-energy profile to an externally supplied DFT path. The model does not choose or relax the path.
 
-\paragraph{Self-relaxed MLFF NEB.}
-The self-relaxed operator lets the MLFF define the forces that optimize the band:
+\paragraph{Self-relaxed MLIP NEB.}
+The self-relaxed operator lets the MLIP define the forces that optimize the band:
 \[
     \Gamma_{M,\tau}^{*}
     =
@@ -133,7 +133,7 @@ followed by
     -
     E_M(x_{0,\tau}^{M,*}).
 \]
-This operator measures optimization stability and qualitative path robustness on the MLFF's own PES. Because $\Gamma_{M,\tau}^{*}$ and $\Gamma_{\mathrm D,\tau}^{*}$ need not be the same curve in configuration space, $\Delta E_{\mathrm{fixed}}^{\ddagger}$ and $\Delta E_{\mathrm{self}}^{\ddagger}$ are not expected to agree. A low self-relaxed MLFF barrier is physically validated only after the path is checked against DFT, for example by DFT single-point energies on $\Gamma_{M,\tau}^{*}$ or by restarting a DFT NEB from the MLFF path.
+This operator measures optimization stability and qualitative path robustness on the MLIP's own PES. Because $\Gamma_{M,\tau}^{*}$ and $\Gamma_{\mathrm D,\tau}^{*}$ need not be the same curve in configuration space, $\Delta E_{\mathrm{fixed}}^{\ddagger}$ and $\Delta E_{\mathrm{self}}^{\ddagger}$ are not expected to agree. A low self-relaxed MLIP barrier is physically validated only after the path is checked against DFT, for example by DFT single-point energies on $\Gamma_{M,\tau}^{*}$ or by restarting a DFT NEB from the MLIP path.
 
 \subsubsection{Error Decomposition}
 \label{sec:error_decomposition_formal}
@@ -183,7 +183,7 @@ Thus a model can fail by shifting the endpoint energy, miscalibrating the saddle
     -
     \Delta E_{\mathrm D}^{\ddagger}(\tau),
 \]
-which measures whether the MLFF-discovered path is also plausible on the DFT PES. In practice this term requires DFT single-point calculations or DFT NEB refinement on the MLFF-relaxed path.
+which measures whether the MLIP-discovered path is also plausible on the DFT PES. In practice this term requires DFT single-point calculations or DFT NEB refinement on the MLIP-relaxed path.
 
 \subsubsection{Robustness and Generalization Claims}
 \label{sec:claims_formal}
@@ -200,7 +200,7 @@ The present work claims Level 2 evidence for selected Cr-doped \ce{Sb2Te3} tasks
 \label{sec:benchmark_algorithm_formal}
 
 \begin{algorithm}[H]
-\caption{Migration-centered MLFF benchmark}
+\caption{Migration-centered MLIP benchmark}
 \label{alg:migration_benchmark}
 \begin{algorithmic}[1]
 \State Define candidate models $\mathcal M=\{M_1,\ldots,M_L\}$ and reference method $D$.
@@ -213,7 +213,7 @@ The present work claims Level 2 evidence for selected Cr-doped \ce{Sb2Te3} tasks
     \State Compute or restart $\Gamma_{\mathrm D,\tau}^{*}=\operatorname{NEB}_{\mathrm D}(x_0,x_N)$ until convergence.
     \State Score each $M$ on the fixed DFT path to obtain $\Delta E_{\mathrm{fixed}}^{\ddagger}(M,\tau)$.
     \State Optionally run $\Gamma_{M,\tau}^{*}=\operatorname{NEB}_{M}(x_0,x_N)$ to assess self-relaxed stability.
-    \State If $\Gamma_{M,\tau}^{*}$ differs from $\Gamma_{\mathrm D,\tau}^{*}$, validate the MLFF path with DFT single points or a DFT restart.
+    \State If $\Gamma_{M,\tau}^{*}$ differs from $\Gamma_{\mathrm D,\tau}^{*}$, validate the MLIP path with DFT single points or a DFT restart.
     \State Record barrier errors, endpoint errors, maximum-force histories, convergence flags, RMSD/SOAP overlap, and checksums.
 \EndFor
 \State Report model rankings with uncertainty over seeds, paths, and convergence status.
@@ -229,12 +229,12 @@ The framework is applicable when the process of interest can be represented by a
 A benchmark task is accepted into the final manuscript only if the following checks are satisfied:
 \begin{enumerate}
     \item DFT endpoints and NEB images are reconstructable from raw inputs and outputs.
-    \item The DFT reference barrier is convergence-verified, or explicitly labeled as a current candidate value.
+    \item The DFT reference energies are those of the images being scored, and a barrier quoted as a physical migration barrier comes from a converged NEB.
     \item Fixed-path and self-relaxed NEB quantities are reported as distinct operators.
     \item Model comparison includes seed sensitivity where training stochasticity can affect rankings.
     \item Training/test leakage is checked with grouped splits or path-aware proximity metrics.
     \item Path overlap is quantified with geometric RMSD and/or descriptor-space similarity.
-    \item Any MLFF-discovered low-barrier path is tested on the DFT PES before being interpreted physically.
+    \item Any MLIP-discovered low-barrier path is tested on the DFT PES before being interpreted physically.
     \item Scripts, model identifiers, input files, convergence flags, and output checksums are preserved in the release manifest.
 \end{enumerate}
 
@@ -250,7 +250,7 @@ Consequently, a model that has low average force RMSE near equilibrium can still
 \begin{gathered}
 \text{DFT/AIMD data}
 \rightarrow
-\text{trained MLFFs}
+\text{trained MLIPs}
 \rightarrow
 \text{equilibrium validation}\\
 \rightarrow
@@ -263,4 +263,4 @@ Consequently, a model that has low average force RMSE near equilibrium can still
 \text{data-acquisition guidance}.
 \end{gathered}
 \]
-This chain closes the benchmark loop: physical theory identifies the observables that matter, DFT supplies the reference PES, MLFFs are evaluated through measurement operators matched to downstream processes, and diagnostic analyses indicate which missing configurations should be acquired next.
+This chain closes the benchmark loop: physical theory identifies the observables that matter, DFT supplies the reference PES, MLIPs are evaluated through measurement operators matched to downstream processes, and diagnostic analyses indicate which missing configurations should be acquired next.

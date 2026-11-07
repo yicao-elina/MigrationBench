@@ -1,0 +1,218 @@
+{
+  "created_at_utc": "2026-10-19T03:23:35.726467+00:00",
+  "run_role": "production_preconditioner",
+  "source_candidate_manifest": null,
+  "source_candidate_manifest_sha256": null,
+  "seed": 42,
+  "input_images": "/scratch16/pclancy3/yi/foundation_grouped_benchmark_20261001/data/1-4.extxyz",
+  "input_images_sha256": "056cb61be5bb48a8c96e4c23302f58023b20aed52f5f3afff9f6752b22935222",
+  "initial": null,
+  "initial_sha256": null,
+  "final": null,
+  "final_sha256": null,
+  "calculator": "mace-model",
+  "calculator_label": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+  "model_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+  "model_path_sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a",
+  "software_versions": {
+    "ase": "3.25.0",
+    "mace-torch": "0.3.12",
+    "torch": "2.7.0+cu118"
+  },
+  "default_dtype": "calculator_checkpoint_default",
+  "n_images": 5,
+  "fmax_target_eV_A": 0.05,
+  "steps_requested": 500,
+  "fire_dt": 0.1,
+  "fire_maxstep_A": 0.2,
+  "optimizer_steps_completed": 156,
+  "optimizer_converged": true,
+  "optimizer_converged_under_optimization_potential": true,
+  "optimization_potential": "base",
+  "reference_tether": {
+    "enabled": false,
+    "migrant_element": "Cr",
+    "migrant_k_eV_A2": 0.0,
+    "host_k_eV_A2": 0.0,
+    "formula": "E_opt=E_base+0.5*sum_a k_a*||MIC(r_a-r_a_ref)||^2"
+  },
+  "initial_profile": [
+    {
+      "image_index": 0,
+      "energy_eV": -133606.36462193998,
+      "rel_energy_eV": 0.0,
+      "fmax_eV_A": 0.5421787041825787
+    },
+    {
+      "image_index": 1,
+      "energy_eV": -133605.09609047926,
+      "rel_energy_eV": 1.2685314607224427,
+      "fmax_eV_A": 1.475209061566447
+    },
+    {
+      "image_index": 2,
+      "energy_eV": -133605.42761734538,
+      "rel_energy_eV": 0.9370045945979655,
+      "fmax_eV_A": 0.7621363530478914
+    },
+    {
+      "image_index": 3,
+      "energy_eV": -133605.65039418975,
+      "rel_energy_eV": 0.7142277502280194,
+      "fmax_eV_A": 1.523697114026914
+    },
+    {
+      "image_index": 4,
+      "energy_eV": -133605.9196678955,
+      "rel_energy_eV": 0.4449540444766171,
+      "fmax_eV_A": 1.4483255652289855
+    }
+  ],
+  "barrier_proxy_eV": 0.4449540444766171,
+  "profile": [
+    {
+      "image_index": 0,
+      "energy_eV": -133606.36462193998,
+      "rel_energy_eV": 0.0,
+      "fmax_eV_A": 0.5421787041825787
+    },
+    {
+      "image_index": 1,
+      "energy_eV": -133607.45754918794,
+      "rel_energy_eV": -1.092927247955231,
+      "fmax_eV_A": 0.05325249249033082
+    },
+    {
+      "image_index": 2,
+      "energy_eV": -133607.24482319807,
+      "rel_energy_eV": -0.8802012580854353,
+      "fmax_eV_A": 0.045772030852248666
+    },
+    {
+      "image_index": 3,
+      "energy_eV": -133607.36739974254,
+      "rel_energy_eV": -1.002777802554192,
+      "fmax_eV_A": 0.013906990234074806
+    },
+    {
+      "image_index": 4,
+      "energy_eV": -133605.9196678955,
+      "rel_energy_eV": 0.4449540444766171,
+      "fmax_eV_A": 1.4483255652289855
+    }
+  ],
+  "restrained_profile": [
+    {
+      "image_index": 0,
+      "energy_eV": -133606.36462193998,
+      "rel_energy_eV": 0.0,
+      "fmax_eV_A": 0.5421787041825787
+    },
+    {
+      "image_index": 1,
+      "energy_eV": -133607.45754918794,
+      "rel_energy_eV": -1.092927247955231,
+      "fmax_eV_A": 0.05325249249033082
+    },
+    {
+      "image_index": 2,
+      "energy_eV": -133607.24482319807,
+      "rel_energy_eV": -0.8802012580854353,
+      "fmax_eV_A": 0.045772030852248666
+    },
+    {
+      "image_index": 3,
+      "energy_eV": -133607.36739974254,
+      "rel_energy_eV": -1.002777802554192,
+      "fmax_eV_A": 0.013906990234074806
+    },
+    {
+      "image_index": 4,
+      "energy_eV": -133605.9196678955,
+      "rel_energy_eV": 0.4449540444766171,
+      "fmax_eV_A": 1.4483255652289855
+    }
+  ],
+  "relaxation_energy_delta": [
+    {
+      "image_index": 0,
+      "initial_energy_eV": -133606.36462193998,
+      "final_energy_eV": -133606.36462193998,
+      "delta_energy_eV": 0.0,
+      "initial_rel_energy_eV": 0.0,
+      "final_rel_energy_eV": 0.0,
+      "delta_rel_energy_eV": 0.0,
+      "initial_fmax_eV_A": 0.5421787041825787,
+      "final_fmax_eV_A": 0.5421787041825787
+    },
+    {
+      "image_index": 1,
+      "initial_energy_eV": -133605.09609047926,
+      "final_energy_eV": -133607.45754918794,
+      "delta_energy_eV": -2.3614587086776737,
+      "initial_rel_energy_eV": 1.2685314607224427,
+      "final_rel_energy_eV": -1.092927247955231,
+      "delta_rel_energy_eV": -2.3614587086776737,
+      "initial_fmax_eV_A": 1.475209061566447,
+      "final_fmax_eV_A": 0.05325249249033082
+    },
+    {
+      "image_index": 2,
+      "initial_energy_eV": -133605.42761734538,
+      "final_energy_eV": -133607.24482319807,
+      "delta_energy_eV": -1.8172058526834007,
+      "initial_rel_energy_eV": 0.9370045945979655,
+      "final_rel_energy_eV": -0.8802012580854353,
+      "delta_rel_energy_eV": -1.8172058526834007,
+      "initial_fmax_eV_A": 0.7621363530478914,
+      "final_fmax_eV_A": 0.045772030852248666
+    },
+    {
+      "image_index": 3,
+      "initial_energy_eV": -133605.65039418975,
+      "final_energy_eV": -133607.36739974254,
+      "delta_energy_eV": -1.7170055527822115,
+      "initial_rel_energy_eV": 0.7142277502280194,
+      "final_rel_energy_eV": -1.002777802554192,
+      "delta_rel_energy_eV": -1.7170055527822115,
+      "initial_fmax_eV_A": 1.523697114026914,
+      "final_fmax_eV_A": 0.013906990234074806
+    },
+    {
+      "image_index": 4,
+      "initial_energy_eV": -133605.9196678955,
+      "final_energy_eV": -133605.9196678955,
+      "delta_energy_eV": 0.0,
+      "initial_rel_energy_eV": 0.4449540444766171,
+      "final_rel_energy_eV": 0.4449540444766171,
+      "delta_rel_energy_eV": 0.0,
+      "initial_fmax_eV_A": 1.4483255652289855,
+      "final_fmax_eV_A": 1.4483255652289855
+    }
+  ],
+  "outputs": {
+    "images": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb_images.extxyz",
+    "images_sha256": "dd03a458cd43a7b3a8b5692033b6ccfe2e416bca6484885ff704f72b946a54da",
+    "trajectory": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb.traj",
+    "log": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb.log",
+    "iteration_history": {
+      "extxyz": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb_iteration_history.extxyz",
+      "extxyz_sha256": "e4bf9a5b9e5efe3f3fd963b8cb9295b2b6ccc2969da3cbebacb039b228d0d9c0",
+      "csv": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb_iteration_history.csv",
+      "csv_sha256": "f65c0065cd8304f49a5a1cadfc840a012cade238622fc67cce7b051266b740bd"
+    },
+    "iteration_history_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb_iteration_history_manifest.json",
+    "dual_potential_history_extxyz": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb_dual_potential_history.extxyz",
+    "dual_potential_history_extxyz_sha256": "a3380b94e529f5ecea4978df102842863a61dd8a1675987bd8cbf4a7d4d20bef",
+    "dual_potential_history_csv": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb_dual_potential_history.csv",
+    "dual_potential_history_csv_sha256": "75f210bda54551d6708a9b575366fce8f7dbdf018a0e1394c532e118c5d31a78",
+    "dual_potential_history_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb_dual_potential_history_manifest.json",
+    "dual_potential_history_manifest_sha256": "260740343533c7df1edb44a3006731296254063fa2b1c1f8c7eaf0f9bfb9819e"
+  },
+  "optimizer_iterations_recorded_including_initial": 157,
+  "final_max_internal_true_force_eV_A": 0.05325249249033082,
+  "final_max_internal_neb_force_eV_A": 0.04701034312327795,
+  "final_max_neb_residual_eV_A": 0.040220175733940586,
+  "dual_potential_history_complete": true,
+  "warning": "MLFF barrier is a preconditioner/proposal only; final paper reference must come from DFT NEB."
+}

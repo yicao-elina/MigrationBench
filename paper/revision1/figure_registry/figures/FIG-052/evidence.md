@@ -1,0 +1,36 @@
+# Evidence candidates (generated)
+
+## caption_discussion_source_candidates
+
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_Cr81_foundation_comparison_report.md`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_Cr81_publication_acceptance_matrix.tex`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_Cr81_publication_figures_caption_discussion.md`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_Cr81_unified_diagnostic_discussion.md`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_gap_to_QL_foundation_dft_barrier_table.tex`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr81_grouped_within_QL_foundation_dft_barrier_table.tex`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr81_in_gap_diffusion_foundation_dft_barrier_table.tex`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/comprehensive_neb_search_20261003.md`
+## raw_or_processed_data_candidates
+
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/61_atom_geometry_classification.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/61_atom_geometry_classification.json`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_Cr81_publication_acceptance_matrix.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_gap_to_QL_foundation_dft_barrier_table.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_gap_to_QL_foundation_dft_image_profiles.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr61_gap_to_QL_foundation_model_error_summary.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr81_grouped_foundation_dft_image_profiles.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr81_grouped_within_QL_foundation_dft_barrier_table.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr81_grouped_within_QL_foundation_model_error_summary.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr81_in_gap_diffusion_foundation_dft_barrier_table.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr81_in_gap_diffusion_foundation_dft_image_profiles.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/Cr81_in_gap_diffusion_foundation_model_error_summary.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/comprehensive_neb_inventory_20261003.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/dislocation_81_geometry_classification.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/dislocation_81_geometry_classification.json`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing_manifest.json`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/inputs_81_dislocation_gap.extxyz`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/victor_81_geometry_classification.csv`
+- `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/victor_81_geometry_classification.json`
+## plot_script_candidates
+
+- Not identified in the audit matrix.

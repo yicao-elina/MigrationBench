@@ -1,0 +1,111 @@
+{
+  "style_id": "FIG-168-NeurIPS2025-AI4MAT-figure3-yellow-scratch-R04",
+  "source": "config/FIG168_MODEL_STYLE_YELLOW_SCRATCH_R03.json",
+  "reference_style_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/archive/legacy_figure_products_20261024/build_foundation_class_4x3_r01.py",
+  "reference_colors_extracted_from_rendered_pdf": true,
+  "summary_only": true,
+  "family_order": ["foundation_omat", "from_scratch", "ft_600k", "ft_multit"],
+  "families": {
+    "foundation_omat": {"label": "Foundation", "color": "#CF4520"},
+    "from_scratch": {"label": "From-scratch", "color": "#FF9F1B"},
+    "ft_600k": {"label": "FT-600K", "color": "#002E71"},
+    "ft_multit": {"label": "FT-MultiT", "color": "#67ACE5"}
+  },
+  "subfamily_colors": {
+    "scratch_600k": "#FF9F1B",
+    "scratch_multit": "#F4C95D"
+  },
+  "aggregate_foundation": true,
+  "legend_labels": {
+    "dft": "DFT",
+    "foundation": "Foundation",
+    "ft_600k": "FT-600K",
+    "ft_multit": "FT-MultiT",
+    "scratch_600k": "Scratch-600K",
+    "scratch_multit": "Scratch-MultiT"
+  },
+  "family_markers": {
+    "dft": "o",
+    "foundation": "v",
+    "ft_600k": "s",
+    "ft_multit": "^",
+    "scratch": "D"
+  },
+  "reference_trace": {
+    "linewidth": 1.45,
+    "linestyle": [0, [4, 2]],
+    "marker": "D",
+    "markersize": 3.6,
+    "markerfacecolor": "white",
+    "markeredgecolor": "#222222",
+    "markeredgewidth": 0.8,
+    "zorder": 5
+  },
+  "summary_marker": "o",
+  "summary_marker_size": 4.3,
+  "summary_markerfacecolor": "white",
+  "summary_markeredgewidth": 0.95,
+  "summary_line_style": "-",
+  "summary_line_styles": {
+    "foundation": "-",
+    "ft_600k": "-",
+    "ft_multit": "-",
+    "scratch_600k": "-",
+    "scratch_multit": "-"
+  },
+  "seed_order": [123, 234, 345],
+  "seed_markers": {"123": "o", "234": "s", "345": "^"},
+  "seed_line_styles": {"123": "--", "234": ":", "345": "-."},
+  "subfamily_mean_line_styles": {"scratch_600k": "-", "scratch_multit": "-"},
+  "seed_labels": {"123": "seed 123", "234": "seed 234", "345": "seed 345"},
+  "uncertainty": {
+    "summary": "mean +/- 1 SD across the three registered ensemble members",
+    "band_alpha": 0.20,
+    "individual_seed_alpha": 0.42,
+    "individual_seed_line_width": 0.75,
+    "summary_line_width": 2.0,
+    "marker_size": 3.0,
+    "marker_every": 1
+  },
+  "family_aggregation": {
+    "foundation": "pointwise mean +/- 1 SD across three checkpoint variants",
+    "ft_600k": "pointwise mean +/- 1 SD across three training seeds",
+    "ft_multit": "pointwise mean +/- 1 SD across three training seeds",
+    "scratch_600k": "pointwise mean +/- 1 SD across three training seeds",
+    "scratch_multit": "pointwise mean +/- 1 SD across three training seeds"
+  },
+  "plotting_convention": {
+    "figure_level_title": true,
+    "title_font_size": 12.0,
+    "title_font_weight": "bold",
+    "title_y": 0.985,
+    "figure_level_legend": true,
+    "legend_anchor": [0.5, 0.93],
+    "legend_ncol": 3,
+    "legend_font_size": 8.0,
+    "figure_level_layout": true,
+    "subplots_adjust": {"left": 0.17, "right": 0.985, "bottom": 0.19, "top": 0.79},
+    "x_major_ticks": [0.0, 0.25, 0.5, 0.75, 1.0],
+    "x_tick_labels": ["0", "0.25", "0.5", "0.75", "1"],
+    "minor_ticks": true,
+    "tick_direction": "out",
+    "major_tick_length": 4.5,
+    "major_tick_width": 1.0,
+    "minor_tick_length": 2.5,
+    "minor_tick_width": 0.8,
+    "tick_pad": 3,
+    "axis_label_size": 11.5,
+    "axis_label_pad": 7,
+    "panel_label_y": 1.04,
+    "panel_label_size": 13,
+    "show_all_spines": true,
+    "spine_color": "#111111",
+    "spine_width": 1.05
+  },
+  "observable_boundaries": {
+    "fixed_path": "same retained QE image geometries; MLIP single-point energies",
+    "self_relaxed_neb": "MLIP-optimized image geometries; not interchangeable with fixed-path",
+    "training_seed": "model training seed; distinct from NEB optimizer seed",
+    "neb_seed": "NEB optimizer seed; not used as model uncertainty"
+  }
+}

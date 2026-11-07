@@ -1,0 +1,44 @@
+{
+  "campaign_id": "migrationbench_discovery_main_single_point_20261005",
+  "status": "preflight_ready_not_submitted",
+  "scope": "20 main non-magnetic QE SCF single-points plus one isolated degauss=0.05 sensitivity",
+  "remote_root": "/azwestus3/pclancy3_lab/ycao73/MigrationBench/discovery_dft_20261003/main_single_point",
+  "main_input_root": "qe_inputs_wave1",
+  "sensitivity_input_root": "qe_inputs_sensitivity/degauss_0.05",
+  "main_input_count": 20,
+  "sensitivity_input_count": 1,
+  "input_hash_manifests": {
+    "main": "manifests/input_sha256.tsv",
+    "sensitivity": "manifests/sensitivity_input_sha256.tsv"
+  },
+  "method": {
+    "qe_container": "/projects/pclancy3_lab/qe75-h200-v2.sif",
+    "qe_version": "7.5",
+    "launcher": "srun --export=ALL singularity exec --nv --cleanenv; container HPC-X/OpenMPI mpirun",
+    "pseudo_dir": "/home/ycao73/ONCVPseudoPack/SG15_v1.2/UPF/PBE/",
+    "calculation": "scf",
+    "spin": "non-magnetic; magnetic QE keywords forbidden",
+    "ecutwfc_Ry": 70,
+    "ecutrho_Ry": 280,
+    "smearing": "cold",
+    "main_degauss_Ry": 0.0146997236,
+    "sensitivity_degauss_Ry": 0.05,
+    "vdw_corr": "DFT-D3",
+    "k_points": "2 2 2 1 1 1",
+    "nat": 81
+  },
+  "resources": {
+    "partition": "azgpuh200",
+    "account": "pclancy3_lab",
+    "gpus_per_job": 1,
+    "cpus_per_job": 11,
+    "memory_GB": 96
+  },
+  "hash_semantics": {
+    "source_structure_hash": "candidate_manifest.json input_sha256 and input comment; identifies the selected source structure",
+    "qe_input_file_hash": "sha256sum of the complete .scf.in file; recorded in input_sha256.tsv and runtime_provenance.txt",
+    "container_hash": "recorded from the remote campaign container_sha256.txt by the Slurm wrapper",
+    "pseudopotential_hashes": "recorded in runtime_provenance.txt by the Slurm wrapper"
+  },
+  "submission_guard": "Do not submit until all 47 endpoint relax jobs pass their independent scientific gates; sensitivity is excluded from main summaries."
+}

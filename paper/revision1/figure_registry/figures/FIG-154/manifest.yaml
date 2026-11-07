@@ -1,0 +1,66 @@
+schema_version: 1
+figure_id: FIG-154
+logical_figure: figures/publication/figS_latent_robustness
+title: Figs latent robustness
+group_id: LEGACY-PUBLISHED
+parent_group: LEGACY-PUBLISHED
+sibling_ids:
+- FIG-152
+- FIG-153
+- FIG-155
+- FIG-156
+article_targets:
+- Revision1 manuscript asset
+reviewer_status: PARTIAL
+reviewer_links:
+- id: REV-A6
+  status: PARTIAL
+  question: Soften t-SNE/PHATE and SHAP interpretation claims and add projection/original-space
+    and surrogate-fidelity checks.
+  completed_evidence: Projection sensitivity, original-descriptor-space separation,
+    and per-model cross-validated surrogate R2 are available; the text is scoped to
+    descriptive/surrogate evidence.
+  still_required: A direct MACE Cr-Cr perturbation test remains pending if a causal
+    claim about the dominant feature is desired; otherwise retain the surrogate-scoped
+    wording.
+- id: REV-C11
+  status: DONE
+  question: Compute separability in the original/high-dimensional descriptor space
+    rather than only on a 2D embedding.
+  completed_evidence: Original-space metrics and projection-sensitivity checks are
+    available; embedding scores are retained only as descriptive baselines.
+  still_required: No new numerical figure is required; preserve the feature-space
+    definition and scaling sensitivity in the caption/methods.
+- id: REV-C12
+  status: DONE
+  question: Remove the always-zero force-sensitivity feature stub from the latent
+    analysis.
+  completed_evidence: The inactive channel was removed and no unsupported force-sensitivity
+    claim is made.
+  still_required: No additional figure evidence is required unless a genuine finite-difference
+    force-sensitivity analysis is later added.
+scientific_status: publication
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.pdf
+asset_sha256: 665691130f4ed3a070f3f4ff6efcd91eb153bf3355ba29b4c405500bc934b2d2
+source_export: /Users/alina/Project/migrationbench-paper-repro/figures/publication/figS_latent_robustness.pdf
+legacy_v1_page: ../figure_pages.tex#FIG-154
+evidence_candidates:
+  caption_discussion_source_candidates: []
+  raw_or_processed_data_candidates: []
+  plot_script_candidates: []
+authored_hashes:
+  page.tex: 2b5ec88314c0a0ad0ca306ba7b83a9bdf2597b69302aebcb27c5a6a3bf990831
+  figure.tex: 69deec0da66c888eebc644acd756be440c0100b6f7b02be6ab458a2a2f2ded28
+  caption.tex: 3eed2b7a26dd79ff45a18820b86d2f5a0cad0bacbfdb5a6ae4563479b210306f
+  results.tex: 0b72d2b90f9b8767ef66d870d580a4e298c0d8f13c6292a4c1a77f8afa9cd4b4
+  discussion.tex: f54a733e47fbff2844e4e4109cb5b35ed8bbb00dfbdf502c7a1d3e8708360e53
+  reviewer.tex: 7eee1d496655820e58363443f8c6b662caa234a3be47ed35d4f756418a377001
+  evidence.tex: 8ce3f24d41359577b3bba005e1db3a27b0008b5ea2419f86330e8206ab4c86ae
+  article.tex: 6a0c544856de16eaa98c965b388de47582319ac1e28472d6dbb6eefdcbf191c7
+  gap.tex: d9c3defd948e184e411edd4af1d82da63e2b86bedec70a00671f39ecbf95d5cd
+migration_note: Migrated from frozen 211-page review book; authored fragments are
+  now the editable surface.
+evidence_metadata_source: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/figure_evidence_matrix.tsv
+hash_updated_by: figurectl update-hashes

@@ -1,0 +1,30 @@
+{
+  "schema_version": "scratch_lmax1_interlayer_sliding_freeze_v1",
+  "campaign_id": "scratch_lmax1_interlayer_sliding_20261025_r01",
+  "status": "FROZEN_BEFORE_FIXED_SMOKE",
+  "model_count": 6,
+  "system_count": 2,
+  "fixed_rows": 12,
+  "fixed_observations": 120,
+  "systems": ["bulk", "cr_in_gap"],
+  "model_ids": [
+    "scratch_600k_lmax1_grouped_repair_r01_seed123",
+    "scratch_600k_lmax1_grouped_repair_r01_seed234",
+    "scratch_600k_lmax1_grouped_repair_r01_seed345",
+    "scratch_multit_lmax1_grouped_repair_r01_seed123",
+    "scratch_multit_lmax1_grouped_repair_r01_seed234",
+    "scratch_multit_lmax1_grouped_repair_r01_seed345"
+  ],
+  "fixed_protocol": {
+    "observable": "FIXED_PATH_SINGLE_POINT",
+    "geometry_source": "retained_QE_b_path2_images",
+    "n_images": 10,
+    "normalization": "energy_minus_image_0",
+    "scientific_label": "FINITE_DIAGNOSTIC",
+    "acceptance": ["exact_atom_count_per_frame", "path_registry_sha256_match", "model_sha256_match", "finite_energy_and_forces", "runtime_provenance"]
+  },
+  "qe_boundary": "COMPLETED_BUT_SCF_WARNING_REFERENCE_ONLY",
+  "separation_rule": "fixed_path_and_self_relaxed_are_distinct_observables_and_are_never_pooled",
+  "remote_root": "/scratch16/pclancy3/yi/scratch_lmax1_interlayer_sliding_20261025_r01",
+  "completion_rule": "smoke_pass_then_full_fixed_collect_gate_pass"
+}

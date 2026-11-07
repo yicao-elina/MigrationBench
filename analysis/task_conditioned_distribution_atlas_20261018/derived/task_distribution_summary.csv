@@ -1,0 +1,9 @@
+task_layer,lane,n,status,note
+static,DFT_reference,496,DESCRIPTIVE_HISTORICAL_COMMON_SPACE,"250 train, 122 valid, 124 test"
+equilibrium_MD,DFT_reference,246,DESCRIPTIVE_HELD_OUT_AIMD_REFERENCE,"DFT labels are held-out AIMD frames, not the long MLIP trajectories"
+fixed_path_NEB,DFT_reference,25,DESCRIPTIVE_PROVISIONAL_PATH_REFERENCE,25 historical fixed-path images
+failure_CAR,DFT_reference,4,RECONSTRUCTION,four 81-atom local-cell DFT recovery cases; not full-cell validation
+static_RMSE,MLIP_on_DFT_reference,10,VERIFIED_GROUPED_MULTI_SEED,"three FT-600K, three Scratch, three Scratch-5%, one MPA0"
+equilibrium_MD,MLIP_generated,10,VERIFIED_PLUS_FAILURE_MODE,10 audited rows; common MD velocity seed is not an independent replica
+NEB,MLIP_fixed_and_self_relaxed,140,PROTOCOL_SEPARATED_PROVISIONAL,"100 fixed-path finite rows; 40 self-relaxed rows, with convergence statuses retained"
+failure_CAR,MLIP_static_committee,1917,VERIFIED_STATIC_DIAGNOSTIC,639 structures x 3 checkpoints; disagreement is not calibrated uncertainty

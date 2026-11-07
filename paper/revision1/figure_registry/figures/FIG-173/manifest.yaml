@@ -1,0 +1,88 @@
+schema_version: 1
+figure_id: FIG-173
+logical_figure: paper/Fig/NeurIPS2025-AI4MAT-figure6-phate
+title: Neurips2025 ai4mat figure6 phate
+group_id: LEGACY-NEURIPS
+parent_group: LEGACY-NEURIPS
+sibling_ids:
+- FIG-157
+- FIG-158
+- FIG-159
+- FIG-160
+- FIG-161
+- FIG-162
+- FIG-163
+- FIG-164
+- FIG-165
+- FIG-166
+- FIG-167
+- FIG-168
+- FIG-169
+- FIG-170
+- FIG-171
+- FIG-172
+article_targets:
+- Original main/SI manuscript
+reviewer_status: PARTIAL
+reviewer_links:
+- id: REV-A6
+  status: PARTIAL
+  question: Soften t-SNE/PHATE and SHAP interpretation claims and add projection/original-space
+    and surrogate-fidelity checks.
+  completed_evidence: Projection sensitivity, original-descriptor-space separation,
+    and per-model cross-validated surrogate R2 are available; the text is scoped to
+    descriptive/surrogate evidence.
+  still_required: A direct MACE Cr-Cr perturbation test remains pending if a causal
+    claim about the dominant feature is desired; otherwise retain the surrogate-scoped
+    wording.
+- id: REV-C11
+  status: DONE
+  question: Compute separability in the original/high-dimensional descriptor space
+    rather than only on a 2D embedding.
+  completed_evidence: Original-space metrics and projection-sensitivity checks are
+    available; embedding scores are retained only as descriptive baselines.
+  still_required: No new numerical figure is required; preserve the feature-space
+    definition and scaling sensitivity in the caption/methods.
+- id: REV-C12
+  status: DONE
+  question: Remove the always-zero force-sensitivity feature stub from the latent
+    analysis.
+  completed_evidence: The inactive channel was removed and no unsupported force-sensitivity
+    claim is made.
+  still_required: No additional figure evidence is required unless a genuine finite-difference
+    force-sensitivity analysis is later added.
+scientific_status: publication
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.pdf
+asset_sha256: 41197e7f6220a877e856c862c0e0ef85dce375eb4500eeee8a579726d4144990
+source_export: /Users/alina/Project/migrationbench-paper-repro/paper/Fig/NeurIPS2025-AI4MAT-figure6-phate.pdf
+legacy_v1_page: ../figure_pages.tex#FIG-173
+evidence_candidates:
+  caption_discussion_source_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers.log
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers.out
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers.tex
+  - /Users/alina/Project/migrationbench-paper-repro/paper/results_generated.tex
+  - /Users/alina/Project/migrationbench-paper-repro/paper/sn-article-SI.log
+  - /Users/alina/Project/migrationbench-paper-repro/paper/sn-article-SI.out
+  - /Users/alina/Project/migrationbench-paper-repro/paper/sn-article-SI.tex
+  - /Users/alina/Project/migrationbench-paper-repro/paper/sn-article-final.log
+  - /Users/alina/Project/migrationbench-paper-repro/paper/sn-article-final.out
+  - /Users/alina/Project/migrationbench-paper-repro/paper/sn-article-final.tex
+  raw_or_processed_data_candidates: []
+  plot_script_candidates: []
+authored_hashes:
+  page.tex: 0f172cde817d2b7656e7abe69f2061cb53a8f77c22409aede35a6506c2a8c4bf
+  figure.tex: e49711f30da06898f388fd8ef648adaaa5e82915cd569389f489fc85c5b85480
+  caption.tex: 64f032c050dcdf724360b2fb5325a5407ca6d297ed3e9da3aa8cebca67fc5b0e
+  results.tex: cec13514043218851a195d0dfc99626b2dae43daac7f726c7a6aed293f78053a
+  discussion.tex: d208b8eae7364392a50700a8bbba819029e796a72bde7394812af59164d4e61f
+  reviewer.tex: 7eee1d496655820e58363443f8c6b662caa234a3be47ed35d4f756418a377001
+  evidence.tex: 024825b60d8d3b46df873d26c4ae5dc99998f84584937dafa851bb63356e5c17
+  article.tex: 31a12e22cd0c6c86ef1984ebaf025fedaa8842eb8a2ff656fa456f2bd883f118
+  gap.tex: 91b391a17d6daecd3f01bcab7e23a1abd605ce5b24adb272bdeb8d467d2b423c
+migration_note: Migrated from frozen 211-page review book; authored fragments are
+  now the editable surface.
+evidence_metadata_source: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/figure_evidence_matrix.tsv
+hash_updated_by: figurectl update-hashes

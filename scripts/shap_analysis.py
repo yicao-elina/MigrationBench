@@ -23,7 +23,7 @@ from sklearn.preprocessing import StandardScaler
 
 from shap_feature_labels import all_feature_names
 
-MODELS = ("FT - 600K", "FT - Multi-T", "Scratch")
+MODELS = ("FT-600K", "FT-MultiT", "Scratch")
 
 
 def extract_features(xyz: Path) -> tuple[np.ndarray, list[str]]:

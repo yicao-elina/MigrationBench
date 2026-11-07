@@ -1,0 +1,163 @@
+{
+  "analysis_id": "shap_full_campaign_20261101",
+  "status": "COMPLETE_WITH_COMMON_TEST_SCOPE",
+  "scope": {
+    "families": [
+      "FT-600K",
+      "FT-MultiT",
+      "Scratch-600K",
+      "Scratch-MultiT"
+    ],
+    "seeds": [
+      123,
+      234,
+      345
+    ],
+    "n_model_seed_runs": 12,
+    "split": "test",
+    "n_common_frames": 267,
+    "n_atoms": 86,
+    "target": "absolute total-energy error per atom",
+    "target_unit": "meV_per_atom",
+    "excluded_scope": "500 additional 2L_tetra_Cr4 Multi-T test frames because no 600K cross-family predictions exist for them"
+  },
+  "method": {
+    "descriptor": "DScribe SOAP periodic inner average, species Cr/Sb/Te, r_cut=5.0, n_max=4, l_max=4",
+    "feature_count": 407,
+    "structural_feature_count": 17,
+    "surrogate": "GradientBoostingRegressor(n_estimators=200, learning_rate=0.05, max_depth=8, subsample=0.8, random_state=42) for final TreeSHAP",
+    "cv_surrogate": "GradientBoostingRegressor(n_estimators=50, learning_rate=0.05, max_depth=4, subsample=0.8, random_state=42) for 5-fold quality smoke",
+    "shap": "shap.TreeExplainer",
+    "cv": "5-fold shuffled KFold(random_state=42)",
+    "seed_uncertainty": "mean +/- sample SD across training seeds 123/234/345"
+  },
+  "inputs": {
+    "asset_registry_database": {
+      "path": "analysis/migrationbench_asset_registry_20261025/migrationbench_asset_registry.sqlite",
+      "sha256": "a6554c07ea51745d75b68d5457a9ca401427c7e6b18f624e5fce99f0b4162dcc",
+      "role": "current local registry used to identify the four model families and three training seeds"
+    },
+    "evaluation_campaign_package": {
+      "path": "analysis/rmse_train_test_20261026",
+      "model_registry_sha256": "5f13f436a836eb7a1f92fa64a7db4b8a2818cbbe550db7dfdbf74c927c811aa6",
+      "quality_audit_sha256": "0e227383b4899caf0487768f82d3bf9edfd6c1b246f0d54e050946f1cdaf712c",
+      "role": "complete 24-evaluation package used for the 12 test-split model-seed inputs"
+    },
+    "xyz": {
+      "path": "analysis/shap_full_campaign_20261101/source_data/common_test_267.xyz",
+      "sha256": "d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab",
+      "frames": 267
+    },
+    "source_tables": {
+      "families": {
+        "FT-600K": {
+          "123": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/ft_600k_seed123_test__per_frame.csv",
+            "rows_total": 267,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 0,
+            "sha256": "37a3bfd1ddf1864034ed02dedfe667b2c35d78eeea51287a6eccbf8c64e9cec5"
+          },
+          "234": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/ft_600k_seed234_test__per_frame.csv",
+            "rows_total": 267,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 0,
+            "sha256": "abea5bfe5eeacf986fd754dbff4f81421b1cb5d382fcca18f3ad246b2b445416"
+          },
+          "345": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/ft_600k_seed345_test__per_frame.csv",
+            "rows_total": 267,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 0,
+            "sha256": "023c1e6dc724b2c75dc295a5e3f5e8fc9ec971b1942396a2ed79dfb5a6393f04"
+          }
+        },
+        "FT-MultiT": {
+          "123": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/ft_multit_seed123_test__per_frame.csv",
+            "rows_total": 767,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 500,
+            "sha256": "4697c488228221d39d67051631168858de65c6db81b894fbc9df4f380b9f5468"
+          },
+          "234": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/ft_multit_seed234_test__per_frame.csv",
+            "rows_total": 767,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 500,
+            "sha256": "b4f5959073745dfaed561442729fc5e0b2458ac0fda32159e90342c429b6b3bd"
+          },
+          "345": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/ft_multit_seed345_test__per_frame.csv",
+            "rows_total": 767,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 500,
+            "sha256": "94658ac92c7676fb212178083eb3a2f44bd249c2f12e71b67cb4e8bc9e262d94"
+          }
+        },
+        "Scratch-600K": {
+          "123": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/scratch_600k_seed123_test__per_frame.csv",
+            "rows_total": 267,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 0,
+            "sha256": "fbcd56cdaf581d1646fef23a24ad3ee3b8a8d09da34842f312f1a15e6bc31593"
+          },
+          "234": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/scratch_600k_seed234_test__per_frame.csv",
+            "rows_total": 267,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 0,
+            "sha256": "ebefa4faf8ed8dfc480704151a6d293e37c42a33f661cb8980b722f064e657b2"
+          },
+          "345": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/scratch_600k_seed345_test__per_frame.csv",
+            "rows_total": 267,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 0,
+            "sha256": "6f9661b8709d66e04b94f269e3f0cddd3a148b18bc0300538eb07ce80ad80b94"
+          }
+        },
+        "Scratch-MultiT": {
+          "123": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/scratch_multit_seed123_test__per_frame.csv",
+            "rows_total": 767,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 500,
+            "sha256": "7681413905752b28f23f17dfb2de7b031dc17a6c0d6a6b94d33837b69364447b"
+          },
+          "234": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/scratch_multit_seed234_test__per_frame.csv",
+            "rows_total": 767,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 500,
+            "sha256": "cc0b30464699ab017b244b36e4566f2054af2b4a3ab062c4daedcbed0735d82a"
+          },
+          "345": {
+            "path": "analysis/shap_full_campaign_20261101/source_tables/scratch_multit_seed345_test__per_frame.csv",
+            "rows_total": 767,
+            "rows_in_common_scope": 267,
+            "rows_excluded_from_common_scope": 500,
+            "sha256": "8647c163ab22555a924d4086e2bf3cb8c970ca7140febae77301a0954d5859b6"
+          }
+        }
+      },
+      "common_frame_count": 267
+    },
+    "python": "3.11.0"
+  },
+  "outputs": [
+    "shap_frame_aligned_full_campaign.csv",
+    "shap_seed_metrics.csv",
+    "shap_seed_feature_importance.csv",
+    "shap_family_aggregate.csv",
+    "shap_values_full_campaign.npz"
+  ],
+  "quality_checks": {
+    "all_12_seed_runs": true,
+    "all_samples_finite": true,
+    "all_seed_counts_three": true,
+    "reference_energy_consistent_across_families": true
+  }
+}

@@ -1,12 +1,26 @@
 # LP-2 audit note — latent-space robustness (Cr-doped Sb2Te3, 600 K)
 
-Script: `Revision1/scripts/latent_robustness.py` (conda env `ml`,
+Historical analysis script: `Revision1/scripts/latent_robustness.py` (conda env `ml`,
 sklearn 1.8.0, PHATE 2.0.0).
+The revision-facing release uses the locked processed metrics and the audit
+note below; the historical script is not part of the canonical analysis path.
 Raw data: `MigrationBench/results/t-SNE/analysis_Cr_Doped_600K/Cr_Doped_Sb2Te3_600K_probe_features.csv`
 (404 x 6192; blocks of 101 frames in order Foundation, Scratch, FT-600K,
 FT-MultiT, per `mace_probe_blackbox0818.py` lines 56-62). The trailing all-zero
 force-sensitivity stub column was asserted all-zero (sum=0.0) and
 dropped -> 404 x 6191.
+
+## Code-lineage boundary
+
+The projection-space silhouette calculation and the inactive force-sensitivity
+channel are properties of the historical probe scripts preserved in the
+workshop-era source lineage (`61c29dd012bbf794213aa92238943afad9177ad7`). The
+canonical paper-reproduction release established at
+`43877c22a6293e6e377f611cefdf5ea5e64f6753` does not use those legacy scripts
+for the revision-facing metrics: the processed original-space and
+projection-sensitivity tables are retained, while the legacy projection code
+is quarantined from the canonical analysis path. No finite-difference
+force-sensitivity descriptor is claimed in this audit.
 
 ## Answer: are the models separable in the ORIGINAL descriptor space?
 

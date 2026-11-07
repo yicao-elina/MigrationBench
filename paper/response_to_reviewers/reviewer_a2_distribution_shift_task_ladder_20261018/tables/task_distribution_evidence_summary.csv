@@ -1,0 +1,10 @@
+evidence_layer,configuration_group,n,metric,value,reference,status,interpretation
+A2 direct leakage audit,Full grouped FT-600K training,1786.0,minimum SOAP cosine distance to 25 DFT-path images,0.000542785133204049,near-duplicate cutoff 1e-4,VERIFIED,No SOAP-near image under the declared cutoff.
+A2 direct leakage audit,Full grouped FT-600K training,2.0,minimum comparable Cr-local RMSD (A),2.055065268285385,near-duplicate cutoff 0.05 A,VERIFIED,No comparable local environment is RMSD-near under the declared cutoff.
+A2 direct leakage audit,Scratch-5% grouped subset,89.0,minimum SOAP cosine distance to 25 DFT-path images,0.0006374028848443736,near-duplicate cutoff 1e-4,VERIFIED,No SOAP-near image under the declared cutoff.
+A2 direct leakage audit,Scratch-5% grouped subset,1.0,minimum comparable Cr-local RMSD (A),2.056638391614761,near-duplicate cutoff 0.05 A,VERIFIED,No comparable local environment is RMSD-near under the declared cutoff.
+Historical common SOAP/PCA map,AIMD training reference,250.0,shared 20-PC SOAP reference fit,,historical descriptor fit,DESCRIPTIVE,Visualization reference only; not the grouped FT-600K training file.
+Historical common SOAP/PCA map,Held-out AIMD reference,246.0,shared 20-PC SOAP reference fit,,historical descriptor fit,DESCRIPTIVE,Held-out AIMD overlaps the reference manifold in the plotted projection.
+Historical common SOAP/PCA map,Fixed-path NEB reference,25.0,shared 20-PC SOAP reference fit,,historical descriptor fit,DESCRIPTIVE,A distinct projected region; a 2D projection is not a calibrated OOD distance.
+Historical failure attribution,Large-cell MD failure-attribution sample,639.0,outside historical training kNN q99 fraction,1.0,q99 = 2.825326,DESCRIPTIVE,Stage-balanced sample; not a time-weighted MD population or a proof of causal failure.
+Self-relaxed NEB,Current model-in-the-loop paths,,common grouped-training SOAP map,,not yet generated,VALIDATION_GAP,"Raw self-relaxed paths exist, but a common descriptor transform with the grouped FT-600K train set is absent locally."

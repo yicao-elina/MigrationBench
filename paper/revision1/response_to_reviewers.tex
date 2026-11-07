@@ -1,640 +1,226 @@
-\documentclass[11pt,a4paper]{article}
-
-% -------------------------------------------------
-% Encoding and fonts
-% -------------------------------------------------
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=23mm]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
-\usepackage{lmodern}
-
-% -------------------------------------------------
-% Page layout
-% -------------------------------------------------
-\usepackage[
-    a4paper,
-    top=25mm,
-    bottom=25mm,
-    left=25mm,
-    right=25mm,
-    headheight=14pt
-]{geometry}
-
-\usepackage{setspace}
-\setstretch{1.08}
-
-\usepackage{parskip}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.65em}
-
-% -------------------------------------------------
-% Mathematics
-% -------------------------------------------------
-\usepackage{amsmath}
-\usepackage{amssymb}
-\usepackage{mathtools}
-
-% -------------------------------------------------
-% Tables
-% -------------------------------------------------
-\usepackage{array}
-\usepackage{booktabs}
-\usepackage{tabularx}
-\usepackage{longtable}
-\usepackage{multirow}
-\usepackage{makecell}
-
-% Column definitions for tables
-\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
-\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
-\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
-
-% Allow tables to be slightly more compact
-\renewcommand{\arraystretch}{1.15}
-
-% -------------------------------------------------
-% Quotations and lists
-% -------------------------------------------------
-\usepackage{csquotes}
-\usepackage{enumitem}
-
-\setlist[itemize]{
-    leftmargin=2em,
-    itemsep=0.2em,
-    topsep=0.3em
-}
-
-\setlist[enumerate]{
-    leftmargin=2em,
-    itemsep=0.2em,
-    topsep=0.3em
-}
-
-% -------------------------------------------------
-% Colors and boxes
-% -------------------------------------------------
-\usepackage{xcolor}
-
-\definecolor{reviewergray}{RGB}{245,245,245}
-\definecolor{darkblue}{RGB}{30,70,120}
-\definecolor{placeholderred}{RGB}{150,30,30}
-
-% Reviewer quotation environment
-\usepackage{framed}
-
-\newenvironment{reviewercomment}
-{
-    \begin{quote}
-    \itshape
-    \color{black}
-}
-{
-    \end{quote}
-}
-
-% Optional shaded reviewer comment environment
-\newenvironment{reviewerbox}
-{
-    \begin{quote}
-    \setlength{\fboxsep}{8pt}
-    \colorbox{reviewergray}{%
-        \begin{minipage}{0.92\linewidth}
-        \itshape
-}
-{
-        \end{minipage}
-    }
-    \end{quote}
-}
-
-% -------------------------------------------------
-% Code, paths, and placeholders
-% -------------------------------------------------
-\usepackage{verbatim}
-\usepackage{listings}
-
-\lstset{
-    basicstyle=\ttfamily\small,
-    breaklines=true,
-    breakatwhitespace=false,
-    columns=fullflexible,
-    keepspaces=true,
-    showstringspaces=false
-}
-
-% A robust command for inline code and file paths
-\newcommand{\code}[1]{\texttt{\detokenize{#1}}}
-
-% Placeholder command
-\newcommand{\placeholder}[1]{%
-    \textcolor{placeholderred}{\texttt{[PLACEHOLDER: #1]}}%
-}
-
-% Optional reviewer tag command
-\newcommand{\reviewertag}[1]{%
-    \texttt{#1}%
-}
-
-% -------------------------------------------------
-% Units and scientific notation
-% -------------------------------------------------
-\usepackage{siunitx}
-
-\sisetup{
-    separate-uncertainty=true,
-    uncertainty-separator={\,},
-    exponent-product=\cdot,
-    output-exponent-marker=\mathrm{e},
-    range-phrase={--},
-    range-units=single
-}
-
-% -------------------------------------------------
-% Figures and captions
-% -------------------------------------------------
-\usepackage{graphicx}
-\usepackage{caption}
-\usepackage{subcaption}
-
-\captionsetup{
-    font=small,
-    labelfont=bf,
-    justification=raggedright,
-    singlelinecheck=false
-}
-
-% -------------------------------------------------
-% References and hyperlinks
-% -------------------------------------------------
-\usepackage[
-    colorlinks=true,
-    linkcolor=darkblue,
-    citecolor=darkblue,
-    urlcolor=darkblue,
-    pdftitle={Response to Reviewer 1},
-    pdfauthor={}
-]{hyperref}
-
-\usepackage[nameinlink,noabbrev]{cleveref}
-
-% -------------------------------------------------
-% Typography
-% -------------------------------------------------
-\usepackage{microtype}
-\usepackage{url}
-
-% -------------------------------------------------
-% Section formatting
-% -------------------------------------------------
-\usepackage{titlesec}
-
-\titleformat{\section}
-    {\normalfont\Large\bfseries}
-    {}
-    {0pt}
-    {}
-
-\titleformat{\subsection}
-    {\normalfont\large\bfseries}
-    {}
-    {0pt}
-    {}
-
-\titleformat{\subsubsection}
-    {\normalfont\normalsize\bfseries}
-    {}
-    {0pt}
-    {}
-
-\titlespacing*{\section}
-    {0pt}{1.2em}{0.5em}
-
-\titlespacing*{\subsection}
-    {0pt}{1.0em}{0.3em}
-
-\titlespacing*{\subsubsection}
-    {0pt}{0.8em}{0.2em}
-
-% -------------------------------------------------
-% Header and footer
-% -------------------------------------------------
-\usepackage{fancyhdr}
-
-\pagestyle{fancy}
-\fancyhf{}
-
-\lhead{\small Response to Reviewer 1}
-\rhead{\small Revised Working Draft}
-\cfoot{\thepage}
-
-\renewcommand{\headrulewidth}{0.4pt}
-\renewcommand{\footrulewidth}{0pt}
-
-% -------------------------------------------------
-% Document metadata
-% -------------------------------------------------
-\title{\textbf{Response to Reviewer 1}}
-\author{}
-\date{Draft date: 2026-09-10}
-
-% -------------------------------------------------
-% Useful mathematical macros
-% -------------------------------------------------
-\newcommand{\DFT}{\mathrm{DFT}}
-\newcommand{\MLFF}{\mathrm{MLFF}}
-\newcommand{\fixed}{\mathrm{fixed}}
-\newcommand{\self}{\mathrm{self}}
-\newcommand{\RMSE}{\mathrm{RMSE}}
-\newcommand{\MAE}{\mathrm{MAE}}
-\newcommand{\Rtwo}{R^{2}}
-\newcommand{\eV}{\mathrm{eV}}
-
-% -------------------------------------------------
-% Begin document
-% -------------------------------------------------
+\usepackage{lmodern,microtype,amsmath,amssymb,booktabs,array,xcolor}
+\usepackage[version=4]{mhchem}
+\usepackage{xurl}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{xr-hyper}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\providecommand{\sitab}[1]{Supplementary Table~\ref{SI-#1}}
+\providecommand{\sifig}[1]{Supplementary Fig.~\ref{SI-#1}}
+\providecommand{\file}[1]{\texttt{\detokenize{#1}}}
+\externaldocument[M-]{revision1/sn-article-final}
+\externaldocument[SI-]{revision1/sn-article-SI}
+\usepackage{fancyhdr,needspace}
+\pagestyle{fancy}\fancyhf{}\lhead{\small Response to Reviewer 1}\rhead{\small MigrationBench}\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+\setlength{\parindent}{0pt}\setlength{\parskip}{.5em}
+\newcommand{\location}[2]{\par{\small\textbf{Where to find the change.} #1\par #2}\par}
 \begin{document}
-
-\maketitle
-\thispagestyle{fancy}
-
-\section*{Response to Reviewer 1}
-
-\noindent\textbf{Draft date:} 2026-09-10
-
-\vspace{0.5em}
-
-We thank Reviewer~1 for the careful and technically detailed assessment. The comments identified several places where the original manuscript and released code did not sufficiently document the provenance, comparability, or reproducibility of the reported results. We have treated these comments as an opportunity to audit the underlying calculations, clarify the scope of the claims, and strengthen both the manuscript and the code release.
-
-This remains a working response letter. Values already verified in the Revision~1 audit are reported explicitly. Items that require additional cluster calculations, retraining, or final integration remain indicated by bracketed placeholders; their calculation routes are tracked in \texttt{pending\_values\_register.csv}.
-
-\subsection*{A1. Fig.~3d versus Fig.~S3: NEB barrier discrepancy}
-
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Reconcile the foundation-model in-gap barrier discrepancy: state explicitly whether Fig. 3d (fixed-geometry, $\sim$0.7 eV overestimate, `unacceptable') and Fig. S3 (self-run NEB, 0.41 eV, `exceptional') use the same pathway and DFT reference; fix the reference value (0.34 vs.\ $\sim$0.3 eV); present both evaluations side-by-side and explain why relaxation changes the verdict. As written, the paper's central ranking is ambiguous.''
-\end{quote}
-
-\noindent\textbf{Response.}
-We agree that the original manuscript did not distinguish these two calculations clearly enough. The two figures report different NEB-based evaluation protocols and therefore do not represent the same quantity.
-
-\begin{itemize}
-    \item \textbf{Fixed-geometry evaluation on the DFT NEB path (Fig.~3d).}
-    The DFT-relaxed NEB images are held fixed, and each MLFF is used only to evaluate the energies of those same geometries. This tests the energetic accuracy of an MLFF along a DFT-defined migration path:
-    \begin{equation}
-    \Delta E^{\mathrm{fixed}}_M(\Gamma_{\mathrm{DFT}})
-    =
-    \max_i E_M(X_i^{\mathrm{DFT}})
-    -
-    E_M(X_0^{\mathrm{DFT}}).
-    \end{equation}
-
-    \item \textbf{Self-consistent MLFF NEB optimization (Fig.~S3).}
-    The MLFF starts from the endpoint structures and relaxes its own elastic band using its own forces and energy landscape:
-    \begin{equation}
-    \Gamma_M^\star = \operatorname{NEB}_M(X_0,X_1),
-    \qquad
-    \Delta E^{\mathrm{self}}_M
-    =
-    \max_i E_M(X_i^{M,\star})
-    -
-    E_M(X_0).
-    \end{equation}
-\end{itemize}
-
-Thus, Fig.~3d evaluates whether a model reproduces the barrier along a fixed DFT path, whereas Fig.~S3 evaluates whether the model can generate a stable migration path under model-in-the-loop NEB optimization. To better clarify this distinction, additional language has been added to explain the purpose and goal of each test.
-
-For the fixed-geometry in-gap pathway 1--4, the archived QE \texttt{neb.out} calculation gives a DFT barrier of 0.336050~eV. However, this archived NEB calculation does not yet meet our final convergence criterion. We therefore treat this value as provisional: it will either be retained with an explicit convergence qualification or replaced by \texttt{[PLACEHOLDER: final-QE-1-4-barrier]} after completion of the restartable QE NEB closure calculation.
-
-Using the current audited pathway~1--4 reference, the fixed-geometry results are:
-
-\begin{table}[h]
-\centering
-\caption{Fixed-geometry MLFF barriers evaluated on the DFT NEB pathway~1--4.}
-\begin{tabular}{lrrr}
-\toprule
-Model & MLFF barrier (eV) & DFT reference (eV) & Signed error (eV) \\
-\midrule
-MACE Foundation & 1.024296 & 0.336050 & +0.688246 \\
-MACE Scratch & 4.537677 & 0.336050 & +4.201627 \\
-MACE FT-600K & 0.496792 & 0.336050 & +0.160742 \\
-MACE FT-MultiT & 0.823040 & 0.336050 & +0.486990 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-The 0.41~eV value in SI Fig.~S3 is now described as the Foundation model's self-consistent MLFF-NEB barrier rather than a fixed-path DFT-reference error, for better clarity. We have also removed language implying that this result is ``exceptional.'' Instead, the revised text will describe it more narrowly as evidence that the Foundation model can produce a stable path under its own NEB optimization protocol.
-
-We have added a side-by-side SI table reporting, for each NEB result, the pathway, endpoint definition, image source, relaxation engine, energy engine, barrier definition, DFT reference where applicable, and convergence status.
-
-\noindent\textbf{Manuscript/SI change.}
-Main-text Sec.~3.2 and the SI Fig.~S3 text and caption are marked with reviewer tags \texttt{REV-A1} and \texttt{REV-C1}. The proposed replacement text is provided in \texttt{reviewer\_a1\_fig3\_figs3\_update/proposed\_text\_edits\_E3\_E4\_SI\_replacement.md}.
-
-\subsection*{A2. Train/test overlap for FT-600K}
-
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Rule out train/test overlap for FT-600K: report the minimum SOAP-distance (or RMSD) between each in-gap NEB image and its nearest fine-tuning frame, or re-run FT-600K with the NEB-adjacent trajectory segment excluded, and confirm the 0.16 eV result survives.''
-\end{quote}
-
-\noindent\textbf{Response.}
-We agree that this check is necessary. We have revised the data-splitting procedure so that structures are partitioned by trajectory or pathway provenance rather than by an independent frame-level shuffle. This prevents adjacent or closely related frames from the same trajectory segment from being distributed across training, validation, and test partitions.
-
-The remaining quantitative audit is:
-
 \begin{center}
-\texttt{[PLACEHOLDER: SOAP-RMSD-overlap-audit]}
+{\Large\bfseries Response to Reviewer 1}\\[4pt]
+{\large When Does a Foundation Model Help?}\\
+Process-Specific Reliability of Machine-Learned Interatomic Potentials
 \end{center}
 
-This audit now reports the nearest-neighbor SOAP distance between each in-gap NEB image and the FT-600K training set, together with Cartesian RMSD checks for the closest candidate pairs. We report the full nearest-neighbor distance distribution and inspect candidate near-duplicates using both metrics. If the audit identifies overlap or near-duplicate training structures that could materially affect the interpretation, we will retrain FT-600K after excluding the relevant NEB-adjacent trajectory segment and will report the revised barrier errors.
+Thank you for identifying both the scientific ambiguities and the implementation issues. We have reorganized the paper around seven main figures and rewritten the interpretation around process-specific reliability. The revised comparison separates pointwise error, fixed-image energy assignments, model-relaxed paths and observed MD horizons. It no longer assumes that fine-tuning is universally preferable.
 
-More generally, quantitative results that depended on the original frame-level split are treated as provisional until grouped-split retraining and evaluation are complete.
+Several earlier claims required correction: the 0.16~eV estimate is not reproduced under grouped retraining; the incompatible 0.41~eV record is withdrawn; the 89-frame control is not called data-matched; and the newest MD data do not show all fine-tuned runs reaching the target. We also replace mechanistic representation claims with descriptive diagnostics. Warning-bearing DFT references remain an explicit limitation, so no validated activation-energy or rate claim is made for them.
 
-\noindent\textbf{Manuscript change.}
-Methods Sec.~2.1 will be marked with \texttt{REV-A2/REV-C10} near the train/validation/test split description. The NEB results section in Sec.~3.2 will refer to the SI overlap-audit table.
-
-\subsection*{A3. Uncertainty in kinetic results}
-
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Add uncertainty to the kinetic results: retrain at least Scratch and FT-600K with $\geq$3 seeds and report barrier-error mean +/- std (the 3-seed protocol already exists for Table S1). This simultaneously tests the `chance' explanation for the scratch model's deep-penetration result---if the low error is seed-stable, `chance' is refuted; if seed-dependent, it is supported. Either way, replace the current unfalsifiable assertion with evidence.''
-\end{quote}
-
-\noindent\textbf{Response.}
-We agree. We have converted this issue into a targeted robustness assessment. Scratch and FT-600K are now trained using seeds 123, 234, and 345 under the revised grouped-split protocol. We report the individual seed-level results, together with the mean and standard deviation of the barrier errors for the in-gap and deep-penetration pathways.
-
-\begin{center}
-\texttt{[PLACEHOLDER: multiseed-kinetic-barrier-errors]}
-\end{center}
-
-The original ``by chance'' wording will be removed. The revised manuscript now states only what is supported by the multi-seed results: if the Scratch deep-penetration error is consistent across seeds, it is described as robust within this limited seed test; if it varies substantially, we state that the original single-model observation was seed-dependent.
+Responses below quote each comment and give the direct correction and its location. In the marked manuscript, only the most directly relevant sentences are blue and carry [R1-A1]--[R1-C13] identifiers. Section, figure and table references below are resolved from the revised main text and SI.
 
-\noindent\textbf{Manuscript change.}
-The Sec.~3.2 deep-penetration discussion and Table~S1 are marked with \texttt{REV-A3}.
-
-\subsection*{A4. Scope of generalizability claims}
-
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Rescope the generalizability claims: change `establishes \ldots{} a generalizable standard' to a candidate framework demonstrated on one system, and move `broader principles' to a hedged outlook---or add one additional material/dopant (even a cheap second system, e.g., a different transition-metal dopant in the same host) as minimal cross-validation.''
-\end{quote}
 
-\noindent\textbf{Response.}
-We agree. The revised manuscript no longer presents the workflow as a general standard. Instead, it describes the study as a candidate evaluation framework demonstrated for Cr-doped Sb$_2$Te$_3$ using the MACE architecture family. Broader generality is framed as an outlook that requires validation across additional chemistries, defect environments, and MLIP architectures.
+\Needspace{11\baselineskip}\section*{A1. Fig.~3d versus Fig.~S3: NEB barrier discrepancy}
 
-No additional numerical result is required for this revision unless we decide to include an optional second-dopant validation case:
+\begin{quote}\small \itshape
+``Reconcile the foundation-model in-gap barrier discrepancy: state explicitly whether Fig. 3d (fixed-geometry, $\sim$0.7 eV overestimate, `unacceptable') and Fig. S3 (self-run NEB, 0.41 eV, `exceptional') use the same pathway and DFT reference; fix the reference value (0.34 vs.\ $\sim$0.3 eV); present both evaluations side-by-side and explain why relaxation changes the verdict. As written, the paper's central ranking is ambiguous.''\end{quote}
 
-\begin{center}
-\texttt{[OPTIONAL PLACEHOLDER: second-dopant-cross-validation]}
-\end{center}
+\textbf{Response.} 
+We agree that the original comparison was ambiguous. The 0.336~eV reference (0.34~eV after rounding) belongs to a 61-atom, one-Cr, five-image G1 set. The earlier 0.41~eV result belongs to an 82-atom, two-Cr, twelve-image record with inconsistent calculators and a serialization defect. We have withdrawn the 0.41~eV claim and the judgement based on it. These were not two evaluations of the same path.
 
-\noindent\textbf{Manuscript change.}
-The abstract, introduction, research questions, and conclusion are marked with \texttt{REV-A4}.
+A final raw-record check also corrected an erroneous zero in the supplied seed matrix: Scratch-600K seed 123/within-QL self has a finite peak of 2.351~eV and is nonconverged. Seed 234/in-gap self is also nonconverged. Both corrections are supported by matching model SHA256 identities, and the revised figure marks all five nonconverged entries with crosses.
 
-\subsection*{A5. Scratch-5\% control}
+The revised paper defines the operators explicitly and presents fixed and self-relaxed profiles side by side in main Fig.~\ref{M-fig:profiles}. Fixed scoring compares energy assignments to common geometries. Self-relaxed NEB also changes the geometries and therefore tests model-driven path generation. A small optimized peak can result from sampling another path or basin; it does not establish a more accurate physical barrier. The canonical main-figure in-gap reference is 1.5243~eV, a different image set from G1.
 
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Add a Scratch-5\% control (same $\sim$1,000 configurations as FT-600K, random initialization) to disentangle foundation-pretraining benefits from data-volume effects.''
-\end{quote}
+\textbf{Takeaway.} The original ranking is withdrawn. The revised comparison separates energy calibration from path generation, and warning-bearing DFT references are described as image-set diagnostics. Converged, same-path electronic-structure validation would still be needed for quantitative kinetics.
+\location{Main Secs.~\ref{M-sec:migration} and \ref{M-sec:operators}; Figs.~\ref{M-fig:profiles}--\ref{M-fig:taskmatrix}.}{SI Secs.~\ref{SI-sec:matrix_status} and \ref{SI-sec:legacy_paths}; Fig.~\ref{SI-fig:legacy_operator_audit}.}
 
-\noindent\textbf{Response.}
-We agree that this is the appropriate control. The planned Scratch-5\% models will use the same grouped FT-600K training subset, identical MACE hyperparameters, random initialization, and seeds 123, 234, and 345. They will be evaluated using equilibrium RMSE and the same migration-barrier tasks used for the fine-tuned models.
 
-\begin{center}
-\texttt{[PLACEHOLDER: scratch-5pct-control-rmse-and-barriers]}
-\end{center}
+\Needspace{11\baselineskip}\section*{A2. Train/test overlap for FT-600K}
 
-\noindent\textbf{Manuscript change.}
-Sec.~3.2 and Table~S1 are marked with \texttt{REV-A5}.
+\begin{quote}\small \itshape
+``Rule out train/test overlap for FT-600K: report the minimum SOAP-distance (or RMSD) between each in-gap NEB image and its nearest fine-tuning frame, or re-run FT-600K with the NEB-adjacent trajectory segment excluded, and confirm the 0.16 eV result survives.''\end{quote}
 
-\subsection*{A6. Interpretability claims: t-SNE/PHATE and SHAP}
+\textbf{Response.} 
+We agree that the frame shuffle did not rule out trajectory-adjacent leakage. The grouped protocol assigns complete source trajectories to train, validation or test. The 600~K partition contains 1,786/311/267 configurations.
 
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Soften the interpretability claims: reframe t-SNE/PHATE conclusions as `consistent with' rather than `direct mechanistic explanation,' report projection sensitivity to perplexity/seed, and compute at least one separation metric in the original descriptor space. For SHAP, report per-model surrogate $R^2$, rescope `the model internalizes X' to `the surrogate's error predictions are most sensitive to X,' and (ideally) add a perturbation test on MACE's own inputs for the dominant Cr-Cr channel.''
-\end{quote}
+For the 25 legacy NEB images, the declared training files have no exact global or Cr-local match and no SOAP cosine distance at or below $10^{-4}$. Minimum SOAP distances are $5.4\times10^{-4}$ for the full training set and $6.4\times10^{-4}$ for the 89-frame subset. The minimum composition-compatible local RMSD is 2.06~\AA, above the 0.05~\AA\ threshold. The RMSD comparison has few composition-compatible candidates, so it is not presented as a universal coverage certificate; the SOAP check covers the audited image set.
 
-\noindent\textbf{Response.}
-We agree. We no longer describe t-SNE or PHATE projections as direct mechanistic explanations. The revised text presents these analyses as descriptive visualizations that are consistent with, but do not independently establish, the observed model behavior. We now report quantitative separation metrics in the original descriptor space and explicitly document their dependence on feature scaling and projection choices.
+\textbf{The 0.16~eV value does not survive this control.} The grouped, three-seed FT-600K G1 discrepancy is $0.47\pm0.12$~eV. It replaces the original single-run estimate. These G1 controls are kept separate from the newer canonical paths; they are not silently reused as an overlap audit for every later image.
+\location{Main Sec.~\ref{M-sec:models}, blue sentences [R1-A2] and [R1-C10].}{SI Sec.~\ref{SI-sec:overlap}, Table~\ref{SI-tab:a2_grouped_audit_summary} and Fig.~\ref{SI-fig:grouped_overlap}.}
 
-The local re-analysis gives:
 
-\begin{table}[h]
-\centering
-\caption{Silhouette-score analysis across projected and descriptor spaces.}
-\begin{tabular}{p{0.50\linewidth}rp{0.27\linewidth}}
-\toprule
-Space & Overall silhouette & Notes \\
-\midrule
-Old 2D t-SNE, $p=30$, seed 42 & 0.409 & Retained only as the original projection-space baseline \\
-2D t-SNE, $p \in \{5,30,50\}$, 3 seeds & $0.397 \pm 0.027$ & Projection-sensitivity analysis \\
-PHATE 2D, 3 seeds & $0.473 \pm 0.000$ & Projection-sensitivity analysis \\
-Original 6191-d, Euclidean & 0.333 & Primary descriptor-space metric \\
-Original 6191-d, cosine & 0.277 & Alternative descriptor-space metric \\
-Original 6191-d, z-scored Euclidean & -0.019 & Demonstrates scaling sensitivity \\
-PCA 95\%, z-scored Euclidean & -0.026 & Conservative high-dimensional check \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-For SHAP, we now distinguish in-sample fit from cross-validated surrogate fidelity. The revised 5-fold cross-validation metrics are:
-
-\begin{table}[h]
-\centering
-\caption{Cross-validated surrogate-model performance used for SHAP analysis.}
-\begin{tabular}{lrr}
-\toprule
-Model & 5-fold CV $R^2$ & 5-fold CV MAE \\
-\midrule
-FT-600K & 0.9819 & 0.0380 \\
-FT-MultiT & 0.8756 & 0.0269 \\
-Scratch & 0.9730 & 0.0262 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-These values support the use of the surrogate as a model of the selected error target. However, the revised text will state explicitly that SHAP explains the surrogate model's predictions of error, rather than directly attributing causality within MACE itself. A direct perturbation analysis on MACE inputs remains pending:
-
-\begin{center}
-\texttt{[PLACEHOLDER: MACE-CrCr-perturbation-test]}
-\end{center}
-
-\noindent\textbf{Manuscript change.}
-Sec.~3.4, the Fig.~5 caption, Sec.~3.5, and the Fig.~6 caption are marked with \texttt{REV-A6/REV-C11/REV-C12/REV-C13}.
-
-\subsection*{A7. Related work and distinction from our earlier report}
-
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Position against the nearest neighbors: cite and discuss arXiv:2510.05020 (MACE fine-tuning for Li-ion diffusion), the foundational-MLIP migration-barrier evaluation (RSC Digital Discovery d5dd00534e), and arXiv:2405.07105 (systematic softening---currently invoked as if novel). Add one paragraph explicitly stating this manuscript's delta over the authors' own arXiv:2509.00090 [46].''
-\end{quote}
-
-\noindent\textbf{Response.}
-We agree. We have added the requested citations and a paragraph explicitly describing the relationship to the earlier report. The revised introduction positions the present work relative to recent studies of MACE fine-tuning for Li-ion diffusion, migration-barrier evaluation using foundation MLIPs, and systematic softening of universal MLIP potential-energy surfaces.
-
-The revised manuscript also clarifies the additions relative to the earlier report, including expanded transport analysis, self-consistent NEB stability analysis, surrogate-based SHAP analysis, and interlayer-sliding analysis. Statements relying on the corrected MD protocol and final reproducibility materials will be updated after those revision items are completed.
-
-\noindent\textbf{Manuscript change.}
-The introduction, Sec.~3.2, softening discussion, and bibliography are marked with \texttt{REV-A7}.
-
-\subsection*{C8. Fabricated all-zero forces in NEB exporters}
-
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Fake zero forces in NEB$\rightarrow$training-data exporters (\texttt{examples/Sb2Te3\_Cr\_doped/03\_neb/neb\_data\_collector.py:442-443}, \texttt{neb\_to\_extended\_xyz.py:278-282}): real QE energies paired with fabricated all-zero forces written into training-format extxyz under \texttt{forces:R:3}; identical bug in two scripts. If any such frames fed fine-tuning (\texttt{forces\_weight=100} per repo README), the model was silently trained toward zero forces. Not proven wired into FT-600K/FT-MultiT (merge config references nonexistent folders). $\rightarrow$ Export real forces from QE output or hard-disable; authors must confirm/deny use in reported runs.''
-\end{quote}
+\Needspace{11\baselineskip}\section*{A3. Uncertainty in kinetic results}
 
-\noindent\textbf{Response.}
-We agree that this was a serious code issue. We restored the two affected exporters and made them fail closed: the collector now terminates when real QE forces are unavailable, while the extended-XYZ exporter defaults to omitting forces and raises an explicit error if force export is requested without validated force data. No fabricated all-zero force array is written by either script.
-
-We then performed a hash-bound, frame-level provenance audit of the datasets used for the reported fine-tuned models. The audit covered 9,163 frames across the historical FT-600K, historical FT-Multi$_T$, grouped FT-600K, and grouped Scratch-5\% train/validation/test exports. Every frame contains a \texttt{forces:R:3} field. Exactly nine frames have forces that are identically zero; all nine are explicitly labelled one-atom \texttt{IsolatedAtom} Cr/Sb/Te reference records used for energy-offset ($E_0$) bookkeeping. There are zero unclassified all-zero-force frames and zero NEB-derived all-zero-force frames. Thus, the audit found no evidence that the fabricated NEB exports were included in the reported training datasets.
-
-The release contains the complete CSV/SQLite manifest and machine-readable summary, including source-file checksums, export-time metadata, split assignments, and the acceptance result. The corresponding code and audit artifacts are in release commit \texttt{f5c6d19} (full commit: \texttt{f5c6d195a448cc1c9d5b7f5177757dc937d28276}).
-
-\noindent\textbf{Manuscript/code change.}
-Methods data provenance and Code Availability are marked with \texttt{REV-C8}. No new figure is needed: the compact manifest summary and reproducibility files provide the direct evidence for this code-provenance issue.
-
-\subsection*{C9. Asymmetric MD protocol for naive fine-tuning}
+\begin{quote}\small \itshape
+``Add uncertainty to the kinetic results: retrain at least Scratch and FT-600K with $\geq$3 seeds and report barrier-error mean +/- std (the 3-seed protocol already exists for Table S1). This simultaneously tests the `chance' explanation for the scratch model's deep-penetration result---if the low error is seed-stable, `chance' is refuted; if seed-dependent, it is supported. Either way, replace the current unfalsifiable assertion with evidence.''\end{quote}
 
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Asymmetric MD protocol for the naive-FT condition (\texttt{results/MD/2-naive-fine-tuning/mace\_md\_eval\_0814.py:359-360}: \texttt{steps=2000}, \texttt{interval=5} vs.\ \texttt{steps=100000}, \texttt{interval=200} in the other three byte-identical scripts): 50$\times$ shorter trajectory with 40$\times$ denser sampling in the cross-model transport comparison; post-processing assumes 200 fs/frame, so $D/\kappa$ for that condition may be off $\sim$40$\times$.''
-\end{quote}
+\textbf{Response.} 
+We have replaced the chance explanation with seed-resolved evidence. Three training seeds are reported for every contemporary trained condition in the main task matrix. For the canonical fixed within-QL images, Scratch-600K has a mean absolute reference discrepancy of $0.45\pm0.05$~eV. Its comparatively small discrepancy is reproducible across these three initializations, so we no longer dismiss it as chance.
 
-\noindent\textbf{Response.}
-We agree. The original FT-600K transport value is not retained as a final model comparison because it was obtained under a non-comparable protocol. It has therefore been quarantined pending completion of a corrected matched-protocol calculation.
-
-The current local transport re-analysis is summarized below:
+The separate legacy control reaches the same narrower conclusion on Q1: the Scratch discrepancy is $0.51\pm0.11$~eV. Q2 and Q3 are more seed-dependent ($0.72\pm0.55$ and $1.77\pm1.00$~eV). All standard deviations are sample standard deviations over training seeds. They are not confidence intervals over materials or transition paths.
 
-\begin{table}[h]
-\centering
-\caption{Current status of transport estimates.}
-\begin{tabular}{p{0.16\linewidth}p{0.22\linewidth}p{0.22\linewidth}p{0.30\linewidth}}
-\toprule
-Model & $D$ (cm$^2$\,s$^{-1}$) & $\kappa$ (W\,m$^{-1}$\,K$^{-1}$) & Interpretation \\
-\midrule
-Foundation &
-$(0.7 \pm 7.9)\times10^{-9}$ &
-$(2.4 \pm 8.6)\times10^{-3}$ &
-Statistically indistinguishable from zero within current uncertainty \\
-Scratch &
-$(-3.4 \pm 3.2)\times10^{-9}$ &
-$(0.9 \pm 1.3)\times10^{-2}$ &
-Statistically indistinguishable from zero; the negative fitted estimate reflects finite-sampling uncertainty rather than a physical negative diffusivity \\
-FT-MultiT &
-$(4.8 \pm 4.8)\times10^{-8}$ &
-$(2.0 \pm 1.7)\times10^{-2}$ &
-Preliminary estimate under the matched local re-analysis \\
-FT-600K &
-$(3.9 \pm 4.0)\times10^{-8}$ &
-$(0.9 \pm 1.2)\times10^{-2}$ &
-Previous protocol non-comparable; quarantined \\
-\bottomrule
-\end{tabular}
-\end{table}
+\textbf{Takeaway.} A repeatable fixed-image energy result does not establish reliable dynamics or a correct model-generated path. The same scratch training conditions fail rapidly in MD. We report that distinction and retain nonconverged pathway values as diagnostics, rather than calling them kinetic predictions.
+\location{Main Sec.~\ref{M-sec:migration}, blue sentence [R1-A3]; Figs.~\ref{M-fig:taskmatrix} and \ref{M-fig:md}.}{SI Tables~\ref{SI-tab:current_neb_errors} and \ref{SI-tab:scratch5_path_resolved_descriptive}; Sec.~\ref{SI-sec:matrix_status}.}
 
-The corrected FT-600K calculation remains pending:
 
-\begin{center}
-\texttt{[PLACEHOLDER: corrected-FT600K-MD-transport]}
-\end{center}
+\Needspace{11\baselineskip}\section*{A4. Scope of generalizability claims}
 
-\noindent\textbf{Manuscript/code change.}
-The MD protocol description, transport figure, and SI transport table are marked with \texttt{REV-C9}.
+\begin{quote}\small \itshape
+``Rescope the generalizability claims: change `establishes \ldots{} a generalizable standard' to a candidate framework demonstrated on one system, and move `broader principles' to a hedged outlook---or add one additional material/dopant (even a cheap second system, e.g., a different transition-metal dopant in the same host) as minimal cross-validation.''\end{quote}
 
-\subsection*{C10. Ungrouped train/test split}
+\textbf{Response.} 
+We have adopted the narrower scope. The title, abstract and Discussion now describe process-specific reliability for the tested MACE routes in Cr-doped \ce{Sb2Te3}. We do not claim a generalizable standard, a universal ordering of strategies, or a quantitative rule based on distance from the foundation pretraining distribution.
 
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Ungrouped random train/test split (\texttt{split\_data.py:52-66}): frame-level shuffle over merged trajectories with no grouping by pathway/trajectory ID; near-duplicate adjacent frames can land in both train and test, inflating Table S1 test RMSE. Provenance metadata embedded by the collector (\texttt{path\_name}, \texttt{neb\_image}) is never read downstream---no NEB-exclusion safeguard exists.''
-\end{quote}
+The supplied Cu/Li/Na path figure and the six-system endpoint-perturbation study remain in the SI as additional diagnostics. They do not provide a second fully validated migration benchmark, and we do not use them to justify broad transferability claims.
 
-\noindent\textbf{Response.}
-We agree. The split is being revised to group structures by trajectory or pathway provenance, with explicit zero-overlap checks across training, validation, and test partitions. This change is intended to prevent information leakage through temporally or structurally adjacent configurations.
+\textbf{Takeaway.} The study demonstrates a candidate way to test a model for a chosen process in one primary material. Broader validation and active learning are stated as future work.
+\location{Main Introduction and final paragraph of Sec.~\ref{M-sec:discussion}, marked [R1-A4].}{SI Fig.~\ref{SI-fig:other_dopants} and Sec.~\ref{SI-sec:endpoint_perturbation_campaign}.}
 
-The final grouped-split retraining and evaluation results remain pending:
 
-\begin{center}
-\texttt{[PLACEHOLDER: grouped-split-retrained-rmse]}
-\end{center}
+\Needspace{11\baselineskip}\section*{A5. Scratch-5\% control}
 
-Until these results are available, quantitative generalization metrics derived from the original frame-level split will be treated as provisional rather than final evidence of out-of-trajectory performance.
+\begin{quote}\small \itshape
+``Add a Scratch-5\% control (same $\sim$1,000 configurations as FT-600K, random initialization) to disentangle foundation-pretraining benefits from data-volume effects.''\end{quote}
 
-\noindent\textbf{Manuscript/code change.}
-The Methods split description and Table~S1 are marked with \texttt{REV-C10}.
+\textbf{Response.} 
+We agree that the target-data budget must be controlled. The revised primary 600~K comparison uses \textbf{the same 1,786 training configurations}, with the same 311/267 validation/test partitions and three seeds, for the full scratch and fine-tuned routes. This removes a difference in target-data count from that comparison. Architecture and optimization still differ between the registered routes, so we do not attribute the entire difference to pretraining alone.
 
-\subsection*{C11. Silhouette scores computed on embeddings}
+We also correct the description of the existing Scratch-5\% run. It uses 89 configurations, not approximately 1,000, and is therefore \textbf{not} a data-matched control for the grouped FT model. Its G1 discrepancy of $0.68\pm0.20$~eV is retained only as a separate data-volume sensitivity result. We have removed the earlier argument that an exactly matched subset would necessarily break trajectory grouping.
 
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Silhouette scores computed on the 2D t-SNE embedding, not the original feature space (\texttt{results/t-SNE/3d/tsne.py:323}, \texttt{phate-tsne/tsne.py:191}, \texttt{mace\_probe\_blackbox0818.py:254}): the Fig. 5d separability numbers measure projection artifacts, not true latent separability. Need to compute in original/high-dimensional space.''
-\end{quote}
+\textbf{Takeaway.} The matched full-data pair addresses the budget comparison at the revised 1,786-frame budget. The 89-frame run cannot isolate the value of pretraining, and no architecture-controlled causal estimate or universal fine-tuning advantage is claimed.
+\location{Main Sec.~\ref{M-sec:models}, blue sentence [R1-A5].}{SI Secs.~\ref{SI-sec:training} and \ref{SI-sec:overlap}; Tables~\ref{SI-tab:current_pointwise} and \ref{SI-tab:a2_grouped_audit_summary}.}
 
-\noindent\textbf{Response.}
-We agree. The revised analysis reports descriptor-space silhouette values and identifies the previous embedding-space values only as projection-space baselines. The principal descriptor-space result is an Euclidean silhouette score of 0.333 in the original 6191-dimensional feature space. The SI will additionally report cosine, z-scored Euclidean, and PCA-reduced analyses to make the dependence on feature representation explicit.
 
-No numerical placeholder remains for the local analysis, although the manuscript integration remains to be completed in Overleaf.
+\Needspace{11\baselineskip}\section*{A6. Interpretability claims: t-SNE/PHATE and SHAP}
 
-\noindent\textbf{Manuscript change.}
-Sec.~3.4 and the Fig.~5 caption are marked with \texttt{REV-C11}.
+\begin{quote}\small \itshape
+``Soften the interpretability claims: reframe t-SNE/PHATE conclusions as `consistent with' rather than `direct mechanistic explanation,' report projection sensitivity to perplexity/seed, and compute at least one separation metric in the original descriptor space. For SHAP, report per-model surrogate $R^2$, rescope `the model internalizes X' to `the surrogate's error predictions are most sensitive to X,' and (ideally) add a perturbation test on MACE's own inputs for the dominant Cr-Cr channel.''\end{quote}
 
-\subsection*{C12. Always-zero force-sensitivity feature stub}
+\textbf{Response.} 
+We have narrowed both analyses. The trajectory projections use recorded energy, force and structural summaries, not native MACE hidden states. We now state this directly, report current original-space metrics and projection sensitivity, and discuss energy offsets, feature scale, separately fitted SOAP PCA bases and unequal trajectory horizons. For the current 927-frame matrix, the raw silhouette is 0.063 and the standardized value is $-0.059$; the displayed $t$-SNE score is 0.117.
 
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``Always-zero `force sensitivity' feature stub in all three latent-probe scripts (\texttt{3d/tsne.py:209-215}, \texttt{phate-tsne/tsne.py:132}, \texttt{mace\_probe\_blackbox0818.py:171-180}), silently concatenated into the feature matrix feeding PCA$\rightarrow$t-SNE$\rightarrow$PHATE.''
-\end{quote}
+The new SHAP figure explains \textbf{surrogate predictions of absolute energy error per atom} on a common 267-frame trajectory. The separate five-fold diagnostic $R^2$ values are $0.981\pm0.003$ (FT-600K), $0.973\pm0.003$ (FT-MultiT), $0.976\pm0.006$ (Scratch-600K) and $0.952\pm0.022$ (Scratch-MultiT). The final TreeSHAP model is fitted on the full sample; its near-unit in-sample fit is not offered as generalization evidence. Shuffled folds from one trajectory also do not test transfer to an independent trajectory.
 
-\noindent\textbf{Response.}
-We confirm this issue. The inactive feature channel has been removed from the revised latent-space analysis. We do not make any force-sensitivity claim based on this channel, and we will not introduce such a claim unless it is supported by a genuine finite-difference or otherwise physically defined force-sensitivity calculation.
+The current rankings vary across training seeds and do not support a single dominant Cr--Cr causal channel. The SI coordinate-perturbation campaign contains 846 native-MACE endpoint relaxations over six dopant--host systems. It tests local response to actual atomic displacement, but does not isolate a SOAP channel or explain the migration discrepancy.
 
-No numerical placeholder remains.
+\textbf{Takeaway.} The projections describe sampled populations, and SHAP describes an error surrogate. Neither is presented as a mechanistic explanation of MACE.
+\location{Main Secs.~\ref{M-sec:representations}--\ref{M-sec:shap}; Figs.~\ref{M-fig:representation}--\ref{M-fig:shap}.}{SI Secs.~\ref{SI-sec:representation}--\ref{SI-sec:shap}; Tables~\ref{SI-tab:current_original_space}--\ref{SI-tab:current_shap_fidelity}; endpoint appendix.}
 
-\noindent\textbf{Manuscript/code change.}
-The SI latent-analysis methods and code-release notes are marked with \texttt{REV-C12}.
 
-\subsection*{C13. SHAP code and repository stubs}
+\Needspace{11\baselineskip}\section*{A7. Related work and distinction from our earlier report}
 
-\noindent\textbf{Reviewer comment.}
-\begin{quote}
-\itshape
-``SHAP analysis code absent from the repository entirely; advertised \texttt{migrationbench} package (36 files), \texttt{scripts/} (13 files including \texttt{shap\_analysis.py}), templates, workflow docs, and \texttt{paper/manuscript.tex} are all 0-byte stubs. Section 3.5 results and the `benchmark framework' API are not reproducible from this release.''
-\end{quote}
+\begin{quote}\small \itshape
+``Position against the nearest neighbors: cite and discuss arXiv:2510.05020 (MACE fine-tuning for Li-ion diffusion), the foundational-MLIP migration-barrier evaluation (RSC Digital Discovery d5dd00534e), and arXiv:2405.07105 (systematic softening---currently invoked as if novel). Add one paragraph explicitly stating this manuscript's delta over the authors' own arXiv:2509.00090 [46].''\end{quote}
 
-\noindent\textbf{Response.}
-We agree. The release now includes the X-FORCE three-model, 150-frame inputs, an explicit image-aligned SOAP/structural feature workflow, the TreeSHAP analysis scripts, pinned dependencies, and the empty-stub audit. The source lineage is recorded in \texttt{docs/audit/shap\_source\_lineage.md}; the four-model, 2-concentration, and Dual-X ID/OOD/NEB workflows are explicitly excluded from the Sec.~3.5 claim.
+\textbf{Response.} 
+The Introduction now discusses all three requested neighbouring studies. Alghamdi et al.\ show successful zero-shot/lightly adapted MACE diffusion modelling in LiF; Bheemaguli et al.\ distinguish migration-energy and path-geometry performance; Deng et al.\ establish systematic softening as prior work~\citep{alghamdi2025maceLiF,bheemaguli2026mlipBarriers,deng2025softening}. Our large within-QL overestimates are not described as a new demonstration that softening exists.
 
-The locked revised CSVs report the audited cross-validated values used in Sec.~3.5. An independent local rerun reproduces the expected 150-frame/450-row alignment but is not numerically identical to those locked CSVs; this discrepancy is recorded in the lineage audit and the paper outputs are not silently overwritten pending recovery of the exact historical regeneration implementation.
+We also corrected the statement of the contribution relative to our own report~\citep{cao2025migration}. That report already contained migration, sliding and representation analyses. Those topics are \textbf{not} claimed as new here. The revision adds or strengthens trajectory-grouped controls, additional seeds and checkpoints, explicit operator definitions, failure-horizon accounting, current common-frame SHAP analysis and original-space checks. It also withdraws the incompatible 0.41~eV result and replaces the unreproduced 0.16~eV estimate.
 
-The remaining release-level evidence is:
+\textbf{Takeaway.} The contribution is a more carefully controlled and more narrowly interpreted reliability comparison, rather than the introduction of already reported task types.
+\location{Main Sec.~\ref{M-sec:introduction}, related-work and prior-report paragraphs; marker [R1-A7].}{The corresponding controls and corrections are documented in SI Secs.~\ref{SI-sec:overlap}, \ref{SI-sec:legacy_paths}, \ref{SI-sec:representation} and \ref{SI-sec:shap}.}
 
-\begin{center}
-\texttt{C13 GitHub release commit: a3a73dfe88aa96416a3bc365909fa8165d42a271}
-\end{center}
 
-\begin{center}
-\texttt{docs/audit/c13\_empty\_stub\_audit.md; docs/audit/shap\_source\_lineage.md}
-\end{center}
+\Needspace{11\baselineskip}\section*{C8. Zero-force NEB exporters}
 
-\noindent\textbf{Manuscript/code change.}
-Sec.~3.5 and Code Availability are marked with \texttt{REV-C13}.
+\begin{quote}\small \itshape
+``Fake zero forces in NEB$\rightarrow$training-data exporters (\path{examples/Sb2Te3_Cr_doped/03_neb/}\path{neb_data_collector.py:442-443}, \path{neb_to_extended_xyz.py:278-282}): real QE energies paired with fabricated all-zero forces written into training-format extxyz under \texttt{forces:R:3}; identical bug in two scripts. If any such frames fed fine-tuning (\texttt{forces\_weight=100} per repo README), the model was silently trained toward zero forces. Not proven wired into FT-600K/FT-MultiT (merge config references nonexistent folders). $\rightarrow$ Export real forces from QE output or hard-disable; authors must confirm/deny use in reported runs.''\end{quote}
 
-% \subsection*{Status summary}
+\textbf{Response.} 
+We confirm the exporter defect. Both affected scripts have been changed to fail closed when real QE forces are unavailable. The collector refuses a force-bearing training export without validated forces; the extended-XYZ exporter defaults to omitting forces and raises an error if unavailable force export is requested. No fabricated zero-force array is an accepted substitute.
 
-% The response structure and the principal conceptual corrections are in place. Completed items include the clarification of the Fig.~3d/Fig.~S3 protocol distinction, the scope revisions, the related-work positioning, the descriptor-space and projection-sensitivity re-analysis, and the SHAP surrogate cross-validation audit.
+The hash-bound provenance audit covers 9,163 records from the declared historical and grouped training splits. Exactly nine records have identically zero forces, all labelled one-atom Cr/Sb/Te isolated-atom energy references. There are zero unclassified and zero NEB-derived zero-force training records in those audited files. The frame manifest, machine-readable summary and audit executable accompany the revision, together with the corrected exporters.
 
-% The main remaining items are final QE NEB convergence, SOAP/RMSD overlap auditing, grouped-split multi-seed retraining, the Scratch-5\% control, corrected matched-protocol FT-600K MD, and final code-release evidence for the exporter and SHAP-pipeline fixes.
+\textbf{Takeaway.} The defect was real, but the audited training lineage contains no fabricated NEB-force frames. This is a dataset-specific conclusion, not a guarantee inferred from a model family name.
+\location{Main Sec.~\ref{M-sec:models}, blue sentence [R1-C8].}{SI Sec.~\ref{SI-sec:force_audit}; accompanying zero-force manifest and corrected exporters.}
 
+
+\Needspace{11\baselineskip}\section*{C9. Matched MD protocol for FT-600K}
+
+\begin{quote}\small \itshape
+``Asymmetric MD protocol for the naive-FT condition (\path{results/MD/2-naive-fine-tuning/}\path{mace_md_eval_0814.py:359-360}: \texttt{steps=2000}, \texttt{interval=5} vs.\ \texttt{steps=100000}, \texttt{interval=200} in the other three byte-identical scripts): 50$\times$ shorter trajectory with 40$\times$ denser sampling in the cross-model transport comparison; post-processing assumes 200 fs/frame, so $D/\kappa$ for that condition may be off $\sim$40$\times$.''\end{quote}
+
+\textbf{Response.} 
+We have removed the asymmetric short-run transport comparison. The revised MD figure uses recorded steps with a 1~fs timestep and a 200-step output interval. All runs are evaluated as continuations of the common 200~ps state towards a 1,000~ps target clock. A completed continuation is therefore 800~ps, not an independently generated 1~ns trajectory.
+
+The current status table also changes the conclusion: the three foundation checkpoints and FT-600K seed 234 reach the target. The remaining five fine-tuned and six scratch runs terminate at recorded thresholds. Their actual horizons are shown in the SI; they are not extended or assigned a common long-time transport coefficient. Training seeds characterize model variation, while the common momenta/MD seed do not supply independent thermal replicas.
+
+\textbf{Takeaway.} The revised result is an observed stability, structure and mobility comparison under a common continuation protocol. The earlier diffusion/conductivity ranking and the earlier statement that all fine-tuned runs were stable are removed. No heat-current record supports a thermal-conductivity claim.
+\location{Main Sec.~\ref{M-sec:md}, Fig.~\ref{M-fig:md} and blue sentence [R1-C9].}{SI Sec.~\ref{SI-sec:md} and Table~\ref{SI-tab:md_horizons}.}
+
+
+\Needspace{11\baselineskip}\section*{C10. Trajectory-grouped train/test split}
+
+\begin{quote}\small \itshape
+``Ungrouped random train/test split (\texttt{split\_data.py:52-66}): frame-level shuffle over merged trajectories with no grouping by pathway/trajectory ID; near-duplicate adjacent frames can land in both train and test, inflating Table S1 test RMSE. Provenance metadata embedded by the collector (\texttt{path\_name}, \texttt{neb\_image}) is never read downstream---no NEB-exclusion safeguard exists.''\end{quote}
+
+\textbf{Response.} 
+The grouped comparisons now assign complete source trajectories to train, validation or test. The revised main parity figure reports grouped train and held-out test data separately, and its caption distinguishes unique configurations from the three-seed pooled prediction count. The original frame-level shuffle is not used as the independent generalization estimate.
+
+The 600~K data-matched pair uses 1,786/311/267 train/validation/test configurations. Full uncentred test errors and model/data hashes accompany the figure. Cluster-centering in the energy display subtracts the same DFT offset from both axes and is disclosed as a visualization transformation, including the use of test-only cluster means; it is not a fitted deployment calibration.
+
+\textbf{Takeaway.} Same-trajectory temporal leakage is controlled by grouping. Geometric similarity between different source trajectories is a separate question, for which the legacy path overlap audit has an explicitly limited scope.
+\location{Main Secs.~\ref{M-sec:pointwise} and \ref{M-sec:models}, Fig.~\ref{M-fig:parity}, marker [R1-C10].}{SI Secs.~\ref{SI-sec:training} and \ref{SI-sec:overlap}; Table~\ref{SI-tab:current_pointwise}.}
+
+
+\Needspace{11\baselineskip}\section*{C11. Silhouette scores in the original descriptor space}
+
+\begin{quote}\small \itshape
+``Silhouette scores computed on the 2D t-SNE embedding, not the original feature space (\path{results/t-SNE/3d/}\path{tsne.py:323}, \path{phate-tsne/}\path{tsne.py:191}, \path{mace_probe_blackbox0818.py:254}): the Fig. 5d separability numbers measure projection artifacts, not true latent separability. Need to compute in original/high-dimensional space.''\end{quote}
+
+\textbf{Response.} 
+We agree. Panel d of the supplied main projection figure still reports a \textbf{two-dimensional $t$-SNE score}; its caption now says so explicitly. It is not relabelled as an original-space metric.
+
+We independently computed the requested original-space diagnostics on the current 927-frame dataset, removing the inactive column. The Euclidean silhouette is 0.0627, cosine silhouette 0.0609 and standardized Euclidean silhouette $-0.0592$. The common 30-bin neighbour histogram gives 0.0564. These are the current values; the older 404-frame values of 0.33 and $-0.02$ are not reused for this figure. The SI also reports a nine-setting $t$-SNE sensitivity check.
+
+\textbf{Takeaway.} The scale dependence does not support strong latent-separation claims. The new original-space table and audit figure, rather than the projection score, ground the revised interpretation.
+\location{Main Sec.~\ref{M-sec:representations}, marker [R1-C11], and Fig.~\ref{M-fig:representation} caption.}{SI Table~\ref{SI-tab:current_original_space}, Table~\ref{SI-tab:current_tsne_sensitivity} and Fig.~\ref{SI-fig:current_feature_audit}.}
+
+
+\Needspace{11\baselineskip}\section*{C12. Inactive force-sensitivity feature stub}
+
+\begin{quote}\small \itshape
+``Always-zero `force sensitivity' feature stub in all three latent-probe scripts (\path{3d/}\path{tsne.py:209-215}, \path{phate-tsne/}\path{tsne.py:132}, \path{mace_probe_blackbox0818.py:171-180}), silently concatenated into the feature matrix feeding PCA$\rightarrow$t-SNE$\rightarrow$PHATE.''\end{quote}
+
+\textbf{Response.} 
+We confirm the inactive column and correct the scope of the earlier response. The newly supplied 15-model reconstruction inherited a 6,192-column feature grammar containing the same all-zero placeholder. We therefore do not repeat the earlier statement that every reconstruction had already removed it.
+
+The current executable audit verifies that the final column is identically zero and removes it before every recomputed distance and projection, leaving 6,191 features. A constant zero coordinate contributes nothing to Euclidean or cosine distance, so it carries no force-response information. The supplied image is retained as a descriptive reconstruction with that provenance disclosed. No force-sensitivity result is claimed, and the separate SHAP workflow uses computed SOAP/structural descriptors.
+
+\textbf{Takeaway.} The placeholder is explicitly excluded from the current quantitative workflow and is not presented as a physical diagnostic.
+\location{Main Sec.~\ref{M-sec:diagnostics}, blue sentence [R1-C12]; Fig.~\ref{M-fig:representation} caption.}{SI Sec.~\ref{SI-sec:representation}; executable current-feature audit.}
+
+
+\Needspace{11\baselineskip}\section*{C13. SHAP code and repository completeness}
+
+\begin{quote}\small \itshape
+``SHAP analysis code absent from the repository entirely; advertised \texttt{migrationbench} package (36 files), \texttt{scripts/} (13 files including \texttt{shap\_analysis.py}), templates, workflow docs, and \texttt{paper/manuscript.tex} are all 0-byte stubs. Section 3.5 results and the `benchmark framework' API are not reproducible from this release.''\end{quote}
+
+\textbf{Response.} 
+The empty-stub criticism was valid for the reviewed snapshot. The revision does not rely on that advertised API. The accompanying package supplies the actual executable SHAP analysis, the common 267-frame XYZ, all 12 aligned evaluation tables, feature-label mapping, per-seed metrics and attributions, and the renderer for the selected top-20 figure. The current-feature audit and its input identity are supplied separately.
+
+We reran the supplied analysis from the common XYZ and the 12 evaluation tables. All four checked outputs reproduce numerically: 12 per-seed metric rows, 1,628 family-feature rows, 4,884 seed-feature rows and 3,204 frame-aligned rows have identical column definitions and zero maximum numerical difference from the current source tables. The machine-readable comparison accompanies the revision.
+
+The current common-frame, four-condition analysis replaces the earlier three-model, 150-frame reconstruction. We do not mix the earlier total-energy-eV surrogate metrics or its 30-seed rankings into the current meV-per-atom result. The Methods and SI specify the 407 features, separate diagnostic and final estimators, and the limited interpretation of the shuffled-fold check.
+
+\textbf{Takeaway.} Reproducibility is tied to the nonempty workflows and figure-specific source tables included with this revision, rather than to an unimplemented benchmark package or a claim that one historical commit reproduces every current artifact.
+\location{Main Code availability, marker [R1-C13], and Sec.~\ref{M-sec:diagnostics}.}{SI Sec.~\ref{SI-sec:shap}; accompanying executable source and figure data.}
+
+
+{\small\setlength{\bibsep}{2pt}\bibliographystyle{unsrtnat}
+
+\bibliography{revision1/references-camera-ready}}
 
 \end{document}

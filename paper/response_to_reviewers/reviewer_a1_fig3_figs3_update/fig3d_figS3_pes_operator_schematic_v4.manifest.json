@@ -1,0 +1,63 @@
+{
+  "figure_id": "A1-PES-OPERATOR-SCHEMATIC-V4",
+  "status": "RECONSTRUCTION_OPERATOR_SCHEMATIC_CLEAN_MAIN_WITH_SEPARATE_ATOM_FIGURES",
+  "surface_status": "synthetic reduced-coordinate PES; z-dependent colour is a visual distinction, not a quantitative PES",
+  "fixed_energy_profile_status": "synthetic section evaluated from the same synthetic DFT/MLIP surfaces used above",
+  "geometry_status": "five-image coordinate-derived 61-atom DFT fixture and current Foundation MLIP self-relaxed path",
+  "self_rescore_status": "synthetic operator definition only; same-system DFT re-score remains unavailable",
+  "atom_figure_policy": "atom thumbnails removed from main figure and composed as two independent five-panel figures",
+  "upper_band_policy": "open white space retained above the PES surfaces for later author-side atom placement",
+  "omitted_from_main": [
+    "atom thumbnails",
+    "directional arrows and arrowheads",
+    "vertical energy-mismatch arrows",
+    "geometry-shift connectors",
+    "delta-E fixed callout",
+    "step 1 / step 2 callout text",
+    "model-mismatch callout",
+    "bottom decomposition equation"
+  ],
+  "q_coordinate_definition": {
+    "cr_index_zero_based": 60.0,
+    "endpoint_distance_A": 3.9186392109881463,
+    "q1_axis_x": 0.5377144463291019,
+    "q1_axis_y": -0.3104495803259292,
+    "q1_axis_z": 0.7838904466087349,
+    "q2_axis_x": 0.6788689876349231,
+    "q2_axis_y": -0.3919453149509257,
+    "q2_axis_z": -0.6208991606658476
+  },
+  "palette": {
+    "name": "nature_steered_dynamics",
+    "roles": {
+      "DFT": "#9B9B9B",
+      "MLIP": "#337FB0",
+      "DFT_surface_high": "#9B9B9B",
+      "MLIP_surface_high": "#337FB0",
+      "DFT_surface_low": "#EDEDED",
+      "MLIP_surface_low": "#DAE8F1"
+    },
+    "high_saturation_red_used": false
+  },
+  "inputs": {
+    "tests/fixtures/historical_neb/legacy_61/1-4/sb2te3.xyz": "81c61faf152df1f1c274ccafdbc9810e682b64cf59d1e8f73650ba9b77252b44",
+    "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/data/self_relaxed_foundation_path_61_1-4.extxyz": "59e949d007461381ce7ce89de795079ef7b7303d9a71cec6f97b868d70ccb557"
+  },
+  "path_coordinate_csv": "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/pes_operator_v4_path_coordinates.csv",
+  "separate_atom_figures": {
+    "renderer": "render_atom_frames_v4.py",
+    "composition": "compose_atom_path_fivepanel_v4.py",
+    "render_manifest": "atom_renders_v4/atom_render_manifest.json"
+  },
+  "source_scripts": {
+    "v3_base": "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/plot_pes_operator_schematic_v3.py",
+    "v3_sha256": "dbde625af983c82bd7ee0e3cc25dd2c6507e126575090017227f7c77ead2ed9c"
+  },
+  "notes": [
+    "Both lower panels are synthetic schematic sections so the two operator branches remain visually consistent.",
+    "The upper paths include their 2-D projections on the q1-q2 floor; no arrows are used to explain the operators.",
+    "The five atom snapshots are coordinate-derived structural visual anchors only; they do not establish DFT convergence or a publication barrier.",
+    "No historical 0.410 eV record is used."
+  ],
+  "script_sha256": "c965eda99259e2e3f97d3b6d146829001e0aab733ab9566f0b21140a075cd7d5"
+}
