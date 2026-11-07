@@ -1,0 +1,103 @@
+{
+  "feature_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/fig6_full_campaign_features.npz",
+  "feature_sha256": "5aab89df1258a5093c170017b69af949faa46d4d72c5f8d3ceebce9e006e8a6b",
+  "feature_shape_before": [
+    927,
+    6192
+  ],
+  "feature_shape_after": [
+    927,
+    6191
+  ],
+  "removed_column": 6191,
+  "removed_column_all_zero": true,
+  "original_space": [
+    {
+      "space": "Original output features (6191)",
+      "dimensions": 6191,
+      "metric": "euclidean",
+      "silhouette": 0.0626618391480915
+    },
+    {
+      "space": "Original output features, cosine",
+      "dimensions": 6191,
+      "metric": "cosine",
+      "silhouette": 0.06087061164399868
+    },
+    {
+      "space": "Z-scored output features",
+      "dimensions": 6191,
+      "metric": "euclidean",
+      "silhouette": -0.05919254121039555
+    },
+    {
+      "space": "Common neighbour histogram (30)",
+      "dimensions": 30,
+      "metric": "euclidean",
+      "silhouette": 0.056367088072865924
+    },
+    {
+      "space": "Z-scored neighbour histogram",
+      "dimensions": 30,
+      "metric": "euclidean",
+      "silhouette": 0.052377724164198815
+    }
+  ],
+  "projection_sweep": [
+    {
+      "perplexity": 5,
+      "seed": 0,
+      "silhouette": 0.0785670280456543,
+      "trustworthiness": 0.9740480542027179
+    },
+    {
+      "perplexity": 5,
+      "seed": 42,
+      "silhouette": 0.0785670280456543,
+      "trustworthiness": 0.9740480542027179
+    },
+    {
+      "perplexity": 5,
+      "seed": 123,
+      "silhouette": 0.0785670280456543,
+      "trustworthiness": 0.9740480542027179
+    },
+    {
+      "perplexity": 30,
+      "seed": 0,
+      "silhouette": 0.1238933652639389,
+      "trustworthiness": 0.9785482789909298
+    },
+    {
+      "perplexity": 30,
+      "seed": 42,
+      "silhouette": 0.1238933652639389,
+      "trustworthiness": 0.9785482789909298
+    },
+    {
+      "perplexity": 30,
+      "seed": 123,
+      "silhouette": 0.1238933652639389,
+      "trustworthiness": 0.9785482789909298
+    },
+    {
+      "perplexity": 50,
+      "seed": 0,
+      "silhouette": 0.1329648196697235,
+      "trustworthiness": 0.9724964873173669
+    },
+    {
+      "perplexity": 50,
+      "seed": 42,
+      "silhouette": 0.1329648196697235,
+      "trustworthiness": 0.9724964873173669
+    },
+    {
+      "perplexity": 50,
+      "seed": 123,
+      "silhouette": 0.1329648196697235,
+      "trustworthiness": 0.9724964873173669
+    }
+  ],
+  "caveat": "Output features include energy offsets and forces; SOAP PCA is fitted separately per trajectory. These are not native MACE hidden states. Neighbour histograms use a common coordinate basis. No causal attribution or acquisition rule is inferred."
+}
