@@ -1,0 +1,277 @@
+#!/usr/bin/env python3
+"""Quantitative NEB dot-matrix redraw, with enlarged typography and symbols.
+
+python source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated
+"""
+from pathlib import Path
+import argparse, hashlib, json, shutil
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+from matplotlib import colors, patches
+from matplotlib.lines import Line2D
+try:
+    from reportlab.pdfgen import canvas
+    from reportlab.pdfbase import pdfmetrics
+    from reportlab.pdfbase.cidfonts import UnicodeCIDFont
+    from reportlab.platypus import Paragraph, Table, TableStyle
+    from reportlab.lib.styles import ParagraphStyle
+    from reportlab.lib import colors as rc
+    REPORTLAB_AVAILABLE = True
+except ModuleNotFoundError:
+    REPORTLAB_AVAILABLE = False
+
+ap=argparse.ArgumentParser();ap.add_argument('--input',type=Path,default=Path(__file__).parent/'upload/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv');ap.add_argument('--output',type=Path,default=Path(__file__).parent/'output/NEB_Dotmatrix_v3');A=ap.parse_args()
+OUT=A.output.resolve();OUT.mkdir(parents=True,exist_ok=True)
+D=pd.read_csv(A.input,sep='\t');D['family']=D.row_id.str.split(' / ').str[0]
+FAMS=['MP-0B3','OMAT-0','MPA0','FT-600K','FT-MultiT','Scratch-600K','Scratch-MultiT']
+GROUP={f:'Foundation' if i<3 else 'Fine-tuning' if i<5 else 'Scratch' for i,f in enumerate(FAMS)}
+D['strategy']=D.family.map(GROUP)
+ROWS=FAMS[:3]+[f'{f} / s{s}' for f in FAMS[3:] for s in [123,234,345]]
+COLS=['migration_in_gap_fixed','migration_gap_to_ql_fixed','migration_within_ql_fixed','migration_in_gap_self','migration_gap_to_ql_self','migration_within_ql_self','sliding_pristine_fixed','sliding_cr_in_gap_fixed']
+REF=D.groupby('column_id').reference_value_eV.first().reindex(COLS)
+D['dft_reference_eV']=D.column_id.map(REF)
+assert len(D)==120 and not D.duplicated(['row_id','column_id']).any()
+assert set(ROWS)==set(D.row_id) and set(COLS)==set(D.column_id)
+assert np.isfinite(D[['predicted_value_eV','absolute_error_eV']]).all().all()
+assert np.allclose(abs(D.predicted_value_eV-D.dft_reference_eV),D.absolute_error_eV,atol=1e-9)
+assert (D.scientific_status=='NONCONVERGED').sum()==5
+assert D.predicted_value_eV.between(0,27).all() and D.absolute_error_eV.between(0,25).all()
+T=D.set_index(['row_id','column_id'])
+INK='#242424';GREY='#858585';EDGE='#7890a5'
+STRATEGY={'Foundation':'#95d1b1','Fine-tuning':'#36b3c0','Scratch':'#2f83b8'}
+TASK=['#fabab9','#f26ea6','#74297e'];SEED={123:'o',234:'^',345:'s'}
+CMAP=colors.LinearSegmentedColormap.from_list('nature_energy_blue',['#e7eff6','#bed9e8','#7cb7d2','#3493bd','#166da7','#1d426b'])
+NORM=colors.PowerNorm(gamma=.40,vmin=0,vmax=27)
+plt.rcParams.update({'font.family':'Arial','font.size':11.5,'font.weight':'normal','text.color':INK,'axes.labelcolor':INK,'axes.labelweight':'normal','axes.titleweight':'normal','axes.edgecolor':GREY,'xtick.color':INK,'ytick.color':INK,'xtick.labelsize':11,'ytick.labelsize':11,'axes.linewidth':1.5,'xtick.major.width':1.4,'ytick.major.width':1.4,'xtick.major.size':5.2,'ytick.major.size':5.2,'xtick.minor.width':1.0,'ytick.minor.width':1.0,'xtick.minor.size':3.2,'ytick.minor.size':3.2,'pdf.fonttype':42,'svg.fonttype':'none','savefig.facecolor':'white','figure.facecolor':'white'})
+Y=np.array([.25,1.25,2.25,3.85,4.85,5.85,7.10,8.10,9.10,10.70,11.70,12.70,13.95,14.95,15.95])
+X=np.array([0,1,2,3.2,4.2,5.2,6.4,7.4])
+STYLE={'width_mm':183,'main_height_mm':250,'standalone_matrix_height_mm':171,'font':'Arial','font_weight':'normal','type_pt':{'panel_letter':15,'panel_title':14,'matrix_row':10.2,'matrix_column':8.8,'legend_heading':11,'legend_text':10.2,'axes':12.4,'tick':11,'note':9.5},'matrix_column_rotation_deg':35,'matrix_column_y':-.95,'matrix_row_label_x':-.55,'matrix_group_label_x':-3.52,'strategy_colors':STRATEGY,'task_colors':TASK,'color_encoding':{'quantity':'predicted_value_eV','range_eV':[0,27],'transform':'PowerNorm gamma=0.40','palette':'light blue to cyan blue to dark navy; zero is pale blue and still visible'},'size_encoding':{'quantity':'absolute_error_eV','range_eV':[0,25],'mapping':'s = s_min + (s_max - s_min) * sqrt(error / 25 eV)','note':'s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle','diameter_relative_to_row_pitch':{'minimum':.20,'maximum':.82}},'dft_reference_display_precision':2,'status_handling':'All 120 supplied finite observations are rendered as product metrics using quantitative color and area. Original run status remains in plotted_values.tsv and audit.json for provenance.','matrix_coordinate_limits':{'x':[-4.1,13.25],'y':[18.4,-3.9]},'quantitative_scatter_area_pt2':44}
+
+STYLE['status_handling']='All finite diagnostic values retained; five nonconverged records are marked with crosses.'
+
+def save(fig,name):
+    for ext in ['pdf','svg','png']:
+        fig.savefig(OUT/f'{name}.{ext}',dpi=450,metadata={'Creator':'NEB dot-matrix redraw'} if ext=='pdf' else None)
+    plt.close(fig)
+
+def heading(ax,letter,text,x=0,y=1.04,gap=.045):
+    ax.text(x,y,letter,transform=ax.transAxes,fontsize=STYLE['type_pt']['panel_letter'],fontweight='bold',ha='left',va='bottom')
+    ax.text(x+gap,y+.003,text,transform=ax.transAxes,fontsize=STYLE['type_pt']['panel_title'],fontweight='normal',ha='left',va='bottom')
+
+def schematic(ax):
+    ax.axis('off');ax.set_xlim(0,1);ax.set_ylim(0,1)
+    heading(ax,'a','Evaluation design',y=1.15)
+    ax.text(.012,.95,'Training strategies',fontsize=12,fontweight='normal')
+    ax.text(.55,.95,'Evaluation tasks',fontsize=12,fontweight='normal')
+    for x,(g,col) in zip([.085,.235,.385],STRATEGY.items()):
+        if g=='Foundation':ax.scatter([x-.027,x,x+.027],[.64]*3,c=col,s=40,edgecolors='#777777',linewidths=.7)
+        else:
+            for yy in [.58,.70]:ax.scatter([x-.027,x,x+.027],[yy]*3,c=col,s=32,edgecolors='#777777',linewidths=.7)
+        ax.text(x,.29,g,ha='center',fontsize=11,fontweight='normal')
+        ax.text(x,.075,'3 checkpoints' if g=='Foundation' else '2 × 3 seeds',ha='center',fontsize=9.7,fontweight='normal',color='#555555')
+    ax.plot([.035,.035,.435,.435],[.51,.47,.47,.51],c=GREY,lw=1.25)
+    ax.annotate('',xy=(.535,.47),xytext=(.435,.47),arrowprops={'arrowstyle':'->','lw':1.25,'color':GREY,'mutation_scale':10})
+    ax.text(.488,.73,'All models',ha='center',fontsize=10.5,fontweight='normal',color='#555555')
+    ax.plot([.535,.535,.925],[.47,.855,.855],c=GREY,lw=1.25)
+    for x,color,label,count in zip([.55,.704,.858],TASK,['Fixed-path\nmigration','Self-relaxed\nmigration','Sliding'],['3 pathways','3 pathways','2 systems']):
+        ax.annotate('',xy=(x+.0685,.78),xytext=(x+.0685,.855),arrowprops={'arrowstyle':'->','color':GREY,'lw':1.15,'mutation_scale':9})
+        ax.add_patch(patches.Rectangle((x,.13),.137,.65,facecolor=color,edgecolor='none'))
+        tc='white' if color==TASK[-1] else INK
+        ax.text(x+.0685,.51,label,ha='center',va='center',fontsize=10.5,fontweight='normal',linespacing=1.12,color=tc)
+        ax.text(x+.0685,.235,count,ha='center',va='center',fontsize=10,fontweight='normal',color=tc)
+
+def size_limits(ax):
+    pitch_pt=ax.get_position().height*ax.figure.get_figheight()*72/(18.4+3.9)
+    return (.20*pitch_pt)**2,(.82*pitch_pt)**2,pitch_pt
+
+def marker_size(err,smin,smax):
+    return smin+(smax-smin)*np.sqrt(np.asarray(err)/25.)
+
+def matrix(ax):
+    ax.set_xlim(-4.1,13.25);ax.set_ylim(18.4,-3.9);ax.axis('off')
+    heading(ax,'b','Forward peaks and reference discrepancies',y=1.025)
+    for j0,j1,label,color in [(0,2,'Fixed-path\nmigration',TASK[0]),(3,5,'Self-relaxed\nmigration',TASK[1]),(6,7,'Sliding',TASK[2])]:
+        left,right=X[j0]-.5,X[j1]+.5
+        ax.plot([left,right],[-3.65,-3.65],c=INK,lw=2.1,solid_capstyle='butt')
+        ax.add_patch(patches.Rectangle((left,-3.33),right-left,1.25,facecolor=color,edgecolor='none'))
+        ax.text((left+right)/2,-2.705,label,ha='center',va='center',fontsize=10,fontweight='normal',linespacing=1.02,color='white' if color==TASK[-1] else INK)
+    # Use an ASCII arrow because some Arial installations do not reliably embed the
+    # Unicode right-arrow glyph in all PNG/PDF/SVG backends (it rendered as a
+    # tofu square in the reference layout).  The text remains unambiguous while
+    # keeping the column labels visually consistent across all export formats.
+    labs=['in-gap','gap -> QL','within QL','in-gap','gap -> QL','within QL','pristine','Cr-in-gap']
+    for x,lab in zip(X,labs):
+        ax.text(x,STYLE['matrix_column_y'],lab,ha='center',va='center',rotation=STYLE['matrix_column_rotation_deg'],rotation_mode='anchor',fontsize=STYLE['type_pt']['matrix_column'],fontweight='normal')
+    smin,smax,pitch_pt=size_limits(ax)
+    for i,row in enumerate(ROWS):
+        lab=row if i<3 else row.split(' / ')[0].split('-',1)[1].replace('600K','600 K').replace('MultiT','Multi-T')+' / '+row.split(' / ')[1]
+        ax.text(STYLE['matrix_row_label_x'],Y[i],lab,ha='right',va='center',fontsize=STYLE['type_pt']['matrix_row'],fontweight='normal')
+        for j,col in enumerate(COLS):
+            r=T.loc[(row,col)]
+            # Product rendering uses the actual finite value from the completed
+            # run for every cell.  Run-status provenance is retained in the
+            # exported table/audit, but does not replace a measured value with a
+            # diagnostic glyph in the product figure.
+            ax.scatter(X[j],Y[i],s=float(marker_size(r.absolute_error_eV,smin,smax)),c=[CMAP(NORM(r.predicted_value_eV))],edgecolors=EDGE,linewidths=.8,zorder=3)
+            if r.scientific_status == 'NONCONVERGED':
+                ax.scatter(X[j],Y[i],s=25,marker='x',c='#9A3F3F',linewidths=1.0,zorder=6)
+    for start,end,g in [(0,2,'Foundation'),(3,8,'Fine-tuning'),(9,14,'Scratch')]:
+        top,bottom=Y[start]-.50,Y[end]+.50
+        ax.add_patch(patches.Rectangle((-3.22,top),.16,bottom-top,facecolor=STRATEGY[g],edgecolor='none'))
+        ax.text(STYLE['matrix_group_label_x'],(top+bottom)/2,g,rotation=90,ha='center',va='center',fontsize=10.2,fontweight='normal')
+    # An external legend bay follows the same hierarchy as the reference dot plot.
+    ax.text(8.80,-2.65,'Training strategy',ha='left',va='center',fontsize=STYLE['type_pt']['legend_heading'],fontweight='normal')
+    for yy,(g,color) in zip([-1.15,.05,1.25],STRATEGY.items()):
+        ax.add_patch(patches.Rectangle((8.8,yy-.22),.28,.44,facecolor=color,edgecolor='#888888',lw=.75))
+        ax.text(9.27,yy,g,ha='left',va='center',fontsize=STYLE['type_pt']['legend_text'],fontweight='normal')
+    ax.text(8.70,3.55,'Absolute\nerror (eV)',ha='left',va='center',fontsize=STYLE['type_pt']['legend_text'],fontweight='normal',linespacing=1.15)
+    ax.text(11.10,3.55,'Predicted\nenergy (eV)',ha='left',va='center',fontsize=STYLE['type_pt']['legend_text'],fontweight='normal',linespacing=1.15)
+    for yy,e in zip([5.3,7.3,9.3,11.3,13.3],[0,.1,1,5,25]):
+        ax.scatter(9.02,yy,s=float(marker_size(e,smin,smax)),c='#2f83b8',edgecolors=EDGE,linewidths=.8)
+        ax.text(9.58,yy,f'{e:g}',ha='left',va='center',fontsize=STYLE['type_pt']['legend_text'],fontweight='normal')
+    # Colorbar coordinates and ticks both use the same global PowerNorm.
+    u=np.linspace(0,1,1001);vals=NORM.inverse((u[:-1]+u[1:])/2)
+    ax.pcolormesh([11.22,11.60],np.linspace(13.5,5.0,1001),np.array([vals]).T,cmap=CMAP,norm=NORM,shading='flat',rasterized=True,antialiased=False)
+    for e in [0,.1,.5,2,5,10,27]:
+        yy=13.5-8.5*float(NORM(e));ax.plot([11.60,11.74],[yy,yy],c=GREY,lw=1.0)
+        ax.text(11.88,yy,f'{e:g}',ha='left',va='center',fontsize=9.8,fontweight='normal')
+    ax.text(8.70,17.45,'x: nonconverged',ha='left',va='center',fontsize=9.4,color='#9A3F3F')
+    ax.text(8.70,15.2,'Area:\nsqrt scale',ha='left',va='center',fontsize=10,fontweight='normal',linespacing=1.2,color='#555555')
+    ax.text(11.10,15.2,'Power scale\n(gamma 0.40)',ha='left',va='center',fontsize=10,fontweight='normal',linespacing=1.2,color='#555555')
+    ax.text(-.50,17.4,'One circle = one checkpoint / training seed',fontsize=10,fontweight='normal',color='#555555',va='center')
+    ax.text(-.50,18.25,'Zero error retains a minimum visible dot.',fontsize=10,fontweight='normal',color='#555555',va='center')
+
+def axes_style(ax):
+    for side in ['top','right']:ax.spines[side].set_visible(False)
+    for side in ['left','bottom']:
+        ax.spines[side].set_linewidth(1.5)
+        ax.spines[side].set_color(GREY)
+    ax.grid(False);ax.tick_params(labelsize=STYLE['type_pt']['tick'],width=1.4,length=5.2,pad=3.5,labelcolor=INK)
+    for tick in ax.get_xticklabels()+ax.get_yticklabels():tick.set_fontweight('normal')
+
+def grouped_axis(ax,compact=False):
+    labels=['Foundation','Fine-\ntuning','Scratch'] if compact else ['Foundation','Fine-tuning','Scratch']
+    ax.set_xlim(-.48,2.48);ax.set_xticks([0,1,2]);ax.set_xticklabels(labels,fontsize=9.2 if compact else 10.5,fontweight='normal',linespacing=1.05)
+    ax.tick_params(axis='x',length=0,pad=8 if compact else 12)
+    for x,g in enumerate(STRATEGY):ax.plot([x-.40,x+.40],[-.045,-.045],transform=ax.get_xaxis_transform(),clip_on=False,c=STRATEGY[g],lw=3.3,solid_capstyle='butt')
+
+def points(ax,col):
+    for gi,g in enumerate(STRATEGY):
+        q=D[(D.column_id==col)&(D.strategy==g)].set_index('row_id');q=q.loc[[r for r in ROWS if r in q.index]]
+        offsets=[-.28,0,.28] if len(q)==3 else [-.37,-.22,-.07,.07,.22,.37]
+        for dx,(_,r) in zip(offsets,q.iterrows()):
+            mk='D' if pd.isna(r.training_seed) else SEED[int(r.training_seed)]
+            ax.scatter(gi+dx,r.predicted_value_eV,s=52,marker=mk,c=STRATEGY[g],edgecolors='#666666',linewidths=.8,zorder=4,clip_on=False)
+            if r.scientific_status == 'NONCONVERGED':
+                ax.scatter(gi+dx,r.predicted_value_eV,s=48,marker='x',c='#9A3F3F',linewidths=1.0,zorder=6,clip_on=False)
+
+def within(ax,self_relaxed=False,compact=False):
+    axes_style(ax);grouped_axis(ax,compact=compact)
+    heading(ax,'d' if self_relaxed else 'c','Self-relaxed Path' if self_relaxed else 'Fixed Path',x=-.15,y=1.055,gap=.105)
+    ax.set_ylabel('Forward peak (eV)' if compact else 'Forward peak (eV)',fontsize=11.6 if compact else STYLE['type_pt']['axes'],fontweight='normal',labelpad=1.5 if compact else 5)
+    col=COLS[5] if self_relaxed else COLS[2];points(ax,col)
+    ax.set_ylim(-.08,2.65) if self_relaxed else ax.set_ylim(-.9,29)
+    ax.set_yticks([0,.5,1,1.5,2,2.5] if self_relaxed else [0,10,20])
+    ref=REF[col];ax.axhline(ref,c='#575757',ls=(0,(3,2)),lw=1.35,zorder=1)
+    ax.text(2.43 if self_relaxed else -.43,ref+(.09 if self_relaxed else 1.2),f'DFT {ref:.2f}',ha='right' if self_relaxed else 'left',va='bottom',fontsize=10,fontweight='normal',bbox={'facecolor':'white','edgecolor':'none','pad':.5})
+
+def sliding(ax,compact=False):
+    axes_style(ax);heading(ax,'e','Sliding',x=-.15,y=1.055,gap=.105)
+    ax.set_xlim(-.55,1.55);ax.set_ylim(-.10,3.35);ax.set_yticks([0,1,2,3]);ax.set_ylabel('Peak (eV)' if compact else 'Predicted peak (eV)',fontsize=11.6 if compact else STYLE['type_pt']['axes'],fontweight='normal',labelpad=1.5 if compact else 5)
+    ax.set_xticks([0,1]);ax.set_xticklabels([f'Pristine\nDFT {REF[COLS[6]]:.2f}',f'Cr-in-gap\nDFT {REF[COLS[7]]:.2f}'],fontsize=9.8,fontweight='normal',linespacing=1.2)
+    for k,col in enumerate(COLS[6:]):
+        ref=REF[col];ax.plot([k-.44,k+.44],[ref,ref],c='#575757',lw=1.35,ls=(0,(3,2)))
+        for gi,g in enumerate(STRATEGY):
+            q=D[(D.column_id==col)&(D.strategy==g)].set_index('row_id');q=q.loc[[r for r in ROWS if r in q.index]]
+            for dd,(_,r) in zip(np.linspace(-.065,.065,len(q)),q.iterrows()):
+                ax.scatter(k+[-.28,0,.28][gi]+dd,r.predicted_value_eV,s=46,marker='D' if pd.isna(r.training_seed) else SEED[int(r.training_seed)],c=STRATEGY[g],edgecolors='#666666',linewidths=.8,zorder=4,clip_on=False)
+
+def point_legend(fig,y=.036,ncol=6,fontsize=12):
+    markersize=6.5 if fontsize >= 12 else 5.5
+    hs=[Line2D([],[],c='#777777',marker='D',markersize=markersize,ls='',label='checkpoint')]+[Line2D([],[],c='#777777',marker=m,markersize=markersize,ls='',label=f's{s}') for s,m in SEED.items()]+[Line2D([],[],c='#575757',ls=(0,(3,2)),lw=1.35,label='DFT')]
+    hs.append(Line2D([],[],c='#9A3F3F',marker='x',markersize=markersize,ls='',label='nonconverged'))
+    fig.legend(handles=hs,loc='lower center',bbox_to_anchor=(.51,y),ncol=ncol,frameon=False,fontsize=fontsize,prop={'weight':'normal'},handlelength=1.5,handletextpad=.6,columnspacing=1.1)
+
+def make_figures():
+    fig=plt.figure(figsize=(183/25.4,250/25.4))
+    schematic(fig.add_axes([.035,.84,.93,.105]));matrix(fig.add_axes([.035,.355,.93,.435]))
+    within(fig.add_axes([.09,.135,.225,.16]),compact=True);within(fig.add_axes([.395,.135,.225,.16]),True,compact=True);sliding(fig.add_axes([.70,.135,.225,.16]),compact=True)
+    point_legend(fig,fontsize=10.5);fig.text(.035,.016,'Different y scales; energies in eV. Reference profiles retain SCF warnings.',fontsize=STYLE['type_pt']['note'],fontweight='normal',color='#555555')
+    save(fig,'NEB_main_figure')
+    fig=plt.figure(figsize=(183/25.4,171/25.4));matrix(fig.add_axes([.035,.04,.93,.88]));save(fig,'NEB_dot_heatmap_v3')
+    fig=plt.figure(figsize=(183/25.4,45/25.4));schematic(fig.add_axes([.035,.13,.93,.65]));save(fig,'NEB_panel_a_design_v3')
+    for sr,n in [(False,'NEB_panel_c_fixed_within_QL_v3'),(True,'NEB_panel_d_self_relaxed_within_QL_v3')]:
+        fig=plt.figure(figsize=(105/25.4,90/25.4));within(fig.add_axes([.18,.34,.77,.46]),sr);point_legend(fig,y=.035,ncol=3,fontsize=10.5);save(fig,n)
+    fig=plt.figure(figsize=(105/25.4,90/25.4));sliding(fig.add_axes([.18,.34,.77,.46]));point_legend(fig,y=.035,ncol=3,fontsize=10.5);save(fig,'NEB_panel_e_sliding_v3')
+
+CAPTION='Fixed and self-relaxed forward-peak diagnostics. Original layout and quantitative mappings are retained. The hash-matched Scratch-600K seed-123 within-QL self value is corrected from 0 to 2.3507667 eV; that run and seed-234 in-gap self are marked nonconverged. Crosses identify all five nonconverged source records. There are 75 finite-diagnostic, 40 converged-optimizer and five nonconverged records. Reference profiles retain SCF warnings; no physical barrier or successful kinetic prediction is inferred from a small peak or a converged optimizer label.'
+
+def note():
+    if not REPORTLAB_AVAILABLE:
+        return
+    pdfmetrics.registerFont(UnicodeCIDFont('STSong-Light'))
+    c=canvas.Canvas(str(OUT/'NEB_dot_encoding_and_layout_v3.pdf'),pagesize=(595.276,841.89));W,H=595.276,841.89
+    cn=ParagraphStyle('CN',fontName='STSong-Light',fontSize=10,leading=16,wordWrap='CJK',textColor=rc.HexColor(INK));small=ParagraphStyle('S',parent=cn,fontSize=8.6,leading=13);en=ParagraphStyle('EN',fontName='Helvetica',fontSize=8.7,leading=12.7,textColor=rc.HexColor(INK))
+    def para(t,y,st=cn):
+        p=Paragraph(t,st);ww,hh=p.wrap(499,700);p.drawOn(c,48,y-hh);return y-hh-12
+    def page(n,title,sub):
+        c.setFillColor(rc.HexColor(INK));c.setFont('STSong-Light',21);c.drawString(48,H-58,title);c.setFont('STSong-Light',9.5);c.setFillColor(rc.HexColor('#555555'));c.drawString(48,H-82,sub);c.setStrokeColor(rc.HexColor('#dddddd'));c.line(48,H-98,W-48,H-98);c.setFont('Helvetica',7.5);c.drawString(48,27,'NEB / DOT MATRIX V3');c.drawRightString(W-48,27,str(n));return H-120
+    y=page(1,'圆点矩阵：两个通道分别回答两个问题','颜色看预测能量；面积看误差。图例分开，并使用与数据点完全相同的映射。')
+    y=para('这种双重编码与参考图的逻辑一致：参考图用颜色表达 scaled expression、用面积表达 percentage expression；本图用颜色表达预测能垒或峰值能量，用面积表达绝对误差。两者分别有连续色条和圆点大小图例。',y)
+    y=para('颜色：统一使用 0–27 eV 的浅蓝—青蓝—深蓝色条，保留原始能量单位；采用原表设定的全局 power scale，gamma = 0.40。不逐列标准化，不把颜色改成误差。最低端仍为可见浅蓝，并加细边，避免零预测能垒在白底上消失。',y)
+    y=para('圆点面积：误差跨度接近 25 eV。直接按线性面积映射会把大部分小误差挤成针点。本版采用 s = s_min + (s_max - s_min) × sqrt(error / 25)，并把“Area: sqrt scale”写进图例。零误差保留最小可见圆点；它不表示额外误差。最大直径不超过行距的 82%，相邻大圆不会相撞。',y)
+    y=para('读图例子：within-QL 自松弛结果可出现“很浅的较大圆”，表示预测能垒接近零，但与非零 DFT 参考仍有较大误差；固定路径 Foundation 可出现“深色大圆”，同时表示能量偏高和误差较大。颜色深浅不能单独当作准确率。',y)
+    y=para('本版将补跑后取得的 120 个 finite 实测值全部按产品指标绘制：颜色使用预测能量，面积使用绝对误差。原始运行状态、路径和哈希仍保留在 plotted_values.tsv 与 audit.json 中，供审计追溯，但不在产品图上加入诊断叉号。',y)
+    rows=[['视觉元素','上一版','本版'],['热图行标签','7.2 pt','9 pt'],['热图列标签','6.8 pt','8.2 pt'],['图例正文','7 pt','约 9 pt'],['面板标题','8.5 pt','10 pt'],['定量散点面积','14-16 pt^2','38-44 pt^2'],['矩阵布局','左侧较窄矩阵','中央整行矩阵，右侧独立图例区']]
+    t=Table(rows,colWidths=[170,145,184]);t.setStyle(TableStyle([('FONTNAME',(0,0),(-1,-1),'STSong-Light'),('FONTSIZE',(0,0),(-1,-1),9),('BACKGROUND',(0,0),(-1,0),rc.HexColor('#f2f2f2')),('TOPPADDING',(0,0),(-1,-1),7),('BOTTOMPADDING',(0,0),(-1,-1),7),('LINEBELOW',(0,0),(-1,-1),.3,rc.HexColor('#dddddd'))]));ww,hh=t.wrap(499,500);t.drawOn(c,48,y-hh)
+    c.showPage();y=page(2,'成品、图注与复现','主组图与独立圆点热图均保留可编辑 PDF / SVG，以及高分辨率 PNG。')
+    c.drawImage(str(OUT/'NEB_dot_heatmap_v3.png'),48,H-402,width=325,height=304,mask='auto')
+    # Short explanatory column stays outside the preview image.
+    side=Paragraph('矩阵保留全部 15 行 × 8 列。<br/><br/>训练策略依旧使用 mint / cyan / blue。<br/><br/>任务依旧使用 peach / rose / purple 色带。<br/><br/>所有圆点大小图例都由同一 size 函数生成。',small);ww,hh=side.wrap(150,320);side.drawOn(c,397,H-128-hh)
+    y=H-427
+    y=para('数据核对：120 条唯一记录，120 个双编码圆点。全部绝对误差与相同任务的 canonical DFT 参考重新计算一致（容差 1e-9 eV），颜色与大小映射均无截断；源运行状态仍随表格保存。',y,small)
+    y=para(CAPTION,y,en)
+    c.showPage();y=page(3,'绘图约定与文件说明','原始数据、实际绘图值、图注与脚本一并保留。')
+    y=para('主组图采用 183 × 250 mm 画布：a 为完整比较设计，b 为圆点矩阵，c / d / e 为放大的定量点图。独立矩阵采用 183 × 171 mm 画布，适合单独查看和继续排版。',y)
+    y=para('所有散点支持图均扩大了 marker；种子形状和 checkpoint 形状保留，以便追踪来源。主圆点矩阵只用圆形，所有 finite 实测值均使用相同的颜色和面积编码。支持图颜色表示训练策略，矩阵圆点颜色表示能量；两个色彩域在图例和图注中明确区分。',y)
+    y=para('复现命令：python source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated',y,small)
+    y=para('所需 Python 库：numpy、pandas、matplotlib、reportlab。字体使用系统 Arial；PDF 嵌入字体，SVG 保留可编辑文字。',y,small)
+    y=para('plotted_values.tsv 包含原始能量、绝对误差、DFT 参考与显示状态。style_spec.json 记录字号、配色与映射公式；audit.json 保存输入哈希、原始范围和检查结果。全部数据精确重绘，未使用图像生成模型推断数值。',y,small)
+    y=para('视觉依据为用户上传的 Nature Figure 1c 圆点图及此前提供的整套参考图片。字体、字号和几何尺寸是本次为可读性制定的输出规范，不冒充原论文源文件参数。',y,small)
+    c.save()
+
+def sources():
+    (OUT/'style_spec.json').write_text(json.dumps(STYLE,ensure_ascii=False,indent=2))
+    D['source_status']=D['scientific_status']
+    D['matrix_status']='FINAL_METRIC: color=predicted energy; area=absolute error'
+    # Keep the raw DFT references for audit arithmetic and add a publication
+    # display field so every visible DFT energy is consistently formatted to
+    # two decimal places without changing the underlying metric.
+    D['dft_reference_display_eV']=D['dft_reference_eV'].map(lambda value: f'{value:.2f}')
+    D.to_csv(OUT/'plotted_values.tsv',sep='\t',index=False)
+    audit={'input_sha256':hashlib.sha256(A.input.read_bytes()).hexdigest(),'records':120,'quantitative_circles':120,'source_status_counts':D['source_status'].value_counts().to_dict(),'raw_energy_range_eV':[D.predicted_value_eV.min(),D.predicted_value_eV.max()],'absolute_error_range_eV':[D.absolute_error_eV.min(),D.absolute_error_eV.max()],'recomputed_errors_match':True,'color_clipped':0,'size_clipped':0,'reference_eV':REF.to_dict(),'reference_display_precision_decimals':2,'reference_display_values':{key:f'{value:.2f}' for key,value in REF.items()},'size_mapping':STYLE['size_encoding'],'color_mapping':STYLE['color_encoding'],'product_rendering':'All finite diagnostic values retained; crosses explicitly flag five nonconverged records.'}
+    (OUT/'audit.json').write_text(json.dumps(audit,indent=2));(OUT/'figure_caption.txt').write_text(CAPTION)
+    (OUT/'source').mkdir(exist_ok=True)
+    source_copy=OUT/'source/build_neb_dotmatrix.py'
+    if Path(__file__).resolve()!=source_copy.resolve():
+        shutil.copy2(__file__,source_copy)
+    (OUT/'data').mkdir(exist_ok=True)
+    data_copy=OUT/'data'/A.input.name
+    if Path(A.input).resolve()!=data_copy.resolve():
+        shutil.copy2(A.input,data_copy)
+    (OUT/'README.txt').write_text('NEB dot-matrix v3\n\nRebuild:\npython source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated\n\nDependencies: numpy, pandas, matplotlib, reportlab.\nColor encodes predicted energy (0-27 eV, global PowerNorm gamma .40); circle area encodes absolute error (square-root area scale plus a minimum visible point). All 120 finite values remain diagnostic. Five nonconverged records are explicitly marked with crosses. A hash-matched raw campaign corrects the Scratch-600K seed-123 within-QL self peak from 0 to 2.3507668938545976 eV.\nThe matrix size legend is drawn by the same size function. All source values and DFT references are retained. DFT reference labels in the product figures use two decimal places; raw reference values remain in plotted_values.tsv and audit.json. See figure_caption.txt, style_spec.json and audit.json.\n')
+    manifest_path=OUT/'NEB_DOTMATRIX_V3_LATEST_MANIFEST.json'
+    manifest=json.loads(manifest_path.read_text()) if manifest_path.exists() else {'schema':'neb-dotmatrix-v3-latest-manifest-v1'}
+    manifest.update({'input_sha256':hashlib.sha256(A.input.read_bytes()).hexdigest(),'records':len(D),'product_quantitative_circles':len(D),'source_status_counts':D['source_status'].value_counts().to_dict(),'reference_display_precision_decimals':2,'style_reference':{'font':STYLE['font'],'font_weight':STYLE['font_weight'],'type_pt':STYLE['type_pt'],'dft_reference_display_precision':2}})
+    products=[]
+    for path in sorted(OUT.rglob('*')):
+        if path.is_file() and path != manifest_path:
+            products.append({'path':str(path.relative_to(OUT)),'bytes':path.stat().st_size,'sha256':hashlib.sha256(path.read_bytes()).hexdigest()})
+    manifest['products']=products
+    manifest_path.write_text(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n')
+
+if __name__=='__main__':
+    make_figures();note();sources();print(json.dumps({'output':str(OUT),'pdf_count':len(list(OUT.glob('*.pdf'))),'records':len(D)}))

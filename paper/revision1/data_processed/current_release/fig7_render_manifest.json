@@ -1,0 +1,122 @@
+{
+  "figure_id": "shap_full_campaign_20261101",
+  "variant": "top20_bar_transposed_seed_heatmap_20261102",
+  "description": "Shared Top-20 feature order with row-aligned panels; panel a keeps strategy-colored open/filled bars; panel b uses a normal 20-row feature heatmap with model-condition/seed columns and framed strategy headers drawn outside the heatmap extent.",
+  "top20_features_shared_order": [
+    "Te-Te_n33_l2",
+    "Sb-Te_n44_l2",
+    "Cr-Te_n11_l0",
+    "Cr-Cr_n44_l1",
+    "Cr-Te_n31_l4",
+    "Cr-Cr_n34_l1",
+    "Cr-Sb_n23_l3",
+    "Cr-Te_n13_l0",
+    "Sb-Sb_n33_l4",
+    "Cr-Te_n32_l4",
+    "Sb-Sb_n24_l4",
+    "Cr-Te_n34_l1",
+    "Sb-Te_n22_l0",
+    "Sb-Sb_n44_l2",
+    "Sb-Te_n44_l0",
+    "Te-Te_n44_l0",
+    "Sb-Te_n31_l0",
+    "Te-Te_n22_l1",
+    "Cr-Cr_n12_l0",
+    "Cr-Sb_n43_l2"
+  ],
+  "panel_a_encoding": {
+    "strategy_color": {
+      "Foundation": "#8FC7AB",
+      "Fine-tuning": "#29A7B6",
+      "Scratch": "#327FB1"
+    },
+    "temperature": {
+      "600 K": "open bar",
+      "Multi-T": "filled bar"
+    },
+    "uncertainty": "mean ± sample SD across three seeds"
+  },
+  "panel_b_encoding": {
+    "matrix_shape": {
+      "feature_rows": 20,
+      "model_condition_seed_columns": 12
+    },
+    "column_order": [
+      "FT-600K / s123",
+      "FT-600K / s234",
+      "FT-600K / s345",
+      "FT-MultiT / s123",
+      "FT-MultiT / s234",
+      "FT-MultiT / s345",
+      "Scratch-600K / s123",
+      "Scratch-600K / s234",
+      "Scratch-600K / s345",
+      "Scratch-MultiT / s123",
+      "Scratch-MultiT / s234",
+      "Scratch-MultiT / s345"
+    ],
+    "large_groups": {
+      "Fine-tuning": "columns 1-6",
+      "Scratch": "columns 7-12"
+    },
+    "headers": "framed color blocks above the matrix, outside the 20 feature rows",
+    "feature_row_alignment_with_panel_a": true,
+    "small_labels": "model condition and random seed shown below the matrix",
+    "fill": "Mean |SHAP| shared continuous blue scale"
+  },
+  "colors": {
+    "strategy": {
+      "Foundation": "#8FC7AB",
+      "Fine-tuning": "#29A7B6",
+      "Scratch": "#327FB1"
+    },
+    "reference": "#303840",
+    "continuous_shap_palette": [
+      "#E8F1F5",
+      "#BDD7E3",
+      "#80B5CB",
+      "#4382A7",
+      "#174A70"
+    ]
+  },
+  "renderer_script": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/shap_full_campaign_20261101/plot_shap_top20_bar_transposed_seed_heatmap_20261102.py",
+  "renderer_script_sha256": "e9159ba4985beb010e5c2f3be103c39e073dfb87e6c0c03a44b809a8ae3c6d55",
+  "files": {
+    "panel_a_top20_strategy_bars.pdf": {
+      "sha256": "4e654c34edb98dba96ce95f1689fffa300a1197de85704a14745d03d10a3f7d5",
+      "bytes": 48749
+    },
+    "panel_a_top20_strategy_bars.png": {
+      "sha256": "3194e676b3229e403d395e0a78314b4f3ca0a5eb31219f83776f1c17b4e7ac62",
+      "bytes": 426010
+    },
+    "panel_a_top20_strategy_bars.svg": {
+      "sha256": "5c0276a816576fc736cf3e4109d6f6cb1a1e57e0f6b0fa1ff5b991e984ebc851",
+      "bytes": 70812
+    },
+    "panel_b_top20_transposed_seed_heatmap.pdf": {
+      "sha256": "65f697b8fae44aac61368fe94600346350a136341100bc9d89d73e0f0947bfec",
+      "bytes": 48661
+    },
+    "panel_b_top20_transposed_seed_heatmap.png": {
+      "sha256": "52541b6085a03a32b39d5ba90e80de0147886d3fee978d7219a462aa115fe349",
+      "bytes": 618057
+    },
+    "panel_b_top20_transposed_seed_heatmap.svg": {
+      "sha256": "8b0939309de645e05dbf2a617fb2f131940ad11da2d09233d2bc8303cc1c2f9d",
+      "bytes": 29915
+    },
+    "shap_top20_bar_transposed_seed_heatmap.pdf": {
+      "sha256": "1443c25e0c51b495a6f09ba5a12d043928a7493e65f82e535041c9bb52f867c8",
+      "bytes": 58498
+    },
+    "shap_top20_bar_transposed_seed_heatmap.png": {
+      "sha256": "809861a2ac19db697bbba9652aa6b62a41a03c799d20bc4245afb411afca5a94",
+      "bytes": 966535
+    },
+    "shap_top20_bar_transposed_seed_heatmap.svg": {
+      "sha256": "a955e6746620c88dceb6bbf4e1ad37d0c77fb8f9e96edf51f9b7215c0bddd6ed",
+      "bytes": 99147
+    }
+  }
+}
