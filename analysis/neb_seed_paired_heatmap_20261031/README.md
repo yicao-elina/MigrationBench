@@ -117,6 +117,13 @@ Scratch-600K fill matrix, and
   seeds and all three routes: fixed-path is 9/9 finite; IDPP self-relaxed is
   7/9 `CONVERGED/PRIMARY_EVIDENCE`. The two nonconverged IDPP cells remain
   `NONCONVERGED/DIAGNOSTIC_ONLY` and render as `NA` in the main matrix.
+- The Foundation OMAT-0-M `within-QL` self-relaxed gap was rerun under the
+  same endpoint-only protocol in `raw_input/omat0_within_ql_retry_20261101/`.
+  IDPP job `32792193` and MIC_LINEAR job `32792192` both completed
+  operationally but remained `NONCONVERGED/DIAGNOSTIC_ONLY`; their compact
+  manifests, remote pointers, and SHA256 hashes are registered in
+  `processed/NEB_DIAGNOSTIC_RETRY_REGISTRY.tsv`. The primary
+  `migration_within_ql_self` value therefore remains `NA` by design.
 - Migration checkpoint hashes are not assumed identical to the sliding
   campaign hashes. The compact figure therefore uses model-family rows for
   cross-task comparison, while the raw 24-unit table and source hashes retain

@@ -48,7 +48,7 @@ NORM=colors.PowerNorm(gamma=.40,vmin=0,vmax=27)
 plt.rcParams.update({'font.family':'Arial','font.size':11.5,'font.weight':'normal','text.color':INK,'axes.labelcolor':INK,'axes.labelweight':'normal','axes.titleweight':'normal','axes.edgecolor':GREY,'xtick.color':INK,'ytick.color':INK,'xtick.labelsize':11,'ytick.labelsize':11,'axes.linewidth':1.5,'xtick.major.width':1.4,'ytick.major.width':1.4,'xtick.major.size':5.2,'ytick.major.size':5.2,'xtick.minor.width':1.0,'ytick.minor.width':1.0,'xtick.minor.size':3.2,'ytick.minor.size':3.2,'pdf.fonttype':42,'svg.fonttype':'none','savefig.facecolor':'white','figure.facecolor':'white'})
 Y=np.array([.25,1.25,2.25,3.85,4.85,5.85,7.10,8.10,9.10,10.70,11.70,12.70,13.95,14.95,15.95])
 X=np.array([0,1,2,3.2,4.2,5.2,6.4,7.4])
-STYLE={'width_mm':183,'main_height_mm':250,'standalone_matrix_height_mm':171,'font':'Arial','font_weight':'normal','type_pt':{'panel_letter':15,'panel_title':14,'matrix_row':10.2,'matrix_column':8.8,'legend_heading':11,'legend_text':10.2,'axes':12.4,'tick':11,'note':9.5},'matrix_column_rotation_deg':35,'matrix_column_y':-.95,'strategy_colors':STRATEGY,'task_colors':TASK,'color_encoding':{'quantity':'predicted_value_eV','range_eV':[0,27],'transform':'PowerNorm gamma=0.40','palette':'light blue to cyan blue to dark navy; zero is pale blue and still visible'},'size_encoding':{'quantity':'absolute_error_eV','range_eV':[0,25],'mapping':'s = s_min + (s_max - s_min) * sqrt(error / 25 eV)','note':'s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle','diameter_relative_to_row_pitch':{'minimum':.20,'maximum':.82}},'dft_reference_display_precision':2,'status_handling':'All 120 supplied finite observations are rendered as product metrics using quantitative color and area. Original run status remains in plotted_values.tsv and audit.json for provenance.','matrix_coordinate_limits':{'x':[-4.1,13.25],'y':[18.4,-3.9]},'quantitative_scatter_area_pt2':44}
+STYLE={'width_mm':183,'main_height_mm':250,'standalone_matrix_height_mm':171,'font':'Arial','font_weight':'normal','type_pt':{'panel_letter':15,'panel_title':14,'matrix_row':10.2,'matrix_column':8.8,'legend_heading':11,'legend_text':10.2,'axes':12.4,'tick':11,'note':9.5},'matrix_column_rotation_deg':35,'matrix_column_y':-.95,'matrix_row_label_x':-.55,'matrix_group_label_x':-3.52,'strategy_colors':STRATEGY,'task_colors':TASK,'color_encoding':{'quantity':'predicted_value_eV','range_eV':[0,27],'transform':'PowerNorm gamma=0.40','palette':'light blue to cyan blue to dark navy; zero is pale blue and still visible'},'size_encoding':{'quantity':'absolute_error_eV','range_eV':[0,25],'mapping':'s = s_min + (s_max - s_min) * sqrt(error / 25 eV)','note':'s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle','diameter_relative_to_row_pitch':{'minimum':.20,'maximum':.82}},'dft_reference_display_precision':2,'status_handling':'All 120 supplied finite observations are rendered as product metrics using quantitative color and area. Original run status remains in plotted_values.tsv and audit.json for provenance.','matrix_coordinate_limits':{'x':[-4.1,13.25],'y':[18.4,-3.9]},'quantitative_scatter_area_pt2':44}
 
 def save(fig,name):
     for ext in ['pdf','svg','png']:
@@ -106,7 +106,7 @@ def matrix(ax):
     smin,smax,pitch_pt=size_limits(ax)
     for i,row in enumerate(ROWS):
         lab=row if i<3 else row.split(' / ')[0].split('-',1)[1].replace('600K','600 K').replace('MultiT','Multi-T')+' / '+row.split(' / ')[1]
-        ax.text(-.82,Y[i],lab,ha='right',va='center',fontsize=STYLE['type_pt']['matrix_row'],fontweight='normal')
+        ax.text(STYLE['matrix_row_label_x'],Y[i],lab,ha='right',va='center',fontsize=STYLE['type_pt']['matrix_row'],fontweight='normal')
         for j,col in enumerate(COLS):
             r=T.loc[(row,col)]
             # Product rendering uses the actual finite value from the completed
@@ -117,8 +117,7 @@ def matrix(ax):
     for start,end,g in [(0,2,'Foundation'),(3,8,'Fine-tuning'),(9,14,'Scratch')]:
         top,bottom=Y[start]-.50,Y[end]+.50
         ax.add_patch(patches.Rectangle((-3.22,top),.16,bottom-top,facecolor=STRATEGY[g],edgecolor='none'))
-        ax.plot([-3.32,-3.49,-3.49,-3.32],[top,top,bottom,bottom],c=INK,lw=2.1,solid_capstyle='butt')
-        ax.text(-3.82,(top+bottom)/2,g,rotation=90,ha='center',va='center',fontsize=10.2,fontweight='normal')
+        ax.text(STYLE['matrix_group_label_x'],(top+bottom)/2,g,rotation=90,ha='center',va='center',fontsize=10.2,fontweight='normal')
     # An external legend bay follows the same hierarchy as the reference dot plot.
     ax.text(8.80,-2.65,'Training strategy',ha='left',va='center',fontsize=STYLE['type_pt']['legend_heading'],fontweight='normal')
     for yy,(g,color) in zip([-1.15,.05,1.25],STRATEGY.items()):
