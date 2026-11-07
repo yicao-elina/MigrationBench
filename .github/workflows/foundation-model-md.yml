@@ -1,0 +1,68 @@
+name: foundation-model-md
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "experiments/foundation_model_md/**"
+      - ".github/workflows/foundation-model-md.yml"
+  pull_request:
+    paths:
+      - "experiments/foundation_model_md/**"
+      - ".github/workflows/foundation-model-md.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  reproducibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check required experiment layout
+        run: |
+          set -eu
+          for path in \
+            experiments/foundation_model_md/data/raw \
+            experiments/foundation_model_md/manifests \
+            experiments/foundation_model_md/results/raw \
+            experiments/foundation_model_md/results/processed \
+            experiments/foundation_model_md/results/figures \
+            experiments/foundation_model_md/README.md \
+            experiments/foundation_model_md/docs \
+            experiments/foundation_model_md/src/run_md_auto.py \
+            experiments/foundation_model_md/src/verify_manifests.py; do
+            test -e "$path" || { echo "missing required path: $path"; exit 1; }
+          done
+
+      - name: Verify manifest hashes
+        run: python experiments/foundation_model_md/src/verify_manifests.py
+
+      - name: Install project test environment
+        uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - name: Cache foundation model downloads
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/mace
+            ~/.cache/torch
+          key: foundation-model-md-${{ runner.os }}-${{ hashFiles('uv.lock', 'experiments/foundation_model_md/**') }}
+
+      - run: uv sync --extra test --extra mlff
+
+      - name: Run foundation-model MD smoke test
+        run: uv run python experiments/foundation_model_md/src/run_md_auto.py --smoke --steps 2000
+
+      - name: Check required smoke outputs
+        run: |
+          set -eu
+          test -s experiments/foundation_model_md/results/figures/multi_file_comparison.png
+          test -s experiments/foundation_model_md/results/processed/steady_state_stats.csv
+
+      - name: Re-verify generated run manifests
+        run: python experiments/foundation_model_md/src/verify_manifests.py

@@ -1,0 +1,71 @@
+schema_version: 1
+figure_id: FIG-203
+logical_figure: work/rockfish_shap_candidates/2-concentration/soap_analysis_results1/soap_importance_heatmap_radial_angular
+title: Soap importance heatmap radial angular
+group_id: LEGACY-SHAP
+parent_group: LEGACY-SHAP
+sibling_ids:
+- FIG-174
+- FIG-175
+- FIG-176
+- FIG-177
+- FIG-178
+- FIG-179
+- FIG-201
+- FIG-202
+- FIG-204
+article_targets:
+- Legacy Fig. 6/interpretability audit
+reviewer_status: PARTIAL
+reviewer_links:
+- id: REV-A6
+  status: PARTIAL
+  question: Soften t-SNE/PHATE and SHAP interpretation claims and add projection/original-space
+    and surrogate-fidelity checks.
+  completed_evidence: Projection sensitivity, original-descriptor-space separation,
+    and per-model cross-validated surrogate R2 are available; the text is scoped to
+    descriptive/surrogate evidence.
+  still_required: A direct MACE Cr-Cr perturbation test remains pending if a causal
+    claim about the dominant feature is desired; otherwise retain the surrogate-scoped
+    wording.
+- id: REV-C13
+  status: PARTIAL
+  question: Make the SHAP pipeline and advertised repository artifacts reproducible
+    rather than leaving empty stubs.
+  completed_evidence: The corrected SHAP inputs, scripts, lineage, and locked revised
+    outputs are present for the declared three-model/150-frame scope.
+  still_required: Close the final release/empty-stub audit and reconcile the independent
+    rerun with the locked historical CSV before claiming exact end-to-end regeneration.
+scientific_status: publication
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.pdf
+asset_sha256: 5998c37c2ff424ae5b397879420e2a036a23e387b7cb683bc3e6b0d65a2baab4
+source_export: /Users/alina/Project/migrationbench-paper-repro/work/rockfish_shap_candidates/2-concentration/soap_analysis_results1/soap_importance_heatmap_radial_angular.pdf
+legacy_v1_page: ../figure_pages.tex#FIG-203
+evidence_candidates:
+  caption_discussion_source_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/work/rockfish_shap_candidates/2-concentration/slurm-11369844.out
+  raw_or_processed_data_candidates: []
+  plot_script_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/work/rockfish_shap_candidates/2-concentration/1-shap-data
+    copy.py
+  - /Users/alina/Project/migrationbench-paper-repro/work/rockfish_shap_candidates/2-concentration/1-shap-data-copy.py
+  - /Users/alina/Project/migrationbench-paper-repro/work/rockfish_shap_candidates/2-concentration/1-shap-data.py
+  - /Users/alina/Project/migrationbench-paper-repro/work/rockfish_shap_candidates/2-concentration/1-shap-data1.py
+  - /Users/alina/Project/migrationbench-paper-repro/work/rockfish_shap_candidates/2-concentration/2-shap-plot.py
+  - /Users/alina/Project/migrationbench-paper-repro/work/rockfish_shap_candidates/2-concentration/sbatch-represent.slurm
+authored_hashes:
+  page.tex: 1bf4a8c1cebba573f626dca64d041261d73903dab616896821f46624fec9165c
+  figure.tex: 2bbe39becd3bc54be9b48b0c25e34b24130f359582a45e369ff711f4d372d3c5
+  caption.tex: 866cc1b7e3390996005c9a78a83e8ccdc0d91ac0689d217ab50226423d2c4121
+  results.tex: 6dfb57203d4da348a7dccfea26b96315b3cd3bcb546adc284009cd7d317e9b9d
+  discussion.tex: bae34f7f316f5dd47dcf4b7e313d8951f987ad465229d4c82af1c3c10088e35f
+  reviewer.tex: 888619df88cef8e29bfd0c775835090cf587793ce47a2f7de486dcf8b31140e1
+  evidence.tex: badc80814af1015e9b5e098927a8b730744efd05065db7f4b2fa6ff335ac7f15
+  article.tex: d495502bdbe489d4e11fb26d4a5ed4558c2c8e68cfc6904424962274c5f0f07e
+  gap.tex: 9f4713026202c66d891b4a45371049344ab5af5823b86959af055bc02cbfbad5
+migration_note: Migrated from frozen 211-page review book; authored fragments are
+  now the editable surface.
+evidence_metadata_source: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/figure_evidence_matrix.tsv
+hash_updated_by: figurectl update-hashes

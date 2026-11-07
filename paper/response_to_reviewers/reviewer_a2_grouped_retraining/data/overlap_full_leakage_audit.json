@@ -1,0 +1,188 @@
+{
+  "schema_version": "1.0",
+  "created_at_utc": "2026-09-29T10:33:20.215095+00:00",
+  "status": "pass_no_detected_training_overlap_under_declared_metrics",
+  "scope": "geometry leakage from target NEB evaluation frames into the checkpoint's declared fine-tuning train/valid/test files",
+  "evaluation_compositions": [
+    [
+      [
+        "Cr",
+        1
+      ],
+      [
+        "Sb",
+        24
+      ],
+      [
+        "Te",
+        36
+      ]
+    ]
+  ],
+  "evaluation_frames": 25,
+  "metrics": {
+    "exact_fingerprint": "composition + cell metric + all species-pair MIC distances rounded to 1e-5 A",
+    "exact_local_fingerprint": "Cr-centered environment within 6.0 A + all local species-pair distances rounded to 1e-5 A",
+    "soap": {
+      "center": "Cr",
+      "r_cut_A": 6.0,
+      "n_max": 6,
+      "l_max": 4,
+      "distance": "cosine"
+    },
+    "rmsd": "Cr-centered environments within 6.0 A with per-species Hungarian assignment; no rotational alignment because cells share orientation",
+    "rmsd_candidate_selection": "minimum RMSD among the 10 nearest Cr-centered SOAP neighbors"
+  },
+  "thresholds": {
+    "exact_rmsd_A": 0.01,
+    "near_rmsd_A": 0.05,
+    "near_soap_cosine": 0.0001
+  },
+  "summaries": {
+    "train": {
+      "total_frames": 1786,
+      "periodic_frames_with_cr": 1783,
+      "cr_centered_reference_environments": 5805,
+      "exact_global_fingerprint_matches": 0,
+      "exact_local_fingerprint_matches": 0,
+      "local_rmsd_comparable_frames": 2,
+      "rmsd_lte_exact_threshold": 0,
+      "rmsd_lte_near_threshold": 0,
+      "soap_lte_near_threshold": 0,
+      "soap_cosine_distance": {
+        "min": 0.000542785133204049,
+        "p01": 0.0005500598032581294,
+        "p05": 0.0005984044814046685,
+        "median": 0.007434304775799205,
+        "p95": 0.03512850193857433,
+        "max": 0.049503770260360014
+      },
+      "cr_local_species_rmsd_A": {
+        "min": 2.055065268285385,
+        "p01": 2.060968766757227,
+        "p05": 2.084582760644596,
+        "median": 2.350240191877493,
+        "p95": 2.61589762311039,
+        "max": 2.645415115469601
+      }
+    },
+    "valid": {
+      "total_frames": 311,
+      "periodic_frames_with_cr": 311,
+      "cr_centered_reference_environments": 622,
+      "exact_global_fingerprint_matches": 0,
+      "exact_local_fingerprint_matches": 0,
+      "local_rmsd_comparable_frames": 2,
+      "rmsd_lte_exact_threshold": 0,
+      "rmsd_lte_near_threshold": 0,
+      "soap_lte_near_threshold": 0,
+      "soap_cosine_distance": {
+        "min": 0.0003529844265790505,
+        "p01": 0.0003530104257692113,
+        "p05": 0.00035770121878091475,
+        "median": 0.016274438038538896,
+        "p95": 0.04928866857041198,
+        "max": 0.058480228766785824
+      },
+      "cr_local_species_rmsd_A": {
+        "min": 0.4501781677099913,
+        "p01": 0.4593395362023492,
+        "p05": 0.4959850101717806,
+        "median": 0.9082465923278842,
+        "p95": 1.3205081744839877,
+        "max": 1.366315016945777
+      }
+    },
+    "test": {
+      "total_frames": 267,
+      "periodic_frames_with_cr": 267,
+      "cr_centered_reference_environments": 1602,
+      "exact_global_fingerprint_matches": 0,
+      "exact_local_fingerprint_matches": 0,
+      "local_rmsd_comparable_frames": 0,
+      "rmsd_lte_exact_threshold": 0,
+      "rmsd_lte_near_threshold": 0,
+      "soap_lte_near_threshold": 0,
+      "soap_cosine_distance": {
+        "min": 0.024443662849029102,
+        "p01": 0.02444382926290085,
+        "p05": 0.02447395951774185,
+        "median": 0.03650969793972081,
+        "p95": 0.05520834496466759,
+        "max": 0.07379538055994417
+      },
+      "cr_local_species_rmsd_A": {
+        "min": null,
+        "p01": null,
+        "p05": null,
+        "median": null,
+        "p95": null,
+        "max": null
+      }
+    }
+  },
+  "provenance": {
+    "model_checkpoint": {
+      "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_scratch16_20260926/MACE-multihead_600K_grouped_A2_OMATFT/finetuned_MACE_multihead0804_grouped_A2_OMATFT_stagetwo.model",
+      "sha256": "86592264d458179fd10a62304166cc63bdcf8c387804f15230288689eb36bb93",
+      "size_bytes": 12986337,
+      "mtime_utc": "2026-09-27T02:15:02.988910+00:00"
+    },
+    "splits": {
+      "train": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/train.xyz",
+        "sha256": "04b1369d0da0b630c55aa6da6b3f85ea9ff4bffb107de804ead6fe7214fa34b8",
+        "size_bytes": 16802269,
+        "mtime_utc": "2026-09-26T15:03:24.663081+00:00"
+      },
+      "valid": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/valid.xyz",
+        "sha256": "aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502",
+        "size_bytes": 2891466,
+        "mtime_utc": "2026-09-26T15:03:24.810317+00:00"
+      },
+      "test": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/test.xyz",
+        "sha256": "d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab",
+        "size_bytes": 2590908,
+        "mtime_utc": "2026-09-26T15:03:24.941630+00:00"
+      }
+    },
+    "evaluations": {
+      "1-2": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/overlap_grouped_full/evaluation/1-2.extxyz",
+        "sha256": "987a86b81413b22a99f1fc0739aa8918c6da66f72093052461fba253211a4b69",
+        "size_bytes": 17330,
+        "mtime_utc": "2026-09-29T10:29:54.374641+00:00"
+      },
+      "1-3": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/overlap_grouped_full/evaluation/1-3.extxyz",
+        "sha256": "f69faf377f195ca094e8be5dcedb861ac8533c81abe8178c49278f831da16491",
+        "size_bytes": 17330,
+        "mtime_utc": "2026-09-29T10:29:54.382901+00:00"
+      },
+      "1-4": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/overlap_grouped_full/evaluation/1-4.extxyz",
+        "sha256": "056cb61be5bb48a8c96e4c23302f58023b20aed52f5f3afff9f6752b22935222",
+        "size_bytes": 17330,
+        "mtime_utc": "2026-09-29T10:29:54.391098+00:00"
+      },
+      "1-5": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/overlap_grouped_full/evaluation/1-5.extxyz",
+        "sha256": "dc2d239a3dbbc7083c13e0b6e348ba178cbc85407ec8102a45defba78fb556ae",
+        "size_bytes": 17330,
+        "mtime_utc": "2026-09-29T10:29:54.399303+00:00"
+      },
+      "1-7": {
+        "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/overlap_grouped_full/evaluation/1-7.extxyz",
+        "sha256": "3f444bef2f90286cba13d24db947824a16bf66d4b3e2276834deb2119944a253",
+        "size_bytes": 17330,
+        "mtime_utc": "2026-09-29T10:29:54.407543+00:00"
+      }
+    }
+  },
+  "limitations": [
+    "A pass is bounded to the declared checkpoint files and metrics, not a claim about unknown pretraining corpora.",
+    "SOAP-near alone is reported as distribution proximity and is not treated as leakage without an exact/low-RMSD match."
+  ]
+}

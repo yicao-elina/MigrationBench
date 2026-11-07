@@ -1,0 +1,78 @@
+{
+  "schema_version": "1.0",
+  "package": "reviewer_a2_distribution_shift_task_ladder_20261018",
+  "purpose": "Separate A2 direct leakage evidence from descriptive task-distribution diagnostics.",
+  "figures": [
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/figures/fig_a2_task_distribution_map.pdf",
+      "sha256": "20eaedfd38661847e28b1b121b99ff556dd83ff346633ec637ab213faa5506d2"
+    },
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/figures/fig_a2_task_distribution_map.png",
+      "sha256": "462e9387c5c93d01193e3dc68330c457117d36008862a26aa7a22fe51d40f341"
+    },
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/figures/fig_a2_task_distribution_map.svg",
+      "sha256": "26d1379411ae7678cde85be2bd361a430453fbab6e7db7528bd3016a99db3b09"
+    },
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/figures/fig_a2_distance_audits.pdf",
+      "sha256": "7f8ab1f02d38aaf659cc3f972552cbdd26c5aa0257e29113687ea366c83090f6"
+    },
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/figures/fig_a2_distance_audits.png",
+      "sha256": "0d064d9332ce4236a01ef7d3f8c29fe4436f5fa4bd8562402a8b8424eec4d094"
+    },
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/figures/fig_a2_distance_audits.svg",
+      "sha256": "fd5903c591469886e1f49c2c0615185f079e6f145847b8b1aa852db8567e4598"
+    }
+  ],
+  "tables": [
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/tables/source_manifest.csv",
+      "sha256": "327092b814784202460ebdde1a8b8069960e46ad05db8fdbd80ec1877e69fef4"
+    },
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/tables/task_distribution_evidence_summary.csv",
+      "sha256": "1f9b6e1c8d0000b4cb7f610dd040aae48d2d15300282a5018f758836f5f625b9"
+    },
+    {
+      "path": "paper/response_to_reviewers/reviewer_a2_distribution_shift_task_ladder_20261018/tables/failure_sample_distance_by_stage.csv",
+      "sha256": "fbd00a6696e09106875ad72ab5cb8227486267f71c71fb3b4d7e05774f2b15dc"
+    }
+  ],
+  "inputs": [
+    {
+      "key": "grouped_overlap_full",
+      "path": "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_full_leakage_audit.json",
+      "sha256": "f35553eeb7600a4d5b01317edc00aee3b57b179947cdf5dac9a4ba7ad36a4ce6"
+    },
+    {
+      "key": "grouped_overlap_scratch5",
+      "path": "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_scratch5_leakage_audit.json",
+      "sha256": "0be1ecf2a6f670313eebd2ba02a1c5421b07c1899923c79eac1e6be8c8ca6512"
+    },
+    {
+      "key": "historical_reference_embedding",
+      "path": "MIGRATIONBENCH_HISTORICAL_ROOT/analysis/multimodel_639_screen_20261014/inputs/reference_embedding.csv",
+      "sha256": "dead772eaa2949adb3a9f8fb011430e6d1ac781aaa7d0207b8a4285d4a9e99e9"
+    },
+    {
+      "key": "historical_frame_features",
+      "path": "MIGRATIONBENCH_HISTORICAL_ROOT/analysis/multimodel_639_screen_20261014/inputs/frame_features.csv",
+      "sha256": "724f7c69618a4156ab017e9195858882d160205bff942c91c854bd9359a8a7b8"
+    },
+    {
+      "key": "historical_descriptor_manifest",
+      "path": "MIGRATIONBENCH_HISTORICAL_ROOT/analysis/multimodel_639_screen_20261014/inputs/diagnostic_manifest.json",
+      "sha256": "1761f2a5f2712a3496fe81ecee9d498dd067d4350db13c6e945666ebd10887a2"
+    }
+  ],
+  "claim_boundaries": [
+    "The grouped audit verifies no exact or near-duplicate target image under the declared fingerprint, SOAP, and comparable local-RMSD metrics.",
+    "The historical SOAP/PCA map is descriptive and uses a different, 521-frame historical AIMD reference fit; it is not a replacement for the grouped A2 leakage audit.",
+    "The 639-frame failure-attribution set is stage-balanced and comes from large-cell MD branches; it is not a time-weighted trajectory population and does not establish a causal instability mechanism.",
+    "Self-relaxed NEB structures are not placed in the common grouped-training descriptor space here; this remains a validation gap."
+  ]
+}

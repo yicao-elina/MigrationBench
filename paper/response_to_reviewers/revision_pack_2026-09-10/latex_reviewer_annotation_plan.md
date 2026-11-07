@@ -21,7 +21,7 @@ Recommended comment format:
 | REV-A7 | Introduction related-work/delta paragraph | A7 | done-local | Add nearest-neighbor citations and delta vs prior report. |
 | REV-A2/REV-C10 | Methods data split paragraph | A2, C10 | pending values | Grouped split and SOAP/RMSD overlap audit. |
 | REV-C8 | Methods training data provenance | C8 | pending release hash | Confirm no zero-force NEB exports entered reported training. |
-| REV-C9 | Methods MD protocol | C9 | pending corrected FT-600K run | Mark old naive-FT MD as quarantined until rerun. |
+| REV-C9 | Methods MD protocol | C9 | pending corrected FT-600K run | Mark the old FT-600K MD source (legacy alias: naive-FT) as quarantined until rerun. |
 | REV-A1 | Sec. 3.2 local migration / Fig. 3d | A1 | partial | Fixed-geometry DFT-path evaluation; current 1-4 reference 0.336050 eV with convergence caveat. |
 | REV-A3 | Sec. 3.2 deep penetration paragraph | A3 | pending cluster | Replace "by chance" with seed-stability result. |
 | REV-A5 | Sec. 3.2 FT-600K discussion | A5 | pending cluster | Add Scratch-5% same-data-volume control. |

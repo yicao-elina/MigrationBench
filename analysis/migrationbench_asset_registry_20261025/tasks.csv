@@ -1,0 +1,17 @@
+0,1,2,3,4,5
+dft_static_relax,DFT ground truth,Static / relaxation,Reference,DFT static energy/force or relaxation reference configurations.,Use only with completed electronic/geometry acceptance recorded per dataset.
+dft_endpoint,DFT ground truth,Endpoint relaxation,Reference,DFT relaxed migration endpoints.,Unconverged endpoints remain distinct from accepted references.
+dft_neb_cr81,DFT ground truth,NEB,Reference,Canonical 81-atom chromium migration pathways.,Keep separate from 61-atom paths and retain SCF-warning qualification.
+dft_neb_cr61,DFT ground truth,NEB,Reference,Legacy 61-atom chromium NEB pathways.,Do not pool with 81-atom canonical paths; reference quality requires its own audit.
+dft_neb_cross_element,DFT ground truth,NEB,Reference,Cross-element Cu/Li/Na NEB data.,Job completion alone is not a convergence/barrier acceptance.
+dft_interlayer_sliding,DFT ground truth,Interlayer sliding NEB,Reference,Interlayer sliding DFT reference paths.,Current DFT status is COMPLETED_BUT_SCF_WARNING; no validated barrier claim.
+mlip_static,MLIP prediction,Static single point,Prediction,MLIP energy/force predictions on reference geometries.,Model disagreement is not automatically DFT error.
+mlip_endpoint,MLIP prediction,Endpoint optimization,Prediction,MLIP endpoint relaxation against DFT endpoint reference.,"Optimizer convergence is a scientific gate, not merely scheduler completion."
+md_1ns,MLIP dynamics,1 ns molecular dynamics,Prediction,Long-run MD and transport analysis.,Do not report pre-failure Dxy as a 1 ns transport result.
+md_temperature_scan,MLIP dynamics,Temperature scan,Stress test,MD stability across temperature conditions.,Explicit instability remains a failure-mode result.
+fixed_path_neb,MLIP NEB,Fixed-path single point,Prediction diagnostic,Evaluate MLIP on an existing DFT path without self relaxation.,FINITE_DIAGNOSTIC only; do not call a self-relaxed migration barrier.
+self_relaxed_neb,MLIP NEB,Endpoint-only self-relaxed,Prediction proxy,MLIP relaxes intermediate images from endpoints.,Endpoint-only MLIP NEB is not a DFT MEP; do not pool with fixed-path values.
+mic_neb,MLIP NEB,MIC / intermediate comparison,Prediction diagnostic,Intermediate-image NEB comparison.,Keep distinct from fixed and self-relaxed observables.
+interlayer_fixed,MLIP interlayer sliding,Fixed-path single point,Prediction diagnostic,MLIP on fixed DFT interlayer sliding path.,"Finite diagnostic, not a validated collective-sliding barrier."
+interlayer_self,MLIP interlayer sliding,Endpoint-only self-relaxed,Prediction proxy,MLIP self-relaxed interlayer sliding path.,No same-geometry DFT rescoring of relaxed images in current evidence.
+ood_explosion,MLIP stress test,Pre/during/post explosion probe,OOD diagnostic,Predictions around an extreme MD instability event.,"Must record exact timepoints, geometries, model identity, and reference availability."

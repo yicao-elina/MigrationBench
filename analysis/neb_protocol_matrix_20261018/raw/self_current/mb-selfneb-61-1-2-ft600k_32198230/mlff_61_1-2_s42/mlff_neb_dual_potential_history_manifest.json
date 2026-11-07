@@ -1,0 +1,33 @@
+{
+  "complete": true,
+  "created_at_utc": "2026-10-19T03:23:04.931363+00:00",
+  "expected_row_count": 770,
+  "field_semantics": {
+    "base_energy_eV": "energy from the unmodified base calculator",
+    "base_forces": "atomic forces from the unmodified base calculator",
+    "restrained_energy_eV": "base energy plus harmonic reference tether",
+    "restrained_forces": "base forces minus the tether gradient",
+    "tether_energy_eV": "nonphysical optimization regularizer; never a barrier label"
+  },
+  "history_role": "dual_potential_trust_region_neb",
+  "n_images": 5,
+  "n_optimizer_iterations_including_initial": 154,
+  "optimizer_coordinate_source": "base_MACE_plus_reference_tether",
+  "outputs": {
+    "csv": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-2-ft600k_32198230/mlff_61_1-2_s42/mlff_neb_dual_potential_history.csv",
+    "csv_sha256": "d12405104c17561fc766c981d3130f533791f59c6320890d0d1b512c59632fae",
+    "extxyz": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/neb_matrix_self_20261018/mb-selfneb-61-1-2-ft600k_32198230/mlff_61_1-2_s42/mlff_neb_dual_potential_history.extxyz",
+    "extxyz_sha256": "0459b6b8b88bdbe39e977b74b30391803e933ecd9a4e9b86070faad56b83dad4"
+  },
+  "physical_energy_force_source": "base_MACE_without_reference_tether",
+  "reference_tether": {
+    "enabled": false,
+    "formula": "E_opt=E_base+0.5*sum_a k_a*||MIC(r_a-r_a_ref)||^2",
+    "host_k_eV_A2": 0.0,
+    "migrant_element": "Cr",
+    "migrant_k_eV_A2": 0.0
+  },
+  "reported_barrier_source": "base_MACE_without_reference_tether",
+  "row_count": 770,
+  "schema_version": "1.0"
+}

@@ -1,0 +1,63 @@
+schema_version: 1
+figure_id: FIG-219
+logical_figure: revision1_a2/grouped_retraining_overlap_audit
+title: A2 grouped retraining and overlap audit
+group_id: REV1-A2
+parent_group: REV1-A2
+sibling_ids: []
+article_targets:
+- Supporting Information: MACE Model Performance Evaluation by RMSE and In-Gap Diffusion
+- Response to Reviewer 1: A2 Train/test overlap for FT-600K
+reviewer_status: PARTIAL
+reviewer_links:
+- id: REV-A2
+  status: PARTIAL
+  question: Rule out train/test overlap for FT-600K and test whether the historical
+    0.16 eV result survives a leakage-controlled re-evaluation.
+  completed_evidence: Grouped split, exact/SOAP/RMSD overlap audit, and three-seed
+    grouped pathway 1--4 comparison are included.
+  still_required: Close the independent QE convergence gate for the provisional 0.34
+    eV DFT reference candidate.
+- id: REV-A3
+  status: PARTIAL
+  question: Add seed-level uncertainty to kinetic results.
+  completed_evidence: Three-seed in-gap barrier errors are shown for FT-600K, Scratch,
+    and Scratch-5%.
+  still_required: Complete path-resolved higher-distortion references before pooled
+    OOD ranking.
+- id: REV-A5
+  status: DONE
+  question: Add a low-data Scratch-5% control.
+  completed_evidence: Scratch-5% RMSE and pathway 1--4 barrier error are shown across
+    three seeds.
+  still_required: None for the plotted pathway and grouped protocol.
+scientific_status: reconstruction; provisional DFT anchor; no higher-distortion ranking
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.pdf
+asset_sha256: 4efa0cd44353478a27a33afbc1d2577def938eab673fd6eac53bf86f07121166
+source_export: /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/figures/a2_grouped_retraining_audit.pdf
+legacy_v1_page: null
+evidence_candidates:
+  caption_discussion_source_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/README.md
+  raw_or_processed_data_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/grouped_seed_comparison.csv
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/grouped_neb_barrier_summary.csv
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_full_leakage_audit.json
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_scratch5_leakage_audit.json
+  plot_script_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/plot_a2_grouped_retraining_audit.py
+  - /Users/alina/Documents/Codex/plot_library
+authored_hashes:
+  page.tex: 1fe20df57bba3652794a5b6b691eba7221997cd721b119acb4a103a5e1745b8a
+  figure.tex: 5dace0cc2d50f4f5706dfdb25eaa0890de65e98fbd12bd6ffe265b64d685b57b
+  caption.tex: bf34f26e39096c692f4515e8a454434b190250dcb0756f6b1e415405e2be4c17
+  results.tex: 1de2a51a600199949dbe4a07a2f2198a02342d9ef299139b06b73f96deaa6cfb
+  discussion.tex: 472ff510a9e0f0927dcf526d02f569bce0fc5e959203b79323632c09a8f92d2e
+  reviewer.tex: 13286327579f5e1403bd648020d81be88b705b470e30fb2c5d963dc9eb5b7070
+  evidence.tex: 82b19b23ee83b2e9c589b75937e479d5ed3556f44cf55a48d3cce3f8ca8fdae9
+  article.tex: b2d6fa2f82f11604cda8842da7ed55807c297c9f2e2f9cda40ab917998e13437
+  gap.tex: 83ace727d3e9fe6dfe30587f33023a0774a95fd8a4d6ad067ee45410f755e388
+evidence_metadata_source: /Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/README.md
+hash_updated_by: figurectl update-hashes

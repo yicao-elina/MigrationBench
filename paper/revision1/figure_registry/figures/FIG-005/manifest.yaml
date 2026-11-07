@@ -1,0 +1,78 @@
+schema_version: 1
+figure_id: FIG-005
+logical_figure: analysis/mace_1ns_publication_figure_20261005/figures/mace_1ns_overleaf_B_to_G
+title: Mace 1ns overleaf B to G — seed-aware diffusion benchmark
+group_id: MD-1NS
+parent_group: MD-1NS
+sibling_ids:
+- FIG-002
+- FIG-003
+- FIG-004
+- FIG-006
+- FIG-007
+- FIG-008
+- FIG-009
+- FIG-010
+article_targets:
+- 'Results: dynamic stability and diffusion'
+- SI transport candidate
+reviewer_status: PARTIAL
+reviewer_links:
+- id: REV-C9
+  status: PARTIAL
+  question: Resolve the asymmetric FT-600K MD transport protocol and its effect on
+    D and kappa.
+  completed_evidence: Corrected matched-protocol 1 ns trajectories for FT-600K and
+    FT-MultiT now include training seeds 123/234/345, block-level Dxy estimates, and
+    seed-aware uncertainty. From-scratch seeds 123/234/345 are retained as independently
+    audited failure modes and are not assigned Dxy.
+  still_required: No same-campaign heat-flux time series were archived, so HFACF and
+    kappa cannot be reported from this campaign. Keep the figure scoped to stability,
+    force, MSD, pressure availability, Dxy, and VACF, or add a dedicated heat-flux
+    campaign before making a thermal-conductivity claim.
+scientific_status: publication;audit
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.pdf
+asset_sha256: 4a823bb5d6c96a69fee3c9e76896cb8a4a88ffc8399b4194e6bb207bae0b7438
+source_export: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_seed_aware_20261011/figures/mace_1ns_final_diffusion_benchmark_seed_aware.pdf
+legacy_v1_page: ../figure_pages.tex#FIG-005
+evidence_candidates:
+  caption_discussion_source_candidates:
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_seed_aware_20261011/figure_caption.md
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_seed_aware_20261011/RESULTS_DISCUSSION.md
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/figure_caption.md
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/final_benchmark_caption.md
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/final_benchmark_caption.tex
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/strict_replica_caption.md
+  raw_or_processed_data_candidates:
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_seed_aware_20261011/seed_aware_results.csv
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_seed_aware_20261011/seed_aware_uncertainty.csv
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_seed_aware_20261011/figure_manifest.json
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/figure_manifest.json
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/final_benchmark_manifest.json
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/overleaf_panels_manifest.json
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/strict_replica_manifest.json
+  plot_script_candidates:
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_seed_aware_20261011/plot_seed_aware_final.py
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/plot_figure.py
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/plot_final_benchmark.py
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/plot_overleaf_panels.py
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/plot_strict_replica.py
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/recompute_full_lag_remote.py
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/recompute_full_msd_fast.py
+  - /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_1ns_publication_figure_20261005/recompute_full_vacf_fast.py
+authored_hashes:
+  page.tex: 552faf06141dec9717a99e445fabf8db90b49aabab92def5cd77830fca0a1d19
+  figure.tex: 2fd413701aff39415ebf5341bae406c9a21619617c7d49deeae25ab032631f01
+  caption.tex: cc2bee734b3f67c7773d581853aa7e52f82b23ede1febb74375fb84944dc4184
+  results.tex: f1aea1b158fc54028e8039dd703911d53f15e4c93ca0591a07916cf1d0e97f57
+  discussion.tex: 70af391ac99e4cd8612bc1622784ec6cfd968fdf579cf16d85f08ceaffea9846
+  reviewer.tex: 30961fc74a5239d983f8149c8547e1c93743ea273a28bb3a6c316b199d7ff747
+  evidence.tex: 9b0018c00706fb02002d0df7bc8a3e8e2d91147402b3d65e11e0146015824983
+  article.tex: bf4e62cece85f5c0a45a1a7d9517ae5692d15a1012740b3e84b2edee2d63ffad
+  gap.tex: 0cda0e4538eac67589d0ca48a00b0f60a298be2fdf4ace73933ea197ad2b778b
+migration_note: Migrated from frozen 211-page review book; authored fragments are
+  now the editable surface.
+evidence_metadata_source: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/figure_evidence_matrix.tsv
+hash_updated_by: figurectl update-hashes

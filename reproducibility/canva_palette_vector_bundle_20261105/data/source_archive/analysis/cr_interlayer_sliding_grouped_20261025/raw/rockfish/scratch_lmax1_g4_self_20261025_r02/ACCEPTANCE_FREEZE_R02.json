@@ -1,0 +1,46 @@
+{
+  "acceptance": {
+    "endpoint_atom_count": true,
+    "endpoint_output_max_abs_displacement_A": 1e-08,
+    "finite_profile_and_residual": true,
+    "iteration_history_helper_nonempty": true,
+    "model_sha256": true,
+    "not_a_dft_mep_barrier": true,
+    "optimizer_converged": true,
+    "publication_label": "ENDPOINT_ONLY_MLIP_NEB_PROXY",
+    "residual_and_internal_neb_force_eV_A_max": 0.05
+  },
+  "campaign_id": "scratch_lmax1_g4_self_20261025_r02",
+  "endpoint_policy": "FIXED_ENDPOINTS",
+  "endpoints": {
+    "bulk_final_sha256": "9439a844c781133e7eaacffc105917bd65bc60f44d195220099956e39cb5a1f1",
+    "bulk_initial_sha256": "2d25c5b2157a922507184100881777d7dfecabb8e61212b5f729018a27485527",
+    "cr_in_gap_final_sha256": "9db2b32ef0763fcec2626bb8c4fdcdb066e39dfba0c5ab406a4e415c9800e54b",
+    "cr_in_gap_initial_sha256": "7d9cc4a3c3d068e48aea26eacc31f106f393072119302c96ea70f4d5b4a326a8"
+  },
+  "initialization": "ASE_IDPP_FROM_ENDPOINTS_ONLY",
+  "model_count": 6,
+  "observable": "ENDPOINT_ONLY_MLIP_NEB_PROXY",
+  "optimizer": {
+    "device": "cpu",
+    "fire_dt": 0.1,
+    "fire_maxstep": 0.2,
+    "fmax_eV_A": 0.05,
+    "seed": 42,
+    "spring_constant": 0.1,
+    "steps": 500
+  },
+  "output_root": "/scratch16/pclancy3/yi/scratch_lmax1_g4_self_20261025_r02",
+  "prohibited_output_roots": [
+    "/data",
+    "/home/ycao73",
+    "personal_home"
+  ],
+  "row_count": 12,
+  "source_r01_root": "/scratch16/pclancy3/yi/scratch_lmax1_g4_self_20261025_r01",
+  "status": "FROZEN_PENDING_SUBMISSION",
+  "systems": [
+    "bulk",
+    "cr_in_gap"
+  ]
+}
