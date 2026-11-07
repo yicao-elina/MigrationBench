@@ -62,3 +62,12 @@ The bundle is a reproducible visual package, not a claim that every historical C
 | P10 | `CANVA-P10_foundation_interlayer_sliding_palette_updated` | `scripts/render_neb_palette_20261102.py` | Foundation 10-model grouped Plot Atlas tables |
 
 The machine-readable output paths and hashes are in `CANVA_PALETTE_VECTOR_MANIFEST.json`.
+
+## Note: CANVA-P03 SVG kept out of the main branch
+
+`figures/CANVA-P03_parity_2x4_palette_updated.svg` (54 MB, sha256
+`9b0e8dd1295fcc6a861624bab76cc793202d788016d9348e6473743bc0b75aed`) exceeds the
+50 MB release-audit limit, so it is not tracked on `main`. The manifests in
+this bundle still list it. The PDF and PNG exports of the same figure are
+tracked. The SVG is preserved in git history as blob `3c1151a8` on
+`codex/discovery-dft-transfer-20261004` (commit `bbace69`).
