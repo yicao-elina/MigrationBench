@@ -47,3 +47,17 @@ env_test2.slurm
 
 # Runtime locks and scheduler state are not canonical inputs
 *.lock
+
+# Raw NEB optimizer trajectories and local scratch (kept on disk / HPC, not in git)
+**/mlff_neb.traj
+**/mlff_neb_*_history.extxyz
+**/raw_cache/
+*.pov-state
+tmp/
+*.xdv
+*.toc
+paper/revision1/figure_book.pdf
+paper/revision1/figure_pages.pdf
+paper/revision1/sn-article-*.pdf
+paper/revision1/response_to_reviewers.pdf
+.claude/settings.local.json
