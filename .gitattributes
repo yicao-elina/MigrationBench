@@ -10,3 +10,11 @@
 # Evidence bytes are immutable. Never rewrite scheduler/log line endings during
 # checkout; the SHA256 registry refers to the exact Git blob bytes.
 data/** binary
+
+# Revision 1 camera-ready evidence: hashes in the release manifests refer to
+# exact bytes (several tables are CRLF), so never normalize them.
+paper/revision1/data_processed/** binary
+paper/revision1/figures/si_path_audit/*.csv binary
+release/revision1_camera_ready/*.tsv binary
+release/revision1_camera_ready/reproducibility/source_tables/** binary
+release/revision1_camera_ready/reproducibility/source_data/** binary

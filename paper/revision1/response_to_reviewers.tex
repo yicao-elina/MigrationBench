@@ -1,11 +1,13 @@
 \documentclass[11pt]{article}
 \usepackage[a4paper,margin=23mm]{geometry}
 \usepackage[T1]{fontenc}
-\usepackage{lmodern,microtype,amsmath,amssymb,booktabs,array,xcolor}
+\usepackage{lmodern,microtype,amsmath,amssymb,booktabs,array}
+\usepackage[table]{xcolor}
 \usepackage[version=4]{mhchem}
 \usepackage{xurl}
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{xr-hyper}
+\usepackage{graphicx}
 \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
 \providecommand{\sitab}[1]{Supplementary Table~\ref{SI-#1}}
 \providecommand{\sifig}[1]{Supplementary Fig.~\ref{SI-#1}}
@@ -43,8 +45,24 @@ A final raw-record check also corrected an erroneous zero in the supplied seed m
 
 The revised paper defines the operators explicitly and presents fixed and self-relaxed profiles side by side in main Fig.~\ref{M-fig:profiles}. Fixed scoring compares energy assignments to common geometries. Self-relaxed NEB also changes the geometries and therefore tests model-driven path generation. A small optimized peak can result from sampling another path or basin; it does not establish a more accurate physical barrier. The canonical main-figure in-gap reference is 1.5243~eV, a different image set from G1.
 
+\begin{table}[!htbp]
+\centering\small
+\caption{\textbf{Migration-path reference sets kept separate.} The values are forward peaks on the stated image sets, not interchangeable estimates of one barrier.}
+\label{tab:resp-a1-reference-sets}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{lrrll}
+\toprule
+Reference set & Atoms & Images & Forward peak (eV) & Audit status / use \\
+\midrule
+Legacy G1 & 61 & 5 & 0.336 & Unconverged; legacy control \\
+Canonical in-gap & 81 & 10 & 1.5243 & SCF warnings retained; main comparison \\
+Withdrawn record & 82 & 12 & 0.410 & Inconsistent calculators; serialization defect \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \textbf{Takeaway.} The original ranking is withdrawn. The revised comparison separates energy calibration from path generation, and warning-bearing DFT references are described as image-set diagnostics. Converged, same-path electronic-structure validation would still be needed for quantitative kinetics.
-\location{Main Secs.~\ref{M-sec:migration} and \ref{M-sec:operators}; Figs.~\ref{M-fig:profiles}--\ref{M-fig:taskmatrix}.}{SI Secs.~\ref{SI-sec:matrix_status} and \ref{SI-sec:legacy_paths}; Fig.~\ref{SI-fig:legacy_operator_audit}.}
+\location{Main Secs.~\ref{M-sec:migration} and \ref{M-sec:operators}; Figs.~\ref{M-fig:profiles}--\ref{M-fig:taskmatrix}.}{Table~\ref{tab:resp-a1-reference-sets}; SI Secs.~\ref{SI-sec:matrix_status} and \ref{SI-sec:legacy_paths}.}
 
 
 \Needspace{11\baselineskip}\section*{A2. Train/test overlap for FT-600K}
@@ -58,7 +76,38 @@ We agree that the frame shuffle did not rule out trajectory-adjacent leakage. Th
 For the 25 legacy NEB images, the declared training files have no exact global or Cr-local match and no SOAP cosine distance at or below $10^{-4}$. Minimum SOAP distances are $5.4\times10^{-4}$ for the full training set and $6.4\times10^{-4}$ for the 89-frame subset. The minimum composition-compatible local RMSD is 2.06~\AA, above the 0.05~\AA\ threshold. The RMSD comparison has few composition-compatible candidates, so it is not presented as a universal coverage certificate; the SOAP check covers the audited image set.
 
 \textbf{The 0.16~eV value does not survive this control.} The grouped, three-seed FT-600K G1 discrepancy is $0.47\pm0.12$~eV. It replaces the original single-run estimate. These G1 controls are kept separate from the newer canonical paths; they are not silently reused as an overlap audit for every later image.
-\location{Main Sec.~\ref{M-sec:models}, blue sentences [R1-A2] and [R1-C10].}{SI Sec.~\ref{SI-sec:overlap}, Table~\ref{SI-tab:a2_grouped_audit_summary} and Fig.~\ref{SI-fig:grouped_overlap}.}
+
+\begin{table}[!htbp]
+\centering\scriptsize
+\caption{\textbf{Multi-arm grouped controls and train--path overlap audit.} Test errors are mean $\pm$ sample SD across training seeds. G1 errors are fixed-image diagnostics against an unconverged legacy reference. The 25-image overlap distances are separate from the current pointwise test metrics.}
+\label{tab:resp-controlled-arms}
+\setlength{\tabcolsep}{3pt}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{lrrccc}
+\toprule
+\multicolumn{6}{l}{\textit{Grouped route comparison}}\\
+\cmidrule(lr){1-6}
+Route & Train configs (seeds) & Test configs/seed & G1 $|\Delta E|$ (eV) & Test $E$ RMSE (meV/atom) & Test $F$ RMSE (meV/\AA) \\
+\midrule
+FT-600K & 1,786 (3) & 267 & $0.47\pm0.12$ & $40.68\pm4.88$ & $259.68\pm5.83$ \\
+Scratch-600K & 1,786 (3) & 267 & $1.20\pm0.27$ & $30.48\pm3.48$ & $343.55\pm36.27$ \\
+Scratch-5\% & 89 (3) & 267 & $0.68\pm0.20$ & $16.7\pm9.2$ & $341.5\pm15.0$ \\
+FT-MultiT & 2,659 (3) & 767 & --- & $32.50\pm0.85$ & $232.92\pm2.11$ \\
+Scratch-MultiT & 2,659 (3) & 767 & --- & $30.00\pm2.95$ & $414.04\pm191.94$ \\
+MPA0 (zero-shot) & --- (1) & 267 & 0.24 & 38.7 & 278.5 \\
+\midrule
+\multicolumn{6}{l}{\textit{Overlap audit over 25 legacy migration images}}\\
+\cmidrule(lr){1-6}
+Training subset & Train frames & Exact matches$^a$ & Min. SOAP cosine & RMSD candidates & Min. Cr-local RMSD \\
+\midrule
+Full grouped 600~K & 1,786 & 0 & $5.4\times10^{-4}$ & 2 & 2.06~\AA \\
+Scratch-5\% subset & 89 & 0 & $6.4\times10^{-4}$ & 1 & 2.06~\AA \\
+\multicolumn{6}{l}{\scriptsize $^a$No exact global or Cr-local matches; the SOAP near-duplicate cutoff was $10^{-4}$. RMSD near-duplicate cutoff: 0.05~\AA.}\\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+\location{Main Sec.~\ref{M-sec:models}, blue sentences [R1-A2] and [R1-C10].}{Table~\ref{tab:resp-controlled-arms}; SI Sec.~\ref{SI-sec:overlap} and Fig.~\ref{SI-fig:grouped_overlap}.}
 
 
 \Needspace{11\baselineskip}\section*{A3. Uncertainty in kinetic results}
@@ -70,6 +119,33 @@ For the 25 legacy NEB images, the declared training files have no exact global o
 We have replaced the chance explanation with seed-resolved evidence. Three training seeds are reported for every contemporary trained condition in the main task matrix. For the canonical fixed within-QL images, Scratch-600K has a mean absolute reference discrepancy of $0.45\pm0.05$~eV. Its comparatively small discrepancy is reproducible across these three initializations, so we no longer dismiss it as chance.
 
 The separate legacy control reaches the same narrower conclusion on Q1: the Scratch discrepancy is $0.51\pm0.11$~eV. Q2 and Q3 are more seed-dependent ($0.72\pm0.55$ and $1.77\pm1.00$~eV). All standard deviations are sample standard deviations over training seeds. They are not confidence intervals over materials or transition paths.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{\textbf{Seed-resolved fixed-image errors by legacy pathway class.} Entries are mean $\pm$ sample SD over three training seeds. G1, G2, and Q1--Q3 are unconverged image-set references and are not physical migration barriers.}
+\label{tab:resp-a3-path-errors}
+\begin{tabular}{llc}
+\toprule
+Pathway class & Model & $|\Delta E_{\mathrm{peak}}|$ (eV) \\
+\midrule
+Q1 (gap-to-QL) & Scratch & $0.51\pm0.11$ \\
+ & FT-600K & $9.60\pm0.57$ \\
+Q2 (gap-to-QL) & Scratch & $0.72\pm0.55$ \\
+ & FT-600K & $10.40\pm0.44$ \\
+Q3 (gap-to-QL) & Scratch & $1.77\pm1.00$ \\
+ & FT-600K & $9.70\pm0.20$ \\
+G1 (within-gap) & Scratch & $1.20\pm0.27$ \\
+ & FT-600K & $0.47\pm0.12$ \\
+ & Scratch-5\% & $0.68\pm0.20$ \\
+G2 (within-gap) & Scratch & $0.33\pm0.06$ \\
+ & FT-600K & $0.21\pm0.18$ \\
+\midrule
+\multicolumn{3}{l}{\textit{Current canonical reference (separate image set)}}\\
+\midrule
+Within-QL & Scratch-600K & $0.45\pm0.05$ \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \textbf{Takeaway.} A repeatable fixed-image energy result does not establish reliable dynamics or a correct model-generated path. The same scratch training conditions fail rapidly in MD. We report that distinction and retain nonconverged pathway values as diagnostics, rather than calling them kinetic predictions.
 \location{Main Sec.~\ref{M-sec:migration}, blue sentence [R1-A3]; Figs.~\ref{M-fig:taskmatrix} and \ref{M-fig:md}.}{SI Tables~\ref{SI-tab:current_neb_errors} and \ref{SI-tab:scratch5_path_resolved_descriptive}; Sec.~\ref{SI-sec:matrix_status}.}
@@ -85,8 +161,23 @@ We have adopted the narrower scope. The title, abstract and Discussion now descr
 
 The supplied Cu/Li/Na path figure and the six-system endpoint-perturbation study remain in the SI as additional diagnostics. They do not provide a second fully validated migration benchmark, and we do not use them to justify broad transferability claims.
 
+\begin{table}[!htbp]
+\centering\small
+\caption{\textbf{Scope of the evidence across systems.} Additional systems are retained as diagnostics with narrower validation coverage.}
+\label{tab:resp-a4-scope}
+\begin{tabular}{p{0.20\textwidth}p{0.29\textwidth}p{0.38\textwidth}}
+\toprule
+Evidence set & Coverage & What it supports \\
+\midrule
+Cr-doped Sb$_2$Te$_3$ & Full grouped, path, and MD comparisons & Primary-system conclusions \\
+Cu/Li/Na in Sb$_2$Te$_3$ & Supplied fixed-path profiles & Qualitative path diagnostics \\
+Six dopant--host systems & 846 endpoint relaxations & Local perturbation response only \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \textbf{Takeaway.} The study demonstrates a candidate way to test a model for a chosen process in one primary material. Broader validation and active learning are stated as future work.
-\location{Main Introduction and final paragraph of Sec.~\ref{M-sec:discussion}, marked [R1-A4].}{SI Fig.~\ref{SI-fig:other_dopants} and Sec.~\ref{SI-sec:endpoint_perturbation_campaign}.}
+\location{Main Introduction and final paragraph of Sec.~\ref{M-sec:discussion}, marked [R1-A4].}{Table~\ref{tab:resp-a4-scope}; SI Fig.~\ref{SI-fig:other_dopants} and Sec.~\ref{SI-sec:endpoint_perturbation_campaign}.}
 
 
 \Needspace{11\baselineskip}\section*{A5. Scratch-5\% control}
@@ -100,7 +191,7 @@ We agree that the target-data budget must be controlled. The revised primary 600
 We also correct the description of the existing Scratch-5\% run. It uses 89 configurations, not approximately 1,000, and is therefore \textbf{not} a data-matched control for the grouped FT model. Its G1 discrepancy of $0.68\pm0.20$~eV is retained only as a separate data-volume sensitivity result. We have removed the earlier argument that an exactly matched subset would necessarily break trajectory grouping.
 
 \textbf{Takeaway.} The matched full-data pair addresses the budget comparison at the revised 1,786-frame budget. The 89-frame run cannot isolate the value of pretraining, and no architecture-controlled causal estimate or universal fine-tuning advantage is claimed.
-\location{Main Sec.~\ref{M-sec:models}, blue sentence [R1-A5].}{SI Secs.~\ref{SI-sec:training} and \ref{SI-sec:overlap}; Tables~\ref{SI-tab:current_pointwise} and \ref{SI-tab:a2_grouped_audit_summary}.}
+\location{Main Sec.~\ref{M-sec:models}, blue sentence [R1-A5].}{Table~\ref{tab:resp-controlled-arms}; SI Secs.~\ref{SI-sec:training} and \ref{SI-sec:overlap}.}
 
 
 \Needspace{11\baselineskip}\section*{A6. Interpretability claims: t-SNE/PHATE and SHAP}
@@ -113,10 +204,26 @@ We have narrowed both analyses. The trajectory projections use recorded energy, 
 
 The new SHAP figure explains \textbf{surrogate predictions of absolute energy error per atom} on a common 267-frame trajectory. The separate five-fold diagnostic $R^2$ values are $0.981\pm0.003$ (FT-600K), $0.973\pm0.003$ (FT-MultiT), $0.976\pm0.006$ (Scratch-600K) and $0.952\pm0.022$ (Scratch-MultiT). The final TreeSHAP model is fitted on the full sample; its near-unit in-sample fit is not offered as generalization evidence. Shuffled folds from one trajectory also do not test transfer to an independent trajectory.
 
+\begin{table}[!htbp]
+\centering\small
+\caption{\textbf{Multi-arm SHAP surrogate fidelity.} Five-fold diagnostic $R^2$ is mean $\pm$ sample SD over three training seeds on the same 267-frame test trajectory. These are surrogate-fit diagnostics, not MACE validation scores.}
+\label{tab:resp-a6-shap-fidelity}
+\begin{tabular}{lrr}
+\toprule
+Model family & Seeds & Five-fold $R^2$ \\
+\midrule
+FT-600K & 123, 234, 345 & $0.981\pm0.003$ \\
+FT-MultiT & 123, 234, 345 & $0.973\pm0.003$ \\
+Scratch-600K & 123, 234, 345 & $0.976\pm0.006$ \\
+Scratch-MultiT & 123, 234, 345 & $0.952\pm0.022$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 The current rankings vary across training seeds and do not support a single dominant Cr--Cr causal channel. The SI coordinate-perturbation campaign contains 846 native-MACE endpoint relaxations over six dopant--host systems. It tests local response to actual atomic displacement, but does not isolate a SOAP channel or explain the migration discrepancy.
 
 \textbf{Takeaway.} The projections describe sampled populations, and SHAP describes an error surrogate. Neither is presented as a mechanistic explanation of MACE.
-\location{Main Secs.~\ref{M-sec:representations}--\ref{M-sec:shap}; Figs.~\ref{M-fig:representation}--\ref{M-fig:shap}.}{SI Secs.~\ref{SI-sec:representation}--\ref{SI-sec:shap}; Tables~\ref{SI-tab:current_original_space}--\ref{SI-tab:current_shap_fidelity}; endpoint appendix.}
+\location{Main Secs.~\ref{M-sec:representations}--\ref{M-sec:shap}; Figs.~\ref{M-fig:representation}--\ref{M-fig:shap}.}{Tables~\ref{tab:resp-a6-shap-fidelity} and \ref{tab:resp-c11-silhouette}; SI Secs.~\ref{SI-sec:representation}--\ref{SI-sec:shap} and endpoint appendix.}
 
 
 \Needspace{11\baselineskip}\section*{A7. Related work and distinction from our earlier report}
@@ -139,9 +246,26 @@ We also corrected the statement of the contribution relative to our own report~\
 ``Fake zero forces in NEB$\rightarrow$training-data exporters (\path{examples/Sb2Te3_Cr_doped/03_neb/}\path{neb_data_collector.py:442-443}, \path{neb_to_extended_xyz.py:278-282}): real QE energies paired with fabricated all-zero forces written into training-format extxyz under \texttt{forces:R:3}; identical bug in two scripts. If any such frames fed fine-tuning (\texttt{forces\_weight=100} per repo README), the model was silently trained toward zero forces. Not proven wired into FT-600K/FT-MultiT (merge config references nonexistent folders). $\rightarrow$ Export real forces from QE output or hard-disable; authors must confirm/deny use in reported runs.''\end{quote}
 
 \textbf{Response.} 
-We confirm the exporter defect. Both affected scripts have been changed to fail closed when real QE forces are unavailable. The collector refuses a force-bearing training export without validated forces; the extended-XYZ exporter defaults to omitting forces and raises an error if unavailable force export is requested. No fabricated zero-force array is an accepted substitute.
+We confirm the exporter defect. Both affected scripts have been changed to fail closed when real QE forces are unavailable. The collector refuses a force-bearing training export without validated forces; the extended-XYZ exporter raises an error whenever forces are requested, which is its command-line default, and writes energy and geometry only when called with \texttt{-{}-no-forces}. No fabricated zero-force array is an accepted substitute.
 
 The hash-bound provenance audit covers 9,163 records from the declared historical and grouped training splits. Exactly nine records have identically zero forces, all labelled one-atom Cr/Sb/Te isolated-atom energy references. There are zero unclassified and zero NEB-derived zero-force training records in those audited files. The frame manifest, machine-readable summary and audit executable accompany the revision, together with the corrected exporters.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Force-provenance audit for the declared training-data files.}
+\label{tab:resp-c8-force-audit}
+\begin{tabular}{lr}
+\toprule
+Audit quantity & Records \\
+\midrule
+Records inspected & 9,163 \\
+Records with identically zero forces & 9 \\
+Zero-force isolated-atom energy references & 9 \\
+Unclassified zero-force records & 0 \\
+NEB-derived zero-force records & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \textbf{Takeaway.} The defect was real, but the audited training lineage contains no fabricated NEB-force frames. This is a dataset-specific conclusion, not a guarantee inferred from a model family name.
 \location{Main Sec.~\ref{M-sec:models}, blue sentence [R1-C8].}{SI Sec.~\ref{SI-sec:force_audit}; accompanying zero-force manifest and corrected exporters.}
@@ -155,10 +279,39 @@ The hash-bound provenance audit covers 9,163 records from the declared historica
 \textbf{Response.} 
 We have removed the asymmetric short-run transport comparison. The revised MD figure uses recorded steps with a 1~fs timestep and a 200-step output interval. All runs are evaluated as continuations of the common 200~ps state towards a 1,000~ps target clock. A completed continuation is therefore 800~ps, not an independently generated 1~ns trajectory.
 
-The current status table also changes the conclusion: the three foundation checkpoints and FT-600K seed 234 reach the target. The remaining five fine-tuned and six scratch runs terminate at recorded thresholds. Their actual horizons are shown in the SI; they are not extended or assigned a common long-time transport coefficient. Training seeds characterize model variation, while the common momenta/MD seed do not supply independent thermal replicas.
+The current status table also changes the conclusion: the three foundation checkpoints and FT-600K seed 234 reach the target. The remaining five fine-tuned and six scratch runs stop at recorded scientific thresholds. Their actual horizons are shown below; they are not extended or assigned a common long-time transport coefficient. Training seeds characterize model variation, while the common momenta/MD seed do not supply independent thermal replicas.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Observed endpoints for the 15 common-protocol MD continuations. Final clocks are reported as recorded; target-reached foundation rows remain provisional.}
+\label{tab:resp-c9-md-endpoints}
+\begin{tabular}{llrrl}
+\toprule
+Model family & Seed / checkpoint & Final clock (ps) & Continuation (ps) & Outcome \\
+\midrule
+Foundation & MPA-0 & 1,000 & 800 & Target reached$^a$ \\
+ & MP-0b3 & 1,000 & 800 & Target reached$^a$ \\
+ & OMAT-0 & 1,000 & 800 & Target reached$^a$ \\
+FT-600K & 123 & 236 & 36 & Scientific stop \\
+ & 234 & 1,000 & 800 & Target reached \\
+ & 345 & 485 & 285 & Scientific stop \\
+FT-MultiT & 123 & 237.2 & 37.2 & Scientific stop \\
+ & 234 & 270.2 & 70.2 & Scientific stop \\
+ & 345 & 286 & 86 & Scientific stop \\
+Scratch-600K & 123 & 204.4 & 4.4 & Scientific stop \\
+ & 234 & 200.8 & 0.8 & Scientific stop \\
+ & 345 & 200.4 & 0.4 & Scientific stop \\
+Scratch-MultiT & 123 & 201.2 & 1.2 & Scientific stop \\
+ & 234 & 200.4 & 0.4 & Scientific stop \\
+ & 345 & 200.4 & 0.4 & Scientific stop \\
+\bottomrule
+\multicolumn{5}{l}{\scriptsize $^a$Foundation target-reaching status is provisional in the current audit ledger.}\\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \textbf{Takeaway.} The revised result is an observed stability, structure and mobility comparison under a common continuation protocol. The earlier diffusion/conductivity ranking and the earlier statement that all fine-tuned runs were stable are removed. No heat-current record supports a thermal-conductivity claim.
-\location{Main Sec.~\ref{M-sec:md}, Fig.~\ref{M-fig:md} and blue sentence [R1-C9].}{SI Sec.~\ref{SI-sec:md} and Table~\ref{SI-tab:md_horizons}.}
+\location{Main Sec.~\ref{M-sec:md}, Fig.~\ref{M-fig:md} and blue sentence [R1-C9].}{Table~\ref{tab:resp-c9-md-endpoints}; SI Sec.~\ref{SI-sec:md} and Table~\ref{SI-tab:md_horizons}.}
 
 
 \Needspace{11\baselineskip}\section*{C10. Trajectory-grouped train/test split}
@@ -171,8 +324,23 @@ The grouped comparisons now assign complete source trajectories to train, valida
 
 The 600~K data-matched pair uses 1,786/311/267 train/validation/test configurations. Full uncentred test errors and model/data hashes accompany the figure. Cluster-centering in the energy display subtracts the same DFT offset from both axes and is disclosed as a visualization transformation, including the use of test-only cluster means; it is not a fitted deployment calibration.
 
+\begin{table}[!htbp]
+\centering\small
+\caption{Trajectory-grouped 600~K partition used for the matched comparison. Hashes are abbreviated to their first 12 hexadecimal characters.}
+\label{tab:resp-c10-grouped-split}
+\begin{tabular}{lrl}
+\toprule
+Split & Configurations & Data SHA256 prefix \\
+\midrule
+Train & 1,786 & \texttt{04b1369d0da0} \\
+Validation & 311 & \texttt{aa9a9502854d} \\
+Test & 267 & \texttt{d49cf4b2ab49} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \textbf{Takeaway.} Same-trajectory temporal leakage is controlled by grouping. Geometric similarity between different source trajectories is a separate question, for which the legacy path overlap audit has an explicitly limited scope.
-\location{Main Secs.~\ref{M-sec:pointwise} and \ref{M-sec:models}, Fig.~\ref{M-fig:parity}, marker [R1-C10].}{SI Secs.~\ref{SI-sec:training} and \ref{SI-sec:overlap}; Table~\ref{SI-tab:current_pointwise}.}
+\location{Main Secs.~\ref{M-sec:pointwise} and \ref{M-sec:models}, Fig.~\ref{M-fig:parity}, marker [R1-C10].}{Tables~\ref{tab:resp-controlled-arms} and \ref{tab:resp-c10-grouped-split}; SI Secs.~\ref{SI-sec:training} and \ref{SI-sec:overlap}.}
 
 
 \Needspace{11\baselineskip}\section*{C11. Silhouette scores in the original descriptor space}
@@ -183,7 +351,27 @@ The 600~K data-matched pair uses 1,786/311/267 train/validation/test configurati
 \textbf{Response.} 
 We agree. Panel d of the supplied main projection figure still reports a \textbf{two-dimensional $t$-SNE score}; its caption now says so explicitly. It is not relabelled as an original-space metric.
 
-We independently computed the requested original-space diagnostics on the current 927-frame dataset, removing the inactive column. The Euclidean silhouette is 0.0627, cosine silhouette 0.0609 and standardized Euclidean silhouette $-0.0592$. The common 30-bin neighbour histogram gives 0.0564. These are the current values; the older 404-frame values of 0.33 and $-0.02$ are not reused for this figure. The SI also reports a nine-setting $t$-SNE sensitivity check.
+We independently computed the requested original-space diagnostics on the current 927-frame dataset, removing the inactive column. The Euclidean silhouette is 0.0627, cosine silhouette 0.0609 and standardized Euclidean silhouette $-0.0592$. The common 30-bin neighbour histogram gives 0.0564. These are the current values; the older 404-frame values of 0.33 and $-0.02$ are not reused for this figure. The SI also reports a $t$-SNE sensitivity check at three perplexities; under PCA initialization the three nominal seeds give identical embeddings, so the check spans three distinct settings.
+
+\begin{table}[!htbp]
+\centering\small
+\caption{Current 927-frame silhouette diagnostics. The three seeds at each perplexity produced identical PCA-initialized $t$-SNE embeddings.}
+\label{tab:resp-c11-silhouette}
+\begin{tabular}{lrrr}
+\toprule
+Space or projection & Dimensions / setting & Silhouette & Trustworthiness \\
+\midrule
+Original output features, Euclidean & 6,191 & 0.0627 & --- \\
+Original output features, cosine & 6,191 & 0.0609 & --- \\
+Z-scored output features & 6,191 & $-0.0592$ & --- \\
+Common neighbour histogram & 30 & 0.0564 & --- \\
+Z-scored neighbour histogram & 30 & 0.0524 & --- \\
+$t$-SNE, PCA init. & perplexity 5 & 0.0786 & 0.9740 \\
+$t$-SNE, PCA init. & perplexity 30 & 0.1239 & 0.9785 \\
+$t$-SNE, PCA init. & perplexity 50 & 0.1330 & 0.9725 \\
+\bottomrule
+\end{tabular}
+\end{table}
 
 \textbf{Takeaway.} The scale dependence does not support strong latent-separation claims. The new original-space table and audit figure, rather than the projection score, ground the revised interpretation.
 \location{Main Sec.~\ref{M-sec:representations}, marker [R1-C11], and Fig.~\ref{M-fig:representation} caption.}{SI Table~\ref{SI-tab:current_original_space}, Table~\ref{SI-tab:current_tsne_sensitivity} and Fig.~\ref{SI-fig:current_feature_audit}.}
@@ -199,6 +387,23 @@ We confirm the inactive column and correct the scope of the earlier response. Th
 
 The current executable audit verifies that the final column is identically zero and removes it before every recomputed distance and projection, leaving 6,191 features. A constant zero coordinate contributes nothing to Euclidean or cosine distance, so it carries no force-response information. The supplied image is retained as a descriptive reconstruction with that provenance disclosed. No force-sensitivity result is claimed, and the separate SHAP workflow uses computed SOAP/structural descriptors.
 
+\begin{table}[!htbp]
+\centering\small
+\caption{Feature-matrix audit before current distances and projections were recomputed.}
+\label{tab:resp-c12-feature-audit}
+\begin{tabular}{lr}
+\toprule
+Audit quantity & Result \\
+\midrule
+Frames & 927 \\
+Input feature columns & 6,192 \\
+Zero-valued placeholder & final column (index 6,191; zero-based) \\
+Placeholder values equal to zero & all 927 frames \\
+Columns retained after removal & 6,191 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \textbf{Takeaway.} The placeholder is explicitly excluded from the current quantitative workflow and is not presented as a physical diagnostic.
 \location{Main Sec.~\ref{M-sec:diagnostics}, blue sentence [R1-C12]; Fig.~\ref{M-fig:representation} caption.}{SI Sec.~\ref{SI-sec:representation}; executable current-feature audit.}
 
@@ -213,10 +418,26 @@ The empty-stub criticism was valid for the reviewed snapshot. The revision does 
 
 We reran the supplied analysis from the common XYZ and the 12 evaluation tables. All four checked outputs reproduce numerically: 12 per-seed metric rows, 1,628 family-feature rows, 4,884 seed-feature rows and 3,204 frame-aligned rows have identical column definitions and zero maximum numerical difference from the current source tables. The machine-readable comparison accompanies the revision.
 
+\begin{table}[!htbp]
+\centering\small
+\caption{Numerical reproduction check for the supplied SHAP outputs in the pinned environment.}
+\label{tab:resp-c13-shap-reproduction}
+\begin{tabular}{lrrc}
+\toprule
+Output table & Rows & Columns & Maximum numerical difference \\
+\midrule
+Per-seed metrics & 12 & 11 & 0 \\
+Family-feature aggregate & 1,628 & 9 & 0 \\
+Seed-feature importance & 4,884 & 6 & 0 \\
+Frame-aligned attributions & 3,204 & 10 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 The current common-frame, four-condition analysis replaces the earlier three-model, 150-frame reconstruction. We do not mix the earlier total-energy-eV surrogate metrics or its 30-seed rankings into the current meV-per-atom result. The Methods and SI specify the 407 features, separate diagnostic and final estimators, and the limited interpretation of the shuffled-fold check.
 
 \textbf{Takeaway.} Reproducibility is tied to the nonempty workflows and figure-specific source tables included with this revision, rather than to an unimplemented benchmark package or a claim that one historical commit reproduces every current artifact.
-\location{Main Code availability, marker [R1-C13], and Sec.~\ref{M-sec:diagnostics}.}{SI Sec.~\ref{SI-sec:shap}; accompanying executable source and figure data.}
+\location{Main Code availability, marker [R1-C13], and Sec.~\ref{M-sec:diagnostics}.}{Tables~\ref{tab:resp-a6-shap-fidelity} and \ref{tab:resp-c13-shap-reproduction}; SI Sec.~\ref{SI-sec:shap}; accompanying executable source and figure data.}
 
 
 {\small\setlength{\bibsep}{2pt}\bibliographystyle{unsrtnat}
