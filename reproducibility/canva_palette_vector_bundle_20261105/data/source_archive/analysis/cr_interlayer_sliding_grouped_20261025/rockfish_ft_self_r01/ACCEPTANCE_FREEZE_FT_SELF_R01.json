@@ -1,0 +1,42 @@
+{
+  "schema_version": "ft_interlayer_self_v1",
+  "campaign_id": "ft_interlayer_sliding_self_20261025_r01",
+  "observable": "ENDPOINT_ONLY_MLIP_NEB_PROXY",
+  "endpoint_policy": "FIXED_ENDPOINTS",
+  "initialization": "ASE_IDPP_FROM_ENDPOINTS_ONLY",
+  "row_count": 12,
+  "model_count": 6,
+  "systems": ["bulk", "cr_in_gap"],
+  "models": [
+    "ft_600k_grouped_A2_seed123",
+    "ft_600k_grouped_A2_seed234",
+    "ft_600k_grouped_A2_seed345",
+    "ft_multit_grouped_A2_seed123",
+    "ft_multit_grouped_A2_seed234",
+    "ft_multit_grouped_A2_seed345"
+  ],
+  "optimizer": {
+    "device": "cpu",
+    "fire_dt": 0.1,
+    "fire_maxstep": 0.2,
+    "fmax_eV_A": 0.05,
+    "seed": 42,
+    "spring_constant": 0.1,
+    "steps": 500
+  },
+  "acceptance": {
+    "endpoint_atom_count": true,
+    "endpoint_output_max_abs_displacement_A": 1.0e-8,
+    "finite_profile_and_residual": true,
+    "iteration_history_helper_nonempty": true,
+    "model_sha256": true,
+    "not_a_dft_mep_barrier": true,
+    "optimizer_converged": true,
+    "publication_label": "ENDPOINT_ONLY_MLIP_NEB_PROXY",
+    "residual_and_internal_neb_force_eV_A_max": 0.05
+  },
+  "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+  "source_fixed_campaign": "sliding_four_model_campaign_20261024",
+  "status": "FROZEN_PENDING_SUBMISSION",
+  "output_root": "/scratch16/pclancy3/yi/ft_interlayer_sliding_20261025_r01"
+}

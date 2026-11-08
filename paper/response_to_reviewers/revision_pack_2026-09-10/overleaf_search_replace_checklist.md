@@ -91,7 +91,7 @@ Status: ready, assuming citation keys are present in the bibliography.
 Search anchor:
 
 ```text
-Both FT-600K and FT-Multi_T models used identical train/validation/test splits
+Both FT-600K and FT-MultiT models used identical train/validation/test splits
 ```
 
 Paste marker before the paragraph:
@@ -199,7 +199,7 @@ Paste marker before the paragraph:
 Temporary replacement:
 
 ```latex
-The scratch model's lower error on this OOD task is treated in the revision as a seed-stability question rather than as an assumed mechanistic explanation. We therefore report barrier-error mean and standard deviation over three independently trained Scratch and FT--600K models; if the low Scratch error is stable across seeds, we interpret it as a reproducible model behavior, whereas a large spread indicates seed-dependent behavior.
+The scratch model's lower error on this OOD task is treated in the revision as a seed-stability question rather than as an assumed mechanistic explanation. We therefore report barrier-error mean and standard deviation over three independently trained Scratch and FT-600K models; if the low Scratch error is stable across seeds, we interpret it as a reproducible model behavior, whereas a large spread indicates seed-dependent behavior.
 ```
 
 Status: pending `multiseed-kinetic-barrier-errors`.
@@ -223,7 +223,7 @@ Paste marker near this subsection:
 Insert once numbers are available:
 
 ```latex
-To separate the effect of foundation pretraining from the effect of training-set size, we trained a Scratch-5\% control on the same grouped subset used for FT--600K. The Scratch-5\% model gives [PLACEHOLDER: scratch-5pct-control-rmse-and-barriers], compared with [PLACEHOLDER: FT600K-grouped-control-values] for FT--600K.
+To separate the effect of foundation pretraining from the effect of training-set size, we trained a Scratch-5\% control on the same grouped subset used for FT-600K. The Scratch-5\% model gives [PLACEHOLDER: scratch-5pct-control-rmse-and-barriers], compared with [PLACEHOLDER: FT600K-grouped-control-values] for FT-600K.
 ```
 
 Status: pending.
@@ -291,7 +291,7 @@ Paste marker before the SHAP paragraph:
 Use replacement from E6, with the real CV values:
 
 ```latex
-This approach allows us to interpret a surrogate model of MACE's error behavior. The surrogate's 5-fold cross-validated $R^2$ values are 0.9819 for FT--600K, 0.8756 for FT--MultiT, and 0.9730 for Scratch. The SHAP values below therefore describe which structural descriptors are most important for the surrogate's error predictions; they should not be read as direct access to the internal decision process of MACE itself.
+This approach allows us to interpret a surrogate model of MACE's error behavior. The surrogate's 5-fold cross-validated $R^2$ values are 0.9819 for FT-600K, 0.8756 for FT--MultiT, and 0.9730 for Scratch. The SHAP values below therefore describe which structural descriptors are most important for the surrogate's error predictions; they should not be read as direct access to the internal decision process of MACE itself.
 ```
 
 Status: partial. MACE perturbation and release-code evidence remain pending.

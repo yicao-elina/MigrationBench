@@ -1,0 +1,17 @@
+{
+  "style_id": "FOUNDATION-CLASS-4x3-R03",
+  "source_of_truth": "build_foundation_class_4x3_r01.py (CLASS_COLORS, MODEL_CLASS) + build_foundation_class_4x3_r03.py",
+  "note": "Separate palette from FIG-168 four-family palette (Foundation #CF4520 etc). Do not mix the two in one figure.",
+  "class_order": ["MACE-MP", "MACE-OMAT-0", "MACE-MH"],
+  "classes": {
+    "MACE-MP":     {"color": "#d5a238", "models": ["mace-large-density-agnesi-stress", "mace-medium-density-agnesi-stress", "mace-small-density-agnesi-stress", "mace_agnesi_medium", "mace-mp-0b3-medium"]},
+    "MACE-OMAT-0": {"color": "#d85a45", "models": ["mace-omat-0-medium", "mace-omat-0-small"]},
+    "MACE-MH":     {"color": "#5d8b56", "models": ["mace-mh-0", "mace-mh-1"]}
+  },
+  "layout": {"rows": ["Cr", "Cu", "Li", "Na"], "cols": ["within_gap", "path 2", "path 3"], "figsize_in": [10.8, 11.8], "single_panel_figsize_in": [3.35, 2.85]},
+  "aggregation": "pointwise class mean, sample SD (ddof=1) as translucent band; hollow circles at class mean; no individual-model markers",
+  "reference": {"color": "#222222", "linewidth": 1.45, "linestyle": [0, [4, 2]], "marker": "D", "markersize": 3.6, "markerfacecolor": "white", "markeredgewidth": 0.8, "legend_label": "screened QE path table", "zorder": 5},
+  "spine_color": "#111111",
+  "observable": "fixed-path single-point energies; never mixed with self-relaxed NEB",
+  "caption_boundary": "QE references carry SCF warnings; screened diagnostic, not unconditional DFT ground truth"
+}

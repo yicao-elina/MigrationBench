@@ -1,0 +1,29 @@
+{
+  "schema_version": "phase1-static-force-analysis-1.0",
+  "source": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/1-from-scratch/segment_from_000200000.extxyz",
+  "source_sha256": "38140e3252961d7e2b470232a179ffbeb65d29f2dca4eb0e1d42c9d94c0b45c7",
+  "steps": [
+    460000,
+    461800,
+    462000,
+    462200
+  ],
+  "models_evaluated": [
+    "foundation",
+    "from_scratch",
+    "multi_t",
+    "naive_ft"
+  ],
+  "evaluations_complete": 16,
+  "evaluations_requested": 16,
+  "key_atom_definition": "all Cr atoms from verified source species order; 1-based indices in snapshot_manifest.json",
+  "reference_status": "No DFT reference; metrics quantify pairwise/ensemble model disagreement only.",
+  "stress_status": "Stress comparisons use finite model stress tensors when available; units converted from eV/A^3 to GPa with 160.21766208.",
+  "local_disagreement_definition": "Atoms within 3.0 A MIC of the atom with the largest pairwise force-vector spread at each step.",
+  "files": {
+    "summary": "analysis/phase1_static_force_comparison_20261002/analysis/model_step_summary.csv",
+    "pairwise": "analysis/phase1_static_force_comparison_20261002/analysis/pairwise_force_comparison.csv",
+    "atom": "analysis/phase1_static_force_comparison_20261002/analysis/atom_force_disagreement.csv",
+    "geometry": "analysis/phase1_static_force_comparison_20261002/analysis/geometry_diagnostics.csv"
+  }
+}

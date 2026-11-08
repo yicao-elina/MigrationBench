@@ -1,0 +1,29 @@
+# MigrationBench completion audit — 2026-10-06
+
+This audit preserves the original scope. `PASS` means current artifacts prove
+the requirement; `PENDING` means the requirement is not yet scientifically
+achieved.
+
+| Requirement | Status | Evidence |
+|---|---|---|
+| Plot Atlas repaired and two Phase-2 figures rendered | PASS | `phase2_handoff_md_20261002/audit_20261003/figures/plot_env.json`, SVG/PNG/PDF outputs, Plot Atlas smoke tests |
+| First divergence step saved per canonical run | PASS | `phase2_handoff_md_20261002/audit_20261003/results/first_divergence_by_run.csv/.json` |
+| Frame-aligned force, velocity, temperature, energy, distance, displacement and coordination metrics | PASS | Canonical `phase2_handoff_md_20261002/audit_20261003/results/frame_aligned_metrics.csv` plus additive `phase2_context_handoff_20261004/frame_aligned_metrics.csv` (1616 rows, 8/8 complete) |
+| First anomalous atom and local Cr/Sb/Te neighborhood | PASS | Canonical `first_anomaly_local_neighborhood.jsonl` plus context `phase2_context_handoff_20261004/context_anomaly_local_neighborhood.json`; 462200 is explicitly marked source-boundary/nonphysical |
+| Canonical and context trajectory first-frame state matches inputs | PASS | Canonical hash audit plus `phase2_context_handoff_20261004/audit_results.json`: 8/8 context runs, source/input SHA256 and position/momentum/cell/PBC/species checks pass |
+| Phase-1 0.629 Å frame excluded from formal DFT/diffusion statistics | PASS | `phase1_static_force_comparison_20261002/Results.md`, Phase-2 `PAPER_TEXT.md` |
+| NVE, dt 0.5/1/2 fs, zero/weak/current Langevin sensitivity | PASS | `phase2_integrator_sensitivity_20261003/SENSITIVITY_RESULTS.md`, 48/48 completed runs |
+| Normal, bounded-shift and runaway DFT input geometries selected | PASS | `phase3_dft_recovery_20261004/qe_inputs_reconstructed/`, all active cases pass local minimum-distance gate |
+| Same local geometries evaluated by all four MACE models | PASS | `mace_results/mace_reconstructed.json`, 16/16 GPU evaluations, job 31590216 |
+| Within-model ΔE and force-response table/figure | PASS | `mace_within_model_comparison.csv`, `figures/mace_reconstruction_diagnostic.{png,svg,pdf}` |
+| QE finite energies and forces for the four DFT cases | PASS (diagnostic scope) | Force-enabled smoke `31649829_[0]` passed; formal tasks 1 and 2 of `31662332_[0-3]` and retry tasks 0/3 of `31673546_[0,3]` all passed finite energy, 81 finite forces, SCF, `JOB DONE`, no QE error marker, and force-input SHA256 gates |
+| Explicit SCF convergence, `JOB DONE`, input hashes and DFT-vs-MACE table | PASS (diagnostic scope) | `collect_qe_gate.py` reports all four cases `DIAGNOSTIC_ACCEPTED`; `make_dft_vs_mace_table.py` generated `results_reconstructed/DFT_VS_MACE.md` and `dft_vs_mace_within_method.csv` |
+| Formal DFT validation gate | PENDING / full-cell scope withheld | The 81-atom local-cell results remain `RECONSTRUCTION / REPRODUCED_SCOPE_LIMITED`; they are not promoted to formal full-cell identity-preserving DFT validation |
+
+## Current completion decision
+
+The Phase-2/P1 dynamical-stability evidence chain is complete and paper-ready,
+including the retained 460000/462200 context snapshots.
+The four-case local-cell DFT diagnostic and within-method DFT-vs-MACE table
+are complete. The full-cell formal DFT validation boundary remains withheld,
+and no full-cell DFT causal claim is permitted.
