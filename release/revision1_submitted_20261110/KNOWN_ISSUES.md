@@ -40,7 +40,8 @@ sources, which are frozen at `334260c`.
 10. **Fig. S4** final PDF (sha `6f45a330`, cairo export 2026-11-03) was hand-edited from
     CANVA-P09; the edited intermediate was not found.
 11. **Table R11:** the original script that wrote `shap_reproduction_check.json` was not
-    archived; `tools/compare_reproduction.py` re-creates the comparison.
+    archived. `tools/compare_reproduction.py` re-creates it, and a 2026-11-10 rerun in the reference
+    environment reproduced the JSON exactly (resolved).
 12. **Canva palette bundle:** 18 files differ between the repo copy (regenerated with stable
     hashes on 2026-11-05/06, kept) and the ChatGPT workspace copy
     (`imports/IMPORT_CONFLICTS.tsv`).
