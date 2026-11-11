@@ -1,0 +1,55 @@
+{
+  "package_id": "MACE-CANDIDATE-EVAL",
+  "generated_by": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/scripts/render_table_backed_packages.py",
+  "plot_atlas_root": "/Users/alina/Documents/Codex/plot_library",
+  "plot_atlas_panels": [
+    "timecourse",
+    "grouped_bar",
+    "bar_with_points",
+    "clustered_heatmap"
+  ],
+  "source_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_candidate_eval_20261001/remote_results/mace_single_point_results.csv",
+      "sha256": "31ef7ebeea846b2a32a8221338fe989ee577b58c609fb4068cd4f3811bc00286"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/mace_candidate_eval_20261001/coverage_summary.json",
+      "sha256": "792d81ae8c350139b1f6a6f10235515625cacc6ddf83aa45d50ebceb66392dfe"
+    }
+  ],
+  "processed_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MACE-CANDIDATE-EVAL/processed_candidate_eval_summary.csv",
+      "sha256": "0b57319d1303b69d919d56fe770cb6d0342d06ab0bde6367c43de30b5b256250"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MACE-CANDIDATE-EVAL/processed_success_force_rows.csv",
+      "sha256": "7a2c0d97f89295d40df6df6d29f8bcd95f3e3f28168f81d50fbbb1dcbd6692ff"
+    }
+  ],
+  "figure_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MACE-CANDIDATE-EVAL/mace_candidate_eval_atlas.png",
+      "sha256": "d21a36164975b08daad5c0c67e2fa89378ff0e43ffdb7bbcb4cb6289353ab239"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MACE-CANDIDATE-EVAL/mace_candidate_eval_atlas.svg",
+      "sha256": "61908c35ff7b96ec475225a478ba65daf3799508829761588149efb32c528430"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MACE-CANDIDATE-EVAL/mace_candidate_eval_atlas.pdf",
+      "sha256": "00a052206763fc70c73464a9ad0f608ad7058df8c41d8a8e32c1032347ce711c"
+    }
+  ],
+  "article_target": "Results/SI: candidate selection and model-evaluation coverage audit",
+  "scientific_status": "runtime-coverage diagnostic; not a model accuracy benchmark",
+  "caption": "A, runtime coverage across the nine registered model families; B, successful versus runtime-failure rows by candidate type; C, maximum-force distribution for the three model labels with successful rows.",
+  "results": "The table contains 975 rows: 195 successful evaluations and 780 runtime failures. The successful rows are limited to Foundation, FT-600K, and MPA0 labels; the grouped-seed, Scratch, and FT-MultiT branches are not scientifically failed model evaluations here because their recorded runtime error is the missing NVIDIA driver.",
+  "discussion": "This figure is a campaign/runtime coverage audit and a force-scale diagnostic. It should be used to explain why the current candidate-evaluation ablation cannot support a complete model-family ranking or grouped-seed conclusion.",
+  "caveats": [
+    "The runtime failure traceback identifies a missing NVIDIA driver; do not relabel those rows as model-quality failures.",
+    "Absolute energies are not comparable across model families; this package uses status and force-scale fields only.",
+    "The 65-candidate manifest and selection provenance remain the source of candidate identity."
+  ]
+}

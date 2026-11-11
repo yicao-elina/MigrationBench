@@ -1,0 +1,12 @@
+claim	evidence	status
+639 candidate structures are represented	candidate_manifest_639.csv; result audit n_candidates=639	PASS
+12 model checkpoints are represented	combined_results_12models.csv; result audit n_models=12	PASS
+All 7668 candidate/model pairs are finite and successful	combined_results_12models.csv; result audit n_successful_rows=7668	PASS
+No candidate/model pair is duplicated	combined_results_12models.csv; result audit n_duplicate_candidate_model_pairs=0	PASS
+Panel a reports median maximum force by stage/model	plot_fig6_full_campaign.py panel_heatmap	IMPLEMENTED
+Panel b preserves family and arm semantics	MODEL_GROUPING.tsv; plot_fig6_full_campaign.py panel_stage_box	IMPLEMENTED
+Panel c makes the near-origin cloud readable	while retaining NEB in main axes; plot_fig6_full_campaign.py panel_embedding	IMPLEMENTED
+Panel d reports training-distance versus across-model force spread	candidate_force_spread_12models.csv; plot_fig6_full_campaign.py panel_novelty	IMPLEMENTED
+The source is not a 1 ns MD result	README.md; GAP_REPORT.md	BOUNDARY
+The source is not a strict 4-family x 3 exchangeable-seed design	MODEL_GROUPING.tsv; FAILURE_EXCLUSION_REGISTRY.tsv	BOUNDARY
+The legacy compiled OMAT comparator is excluded from current publication scope	SQLite models table; FAILURE_EXCLUSION_REGISTRY.tsv	BOUNDARY

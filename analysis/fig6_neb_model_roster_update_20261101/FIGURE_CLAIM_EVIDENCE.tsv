@@ -1,0 +1,10 @@
+claim	evidence	status
+The Figure 6 model roster matches the NEB main figure	NEB_main_figure_reference.pdf; NEB dotmatrix v3 metrics; MODEL_REGISTRY.tsv	PASS
+All 15 models have 8 observable records	NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv; audit records=120	PASS
+The 3 nonconverged within-QL self-relaxed entries remain diagnostic	metrics scientific_status=NONCONVERGED; panel a NC cells; panel c x marks	PASS
+Panel a reports absolute error across all observables	plot_fig6_neb_aligned.py panel_a_matrix	IMPLEMENTED
+Panel b reports fixed-path versus self-relaxed migration error	plot_fig6_neb_aligned.py panel_b_migration_error	IMPLEMENTED
+Panel c reports within-QL predicted barrier and DFT reference	plot_fig6_neb_aligned.py panel_c_within_ql	IMPLEMENTED
+Panel d reports sliding peak energies and DFT references	plot_fig6_neb_aligned.py panel_d_sliding	IMPLEMENTED
+The figure is not a SHAP-campaign result	README.md; source metrics provenance	BOUNDARY
+DFT warning and scientific statuses are retained	README.md; source audit and metrics	BOUNDARY

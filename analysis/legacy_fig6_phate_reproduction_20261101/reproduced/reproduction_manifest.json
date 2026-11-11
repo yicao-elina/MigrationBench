@@ -1,0 +1,67 @@
+{
+  "status": "RECONSTRUCTION",
+  "historical_commit": "61c29dd012bbf794213aa92238943afad9177ad7",
+  "historical_script": "results/t-SNE/phate-tsne/tsne.py",
+  "historical_script_blob": "0717cbe90dc0be62cc73eeb6bc573ae857e32492",
+  "feature_matrix_git_source": {
+    "repository": "/Users/alina/Project/migrationbench-paper-repro",
+    "commit": "61c29dd012bbf794213aa92238943afad9177ad7",
+    "path": "results/t-SNE/phate-tsne/analysis_Cr_Doped_600K_v2/Cr_Doped_Sb2Te3_600K_probe_features.csv",
+    "blob": "cae0107d7afbd3511cefaf9a9cef09e43527a982"
+  },
+  "features_path": "/private/tmp/migrationbench_legacy_fig6.dokELc/results/t-SNE/phate-tsne/analysis_Cr_Doped_600K_v2/Cr_Doped_Sb2Te3_600K_probe_features.csv",
+  "features_sha256": "b9cd70f77277b9ec6c0b2aa3cdb968fa6d8cf23ae062d5cd15d6847b6d1b1966",
+  "features_shape": [
+    404,
+    6192
+  ],
+  "model_block_order_in_input": [
+    "Foundation",
+    "Scratch",
+    "FT - 600K",
+    "FT - Multi-T"
+  ],
+  "model_plot_order": [
+    "FT - 600K",
+    "FT - Multi-T",
+    "Foundation",
+    "Scratch"
+  ],
+  "tsne": {
+    "perplexity": 30,
+    "random_state": 42,
+    "max_iter": 1000
+  },
+  "phate": {
+    "random_state": 42,
+    "n_jobs": -1,
+    "package": "phate"
+  },
+  "environment": {
+    "python": "3.11.0",
+    "numpy": "1.26.4",
+    "scikit_learn": "1.9.1",
+    "phate": "2.0.0",
+    "matplotlib": "3.8.2"
+  },
+  "silhouette_space": "2D t-SNE embedding",
+  "scores": {
+    "overall": 0.408772736787796,
+    "FT - 600K": -0.06902635097503662,
+    "FT - Multi-T": 0.01313204225152731,
+    "Foundation": 0.8953003287315369,
+    "Scratch": 0.795684814453125
+  },
+  "diagnostics": [
+    "PHATE reported 2 disconnected graph components with the historical default knn=5.",
+    "PHATE metric MDS reported a small final-iteration stress change warning."
+  ],
+  "outputs": [
+    "fig6_panel_a_tsne.pdf/png",
+    "fig6_panel_b_phate.pdf/png",
+    "fig6_panel_c_phate_energy.pdf/png",
+    "fig6_panel_d_silhouette.pdf/png",
+    "fig6_phate_reproduced_1x4.pdf/png"
+  ],
+  "caveat": "Numerical/visual parity is reconstruction-level because the original cluster environment is not recreated."
+}

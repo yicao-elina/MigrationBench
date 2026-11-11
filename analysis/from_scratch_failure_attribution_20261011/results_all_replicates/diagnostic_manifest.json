@@ -1,0 +1,79 @@
+{
+  "data_root": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data",
+  "dft_prepared_only": "/scratch16/pclancy3/yi/mace_from_scratch_failure_attribution_20261011/results_all_replicates/dft_candidates_prepared_only",
+  "distribution_fit": {
+    "n_reference": 521,
+    "n_train": 250,
+    "pca_components": 20,
+    "train_knn_q95": 2.279475821635741,
+    "train_knn_q99": 2.825326106645374
+  },
+  "force_disagreement": true,
+  "n_frame_rows": 639,
+  "n_initial_state_audits": 9,
+  "n_reference_rows": 521,
+  "n_runs": 9,
+  "neb_root": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/neb_benchmark/data",
+  "note": "Descriptor distances are distribution-novelty diagnostics, not calibrated uncertainty or proof of physical causality. Failed branches are unstable and have no Dxy reported.",
+  "provenance": {
+    "families": [
+      "ablation_lmax_2",
+      "baseline"
+    ],
+    "input_sha256": [
+      "bb42c493fb0c997af3957a89dfde03e3e5a67ebcfd37f5eced8f722dad546161"
+    ],
+    "md_seeds": [
+      20261005
+    ],
+    "model_sha256": [
+      "52fccd0994664618256ec5e986dc5e962050c845d3f05f3d70862ff064009af5",
+      "9cadf6fa3c3212c512bc06ad1bb9392bd9b664c40949157ee6184e9c0b05811d",
+      "a26db3575de8484ca3c7fcf7621165e38ce0162a580cde022bccd16135c61351"
+    ],
+    "training_seeds": [
+      123,
+      234,
+      345
+    ]
+  },
+  "roots": [
+    {
+      "root": "/scratch16/pclancy3/yi/mace_from_scratch_ablation_MD_20261005",
+      "source": "original"
+    },
+    {
+      "root": "/scratch16/pclancy3/yi/mace_from_scratch_reproduce_20261011",
+      "source": "reproduce-1"
+    },
+    {
+      "root": "/scratch16/pclancy3/yi/mace_from_scratch_reproduce_20261011_r02",
+      "source": "reproduce-2"
+    }
+  ],
+  "schema": "migrationbench_from_scratch_failure_attribution_v2",
+  "script_hashes": {
+    "diagnose_from_scratch_all.py": "a81f99df21011186cbe82b34d7ff1b9ae8c46e3b0136e17477b78bb4bb662a64",
+    "plot_failure_attribution_all.py": "de0738f3b1c392d976f878a8cf1436dfb4ef374fdec103a461db40b021532083",
+    "run_attribution_all.slurm": "093b66bfe48fea1b4caf32b91b1ea51117c707412d80441acae0a4ac204730ff",
+    "write_failure_report_all.py": "2f5253fe4dd7b6ed0db221807d4278dfe8a9c31e31e9b98326f4a664642b66e4"
+  },
+  "script_sha256": "a81f99df21011186cbe82b34d7ff1b9ae8c46e3b0136e17477b78bb4bb662a64",
+  "soap": {
+    "average": "inner",
+    "l_max": 4,
+    "n_max": 4,
+    "r_cut_A": 5.0,
+    "sigma_A": 0.5,
+    "species": [
+      "Cr",
+      "Sb",
+      "Te"
+    ]
+  },
+  "thresholds": {
+    "max_force_eV_A": 100.0,
+    "min_distance_A": 0.5,
+    "temperature_K": 5000.0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "schema": "migrationbench_mlip_driven_dft_submission_v1",
+  "status": "SUBMITTED_PENDING",
+  "slurm_job": "31924176_[0-19%2]",
+  "remote_campaign_root": "/scratch16/pclancy3/yi/dft_mlip_selected_20261013",
+  "n_candidates": 20,
+  "array_concurrency": 2,
+  "source_selection": "dft_batch_selection.csv",
+  "source_selection_sha256": "78c1b5038761a14960836dccdd7899b77c3e4cfe9cc9464ce4f253315d207c6d1",
+  "analysis_manifest_sha256": "5b2601680c37740b1e33257a8447c199041b4f236db8275986d1e752e55e5992",
+  "dft_ready_batch_manifest_sha256": "4a2b6d3194bd8b007cd847b2f685317029da43948d47b09aa39da07efabd8ea5",
+  "dft_ready_mode": "local_periodic_shell",
+  "dft_ready_natoms": 120,
+  "pbc_preserved": true,
+  "scientific_status": "PREPARED_ONLY; RECONSTRUCTION; no DFT result yet",
+  "smoke_gates": [
+    "20 QE inputs present",
+    "nat=120 and CELL_PARAMETERS/ATOMIC_POSITIONS cards present",
+    "Cr/Sb/Te SG15 pseudopotentials present",
+    "Rockfish QE 7.2 pw.x path present",
+    "source minimum-distance gate >= 0.8 A",
+    "reconstructed output finite and minimum-distance gate passed"
+  ],
+  "boundary": "The 120-atom PBC local shell is not exact parity with the 2050-atom full cell; QE convergence, force finiteness, and parity remain pending."
+}

@@ -1,0 +1,333 @@
+{
+  "campaign_id": "canonical_model_matrix_20261016",
+  "audit_name": "compiled_model_gate",
+  "registry": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/model_gate_audit/MODEL_REGISTRY_CANONICAL_PRELIM.tsv",
+  "device": "cuda",
+  "software": {
+    "python": "3.9.22",
+    "ase": "3.25.0",
+    "mace": "0.3.12",
+    "torch": {
+      "version": "2.7.0+cu118",
+      "cuda_available": true,
+      "device_count": 1
+    },
+    "hostname": "gpu14",
+    "platform": "Linux-4.18.0-477.21.1.el8_8.x86_64-x86_64-with-glibc2.28"
+  },
+  "models_audited": 9,
+  "models_skipped": [
+    {
+      "canonical_model_id": "scratch_600k_grouped_v1_seed123",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "scratch_600k_grouped_v1_seed234",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "scratch_600k_grouped_v1_seed345",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "from_scratch_all_data_v1_seed123",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "from_scratch_all_data_v1_seed234",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "from_scratch_all_data_v1_seed345",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "ft_600k_5pct_grouped_v1_seed123",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "ft_600k_5pct_grouped_v1_seed234",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "ft_600k_5pct_grouped_v1_seed345",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "ft_multit_5pct_grouped_v1_seed123",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "ft_multit_5pct_grouped_v1_seed234",
+      "reason": "not_ready_for_gate"
+    },
+    {
+      "canonical_model_id": "ft_multit_5pct_grouped_v1_seed345",
+      "reason": "not_ready_for_gate"
+    }
+  ],
+  "results": [
+    {
+      "canonical_model_id": "foundation_omat_legacy",
+      "model_family": "foundation_zero_shot",
+      "training_seed": "",
+      "model_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/finetuned_MACE_compiled.model",
+      "expected_sha256": "dc41a98908dd25b150fb5c8dd0a28d95f5feeac37022682a7c389c475444d08e",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "dc41a98908dd25b150fb5c8dd0a28d95f5feeac37022682a7c389c475444d08e",
+      "parameter_count": 752174,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -5255.510420140731,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 39.23936414718628
+    },
+    {
+      "canonical_model_id": "foundation_mpa0_medium",
+      "model_family": "foundation_zero_shot",
+      "training_seed": "",
+      "model_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/X-FORCE/xforce/models/mace-mpa-0-medium.model",
+      "expected_sha256": "75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638",
+      "parameter_count": 9063204,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -11.93149870280487,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 0.7703852653503418
+    },
+    {
+      "canonical_model_id": "foundation_mp0b3_medium",
+      "model_family": "foundation_zero_shot",
+      "training_seed": "",
+      "model_path": "/scratch16/pclancy3/yi/foundation_grouped_benchmark_20261001/models/mace-mp-0b3-medium.model",
+      "expected_sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+      "parameter_count": 9063204,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -11.755259472419963,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 1.0510976314544678
+    },
+    {
+      "canonical_model_id": "ft_600k_grouped_A2_seed123",
+      "model_family": "ft_600k_grouped_A2",
+      "training_seed": "123",
+      "model_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_scratch16_20260926/MACE-multihead_600K_grouped_A2_OMATFT/finetuned_MACE_multihead0804_grouped_A2_OMATFT_stagetwo_compiled.model",
+      "expected_sha256": "8ff7930c0cf41a8a4e3418e5abb6a97c8f27a1c5a9624313229da1799b1196ff",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "8ff7930c0cf41a8a4e3418e5abb6a97c8f27a1c5a9624313229da1799b1196ff",
+      "parameter_count": 752174,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -6556.957610475419,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 0.9659755229949951
+    },
+    {
+      "canonical_model_id": "ft_600k_grouped_A2_seed234",
+      "model_family": "ft_600k_grouped_A2",
+      "training_seed": "234",
+      "model_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_matrix_scratch16_20260927/ft600k_omatft_grouped_seed234/ft600k_omatft_grouped_seed234_stagetwo_compiled.model",
+      "expected_sha256": "fde4d87c00e748dd8b2124bbaca959842c7de5a1da10dd6dae83c0982e2c2a81",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "fde4d87c00e748dd8b2124bbaca959842c7de5a1da10dd6dae83c0982e2c2a81",
+      "parameter_count": 752174,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -6557.037033107979,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 0.9237451553344727
+    },
+    {
+      "canonical_model_id": "ft_600k_grouped_A2_seed345",
+      "model_family": "ft_600k_grouped_A2",
+      "training_seed": "345",
+      "model_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_matrix_scratch16_20260927/ft600k_omatft_grouped_seed345/ft600k_omatft_grouped_seed345_stagetwo_compiled.model",
+      "expected_sha256": "23b7616d96c808c54be1ad7cbe3be998413691dfb9098cb4a350b8243a19c881",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "23b7616d96c808c54be1ad7cbe3be998413691dfb9098cb4a350b8243a19c881",
+      "parameter_count": 752174,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -6556.990084209971,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 0.9047036170959473
+    },
+    {
+      "canonical_model_id": "ft_multit_grouped_A2_seed123",
+      "model_family": "ft_multit_grouped_A2",
+      "training_seed": "123",
+      "model_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/retrain_multit_scratch16_20261001/multit_omatft_grouped_seed123/multit_omatft_grouped_seed123_stagetwo_compiled.model",
+      "expected_sha256": "2d672eec622fd38f32a7d54b62fb7446b4909a72e25256d0899c67e837486428",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "2d672eec622fd38f32a7d54b62fb7446b4909a72e25256d0899c67e837486428",
+      "parameter_count": 752174,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -6557.950830782877,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 1.0680303573608398
+    },
+    {
+      "canonical_model_id": "ft_multit_grouped_A2_seed234",
+      "model_family": "ft_multit_grouped_A2",
+      "training_seed": "234",
+      "model_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/retrain_multit_scratch16_20261001/multit_omatft_grouped_seed234/multit_omatft_grouped_seed234_stagetwo_compiled.model",
+      "expected_sha256": "1724e0cda2db3573c6fe7fbfc5450b5de9e558fe29f776cb7a2e8ee81c829e04",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "1724e0cda2db3573c6fe7fbfc5450b5de9e558fe29f776cb7a2e8ee81c829e04",
+      "parameter_count": 752174,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -6557.904943994268,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 0.9057908058166504
+    },
+    {
+      "canonical_model_id": "ft_multit_grouped_A2_seed345",
+      "model_family": "ft_multit_grouped_A2",
+      "training_seed": "345",
+      "model_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/retrain_multit_scratch16_20261001/multit_omatft_grouped_seed345/multit_omatft_grouped_seed345_stagetwo_compiled.model",
+      "expected_sha256": "99403890b800f2936bbca9789f5a0c2295ce029238bdd1445eeb1acca9b5c339",
+      "device": "cuda",
+      "status": "PASS",
+      "failure_reasons": [],
+      "actual_sha256": "99403890b800f2936bbca9789f5a0c2295ce029238bdd1445eeb1acca9b5c339",
+      "parameter_count": 752174,
+      "nonfinite_parameter_values": 0,
+      "modules_with_parameters": 1,
+      "parameters_finite": true,
+      "probe_species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "probe_natoms": 3,
+      "probe_energy_eV": -6557.837863159803,
+      "probe_forces_shape": [
+        3,
+        3
+      ],
+      "probe_energy_finite": true,
+      "probe_forces_finite": true,
+      "elapsed_s": 0.9638125896453857
+    }
+  ],
+  "status": "PASS"
+}

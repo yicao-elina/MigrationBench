@@ -1,0 +1,80 @@
+{
+  "schema_version": "migrationbench_shared_panel_geometry_contract_r02_v1",
+  "status": "PROVISIONAL_DIAGNOSTIC_CANDIDATE_R02",
+  "rule": "top triptych and lower plot axes use the same three equal x-boundaries; no lower-raster rescaling is permitted",
+  "reference_width_px": 4200,
+  "reference_dpi": 300,
+  "top_triptych": {
+    "boundary_rule": "equal thirds of the supplied triptych raster",
+    "boundary_px": [
+      0,
+      1400,
+      2800,
+      4200
+    ],
+    "observed": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/triptych_top.png",
+      "width_px": 4200,
+      "height_px": 1750,
+      "sha256": "1103f4fc6b4a97de58656ba3f97b0e5afe5febdca010534b3dbd084189aa3bab",
+      "width_matches_contract": true,
+      "width_divisible_by_three": true
+    }
+  },
+  "lower_panel": {
+    "canvas_width_px": 4200,
+    "canvas_height_px": 2100,
+    "dpi": 300,
+    "axes_boundary_rule": "axes outer boxes equal the top triptych thirds",
+    "boundary_px": [
+      0,
+      1400,
+      2800,
+      4200
+    ]
+  },
+  "columns": [
+    {
+      "column_index": 1,
+      "path_id": "cr_canonical_in_gap",
+      "display_label": "within gap",
+      "x0_norm": 0.0,
+      "x1_norm": 0.3333333333333333,
+      "center_norm": 0.16666666666666666,
+      "x0_px": 0,
+      "x1_px": 1400,
+      "center_px": 700,
+      "width_px": 1400
+    },
+    {
+      "column_index": 2,
+      "path_id": "cr_canonical_gap_to_ql",
+      "display_label": "gap2QL",
+      "x0_norm": 0.3333333333333333,
+      "x1_norm": 0.6666666666666666,
+      "center_norm": 0.5,
+      "x0_px": 1400,
+      "x1_px": 2800,
+      "center_px": 2100,
+      "width_px": 1400
+    },
+    {
+      "column_index": 3,
+      "path_id": "cr_canonical_within_ql",
+      "display_label": "withinQL",
+      "x0_norm": 0.6666666666666666,
+      "x1_norm": 1.0,
+      "center_norm": 0.8333333333333334,
+      "x0_px": 2800,
+      "x1_px": 4200,
+      "center_px": 3500,
+      "width_px": 1400
+    }
+  ],
+  "alignment_tolerance_px": 0,
+  "column_order": [
+    "within gap",
+    "gap2QL",
+    "withinQL"
+  ]
+}

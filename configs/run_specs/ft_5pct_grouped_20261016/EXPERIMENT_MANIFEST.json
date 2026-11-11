@@ -1,0 +1,78 @@
+{
+  "schema": "migrationbench_ft_5pct_grouped_matrix_v1",
+  "campaign_id": "ft_5pct_grouped_20261016",
+  "status": "READY_FOR_SUBMISSION",
+  "scientific_question": "Does the paper's low-data FT claim survive a strict group-split, three-seed comparison for both 600 K and Multi-T data?",
+  "definition": "Five percent of periodic training configurations, sampled within each training source trajectory; valid/test unchanged; three isolated-atom E0 anchors retained.",
+  "selection": {
+    "method": "stratified_random_without_replacement",
+    "selection_seed": 20261016,
+    "minimum_per_training_trajectory": 1,
+    "fraction_of_periodic_train": 0.05,
+    "isolated_atom_policy": "retain all isolated anchors outside the periodic-frame fraction",
+    "valid_test_policy": "copy unchanged from the full grouped release",
+    "reason": "Global frame sampling is reproducible but can underrepresent a source trajectory; stratification preserves coverage while keeping the split units fixed."
+  },
+  "datasets": {
+    "ft_600k_5pct_grouped_v1": {
+      "source_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped",
+      "source_split_sha256": {
+        "train": "04b1369d0da0b630c55aa6da6b3f85ea9ff4bffb107de804ead6fe7214fa34b8",
+        "valid": "aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502",
+        "test": "d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab"
+      },
+      "expected_periodic_train_count": 89,
+      "expected_isolated_train_count": 3,
+      "expected_train_count": 92,
+      "valid_count": 311,
+      "test_count": 267
+    },
+    "ft_multit_5pct_grouped_v1": {
+      "source_dir": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT",
+      "source_split_sha256": {
+        "train": "b240052d557fb27b41af6fb31ad80b25261d96f9667050ca83fcbdb922694f9b",
+        "valid": "44d2877ccd9d4ddbf3c470d7a6c5f2b794802a9b03444d211b89237df99dd117",
+        "test": "5adcf16c7220eae90bd2d9a9f792e2dce281e1300bdbb86054ef94e255188648"
+      },
+      "expected_periodic_train_count": 133,
+      "expected_isolated_train_count": 3,
+      "expected_train_count": 136,
+      "valid_count": 342,
+      "test_count": 767
+    }
+  },
+  "model_matrix": {
+    "foundation": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model",
+    "foundation_role": "same OMAT checkpoint for all six models",
+    "families": ["ft_600k_5pct_grouped_v1", "ft_multit_5pct_grouped_v1"],
+    "seeds": [123, 234, 345],
+    "only_varying_factor_within_family": "training_seed",
+    "architecture": {
+      "model": "MACE",
+      "num_channels": 32,
+      "max_L": 1,
+      "r_max_angstrom": 6.0,
+      "hidden_irreps": "128x0e + 128x1o",
+      "batch_size": 32,
+      "valid_batch_size": 16,
+      "max_num_epochs": 1000,
+      "forces_weight": 10.0,
+      "swa": true,
+      "start_swa": 200,
+      "ema": true,
+      "ema_decay": 0.99,
+      "patience": 20
+    },
+    "output_root": "/scratch16/pclancy3/yi/ft_5pct_grouped_v1"
+  },
+  "acceptance_gates": [
+    "generated train/valid/test hashes and counts match a frozen selection manifest",
+    "all source trajectories remain confined to one split",
+    "all six jobs use the same foundation hash, architecture, optimizer, and data-release protocol within family",
+    "seed, job ID, environment, checkpoints, compiled model, and model hash are recorded",
+    "all models load and produce finite Cr/Sb/Te energies and forces",
+    "test RMSE is reported separately for each family and seed",
+    "the 5% claim is compared against full-data grouped controls, not historical random-split models"
+  ],
+  "publication_boundary": "Until all six models pass the acceptance gates, this is a training campaign, not evidence that 5% data matches full-data performance."
+}

@@ -1,0 +1,195 @@
+{
+  "figure_id": "foundation_model_class_4x3_R01",
+  "status": "RECONSTRUCTION",
+  "scope": "nine local Foundation checkpoints for Cu/Li/Na and eight available Cr fixed-path Foundation profiles on twelve 10-image paths",
+  "rows": [
+    "Cr",
+    "Cu",
+    "Li",
+    "Na"
+  ],
+  "columns": [
+    {
+      "path_key": "within_gap",
+      "label": "in-gap diffusion"
+    },
+    {
+      "path_key": "gap_to_ql",
+      "label": "gap\u2192QL"
+    },
+    {
+      "path_key": "within_ql",
+      "label": "within-QL"
+    }
+  ],
+  "model_classes": {
+    "MACE-MP": [
+      "mace-large-density-agnesi-stress",
+      "mace-medium-density-agnesi-stress",
+      "mace-small-density-agnesi-stress",
+      "mace_agnesi_medium",
+      "mace-mp-0b3-medium"
+    ],
+    "MACE-OMAT-0": [
+      "mace-omat-0-medium",
+      "mace-omat-0-small"
+    ],
+    "MACE-MH": [
+      "mace-mh-0",
+      "mace-mh-1"
+    ]
+  },
+  "aggregation": "pointwise mean with sample SD (ddof=1); hollow circles show class means; individual model markers are omitted",
+  "qe_label": "screened QE path table for Cu/Li/Na only; Cr reference unavailable in this checkout; retained source paths carry SCF convergence warnings",
+  "model_directory": "/Users/alina/Downloads/mace-foundation-models",
+  "model_hashes": {
+    "mace-large-density-agnesi-stress": "348390e758e1c90011c7675e864850f8e9c5b3e7c217f79a2b4bad1baaa657ad",
+    "mace-medium-density-agnesi-stress": "a90be07c8aa6623c390fcc4653d3e319c4a356f8b4a53d323f96b2012d375caf",
+    "mace-small-density-agnesi-stress": "d5773bf9440e96d6eb8c598f84bd0e6369fcfa432f626a87f890e07da3c651c9",
+    "mace_agnesi_medium": "ab8baff639a8f295f3eccad3d3ccf574efb6fb63220bd52cd88664211569e521",
+    "mace-mh-0": "d62ff8f293664e6556cfa49364b28ee72a70cf1e6150f3c111a578397fed609d",
+    "mace-mh-1": "a522eb7f59c7879963d41586528f4980baf33e086c94aa92e3eafdeccad3be47",
+    "mace-mp-0b3-medium": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+    "mace-omat-0-medium": "d4b14be9afa294eebdbe31a0280b26a0fa29715771e978cbfd3ca24e0d90307a",
+    "mace-omat-0-small": "0abfde07862cf1e93b8b4d03cb702f29ce9c344ff2fc4de2ec0d7166d6c113a5"
+  },
+  "cr_input_paths": {
+    "within_gap": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/inputs/fixed_r01/cr_canonical_in_gap.extxyz",
+    "gap_to_ql": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/inputs/fixed_r01/cr_canonical_gap_to_ql.extxyz",
+    "within_ql": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/inputs/fixed_r01/cr_canonical_within_ql.extxyz"
+  },
+  "cr_input_hashes": {
+    "Cr:within_gap": "UNAVAILABLE_SOURCE_INPUT_PLACEHOLDER",
+    "Cr:gap_to_ql": "UNAVAILABLE_SOURCE_INPUT_PLACEHOLDER",
+    "Cr:within_ql": "UNAVAILABLE_SOURCE_INPUT_PLACEHOLDER"
+  },
+  "model_rows": 1050,
+  "class_rows": 360,
+  "qe_rows": 90,
+  "cr_available_model_ids": [
+    "mace-large-density-agnesi-stress",
+    "mace-medium-density-agnesi-stress",
+    "mace-mh-0",
+    "mace-mp-0b3-medium",
+    "mace-omat-0-medium",
+    "mace-omat-0-small",
+    "mace-small-density-agnesi-stress",
+    "mace_agnesi_medium"
+  ],
+  "cr_missing_model_ids": [
+    "mace-mh-1"
+  ],
+  "cr_qe_reference": "UNAVAILABLE_CLOUD_PLACEHOLDER",
+  "artifact_hashes": {
+    "figure_png": "ae5cc504257f4b7ce2511cb0c0575e4c3da6f4c867f79ef64f8f57a5d3bfa91a",
+    "figure_svg": "5ed11973ce8d2f4dd328dad4de7b2113bfaa506588bc98c31c26b6c4bb65ac1c",
+    "figure_pdf": "7f5898815f63d27ae3aed1e620f8c9b870e05cc751ca8e686836ecdad343c606",
+    "model_profiles": "4608799feb92a3207fd7e2a8daac38c9f17a43da72bf8223a6d306aa4c7c54de",
+    "class_profiles": "ea592925fa71cec837e084c6f297b4a1bb012bcb659d2e7d4ee0a7dbae728515",
+    "qe_reference_profiles": "cd8d6bcc6a5229c13551045b62d2432a38332faddc44cfb56f70ea91103723d0"
+  },
+  "script_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/build_foundation_class_4x3_r01.py",
+  "script_sha256": "db12159f90d3fb2482decf56c09942109c8b1bd8a4bb6dfcffd2ef3eacb871ed",
+  "outputs": {
+    "figure": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/foundation_class_4x3_R01/foundation_model_class_4x3_R01",
+    "panels": [
+      {
+        "element": "Cr",
+        "path_key": "within_gap",
+        "y_limits": [
+          -0.0899429947119376,
+          1.5889929065775645
+        ]
+      },
+      {
+        "element": "Cr",
+        "path_key": "gap_to_ql",
+        "y_limits": [
+          -0.10069325267526394,
+          0.1125449313039234
+        ]
+      },
+      {
+        "element": "Cr",
+        "path_key": "within_ql",
+        "y_limits": [
+          -2.420175684434314,
+          30.852727919436383
+        ]
+      },
+      {
+        "element": "Cu",
+        "path_key": "within_gap",
+        "y_limits": [
+          -0.4328201697430869,
+          0.621743661495216
+        ]
+      },
+      {
+        "element": "Cu",
+        "path_key": "gap_to_ql",
+        "y_limits": [
+          -0.040675399991451,
+          0.20496501608102444
+        ]
+      },
+      {
+        "element": "Cu",
+        "path_key": "within_ql",
+        "y_limits": [
+          -3.1327516158787327,
+          55.345278547190944
+        ]
+      },
+      {
+        "element": "Li",
+        "path_key": "within_gap",
+        "y_limits": [
+          -0.22018725361206049,
+          0.6271371803952487
+        ]
+      },
+      {
+        "element": "Li",
+        "path_key": "gap_to_ql",
+        "y_limits": [
+          -0.04604609999573,
+          0.2873499140067509
+        ]
+      },
+      {
+        "element": "Li",
+        "path_key": "within_ql",
+        "y_limits": [
+          -1.2260263361719705,
+          21.65979860570481
+        ]
+      },
+      {
+        "element": "Na",
+        "path_key": "within_gap",
+        "y_limits": [
+          -0.05381773875816417,
+          0.9507800513942337
+        ]
+      },
+      {
+        "element": "Na",
+        "path_key": "gap_to_ql",
+        "y_limits": [
+          -0.04,
+          0.2959569621589169
+        ]
+      },
+      {
+        "element": "Na",
+        "path_key": "within_ql",
+        "y_limits": [
+          -2.73835565262874,
+          48.37761652977441
+        ]
+      }
+    ]
+  },
+  "prior_campaign_raw": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/data/foundation_model_profiles_9models_3x3.tsv"
+}

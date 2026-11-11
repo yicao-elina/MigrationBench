@@ -1,0 +1,36 @@
+{
+  "campaign_id": "dft_wave_campaign_20261013",
+  "local_root": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/from_scratch_failure_attribution_20261011/dft_wave_campaign_20261013",
+  "remote_root": "/scratch16/pclancy3/yi/dft_wave_campaign_20261013",
+  "scope": "20 independent QE 7.2 non-magnetic SCF single points for failure-attribution mechanism testing",
+  "candidate_inventory": 639,
+  "wave_size": 20,
+  "selection_manifest": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/from_scratch_failure_attribution_20261011/wave_01_manifest.csv",
+  "method": {
+    "qe_version": "7.2",
+    "calculation": "scf",
+    "spin": "QE default nspin=1; magnetic keywords absent",
+    "pseudo_dir": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/",
+    "pseudopotentials": {
+      "Cr_PBE_FR.SG15v1.2.UPF": "present_on_rockfish",
+      "Sb_PBE_FR.SG15v1.2.UPF": "present_on_rockfish",
+      "Te_PBE_FR.SG15v1.2.UPF": "present_on_rockfish"
+    },
+    "ecutwfc_Ry": 70,
+    "ecutrho_Ry": 280,
+    "kpoints": "2 2 2 1 1 1",
+    "smearing": "cold",
+    "degauss_Ry": 0.0146997236,
+    "vdw_corr": "DFT-D3"
+  },
+  "quality_gate": [
+    "input hash matches selected manifest",
+    "explicit QE JOB DONE",
+    "finite total energy",
+    "finite total force",
+    "QE-reported nat=2050",
+    "no QE error markers",
+    "same non-magnetic SCF contract retained"
+  ],
+  "submission_status": "prepared_not_submitted"
+}

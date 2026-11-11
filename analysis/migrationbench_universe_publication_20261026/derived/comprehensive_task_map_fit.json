@@ -1,0 +1,79 @@
+{
+  "descriptor": {
+    "species": [
+      "Cr",
+      "Sb",
+      "Te"
+    ],
+    "periodic": false,
+    "r_cut": 5.0,
+    "n_max": 4,
+    "l_max": 4,
+    "sigma": 0.5,
+    "average": "off",
+    "sparse": false
+  },
+  "coordination_cutoff_A": 3.75,
+  "pca_fit": "existing grouped_reference/train Cr-local SOAP fit",
+  "nonlinear_input": "first 30 whitened PCA coordinates",
+  "umap": {
+    "n_neighbors": 30,
+    "min_dist": 0.18,
+    "metric": "euclidean",
+    "random_state": 42
+  },
+  "tsne": {
+    "perplexity": 35.0,
+    "random_state": 42
+  },
+  "counts": {
+    "L0 DFT Reference": 2362,
+    "L1 Thermal Equilibrium": 72,
+    "L2 NEB Migration": 250,
+    "L3 Layer Sliding": 40
+  },
+  "sublevel_counts": {
+    "Static DFT": 2362,
+    "DFT-AIMD": 0,
+    "MLIP-MD": 72,
+    "DFT Fixed": 5,
+    "MLIP Relaxed": 245,
+    "DFT Sliding": 10,
+    "MLIP Sliding": 30
+  },
+  "task_labels": [
+    "L0 DFT Reference",
+    "L1 Thermal Equilibrium",
+    "L2 NEB Migration",
+    "L3 Layer Sliding"
+  ],
+  "sublevel_labels": [
+    "Static DFT",
+    "DFT-AIMD",
+    "MLIP-MD",
+    "DFT Fixed",
+    "MLIP Relaxed",
+    "DFT Sliding",
+    "MLIP Sliding"
+  ],
+  "visual_encoding": {
+    "parent_hue": "physical configuration regime",
+    "saturation_lightness": "DFT/MLIP or AIMD/MD sublevel",
+    "path_line": "solid=fixed/sliding, dashed=self-relaxed",
+    "circle_area": "Cr-shell RMS bond-length distortion"
+  },
+  "md_sample_manifest": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/migrationbench_universe_publication_20261026/derived/md_map_sample_manifest.json",
+  "md_shell_aggregation": "mean over Cr centres in each 2050-atom MD frame",
+  "selected_map": {
+    "descriptor": "common Cr-local SOAP, projected through the shared PCA fit",
+    "embedding": "UMAP on the first 30 common PCA coordinates",
+    "geometry_overlay": "marker area encodes measured Cr-shell RMS bond-length distortion",
+    "display_calibration": "task-conditioned spacing with within-task UMAP geometry preserved"
+  },
+  "display_layout": "feature-guided spaced display; four physical-regime medians separated while within-regime UMAP geometry is preserved",
+  "display_distance_warning": "the spaced display is not a new metric distance; use the raw feature-map candidates for quantitative proximity claims",
+  "axis_labels": {
+    "x": "Feature-map axis 1",
+    "y": "Feature-map axis 2"
+  }
+}

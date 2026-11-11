@@ -1,0 +1,2520 @@
+Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mThu Sep  4 22:00:10 2025[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       48.23 GB       |       50.00 GB       |       96.47%      |      598,516       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mThu Sep  4 22:00:15 2025[0m               |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|     FS     |    Used   |   Quota   |  Used % |   Files    |  Files Quota  |   Files %    |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|    data    |  9.06 TB  |  10.00 TB |  90.00% |  482,302   |   4,096,000   |    11.00%    |
+|  scratch4  |  9.34 TB  |  10.00 TB |  93.00% | 1,481,818  |   5,242,880   |    28.00%    |
+| scratch16  |  17.79 TB |  20.00 TB |  88.00% | 1,435,429  |   20,480,000  |    7.00%     |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+
+Currently Loaded Modules:
+  1) gcc/9.3.0       3) slurm/19.05.7   5) lua/5.4.4       7) git/2.28.0
+  2) openmpi/3.1.6   4) lmod/8.7.24     6) helpers/0.1.1   8) standard/2020.10
+Thu Sep  4 22:05:29 EDT 2025
+This is sbatch-represent.slurm
+Running 1-shap-data.py
+/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/e3nn/o3/_wigner.py:10: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  _Jd, _W3j_flat, _W3j_indices = torch.load(os.path.join(os.path.dirname(__file__), 'constants.pt'))
+Traceback (most recent call last):
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/SHAP/2-concentration/1-shap-data.py", line 84, in load_models
+    model = torch.load(model_path, map_location=self.device)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 1525, in load
+    return _load(
+        opened_zipfile,
+    ...<3 lines>...
+        **pickle_load_args,
+    )
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 2114, in _load
+    result = unpickler.load()
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/e3nn/util/codegen/_mixin.py", line 109, in __setstate__
+    smod = torch.jit.load(buffer)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/jit/_serialization.py", line 172, in load
+    cpp_module = torch._C.import_ir_module_from_buffer(
+        cu, f.read(), map_location, _extra_files, _restore_shapes
+    )  # type: ignore[call-arg]
+RuntimeError: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Traceback (most recent call last):
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/SHAP/2-concentration/1-shap-data.py", line 84, in load_models
+    model = torch.load(model_path, map_location=self.device)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 1525, in load
+    return _load(
+        opened_zipfile,
+    ...<3 lines>...
+        **pickle_load_args,
+    )
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 2114, in _load
+    result = unpickler.load()
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/e3nn/util/codegen/_mixin.py", line 109, in __setstate__
+    smod = torch.jit.load(buffer)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/jit/_serialization.py", line 172, in load
+    cpp_module = torch._C.import_ir_module_from_buffer(
+        cu, f.read(), map_location, _extra_files, _restore_shapes
+    )  # type: ignore[call-arg]
+RuntimeError: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Traceback (most recent call last):
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/SHAP/2-concentration/1-shap-data.py", line 84, in load_models
+    model = torch.load(model_path, map_location=self.device)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 1525, in load
+    return _load(
+        opened_zipfile,
+    ...<3 lines>...
+        **pickle_load_args,
+    )
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 2114, in _load
+    result = unpickler.load()
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/e3nn/util/codegen/_mixin.py", line 109, in __setstate__
+    smod = torch.jit.load(buffer)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/jit/_serialization.py", line 172, in load
+    cpp_module = torch._C.import_ir_module_from_buffer(
+        cu, f.read(), map_location, _extra_files, _restore_shapes
+    )  # type: ignore[call-arg]
+RuntimeError: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Traceback (most recent call last):
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/SHAP/2-concentration/1-shap-data.py", line 84, in load_models
+    model = torch.load(model_path, map_location=self.device)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 1525, in load
+    return _load(
+        opened_zipfile,
+    ...<3 lines>...
+        **pickle_load_args,
+    )
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 2114, in _load
+    result = unpickler.load()
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/e3nn/util/codegen/_mixin.py", line 109, in __setstate__
+    smod = torch.jit.load(buffer)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/jit/_serialization.py", line 172, in load
+    cpp_module = torch._C.import_ir_module_from_buffer(
+        cu, f.read(), map_location, _extra_files, _restore_shapes
+    )  # type: ignore[call-arg]
+RuntimeError: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Traceback (most recent call last):
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/SHAP/2-concentration/1-shap-data.py", line 84, in load_models
+    model = torch.load(model_path, map_location=self.device)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 1525, in load
+    return _load(
+        opened_zipfile,
+    ...<3 lines>...
+        **pickle_load_args,
+    )
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/serialization.py", line 2114, in _load
+    result = unpickler.load()
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/e3nn/util/codegen/_mixin.py", line 109, in __setstate__
+    smod = torch.jit.load(buffer)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/torch/jit/_serialization.py", line 172, in load
+    cpp_module = torch._C.import_ir_module_from_buffer(
+        cu, f.read(), map_location, _extra_files, _restore_shapes
+    )  # type: ignore[call-arg]
+RuntimeError: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+cuequivariance or cuequivariance_torch is not available. Cuequivariance acceleration will be disabled.
+Starting MACE Model Comparison SHAP Analysis (Native Evaluation)...
+============================================================
+Using device: cpu
+Initialized MACE predictor on device: cpu
+Will analyze 4 MACE models:
+  - MACE Scratch
+  - MACE Foundation
+  - MACE FT - 600K
+  - MACE FT - Multi-T
+
+==================== SCENARIO: 1/8 ML ====================
+
+Preparing dataset for scenario: 1/8 ML...
+  > Reading frames from 2L_octo_Cr1_v2_600K_aimd_1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 200 frames (Ground-truth energy source: 'manual')
+  > Extracting MACE model predictions using native evaluation...
+Loading MACE models using native evaluation pipeline...
+  Loading MACE Scratch from mace_l1_0802_compiled.model...
+  ✓ Successfully loaded MACE Scratch
+  Loading MACE Foundation from finetuned_MACE_compiled.model...
+  ✓ Successfully loaded MACE Foundation
+  Loading MACE FT - 600K from finetuned_MACE_multihead0804_compiled.model...
+  ✓ Successfully loaded MACE FT - 600K
+  Loading MACE FT - Multi-T from finetuned_MACE_multihead0804.model...
+  ✗ Failed to load MACE FT - Multi-T: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Successfully loaded 3 models
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+  > Creating model comparison features...
+  Performing SHAP analysis for scenario: 1/8 ML...
+    Trained model comparison predictor on 150 samples.
+    R² score: -0.0001
+    Using 25 background samples and 75 test samples
+    ✓ Completed SHAP analysis for 1/8 ML
+
+==================== SCENARIO: 1/4 ML ====================
+
+Preparing dataset for scenario: 1/4 ML...
+  > Reading frames from 2L_octo_Cr2_600K_aimd_1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 346 frames (Ground-truth energy source: 'manual')
+  > Extracting MACE model predictions using native evaluation...
+Loading MACE models using native evaluation pipeline...
+  Loading MACE Scratch from mace_l1_0802_compiled.model...
+  ✓ Successfully loaded MACE Scratch
+  Loading MACE Foundation from finetuned_MACE_compiled.model...
+  ✓ Successfully loaded MACE Foundation
+  Loading MACE FT - 600K from finetuned_MACE_multihead0804_compiled.model...
+  ✓ Successfully loaded MACE FT - 600K
+  Loading MACE FT - Multi-T from finetuned_MACE_multihead0804.model...
+  ✗ Failed to load MACE FT - Multi-T: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Successfully loaded 3 models
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+  > Creating model comparison features...
+  Performing SHAP analysis for scenario: 1/4 ML...
+    Trained model comparison predictor on 150 samples.
+    R² score: -0.0001
+    Using 25 background samples and 75 test samples
+    ✓ Completed SHAP analysis for 1/4 ML
+
+==================== SCENARIO: 3/8 ML ====================
+
+Preparing dataset for scenario: 3/8 ML...
+  > Reading frames from 2L_octo_Cr3_600K_aimd_1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 272 frames (Ground-truth energy source: 'manual')
+  > Extracting MACE model predictions using native evaluation...
+Loading MACE models using native evaluation pipeline...
+  Loading MACE Scratch from mace_l1_0802_compiled.model...
+  ✓ Successfully loaded MACE Scratch
+  Loading MACE Foundation from finetuned_MACE_compiled.model...
+  ✓ Successfully loaded MACE Foundation
+  Loading MACE FT - 600K from finetuned_MACE_multihead0804_compiled.model...
+  ✓ Successfully loaded MACE FT - 600K
+  Loading MACE FT - Multi-T from finetuned_MACE_multihead0804.model...
+  ✗ Failed to load MACE FT - Multi-T: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Successfully loaded 3 models
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+  > Creating model comparison features...
+  Performing SHAP analysis for scenario: 3/8 ML...
+    Trained model comparison predictor on 150 samples.
+    R² score: -0.0000
+    Using 25 background samples and 75 test samples
+    ✓ Completed SHAP analysis for 3/8 ML
+
+==================== SCENARIO: 1/2 ML ====================
+
+Preparing dataset for scenario: 1/2 ML...
+  > Reading frames from 2L_tetra_Cr4_600K_aimd1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 431 frames (Ground-truth energy source: 'manual')
+  > Extracting MACE model predictions using native evaluation...
+Loading MACE models using native evaluation pipeline...
+  Loading MACE Scratch from mace_l1_0802_compiled.model...
+  ✓ Successfully loaded MACE Scratch
+  Loading MACE Foundation from finetuned_MACE_compiled.model...
+  ✓ Successfully loaded MACE Foundation
+  Loading MACE FT - 600K from finetuned_MACE_multihead0804_compiled.model...
+  ✓ Successfully loaded MACE FT - 600K
+  Loading MACE FT - Multi-T from finetuned_MACE_multihead0804.model...
+  ✗ Failed to load MACE FT - Multi-T: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Successfully loaded 3 models
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+  > Creating model comparison features...
+  Performing SHAP analysis for scenario: 1/2 ML...
+    Trained model comparison predictor on 150 samples.
+    R² score: -0.0000
+    Using 25 background samples and 75 test samples
+    ✓ Completed SHAP analysis for 1/2 ML
+
+==================== SCENARIO: 3/4 ML ====================
+
+Preparing dataset for scenario: 3/4 ML...
+  > Reading frames from 2L_o3_t3_600K_aimd_1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 307 frames (Ground-truth energy source: 'manual')
+  > Extracting MACE model predictions using native evaluation...
+Loading MACE models using native evaluation pipeline...
+  Loading MACE Scratch from mace_l1_0802_compiled.model...
+  ✓ Successfully loaded MACE Scratch
+  Loading MACE Foundation from finetuned_MACE_compiled.model...
+  ✓ Successfully loaded MACE Foundation
+  Loading MACE FT - 600K from finetuned_MACE_multihead0804_compiled.model...
+  ✓ Successfully loaded MACE FT - 600K
+  Loading MACE FT - Multi-T from finetuned_MACE_multihead0804.model...
+  ✗ Failed to load MACE FT - Multi-T: Found no NVIDIA driver on your system. Please check that you have an NVIDIA GPU and installed a driver from http://www.nvidia.com/Download/index.aspx
+Successfully loaded 3 models
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Scratch...
+    Error in native MACE prediction for MACE Scratch: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 108, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _31 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _31
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE Foundation...
+    Error in native MACE prediction for MACE Foundation: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+    Getting predictions from MACE FT - 600K...
+    Error in native MACE prediction for MACE FT - 600K: The following operation failed in the TorchScript interpreter.
+Traceback of TorchScript, serialized code (most recent call last):
+  File "code/__torch__/mace/modules/models.py", line 114, in forward
+    total_energy = torch.add(e0, inter_e)
+    node_energy = torch.add(node_e0, node_inter_es0)
+    _33 = _3(inter_e, data["positions"], displacement0, data["cell"], training, compute_force, compute_virials, compute_stress, compute_hessian, )
+          ~~ <--- HERE
+    forces, virials, stress, hessian, = _33
+    output = annotate(Dict[str, Optional[Tensor]], {"energy": total_energy, "node_energy": node_energy, "interaction_energy": inter_e, "forces": forces, "virials": virials, "stress": stress, "hessian": hessian, "displacement": displacement0, "node_feats": node_feats_out})
+  File "code/__torch__/mace/modules/utils.py", line 90, in get_outputs
+      else:
+        _28 = compute_hessian
+      forces1 : Optional[Tensor] = _20(energy, positions, _28, )
+                                   ~~~ <--- HERE
+    else:
+      forces1 = None
+  File "code/__torch__/mace/modules/utils.py", line 143, in compute_forces
+    training: bool=True) -> Tensor:
+  grad_outputs = annotate(List[Optional[Tensor]], [torch.ones_like(energy)])
+  _33 = torch.autograd.grad([energy], [positions], grad_outputs, training, training, True)
+        ~~~~~~~~~~~~~~~~~~~ <--- HERE
+  gradient = _33[0]
+  if torch.__is__(gradient, None):
+
+Traceback of TorchScript, original code (most recent call last):
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/models.py", line 443, in forward
+        total_energy = e0 + inter_e
+        node_energy = node_e0 + node_inter_es
+        forces, virials, stress, hessian = get_outputs(
+                                           ~~~~~~~~~~~ <--- HERE
+            energy=inter_e,
+            positions=data["positions"],
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 193, in get_outputs
+    elif compute_force:
+        forces, virials, stress = (
+            compute_forces(
+            ~~~~~~~~~~~~~~ <--- HERE
+                energy=energy,
+                positions=positions,
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/modules/utils.py", line 27, in compute_forces
+) -> torch.Tensor:
+    grad_outputs: List[Optional[torch.Tensor]] = [torch.ones_like(energy)]
+    gradient = torch.autograd.grad(
+               ~~~~~~~~~~~~~~~~~~~ <--- HERE
+        outputs=[energy],  # [n_graphs, ]
+        inputs=[positions],  # [n_nodes, 3]
+RuntimeError: element 0 of tensors does not require grad and does not have a grad_fn
+
+      Got 0/150 valid energy predictions
+  > Creating model comparison features...
+  Performing SHAP analysis for scenario: 3/4 ML...
+    Trained model comparison predictor on 150 samples.
+    R² score: -0.0002
+    Using 25 background samples and 75 test samples
+    ✓ Completed SHAP analysis for 3/4 ML
+
+Saving analysis results to 'shap_analysis_results/mace_comparison_shap_results.npz'...
+✓ Successfully saved results.
+
+============================================================
+MACE Model Comparison SHAP Analysis Complete!
+This analysis reveals:
+  - Which model predictions are most important for accuracy
+  - How model consensus affects prediction quality
+  - Which models perform best under different Cr concentrations
+  - Where models disagree and why
+============================================================
+Running 1-shap-data.py done
+Running 2-shap-plot.py
+Starting MACE SHAP Visualization...
+============================================================
+Error: Analysis results file not found at 'shap_analysis_results/shap_results.npz'
+Please run 'run_shap_analysis.py' first.
+Running 2-shap-plot.py done
+Thu Sep  4 22:07:53 EDT 2025

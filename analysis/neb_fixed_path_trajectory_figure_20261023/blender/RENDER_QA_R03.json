@@ -1,0 +1,212 @@
+{
+  "blender_version": "4.0.2",
+  "contract_checks": {
+    "DFT-01_status_transparency": "PENDING_PYTHON_INTEGRATION_LABEL; DFT status preserved in manifest",
+    "DFT-02_unconditional_ground_truth": "BLOCKED_BY_FROZEN_DFT_WARNING",
+    "DFT-03_warning_not_energy_error_band": "PENDING_PYTHON_INTEGRATION",
+    "PHY-01_to_PHY-03_geometry_identity_and_MIP_unwrap": "PASS_AUTOMATED",
+    "PHY-15_no_61_atom_or_historical_path_mix": "PASS_AUTOMATED",
+    "PUB-07_full_figure_PDF_SVG_PNG": "PENDING_PYTHON_INTEGRATION",
+    "PUB-10_final_signoff": "NOT_ACCEPTED",
+    "SEED-01_to_SEED-05": "PENDING_PYTHON_INTEGRATION",
+    "VIS-01_three_columns_and_order": "PASS_AUTOMATED",
+    "VIS-02_same_path_semantics": "PASS_AUTOMATED",
+    "VIS-03_real_atom_ghost_layers": "PENDING_MANUAL_REVIEW",
+    "VIS-04_direction_0_to_9_arrow_and_labels": "PENDING_MANUAL_REVIEW",
+    "VIS-05_alpha_is_overlay_order_only": "PASS_AUTOMATED",
+    "VIS-06_common_camera_scale_and_unwrap_recorded": "PENDING_MANUAL_REVIEW",
+    "VIS-07_no_synthetic_PES_or_coordinates": "PASS_AUTOMATED",
+    "VIS-16_render_dimensions": "PASS_AUTOMATED"
+  },
+  "expected_output_sizes_px": {
+    "cr_canonical_gap_to_ql": [
+      1400,
+      1750
+    ],
+    "cr_canonical_in_gap": [
+      1400,
+      1750
+    ],
+    "cr_canonical_within_ql": [
+      1400,
+      1750
+    ],
+    "triptych_top": [
+      4200,
+      1750
+    ]
+  },
+  "failure_or_limitation_ledger": [
+    {
+      "criterion": "DFT-02/DFT-03",
+      "reason": "All three canonical DFT/QE references remain COMPLETED_BUT_SCF_WARNING; this geometry render does not upgrade them to ground truth.",
+      "status": "BLOCKED"
+    },
+    {
+      "criterion": "PUB-02/SEED-04",
+      "reason": "The lower fixed-path family/seed numerical matrix and legal mean±1 SD uncertainty gate are outside this Blender-only scope and remain frozen as blocked.",
+      "status": "BLOCKED"
+    },
+    {
+      "criterion": "VIS-03/VIS-04/VIS-06",
+      "reason": "R03 adds ten higher-contrast annotation-only real-image index badges and leaders per column, including the near-overlapping gap2QL images.  Coordinates remain the retained extxyz positions; acceptance remains pending a new human visual check.",
+      "status": "PENDING_MANUAL_REVIEW"
+    }
+  ],
+  "figure_id": "NEB_FIXED_PATH_TRAJECTORY_TRIPTYCH_20261023",
+  "geometry_checks": {
+    "cr_canonical_gap_to_ql": {
+      "10_images": true,
+      "81_atoms": true,
+      "Cr_index_80": true,
+      "endpoint_consistency_PASS": true,
+      "pbc_TTT": true,
+      "source_hash_matches_registry": true,
+      "species_order_matches_registry": true
+    },
+    "cr_canonical_in_gap": {
+      "10_images": true,
+      "81_atoms": true,
+      "Cr_index_80": true,
+      "endpoint_consistency_PASS": true,
+      "pbc_TTT": true,
+      "source_hash_matches_registry": true,
+      "species_order_matches_registry": true
+    },
+    "cr_canonical_within_ql": {
+      "10_images": true,
+      "81_atoms": true,
+      "Cr_index_80": true,
+      "endpoint_consistency_PASS": true,
+      "pbc_TTT": true,
+      "source_hash_matches_registry": true,
+      "species_order_matches_registry": true
+    }
+  },
+  "manual_review_status": "PENDING_MANUAL_REVIEW",
+  "manual_visual_review_required": [
+    "R03/VIS-03: confirm labels 0–9 are individually readable at final-size in all three columns, especially gap2QL images 1–8",
+    "VIS-04 targeted rerender completed; confirm arrow and 0→9 endpoint labels are unambiguous in grayscale",
+    "VIS-06 targeted independent cameras completed; confirm no endpoint or host layer is visually clipped",
+    "VIS-14 confirm any eventual composite legend does not cover this render",
+    "PUB-08 final-size and grayscale QA after Python integration"
+  ],
+  "marker_visibility": {
+    "cr_canonical_gap_to_ql": {
+      "all_indices_structurally_present": true,
+      "anchor_source": "retained real Cr image coordinates after MIC unwrap",
+      "expected_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "label_layout_status": "annotation-only rail; no atom coordinate edits",
+      "leader_line_count": 10,
+      "marker_count": 10,
+      "visual_status": "PENDING_MANUAL_REVIEW"
+    },
+    "cr_canonical_in_gap": {
+      "all_indices_structurally_present": true,
+      "anchor_source": "retained real Cr image coordinates after MIC unwrap",
+      "expected_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "label_layout_status": "annotation-only rail; no atom coordinate edits",
+      "leader_line_count": 10,
+      "marker_count": 10,
+      "visual_status": "PENDING_MANUAL_REVIEW"
+    },
+    "cr_canonical_within_ql": {
+      "all_indices_structurally_present": true,
+      "anchor_source": "retained real Cr image coordinates after MIC unwrap",
+      "expected_indices": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "label_layout_status": "annotation-only rail; no atom coordinate edits",
+      "leader_line_count": 10,
+      "marker_count": 10,
+      "visual_status": "PENDING_MANUAL_REVIEW"
+    }
+  },
+  "output_metadata": {
+    "cr_canonical_gap_to_ql": {
+      "bytes": 834668,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_gap_to_ql_R03.png",
+      "sha256": "cc5a92ce783a6f9c0f3cebc63646b08be898fd8a03073eb6f46991892bf8fb96",
+      "width_px": 1400
+    },
+    "cr_canonical_in_gap": {
+      "bytes": 924749,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_in_gap_R03.png",
+      "sha256": "b56380c276b591fe9b6ecb141bf8509003a3a4b5cf38e58f530eeee4189f6b3e",
+      "width_px": 1400
+    },
+    "cr_canonical_within_ql": {
+      "bytes": 865236,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_within_ql_R03.png",
+      "sha256": "0d8eef4881b1c2a86c170f64fd00b5626ed8d3b7122c51db86085639c30443a0",
+      "width_px": 1400
+    },
+    "triptych_top": {
+      "bytes": 2124452,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/triptych_top_R03.png",
+      "sha256": "b50fec5b07de48b571596ada4a40d86e40fb1b89c220fa50c78f6dd244e13243",
+      "width_px": 4200
+    }
+  },
+  "provenance": {
+    "input_hashes_written_to_manifest": true,
+    "output_hashes_written_to_manifest_after_render": true,
+    "scene_source_script": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/render_scene.py"
+  },
+  "qa_status": "RENDERED_R03_CANDIDATE_NOT_ACCEPTED",
+  "render_success": true,
+  "review_round": "R03",
+  "size_checks": {
+    "cr_canonical_gap_to_ql": true,
+    "cr_canonical_in_gap": true,
+    "cr_canonical_within_ql": true,
+    "triptych_top": true
+  }
+}

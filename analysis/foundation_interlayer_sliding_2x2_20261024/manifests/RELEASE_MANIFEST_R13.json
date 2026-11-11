@@ -1,0 +1,97 @@
+{
+  "schema_version": "foundation_interlayer_sliding_release_manifest_v1",
+  "release_id": "foundation_interlayer_sliding_2x2_20261024_R13",
+  "release_status": "ACCEPTED",
+  "campaign_id": "foundation_interlayer_sliding_2x2_20261024",
+  "accepted_at_utc": "2026-10-25T03:35:00Z",
+  "acceptance_freeze": {
+    "path": "ACCEPTANCE_FREEZE_R13.json",
+    "sha256": "4d78c516ce6eb30ba6c0e2192d07076ae7fcf1e21a0ad8446f3127221008bd11",
+    "status": "FROZEN_BEFORE_PRODUCTION_SUBMISSION"
+  },
+  "review_gates": {
+    "pre_run": {
+      "path": "manifests/PRE_RUN_REVIEW_GATE.json",
+      "status": "PASS",
+      "data_reviewer": "01a17110-3010-7e32-a2b8-6f20d8ffbbf4",
+      "visual_reviewer": "01a17110-3070-7fd0-9d7d-2fe6913c5edd"
+    },
+    "post_run": {
+      "path": "manifests/POST_RUN_REVIEW_GATE.json",
+      "status": "PASS",
+      "data_reviewer": "01a1711c-0dc7-7c10-a602-cba4664d9cdf",
+      "visual_reviewer": "01a1711c-0e33-77d1-b741-e6347e48dc63"
+    }
+  },
+  "submission": {
+    "path": "manifests/SUBMISSION_RECORD.tsv",
+    "fixed_array_job_id": "32461048",
+    "self_array_job_id": "32461049",
+    "scheduler_completion": "all tasks completed with exit code 0:0"
+  },
+  "data": {
+    "collection_status": "COMPLETE",
+    "expected_primary_rows": 12,
+    "observed_primary_rows": 12,
+    "scientifically_passing_rows": 12,
+    "fixed_rows": 6,
+    "fixed_status": "FINITE_DIAGNOSTIC",
+    "self_rows": 6,
+    "self_status": "CONVERGED",
+    "image_profile_rows": 120,
+    "qe_reference_rows": 20,
+    "failure_registry_data_rows": 0,
+    "result_matrix": {
+      "path": "results/tables/RESULT_MATRIX.tsv",
+      "sha256": "072b31cf9ff3cace560abdf05d8e52d47ab4f93ecf3a21ace808f109c50f4e1c"
+    },
+    "image_profiles": {
+      "path": "results/tables/IMAGE_PROFILES.tsv",
+      "sha256": "0520f34d850c6c5525851d60572ef437865630f9cab67f0db81bc80050dd1c2f"
+    },
+    "qe_reference": {
+      "path": "results/tables/QE_REFERENCE.tsv",
+      "sha256": "1a41516fafa21e70fdf44c4922ea3ef0fd624d6d243aa1e7c6a787e6eb91f593"
+    }
+  },
+  "figure": {
+    "directory": "results/figures/foundation_interlayer_sliding_2x2_R13",
+    "composite": {
+      "pdf": {
+        "path": "results/figures/foundation_interlayer_sliding_2x2_R13/foundation_interlayer_sliding_2x2_R13.pdf",
+        "sha256": "1e5f366dc83ec034d4832b011e9b0c25100681d72dabf04687834a15b67a2366"
+      },
+      "svg": {
+        "path": "results/figures/foundation_interlayer_sliding_2x2_R13/foundation_interlayer_sliding_2x2_R13.svg",
+        "sha256": "80a566f569e62cfd829db1562bf86e3b791b1e4ab3f4496520f15feeea12998c"
+      },
+      "png": {
+        "path": "results/figures/foundation_interlayer_sliding_2x2_R13/foundation_interlayer_sliding_2x2_R13.png",
+        "sha256": "5760e44254e97cc08d6d780b6e3a0adb6e4c6d598ebbffc7bc9102135ccbf573"
+      }
+    },
+    "provenance": {
+      "path": "results/figures/foundation_interlayer_sliding_2x2_R13/FIGURE_PROVENANCE.json",
+      "sha256": "dd8068bf02b6545818043004e426737b65596546075e530c263829b9d851b55d",
+      "status": "ACCEPTED_AFTER_INDEPENDENT_REVIEWS"
+    },
+    "panel_count": 4,
+    "output_file_count": 15
+  },
+  "qualified_boundaries": [
+    "Fixed rows are finite fixed-path single-point MLIP profiles, not relaxed MEPs.",
+    "Self rows are endpoint-only self-relaxed MLIP NEB profiles, not DFT MEPs.",
+    "Fixed and self-relaxed values are separate observables and are not pooled into one barrier ranking.",
+    "The retained QE b-path2 reference is COMPLETED_BUT_SCF_WARNING and is not converged ground truth.",
+    "No same-geometry DFT rescoring of relaxed images is established by this campaign.",
+    "Two stored true-force diagnostics are slightly above 0.05 eV/A; the frozen production gate is the internal NEB residual, which passes for all six self rows."
+  ],
+  "open_gaps": ["G01", "G02", "G03", "G04"],
+  "preservation": {
+    "failure_exclusion_registry": "FAILURE_EXCLUSION_REGISTRY.tsv",
+    "claim_evidence_matrix": "CLAIM_EVIDENCE_MATRIX.tsv",
+    "gap_report": "GAP_REPORT.tsv",
+    "raw_runs_retained": true,
+    "remote_root": "/scratch16/pclancy3/yi/foundation_interlayer_sliding_2x2_20261024"
+  }
+}

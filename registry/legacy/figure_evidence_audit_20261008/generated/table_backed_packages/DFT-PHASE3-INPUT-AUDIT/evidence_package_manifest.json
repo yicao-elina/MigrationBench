@@ -1,0 +1,51 @@
+{
+  "package_id": "DFT-PHASE3-INPUT-AUDIT",
+  "generated_by": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/scripts/render_table_backed_packages.py",
+  "plot_atlas_root": "/Users/alina/Documents/Codex/plot_library",
+  "plot_atlas_panels": [
+    "timecourse",
+    "grouped_bar",
+    "bar_with_points",
+    "clustered_heatmap"
+  ],
+  "source_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/dft_validation_phase3_20261002/snapshot_audit.csv",
+      "sha256": "7ccb1df30d4122a0e6121c6f79c7985af95719f1cdd1874708310c3444dc4ca3"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/dft_validation_phase3_20261002/ordered_block_audit.csv",
+      "sha256": "2c03fdb1d1b8d001fac86174f3bced8defcd04c35e27bd326b996b6cbbe95f98"
+    }
+  ],
+  "processed_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/DFT-PHASE3-INPUT-AUDIT/processed_phase3_input_force_audit.csv",
+      "sha256": "4477df1f20802f3beae653301f31506b413c3d538847590e92d74a99df8d17d0"
+    }
+  ],
+  "figure_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/DFT-PHASE3-INPUT-AUDIT/phase3_input_force_audit_atlas.png",
+      "sha256": "2391216f60dc829d10b03524fc6504b8b021413e177c6683b79b0e610c217047"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/DFT-PHASE3-INPUT-AUDIT/phase3_input_force_audit_atlas.svg",
+      "sha256": "43a11a4ea6112a948c2b7e3ce4d2d89b5ccf303bb471be8edd28afe8867553dc"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/DFT-PHASE3-INPUT-AUDIT/phase3_input_force_audit_atlas.pdf",
+      "sha256": "d7a13b9a323ab297601254e044a3d480977f18d1d261185cb7510f7aef952fce"
+    }
+  ],
+  "article_target": "Results/SI: reduced-cell DFT validation boundary",
+  "scientific_status": "input audit only; no accepted target DFT output",
+  "caption": "A, maximum all-atom force; B, Cr-local maximum force for the full 2,050-atom source snapshot and two reduced ordered-block representations across four source steps.",
+  "results": "The full source snapshot rises from 2.83 eV Å⁻¹ at step 460000 to 229.97 eV Å⁻¹ at step 462200. The reduced 82- and 81-atom representations retain the same source-step progression but are different validation units.",
+  "discussion": "This is a pre-DFT input-integrity and stress-test figure. It documents why steps 462000 and 462200 are OOD/stress geometries and why a successful reduced-cell QE single point would still be a local comparison, not a converged migration barrier.",
+  "caveats": [
+    "These are MACE forces stored in the source extxyz audits, not QE forces.",
+    "The 81-atom model removes one Cr and is explicitly a same-site composition approximation.",
+    "No plot panel may be used to claim DFT convergence or a barrier."
+  ]
+}

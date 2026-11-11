@@ -1,0 +1,63 @@
+{
+  "schema_version": "execution_bookkeeping_v1",
+  "campaign_id": "foundation_self_relaxed_4x3_20261024_r02",
+  "campaign_base_id": "foundation_self_relaxed_4x3_20261024",
+  "campaign_revision_id": "foundation_self_relaxed_4x3_20261024_r02",
+  "acceptance_criteria_scope": "frozen base criteria applies to this explicit revision; criteria file is not rewritten after launch",
+  "formal_launch_manifest": "CAMPAIGN_MANIFEST.json",
+  "formal_launch_manifest_sha256": "e226280ce571cc7df286824a627772a1b8c3ebe7808fde5ca7805e82d1f0bd4c",
+  "formal_launch_manifest_is_immutable": true,
+  "smoke_job_id": "32459612_0",
+  "smoke_status": "PASS",
+  "formal_array_job_id": "32459698",
+  "formal_array": "0-107%8 (submitted 0-107%4; adjusted after launch)",
+  "array_throttle_initial": 4,
+  "array_throttle_adjusted": 8,
+  "array_throttle_adjustment_reason": "scheduler throughput optimization; per-task protocol, resources, and inputs unchanged",
+  "formal_array_submitted_at_utc": "2026-10-25T01:59:03Z",
+  "formal_array_status": "COMPLETED_INITIAL_WITH_RETRY_EXCLUSIONS",
+  "formal_array_completed_at_utc": "2026-10-25T04:18:31Z",
+  "initial_collection_manifest": "data/COLLECTION_MANIFEST.json",
+  "initial_converged_rows": 98,
+  "initial_failure_rows": 10,
+  "retry_rounds": [
+    {
+      "round": "R02A",
+      "job_table": "JOB_TABLE_IDPP_RETRY_R02A.tsv",
+      "job_id": "32465592",
+      "array": "0-9%4",
+      "steps_max": 1500,
+      "status": "COMPLETED_WITH_5_REMAINING_FAILURES",
+      "reason": "target-model convergence/residual gate failed in prior formal attempt"
+    },
+    {
+      "round": "R02B",
+      "job_table": "JOB_TABLE_IDPP_RETRY_R02B.tsv",
+      "job_id": "32466571",
+      "superseded_submission_job_id": "32466555",
+      "superseded_submission_status": "FAILED_BEFORE_ROW_READ_MISSING_TSV_SUFFIX",
+      "array": "0-4%4",
+      "steps_max": 3000,
+      "fire_dt": 0.03,
+      "fire_maxstep_A": 0.05,
+      "spring_constant": 0.1,
+      "status": "COMPLETED_WITH_1_REMAINING_FAILURE",
+      "reason": "target-model convergence/residual gate remained failed after R02A; conservative FIRE parameters"
+    },
+    {
+      "round": "R02C",
+      "job_table": "JOB_TABLE_IDPP_RETRY_R02C.tsv",
+      "job_id": "32468280",
+      "array": "0-0%1",
+      "steps_max": 6000,
+      "fire_dt": 0.02,
+      "fire_maxstep_A": 0.03,
+      "spring_constant": 0.1,
+      "status": "RUNNING",
+      "reason": "single record remained nonconverged after R02B; extended conservative FIRE retry"
+    }
+  ],
+  "local_bookkeeping_only": false,
+  "remote_copy_path": "EXECUTION_BOOKKEEPING_R02.json",
+  "note": "This file may be updated after scheduler submission; CAMPAIGN_MANIFEST.json is not edited after formal launch."
+}

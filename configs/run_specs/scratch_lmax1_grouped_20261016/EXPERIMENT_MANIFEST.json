@@ -1,0 +1,39 @@
+{
+  "schema": "migrationbench_scratch_lmax1_grouped_matrix_v1",
+  "campaign_id": "scratch_lmax1_grouped_20261016",
+  "scientific_question": "What is the scratch-versus-OMAT-FT difference when architecture, grouped data release, optimizer protocol and training seed are matched?",
+  "reason_for_campaign": "The existing canonical scratch families use Lmax=2, whereas the canonical grouped FT families use Lmax=1. This campaign removes that architecture confound without replacing the existing Lmax=2 historical/canonical results.",
+  "families": {
+    "scratch_600k_lmax1_grouped_v1": {
+      "dataset_release": "FT-600K-A2-grouped-provisional",
+      "data_root": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped",
+      "upstream_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/manifest_proposed_A2.json",
+      "upstream_manifest_sha256": "c085fa3167d0ecceda83a6ef2760df8ed8a70c0f241f085ee6cb518d3320cf34",
+      "split_summary_sha256": "ff2205a92adfeb2eba4a37ba7e2100381b005b5c2217c387a6ff686cb32d7c94",
+      "train_sha256": "04b1369d0da0b630c55aa6da6b3f85ea9ff4bffb107de804ead6fe7214fa34b8",
+      "valid_sha256": "aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502",
+      "test_sha256": "d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab",
+      "counts": {"train": 1786, "valid": 311, "test": 267}
+    },
+    "scratch_multit_lmax1_grouped_v1": {
+      "dataset_release": "Multi-T-A2-grouped",
+      "data_root": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT",
+      "upstream_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/manifest_multiT_A2.json",
+      "upstream_manifest_sha256": "74f1af2b1bfc064c2a16acbd78cd110215ddd88087cfec7dcdfbedce77c73f60",
+      "split_summary_sha256": "a931327975c6c717090468992e53312310954464aeeea687b5d7cdcf8e955bf3",
+      "train_sha256": "b240052d557fb27b41af6fb31ad80b25261d96f9667050ca83fcbdb922694f9b",
+      "valid_sha256": "44d2877ccd9d4ddbf3c470d7a6c5f2b794802a9b03444d211b89237df99dd117",
+      "test_sha256": "5adcf16c7220eae90bd2d9a9f792e2dce281e1300bdbb86054ef94e255188648",
+      "counts": {"train": 2659, "valid": 342, "test": 767}
+    }
+  },
+  "model_matrix": {
+    "foundation_model": null,
+    "seeds": [123, 234, 345],
+    "only_varying_factor_within_family": "training_seed",
+    "architecture": {"model": "MACE", "num_channels": 32, "max_L": 1, "correlation": 3, "r_max_angstrom": 6.0, "hidden_irreps": "128x0e + 128x1o", "num_interactions": 2, "num_radial_basis": 8, "num_cutoff_basis": 5},
+    "optimization": {"batch_size": 32, "valid_batch_size": 16, "max_num_epochs": 1000, "forces_weight": 10.0, "energy_weight": 1.0, "stress_weight": 0.0, "swa": true, "start_swa": 200, "ema": true, "ema_decay": 0.99, "lr": 0.01, "swa_lr": 0.001, "weight_decay": 5e-7, "patience": 20, "e0s": "isolated"},
+    "output_root": "/scratch16/pclancy3/yi/scratch_lmax1_grouped_20261016"
+  },
+  "publication_boundary": "These are the architecture-matched grouped scratch controls. The existing Lmax=2 scratch families remain separately labelled and must not be pooled with this family. The random-split FT reproduction campaign is a separate forensic comparison."
+}

@@ -1,0 +1,8 @@
+# Caption — Foundation self-relaxed endpoint-only NEB profiles
+
+**Figure.** Self-relaxed endpoint-only NEB profiles for Cr, Cu, Li, and Na, arranged by row, with in-gap diffusion, gap→QL, and within-QL paths arranged by column. Each colored trace is the mean relative energy profile across the accepted Foundation checkpoints in the indicated model class; hollow markers denote the ten ordered NEB images and the translucent band denotes the across-checkpoint population standard deviation. The target roster is MACE-MP (`n=5`), MACE-OMAT-0 (`n=2`), and MACE-MH (`n=2`).
+
+Each run was initialized from the canonical initial and final endpoints only, with deterministic ten-image IDPP interpolation (`seed=42`), and relaxed under the explicitly recorded Foundation checkpoint and head. A row enters the plotted class aggregate only when the model loaded, all energies/forces were finite, the output contained ten ordered images, and the target-model convergence gates were met (`optimizer_converged=true`, maximum internal NEB force ≤0.05 eV Å⁻¹, and maximum NEB residual ≤0.05 eV Å⁻¹). The row-level result matrix and failure registry retain every attempted model/path combination, including exclusions and scheduler/runner evidence.
+
+These are self-relaxed MLFF observables and diagnostic preconditioner/proposal profiles; they are not unconditional DFT ground truth or a claim of a converged DFT NEB barrier. Fixed-path single-point profiles are excluded from this figure. The canonical registries preserve the historical `2L-Cu__...` raw stems as aliases only; element identity is taken from the canonical registry. No Blender or molecular-rendering layer is included.
+

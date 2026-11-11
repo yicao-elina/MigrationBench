@@ -1,0 +1,24 @@
+--- submit_from_scratch_all_data_v1.slurm (failed jobs 32069262_[0-2])
++++ submit_from_scratch_all_data_v1_protocolaligned.slurm (bootstrap repair)
+@@
+ set -eo pipefail
+ export SLURM_CONF=/cm/shared/apps/slurm/var/etc/slurm/slurm.conf
++export RF_CONDA_SITE="${RF_CONDA_SITE:-}"
+ source /etc/profile.d/modules.sh
+ source /data/apps/go.sh
+ source /data/apps/helpers/singularity.sh
+@@
+ source /data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/etc/profile.d/conda.sh
+ conda activate mace
+ module list
++set -u
+
+Failure evidence preserved on Rockfish:
+  job: 32069262_[0-2]
+  state: FAILED, exit 1:0, elapsed 0 seconds
+  stderr: /data/apps/go.sh: line 69: RF_CONDA_SITE: unbound variable
+  logs: /scratch16/pclancy3/yi/canonical_model_matrix_20261016/logs/mb-canonical-scratch-lmax2-32069262_[0-2].{out,err}
+
+Scope of repair: initialize RF_CONDA_SITE before go.sh and defer nounset until
+after the cluster bootstrap. The MACE command and canonical grouped dataset
+protocol remain unchanged.

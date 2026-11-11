@@ -1,0 +1,50 @@
+{
+  "schema_version": "ft_interlayer_self_v1",
+  "campaign_id": "ft_interlayer_sliding_self_20261025_r03_retry",
+  "observable": "ENDPOINT_ONLY_MLIP_NEB_PROXY",
+  "endpoint_policy": "FIXED_ENDPOINTS",
+  "initialization": "ASE_IDPP_FROM_ENDPOINTS_ONLY",
+  "row_count": 3,
+  "model_count": 3,
+  "systems": ["within_ql"],
+  "plot_columns": ["within-QL"],
+  "models": [
+    "ft_multit_grouped_A2_seed123",
+    "ft_multit_grouped_A2_seed234",
+    "ft_multit_grouped_A2_seed345"
+  ],
+  "retry_parent": {
+    "campaign_id": "ft_interlayer_sliding_self_20261025_r02",
+    "job_id": "32490138",
+    "failure_reason": "500-step optimizer residual/internal-force gate failed for all three within-QL FT-MultiT rows"
+  },
+  "endpoint_source": {
+    "campaign": "neb_fixed_vs_self_matrix_20261019",
+    "system": "CR81_CANONICAL",
+    "path_id": "cr_canonical_within_ql",
+    "atoms": 81
+  },
+  "optimizer": {
+    "device": "cpu",
+    "fire_dt": 0.1,
+    "fire_maxstep": 0.2,
+    "fmax_eV_A": 0.05,
+    "seed": 42,
+    "spring_constant": 0.1,
+    "steps": 2000
+  },
+  "acceptance": {
+    "endpoint_atom_count": true,
+    "endpoint_output_max_abs_displacement_A": 1.0e-8,
+    "finite_profile_and_residual": true,
+    "iteration_history_helper_nonempty": true,
+    "model_sha256": true,
+    "not_a_dft_mep_barrier": true,
+    "optimizer_converged": true,
+    "publication_label": "ENDPOINT_ONLY_MLIP_NEB_PROXY",
+    "residual_and_internal_neb_force_eV_A_max": 0.05
+  },
+  "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+  "status": "FROZEN_PENDING_SUBMISSION",
+  "output_root": "/scratch16/pclancy3/yi/ft_interlayer_sliding_20261025_r03_retry"
+}

@@ -1,0 +1,750 @@
+{
+  "schema_version": "1.0",
+  "created": "2026-10-26",
+  "status": "PROVENANCE_AWARE_STRUCTURE_RELEASE",
+  "representation": {
+    "name": "Cr-centred local SOAP",
+    "descriptor": {
+      "species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "periodic": false,
+      "r_cut": 5.0,
+      "n_max": 4,
+      "l_max": 4,
+      "sigma": 0.5,
+      "average": "off",
+      "sparse": false
+    },
+    "pca_fit": "grouped_reference/train only",
+    "nonlinear_views": "UMAP and t-SNE fit to the first 30 whitened local-SOAP PCA coordinates",
+    "umap": {
+      "n_neighbors": 30,
+      "min_dist": 0.18,
+      "metric": "euclidean",
+      "random_state": 42
+    },
+    "tsne": {
+      "perplexity": 35,
+      "max_iter": 1500,
+      "init": "pca",
+      "random_state": 42
+    }
+  },
+  "fit_summary": {
+    "descriptor": {
+      "species": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "periodic": false,
+      "r_cut": 5.0,
+      "n_max": 4,
+      "l_max": 4,
+      "sigma": 0.5,
+      "average": "off",
+      "sparse": false
+    },
+    "fit_split": "grouped_reference/train",
+    "n_train": 1784,
+    "n_features": 390,
+    "n_pca_components_for_nonlinear": 50,
+    "pca_explained_variance_ratio_first2": [
+      0.34871279833651014,
+      0.16457703979185423
+    ],
+    "distance_metric": "nearest-neighbor Euclidean distance in first 30 whitened PCA coordinates",
+    "distance_thresholds": {
+      "near_to_intermediate": 9.250491377765982,
+      "intermediate_to_far": 19.203440633166945
+    },
+    "clusterer": {
+      "method": "sklearn.HDBSCAN",
+      "min_cluster_size": 45,
+      "min_samples": 10
+    },
+    "cluster_sizes": {
+      "C07": 168,
+      "C05": 205,
+      "C09": 150,
+      "C02": 306,
+      "C08": 151,
+      "C11": 60,
+      "C04": 209,
+      "C01": 500,
+      "C03": 306,
+      "C12": 53,
+      "C06": 191,
+      "C10": 73
+    },
+    "cluster_colors": {
+      "C01": "#1f77b4",
+      "C02": "#aec7e8",
+      "C03": "#ff7f0e",
+      "C04": "#ffbb78",
+      "C05": "#2ca02c",
+      "C06": "#98df8a",
+      "C07": "#d62728",
+      "C08": "#ff9896",
+      "C09": "#9467bd",
+      "C10": "#c5b0d5",
+      "C11": "#8c564b",
+      "C12": "#c49c94"
+    }
+  },
+  "counts": {
+    "all_structure_points": 2652,
+    "grouped_reference": 2362,
+    "dft_paths": 15,
+    "mlip_self_neb": 245,
+    "mlip_interlayer_self": 30,
+    "cluster_representatives": 8
+  },
+  "coverage": [
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-2",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-2-foundation_32198220/mlff_61_1-2_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-3",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-3-foundation_32198221/mlff_61_1-3_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-4",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-4-foundation_32198222/mlff_61_1-4_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-5",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-5-foundation_32198223/mlff_61_1-5_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-7",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-7-foundation_32198224/mlff_61_1-7_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-2",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-2-ft600k_32198230/mlff_61_1-2_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-3",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-3-ft600k_32198231/mlff_61_1-3_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-4",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-4-ft600k_32198232/mlff_61_1-4_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-5",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-5-ft600k_32198233/mlff_61_1-5_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-7",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-61-1-7-ft600k_32198234/mlff_61_1-7_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-2",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-2-scratch_multit_seed123-32199418_0/mlff_61_1-2_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-3",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-3-scratch_multit_seed123-32199418_1/mlff_61_1-3_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-4",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-4-scratch_multit_seed123-32199418_2/mlff_61_1-4_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-5",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-5-scratch_multit_seed123-32199418_3/mlff_61_1-5_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-7",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-7-scratch_multit_seed123-32199418_4/mlff_61_1-7_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-2",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-2-ft_multit_seed123-32199418_10/mlff_61_1-2_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-3",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-3-ft_multit_seed123-32199418_11/mlff_61_1-3_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-4",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-4-ft_multit_seed123-32199418_12/mlff_61_1-4_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-5",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-61-1-5-ft_multit_seed123-32199418_13/mlff_61_1-5_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-7",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_1",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVENANCE_PARTIAL",
+      "run_status": "LEGACY_DIAGNOSTIC",
+      "geometry_status": "legacy_geometry_provenance_partial",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/data/raw_compact/revision1/mb_mlff_cpu_81_neb_1__s42_30763517/mlff_81_neb_1_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_2",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVENANCE_PARTIAL",
+      "run_status": "LEGACY_DIAGNOSTIC",
+      "geometry_status": "legacy_geometry_provenance_partial",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/data/raw_compact/revision1/mb_mlff_cpu_81_neb_2__s42_30763518/mlff_81_neb_2_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_3",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVENANCE_PARTIAL",
+      "run_status": "LEGACY_DIAGNOSTIC",
+      "geometry_status": "legacy_geometry_provenance_partial",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/data/raw_compact/revision1/mb_mlff_cpu_81_neb_3__s42_30763519/mlff_81_neb_3_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_4",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVENANCE_PARTIAL",
+      "run_status": "LEGACY_DIAGNOSTIC",
+      "geometry_status": "legacy_geometry_provenance_partial",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/data/raw_compact/revision1/mb_mlff_cpu_81_neb_4__s42_30763520/mlff_81_neb_4_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_5",
+      "model_id": "foundation_omat_ft",
+      "model_family": "Foundation",
+      "status_registry": "PROVENANCE_PARTIAL",
+      "run_status": "LEGACY_DIAGNOSTIC",
+      "geometry_status": "legacy_geometry_provenance_partial",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/data/raw_compact/revision1/mb_mlff_cpu_81_neb_5__s42_30763521/mlff_81_neb_5_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_1",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-81-neb_1-ft600k_32198235/mlff_81_neb_1_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_2",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-81-neb_2-ft600k_32198236/mlff_81_neb_2_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_3",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-81-neb_3-ft600k_32198237/mlff_81_neb_3_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_4",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-81-neb_4-ft600k_32198238/mlff_81_neb_4_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_5",
+      "model_id": "ft600k_seed123",
+      "model_family": "FT-600K",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "provisional_current",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_current/mb-selfneb-81-neb_5-ft600k_32198239/mlff_81_neb_5_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_1",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-81-neb_1-scratch_multit_seed123-32199418_5/mlff_81_neb_1_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_2",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-81-neb_2-scratch_multit_seed123-32199418_6/mlff_81_neb_2_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_3",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-81-neb_3-scratch_multit_seed123-32199418_7/mlff_81_neb_3_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_4",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-81-neb_4-scratch_multit_seed123-32199418_8/mlff_81_neb_4_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_5",
+      "model_id": "scratch_multit_seed123",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "exploratory_pending_geometry",
+      "source_file": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/raw/self_gpu_retry_pending/mb-selfneb-81-neb_5-scratch_multit_seed123-32199418_9/mlff_81_neb_5_s42/mlff_neb_images.extxyz"
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_1",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_CONVERGED",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_2",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_3",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_4",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_5",
+      "model_id": "ft_multit_seed123",
+      "model_family": "FT-MultiT",
+      "status_registry": "PROVISIONAL_SELF_RELAXED",
+      "run_status": "COMPLETE_NONCONVERGED",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-2",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-3",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-4",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-5",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_61",
+      "path_id": "1-7",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_1",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_2",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_3",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_4",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "Cr_self_relaxed_NEB",
+      "system": "Cr_migration_81",
+      "path_id": "neb_5",
+      "model_id": "scratch_600k",
+      "model_family": "Scratch-600K",
+      "status_registry": "NOT_PRESENT_IN_SELF_MATRIX",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "interlayer_self_relaxed",
+      "system": "bulk_2x2 + Cr-in-gap_2x2",
+      "path_id": "all_local_paths",
+      "model_id": "Foundation",
+      "model_family": "Foundation",
+      "status_registry": "AVAILABLE",
+      "run_status": "CONVERGED_PROXY",
+      "geometry_status": "available",
+      "source_file": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/foundation_interlayer_sliding_2x2_20261024/runs/self"
+    },
+    {
+      "task": "interlayer_self_relaxed",
+      "system": "bulk_2x2 + Cr-in-gap_2x2",
+      "path_id": "all_local_paths",
+      "model_id": "Scratch-600K",
+      "model_family": "Scratch-600K",
+      "status_registry": "MISSING_LOCAL_EXTXYZ",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "interlayer_self_relaxed",
+      "system": "bulk_2x2 + Cr-in-gap_2x2",
+      "path_id": "all_local_paths",
+      "model_id": "Scratch-MultiT",
+      "model_family": "Scratch-MultiT",
+      "status_registry": "MISSING_LOCAL_EXTXYZ",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "interlayer_self_relaxed",
+      "system": "bulk_2x2 + Cr-in-gap_2x2",
+      "path_id": "all_local_paths",
+      "model_id": "FT-600K",
+      "model_family": "FT-600K",
+      "status_registry": "MISSING_LOCAL_EXTXYZ",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    },
+    {
+      "task": "interlayer_self_relaxed",
+      "system": "bulk_2x2 + Cr-in-gap_2x2",
+      "path_id": "all_local_paths",
+      "model_id": "FT-MultiT",
+      "model_family": "FT-MultiT",
+      "status_registry": "MISSING_LOCAL_EXTXYZ",
+      "run_status": "MISSING",
+      "geometry_status": "missing_local_extxyz",
+      "source_file": ""
+    }
+  ],
+  "source_inputs": [
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/task_conditioned_distribution_atlas_20261018/raw_cache/grouped_a2/train.xyz",
+      "sha256": "04b1369d0da0b630c55aa6da6b3f85ea9ff4bffb107de804ead6fe7214fa34b8"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/task_conditioned_distribution_atlas_20261018/raw_cache/grouped_a2/valid.xyz",
+      "sha256": "aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/task_conditioned_distribution_atlas_20261018/raw_cache/grouped_a2/test.xyz",
+      "sha256": "d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/task_conditioned_distribution_atlas_20261018/raw_cache/grouped_a2/neb_1-4.extxyz",
+      "sha256": "056cb61be5bb48a8c96e4c23302f58023b20aed52f5f3afff9f6752b22935222"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/neb_protocol_matrix_20261018/derived/neb_matrix_status.tsv",
+      "sha256": "4fc6a1afffad526d3b4f4d0863220488c948852c9f092905a389c4c2ebf9e9f9"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/data/raw_compact/sliding_recovered_20261024/dft_2.2-layer-dislocation/1.bulk/sb2te3.axsf",
+      "sha256": "34f96f35abd44fa5e73850c2da931167e061a5eb1b8705b1780db279188c0d69"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/data/raw_compact/sliding_recovered_20261024/dft_2.2-layer-dislocation/2.cr-in-gap/sb2te3.axsf",
+      "sha256": "94a6c191f4cae5f235f36362417f48382ee2a68443f5387af50a5327558983b8"
+    }
+  ],
+  "scientific_boundaries": [
+    "The local structure map is a Cr-centred representation; it is not the same descriptor as the retained whole-cell MD atlas.",
+    "MLIP self-relaxed paths are model-PES endpoint proxies, not DFT minimum-energy paths or validated barriers.",
+    "DFT interlayer references retain COMPLETED_BUT_SCF_WARNING and are diagnostic reference geometries.",
+    "Pending MultiT geometries are shown as exploratory open markers and are not promoted to converged publication evidence.",
+    "Distance to grouped training is a descriptor-space diagnostic, not a universal task-difficulty score."
+  ]
+}

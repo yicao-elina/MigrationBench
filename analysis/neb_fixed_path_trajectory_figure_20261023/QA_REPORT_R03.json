@@ -1,0 +1,1559 @@
+{
+  "schema_version": "migrationbench_fixed_path_trajectory_figure_qa_r03_v1",
+  "status": "PROVISIONAL_DIAGNOSTIC_CANDIDATE_R03",
+  "figure_accepted": false,
+  "summary": {
+    "checks_total": 19,
+    "pass": 11,
+    "blocked_or_pending": 8,
+    "blocked_or_pending_codes": [
+      "VIS-03",
+      "PUB-08",
+      "PHY-16",
+      "PUB-09",
+      "DFT-02",
+      "DFT-04",
+      "SEED-04",
+      "PUB-10"
+    ],
+    "numeric_fixed_rows": 330,
+    "fixed_finite_diagnostic_blocks": 33,
+    "fixed_failure_blocks": 3,
+    "dft_warning_rows": 30,
+    "blender_visual_review": "PENDING; supplied Blender render remains an unreviewed candidate"
+  },
+  "r02_geometry_contract": {
+    "schema_version": "migrationbench_shared_panel_geometry_contract_r03_v1",
+    "status": "PROVISIONAL_DIAGNOSTIC_CANDIDATE_R03",
+    "rule": "top triptych and lower plot axes use the same three equal x-boundaries; no lower-raster rescaling is permitted",
+    "reference_width_px": 4200,
+    "reference_dpi": 300,
+    "top_triptych": {
+      "boundary_rule": "equal thirds of the supplied triptych raster",
+      "boundary_px": [
+        0,
+        1400,
+        2800,
+        4200
+      ],
+      "observed": {
+        "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/triptych_top.png",
+        "width_px": 4200,
+        "height_px": 1750,
+        "sha256": "1103f4fc6b4a97de58656ba3f97b0e5afe5febdca010534b3dbd084189aa3bab",
+        "width_matches_contract": true,
+        "width_divisible_by_three": true
+      }
+    },
+    "lower_panel": {
+      "canvas_width_px": 4200,
+      "canvas_height_px": 2100,
+      "dpi": 300,
+      "axes_boundary_rule": "axes outer boxes equal the top triptych thirds",
+      "boundary_px": [
+        0,
+        1400,
+        2800,
+        4200
+      ]
+    },
+    "columns": [
+      {
+        "column_index": 1,
+        "path_id": "cr_canonical_in_gap",
+        "display_label": "within gap",
+        "x0_norm": 0.0,
+        "x1_norm": 0.3333333333333333,
+        "center_norm": 0.16666666666666666,
+        "x0_px": 0,
+        "x1_px": 1400,
+        "center_px": 700,
+        "width_px": 1400
+      },
+      {
+        "column_index": 2,
+        "path_id": "cr_canonical_gap_to_ql",
+        "display_label": "gap2QL",
+        "x0_norm": 0.3333333333333333,
+        "x1_norm": 0.6666666666666666,
+        "center_norm": 0.5,
+        "x0_px": 1400,
+        "x1_px": 2800,
+        "center_px": 2100,
+        "width_px": 1400
+      },
+      {
+        "column_index": 3,
+        "path_id": "cr_canonical_within_ql",
+        "display_label": "withinQL",
+        "x0_norm": 0.6666666666666666,
+        "x1_norm": 1.0,
+        "center_norm": 0.8333333333333334,
+        "x0_px": 2800,
+        "x1_px": 4200,
+        "center_px": 3500,
+        "width_px": 1400
+      }
+    ],
+    "alignment_tolerance_px": 0,
+    "column_order": [
+      "within gap",
+      "gap2QL",
+      "withinQL"
+    ],
+    "revision": "R03 additive layout revision; R02 contract preserved",
+    "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/panel_geometry_contract_R03.json",
+    "sha256": "ef299f56f47fcb71e22e232b492676145d67c63097045ac7137b545b3e09a7b2"
+  },
+  "tier1_revalidation": {
+    "status": "PASS_WITH_EXPLICIT_FALLBACK_BLOCKER",
+    "source_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/derived_r01/TIER1_IMAGE_PROFILES.tsv",
+    "source_sha256": "431afb77043fee4104ed691c0de0a46eb8645fa3d21458f167fb4f2ed4bb5a4c",
+    "source_bytes": 487689,
+    "source_total_rows": 1590,
+    "source_fixed_observable_rows": 510,
+    "coverage": {
+      "expected_target_blocks": 36,
+      "observed_target_blocks": 36,
+      "complete_finite_blocks": 33,
+      "numeric_rows": 330,
+      "failure_blocks": 3,
+      "expected_numeric_rows": 330,
+      "expected_failure_blocks": 3,
+      "coverage_pass": true
+    },
+    "record_ids": [
+      {
+        "record_id": "NEB-20261019-000053",
+        "model_id": "foundation_omat0_medium",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000053.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_omat0_medium/cr_canonical_in_gap/attempt_32212774/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000091",
+        "model_id": "foundation_omat0_medium",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000091.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_omat0_medium/cr_canonical_gap_to_ql/attempt_32212872/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000015",
+        "model_id": "foundation_omat0_medium",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000015.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_omat0_medium/cr_canonical_within_ql/attempt_32212752/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000057",
+        "model_id": "foundation_mpa0",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000057.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_mpa0/cr_canonical_in_gap/attempt_32212777/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000095",
+        "model_id": "foundation_mpa0",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000095.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_mpa0/cr_canonical_gap_to_ql/attempt_32212874/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000019",
+        "model_id": "foundation_mpa0",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000019.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_mpa0/cr_canonical_within_ql/attempt_32212755/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000051",
+        "model_id": "foundation_mp0b3",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000051.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_mp0b3/cr_canonical_in_gap/attempt_32212773/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000089",
+        "model_id": "foundation_mp0b3",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000089.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_mp0b3/cr_canonical_gap_to_ql/attempt_32212871/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000013",
+        "model_id": "foundation_mp0b3",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000013.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/foundation_mp0b3/cr_canonical_within_ql/attempt_32212751/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000059",
+        "model_id": "from_scratch_seed123",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000059.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed123/cr_canonical_in_gap/attempt_32212778/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000097",
+        "model_id": "from_scratch_seed123",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000097.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed123/cr_canonical_gap_to_ql/attempt_32212875/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000021",
+        "model_id": "from_scratch_seed123",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000021.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed123/cr_canonical_within_ql/attempt_32212756/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000061",
+        "model_id": "from_scratch_seed234",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000061.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed234/cr_canonical_in_gap/attempt_32212779/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000099",
+        "model_id": "from_scratch_seed234",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000099.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed234/cr_canonical_gap_to_ql/attempt_32212876/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000023",
+        "model_id": "from_scratch_seed234",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000023.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed234/cr_canonical_within_ql/attempt_32212757/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000063",
+        "model_id": "from_scratch_seed345",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000063.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed345/cr_canonical_in_gap/attempt_32212780/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000101",
+        "model_id": "from_scratch_seed345",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000101.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed345/cr_canonical_gap_to_ql/attempt_32212877/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000025",
+        "model_id": "from_scratch_seed345",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000025.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/from_scratch_seed345/cr_canonical_within_ql/attempt_32212758/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000065",
+        "model_id": "ft600k_seed123",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000065.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed123/cr_canonical_in_gap/attempt_32212787/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000103",
+        "model_id": "ft600k_seed123",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000103.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed123/cr_canonical_gap_to_ql/attempt_32212878/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000027",
+        "model_id": "ft600k_seed123",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000027.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed123/cr_canonical_within_ql/attempt_32212759/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000067",
+        "model_id": "ft600k_seed234",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000067.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed234/cr_canonical_in_gap/attempt_32212788/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000105",
+        "model_id": "ft600k_seed234",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000105.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed234/cr_canonical_gap_to_ql/attempt_32212879/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000029",
+        "model_id": "ft600k_seed234",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000029.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed234/cr_canonical_within_ql/attempt_32212760/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000069",
+        "model_id": "ft600k_seed345",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000069.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed345/cr_canonical_in_gap/attempt_32212789/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000107",
+        "model_id": "ft600k_seed345",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000107.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed345/cr_canonical_gap_to_ql/attempt_32212880/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000031",
+        "model_id": "ft600k_seed345",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000031.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ft600k_seed345/cr_canonical_within_ql/attempt_32212761/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000071",
+        "model_id": "ftmultit_seed123",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FAILURE_MODE",
+        "tier1_row_count": 0,
+        "image_indices": [],
+        "complete_finite_ten_image_profile": false,
+        "tier1_profile_sources": [],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed123/cr_canonical_in_gap/attempt_32212790/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000109",
+        "model_id": "ftmultit_seed123",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FAILURE_MODE",
+        "tier1_row_count": 0,
+        "image_indices": [],
+        "complete_finite_ten_image_profile": false,
+        "tier1_profile_sources": [],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed123/cr_canonical_gap_to_ql/attempt_32212881/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000033",
+        "model_id": "ftmultit_seed123",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FAILURE_MODE",
+        "tier1_row_count": 0,
+        "image_indices": [],
+        "complete_finite_ten_image_profile": false,
+        "tier1_profile_sources": [],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed123/cr_canonical_within_ql/attempt_32212763/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000073",
+        "model_id": "ftmultit_seed234",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000073.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed234/cr_canonical_in_gap/attempt_32212862/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000111",
+        "model_id": "ftmultit_seed234",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000111.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed234/cr_canonical_gap_to_ql/attempt_32212882/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000035",
+        "model_id": "ftmultit_seed234",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000035.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed234/cr_canonical_within_ql/attempt_32212764/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000075",
+        "model_id": "ftmultit_seed345",
+        "path_id": "cr_canonical_in_gap",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000075.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed345/cr_canonical_in_gap/attempt_32212863/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000113",
+        "model_id": "ftmultit_seed345",
+        "path_id": "cr_canonical_gap_to_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000113.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed345/cr_canonical_gap_to_ql/attempt_32212739/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      },
+      {
+        "record_id": "NEB-20261019-000037",
+        "model_id": "ftmultit_seed345",
+        "path_id": "cr_canonical_within_ql",
+        "status": "FINITE_DIAGNOSTIC",
+        "tier1_row_count": 10,
+        "image_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "complete_finite_ten_image_profile": true,
+        "tier1_profile_sources": [
+          "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000037.tsv"
+        ],
+        "remote_profile_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/remote_fixed_r01/fixed/ftmultit_seed345/cr_canonical_within_ql/attempt_32212765/image_profile.csv",
+        "remote_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+        "raw_profile_sha256": "UNAVAILABLE_READ_BLOCKED_AT_RUNTIME"
+      }
+    ],
+    "tier1_profile_source_counts": {
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000053.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000091.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000015.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000057.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000095.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000019.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000051.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000089.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000013.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000059.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000097.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000021.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000061.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000099.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000023.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000063.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000101.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000025.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000065.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000103.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000027.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000067.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000105.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000029.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000069.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000107.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000031.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000073.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000111.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000035.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000075.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000113.tsv": 1,
+      "/scratch16/pclancy3/yi/neb_fixed_vs_self_matrix_20261019/derived_r01/profiles/NEB-20261019-000037.tsv": 1
+    },
+    "read_limitation": {
+      "remote_fixed_profile_read_status": "UNREADABLE_AT_RUNTIME_FALLBACK_TIER1_IMAGE_PROFILES",
+      "remote_raw_profile_sha256_policy": "not fabricated; sentinel retained per curve",
+      "numeric_values_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/derived_r01/TIER1_IMAGE_PROFILES.tsv",
+      "scope": "12 target arms × 3 canonical paths; 33 complete ten-image profiles plus 3 explicit failure blocks"
+    }
+  },
+  "render_metadata": {
+    "font": "Arial",
+    "arial_available": true,
+    "final_width_px": 4200,
+    "final_height_px": 2100,
+    "dpi": 300,
+    "standalone_panels": [
+      {
+        "path_id": "cr_canonical_in_gap",
+        "display_label": "within gap",
+        "xlim": [
+          -0.015,
+          1.015
+        ],
+        "ylim": [
+          -0.2427331749247969,
+          1.6084431797688012
+        ],
+        "failure_model_ids": [
+          "ftmultit_seed123"
+        ],
+        "axes_free_text_removed": true,
+        "line_semantics": {
+          "finite_profiles": "solid; family color and marker encode family/seed or checkpoint variant",
+          "uncertainty_withheld": "separate dotted legend semantic; no numeric band drawn",
+          "nonconverged_diagnostic": "separate dash-dot/open-marker legend semantic",
+          "failure": "x legend/status semantic; no numeric line"
+        },
+        "r03_axes_free_text": true,
+        "short_axis_labels": true,
+        "x_tick_boundary_policy": "outer endpoints only; interior quarter ticks retained",
+        "outputs": {
+          "stem": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_within_gap_R03",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_within_gap_R03.pdf",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_within_gap_R03.svg",
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_within_gap_R03.png",
+          "png_size_px": [
+            1560,
+            1680
+          ],
+          "dpi": 300,
+          "fixed_canvas": false
+        }
+      },
+      {
+        "path_id": "cr_canonical_gap_to_ql",
+        "display_label": "gap2QL",
+        "xlim": [
+          -0.015,
+          1.015
+        ],
+        "ylim": [
+          -0.2544758324325085,
+          0.07498829776701087
+        ],
+        "failure_model_ids": [
+          "ftmultit_seed123"
+        ],
+        "axes_free_text_removed": true,
+        "line_semantics": {
+          "finite_profiles": "solid; family color and marker encode family/seed or checkpoint variant",
+          "uncertainty_withheld": "separate dotted legend semantic; no numeric band drawn",
+          "nonconverged_diagnostic": "separate dash-dot/open-marker legend semantic",
+          "failure": "x legend/status semantic; no numeric line"
+        },
+        "r03_axes_free_text": true,
+        "short_axis_labels": true,
+        "x_tick_boundary_policy": "outer endpoints only; interior quarter ticks retained",
+        "outputs": {
+          "stem": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_gap2ql_R03",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_gap2ql_R03.pdf",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_gap2ql_R03.svg",
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_gap2ql_R03.png",
+          "png_size_px": [
+            1560,
+            1680
+          ],
+          "dpi": 300,
+          "fixed_canvas": false
+        }
+      },
+      {
+        "path_id": "cr_canonical_within_ql",
+        "display_label": "withinQL",
+        "xlim": [
+          -0.015,
+          1.015
+        ],
+        "ylim": [
+          -2.116146645941575,
+          27.906559164936716
+        ],
+        "failure_model_ids": [
+          "ftmultit_seed123"
+        ],
+        "axes_free_text_removed": true,
+        "line_semantics": {
+          "finite_profiles": "solid; family color and marker encode family/seed or checkpoint variant",
+          "uncertainty_withheld": "separate dotted legend semantic; no numeric band drawn",
+          "nonconverged_diagnostic": "separate dash-dot/open-marker legend semantic",
+          "failure": "x legend/status semantic; no numeric line"
+        },
+        "r03_axes_free_text": true,
+        "short_axis_labels": true,
+        "x_tick_boundary_policy": "outer endpoints only; interior quarter ticks retained",
+        "outputs": {
+          "stem": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_within_ql_R03",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_within_ql_R03.pdf",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_within_ql_R03.svg",
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels_R03/panel_within_ql_R03.png",
+          "png_size_px": [
+            1560,
+            1680
+          ],
+          "dpi": 300,
+          "fixed_canvas": false
+        }
+      }
+    ],
+    "composite": {
+      "outputs": {
+        "stem": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels_R03",
+        "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels_R03.pdf",
+        "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels_R03.svg",
+        "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels_R03.png",
+        "png_size_px": [
+          4200,
+          2100
+        ],
+        "dpi": 300,
+        "fixed_canvas": true
+      },
+      "panels": [
+        {
+          "path_id": "cr_canonical_in_gap",
+          "display_label": "within gap",
+          "xlim": [
+            -0.015,
+            1.015
+          ],
+          "ylim": [
+            -0.2427331749247969,
+            1.6084431797688012
+          ],
+          "failure_model_ids": [
+            "ftmultit_seed123"
+          ],
+          "axes_free_text_removed": true,
+          "line_semantics": {
+            "finite_profiles": "solid; family color and marker encode family/seed or checkpoint variant",
+            "uncertainty_withheld": "separate dotted legend semantic; no numeric band drawn",
+            "nonconverged_diagnostic": "separate dash-dot/open-marker legend semantic",
+            "failure": "x legend/status semantic; no numeric line"
+          },
+          "r03_axes_free_text": true,
+          "short_axis_labels": true,
+          "x_tick_boundary_policy": "outer endpoints only; interior quarter ticks retained"
+        },
+        {
+          "path_id": "cr_canonical_gap_to_ql",
+          "display_label": "gap2QL",
+          "xlim": [
+            -0.015,
+            1.015
+          ],
+          "ylim": [
+            -0.2544758324325085,
+            0.07498829776701087
+          ],
+          "failure_model_ids": [
+            "ftmultit_seed123"
+          ],
+          "axes_free_text_removed": true,
+          "line_semantics": {
+            "finite_profiles": "solid; family color and marker encode family/seed or checkpoint variant",
+            "uncertainty_withheld": "separate dotted legend semantic; no numeric band drawn",
+            "nonconverged_diagnostic": "separate dash-dot/open-marker legend semantic",
+            "failure": "x legend/status semantic; no numeric line"
+          },
+          "r03_axes_free_text": true,
+          "short_axis_labels": true,
+          "x_tick_boundary_policy": "outer endpoints only; interior quarter ticks retained"
+        },
+        {
+          "path_id": "cr_canonical_within_ql",
+          "display_label": "withinQL",
+          "xlim": [
+            -0.015,
+            1.015
+          ],
+          "ylim": [
+            -2.116146645941575,
+            27.906559164936716
+          ],
+          "failure_model_ids": [
+            "ftmultit_seed123"
+          ],
+          "axes_free_text_removed": true,
+          "line_semantics": {
+            "finite_profiles": "solid; family color and marker encode family/seed or checkpoint variant",
+            "uncertainty_withheld": "separate dotted legend semantic; no numeric band drawn",
+            "nonconverged_diagnostic": "separate dash-dot/open-marker legend semantic",
+            "failure": "x legend/status semantic; no numeric line"
+          },
+          "r03_axes_free_text": true,
+          "short_axis_labels": true,
+          "x_tick_boundary_policy": "outer endpoints only; interior quarter ticks retained"
+        }
+      ],
+      "geometry": {
+        "contract_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/panel_geometry_contract_R03.json",
+        "contract_sha256": "ef299f56f47fcb71e22e232b492676145d67c63097045ac7137b545b3e09a7b2",
+        "canvas_size_px": [
+          4200,
+          2100
+        ],
+        "axes_bounds_norm": [
+          [
+            0.0,
+            0.17,
+            0.3333333333333333,
+            0.47
+          ],
+          [
+            0.3333333333333333,
+            0.17,
+            0.3333333333333333,
+            0.47
+          ],
+          [
+            0.6666666666666666,
+            0.17,
+            0.3333333333333333,
+            0.47
+          ]
+        ],
+        "columns": [
+          {
+            "path_id": "cr_canonical_in_gap",
+            "x0_px": 0,
+            "x1_px": 1400,
+            "center_px": 700
+          },
+          {
+            "path_id": "cr_canonical_gap_to_ql",
+            "x0_px": 1400,
+            "x1_px": 2800,
+            "center_px": 2100
+          },
+          {
+            "path_id": "cr_canonical_within_ql",
+            "x0_px": 2800,
+            "x1_px": 4200,
+            "center_px": 3500
+          }
+        ],
+        "matches_contract_width": true,
+        "matches_contract_boundaries": true,
+        "typography_pt": {
+          "axis_labels": 11.5,
+          "tick_labels": 11.0,
+          "legend": 11.0,
+          "status_strip": 11.0,
+          "titles": 12.0
+        },
+        "header_layers": [
+          "status_strip",
+          "family_handles",
+          "short_semantic_handles"
+        ],
+        "x_tick_boundary_policy": "outer endpoints only; interior quarter ticks retained",
+        "axes_top_clearance": "column titles at y=0.685; axes top at y=0.64; no header text inside axes"
+      }
+    }
+  },
+  "checks": [
+    {
+      "code": "VIS-01",
+      "status": "PASS",
+      "detail": "R03 top/lower shared geometry QA has zero-pixel error for every column; visual Blender review remains required."
+    },
+    {
+      "code": "VIS-02",
+      "status": "PASS",
+      "detail": "Column order and path IDs remain within gap → gap2QL → withinQL."
+    },
+    {
+      "code": "VIS-03",
+      "status": "PENDING",
+      "detail": "Blender scene manifest has 81 atoms and 10 real images, but raster-level image 1–8 distinguishability remains a visual-review item outside the Python-only scope."
+    },
+    {
+      "code": "VIS-05",
+      "status": "PASS",
+      "detail": "R03 caption and figure-level status strip explicitly define ghosted spheres as real retained path-image overlay; alpha is image order only, not uncertainty/error."
+    },
+    {
+      "code": "VIS-12",
+      "status": "PASS",
+      "detail": "Uncertainty-withheld dotted semantic, nonconverged/diagnostic dash-dot semantic, and failure x semantic are separate legend entries."
+    },
+    {
+      "code": "VIS-14",
+      "status": "PASS",
+      "detail": "Axes contain no free-form SCF/failure/status prose; warning and status messages are figure-level."
+    },
+    {
+      "code": "VIS-16",
+      "status": "PASS",
+      "detail": "R03 final placement uses 11–12 pt axis/tick/legend/status typography at 4200 px / 14 in canvas."
+    },
+    {
+      "code": "PUB-01",
+      "status": "PASS",
+      "detail": "Caption and figure-level status strip preserve diagnostic, ghost, fixed/self/MIC, and DFT wording boundaries."
+    },
+    {
+      "code": "PUB-03",
+      "status": "PASS",
+      "detail": "Caption records 33 finite fixed diagnostic blocks, 3 MODEL_LOAD failure blocks, 30 DFT warning rows, and both withheld-band reasons."
+    },
+    {
+      "code": "PUB-05",
+      "status": "PASS",
+      "detail": "Final R03 lower panel uses publication-size typography rather than relying on DPI."
+    },
+    {
+      "code": "PUB-06",
+      "status": "PASS",
+      "detail": "R03 top/lower shared geometry QA has zero-pixel error for every column; visual Blender review remains required."
+    },
+    {
+      "code": "PUB-07",
+      "status": "PASS",
+      "detail": "R03 composite PNG, PDF, and SVG exist with recorded SHA256 hashes."
+    },
+    {
+      "code": "PUB-08",
+      "status": "PENDING",
+      "detail": "Color/grayscale and full visual sign-off remain pending for the externally rendered Blender raster."
+    },
+    {
+      "code": "PHY-16",
+      "status": "BLOCKED",
+      "detail": "TIER1 fallback revalidation passes coverage and records SHA256/row counts/record IDs, but remote fixed image_profile.csv reads remain blocked and raw per-profile hashes are unavailable."
+    },
+    {
+      "code": "PUB-09",
+      "status": "BLOCKED",
+      "detail": "R03 is reproducible with an explicit fallback ledger, but the remote fixed-profile read limitation remains a release blocker."
+    },
+    {
+      "code": "DFT-02",
+      "status": "BLOCKED",
+      "detail": "All 30 DFT rows remain COMPLETED_BUT_SCF_WARNING and are diagnostic only."
+    },
+    {
+      "code": "DFT-04",
+      "status": "BLOCKED",
+      "detail": "Clean image-wise DFT convergence gate is not satisfied."
+    },
+    {
+      "code": "SEED-04",
+      "status": "BLOCKED",
+      "detail": "FT-600K seed 123 is base-unproven and FT-MultiT seed 123 is MODEL_LOAD failure; bands remain withheld."
+    },
+    {
+      "code": "PUB-10",
+      "status": "BLOCKED",
+      "detail": "R03 remains a provisional diagnostic candidate pending visual, DFT, seed, and remote-profile provenance gates."
+    }
+  ],
+  "targeted_next_actions": [
+    "Have the visual reviewer inspect the supplied Blender triptych at final placement, including image 1–8 distinguishability and grayscale/color review.",
+    "Repair the remote fixed-profile read limitation or provide an independently auditable raw profile hash ledger.",
+    "Repair DFT SCF convergence and verified seed gates before any publication-final claim."
+  ],
+  "manifest": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest_R03.json",
+  "r03_layout": {
+    "header_layers": [
+      "one-line status strip",
+      "four family handles",
+      "short semantic handles"
+    ],
+    "overlap_check": "pending integration plus visual reviewer inspection",
+    "r02_preserved": true
+  },
+  "integration_report": {
+    "status": "PROVISIONAL_UNREVIEWED_BLENDER_CANDIDATE_R03",
+    "visual_review_required": true,
+    "figure_accepted": false,
+    "top_source_mode": "triptych",
+    "top_meta": {
+      "mode": "triptych",
+      "width_px": 4200,
+      "height_px": 1750
+    },
+    "top_pngs": [
+      "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/triptych_top_R03.png"
+    ],
+    "lower_png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels_R03.png",
+    "output_formats": {
+      "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/generated_R03/fixed_path_trajectory_composite_R03.png",
+      "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/generated_R03/fixed_path_trajectory_composite_R03.pdf",
+      "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/generated_R03/fixed_path_trajectory_composite_R03.svg",
+      "png_size_px": [
+        4200,
+        3850
+      ],
+      "sha256": {
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/generated_R03/fixed_path_trajectory_composite_R03.png": "87d7e7f5d773df615a7ee6995fbfe3aca9aa0747b56ce2bb32b9b73f08768e64",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/generated_R03/fixed_path_trajectory_composite_R03.pdf": "ee8e78d7f5c89d64dea12b1ad0b75aacb00c7ac2494d4e52e952bc5a30ccbf8d",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/generated_R03/fixed_path_trajectory_composite_R03.svg": "ded16227db2a695fa910b883b24d32743eb8f94bfad106c68db59265c51659bf"
+      },
+      "formats_complete": true,
+      "natural_pixel_composition": true
+    },
+    "geometry_contract": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/integration/panel_geometry_contract_R03.json",
+    "geometry_contract_sha256": "ef299f56f47fcb71e22e232b492676145d67c63097045ac7137b545b3e09a7b2",
+    "geometry_qa": {
+      "status": "PASS",
+      "tolerance_px": 0,
+      "expected_width_px": 4200,
+      "top_width_px": 4200,
+      "lower_width_px": 4200,
+      "top_boundaries_px": [
+        0,
+        1400,
+        2800,
+        4200
+      ],
+      "lower_boundaries_px": [
+        0,
+        1400,
+        2800,
+        4200
+      ],
+      "contract_boundaries_px": [
+        0,
+        1400,
+        2800,
+        4200
+      ],
+      "per_column": [
+        {
+          "path_id": "cr_canonical_in_gap",
+          "top_x0_px": 0,
+          "top_x1_px": 1400,
+          "lower_x0_px": 0,
+          "lower_x1_px": 1400,
+          "contract_x0_px": 0,
+          "contract_x1_px": 1400,
+          "top_lower_x0_error_px": 0,
+          "top_lower_x1_error_px": 0,
+          "top_contract_x0_error_px": 0,
+          "top_contract_x1_error_px": 0,
+          "center_error_px": 0
+        },
+        {
+          "path_id": "cr_canonical_gap_to_ql",
+          "top_x0_px": 1400,
+          "top_x1_px": 2800,
+          "lower_x0_px": 1400,
+          "lower_x1_px": 2800,
+          "contract_x0_px": 1400,
+          "contract_x1_px": 2800,
+          "top_lower_x0_error_px": 0,
+          "top_lower_x1_error_px": 0,
+          "top_contract_x0_error_px": 0,
+          "top_contract_x1_error_px": 0,
+          "center_error_px": 0
+        },
+        {
+          "path_id": "cr_canonical_within_ql",
+          "top_x0_px": 2800,
+          "top_x1_px": 4200,
+          "lower_x0_px": 2800,
+          "lower_x1_px": 4200,
+          "contract_x0_px": 2800,
+          "contract_x1_px": 4200,
+          "top_lower_x0_error_px": 0,
+          "top_lower_x1_error_px": 0,
+          "top_contract_x0_error_px": 0,
+          "top_contract_x1_error_px": 0,
+          "center_error_px": 0
+        }
+      ],
+      "max_abs_error_px": 0,
+      "passed": true
+    },
+    "lower_rescaled": false,
+    "blender_candidate_review": "UNPASSED_UNTIL_VISUAL_REVIEW"
+  }
+}

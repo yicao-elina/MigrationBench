@@ -1,0 +1,92 @@
+{
+  "atoms": {
+    "Te": "#C88DB7",
+    "Sb": "#75BEC8",
+    "Cr": "#E4B44C",
+    "bonds": "#BCC3C8"
+  },
+  "methods": {
+    "zero_shot": "#8FC7AB",
+    "fine_tuning": "#29A7B6",
+    "scratch": "#327FB1"
+  },
+  "method_edges": {
+    "zero_shot": "#4D8168",
+    "fine_tuning": "#187D88",
+    "scratch": "#235A83"
+  },
+  "tasks": {
+    "static": "#73869A",
+    "md": "#5C9B7C",
+    "in_gap": "#D28A32",
+    "gap_to_ql": "#CD6D62",
+    "within_ql": "#7D5C99",
+    "sliding": "#287E8A"
+  },
+  "operators": {
+    "fixed": "#F4BDC3",
+    "self_relaxed": "#E978A4"
+  },
+  "evidence": {
+    "reference": "#303840",
+    "failed": "#BD6472",
+    "pending": "#A6AFB7",
+    "nonconverged": "#78838D"
+  },
+  "ui": {
+    "ink": "#26333D",
+    "secondary": "#6B7B87",
+    "rule": "#D5DDE2",
+    "surface": "#F4F7F8",
+    "white": "#FFFFFF"
+  },
+  "data_map": {
+    "energy_palette": [
+      "#E8F0F5",
+      "#BDD9E7",
+      "#7BB6CF",
+      "#3490B8",
+      "#18669E",
+      "#203F67"
+    ],
+    "energy_range_eV": [
+      0,
+      27
+    ],
+    "powernorm_gamma": 0.4,
+    "absolute_deviation_range_eV": [
+      0,
+      25
+    ],
+    "scatter_area_rule": "s=smin+(smax-smin)*sqrt(abs_deviation/25); same function for size key",
+    "zero_error": "minimum visible marker; distinct from NC"
+  },
+  "encoding": {
+    "thermal": {
+      "600_K": "open marker",
+      "multi_T": "filled marker",
+      "zero_shot": "not a thermal training cell"
+    },
+    "seed": {
+      "123": "circle",
+      "234": "triangle",
+      "345": "square"
+    },
+    "checkpoint": "diamond, no seed aggregate",
+    "reference_line": "0.7 pt dark-grey dashed",
+    "missing": "blank + NA label",
+    "NC": "open crossed marker, no numeric size/color"
+  },
+  "print": {
+    "width_mm": 183,
+    "figure1_height_mm": 198,
+    "panel_letter_pt": 10,
+    "panel_title_pt": 8.4,
+    "body_pt": 7.1,
+    "tick_pt": 6.5,
+    "line_pt": 0.6,
+    "reference_line_pt": 0.7,
+    "PNG_dpi": 450,
+    "font": "Nimbus Sans / Helvetica; exact math as LaTeX/vector"
+  }
+}

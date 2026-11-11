@@ -1,0 +1,21 @@
+{
+  "campaign_id": "scratch_600k_grouped_v1",
+  "repair_of": "32075474_[0-2]",
+  "submitted_at_local": "2026-10-16T12:16:15-07:00",
+  "host": "rockfish",
+  "job_id": "32114529",
+  "array": "32114529_[0-2%3]",
+  "state_at_submission_check": "PENDING",
+  "failure_evidence": {
+    "prior_job_id": "32075474_[0-2]",
+    "prior_exit_code": "1:0",
+    "prior_stderr": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/scratch_600k_grouped_v1/logs/mb-canonical-scratch-600k-32075474_<array>.err",
+    "failure": "Lmod could not load openmpi/4.1.6 while the default openmpi/3.1.6 module was already loaded"
+  },
+  "repair": "restore the default module collection first, unload openmpi/3.1.6, then load openmpi/4.1.6",
+  "script_sha256": "566bfc6b02fb36e04fe2c44fe699e54a044a9f7ada2dc4a3d3e5b3f57da6207e",
+  "remote_script": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/scratch_600k_grouped_v1/submit_scratch_600k_grouped_v1_repair_openmpi_20261016.slurm",
+  "scientific_status": "TRAINING_SUBMITTED; no model result accepted",
+  "provenance_status": "PROVISIONAL_UPSTREAM_MANIFEST",
+  "failed_evidence_preserved": true
+}

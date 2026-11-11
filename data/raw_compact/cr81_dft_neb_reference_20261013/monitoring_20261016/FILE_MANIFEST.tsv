@@ -1,0 +1,27 @@
+artifact_scope	artifact_type	rockfish_path_or_job	local_path	required_for_gate	status
+campaign	root	/scratch16/pclancy3/yi/MigrationBench_rockfish_cr_neb_20261013	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013	identity	VERIFIED
+within-QL	job	31916908	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-QLs	job mapping	COMPLETED_BUT_SCF_WARNING
+within-QL	input	31916908/neb.in	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-QLs/neb.in	input identity	VERIFIED
+within-QL	input	31916908/pw_1.in,pw_2.in	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-QLs	input identity	VERIFIED
+within-QL	output	31916908/neb.out	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-QLs/neb.out	JOB DONE/barriers	SCF_WARNING
+within-QL	path	31916908/sb2te3.path	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-QLs/sb2te3.path	10 images/energy/force	SCF_WARNING
+within-QL	trajectory	31916908/sb2te3.xyz	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-QLs/sb2te3.xyz	geometry archive	VERIFIED
+gap-to-QL	job	31916909	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap2QL	job mapping	COMPLETED_BUT_SCF_WARNING
+gap-to-QL	input	31916909/neb.in	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap2QL/neb.in	input identity	VERIFIED
+gap-to-QL	input	31916909/pw_1.in,pw_2.in	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap2QL	input identity	VERIFIED
+gap-to-QL	output	31916909/neb.out	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap2QL/neb.out	JOB DONE/barriers	SCF_WARNING
+gap-to-QL	path	31916909/sb2te3.path	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap2QL/sb2te3.path	10 images/energy/force	SCF_WARNING
+gap-to-QL	trajectory	31916909/sb2te3.xyz	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap2QL/sb2te3.xyz	geometry archive	VERIFIED
+within-gap	job	31916910	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap-diffuse	job mapping	COMPLETED_BUT_SCF_WARNING
+within-gap	input	31916910/neb.in	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap-diffuse/neb.in	input identity	VERIFIED
+within-gap	input	31916910/pw_1.in,pw_2.in	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap-diffuse	input identity	VERIFIED
+within-gap	output	31916910/neb.out	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap-diffuse/neb.out	JOB DONE/barriers	SCF_WARNING
+within-gap	path	31916910/sb2te3.path	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap-diffuse/sb2te3.path	10 images/energy/force	SCF_WARNING
+within-gap	trajectory	31916910/sb2te3.xyz	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/raw/2L-Cu__neb-gap-diffuse/sb2te3.xyz	geometry archive	VERIFIED
+campaign	derived_table	QE summary	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/rockfish_cr_qe_summary.csv	directional summary	PROVISIONAL
+campaign	derived_table	Foundation model profiles	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/rockfish_cr_foundation_image_profiles.csv	fixed-path MLIP audit	VERIFIED_FINITE_DIAGNOSTIC
+continuation	plan	RESTART_PLAN.md	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/monitoring_20261016/RESTART_PLAN.md	restart design and acceptance gates	VERIFIED
+continuation	wrapper	rockfish_cr_neb_restart.slurm	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/monitoring_20261016/rockfish_cr_neb_restart.slurm	Rockfish continuation runtime	VERIFIED
+continuation	prepare_script	prepare_and_submit_restart.sh	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/monitoring_20261016/prepare_and_submit_restart.sh	isolated preparation and duplicate-safe submission	VERIFIED
+continuation	job_map	32069316,32069317,32069318	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/monitoring_20261016/restart_job_map_20261016.tsv	previous-to-restart mapping	SUBMITTED_PENDING
+continuation	manifest	restart_manifest_20261016.tsv	analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/monitoring_20261016/restart_manifest_20261016.tsv	lineage and source hashes	SUBMITTED_PENDING

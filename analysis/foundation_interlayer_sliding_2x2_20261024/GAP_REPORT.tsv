@@ -1,0 +1,5 @@
+gap_id	area	known_gap	consequence	mitigation	status
+G01	model provenance	Model binaries are on Rockfish and not in the local recovery package	Local-only reproduction cannot load the exact binaries	Record remote path, bytes, SHA256, job environment, and output hashes	OPEN
+G02	DFT reference	Both QE b-path2 references carry COMPLETED_BUT_SCF_WARNING	Do not call QE converged ground truth	Use warning-bearing retained-reference labels and keep claim qualified	OPEN
+G03	self observable	Self-relaxed branch is endpoint-only MLIP NEB, not DFT NEB	Cannot claim DFT MEP or mix with fixed-path values	Separate observable, retain trajectories and convergence gates	OPEN
+G04	DFT/model geometry	No same-geometry DFT rescoring is introduced by this campaign	Model-vs-DFT error on relaxed images is not established	Do not report relaxed-path DFT error; report only MLIP path profile	OPEN

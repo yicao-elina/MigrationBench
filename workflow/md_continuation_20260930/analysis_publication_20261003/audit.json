@@ -1,0 +1,71 @@
+{
+  "run_dir": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat",
+  "manifest": {
+    "dt_fs": 1.0,
+    "friction": 0.01,
+    "input": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-omat/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+    "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/finetuned_MACE_compiled.model",
+    "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat/segment_from_000008000.extxyz",
+    "start_step": 8000,
+    "target_step": 1000000,
+    "temperature_K": 600.0,
+    "write_interval_steps": 200
+  },
+  "status": {
+    "last_step": 737000,
+    "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/finetuned_MACE_compiled.model",
+    "natoms": 2050,
+    "pbc": [
+      true,
+      true,
+      true
+    ],
+    "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat/segment_from_000008000.extxyz",
+    "target_step": 1000000
+  },
+  "files": {
+    "input": {
+      "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-omat/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+      "exists": true,
+      "size": 13131406,
+      "mtime": 1754751318.8848562,
+      "sha256": "445cd9b2dd0a902594b925b9228b9c121995b980864a8c5331f994d87cd02a99"
+    },
+    "model": {
+      "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/finetuned_MACE_compiled.model",
+      "exists": true,
+      "size": 13068119,
+      "mtime": 1747926087.0163312,
+      "sha256": "dc41a98908dd25b150fb5c8dd0a28d95f5feeac37022682a7c389c475444d08e"
+    },
+    "segment": {
+      "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat/segment_from_000008000.extxyz",
+      "exists": true,
+      "size": 1173000750,
+      "mtime": 1791019954.4731472,
+      "sha256": "87fec502f638499601ad8ec0518fee3fb36d1addc6eafdc34cfe0bace104c4d4"
+    },
+    "checkpoint": {
+      "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat/latest_restart.extxyz",
+      "exists": true,
+      "size": 322761,
+      "mtime": 1791019954.490551,
+      "sha256": "f21c21b9551ecba67f9f99af5a5a94e7f8621b6bb9c97e64f2dd23351f144dc2"
+    }
+  },
+  "checkpoint_validation": {
+    "natoms": 2050,
+    "pbc": [
+      true,
+      true,
+      true
+    ],
+    "species_sha256": "49297712dc50708ef7ef5a295fce5c9875c0944c0513ebe9128ccb65b8f75c29",
+    "finite_positions": true,
+    "finite_momenta": true,
+    "finite_energy": true,
+    "finite_forces": true,
+    "max_force_eV_A": 77449.92354156,
+    "temperature_K": 590995829315.1891
+  }
+}

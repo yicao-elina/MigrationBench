@@ -1,0 +1,38 @@
+{
+  "campaign_id": "ft_600k_random_reproduction_20261019_repair_r01",
+  "training_jobs": ["32211668", "32211669_0", "32211669_1"],
+  "training_template_sha256": "f6851f843800ca8ec859f70d588c03208c551d44a0d17ff15f372c9f11bd63f9",
+  "conda_init": "/data/apps/linux-centos8-cascadelake/gcc-9.3.0/anaconda3-2020.07-i7qavhiohb2uwqs4eqjeefzx3kp5jqdu/etc/profile.d/conda.sh",
+  "environment": {
+    "python": "3.9.22",
+    "torch": "2.7.0+cu118",
+    "ase": "3.25.0",
+    "mace": "0.3.12"
+  },
+  "dataset": {
+    "train_sha256": "79140b6300e868bcbf7bbeee84db088495f0c8fb2fd1db2c6f41f03678f23104",
+    "valid_sha256": "fd393767e07f6645480093f1bae766918fce7ba65658949bc0365892bd857177",
+    "test_sha256": "cbe062a7be5235d7dd8399fa000f088f328305543551847c9658841ba3ade6f8",
+    "split": "historical_data_600K_random_split",
+    "counts": {"train": 1888, "valid": 236, "test": 237}
+  },
+  "foundation": {
+    "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model",
+    "sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0"
+  },
+  "md": {
+    "gate_job": "32455612",
+    "smoke_array": "32455770_[0-1]",
+    "root": "/scratch16/pclancy3/yi/ft_600k_random_reproduction_1ns_20261024_r01",
+    "velocity_seed": 1100,
+    "smoke_start_step": 200000,
+    "smoke_steps": 20000,
+    "target_step": 1000000,
+    "smoke_state": "BOTH_FAILED_SCIENTIFIC_THRESHOLD",
+    "smoke_results": {
+      "seed234": {"job": "32455770_0 / 32455778", "last_step": 201800, "temperature_K": 17605136.56800923, "max_force_eV_A": 234.4275866881024, "min_distance_A": "nan"},
+      "seed345": {"job": "32455770_1 / 32455770", "last_step": 201200, "temperature_K": 2174618.1332983645, "max_force_eV_A": 550.8870418507872, "min_distance_A": "nan"}
+    },
+    "continuation_jobs": []
+  }
+}

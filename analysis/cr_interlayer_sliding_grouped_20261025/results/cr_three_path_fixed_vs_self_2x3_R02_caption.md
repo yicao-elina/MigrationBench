@@ -1,0 +1,5 @@
+# Cr three-path fixed/self-relaxed profiles, R02
+
+Columns are **in-gap diffusion**, **gap→QL**, and **within-QL**. The first row is the fixed-path single-point diagnostic; the second row is the endpoint-only self-relaxed MLIP-NEB proxy. Colored curves are ensemble means and the translucent bands are one standard deviation across the available model identities/accepted profiles. The black dashed curve is the DFT-NEB reference retained from `foundation_self_relaxed_4x3_R03.pdf`.
+
+The fixed row uses the legacy canonical three-path matrix from 2026-10-19 because the current three-path Scratch raw profiles were not found, and the current single-model Foundation fixed diagnostic has a 43 eV within-QL finite-energy excursion. The self row uses current Foundation 4×3 profiles and current A2 FT self profiles accepted in R02 (15/18). The R03 retry for the three FT-MultiT within-QL jobs completed but none passed the residual/scientific gate, so that curve is intentionally omitted from panel f. These self-relaxed curves are endpoint-only MLIP NEB proxies, not DFT MEPs or validated migration barriers.

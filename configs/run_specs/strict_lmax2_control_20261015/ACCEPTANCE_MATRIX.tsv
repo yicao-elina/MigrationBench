@@ -1,0 +1,13 @@
+gate_id	artifact	acceptance_test	status_before_run	status_after_run
+TRAIN-01	launch script	command matches frozen seed234 template except seed/output root	OPEN	PENDING
+TRAIN-02	Slurm jobs	both new tasks exit 0 and show training complete	OPEN	PENDING
+TRAIN-03	compiled models	compiled checkpoints exist, load, and hash into registry	OPEN	PENDING
+TRAIN-04	provenance	seed, data hashes, environment, job IDs, and model hashes recorded	OPEN	PENDING
+EVAL-01	candidate coverage	639 candidates x 3 strict models = 1,917 unique rows	OPEN	PENDING
+EVAL-02	numerical validity	all strict rows finite and evaluation_status=success	OPEN	PENDING
+EVAL-03	paired comparison	same candidate IDs and source groups across strict models	OPEN	PENDING
+SCI-01	within-family variance	seed dispersion computed only for strict trio	OPEN	PENDING
+SCI-02	legacy separation	historical heterogeneous seed123 excluded from strict pooling	OPEN	PENDING
+SCI-03	causal boundary	DFT correctness remains PROVENANCE_PARTIAL	OPEN	PENDING
+FIG-01	panel b	vertical grey separators absent; horizontal 100 eV/A gate retained	OPEN	PENDING
+FIG-02	figure release	PNG/PDF hashes and rebuild manifest recorded	OPEN	PENDING

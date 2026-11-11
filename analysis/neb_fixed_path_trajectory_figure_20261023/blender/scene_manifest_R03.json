@@ -1,0 +1,1441 @@
+{
+  "acceptance_boundary": {
+    "blocked_by": [
+      "DFT-02/DFT-03: warning-bearing QE reference cannot be unconditional ground truth",
+      "PUB-02: fixed-path family/seed numeric matrix is frozen as blocked",
+      "SEED-04: legal uncertainty bands require verified fixed-path seed matrix"
+    ],
+    "dfT_ground_truth_claim_allowed": false,
+    "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+    "final_publication_signoff": false,
+    "lower_python_curves_not_generated_here": true,
+    "visual_render_only": true
+  },
+  "camera": {
+    "column_centers": [
+      -24.0,
+      0.0,
+      24.0
+    ],
+    "display_bounds_A": {
+      "x": [
+        -3.0,
+        15.9
+      ],
+      "z": [
+        13.6,
+        34.0
+      ]
+    },
+    "individual_column_policy": {
+      "ortho_scale": 26.0,
+      "ortho_scale_common": true,
+      "projection_common": true,
+      "resolution_px": [
+        1400,
+        1750
+      ],
+      "target_rule": "independent target from real retained Cr path bounds after MIC unwrap; bounded focus shift only, no coordinate edit"
+    },
+    "master_triptych": {
+      "camera_location": [
+        0.0,
+        -80.0,
+        0.0
+      ],
+      "common_for_all_columns": true,
+      "name": "Master_Orthographic_Camera",
+      "ortho_scale": 72.0,
+      "resolution_px": [
+        4200,
+        1750
+      ],
+      "target": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    "orientation": "direct QL cross-section; camera along +Y; Z vertical",
+    "pbc_unwrap": "frame-to-frame MIC unwrap; same algorithm and display bounds for all columns; master and independent cameras retain common projection/material rules",
+    "projection": "orthographic",
+    "type": "ORTHO"
+  },
+  "column_order": [
+    {
+      "column_index": 1,
+      "display_label": "within gap",
+      "input_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/inputs/2L-Cu__neb-gap-diffuse.extxyz",
+      "path_id": "cr_canonical_in_gap",
+      "registry_class": "in-gap diffusion"
+    },
+    {
+      "column_index": 2,
+      "display_label": "gap2QL",
+      "input_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/inputs/2L-Cu__neb-gap2QL.extxyz",
+      "path_id": "cr_canonical_gap_to_ql",
+      "registry_class": "gap-to-QL"
+    },
+    {
+      "column_index": 3,
+      "display_label": "withinQL",
+      "input_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/inputs/2L-Cu__neb-QLs.extxyz",
+      "path_id": "cr_canonical_within_ql",
+      "registry_class": "within-QL"
+    }
+  ],
+  "coordinate_policy": {
+    "coordinates_used": "parsed source positions, then frame-to-frame MIC unwrapped",
+    "no_coordinate_sources": [
+      "Image #1",
+      "Image #2",
+      "historical Pov-Ray coordinates",
+      "synthetic PES schematic",
+      "hand-drawn trajectory"
+    ],
+    "source": "three retained extxyz files only"
+  },
+  "criteria_frozen": true,
+  "criteria_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/visual_review/FROZEN_VISUAL_ACCEPTANCE_CRITERIA.md",
+  "existing_data_modified": false,
+  "figure_id": "NEB_FIXED_PATH_TRAJECTORY_TRIPTYCH_20261023",
+  "manual_review_scope": {
+    "VIS-03": "R03 image-index marker readability, especially 1–8 in near-overlap",
+    "VIS-04": "preserve real endpoint rings and image 0→9 arrow",
+    "VIS-06": "preserve common projection/scale/unwrap and non-clipped host layers"
+  },
+  "manual_review_status": "PENDING_MANUAL_REVIEW",
+  "outputs": {
+    "cr_canonical_gap_to_ql": {
+      "bytes": 834668,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_gap_to_ql_R03.png",
+      "role": "independent common-scale Blender orthographic column camera",
+      "sha256": "cc5a92ce783a6f9c0f3cebc63646b08be898fd8a03073eb6f46991892bf8fb96",
+      "width_px": 1400
+    },
+    "cr_canonical_in_gap": {
+      "bytes": 924749,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_in_gap_R03.png",
+      "role": "independent common-scale Blender orthographic column camera",
+      "sha256": "b56380c276b591fe9b6ecb141bf8509003a3a4b5cf38e58f530eeee4189f6b3e",
+      "width_px": 1400
+    },
+    "cr_canonical_within_ql": {
+      "bytes": 865236,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_within_ql_R03.png",
+      "role": "independent common-scale Blender orthographic column camera",
+      "sha256": "0d8eef4881b1c2a86c170f64fd00b5626ed8d3b7122c51db86085639c30443a0",
+      "width_px": 1400
+    },
+    "triptych_top": {
+      "bytes": 2124452,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/triptych_top_R03.png",
+      "role": "master triptych",
+      "sha256": "b50fec5b07de48b571596ada4a40d86e40fb1b89c220fa50c78f6dd244e13243",
+      "width_px": 4200
+    }
+  },
+  "paper_files_modified": false,
+  "paths": [
+    {
+      "Cr_raw_positions_A": [
+        [
+          2.18734479,
+          3.72763953,
+          23.71443561
+        ],
+        [
+          2.42206869,
+          3.58703781,
+          23.82421541
+        ],
+        [
+          2.64177366,
+          3.45391035,
+          23.92982601
+        ],
+        [
+          2.86371161,
+          3.31765715,
+          24.02955131
+        ],
+        [
+          3.10217665,
+          3.18670258,
+          24.12163227
+        ],
+        [
+          3.35579782,
+          3.06601219,
+          24.20754943
+        ],
+        [
+          3.60372653,
+          2.94033294,
+          24.30413155
+        ],
+        [
+          3.85053615,
+          2.80345981,
+          24.40384098
+        ],
+        [
+          4.0965937,
+          2.65820237,
+          24.48870462
+        ],
+        [
+          4.3551735,
+          2.51134159,
+          24.56201239
+        ]
+      ],
+      "Cr_unwrapped_positions_A": [
+        [
+          2.18734479,
+          3.72763953,
+          23.71443561
+        ],
+        [
+          2.422068694649399,
+          3.58703781001274,
+          23.824215410950078
+        ],
+        [
+          2.641773669087212,
+          3.453910350024954,
+          23.929826011864073
+        ],
+        [
+          2.863711623669603,
+          3.317657150036695,
+          24.029551312727133
+        ],
+        [
+          3.1021766677223357,
+          3.186702580047638,
+          24.12163227352404
+        ],
+        [
+          3.3557978409849105,
+          3.0660121900578186,
+          24.2075494342676
+        ],
+        [
+          3.603726554608591,
+          2.940332940069066,
+          24.304131555103464
+        ],
+        [
+          3.8505361788786505,
+          2.8034598100808186,
+          24.403840985966387
+        ],
+        [
+          4.096593733630695,
+          2.658202370091389,
+          24.48870462670083
+        ],
+        [
+          4.355173538297586,
+          2.5113415901009417,
+          24.562012397335263
+        ]
+      ],
+      "atom_order_sha256": "b73b453895870d63a86e9c24e469516a57064b7c61de74166a7df4c61d66ffc4",
+      "bounds_unwrapped_A": {
+        "x_max": 15.03018639,
+        "x_min": -2.1067756804987656,
+        "z_max": 32.53288789079238,
+        "z_min": 14.878482569057281
+      },
+      "cell_A": [
+        [
+          17.10859971872434,
+          0.0,
+          0.0
+        ],
+        [
+          -4.26916021361244,
+          7.40364387667964,
+          0.0
+        ],
+        [
+          0.08956351952752,
+          0.05165086255083,
+          47.42888785524057
+        ]
+      ],
+      "column_index": 1,
+      "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+      "display_label": "within gap",
+      "endpoint_hashes_computed": {
+        "image_0": "ed6da9743ad9ee8dd4c4339cb49b3edf02d3859d4ec5973fdaf49d5d6bdec766",
+        "image_9": "3ad2877046ee248577e02ae75850b28ab80c13323392d81d9ed8cf12283f2007"
+      },
+      "fixed_retained_path_semantics": "RETAINED_DFT_PATH_ENDPOINTS_ONLY",
+      "image_count": 10,
+      "image_index_markers": {
+        "anchor_source": "exact projected Cr image coordinates from retained extxyz after recorded MIC unwrap",
+        "count": 10,
+        "indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "label_layout": "annotation-only rail with numbered badges; no atom/path coordinate modification or interpolation",
+        "leader_line_count": 10
+      },
+      "individual_camera": {
+        "cr_path_bounds_in_scene_A": {
+          "x": [
+            -28.26265521,
+            -26.094826461702414
+          ],
+          "z": [
+            -0.08556439000000182,
+            0.7620123973352619
+          ]
+        },
+        "focus_shift_A": [
+          -1.35,
+          0.16911200183381503
+        ],
+        "focus_source": "retained Cr path bounds after frame-to-frame MIC unwrap",
+        "location": [
+          -25.35,
+          -80.0,
+          0.16911200183381503
+        ],
+        "name": "Camera_cr_canonical_in_gap_Independent",
+        "ortho_scale": 26.0,
+        "projection": "ORTHO",
+        "resolution_px": [
+          1400,
+          1750
+        ],
+        "target": [
+          -25.35,
+          0.0,
+          0.16911200183381503
+        ]
+      },
+      "input_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/inputs/2L-Cu__neb-gap-diffuse.extxyz",
+      "input_sha256": "44011747f36333f51f4342dc752298e56a807233ad955472759fd846cdb8bdcf",
+      "mic_unwrap": {
+        "algorithm": "frame-to-frame minimum-image unwrapping; row-vector fractional coordinates; periodic axes wrapped to [-0.5, 0.5)",
+        "coordinates_rendered": "unwrapped frame coordinates derived from extxyz",
+        "max_abs_fractional_step_after_wrap": 0.019847066639401674,
+        "pbc_axes": [
+          true,
+          true,
+          true
+        ]
+      },
+      "migrating_atom_indices_zero_based": [
+        80
+      ],
+      "natoms": 81,
+      "path_id": "cr_canonical_in_gap",
+      "pbc": [
+        true,
+        true,
+        true
+      ],
+      "registry_cell_sha256": "b8c90c0133fd61f3a0da64b543cf9dfe121045f01c380e1daa817afaea6d2a27",
+      "registry_endpoint_consistency_gate": "PASS",
+      "registry_endpoint_hashes": {
+        "final": "01f91232686e88f45ba0fd3e80099c1b1165600b066580c549eb928cd1f4827d",
+        "initial": "9e258eb221cf85cc00c2400c827fecb6f207abb8649954407fd1c2c5d415062f"
+      },
+      "registry_expected_fixed_retained_path_sha256": "44011747f36333f51f4342dc752298e56a807233ad955472759fd846cdb8bdcf",
+      "render_object_counts": {
+        "arrowheads": 1,
+        "cr_spheres_by_image": {
+          "0": 1,
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "6": 1,
+          "7": 1,
+          "8": 1,
+          "9": 1
+        },
+        "endpoint_rings": 2,
+        "host_bonds_image_0": 214,
+        "host_spheres_by_image": {
+          "0": 80,
+          "1": 80,
+          "2": 80,
+          "3": 80,
+          "4": 80,
+          "5": 80,
+          "6": 80,
+          "7": 80,
+          "8": 80,
+          "9": 80
+        },
+        "image_index_leader_lines": 10,
+        "image_index_marker_coordinates": [
+          {
+            "anchor_projected_xz_A": [
+              -28.26265521,
+              -0.08556439000000182
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 0,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              -2.13677599633237
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -28.027931305350602,
+              0.0242154109500774
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 1,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              -1.5867759963323702
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -27.808226330912788,
+              0.12982601186407194
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 2,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              -1.03677599633237
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -27.586288376330398,
+              0.22955131272713203
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 3,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              -0.48677599633237
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -27.347823332277663,
+              0.3216322735240382
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 4,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              0.06322400366763004
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -27.09420215901509,
+              0.40754943426760093
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 5,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              0.6132240036676301
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -26.84627344539141,
+              0.5041315551034629
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 6,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              1.1632240036676302
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -26.59946382112135,
+              0.6038409859663858
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 7,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              1.71322400366763
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -26.353406266369305,
+              0.6887046267008294
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 8,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              2.2632240036676303
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -26.094826461702414,
+              0.7620123973352619
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 9,
+            "label_badge_xz_A": [
+              -23.594826461702414,
+              2.81322400366763
+            ]
+          }
+        ],
+        "image_index_marker_rule": "one numbered annotation badge per real Cr image 0–9; leader starts at exact projected Cr x/z; badge rail offset is annotation-only",
+        "image_index_markers": 10,
+        "text_objects": 13,
+        "trajectory_polyline_points": 10
+      },
+      "source_hash_match": true,
+      "species_order": "Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Cr",
+      "subtitle": "in-gap diffusion  ·  retained fixed path",
+      "validation_checks": {
+        "atoms_all_81": true,
+        "image_count_10": true,
+        "pbc_all_TTT": true,
+        "registry_atoms_81": true,
+        "registry_endpoint_consistency_PASS": true,
+        "registry_fixed_image_count_10": true,
+        "registry_pbc_TTT": true,
+        "single_cr_atom_all_images": true,
+        "source_exists": true,
+        "source_sha256_matches_registry": true,
+        "species_order_matches_registry": true
+      }
+    },
+    {
+      "Cr_raw_positions_A": [
+        [
+          4.35752755,
+          2.51269835,
+          24.58232603
+        ],
+        [
+          4.356524,
+          2.51212007,
+          24.59015816
+        ],
+        [
+          4.35424994,
+          2.5108077,
+          24.60558448
+        ],
+        [
+          4.35177179,
+          2.50937944,
+          24.62222794
+        ],
+        [
+          4.34938208,
+          2.50800123,
+          24.63862265
+        ],
+        [
+          4.34697907,
+          2.5066157,
+          24.65534301
+        ],
+        [
+          4.34459083,
+          2.50523922,
+          24.67248423
+        ],
+        [
+          4.34227638,
+          2.50390566,
+          24.68945064
+        ],
+        [
+          4.3399368,
+          2.50255747,
+          24.70653456
+        ],
+        [
+          4.33675252,
+          2.50072141,
+          24.7283896
+        ]
+      ],
+      "Cr_unwrapped_positions_A": [
+        [
+          4.35752755,
+          2.51269835,
+          24.58232603
+        ],
+        [
+          4.356524000047023,
+          2.512120070000722,
+          24.590158160067784
+        ],
+        [
+          4.354249940153559,
+          2.510807700002148,
+          24.605584480201287
+        ],
+        [
+          4.351771790269541,
+          2.509379440003687,
+          24.622227940345322
+        ],
+        [
+          4.349382080381455,
+          2.508001230005202,
+          24.638622650487207
+        ],
+        [
+          4.346979070493985,
+          2.506615700006747,
+          24.655343010631913
+        ],
+        [
+          4.3445908306058225,
+          2.5052392200083298,
+          24.67248423078026
+        ],
+        [
+          4.342276380714203,
+          2.503905660009896,
+          24.689450640927095
+        ],
+        [
+          4.339936800823764,
+          2.5025574700114737,
+          24.706534561074946
+        ],
+        [
+          4.336752520972867,
+          2.5007214100134934,
+          24.728389601264087
+        ]
+      ],
+      "atom_order_sha256": "b73b453895870d63a86e9c24e469516a57064b7c61de74166a7df4c61d66ffc4",
+      "bounds_unwrapped_A": {
+        "x_max": 15.02758877992707,
+        "x_min": -2.1111819901557625,
+        "z_max": 32.53593386,
+        "z_min": 14.8727644
+      },
+      "cell_A": [
+        [
+          17.10859971872434,
+          0.0,
+          0.0
+        ],
+        [
+          -4.26916021361244,
+          7.40364387667964,
+          0.0
+        ],
+        [
+          0.08956351952752,
+          0.05165086255083,
+          47.42888785524057
+        ]
+      ],
+      "column_index": 2,
+      "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+      "display_label": "gap2QL",
+      "endpoint_hashes_computed": {
+        "image_0": "826ceb6631acd512a223396916156e9d0634c2a7472c3bbf84a3520c3a66563f",
+        "image_9": "18adfc49e53a4282da9bdb1e737b6671745cf4e7ff0edfc25a607f7d3e7b2c24"
+      },
+      "fixed_retained_path_semantics": "RETAINED_DFT_PATH_ENDPOINTS_ONLY",
+      "image_count": 10,
+      "image_index_markers": {
+        "anchor_source": "exact projected Cr image coordinates from retained extxyz after recorded MIC unwrap",
+        "count": 10,
+        "indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "label_layout": "annotation-only rail with numbered badges; no atom/path coordinate modification or interpolation",
+        "leader_line_count": 10
+      },
+      "individual_camera": {
+        "cr_path_bounds_in_scene_A": {
+          "x": [
+            -2.113247479027133,
+            -2.09247245
+          ],
+          "z": [
+            0.7823260300000001,
+            0.9283896012640867
+          ]
+        },
+        "focus_shift_A": [
+          -1.0514299822567832,
+          0.4276789078160217
+        ],
+        "focus_source": "retained Cr path bounds after frame-to-frame MIC unwrap",
+        "location": [
+          -1.0514299822567832,
+          -80.0,
+          0.4276789078160217
+        ],
+        "name": "Camera_cr_canonical_gap_to_ql_Independent",
+        "ortho_scale": 26.0,
+        "projection": "ORTHO",
+        "resolution_px": [
+          1400,
+          1750
+        ],
+        "target": [
+          -1.0514299822567832,
+          0.0,
+          0.4276789078160217
+        ]
+      },
+      "input_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/inputs/2L-Cu__neb-gap2QL.extxyz",
+      "input_sha256": "c84e01e2a92aed4023dab993e95553019a39a2f5d1b564346bd50f6760d7d94f",
+      "mic_unwrap": {
+        "algorithm": "frame-to-frame minimum-image unwrapping; row-vector fractional coordinates; periodic axes wrapped to [-0.5, 0.5)",
+        "coordinates_rendered": "unwrapped frame coordinates derived from extxyz",
+        "max_abs_fractional_step_after_wrap": 0.0007373852967151073,
+        "pbc_axes": [
+          true,
+          true,
+          true
+        ]
+      },
+      "migrating_atom_indices_zero_based": [
+        80
+      ],
+      "natoms": 81,
+      "path_id": "cr_canonical_gap_to_ql",
+      "pbc": [
+        true,
+        true,
+        true
+      ],
+      "registry_cell_sha256": "b8c90c0133fd61f3a0da64b543cf9dfe121045f01c380e1daa817afaea6d2a27",
+      "registry_endpoint_consistency_gate": "PASS",
+      "registry_endpoint_hashes": {
+        "final": "f65f14c38b9f7a6b4937d1aebdcbf01bd1772b59bccaac878357822eb5beaa2d",
+        "initial": "fc0346b517826ed5627c18ce3f4bee1d6bff839ac26219c0bb46370a2f4b3e50"
+      },
+      "registry_expected_fixed_retained_path_sha256": "c84e01e2a92aed4023dab993e95553019a39a2f5d1b564346bd50f6760d7d94f",
+      "render_object_counts": {
+        "arrowheads": 1,
+        "cr_spheres_by_image": {
+          "0": 1,
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "6": 1,
+          "7": 1,
+          "8": 1,
+          "9": 1
+        },
+        "endpoint_rings": 2,
+        "host_bonds_image_0": 192,
+        "host_spheres_by_image": {
+          "0": 80,
+          "1": 80,
+          "2": 80,
+          "3": 80,
+          "4": 80,
+          "5": 80,
+          "6": 80,
+          "7": 80,
+          "8": 80,
+          "9": 80
+        },
+        "image_index_leader_lines": 10,
+        "image_index_marker_coordinates": [
+          {
+            "anchor_projected_xz_A": [
+              -2.09247245,
+              0.7823260300000001
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 0,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              -1.6196421843679567
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.093475999952977,
+              0.7901581600677829
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 1,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              -1.0696421843679569
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.0957500598464414,
+              0.8055844802012864
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 2,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              -0.5196421843679566
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.0982282097304594,
+              0.8222279403453214
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 3,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              0.030357815632043317
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.1006179196185455,
+              0.8386226504872063
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 4,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              0.5803578156320434
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.103020929506015,
+              0.8553430106319126
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 5,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              1.1303578156320433
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.1054091693941777,
+              0.8724842307802589
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 6,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              1.6803578156320436
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.107723619285797,
+              0.8894506409270946
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 7,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              2.2303578156320434
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.1100631991762357,
+              0.9065345610749453
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 8,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              2.7803578156320436
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              -2.113247479027133,
+              0.9283896012640867
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 9,
+            "label_badge_xz_A": [
+              0.4075275500000002,
+              3.3303578156320435
+            ]
+          }
+        ],
+        "image_index_marker_rule": "one numbered annotation badge per real Cr image 0–9; leader starts at exact projected Cr x/z; badge rail offset is annotation-only",
+        "image_index_markers": 10,
+        "text_objects": 13,
+        "trajectory_polyline_points": 10
+      },
+      "source_hash_match": true,
+      "species_order": "Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Cr",
+      "subtitle": "gap→QL  ·  retained fixed path",
+      "validation_checks": {
+        "atoms_all_81": true,
+        "image_count_10": true,
+        "pbc_all_TTT": true,
+        "registry_atoms_81": true,
+        "registry_endpoint_consistency_PASS": true,
+        "registry_fixed_image_count_10": true,
+        "registry_pbc_TTT": true,
+        "single_cr_atom_all_images": true,
+        "source_exists": true,
+        "source_sha256_matches_registry": true,
+        "species_order_matches_registry": true
+      }
+    },
+    {
+      "Cr_raw_positions_A": [
+        [
+          4.32069849,
+          2.49146277,
+          24.69443722
+        ],
+        [
+          4.50344696,
+          2.59684277,
+          25.22588161
+        ],
+        [
+          4.65723641,
+          2.6855236,
+          25.80429081
+        ],
+        [
+          4.88047452,
+          2.81424763,
+          26.49052501
+        ],
+        [
+          5.36236328,
+          3.09211823,
+          26.761939
+        ],
+        [
+          5.67638182,
+          3.27319807,
+          27.30816974
+        ],
+        [
+          6.02469574,
+          3.47404302,
+          27.84152453
+        ],
+        [
+          6.09944346,
+          3.51714257,
+          28.43806198
+        ],
+        [
+          6.30698257,
+          3.63681404,
+          29.06756554
+        ],
+        [
+          6.47045548,
+          3.73107703,
+          29.61589906
+        ]
+      ],
+      "Cr_unwrapped_positions_A": [
+        [
+          4.32069849,
+          2.49146277,
+          24.69443722
+        ],
+        [
+          4.503446951541703,
+          2.596842770046154,
+          25.225881614599327
+        ],
+        [
+          4.6572363944310435,
+          2.6855236000969005,
+          25.80429081960511
+        ],
+        [
+          4.8804744941010085,
+          2.8142476301566433,
+          26.49052502554405
+        ],
+        [
+          5.362363231734878,
+          3.092118230175791,
+          26.761939017892974
+        ],
+        [
+          5.676381757180264,
+          3.2731980702217927,
+          27.30816976262027
+        ],
+        [
+          6.024695661032691,
+          3.4740430202662353,
+          27.841524557236134
+        ],
+        [
+          6.099443377594316,
+          3.5171425703195274,
+          28.438062012398806
+        ],
+        [
+          6.306982477990269,
+          3.6368140403742997,
+          29.06756557784678
+        ],
+        [
+          6.470455380428282,
+          3.731077030422206,
+          29.615899102592273
+        ]
+      ],
+      "atom_order_sha256": "b73b453895870d63a86e9c24e469516a57064b7c61de74166a7df4c61d66ffc4",
+      "bounds_unwrapped_A": {
+        "x_max": 15.045272628522644,
+        "x_min": -2.1102620197365276,
+        "z_max": 32.53471444033393,
+        "z_min": 14.95561581
+      },
+      "cell_A": [
+        [
+          17.10859971872434,
+          0.0,
+          0.0
+        ],
+        [
+          -4.26916021361244,
+          7.40364387667964,
+          0.0
+        ],
+        [
+          0.08956351952752,
+          0.05165086255083,
+          47.42888785524057
+        ]
+      ],
+      "column_index": 3,
+      "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+      "display_label": "withinQL",
+      "endpoint_hashes_computed": {
+        "image_0": "8b441c92e76c42642acbe4311e374495dd7930c349e14fd1ea2292995c8b20ab",
+        "image_9": "1532c40cd44605292ef8b62e66432ec9f9d51f81892f912aee2887d2c7f02f03"
+      },
+      "fixed_retained_path_semantics": "RETAINED_DFT_PATH_ENDPOINTS_ONLY",
+      "image_count": 10,
+      "image_index_markers": {
+        "anchor_source": "exact projected Cr image coordinates from retained extxyz after recorded MIC unwrap",
+        "count": 10,
+        "indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "label_layout": "annotation-only rail with numbered badges; no atom/path coordinate modification or interpolation",
+        "leader_line_count": 10
+      },
+      "individual_camera": {
+        "cr_path_bounds_in_scene_A": {
+          "x": [
+            21.87069849,
+            24.02045538042828
+          ],
+          "z": [
+            0.8944372200000004,
+            5.815899102592272
+          ]
+        },
+        "focus_shift_A": [
+          -0.5272115323929292,
+          1.6775840806480682
+        ],
+        "focus_source": "retained Cr path bounds after frame-to-frame MIC unwrap",
+        "location": [
+          23.47278846760707,
+          -80.0,
+          1.6775840806480682
+        ],
+        "name": "Camera_cr_canonical_within_ql_Independent",
+        "ortho_scale": 26.0,
+        "projection": "ORTHO",
+        "resolution_px": [
+          1400,
+          1750
+        ],
+        "target": [
+          23.47278846760707,
+          0.0,
+          1.6775840806480682
+        ]
+      },
+      "input_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013/inputs/2L-Cu__neb-QLs.extxyz",
+      "input_sha256": "397a7b2693da5c9cc39ed1786cf1430e91e0f4249cd0e9c1d2ee782a9cfb84cb",
+      "mic_unwrap": {
+        "algorithm": "frame-to-frame minimum-image unwrapping; row-vector fractional coordinates; periodic axes wrapped to [-0.5, 0.5)",
+        "coordinates_rendered": "unwrapped frame coordinates derived from extxyz",
+        "max_abs_fractional_step_after_wrap": 0.03749191593894526,
+        "pbc_axes": [
+          true,
+          true,
+          true
+        ]
+      },
+      "migrating_atom_indices_zero_based": [
+        80
+      ],
+      "natoms": 81,
+      "path_id": "cr_canonical_within_ql",
+      "pbc": [
+        true,
+        true,
+        true
+      ],
+      "registry_cell_sha256": "b8c90c0133fd61f3a0da64b543cf9dfe121045f01c380e1daa817afaea6d2a27",
+      "registry_endpoint_consistency_gate": "PASS",
+      "registry_endpoint_hashes": {
+        "final": "ace28716699eb0353edd7714020bb3fafbf1beef68a813273137f582a2963395",
+        "initial": "e9c7e4efd666865a89d66d88dbf29f54e2689a6d55028442bee4677eaf37e91c"
+      },
+      "registry_expected_fixed_retained_path_sha256": "397a7b2693da5c9cc39ed1786cf1430e91e0f4249cd0e9c1d2ee782a9cfb84cb",
+      "render_object_counts": {
+        "arrowheads": 1,
+        "cr_spheres_by_image": {
+          "0": 1,
+          "1": 1,
+          "2": 1,
+          "3": 1,
+          "4": 1,
+          "5": 1,
+          "6": 1,
+          "7": 1,
+          "8": 1,
+          "9": 1
+        },
+        "endpoint_rings": 2,
+        "host_bonds_image_0": 196,
+        "host_spheres_by_image": {
+          "0": 80,
+          "1": 80,
+          "2": 80,
+          "3": 80,
+          "4": 80,
+          "5": 80,
+          "6": 80,
+          "7": 80,
+          "8": 80,
+          "9": 80
+        },
+        "image_index_leader_lines": 10,
+        "image_index_marker_coordinates": [
+          {
+            "anchor_projected_xz_A": [
+              21.87069849,
+              0.8944372200000004
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 0,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              0.8801681612961363
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              22.0534469515417,
+              1.4258816145993265
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 1,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              1.430168161296136
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              22.207236394431042,
+              2.00429081960511
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 2,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              1.9801681612961364
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              22.43047449410101,
+              2.690525025544048
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 3,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              2.530168161296136
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              22.91236323173488,
+              2.9619390178929734
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 4,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              3.0801681612961365
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              23.226381757180263,
+              3.5081697626202697
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 5,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              3.6301681612961363
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              23.574695661032692,
+              4.041524557236134
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 6,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              4.1801681612961366
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              23.649443377594316,
+              4.638062012398805
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 7,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              4.730168161296136
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              23.856982477990268,
+              5.267565577846778
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 8,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              5.280168161296137
+            ]
+          },
+          {
+            "anchor_projected_xz_A": [
+              24.02045538042828,
+              5.815899102592272
+            ],
+            "coordinate_status": "annotation_layout_only; not atom coordinate",
+            "image_index": 9,
+            "label_badge_xz_A": [
+              26.52045538042828,
+              5.830168161296136
+            ]
+          }
+        ],
+        "image_index_marker_rule": "one numbered annotation badge per real Cr image 0–9; leader starts at exact projected Cr x/z; badge rail offset is annotation-only",
+        "image_index_markers": 10,
+        "text_objects": 13,
+        "trajectory_polyline_points": 10
+      },
+      "source_hash_match": true,
+      "species_order": "Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Te Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Sb Cr",
+      "subtitle": "within-QL  ·  retained fixed path",
+      "validation_checks": {
+        "atoms_all_81": true,
+        "image_count_10": true,
+        "pbc_all_TTT": true,
+        "registry_atoms_81": true,
+        "registry_endpoint_consistency_PASS": true,
+        "registry_fixed_image_count_10": true,
+        "registry_pbc_TTT": true,
+        "single_cr_atom_all_images": true,
+        "source_exists": true,
+        "source_sha256_matches_registry": true,
+        "species_order_matches_registry": true
+      }
+    }
+  ],
+  "povray_assets_modified": false,
+  "render": {
+    "blender_version": "4.0.2",
+    "engine": "BLENDER_EEVEE",
+    "font": "/System/Library/Fonts/Supplemental/Arial.ttf",
+    "headless_command": "/Applications/Blender.app/Contents/MacOS/Blender --background --python render_scene.py",
+    "image_format": "PNG RGBA on white background",
+    "render_round": "R03",
+    "renderer": "Blender",
+    "resolution_px": [
+      4200,
+      1750
+    ],
+    "target_dpi": 300
+  },
+  "review_basis": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/visual_review/REVIEW_R01.md",
+  "review_round": "R03",
+  "scene_file": {
+    "bytes": 10556364,
+    "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/fixed_path_trajectory_R03.blend",
+    "sha256": "087d81e74d07caa71bd554647b085a099b0255472705a822215947ef5672578e"
+  },
+  "status": "BLENDER_GEOMETRY_CANDIDATE_NOT_FINAL",
+  "style": {
+    "family_colors_not_used_in_structure_render": {
+      "FT-600K": "#002E71",
+      "FT-MultiT": "#67ACE5",
+      "Foundation": "#CF4520",
+      "From-scratch": "#FF9F1B"
+    },
+    "historical_coordinates_reused": false,
+    "historical_style_reference": "/Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/atom_renders_v4/atom_render_manifest.json",
+    "material_rules": {
+      "Cr": "high-alpha migrating atom and trajectory",
+      "Cr_alpha_by_image": {
+        "0": 0.96,
+        "1": 0.22,
+        "2": 0.25,
+        "3": 0.28,
+        "4": 0.31,
+        "5": 0.34,
+        "6": 0.37,
+        "7": 0.4,
+        "8": 0.43,
+        "9": 0.98
+      },
+      "atom_radii_A": {
+        "Cr": 0.66,
+        "Sb": 0.46,
+        "Te": 0.42
+      },
+      "ball_and_stick": true,
+      "endpoint_ring_major_radius_A": 0.78,
+      "ghost_Cr_radius_A": 0.52,
+      "ghost_alpha_semantics": "overlay/image order only; not uncertainty/error",
+      "host_alpha_by_image": {
+        "0": 0.34,
+        "1": 0.03,
+        "2": 0.035,
+        "3": 0.04,
+        "4": 0.045,
+        "5": 0.05,
+        "6": 0.055,
+        "7": 0.06,
+        "8": 0.065,
+        "9": 0.16
+      },
+      "host_atoms": "low-alpha snapshot/ghost layers",
+      "host_bond_radius_A": 0.052,
+      "image_index_marker_policy": {
+        "anchor": "exact projected x/z of the corresponding real retained Cr image",
+        "count_per_column": 10,
+        "ghost_alpha_meaning": "overlay/image order only; not uncertainty/error",
+        "indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ],
+        "label_layout": "annotation-only rail offset; no atom coordinate, path point, interpolation, or energy value is changed",
+        "leader_color": "#754000",
+        "marker_color": "#754000",
+        "marker_type": "small numbered annotation badge plus leader"
+      },
+      "trajectory_bevel_radius_A": 0.105,
+      "uniform_across_columns": true
+    },
+    "structure_palette": {
+      "elements": {
+        "Cr": "#E6A13A",
+        "Sb": "#9CD5D4",
+        "Te": "#9A95C7"
+      },
+      "endpoint_label": "#754000",
+      "host_bond": "#28323D",
+      "name": "tissue_pastel_inspired_from_historical_style_only",
+      "path_line": "#B46608"
+    }
+  },
+  "synthetic_coordinates_used": false,
+  "synthetic_pes_used": false,
+  "write_scope": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender"
+}

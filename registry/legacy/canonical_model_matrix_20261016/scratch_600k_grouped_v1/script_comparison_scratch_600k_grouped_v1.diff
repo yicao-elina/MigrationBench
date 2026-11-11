@@ -1,0 +1,26 @@
+--- ../submit_from_scratch_all_data_v1.slurm (canonical Multi-T scratch template)
++++ submit_scratch_600k_grouped_v1.slurm (submitted 32075474)
+@@
+-#SBATCH --job-name=mb-canonical-scratch-lmax2
++#SBATCH --job-name=mb-canonical-scratch-600k
+@@
+-#SBATCH --output=/scratch16/pclancy3/yi/canonical_model_matrix_20261016/logs/%x-%A_%a.out
+-#SBATCH --error=/scratch16/pclancy3/yi/canonical_model_matrix_20261016/logs/%x-%A_%a.err
++#SBATCH --output=/scratch16/pclancy3/yi/canonical_model_matrix_20261016/scratch_600k_grouped_v1/logs/%x-%A_%a.out
++#SBATCH --error=/scratch16/pclancy3/yi/canonical_model_matrix_20261016/scratch_600k_grouped_v1/logs/%x-%A_%a.err
+@@
+-DATA_ROOT=.../multit_grouped_A2_20261001/data_grouped_multiT
+-UPSTREAM_MANIFEST=.../multit_grouped_A2_20261001/manifest_multiT_A2.json
+-OUT_ROOT=.../canonical_model_matrix_20261016/from_scratch_all_data_v1
++DATA_ROOT=.../ft600k_grouped_A2/data_grouped
++UPSTREAM_MANIFEST=.../ft600k_grouped_A2/manifest_proposed_A2.json
++OUT_ROOT=.../canonical_model_matrix_20261016/scratch_600k_grouped_v1
+@@
+-MODEL_NAME="from_scratch_all_data_v1_seed_${TRAINING_SEED}"
+-MODEL_DIR="$OUT_ROOT/$MODEL_NAME"
++MODEL_NAME="scratch_600k_grouped_v1_seed_${TRAINING_SEED}"
++MODEL_DIR="$OUT_ROOT/models/$MODEL_NAME"
+
+All MACE architecture, optimizer, seed routing, preflight, no-overwrite,
+compiled-model, and hash gates are unchanged. The upstream manifest is
+explicitly marked provisional and remains a publication gate.

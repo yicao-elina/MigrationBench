@@ -1,0 +1,52 @@
+{
+  "schema_version": "foundation_interlayer_sliding_post_run_review_gate_v1",
+  "campaign_id": "foundation_interlayer_sliding_2x2_20261024",
+  "freeze_id": "foundation_interlayer_sliding_2x2_20261024_R13",
+  "freeze_path": "ACCEPTANCE_FREEZE_R13.json",
+  "freeze_sha256": "4d78c516ce6eb30ba6c0e2192d07076ae7fcf1e21a0ad8446f3127221008bd11",
+  "status": "PASS",
+  "data_status": "PASS",
+  "visual_status": "PASS",
+  "review_policy": "independent reviewers inspect and report only; no reviewer edited results or release files",
+  "reviewers": {
+    "data": {
+      "agent_id": "01a1711c-0dc7-7c10-a602-cba4664d9cdf",
+      "status": "PASS",
+      "scope": "independent post-run data/provenance audit"
+    },
+    "visual": {
+      "agent_id": "01a1711c-0e33-77d1-b741-e6347e48dc63",
+      "status": "PASS",
+      "scope": "independent post-run visual/style/figure audit"
+    }
+  },
+  "collection": {
+    "manifest": "manifests/COLLECTION_MANIFEST.json",
+    "manifest_sha256": "3663b8669197be86eb361aaf09fed4458fabb2ebcfb3637574f18a7f1cfb6b12",
+    "expected_primary_rows": 12,
+    "observed_primary_rows": 12,
+    "scientifically_passing_rows": 12,
+    "image_profile_rows": 120,
+    "qe_reference_rows": 20,
+    "duplicate_or_missing_records": [],
+    "failure_registry_data_rows": 0
+  },
+  "figure": {
+    "provenance": "results/figures/foundation_interlayer_sliding_2x2_R13/FIGURE_PROVENANCE.json",
+    "provenance_sha256": "dd8068bf02b6545818043004e426737b65596546075e530c263829b9d851b55d",
+    "output_file_count": 15,
+    "composite_formats": ["pdf", "svg", "png"],
+    "panel_count": 4,
+    "data_gate_reasons": []
+  },
+  "required_checks": {
+    "all_result_rows_have_required_provenance": true,
+    "all_runtime_provenance_files_immutable": true,
+    "fixed_rows_finite_diagnostic": true,
+    "self_rows_converged": true,
+    "qe_reference_warning_retained": true,
+    "figure_pdf_svg_png_valid": true,
+    "fixed_self_pooling_blocked": true
+  },
+  "created_at_utc": "2026-10-25T03:35:00Z"
+}

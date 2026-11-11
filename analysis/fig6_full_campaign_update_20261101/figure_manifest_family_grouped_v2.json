@@ -1,0 +1,105 @@
+{
+  "artifact": "Figure 6 full-campaign four-panel update",
+  "status": "RECONSTRUCTION",
+  "claim_scope": "639 candidate structures x 12 MLIP checkpoints; static energy/force evaluation",
+  "not_claimed": [
+    "not a 1 ns MD campaign",
+    "not a strict 4-family x 3 exchangeable-seed design",
+    "not a DFT correctness or causal attribution result"
+  ],
+  "source_provenance": {
+    "repository": "https://github.com/yicao-elina/MigrationBench",
+    "pr": "https://github.com/yicao-elina/MigrationBench/pull/11",
+    "commit": "476ca16",
+    "campaign_directory": "analysis/multimodel_639_screen_20261014",
+    "source_note": "2026-10-14 - Twelve-Model 639-Candidate Static Screen and Distribution-Shift Diagnostic"
+  },
+  "data_audit": {
+    "n_candidates": 639,
+    "n_models": 12,
+    "n_successful_rows": 7668,
+    "n_duplicate_candidate_model_pairs": 0
+  },
+  "model_order": [
+    "ablation_lmax_2_seed123",
+    "ablation_lmax_2_seed234",
+    "baseline_seed345",
+    "foundation_omat_legacy",
+    "foundation_mpa0_medium",
+    "foundation_mp0b3_medium",
+    "ft600k_seed123",
+    "ft600k_seed234",
+    "ft600k_seed345",
+    "ftmultit_seed123",
+    "ftmultit_seed234",
+    "ftmultit_seed345"
+  ],
+  "family_order": [
+    "From Scratch",
+    "Foundation / zero-shot",
+    "FT-600K",
+    "FT-MultiT"
+  ],
+  "family_colors": {
+    "From Scratch": "#E69F00",
+    "Foundation / zero-shot": "#D55E00",
+    "FT-600K": "#234B87",
+    "FT-MultiT": "#009E73"
+  },
+  "stage_order": [
+    "stable_early_control",
+    "stable_pre_onset",
+    "precursor_near_onset",
+    "threshold_or_terminal",
+    "terminal_stable_target"
+  ],
+  "style": {
+    "contract": "scientific-plot-atlas",
+    "runtime": "local-contract fallback; recovered Plot Atlas package was not hydrated",
+    "font_requested": "Arial",
+    "font_selected": "Arial",
+    "dpi_png": 350,
+    "editable_exports": [
+      "pdf",
+      "svg"
+    ],
+    "panel_c_inset": "near-origin candidate/reference detail; NEB retained in main axes",
+    "panel_b_singleton": "stable terminal rendered as a diamond point"
+  },
+  "source_sha256": {
+    "MODEL_GROUPING.tsv": "2f2c12992280f4ccd90c74d9f6a21d9a5e48c472abf66ce29ea35b305510bd82",
+    "candidate_distribution_by_stage.csv": "46952d36cfc9c84053a927e67854e9d3b70ad10c4c6c8ce0395ea75f0703f760",
+    "candidate_force_spread_12models.csv": "7a70903cb1e20b3d56da607a2dc419359be358c0dde13967a1b439a7270c6969",
+    "candidate_manifest_639.csv": "11720d17e874f05c69296eff9cb3b154bcfd17347bb261b50eac39b6ba0227ca",
+    "combined_results_12models.csv": "c67c7cf01feb069869a556423572ef277518dfc196f0373e8a80a3ccc5504b5e",
+    "frame_features.csv": "3fd22ef60b4f4d4668cd194efd0523854d7e376935aca8cd439d44476c20a236",
+    "model_stage_summary_12models.csv": "a92d91d84a48b4b4d786b51bec20ddcef7e5f5cb8861aab76c35ffd14b0643e6",
+    "plot_multimodel_overview.py": "daa755ee187df87822f2e6c31c2e5899a5da6df1d9b0e5da4d983fecb2df30ae",
+    "reference_distribution_summary.csv": "39044d5b69e577f6a5bb0f98ea91df707c19935ab93b4a55e62ed63af04fb799",
+    "reference_embedding.csv": "95e633b0d73808a1a3efb8842e3fe000271c5865149fec7c37a7052d206a9ac4"
+  },
+  "outputs_sha256": {
+    "figures/fig6_panel_a_heatmap.png": "c6f0f41ef769c6a37267573a8afe8d338d38a48946ce501c9361cc74cb33462d",
+    "figures/fig6_panel_a_heatmap.pdf": "33a90a78973b95238ce9ed388982c58af5d24d52006581114c30ebc583aae882",
+    "figures/fig6_panel_a_heatmap.svg": "8040d9f1ae5855b429c5866c536679d1897601c97eca0b237b8b132a9c9bf31e",
+    "figures/fig6_panel_b_stage_distributions.png": "56934326f0a656d6fdf625b535c11164eae98f02906c0630fe9f4850d56d4fe1",
+    "figures/fig6_panel_b_stage_distributions.pdf": "8254f8c360a515aaddd1a3d41d2d14c89395bd46104410881f325a64bb3336a0",
+    "figures/fig6_panel_b_stage_distributions.svg": "8270d4936cde14d018d4b91f42441c4f043576e9cac42358245caf0a74ed3573",
+    "figures/fig6_panel_c_embedding_inset.png": "665f524ca7c42d0c3721727fe78d5fa79db44a87602de4a581bc6ce70779908d",
+    "figures/fig6_panel_c_embedding_inset.pdf": "3edd635cb251e7491b93f3a491cd897d9f325c404125a37b53a4a0aeb25a0316",
+    "figures/fig6_panel_c_embedding_inset.svg": "80c9ae24b5add09e2464fdb32012a295cd6940ccd2069cd60e0441c3207badb1",
+    "figures/fig6_panel_d_novelty_disagreement.png": "54413c71f1513be52b721756a4a8e15259d511dc20abd7ca14659f1c58c81764",
+    "figures/fig6_panel_d_novelty_disagreement.pdf": "2dbe89ff90102e8ca47364673e8d47cc6098cdc0215aa19b34472f45f348a54c",
+    "figures/fig6_panel_d_novelty_disagreement.svg": "8d7efe755ceddc3ef89b568d3473fb95aaa1e935a4f9b292ff077750e5095fb9",
+    "figures/fig6_full_campaign_family_grouped_v2.png": "73a7db435c31faeba3849b853d85897616a63d1c244560a25bdb9642962b253f",
+    "figures/fig6_full_campaign_family_grouped_v2.pdf": "da698752732d642321ab25a9832e91b68e68ff994c06b144602f27469ceac672",
+    "figures/fig6_full_campaign_family_grouped_v2.svg": "f7d3a0bf7a2e272305e081a4c8f23eb1e5134fadb273276fe9d26312c13bd113"
+  },
+  "environment": {
+    "python": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "platform": "macOS-14.2.1-arm64-arm-64bit-Mach-O",
+    "matplotlib": "3.11.2",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4"
+  }
+}

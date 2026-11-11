@@ -1,0 +1,6 @@
+claim_id	claim	observable	scope	required_evidence	allowed_label	blocked_or_qualified_label	status
+C01	Three current Foundation checkpoints were evaluated on recovered b-path2 sliding geometries	both	2 systems x 3 models	model registry, input hashes, 12-row matrix, job/output manifests	verified only after 12-row data gate	legacy Foundation / complete campaign before gate	VERIFIED
+C02	Model fixed-path energy profiles on the 10 recovered frames	FIXED_PATH_SINGLE_POINT	2 systems x 3 models	10 finite native-MACE predictions per row, raw CSVs, hashes	fixed-path single-point profile	DFT ground truth; relaxed MEP	VERIFIED
+C03	Model endpoint-only self-relaxed profiles	SELF_RELAXED_ENDPOINT_ONLY_NEB	2 systems x 3 models	10 final images, convergence and residual gates, forces, trajectory hashes	self-relaxed endpoint-only MLIP profile	DFT MEP; pooled fixed/self barrier ranking	VERIFIED
+C04	QE retained b-path2 reference series	reference	2 systems	combined_sb2te3_energy.csv, raw values, warning provenance	QE retained reference (SCF-warning); self context only	converged ground truth	QUALIFIED
+C05	2x2 figure is accepted	both	final figure	12/12 data gate + independent post-run data PASS + visual PASS + PDF/SVG/PNG QA	accepted final figure	diagnostic/incomplete figure	VERIFIED

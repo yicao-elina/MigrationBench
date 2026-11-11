@@ -1,0 +1,33 @@
+{
+  "complete": true,
+  "created_at_utc": "2026-10-25T09:37:25.582867+00:00",
+  "expected_row_count": 370,
+  "field_semantics": {
+    "base_energy_eV": "energy from the unmodified base calculator",
+    "base_forces": "atomic forces from the unmodified base calculator",
+    "restrained_energy_eV": "base energy plus harmonic reference tether",
+    "restrained_forces": "base forces minus the tether gradient",
+    "tether_energy_eV": "nonphysical optimization regularizer; never a barrier label"
+  },
+  "history_role": "dual_potential_trust_region_neb",
+  "n_images": 10,
+  "n_optimizer_iterations_including_initial": 37,
+  "optimizer_coordinate_source": "base_MACE_plus_reference_tether",
+  "outputs": {
+    "csv": "/scratch16/pclancy3/yi/scratch_lmax1_g4_self_20261025_r02/runs/self/bulk/scratch_600k_lmax1_grouped_repair_r01_seed345/attempt_32468858_4/mlff_neb_dual_potential_history.csv",
+    "csv_sha256": "83218e2d74662b59942526c1a3a8433c41eaee03b835c4704222a5d57a11ce7a",
+    "extxyz": "/scratch16/pclancy3/yi/scratch_lmax1_g4_self_20261025_r02/runs/self/bulk/scratch_600k_lmax1_grouped_repair_r01_seed345/attempt_32468858_4/mlff_neb_dual_potential_history.extxyz",
+    "extxyz_sha256": "8379c5f0282c52712bfb209bb21bd26ed5f06bc6cb83e3b960823b54674666b6"
+  },
+  "physical_energy_force_source": "base_MACE_without_reference_tether",
+  "reference_tether": {
+    "enabled": false,
+    "formula": "E_opt=E_base+0.5*sum_a k_a*||MIC(r_a-r_a_ref)||^2",
+    "host_k_eV_A2": 0.0,
+    "migrant_element": "Cr",
+    "migrant_k_eV_A2": 0.0
+  },
+  "reported_barrier_source": "base_MACE_without_reference_tether",
+  "row_count": 370,
+  "schema_version": "1.0"
+}

@@ -1,0 +1,51 @@
+{
+  "package_id": "DFT-RECOVERY-RECONSTRUCTION",
+  "generated_by": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/scripts/render_table_backed_packages.py",
+  "plot_atlas_root": "/Users/alina/Documents/Codex/plot_library",
+  "plot_atlas_panels": [
+    "timecourse",
+    "grouped_bar",
+    "bar_with_points",
+    "clustered_heatmap"
+  ],
+  "source_files": [
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/phase3_dft_recovery_20261004/results_reconstructed/dft_vs_mace_within_method.csv",
+      "sha256": "cc2096b8ebed1f403d9ebae8c55a4f3fe6455e1b3c2739cf2c0f71289416e8fb"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/phase3_dft_recovery_20261004/results_reconstructed/qe_gate_audit.json",
+      "sha256": "c1bede85b2592493653535e906ac7ac4a6832380c3f5e7699b019448244004d7"
+    }
+  ],
+  "processed_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/DFT-RECOVERY-RECONSTRUCTION/processed_dft_vs_mace_reconstruction.csv",
+      "sha256": "4632ea4a9b2da37960b1f364fdb0a3362423adc563532becdb4d8e483fc9eb9f"
+    }
+  ],
+  "figure_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/DFT-RECOVERY-RECONSTRUCTION/dft_recovery_reconstruction_atlas.png",
+      "sha256": "fa4577941a4be73e3719d1b4c27eb710ce5b87aeb379bba5f8e02797e6cfd0b7"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/DFT-RECOVERY-RECONSTRUCTION/dft_recovery_reconstruction_atlas.svg",
+      "sha256": "dd95a573d6864c587965887c611ef55f669bc920a5ac7f24218b94cfc1f88bdd"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/DFT-RECOVERY-RECONSTRUCTION/dft_recovery_reconstruction_atlas.pdf",
+      "sha256": "78347d5ebf0339642998579be154bc9a9c1010681be1d37ec735307d2b71f77d"
+    }
+  ],
+  "article_target": "Results/SI: DFT recovery and MACE force-validation boundary",
+  "scientific_status": "reconstruction-only diagnostic; source scope limited",
+  "caption": "A, reconstructed DFT-versus-MACE force RMSE by recovery case and model; B, maximum-force relation for the same reconstructed rows.",
+  "results": "The reconstruction table contains normal, bounded, and runaway cases with finite-looking DFT/MACE comparison fields, but every row is explicitly labeled RECONSTRUCTION / REPRODUCED_SCOPE_LIMITED in the source table. Model force errors increase strongly in the runaway cases.",
+  "discussion": "This package is useful for auditing the DFT-recovery boundary and for deciding whether a later accepted QE release can replace the reconstruction. It must not be presented as a converged DFT validation benchmark.",
+  "caveats": [
+    "The source scope is RECONSTRUCTION / REPRODUCED_SCOPE_LIMITED.",
+    "A finite reconstructed row is not equivalent to a normal, accepted QE target.",
+    "Re-run or replace this package after raw QE outputs and gate manifests are independently closed."
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "screen_id": "canonical_639_screen_v1",
+  "status": "HELD_PENDING_MODEL_ACCEPTANCE",
+  "candidate_manifest": "analysis/from_scratch_failure_attribution_20261011/mlip_candidate_campaign_20261013/candidate_manifest_639.csv",
+  "candidate_manifest_sha256": "65937709eed9562d1c16cadbf91e2d40c0769e777eef55bb912d6de71d0d486c",
+  "candidate_count": 639,
+  "remote_root": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/639_screen_v1",
+  "worker_source": {
+    "local": "analysis/multimodel_639_screen_20261014/run_mlip_candidate_chunk.py",
+    "sha256": "65a6048e67a3e5085c167c7f5f6ad9b0ad947986527b71a5060e492b7bb90a10"
+  },
+  "collector_source": {
+    "local": "analysis/multimodel_639_screen_20261014/collect_mlip_results.py",
+    "sha256": "62291e94f05c12ee7847911fe015a7f1cf4cfbc73172015d2c13a32224a29858"
+  },
+  "launch_script": {
+    "local": "analysis/canonical_model_matrix_20261016/submit_canonical_639_screen.slurm",
+    "sha256": "15a52acb4f19af9a8c28b30a9356b9984126bcea7c5a88895262115edcada9e4"
+  },
+  "collector_script": {
+    "local": "analysis/canonical_model_matrix_20261016/collect_canonical_639_screen.slurm",
+    "sha256": "b22ecf938673affdd8896fade9a9af61a47193eca4a507596159b4411759be1f"
+  },
+  "downstream_reproducibility_tools": {
+    "preflight_audit": {
+      "path": "analysis/canonical_model_matrix_20261016/preflight_campaign_audit.py",
+      "sha256": "5c454e0989251c03c06c8ff667859b11e83467cc4532fecc21abbd023db1c55a"
+    },
+    "screen_input_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/build_canonical_639_screen_inputs.py",
+      "sha256": "857d32e6b3d5c2ed443aa0350f53cb967eb34f4a79c63f8f1b3ecc4d52390978"
+    },
+    "screen_analysis_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/build_canonical_screen_analysis.py",
+      "sha256": "eaea776cc6ee363b5e33d8da370dc9f6646f094e962b2003b5b5ed57f09157ab"
+    },
+    "plot_script": {
+      "path": "analysis/canonical_model_matrix_20261016/plot_canonical_639_overview.py",
+      "sha256": "d0d8893e3bae85c53d785b30a91d35014949917ee96ec404a039013ff268ad39"
+    },
+    "figure_book_entry_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/prepare_figure_book_entry.py",
+      "sha256": "157a2cafa3a4f88ec1f624ba5a04a8ff012793a3de0985b7f4523c2d9c21b1f2"
+    },
+    "handoff_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/build_canonical_handoff.py",
+      "sha256": "204f9abd26f5717cf685eca6607afde98192d977520531b646fd31323340f132"
+    },
+    "release_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/build_final_release_manifest.py",
+      "sha256": "417ecb78e0724ccbfc2712248652302130310f34c5af4dcbba85bb61b3f5259d"
+    },
+    "dft_selection_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/select_dft_candidates_from_canonical_screen.py",
+      "sha256": "c28da7472a1d9ab9877f65df7af94a1f894a39b27cc73ad27e076d4e09b768ce"
+    }
+  },
+  "array_plan": {
+    "chunk_size": 10,
+    "expected_chunks": 64,
+    "concurrency": 4,
+    "expected_rows": "639 * accepted_model_count"
+  },
+  "publication_boundary": "Do not submit or interpret this screen until every included model has an accepted compiled-model gate and a non-provisional provenance status."
+}

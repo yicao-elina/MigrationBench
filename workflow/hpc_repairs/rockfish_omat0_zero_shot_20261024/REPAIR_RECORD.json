@@ -1,0 +1,27 @@
+{
+  "campaign": "Foundation-OMAT-zero-shot",
+  "remote_root": "/scratch16/pclancy3/yi/mace_foundation_omat_true_1ns_20261013",
+  "historical_run_dir": "/scratch16/pclancy3/yi/mace_foundation_omat_true_1ns_20261013/Foundation-OMAT-zero-shot",
+  "retry_run_dir": "/scratch16/pclancy3/yi/mace_foundation_omat_true_1ns_20261013/Foundation-OMAT-zero-shot/retry_01",
+  "model": "/scratch16/pclancy3/yi/foundation_grouped_benchmark_20261001/models/mace-omat-0-medium.model",
+  "model_sha256": "d4b14be9afa294eebdbe31a0280b26a0fa29715771e978cbfd3ca24e0d90307a",
+  "input_sha256": "e2f72e149940af7fd9016d2e1d58545cbe4734f935d91d9e4dc84c2e7645e454",
+  "failed_job": "31916939",
+  "failed_job_return": 138,
+  "failed_job_checkpoint_step": 605000,
+  "historical_segment_uncheckpointed_tail_step": 608200,
+  "target_step": 1000000,
+  "repair": {
+    "cause": "SBATCH B:USR1 signalled only the batch shell; the foreground Python child was not reliably given the checkpoint signal, so the wrapper interpreted SIGUSR1 exit 138 as a scientific/provenance failure.",
+    "preservation": "The historical run directory and its segment are retained unchanged. The retry starts from the committed 605000-step checkpoint in an isolated directory; the 605200-608200 tail is retained but not used as restart state.",
+    "launcher": "continue_wrapper_signal_safe.slurm",
+    "launcher_sha256": "607addb34803d25d7588a0ae991daf202a77069554d395b0ceb5c992bb58c885",
+    "signal_behavior": "The batch shell traps USR1, forwards it to the Python child, waits for the child to exit, and treats rc=99 or rc=138 as a walltime continuation.",
+    "initial_submission_job": "32454948",
+    "signal_test_job": "32455378",
+    "active_continuation_job": "32455415",
+    "signal_test_result": "COMPLETED 0:0; checkpointed at 610800 and submitted dependent continuation 32455415",
+    "submission_date": "2026-10-24",
+    "scientific_status": "RUNNING; target_reached evidence pending"
+  }
+}

@@ -1,0 +1,15 @@
+requirement_id	objective_requirement	authoritative_evidence	current_status	blocking_gate
+REQ-01	read objective and preserve full scope	/Users/alina/.codex/attachments/c7861195-2b78-40e4-b8eb-8895736de3f9/goal-objective.md	COMPLETE	none
+REQ-02	audit canonical datasets and source-group leakage	EXPERIMENT_MANIFEST.json; DATASET_GROUP_AUDIT_20261016.json	VERIFIED	600K upstream manifest remains provisional
+REQ-03	preserve failed evidence and repair only missing bootstrap failures	BOOTSTRAP_FAILURE_LEDGER.tsv; script_comparison_*.diff; SUBMISSION_RECORD_REPAIR_32075144.json	VERIFIED	none
+REQ-04	accept existing grouped full-data FT families	MODEL_FILE_HASH_AUDIT_20261016.tsv; MODEL_GATE_AUDIT_32114531.json; MODEL_REGISTRY_ACCEPTED_GATE_32114531.tsv; ACCEPTANCE_MATRIX_GATE_32114531.tsv	ACCEPTED_FOR_STATIC_SCREEN	gate 32114531 PASS
+REQ-05	finish canonical Multi-T scratch seed matrix	SUBMISSION_RECORD.json; SUBMISSION_RECORD_REPAIR_OPENMPI_32114528.json; MODEL_HASH_FROM_SCRATCH_SEED123_32114528.txt; MODEL_HASH_FROM_SCRATCH_SEED234_32114528.txt; MODEL_HASH_FROM_SCRATCH_SEED345_32114528.txt	PENDING_CURRENT_GATE	job 32120375
+REQ-06	finish additive grouped 600K scratch seed matrix	scratch_600k_grouped_v1/SUBMISSION_RECORD_32075474.json; scratch_600k_grouped_v1/SUBMISSION_RECORD_REPAIR_OPENMPI_32114529.json	PENDING_TRAINING	job 32114529
+REQ-07	finish canonical 5% FT seed matrix	SUBMISSION_RECORD_REPAIR_32075144.json; SUBMISSION_RECORD_REPAIR_OPENMPI_32114530.json	PENDING_TRAINING	job 32114530
+REQ-08	run accepted-model 639-candidate screen	SCREEN_SOURCE_MANIFEST.json	HELD_PENDING_ACCEPTANCE	model gates and all canonical arrays
+REQ-09	recompute stage summaries and within-family seed dispersion	build_canonical_screen_analysis.py	HELD_PENDING_SCREEN	REQ-08
+REQ-10	produce Plot Atlas figure and update existing figure book	plot_canonical_639_overview.py; FIGURE_BOOK_BASELINE.json	HELD_PENDING_SCREEN	REQ-08
+REQ-11	produce SI/main-text handoff	build_canonical_handoff.py	HELD_PENDING_SCREEN	REQ-08
+REQ-12	prepare DFT-ready local fragment workflow	DFT_READY_WORKFLOW.md; dft_ready_builder_smoke_preliminary/	TOOLING_VALIDATED_SELECTION_HELD	REQ-08
+REQ-13	create final release with explicit status dimensions	build_final_release_manifest.py; FINAL_RELEASE_CHECKLIST.md	INCOMPLETE	REQ-04 through REQ-12
+REQ-14	maintain quiet three-hour heartbeat	automation strict-lmax2-training-and-639-point-merge-monitor	ACTIVE	none
