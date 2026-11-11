@@ -6,6 +6,7 @@ It does not relabel model output features as native MACE representations.
 """
 from pathlib import Path
 import argparse
+import os
 import hashlib
 import json
 import shutil
@@ -19,18 +20,26 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
 HERE = Path(__file__).resolve().parent
-ROOT = Path('/Users/alina/Documents/ChatGPT/Wiley-MigrationBench')
-BACKUP = Path('/Users/alina/Downloads/MigrationBench_ALL_CANVA_and_publication_figures_backup_20261102')
-REV = HERE / 'paper/revision1'
-DATA = REV / 'data_processed/current_release'
-DATA.mkdir(parents=True, exist_ok=True)
-TABLES = REV / 'tables'
+# Repository-relative inputs (formerly the ChatGPT workspace and a ~/Downloads backup).
+ROOT = next(p for p in HERE.parents if (p / 'src' / 'migrationbench').is_dir())
+DOTMATRIX = ROOT / 'analysis/neb_dotmatrix_v3_latest_20261101/download_bundle'
+SCRATCH600K = ROOT / ('reproducibility/canva_palette_vector_bundle_20261105/data/source_archive/'
+                      'analysis/task3_endpoint_only_neb/scratch_600k_migration_20261101/processed')
+FEATURES = ROOT / 'release/revision1_camera_ready/reproducibility/fig6_current_input.npz'
+REV = ROOT / 'paper/revision1'  # submitted package: read-only for this script
+SUBMITTED_DATA = REV / 'data_processed/current_release'
+# Outputs never overwrite the submitted (hand-rounded) tables.
+OUT = Path(os.environ.get('MB_AUDIT_OUT', HERE / 'rerun_output'))
+DATA = OUT / 'data_processed/current_release'
+TABLES = OUT / 'tables'
+for _d in (DATA, TABLES, OUT / 'figures'):
+    _d.mkdir(parents=True, exist_ok=True)
 LEDGER = []
 
 def preserve(path, name=None):
     dst = DATA / (name or path.name)
     shutil.copy2(path, dst)
-    LEDGER.append(dict(file=str(dst.relative_to(HERE)), source=str(path),
+    LEDGER.append(dict(file=os.path.relpath(dst, ROOT), source=str(path),
                        sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
     return dst
 
@@ -45,7 +54,7 @@ def table(name, header, rows, columns=None):
 def main():
     # Selected-file byte identities; images are never regenerated here.
     for f in sorted((REV/'figures/main').rglob('*.pdf')):
-        LEDGER.append(dict(file=str(f.relative_to(HERE)),source='user-selected figure',
+        LEDGER.append(dict(file=os.path.relpath(f, ROOT),source='user-selected figure',
                            sha256=hashlib.sha256(f.read_bytes()).hexdigest()))
     parity = preserve(ROOT/'analysis/rmse_train_test_20261026/parity_summary.csv')
     preserve(ROOT/'analysis/rmse_train_test_20261026/MODEL_REGISTRY.tsv','parity_model_registry.tsv')
@@ -69,9 +78,10 @@ def main():
         rows.append([name, f'{r.last_time_ps:g}', f'{r.last_time_ps-200:g}',outcome])
     table('current_md_horizons.tex',['Checkpoint / training seed','Clock (ps)','Continuation (ps)','Outcome'],rows,'lrrl')
 
-    neb_input = DATA/'fig5_corrected_input.tsv'
-    neb = preserve(neb_input,'fig5_plotted_values.tsv') if neb_input.exists() else preserve(BACKUP/'additional_publication_figures/NEB_dotmatrix_v3_latest_20261101/plotted_values.tsv','fig5_plotted_values.tsv')
-    preserve(BACKUP/'additional_publication_figures/NEB_dotmatrix_v3_latest_20261101/audit.json','fig5_render_audit.json')
+    neb_input = SUBMITTED_DATA/'fig5_corrected_input.tsv'
+    neb = preserve(neb_input,'fig5_plotted_values.tsv') if neb_input.exists() else preserve(DOTMATRIX/'plotted_values.tsv','fig5_plotted_values.tsv')
+    corrected_audit = SUBMITTED_DATA/'fig5_render_audit.json'  # written by render_fig5_corrected.py
+    preserve(corrected_audit if corrected_audit.exists() else DOTMATRIX/'audit.json','fig5_render_audit.json')
     d=pd.read_csv(neb,sep='\t')
     assert len(d)==120
     assert np.allclose(d.absolute_error_eV, np.abs(d.predicted_value_eV-d.dft_reference_eV),atol=1e-10)
@@ -93,7 +103,7 @@ def main():
     for name in ['cr_three_path_plotted_profiles_R05.tsv','cr_three_path_coverage_audit_R05.tsv',
                  'cr_three_path_fixed_vs_self_2x3_R05.manifest.json']:
         preserve(ROOT/'analysis/cr_interlayer_sliding_grouped_20261025/results'/name)
-    canonical=ROOT/'analysis/task3_endpoint_only_neb/scratch_600k_migration_20261101/processed'
+    canonical=SCRATCH600K
     for f in canonical.glob('*.tsv'):
         preserve(f,'scratch600k_'+f.name)
 
@@ -107,7 +117,7 @@ def main():
           f'${g.mae_5fold_cv_meV_per_atom.mean():.2f}\\pm{g.mae_5fold_cv_meV_per_atom.std():.2f}$'])
     table('current_shap_fidelity.tex',['Model','Five-fold $R^2$','MAE (meV atom$^{-1}$)'],rows)
 
-    features=ROOT/'analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/fig6_full_campaign_features.npz'
+    features=FEATURES
     payload=np.load(features,allow_pickle=True)
     x=payload['features'];labels=payload['model_ids'].astype(str)
     assert x.shape==(927,6192) and np.isfinite(x).all()
@@ -156,10 +166,10 @@ def main():
         ax.text(-.12,1.04,l,transform=ax.transAxes,fontweight='bold',fontsize=12)
         ax.spines[['top','right']].set_visible(False)
     fig.tight_layout()
-    fig.savefig(REV/'figures/figS_current_feature_audit.pdf',bbox_inches='tight')
-    fig.savefig(REV/'figures/figS_current_feature_audit.png',dpi=180,bbox_inches='tight')
+    fig.savefig(OUT/'figures/figS_current_feature_audit.pdf',bbox_inches='tight')
+    fig.savefig(OUT/'figures/figS_current_feature_audit.png',dpi=180,bbox_inches='tight')
     plt.close(fig)
-    summary=dict(feature_source=str(features),feature_sha256=hashlib.sha256(features.read_bytes()).hexdigest(),
+    summary=dict(feature_source=os.path.relpath(features, ROOT),feature_sha256=hashlib.sha256(features.read_bytes()).hexdigest(),
         feature_shape_before=[927,6192],feature_shape_after=[927,6191],removed_column=6191,
         removed_column_all_zero=True,original_space=scores,projection_sweep=sweep,
         caveat='Output features include energy offsets and forces; SOAP PCA is fitted separately per trajectory. These are not native MACE hidden states. Neighbour histograms use a common coordinate basis. No causal attribution or acquisition rule is inferred.')
