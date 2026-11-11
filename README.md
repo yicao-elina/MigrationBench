@@ -5,6 +5,15 @@ paper artifacts, and the compact evidence needed to audit every reported
 result. Overleaf is a publication mirror; Rockfish is a compute backend, not a
 source of truth.
 
+## Revision 1 as submitted (2026-11-10)
+
+Start at [`release/revision1_submitted_20261110/README.md`](release/revision1_submitted_20261110/README.md).
+It holds the submitted PDF and the results master table (`RESULTS_INDEX.tsv`),
+which maps every main/SI figure panel and table to its generator, data, raw
+location and models. It also has the end-to-end pipeline map, the model and
+storage registries, and the Rockfish → Skipjack migration plan. The earlier
+`release/revision1_camera_ready/` package is superseded by it.
+
 ## Reproduction levels
 
 1. **Paper reproduction (offline):** regenerate registries, manuscript macros,
