@@ -22,6 +22,9 @@ import re
 import sqlite3
 from pathlib import Path
 
+from path_roots import import_rewrites, localize, portable, read_tsv
+from sql_tables import counts, table_specs, write_migration
+
 PACKAGE = Path(__file__).resolve().parents[1]
 REPO = PACKAGE.parents[1]
 REGISTRY_DIR = REPO / "analysis/migrationbench_asset_registry_20261025"
@@ -40,42 +43,12 @@ INDEX_FIELDS = [
     "item_id", "section", "panel", "content", "final_asset", "asset_sha256", "generator",
     "plotted_data", "upstream_data", "raw_location", "models", "calc_type", "status", "note", "item_dir",
 ]
-# Downloads / workspace paths whose content now lives in the repo or archive store.
-EXTRA_REWRITES = [
-    ("/Users/alina/Project/migrationbench-paper-repro/", ""),
-    ("/Users/alina/Project/migrationbench-integrate/", ""),
-    ("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/foundation_interlayer_sliding_10model_20261024",
-     "reproducibility/canva_palette_vector_bundle_20261105/data/source_archive/analysis/foundation_interlayer_sliding_10model_20261024"),
-    ("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/output/revision1_camera_ready/reproducibility",
-     "release/revision1_camera_ready/reproducibility"),
-    # stale pointer recorded in the bundle; the checkpoints are in ~/Downloads/mace-models (MODEL_REGISTRY.tsv)
-    ("/Users/alina/Downloads/mace-foundation-models", "local:/Users/alina/Project/migrationbench-archive/downloads_20261110/mace-models"),
-    ("/Users/alina/Downloads/mace-models", "local:/Users/alina/Project/migrationbench-archive/downloads_20261110/mace-models"),
-]
-
-
-def read_tsv(path: Path) -> list[dict]:
-    with path.open(newline="") as handle:
-        return list(csv.DictReader(handle, delimiter="\t"))
-
-
 def write_tsv(path: Path, fields: list[str], rows: list[dict]) -> None:
     with path.open("w", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=fields, delimiter="\t", lineterminator="\n", extrasaction="ignore")
         writer.writeheader()
-        writer.writerows(rows)
-
-
-def path_rewrites() -> list[tuple[str, str]]:
-    plan = read_tsv(PACKAGE / "imports/import_plan.tsv")
-    pairs = [(row["source"].rstrip("/"), row["dest"].rstrip("/")) for row in plan] + EXTRA_REWRITES
-    return sorted(pairs, key=lambda pair: len(pair[0]), reverse=True)
-
-
-def rewrite(text: str, rules: list[tuple[str, str]]) -> str:
-    for old, new in rules:
-        text = text.replace(old, new)
-    return text.replace("C/analysis/", "analysis/")
+        writer.writerows({key: portable(value) if isinstance(value, str) else value for key, value in row.items()}
+                         for row in rows)
 
 
 def item_key(item_id: str) -> str:
@@ -100,10 +73,10 @@ def main_rows(rules) -> list[dict]:
             "item_id": row["item_id"], "section": "main", "panel": row["panel"], "content": row["content"],
             "final_asset": row["final_asset"],
             "asset_sha256": row["asset_sha256"] if re.fullmatch(r"[0-9a-f]{64}", row["asset_sha256"]) else "",
-            "generator": rewrite(row["plot_script"], rules), "plotted_data": rewrite(row["plotted_data"], rules),
-            "upstream_data": rewrite(row["upstream_data"], rules), "raw_location": rewrite(row["raw_location"], rules),
-            "models": rewrite(row["models"], rules), "calc_type": row["calc_type"], "status": row["status"],
-            "note": rewrite(" ".join(filter(None, [row["composition"], row["notes"]])), rules),
+            "generator": localize(row["plot_script"], rules), "plotted_data": localize(row["plotted_data"], rules),
+            "upstream_data": localize(row["upstream_data"], rules), "raw_location": localize(row["raw_location"], rules),
+            "models": localize(row["models"], rules), "calc_type": row["calc_type"], "status": row["status"],
+            "note": localize(" ".join(filter(None, [row["composition"], row["notes"]])), rules),
             "item_dir": item_dir(row["item_id"], ""),
         })
     return rows
@@ -116,10 +89,10 @@ def si_rows(rules) -> list[dict]:
         rows.append({
             "item_id": row["item_id"], "section": section, "panel": row["label"], "content": row["content"],
             "final_asset": row["source_tex"], "asset_sha256": "",
-            "generator": rewrite(row["generator_script"], rules), "plotted_data": rewrite(row["backing_data"], rules),
-            "upstream_data": rewrite(row["upstream_data"], rules), "raw_location": rewrite(row["raw_location"], rules),
-            "models": rewrite(row["models"], rules), "calc_type": row["calc_type"], "status": row["status"],
-            "note": rewrite(" ".join(filter(None, [row["value_check"], row["notes"]])), rules),
+            "generator": localize(row["generator_script"], rules), "plotted_data": localize(row["backing_data"], rules),
+            "upstream_data": localize(row["upstream_data"], rules), "raw_location": localize(row["raw_location"], rules),
+            "models": localize(row["models"], rules), "calc_type": row["calc_type"], "status": row["status"],
+            "note": localize(" ".join(filter(None, [row["value_check"], row["notes"]])), rules),
             "item_dir": item_dir(row["item_id"], row["label"]),
         })
     return rows
@@ -149,17 +122,17 @@ def storage_rows() -> list[dict]:
             "notes": row["notes"],
         })
     rows += [
-        {"location": "local:/Users/alina/Project/migrationbench-archive/repo_mirror", "host": "laptop",
+        {"location": "archive:repo_mirror", "host": "laptop",
          "category": "imported heavy binaries (extxyz/traj/blend/npz)", "used_in_paper": "yes",
          "paper_items": "Fig1 Fig6 Fig4 FigS3 FigS4", "migrate_to": "skipjack + backup",
          "notes": f"files listed with sha256 in {PACKAGE_REL}/imports/EXTERNAL_STORE_MANIFEST.tsv"},
-        {"location": "local:/Users/alina/Project/migrationbench-archive/downloads_20261110/mace-models", "host": "laptop", "category": "model",
+        {"location": "archive:downloads_20261110/mace-models", "host": "laptop", "category": "model",
          "used_in_paper": "yes", "paper_items": "foundation rows of Fig2-Fig5, Table S8",
          "migrate_to": "skipjack + backup", "notes": "public MACE foundation checkpoints moved from ~/Downloads/mace-models (2026-11-10, imports/DOWNLOADS_ARCHIVE.tsv); Rockfish copies in MODEL_REGISTRY.tsv"},
-        {"location": "local:/Users/alina/Project/migrationbench-archive/downloads_20261110", "host": "laptop",
+        {"location": "archive:downloads_20261110", "host": "laptop",
          "category": "Downloads archive (Overleaf zip, Canva backups, Figure 1 kit, drafts)", "used_in_paper": "partial",
          "paper_items": "all (lineage)", "migrate_to": "skipjack + backup", "notes": "per-file sha256 in imports/DOWNLOADS_ARCHIVE.tsv"},
-        {"location": "icloud:/Users/alina/Documents/ChatGPT/Wiley-MigrationBench", "host": "laptop (iCloud, partly evicted)",
+        {"location": "chatgpt:.", "host": "laptop (iCloud, partly evicted)",
          "category": "workspace", "used_in_paper": "partial", "migrate_to": "skipjack (cold archive) after imports verified",
          "notes": "trace-relevant files imported; see imports/IMPORT_MANIFEST.tsv and ICLOUD_DATALESS.tsv"},
     ]
@@ -174,16 +147,25 @@ MODEL_FIELDS = ["model_id", "family", "condition", "train_temp", "seed", "locati
 
 
 def model_rows() -> list[dict]:
-    rows = []
+    """Trained and foundation checkpoints, one row per Rockfish file (foundation sha checks merged in)."""
+    rows = {}
     for row in read_tsv(PACKAGE / "sources/rockfish_models.tsv"):
-        rows.append({**row, "location": f"rockfish:{row['rockfish_path']}", "migrate_to": "skipjack + backup"})
+        location = f"rockfish:{row['rockfish_path']}"
+        rows[location] = {**row, "location": location, "migrate_to": "skipjack + backup"}
     with (PACKAGE / "sources/foundation_verify.tsv").open() as handle:
         for line in handle:
-            path, size, sha = line.rstrip("\n").split("\t")[:3]
-            rows.append({"model_id": Path(path).stem, "family": "MACE foundation (public)", "location": f"rockfish:{path}",
-                         "sha256_recorded": sha, "sha256_verified": "yes", "used_in_paper": "see paper_items",
-                         "migrate_to": "skipjack + backup"})
-    return rows
+            path, _size, sha = line.rstrip("\n").split("\t")[:3]
+            location = f"rockfish:{path}"
+            known = rows.get(location)
+            if known:
+                recorded = known.get("sha256_recorded") or sha
+                verified = "OK" if recorded == sha else f"MISMATCH (Rockfish file {sha[:12]})"
+                rows[location] = {**known, "sha256_recorded": recorded, "sha256_verified": verified}
+                continue
+            rows[location] = {"model_id": Path(path).stem, "family": "MACE foundation (public)", "location": location,
+                              "sha256_recorded": sha, "sha256_verified": "OK", "used_in_paper": "see paper_items",
+                              "migrate_to": "skipjack + backup"}
+    return list(rows.values())
 
 
 def provenance_page(item: str, rows: list[dict]) -> str:
@@ -200,30 +182,13 @@ def provenance_page(item: str, rows: list[dict]) -> str:
     return "\n".join(lines) if head else ""
 
 
-def sql_literal(value) -> str:
-    return "'" + str(value if value is not None else "").replace("'", "''") + "'"
-
-
-def write_migration(tables: dict[str, tuple[list[str], list[dict]]]) -> str:
-    out = ["-- Generated by release/revision1_submitted_20261110/tools/build_index.py; do not hand-edit.",
-           "INSERT OR REPLACE INTO metadata (key, value) VALUES ('revision1_submission_trace', '002 (2026-11-10)');"]
-    for table, (fields, rows) in tables.items():
-        out.append(f"DROP TABLE IF EXISTS {table};")
-        out.append(f"CREATE TABLE {table} ({', '.join(f'{f} TEXT' for f in fields)});")
-        for row in rows:
-            out.append(f"INSERT INTO {table} VALUES ({', '.join(sql_literal(row.get(f)) for f in fields)});")
-    return "\n".join(out) + "\n"
-
-
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("--no-sql", action="store_true", help="do not apply the migration to the SQLite DB")
     args = parser.parse_args()
-    rules = path_rewrites()
+    rules = import_rewrites()
     index = apply_overrides(main_rows(rules) + si_rows(rules))
     storage, models = storage_rows(), model_rows()
-    imports = read_tsv(PACKAGE / "imports/IMPORT_MANIFEST.tsv")
-    external = read_tsv(PACKAGE / "imports/EXTERNAL_STORE_MANIFEST.tsv")
     write_tsv(PACKAGE / "RESULTS_INDEX.tsv", INDEX_FIELDS, index)
     write_tsv(PACKAGE / "STORAGE_LOCATIONS.tsv", STORAGE_FIELDS, storage)
     write_tsv(PACKAGE / "MODEL_REGISTRY.tsv", MODEL_FIELDS, models)
@@ -236,19 +201,14 @@ def main() -> int:
         target.mkdir(parents=True, exist_ok=True)
         (target / "PROVENANCE.md").write_text(provenance_page(rows[0]["item_id"], rows))
 
-    sql = write_migration({
-        "rev1_results_index": (INDEX_FIELDS, index),
-        "rev1_storage_locations": (STORAGE_FIELDS, storage),
-        "rev1_model_registry": (MODEL_FIELDS, models),
-        "rev1_imported_files": (["source", "dest", "bytes", "sha256", "reason"], imports),
-        "rev1_external_store": (["repo_path", "stored_at", "bytes", "sha256", "original_source", "migration"], external),
-    })
+    specs = table_specs(index, storage, models, INDEX_FIELDS, STORAGE_FIELDS, MODEL_FIELDS)
+    sql = write_migration(specs)
     MIGRATION.write_text(sql)
     if not args.no_sql:
         with sqlite3.connect(DB) as conn:
             conn.executescript(sql)
     print(f"{len(index)} index rows, {len(by_item)} item pages, {len(storage)} storage rows, "
-          f"{len(models)} models, {len(imports)} imported files; migration -> {MIGRATION.relative_to(REPO)}")
+          f"{len(models)} models; SQL tables {counts(specs)}; migration -> {MIGRATION.relative_to(REPO)}")
     return 0
 
 

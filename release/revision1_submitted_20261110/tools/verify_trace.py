@@ -4,7 +4,8 @@
 Checks:
   1. every final figure asset exists and its sha256 equals the recorded one;
   2. every repo-relative path token in generator / data / upstream columns exists
-     (tokens prefixed rockfish:, local:, icloud:, skipjack: are external and only listed);
+     (tokens prefixed with a path_roots label such as rockfish:, archive:, chatgpt: are external;
+     local archive:/chatgpt: tokens must exist when that root is mounted, remote ones are only listed);
   3. no absolute /Users/... path remains;
   4. every file in imports/IMPORT_MANIFEST.tsv still exists with the recorded sha256.
 Exit status 1 if any check fails.
@@ -17,11 +18,13 @@ import re
 import sys
 from pathlib import Path
 
+from path_roots import EXTERNAL_LABELS, resolve
+
 PACKAGE = Path(__file__).resolve().parents[1]
 REPO = PACKAGE.parents[1]
 PATH_COLUMNS = ["generator", "plotted_data", "upstream_data"]
 TOKEN = re.compile(r"(?<![\w:/.-])((?:analysis|data|paper|release|reproducibility|docs|src|registry|workflow|configs|figures|scripts)/[\w./{},*+@()\[\]-]+)")
-EXTERNAL = re.compile(r"\b(rockfish|local|icloud|skipjack):(/[^\s;|,)]+)")
+EXTERNAL = re.compile(r"(?<![\w-])(" + "|".join(map(re.escape, EXTERNAL_LABELS)) + r"):([^\s;|,)]+)")
 
 
 def sha256(path: Path) -> str:
@@ -47,6 +50,13 @@ def path_exists(token: str) -> bool:
     return candidate.exists() or (REPO / "paper/revision1" / token).exists()
 
 
+def _exists(path: Path) -> bool:
+    text = str(path)
+    if any(ch in text for ch in "*{"):
+        return any(Path(text.split("*")[0].split("{")[0]).parent.glob("*"))
+    return path.exists()
+
+
 def check_index(rows: list[dict]) -> tuple[list[str], set[str]]:
     errors, external = [], set()
     for row in rows:
@@ -59,11 +69,16 @@ def check_index(rows: list[dict]) -> tuple[list[str], set[str]]:
             elif sha256(target) != recorded:
                 errors.append(f"{where}: sha256 mismatch for {asset}")
         text = " ".join(row[column] for column in PATH_COLUMNS)
-        external.update(f"{host}:{path}" for host, path in EXTERNAL.findall(" ".join(row.values())))
+        for host, path in EXTERNAL.findall(" ".join(row.values())):
+            token = f"{host}:{path.rstrip('.')}"
+            external.add(token)
+            local = resolve(token)
+            if local is not None and local.parents[len(local.parents) - 4].exists() and not _exists(local):
+                errors.append(f"{where}: local external path not found: {token}")
         for token in (t for raw in TOKEN.findall(text) for t in expand(raw)):
             if not path_exists(token):
                 errors.append(f"{where}: cited path not found: {token}")
-        if "/Users/" in " ".join(row.values()).replace("local:/Users/", "").replace("icloud:/Users/", ""):
+        if "/Users/" in " ".join(row.values()):
             errors.append(f"{where}: absolute /Users path left in index")
     return errors, external
 

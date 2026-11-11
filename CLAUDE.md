@@ -7,7 +7,10 @@ when working inside the directory they live in.
   about the submitted Revision 1** (2026-11-10). `RESULTS_INDEX.tsv` maps every
   figure panel and table to its asset sha256, generator, data, raw location
   (in-repo / archive store / Rockfish) and models. After changing any traced
-  file, run `tools/build_index.py` then `tools/verify_trace.py`. The submitted
+  file, run `tools/build_index.py`, `tools/check_sql.py --compact`,
+  `tools/build_overview.py`, then `tools/verify_trace.py`. `OVERVIEW.md` is the
+  one-page summary. Write paths portably (`archive:`, `chatgpt:`, `rockfish:`…;
+  see `tools/path_roots.py`), never `/Users/...`. The submitted
   sources in `paper/revision1/` are frozen at `334260c`; record open problems in
   `KNOWN_ISSUES.md` instead of editing them.
 

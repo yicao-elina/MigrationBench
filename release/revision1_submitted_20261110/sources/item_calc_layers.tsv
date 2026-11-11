@@ -1,0 +1,37 @@
+item_id	L0_reference	L1_split_models	L2_mlip_sims	L3_derived	L5_kind
+Fig1	AIMD frames (QE); QE NEB images; QE sliding geometries	grouped A2 split (train/valid/test)	MLIP self-relaxed NEB geometries	SOAP descriptors -> PCA configuration universe	Blender render + SOAP-PCA script; Canva layout
+Fig2	AIMD frames (QE energies/forces)	grouped A2 split; FT and Scratch, 600 K and multi-T, seeds 123/234/345	single points on train/test frames	parity, energy/force RMSE	script; Canva layout
+Fig3	—	15 models: 3 foundation + 12 trained (FT/Scratch x 600 K/multi-T x 3 seeds)	1 ns MLIP MD, 600 K (restart from 200 ps)	MD stability metrics (MD15 status audit)	script (palette renderer); Canva layout
+Fig4	QE NEB, 81-atom Cr, 3 paths (not force-converged)	FT/Scratch/foundation checkpoints	fixed-image single points; endpoint-only self-relaxed MLIP NEB	energy profiles; barrier errors	script (DFT read from neb.out); Canva layout
+Fig5	QE NEB; QE sliding references	FT/Scratch/foundation checkpoints	fixed-path single points; self-relaxed NEB; sliding single points	task-matrix error metrics	script (dot-matrix renderer); Canva layout
+Fig6	—	15 MD models	MLIP MD trajectories (927 frames sampled)	trajectory features (6,192 columns); t-SNE/PHATE/UMAP; silhouettes	script; Canva layout
+Fig7	AIMD test trajectory (267 common frames)	FT/Scratch, 12 seed models	single-point force errors	SOAP features (407); GBM surrogate; TreeSHAP	script; Canva layout
+GraphicalAbstract	—	—	—	schematic only	Canva only (no source archived)
+HiResFigureFiles	same as Figs. 1-7	same as Figs. 1-7	same as Figs. 1-7	same as Figs. 1-7	Canva exports
+Table R1	QE NEB reference sets (81-atom canonical, 61-atom legacy)	—	—	barrier values	LaTeX, hand-typed
+Table R2	AIMD frames; QE NEB	12 grouped checkpoints (FT/Scratch x 600 K/multi-T x 3 seeds)	single points	controlled-arm comparison; SOAP audit	LaTeX, hand-typed
+Table R3	QE NEB	FT/Scratch checkpoints	fixed-image single points	path-resolved errors	LaTeX, hand-typed
+Table R4	—	foundation checkpoints	MLIP endpoint relaxations	scope summary (qualitative)	LaTeX, hand-typed
+Table R5	AIMD test frames	FT/Scratch, 12 seed models	single points	SHAP surrogate fidelity	LaTeX, values from SHAP campaign
+Table R6	AIMD training data	—	—	zero-force / force audit of training data	script
+Table R7	—	15 MD models	1 ns MLIP MD	MD endpoints / stop reasons	LaTeX, hand-typed
+Table R8	AIMD trajectories	grouped split (A2 protocol)	—	partition summary	LaTeX, hand-typed
+Table R9	—	15 MD models	MLIP MD	silhouette / t-SNE	LaTeX, hand-typed
+Table R10	—	15 MD models	MLIP MD	feature audit (all-zero column removed)	script
+Table R11	AIMD test frames	FT/Scratch, 12 seed models	single points	SHAP reproduction check	script (compare_reproduction.py)
+Fig. S1	—	training design (data -> FT/Scratch arms)	—	schematic	diagrams.net export
+Fig. S2	QE NEB	grouped retraining: FT/Scratch/Scratch-5%/foundation	fixed-image single points	SOAP/RMSD overlap audit	script
+Fig. S3	QE NEB for Cu, Li, Na, Cr (some SCF failures)	foundation checkpoints	fixed-image single points	energy profiles	script
+Fig. S4	QE sliding NEB	FT/Scratch/foundation checkpoints	fixed and self-relaxed sliding NEB	sliding profiles	script; hand-edited final PDF
+Fig. S5	—	15 MD models	MLIP MD	output features; silhouette / t-SNE	script (audit_current_figures.py)
+Table S1	AIMD frames	grouped split; FT/Scratch, 3 seeds	single points on test frames	energy/force RMSE	script, hand-rounded
+Table S2	QE NEB	grouped A2 retraining (FT/Scratch/Scratch-5%) + MPA-0	fixed-image single points	grouped audit summary	LaTeX, hand-typed (data in repo)
+Table S3	—	foundation 9, Scratch legacy 3, FT-600K 3, FT-multi-T 2-3	fixed-path + endpoint-only NEB	profile coverage counts	LaTeX, hand-typed
+Table S4	QE NEB	FT/Scratch/foundation checkpoints	fixed-image single points	NEB barrier errors	script, hand-rounded
+Table S5	QE NEB barriers	—	—	barrier table (status in caption)	script
+Table S6	QE NEB geometries	—	—	path geometry classification	script (minor hand edits)
+Table S7	QE NEB	Scratch-5% grouped checkpoints	fixed-image single points	path-resolved descriptive errors	script
+Table S8	—	15 MD models	1 ns MLIP MD	MD horizons / status	script (audit_current_figures.py)
+Table S9	—	15 MD models	MLIP MD	original-space silhouette	script, hand-rounded
+Table S10	—	15 MD models	MLIP MD	t-SNE sensitivity	script, hand-rounded
+Table S11	AIMD test frames	FT/Scratch, 12 seed models	single points	SOAP + GBR surrogate + TreeSHAP fidelity	script, hand-rounded

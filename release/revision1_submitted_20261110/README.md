@@ -29,6 +29,7 @@ cd paper/revision1 && export TEXINPUTS=.:..//: BSTINPUTS=.:..: && latexmk -pdf s
 
 | File | Use it to |
 |---|---|
+| `OVERVIEW.md`, `OVERVIEW.xlsx` | Read everything below on one page: the master tables, how the data is aggregated, every figure and table, the layers of computed data behind each (L0 DFT/AIMD → L5 final asset) and where each layer is stored. Generated; do not hand-edit. |
 | `RESULTS_INDEX.tsv` | Look up any figure panel or table: final asset + sha256, generator script, plotted data, upstream data, raw location, models, calculation type, status. **This is the maintenance list.** |
 | `items/<main,si,response>/<item>/PROVENANCE.md` | Read the same information per item; item-specific sources sit next to it in `source/` / `upstream/`. |
 | `PIPELINE.md` | Follow the end-to-end chain DFT/AIMD → split → training → evaluation (pointwise, MD, NEB, sliding) → features → SHAP → figures. |
@@ -40,9 +41,12 @@ cd paper/revision1 && export TEXINPUTS=.:..//: BSTINPUTS=.:..: && latexmk -pdf s
 
 The same tables are in the SQL registry
 `analysis/migrationbench_asset_registry_20261025/migrationbench_asset_registry.sqlite`
-(tables `rev1_results_index`, `rev1_storage_locations`, `rev1_model_registry`,
-`rev1_imported_files`, `rev1_external_store`; migration
-`migrations/002_revision1_submission_trace.sql`). Example:
+(17 `rev1_*` tables and 4 `v_rev1_*` views, each table keyed; migration
+`migrations/002_revision1_submission_trace.sql`). Paths in the TSVs and the registry are
+portable: `archive:…`, `chatgpt:…`, `rockfish:…` and the other labels resolve through
+`rev1_path_roots` (`tools/path_roots.py`). Migration `003_portable_paths_legacy_tables.sql`
+applied the same rules to the 2026-10-25 registry tables (per-cell log in
+`imports/LEGACY_REGISTRY_PATH_REWRITES.tsv`). Example:
 
 ```bash
 sqlite3 -header -column analysis/migrationbench_asset_registry_20261025/migrationbench_asset_registry.sqlite "select item_id, panel, status, generator from rev1_results_index where item_id='Fig4'"
@@ -63,8 +67,10 @@ sqlite3 -header -column analysis/migrationbench_asset_registry_20261025/migratio
 
 ```bash
 python3 release/revision1_submitted_20261110/tools/build_index.py      # rebuild index, item pages, SQL tables
+python3 release/revision1_submitted_20261110/tools/check_sql.py --compact  # integrity, keys, row counts, portable paths; refresh CSV/JSON mirrors
+python3 release/revision1_submitted_20261110/tools/build_overview.py   # OVERVIEW.md / OVERVIEW.xlsx from the registry
 python3 release/revision1_submitted_20261110/tools/verify_trace.py     # every cited path exists, asset sha256s match
-python3 -m pytest tests/test_dft_neb_reference.py                      # Fig. 4 DFT reference = QE neb.out
+python3 -m pytest tests/test_dft_neb_reference.py tests/test_revision1_trace_tools.py
 ```
 
 Regenerate the SI tables, then compare them with the submitted (hand-rounded) ones,
