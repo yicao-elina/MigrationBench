@@ -313,23 +313,33 @@ def load_current_scratch_600k() -> list[dict]:
     return records
 
 
+def _dft_reference_sources() -> list[Path]:
+    """QE neb.out files behind dft_reference(), hashed into the render manifest."""
+    for parent in Path(__file__).resolve().parents:
+        raw = parent / "data" / "raw_compact" / "cr81_dft_neb_reference_20261013" / "raw"
+        if raw.is_dir():
+            return sorted(raw.glob("2L-Cu__neb-*/neb.out"))
+    raise FileNotFoundError("data/raw_compact/cr81_dft_neb_reference_20261013/raw not found")
+
+
 def dft_reference() -> dict[str, tuple[np.ndarray, np.ndarray]]:
-    # Retained from the validated R02 vector extraction; values are not read
-    # from the PNG and the source PDF is hashed in the R03 manifest.
-    return {
-        "in_gap": (
-            np.arange(10) / 9.0,
-            np.array([0.0, 0.14998279, 0.45337452, 0.84019660, 1.23871102, 1.49900233, 1.52429883, 1.32639253, 1.01828651, 0.84891322]),
-        ),
-        "gap_to_ql": (
-            np.arange(10) / 9.0,
-            np.array([0.0, -0.00599650, -0.01751910, -0.02938830, -0.04046770, -0.05133610, -0.06176651, -0.07202330, -0.08241070, -0.09594731]),
-        ),
-        "within_ql": (
-            np.arange(10) / 9.0,
-            np.array([0.0, -0.28038152, -0.31615703, -0.30312301, 0.69680110, 1.63002741, 1.84489982, 0.41361450, -0.75147823, -0.50192181]),
-        ),
-    }
+    """DFT-NEB reference profiles parsed from the committed QE neb.out files.
+
+    Formerly hard-coded arrays copied from foundation_self_relaxed_4x3_R03.pdf;
+    now read via src/migrationbench/dft_neb_reference.py (values identical to
+    1e-6 eV, see tests/test_dft_neb_reference.py). QE status: not converged by
+    the 0.03 eV/A force gate (COMPLETED_BUT_SCF_WARNING).
+    """
+    import importlib.util
+
+    for parent in Path(__file__).resolve().parents:
+        module_path = parent / "src" / "migrationbench" / "dft_neb_reference.py"
+        if module_path.is_file():
+            spec = importlib.util.spec_from_file_location("dft_neb_reference", module_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            return module.profiles_for_plot()
+    raise FileNotFoundError("src/migrationbench/dft_neb_reference.py not found above " + str(Path(__file__)))
 
 
 def grouped(records: list[dict], observable: str, path_key: str) -> dict[str, dict[str, np.ndarray]]:
@@ -510,7 +520,7 @@ def main() -> None:
         SCRATCH_RAW / "MODEL_REGISTRY.tsv",
         SCRATCH_RAW / "PATH_REGISTRY.tsv",
         SCRATCH_RAW / "OMITTED_OR_POINTER_ONLY.tsv",
-        Path("/Users/alina/Downloads/foundation_self_relaxed_4x3_R03.pdf"),
+        *_dft_reference_sources(),
     ]
     scratch_endpoint_paths = sorted(SCRATCH_RAW.glob("runs/idpp/*/*/*/endpoint_only_manifest.json"))
     scratch_profile_paths = sorted(SCRATCH_RAW.glob("runs/idpp/*/*/*/mlff_neb_manifest.json"))
@@ -560,7 +570,7 @@ def main() -> None:
         "legend_order": [*GROUP_ORDER, "dft"],
         "legend_labels": [*GROUP_LABELS.values(), "DFT-NEB"],
         "campaign_boundary": "Self-relaxed rows are endpoint-only MLIP NEB proxies, not DFT MEP barriers.",
-        "dft_reference": "DFT-NEB vector line retained from foundation_self_relaxed_4x3_R03.pdf; reference status remains COMPLETED_BUT_SCF_WARNING.",
+        "dft_reference": "DFT-NEB profiles parsed from QE neb.out (data/raw_compact/cr81_dft_neb_reference_20261013) via src/migrationbench/dft_neb_reference.py; reference status remains COMPLETED_BUT_SCF_WARNING.",
         "scratch_600k_boundary": "Canonical Scratch-600K-Lmax1 seeds 123/234/345, 81 atoms, 10 images, three paths. Fixed 9/9 finite diagnostic rows are plotted; self-relaxed 7/9 CONVERGED/PRIMARY_EVIDENCE rows are plotted. Seed123×within-QL and seed234×in-gap remain diagnostic-only and are excluded.",
         "scratch_multit_boundary": "Historical From-scratch rows are mapped to Scratch-MultiT because the historical launcher identifies Scratch_Multi_T.model; raw model_id and source table are preserved.",
         "sources": source_hashes,
