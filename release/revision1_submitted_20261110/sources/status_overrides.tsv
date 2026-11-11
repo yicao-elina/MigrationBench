@@ -1,0 +1,26 @@
+item_id	panel	status	note
+Fig4	a-c	FULL_DATA_MANUAL_LAYOUT	2026-11-10: DFT reference now parsed from QE neb.out (data/raw_compact/cr81_dft_neb_reference_20261013) by src/migrationbench/dft_neb_reference.py; regenerated panel equal to 2e-6 pt. QE NEB not converged (max image force 0.38-3.2 eV/A); Canva typo "Self-relaxted" in final asset.
+Fig4	d-f	FULL_DATA_MANUAL_LAYOUT	2026-11-10: same DFT reference fix as a-c.
+Fig6	a	FULL_DATA_MANUAL_LAYOUT	2026-11-10: prepare/render scripts, manifests and embeddings imported to analysis/legacy_fig6_phate_reproduction_20261101; trajectory_samples (extxyz) kept in the local archive store (EXTERNAL_STORE_MANIFEST.tsv).
+Fig6	b	FULL_DATA_MANUAL_LAYOUT	as Fig6 a
+Fig6	c	FULL_DATA_MANUAL_LAYOUT	as Fig6 a
+Fig6	d	FULL_DATA_MANUAL_LAYOUT	as Fig6 a
+Fig1	a	FULL_DATA_MANUAL_LAYOUT	Blender scene + render in git; final composition in Canva (no Canva export archived).
+Fig1	b	FULL_DATA_MANUAL_LAYOUT	SOAP-PCA builders in git; raw_cache (51 MB) in the local archive store; final composition in Canva.
+Fig1	c	MANUAL_SCHEMATIC	Task-row schematic drawn in Canva; no data content.
+Fig5	a	MANUAL_SCHEMATIC	Design panel redrawn in Canva; no data content.
+GraphicalAbstract	-	MISSING_SOURCE	Only the rendered page in the submission PDF exists. Export it from Canva into items/main/GraphicalAbstract/.
+Fig. S1	fig:training_design	FULL_SOURCE	2026-11-10: newest editable .drawio imported to items/si/FigS1_training_design/source/.
+Fig. S2	fig:grouped_overlap	FULL_CAPTION_MISMATCH	2026-11-10: hash-matched generator imported to items/si/FigS2_grouped_retraining_overlap/source/. Submitted caption describes the legacy G1 panel but the figure shows the canonical in-gap panel; fix the caption at the next revision.
+Fig. S3	fig:other_dopants	FULL	2026-11-10: hash-matched generator imported to items/si/FigS3_four_dopant_fixed_path/source/ with qe_neb_path_profiles.csv upstream.
+Fig. S4	fig:sliding_all	FULL_DATA_MANUAL_LAYOUT	Data lineage intact through CANVA-P09 renderer; the hand-edited cairo export (sha 6f45a330) was not found anywhere.
+Fig. S5	fig:current_feature_audit	FULL	2026-11-10: rendered by items/si/_shared_generators/audit_current_figures.py (now repo-relative).
+Table S1	tab:current_pointwise	FULL_VALUES_HAND_ROUNDED	Regenerate with audit_current_figures.py; tools/verify_table_rounding.py passes.
+Table S3	tab:profile_coverage	FULL_VALUES_STALE_RELEASE	Values equal cr_three_path_coverage_audit_R02 while Fig. 4 uses R05; reconcile at the next revision.
+Table S4	tab:current_neb_errors	FULL_VALUES_HAND_ROUNDED	tools/verify_table_rounding.py passes.
+Table S5	tab:dft_neb_barriers_revised	FULL_VALUES	2026-11-10: legacy 61-atom QE neb.out imported to data/raw_compact/legacy_61_qe_neb. Submitted table dropped the convergence Status column (caption only).
+Table S8	tab:md_horizons	FULL_VALUES_WORDING	tools/verify_table_rounding.py passes. Foundation rows say "Target reached" while MD15_STATUS_AUDIT_R02 says TARGET_REACHED_PROVISIONAL.
+Table S9	tab:current_original_space	FULL_VALUES_HAND_ROUNDED	tools/verify_table_rounding.py passes.
+Table S10	tab:current_tsne_sensitivity	FULL_VALUES_HAND_ROUNDED	tools/verify_table_rounding.py passes (reference env requirements-current.txt).
+Table S11	tab:current_shap_fidelity	FULL_VALUES_HAND_ROUNDED	tools/verify_table_rounding.py passes.
+Table R11	tab:resp-c13-shap-reproduction	PARTIAL	Values in shap_reproduction_check.json; the comparison script that wrote it was not found.
