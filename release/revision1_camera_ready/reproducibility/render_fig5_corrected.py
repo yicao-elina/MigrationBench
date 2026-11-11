@@ -23,34 +23,51 @@ try:
 except ModuleNotFoundError:
     REPORTLAB_AVAILABLE = False
 
-ap=argparse.ArgumentParser();ap.add_argument('--input',type=Path,default=Path(__file__).parent/'upload/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv');ap.add_argument('--output',type=Path,default=Path(__file__).parent/'output/NEB_Dotmatrix_v3');A=ap.parse_args()
+ap=argparse.ArgumentParser();ap.add_argument('--input',type=Path,default=Path(__file__).parent/'upload/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv');ap.add_argument('--output',type=Path,default=Path(__file__).parent/'output/NEB_Dotmatrix_v3')
+ap.add_argument('--correction-audit',type=Path,default=None,help='fig5_correction_audit.json (default: next to --input)');A=ap.parse_args()
 OUT=A.output.resolve();OUT.mkdir(parents=True,exist_ok=True)
 D=pd.read_csv(A.input,sep='\t');D['family']=D.row_id.str.split(' / ').str[0]
+CORRECTION_AUDIT=A.correction_audit or A.input.parent/'fig5_correction_audit.json'
+if not CORRECTION_AUDIT.is_file():
+    raise SystemExit(f'correction audit not found: {CORRECTION_AUDIT} (pass --correction-audit)')
+CORRECTION=json.loads(CORRECTION_AUDIT.read_text())
 FAMS=['MP-0B3','OMAT-0','MPA0','FT-600K','FT-MultiT','Scratch-600K','Scratch-MultiT']
 GROUP={f:'Foundation' if i<3 else 'Fine-tuning' if i<5 else 'Scratch' for i,f in enumerate(FAMS)}
 D['strategy']=D.family.map(GROUP)
 ROWS=FAMS[:3]+[f'{f} / s{s}' for f in FAMS[3:] for s in [123,234,345]]
 COLS=['migration_in_gap_fixed','migration_gap_to_ql_fixed','migration_within_ql_fixed','migration_in_gap_self','migration_gap_to_ql_self','migration_within_ql_self','sliding_pristine_fixed','sliding_cr_in_gap_fixed']
 REF=D.groupby('column_id').reference_value_eV.first().reindex(COLS)
+TASK_COLS={'fixed':[c for c in COLS if c.startswith('migration_') and c.endswith('_fixed')],'self':[c for c in COLS if c.endswith('_self')],'sliding':[c for c in COLS if c.startswith('sliding_')]}
 D['dft_reference_eV']=D.column_id.map(REF)
 assert len(D)==120 and not D.duplicated(['row_id','column_id']).any()
 assert set(ROWS)==set(D.row_id) and set(COLS)==set(D.column_id)
 assert np.isfinite(D[['predicted_value_eV','absolute_error_eV']]).all().all()
 assert np.allclose(abs(D.predicted_value_eV-D.dft_reference_eV),D.absolute_error_eV,atol=1e-9)
-assert (D.scientific_status=='NONCONVERGED').sum()==5
-assert D.predicted_value_eV.between(0,27).all() and D.absolute_error_eV.between(0,25).all()
+STATUS_COUNTS=D.scientific_status.value_counts().to_dict()
+assert STATUS_COUNTS==CORRECTION['revised_status_counts'],(STATUS_COUNTS,CORRECTION['revised_status_counts'])
+N_NONCONVERGED=STATUS_COUNTS.get('NONCONVERGED',0)
+# Colour range and transform are carried by the input table; the error scale is the size-legend ceiling.
+assert D.color_vmin_eV.nunique()==1 and D.color_vmax_eV.nunique()==1 and D.color_transform.nunique()==1
+COLOR_RANGE_EV=(float(D.color_vmin_eV.iloc[0]),float(D.color_vmax_eV.iloc[0]))
+GAMMA_TEXT=D.color_transform.iloc[0].rsplit('_',1)[1];GAMMA=float(GAMMA_TEXT)
+ERROR_SCALE_EV=25.
+assert D.predicted_value_eV.between(*COLOR_RANGE_EV).all() and D.absolute_error_eV.between(0,ERROR_SCALE_EV).all()
+NUMBER_WORDS=['zero','one','two','three','four','five','six','seven','eight','nine']
+def count_text(n,capital=False):
+    text=NUMBER_WORDS[n] if 0<=n<len(NUMBER_WORDS) else str(n)
+    return text.capitalize() if capital else text
 T=D.set_index(['row_id','column_id'])
 INK='#242424';GREY='#858585';EDGE='#7890a5'
 STRATEGY={'Foundation':'#95d1b1','Fine-tuning':'#36b3c0','Scratch':'#2f83b8'}
 TASK=['#fabab9','#f26ea6','#74297e'];SEED={123:'o',234:'^',345:'s'}
 CMAP=colors.LinearSegmentedColormap.from_list('nature_energy_blue',['#e7eff6','#bed9e8','#7cb7d2','#3493bd','#166da7','#1d426b'])
-NORM=colors.PowerNorm(gamma=.40,vmin=0,vmax=27)
+NORM=colors.PowerNorm(gamma=GAMMA,vmin=COLOR_RANGE_EV[0],vmax=COLOR_RANGE_EV[1])
 plt.rcParams.update({'font.family':'Arial','font.size':11.5,'font.weight':'normal','text.color':INK,'axes.labelcolor':INK,'axes.labelweight':'normal','axes.titleweight':'normal','axes.edgecolor':GREY,'xtick.color':INK,'ytick.color':INK,'xtick.labelsize':11,'ytick.labelsize':11,'axes.linewidth':1.5,'xtick.major.width':1.4,'ytick.major.width':1.4,'xtick.major.size':5.2,'ytick.major.size':5.2,'xtick.minor.width':1.0,'ytick.minor.width':1.0,'xtick.minor.size':3.2,'ytick.minor.size':3.2,'pdf.fonttype':42,'svg.fonttype':'none','savefig.facecolor':'white','figure.facecolor':'white'})
 Y=np.array([.25,1.25,2.25,3.85,4.85,5.85,7.10,8.10,9.10,10.70,11.70,12.70,13.95,14.95,15.95])
 X=np.array([0,1,2,3.2,4.2,5.2,6.4,7.4])
-STYLE={'width_mm':183,'main_height_mm':250,'standalone_matrix_height_mm':171,'font':'Arial','font_weight':'normal','type_pt':{'panel_letter':15,'panel_title':14,'matrix_row':10.2,'matrix_column':8.8,'legend_heading':11,'legend_text':10.2,'axes':12.4,'tick':11,'note':9.5},'matrix_column_rotation_deg':35,'matrix_column_y':-.95,'matrix_row_label_x':-.55,'matrix_group_label_x':-3.52,'strategy_colors':STRATEGY,'task_colors':TASK,'color_encoding':{'quantity':'predicted_value_eV','range_eV':[0,27],'transform':'PowerNorm gamma=0.40','palette':'light blue to cyan blue to dark navy; zero is pale blue and still visible'},'size_encoding':{'quantity':'absolute_error_eV','range_eV':[0,25],'mapping':'s = s_min + (s_max - s_min) * sqrt(error / 25 eV)','note':'s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle','diameter_relative_to_row_pitch':{'minimum':.20,'maximum':.82}},'dft_reference_display_precision':2,'status_handling':'All 120 supplied finite observations are rendered as product metrics using quantitative color and area. Original run status remains in plotted_values.tsv and audit.json for provenance.','matrix_coordinate_limits':{'x':[-4.1,13.25],'y':[18.4,-3.9]},'quantitative_scatter_area_pt2':44}
+STYLE={'width_mm':183,'main_height_mm':250,'standalone_matrix_height_mm':171,'font':'Arial','font_weight':'normal','type_pt':{'panel_letter':15,'panel_title':14,'matrix_row':10.2,'matrix_column':8.8,'legend_heading':11,'legend_text':10.2,'axes':12.4,'tick':11,'note':9.5},'matrix_column_rotation_deg':35,'matrix_column_y':-.95,'matrix_row_label_x':-.55,'matrix_group_label_x':-3.52,'strategy_colors':STRATEGY,'task_colors':TASK,'color_encoding':{'quantity':'predicted_value_eV','range_eV':[int(v) if float(v).is_integer() else v for v in COLOR_RANGE_EV],'transform':f'PowerNorm gamma={GAMMA_TEXT}','palette':'light blue to cyan blue to dark navy; zero is pale blue and still visible'},'size_encoding':{'quantity':'absolute_error_eV','range_eV':[0,int(ERROR_SCALE_EV)],'mapping':f's = s_min + (s_max - s_min) * sqrt(error / {ERROR_SCALE_EV:g} eV)','note':'s is the scatter area parameter in pt^2, proportional to geometric circle area; a zero-error observation retains a minimum visible circle','diameter_relative_to_row_pitch':{'minimum':.20,'maximum':.82}},'dft_reference_display_precision':2,'status_handling':f'All {len(D)} supplied finite observations are rendered as product metrics using quantitative color and area. Original run status remains in plotted_values.tsv and audit.json for provenance.','matrix_coordinate_limits':{'x':[-4.1,13.25],'y':[18.4,-3.9]},'quantitative_scatter_area_pt2':44}
 
-STYLE['status_handling']='All finite diagnostic values retained; five nonconverged records are marked with crosses.'
+STYLE['status_handling']=f'All finite diagnostic values retained; {count_text(N_NONCONVERGED)} nonconverged records are marked with crosses.'
 
 def save(fig,name):
     for ext in ['pdf','svg','png']:
@@ -71,12 +88,13 @@ def schematic(ax):
         else:
             for yy in [.58,.70]:ax.scatter([x-.027,x,x+.027],[yy]*3,c=col,s=32,edgecolors='#777777',linewidths=.7)
         ax.text(x,.29,g,ha='center',fontsize=11,fontweight='normal')
-        ax.text(x,.075,'3 checkpoints' if g=='Foundation' else '2 × 3 seeds',ha='center',fontsize=9.7,fontweight='normal',color='#555555')
+        n_fam=sum(GROUP[f]==g for f in FAMS)
+        ax.text(x,.075,f'{n_fam} checkpoints' if g=='Foundation' else f'{n_fam} × {len(SEED)} seeds',ha='center',fontsize=9.7,fontweight='normal',color='#555555')
     ax.plot([.035,.035,.435,.435],[.51,.47,.47,.51],c=GREY,lw=1.25)
     ax.annotate('',xy=(.535,.47),xytext=(.435,.47),arrowprops={'arrowstyle':'->','lw':1.25,'color':GREY,'mutation_scale':10})
     ax.text(.488,.73,'All models',ha='center',fontsize=10.5,fontweight='normal',color='#555555')
     ax.plot([.535,.535,.925],[.47,.855,.855],c=GREY,lw=1.25)
-    for x,color,label,count in zip([.55,.704,.858],TASK,['Fixed-path\nmigration','Self-relaxed\nmigration','Sliding'],['3 pathways','3 pathways','2 systems']):
+    for x,color,label,count in zip([.55,.704,.858],TASK,['Fixed-path\nmigration','Self-relaxed\nmigration','Sliding'],[f'{len(TASK_COLS["fixed"])} pathways',f'{len(TASK_COLS["self"])} pathways',f'{len(TASK_COLS["sliding"])} systems']):
         ax.annotate('',xy=(x+.0685,.78),xytext=(x+.0685,.855),arrowprops={'arrowstyle':'->','color':GREY,'lw':1.15,'mutation_scale':9})
         ax.add_patch(patches.Rectangle((x,.13),.137,.65,facecolor=color,edgecolor='none'))
         tc='white' if color==TASK[-1] else INK
@@ -88,7 +106,7 @@ def size_limits(ax):
     return (.20*pitch_pt)**2,(.82*pitch_pt)**2,pitch_pt
 
 def marker_size(err,smin,smax):
-    return smin+(smax-smin)*np.sqrt(np.asarray(err)/25.)
+    return smin+(smax-smin)*np.sqrt(np.asarray(err)/ERROR_SCALE_EV)
 
 def matrix(ax):
     ax.set_xlim(-4.1,13.25);ax.set_ylim(18.4,-3.9);ax.axis('off')
@@ -207,7 +225,42 @@ def make_figures():
         fig=plt.figure(figsize=(105/25.4,90/25.4));within(fig.add_axes([.18,.34,.77,.46]),sr);point_legend(fig,y=.035,ncol=3,fontsize=10.5);save(fig,n)
     fig=plt.figure(figsize=(105/25.4,90/25.4));sliding(fig.add_axes([.18,.34,.77,.46]));point_legend(fig,y=.035,ncol=3,fontsize=10.5);save(fig,'NEB_panel_e_sliding_v3')
 
-CAPTION='Fixed and self-relaxed forward-peak diagnostics. Original layout and quantitative mappings are retained. The hash-matched Scratch-600K seed-123 within-QL self value is corrected from 0 to 2.3507667 eV; that run and seed-234 in-gap self are marked nonconverged. Crosses identify all five nonconverged source records. There are 75 finite-diagnostic, 40 converged-optimizer and five nonconverged records. Reference profiles retain SCF warnings; no physical barrier or successful kinetic prediction is inferred from a small peak or a converged optimizer label.'
+TASK_TEXT={'in_gap':'in-gap','gap_to_ql':'gap-to-QL','within_ql':'within-QL'}
+STATUS_TEXT=[('FINITE_DIAGNOSTIC','finite-diagnostic'),('CONVERGED','converged-optimizer'),('NONCONVERGED','nonconverged')]
+
+def cell_text(change,with_family=True):
+    family,seed=change['row_id'].split(' / ')
+    task,mode=change['column_id'].removeprefix('migration_').rsplit('_',1)
+    return (f'{family} ' if with_family else '')+f'seed-{seed.lstrip("s")} {TASK_TEXT[task]} {mode}'
+
+VALUE_CHANGES=[c for c in CORRECTION['changes'] if c['old_value']!=c['new_value']]
+STATUS_CHANGES=[c for c in CORRECTION['changes'] if c['old_value']==c['new_value'] and c['new_status']=='NONCONVERGED']
+assert len(VALUE_CHANGES)==1,'caption wording covers exactly one corrected value'
+for c in CORRECTION['changes']:
+    r=D[(D.row_id==c['row_id'])&(D.column_id==c['column_id'])].iloc[0]
+    assert r.predicted_value_eV==c['new_value'] and r.scientific_status==c['new_status'],c
+FIX=VALUE_CHANGES[0]
+CAPTION_DECIMALS=7
+
+def caption():
+    others=' and '.join(cell_text(c,with_family=c['row_id'].split(' / ')[0]!=FIX['row_id'].split(' / ')[0]) for c in STATUS_CHANGES)
+    counts=', '.join(f'{count_text(STATUS_COUNTS.get(k,0))} {label}' for k,label in STATUS_TEXT[:-1])+f' and {count_text(STATUS_COUNTS.get(STATUS_TEXT[-1][0],0))} {STATUS_TEXT[-1][1]}'
+    return ('Fixed and self-relaxed forward-peak diagnostics. Original layout and quantitative mappings are retained. '
+            f'The hash-matched {cell_text(FIX)} value is corrected from {FIX["old_value"]:g} to {FIX["new_value"]:.{CAPTION_DECIMALS}f} eV; '
+            f'that run{" and "+others if others else ""} are marked nonconverged. '
+            f'Crosses identify all {count_text(N_NONCONVERGED)} nonconverged source records. There are {counts} records. '
+            'Reference profiles retain SCF warnings; no physical barrier or successful kinetic prediction is inferred from a small peak or a converged optimizer label.')
+
+def readme():
+    lo,hi=COLOR_RANGE_EV
+    return ('NEB dot-matrix v3\n\nRebuild:\npython source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated\n\n'
+            'Dependencies: numpy, pandas, matplotlib, reportlab.\n'
+            f'Color encodes predicted energy ({lo:g}-{hi:g} eV, global PowerNorm gamma {GAMMA_TEXT.lstrip("0")}); circle area encodes absolute error (square-root area scale plus a minimum visible point). '
+            f'All {len(D)} finite values remain diagnostic. {count_text(N_NONCONVERGED,capital=True)} nonconverged records are explicitly marked with crosses. '
+            f'A hash-matched raw campaign corrects the {cell_text(FIX)} peak from {FIX["old_value"]:g} to {FIX["new_value"]!r} eV.\n'
+            'The matrix size legend is drawn by the same size function. All source values and DFT references are retained. DFT reference labels in the product figures use two decimal places; raw reference values remain in plotted_values.tsv and audit.json. See figure_caption.txt, style_spec.json and audit.json.\n')
+
+CAPTION=caption()
 
 def note():
     if not REPORTLAB_AVAILABLE:
@@ -252,7 +305,7 @@ def sources():
     # two decimal places without changing the underlying metric.
     D['dft_reference_display_eV']=D['dft_reference_eV'].map(lambda value: f'{value:.2f}')
     D.to_csv(OUT/'plotted_values.tsv',sep='\t',index=False)
-    audit={'input_sha256':hashlib.sha256(A.input.read_bytes()).hexdigest(),'records':120,'quantitative_circles':120,'source_status_counts':D['source_status'].value_counts().to_dict(),'raw_energy_range_eV':[D.predicted_value_eV.min(),D.predicted_value_eV.max()],'absolute_error_range_eV':[D.absolute_error_eV.min(),D.absolute_error_eV.max()],'recomputed_errors_match':True,'color_clipped':0,'size_clipped':0,'reference_eV':REF.to_dict(),'reference_display_precision_decimals':2,'reference_display_values':{key:f'{value:.2f}' for key,value in REF.items()},'size_mapping':STYLE['size_encoding'],'color_mapping':STYLE['color_encoding'],'product_rendering':'All finite diagnostic values retained; crosses explicitly flag five nonconverged records.'}
+    audit={'input_sha256':hashlib.sha256(A.input.read_bytes()).hexdigest(),'records':len(D),'quantitative_circles':len(D),'source_status_counts':D['source_status'].value_counts().to_dict(),'raw_energy_range_eV':[D.predicted_value_eV.min(),D.predicted_value_eV.max()],'absolute_error_range_eV':[D.absolute_error_eV.min(),D.absolute_error_eV.max()],'recomputed_errors_match':True,'color_clipped':0,'size_clipped':0,'reference_eV':REF.to_dict(),'reference_display_precision_decimals':2,'reference_display_values':{key:f'{value:.2f}' for key,value in REF.items()},'size_mapping':STYLE['size_encoding'],'color_mapping':STYLE['color_encoding'],'product_rendering':f'All finite diagnostic values retained; crosses explicitly flag {count_text(N_NONCONVERGED)} nonconverged records.'}
     (OUT/'audit.json').write_text(json.dumps(audit,indent=2));(OUT/'figure_caption.txt').write_text(CAPTION)
     (OUT/'source').mkdir(exist_ok=True)
     source_copy=OUT/'source/build_neb_dotmatrix.py'
@@ -262,7 +315,7 @@ def sources():
     data_copy=OUT/'data'/A.input.name
     if Path(A.input).resolve()!=data_copy.resolve():
         shutil.copy2(A.input,data_copy)
-    (OUT/'README.txt').write_text('NEB dot-matrix v3\n\nRebuild:\npython source/build_neb_dotmatrix.py --input data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv --output regenerated\n\nDependencies: numpy, pandas, matplotlib, reportlab.\nColor encodes predicted energy (0-27 eV, global PowerNorm gamma .40); circle area encodes absolute error (square-root area scale plus a minimum visible point). All 120 finite values remain diagnostic. Five nonconverged records are explicitly marked with crosses. A hash-matched raw campaign corrects the Scratch-600K seed-123 within-QL self peak from 0 to 2.3507668938545976 eV.\nThe matrix size legend is drawn by the same size function. All source values and DFT references are retained. DFT reference labels in the product figures use two decimal places; raw reference values remain in plotted_values.tsv and audit.json. See figure_caption.txt, style_spec.json and audit.json.\n')
+    (OUT/'README.txt').write_text(readme())
     manifest_path=OUT/'NEB_DOTMATRIX_V3_LATEST_MANIFEST.json'
     manifest=json.loads(manifest_path.read_text()) if manifest_path.exists() else {'schema':'neb-dotmatrix-v3-latest-manifest-v1'}
     manifest.update({'input_sha256':hashlib.sha256(A.input.read_bytes()).hexdigest(),'records':len(D),'product_quantitative_circles':len(D),'source_status_counts':D['source_status'].value_counts().to_dict(),'reference_display_precision_decimals':2,'style_reference':{'font':STYLE['font'],'font_weight':STYLE['font_weight'],'type_pt':STYLE['type_pt'],'dft_reference_display_precision':2}})

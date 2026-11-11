@@ -1,0 +1,77 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR10_resp-c12-feature-audit",
+  "name": "tab:resp-c12-feature-audit",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR10_resp-c12-feature-audit/source/make_table_r10.py",
+  "script_sha256": "1206854f0f8da39bf53d32d5156693e32bf705aed1d232665c0c0cd9228678e2",
+  "python": "3.11.0",
+  "inputs": {
+    "release/revision1_camera_ready/reproducibility/fig6_current_input.npz": "a3d27907e073252cb5b01e15bf66bb35da075dbeb66798409a68de84e8a46ee0",
+    "paper/revision1/data_processed/current_release/current_analysis_audit.json": "59b7869469b594856614b231c79d6749681c28c24a8313dbc6b73973b2025d3a"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR10_resp-c12-feature-audit/rerun_output/tab_resp-c12-feature-audit.tex": "356a75686ffc36f9ca87c987b4d00b71804c4432cf145c702e59f6c5a0e78e9f"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "final column is zero in every frame",
+      "passed": true,
+      "details": {
+        "placeholder": 6191,
+        "zero_frames": 927,
+        "frames": 927
+      }
+    },
+    {
+      "check": "note: other all-zero columns are retained (not part of the submitted claim)",
+      "passed": true,
+      "details": {
+        "all_zero_columns": [
+          6151,
+          6152,
+          6153,
+          6191
+        ],
+        "retained_all_zero": [
+          6151,
+          6152,
+          6153
+        ],
+        "note": "columns besides the placeholder are zero in every frame but are kept by the analysis; the table and current_analysis_audit.json only describe the final placeholder column"
+      }
+    },
+    {
+      "check": "recomputed audit equals current_analysis_audit.json",
+      "passed": true,
+      "details": {
+        "recomputed": {
+          "shape": [
+            927,
+            6192
+          ],
+          "removed": 6191,
+          "retained": 6191
+        },
+        "audit_json": {
+          "feature_shape_before": [
+            927,
+            6192
+          ],
+          "feature_shape_after": [
+            927,
+            6191
+          ],
+          "removed_column": 6191
+        },
+        "note": "audit_json feature_sha256 (of fig6_full_campaign_features.npz) differs from the sha256 of this npz; shapes and the removed column agree"
+      }
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-c12-feature-audit at displayed precision",
+      "passed": true,
+      "details": "5 rows match"
+    }
+  ],
+  "result": "PASS"
+}

@@ -12,6 +12,7 @@ from __future__ import annotations
 import csv
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import matplotlib
@@ -22,11 +23,16 @@ from matplotlib.lines import Line2D
 import numpy as np
 
 
-ROOT = Path(__file__).resolve().parents[2]
+PALETTE_REL = "reproducibility/canva_palette_vector_bundle_20261105/MIGRATIONBENCH_FIGURE_PALETTE.json"
+# Repository root: the first parent holding the shared palette (the script moved from analysis/ into
+# release/.../items/si/FigS3_four_dopant_fixed_path/source/, so a fixed parents[N] no longer works).
+ROOT = next(p for p in Path(__file__).resolve().parents if (p / PALETTE_REL).is_file())
 HERE = Path(__file__).resolve().parent
 DATA = HERE / "source_data"
-OUT = HERE / "figures" / "fig_NEB-fixed-path_Cu-Li-Na-Cr_palette_updated"
-PALETTE_PATH = ROOT / "analysis/canva_palette_vector_bundle_20261105/MIGRATIONBENCH_FIGURE_PALETTE.json"
+# FOUR_DOPANT_OUT (a file stem) redirects the figures and the render manifest; default is the committed copy.
+OUT = Path(os.environ.get("FOUR_DOPANT_OUT", str(HERE / "figures" / "fig_NEB-fixed-path_Cu-Li-Na-Cr_palette_updated")))
+MANIFEST = OUT.parent / "RENDER_MANIFEST.json" if "FOUR_DOPANT_OUT" in os.environ else HERE / "RENDER_MANIFEST.json"
+PALETTE_PATH = ROOT / PALETTE_REL
 PALETTE = json.loads(PALETTE_PATH.read_text())
 
 ELEMENTS = ["Cr", "Cu", "Li", "Na"]
@@ -188,7 +194,7 @@ def main() -> None:
             for ext in ("pdf", "svg", "png")
         },
     }
-    (HERE / "RENDER_MANIFEST.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps(manifest, indent=2, ensure_ascii=False))
 
 

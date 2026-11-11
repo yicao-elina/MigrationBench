@@ -35,11 +35,14 @@ TABLES = OUT / 'tables'
 for _d in (DATA, TABLES, OUT / 'figures'):
     _d.mkdir(parents=True, exist_ok=True)
 LEDGER = []
+# Submitted wording for the MD15 status codes (Known issue 2: provisional runs print as reached).
+MD_OUTCOME = {'TARGET_REACHED': 'Target reached', 'TARGET_REACHED_PROVISIONAL': 'Target reached',
+              'SCIENTIFIC_FAILURE': 'Threshold reached'}
 
 def preserve(path, name=None):
     dst = DATA / (name or path.name)
     shutil.copy2(path, dst)
-    LEDGER.append(dict(file=os.path.relpath(dst, ROOT), source=str(path),
+    LEDGER.append(dict(file=os.path.relpath(dst, ROOT), source=os.path.relpath(path, ROOT),
                        sha256=hashlib.sha256(path.read_bytes()).hexdigest()))
     return dst
 
@@ -68,14 +71,19 @@ def main():
     table('current_pointwise.tex',['Model','Test frames / seed','Energy','Force'],rows)
 
     md = preserve(ROOT/'analysis/md_1ns_updated_publication_figure_20261025/MD15_FIGURE_DATA_R06G.tsv')
-    preserve(ROOT/'analysis/md_1ns_updated_publication_figure_20261025/MD15_STATUS_AUDIT_R02.tsv')
+    status = preserve(ROOT/'analysis/md_1ns_updated_publication_figure_20261025/MD15_STATUS_AUDIT_R02.tsv')
     preserve(ROOT/'analysis/md_1ns_updated_publication_figure_20261025/md15_analysis_r03/analysis_summary.tsv','md15_analysis_summary.tsv')
+    protocol = json.loads((SUBMITTED_DATA/'md_protocol_manifest.json').read_text())['md_protocol']
+    start_ps = protocol['start_step'] * protocol['timestep_fs'] / 1000.0  # fs -> ps
     m = pd.read_csv(md,sep='\t')
+    audit = pd.read_csv(status,sep='\t').set_index('model_id').status
+    if not m.set_index('model_id').status.equals(audit.reindex(m.model_id)):
+        raise SystemExit('MD15 figure data and status audit disagree on status')
     rows=[]
     for _, r in m.iterrows():
         name = r.model_id.replace('_','\\_')
-        outcome='Target reached' if r.last_time_ps>=1000 else 'Threshold reached'
-        rows.append([name, f'{r.last_time_ps:g}', f'{r.last_time_ps-200:g}',outcome])
+        outcome = MD_OUTCOME[r.status]
+        rows.append([name, f'{r.last_time_ps:g}', f'{r.last_time_ps-start_ps:g}',outcome])
     table('current_md_horizons.tex',['Checkpoint / training seed','Clock (ps)','Continuation (ps)','Outcome'],rows,'lrrl')
 
     neb_input = SUBMITTED_DATA/'fig5_corrected_input.tsv'

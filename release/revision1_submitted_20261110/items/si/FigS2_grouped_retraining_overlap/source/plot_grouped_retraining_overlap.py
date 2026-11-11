@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 
 import matplotlib
@@ -17,7 +18,8 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 DATA_PATH = HERE / "source_data/grouped_retraining_overlap_data.json"
-OUT = HERE / "figures/grouped_retraining_overlap_palette_updated"
+# GROUPED_OVERLAP_OUT (a file stem) redirects the outputs; default is the committed figures/ copy.
+OUT = Path(os.environ.get("GROUPED_OVERLAP_OUT", str(HERE / "figures/grouped_retraining_overlap_palette_updated")))
 
 # Palette and typography follow analysis/canva_palette_vector_bundle_20261105.
 COLORS = {
@@ -70,7 +72,7 @@ def main() -> None:
 
     # Panel a: aligned horizontal intervals retain individual seed variation
     # while using the approved seed, temperature, family, and checkpoint encodings.
-    labels = list(trained) + ["Foundation (3 models)"]
+    labels = list(trained) + [f"Foundation ({len(foundations)} models)"]
     y = np.arange(len(labels))
     family = {
         "FT-600K": "Fine-tuning", "FT-MultiT": "Fine-tuning",
@@ -187,8 +189,8 @@ def main() -> None:
 
     # One aligned figure-level legend for panel a; panel b has a compact local key.
     fig.legend(handles=[seed_handle, summary_handle, foundation_handle],
-               labels=["Seeds 123 / 234 / 345", "Group mean ± sample SD",
-                       "Foundation (3 checkpoints)"],
+               labels=["Seeds " + " / ".join(SEED_MARKERS), "Group mean ± sample SD",
+                       f"Foundation ({len(foundations)} checkpoints)"],
                handler_map={tuple: HandlerTuple(ndivide=None, pad=0.25)},
                frameon=False, loc="upper center", bbox_to_anchor=(0.5, 0.995),
                ncol=3, fontsize=10, handletextpad=0.5, columnspacing=1.5,

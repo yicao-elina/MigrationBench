@@ -1,0 +1,32 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR01_resp-a1-reference-sets",
+  "name": "tab:resp-a1-reference-sets",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR01_resp-a1-reference-sets/source/make_table_r01.py",
+  "script_sha256": "caf860714bbe324919f1857cf1cdf30e55c608b0a83770658d58949a59261506",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/fig3d_figS3_protocol_side_by_side_audited.csv": "13c069faad4b377433dd90822e2b294ea4cf356162692a878ae2ae4da8798c1f",
+    "paper/revision1/data_processed/dft_neb_barriers.csv": "913d04e5a856e77a7194b33e3df554cfbe9b94506ff586cd2466f75bb8fc0ab5",
+    "data/raw_compact/cr81_dft_neb_reference_20261013/rockfish_cr_contract.tsv": "ca12b8cb9de189ebacb6f6c8ca169c3444ea51a5c9c0ea679030882ae3af9fde",
+    "data/raw_compact/cr81_dft_neb_reference_20261013/rockfish_cr_qe_summary.csv": "579b1c4d80343e7dc76c3795184df0aa83fa5c5f970579cae75cb4d932d4d68c",
+    "paper/revision1/data_processed/current_release/fig5_plotted_values.tsv": "ee9d43cbb4f6141fb50730a073b25d0a71f6963379ab54614ebe4b17a5019ead"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR01_resp-a1-reference-sets/rerun_output/tab_resp-a1-reference-sets.tex": "2a8731f8c86562bb75a170a47a69a8b75dd015950ace0b682541533ecab0dece"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "G1 equals dft_neb_barriers.csv; canonical in-gap equals the Fig. 5 reference",
+      "passed": true,
+      "details": "consistent"
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-a1-reference-sets at displayed precision",
+      "passed": true,
+      "details": "3 rows match"
+    }
+  ],
+  "result": "PASS"
+}

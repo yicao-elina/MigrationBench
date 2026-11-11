@@ -1,0 +1,128 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/main/Fig6_representation",
+  "name": "Fig6_a-d",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/main/Fig6_representation/source/reproduce_fig6.py",
+  "script_sha256": "a28dd90cbba94d111eeb888ca6c2676713e5608c0bf0e4fc5b5949a72dac1ac8",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/fig6_render_manifest.json": "c58f17db6e626c6bbb9cf7a448aec4007a0ad63fce7c7dacdc505e092faf310f",
+    "analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/preparation_manifest.json": "9a4f12a65b6ea1bd691284caddf64b350cd8f302f9ac70a85349fbe871dc4142",
+    "analysis/legacy_fig6_phate_reproduction_20261101/render_fig6_full_campaign_20261102.py": "9ecba3f39864043b5517d33a2dbce609bdbf19a6eed89faff79d017576f7d4fe",
+    "analysis/legacy_fig6_phate_reproduction_20261101/prepare_fig6_full_campaign_20261102.py": "08ac9371a2a6d6301c724624f5d2aeec3009ebd07f73f61b843cff226280c709",
+    "release/revision1_camera_ready/reproducibility/fig6_current_input.npz": "a3d27907e073252cb5b01e15bf66bb35da075dbeb66798409a68de84e8a46ee0",
+    "analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_density/fig6_full_campaign_embeddings.npz": "117c2b746b66868a16bdf9a017696f91f3dc2d105af0d8d782ce5f9789ce51fd"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/main/Fig6_representation/rerun_output/fig6/figures/fig6_umap_density_full_campaign_15models_1x4.pdf": "4e1230be92e9839a28124e417b30c5a61609a9b8dc27ca46753604e4c9830c55"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "hardcode lint of renderer chain",
+      "passed": true,
+      "details": [
+        "analysis/legacy_fig6_phate_reproduction_20261101/render_fig6_full_campaign_20261102.py",
+        "analysis/legacy_fig6_phate_reproduction_20261101/prepare_fig6_full_campaign_20261102.py"
+      ]
+    },
+    {
+      "check": "feature input shape and per-model row counts equal fig6_render_manifest data_audit",
+      "passed": true,
+      "details": {
+        "found": {
+          "n_rows": 927,
+          "n_features": 6192,
+          "rows_by_model": {
+            "Foundation_MPA0": 101,
+            "Foundation_MP0b3": 101,
+            "Foundation_OMAT0": 101,
+            "FT600K_A2_seed123": 82,
+            "FT600K_A2_seed234": 101,
+            "FT600K_A2_seed345": 101,
+            "FTMultiT_A2_seed123": 88,
+            "FTMultiT_A2_seed234": 101,
+            "FTMultiT_A2_seed345": 101,
+            "Scratch600K_Lmax1_seed123": 24,
+            "Scratch600K_Lmax1_seed234": 6,
+            "Scratch600K_Lmax1_seed345": 4,
+            "ScratchMultiT_Lmax1_seed123": 8,
+            "ScratchMultiT_Lmax1_seed234": 4,
+            "ScratchMultiT_Lmax1_seed345": 4
+          }
+        },
+        "manifest": {
+          "n_rows": 927,
+          "n_features": 6192,
+          "rows_by_model": {
+            "Foundation_MPA0": 101,
+            "Foundation_MP0b3": 101,
+            "Foundation_OMAT0": 101,
+            "FT600K_A2_seed123": 82,
+            "FT600K_A2_seed234": 101,
+            "FT600K_A2_seed345": 101,
+            "FTMultiT_A2_seed123": 88,
+            "FTMultiT_A2_seed234": 101,
+            "FTMultiT_A2_seed345": 101,
+            "Scratch600K_Lmax1_seed123": 24,
+            "Scratch600K_Lmax1_seed234": 6,
+            "Scratch600K_Lmax1_seed345": 4,
+            "ScratchMultiT_Lmax1_seed123": 8,
+            "ScratchMultiT_Lmax1_seed234": 4,
+            "ScratchMultiT_Lmax1_seed345": 4
+          }
+        }
+      }
+    },
+    {
+      "check": "reference panel sha256 equals paper/revision1/data_processed/current_release/fig6_render_manifest.json outputs.main_pdf",
+      "passed": true,
+      "details": {
+        "recorded": "17200368863c4bf0826a9d076db58eac21889ed02eeea9c05200fc598c76d458",
+        "reference": "17200368863c4bf0826a9d076db58eac21889ed02eeea9c05200fc598c76d458"
+      }
+    },
+    {
+      "check": "embedding packages available for full recomputation",
+      "passed": false,
+      "details": "missing from .venv/bin/python: ['phate', 'umap'] (not installed); PHATE/UMAP embeddings not recomputed"
+    },
+    {
+      "check": "stored t-SNE embedding reproduces the recorded overall silhouette",
+      "passed": true,
+      "details": {
+        "recomputed": 0.11731527745723724,
+        "manifest": 0.11731527745723724
+      }
+    },
+    {
+      "check": "t-SNE recomputed in this environment equals stored t-SNE coordinates",
+      "passed": false,
+      "details": {
+        "max_abs_diff": 30.161766052246094,
+        "stored_max_abs": 58.046905517578125,
+        "sklearn": "1.6.1",
+        "note": "original environment versions were not recorded"
+      }
+    },
+    {
+      "check": "renderer exits 0 [re-render from stored embeddings]",
+      "passed": true,
+      "details": "ok"
+    },
+    {
+      "check": "renders like analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_density/figures/fig6_umap_density_full_campaign_15models_1x4.pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          1713,
+          514
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    }
+  ],
+  "result": "FAIL"
+}

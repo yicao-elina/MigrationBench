@@ -30,9 +30,23 @@ import numpy as np
 
 
 ROOT = Path(__file__).resolve().parents[1]
-PLOT_ATLAS_ROOT = Path("/Users/alina/Documents/Codex/plot_library_recovered")
-sys.path.insert(0, str(PLOT_ATLAS_ROOT / "src"))
-from plot_atlas import plot_profile_ensemble  # noqa: E402
+# The external Plot Atlas library is only needed by draw_panel()/main(); the data
+# loaders (normalize_rows, aggregate, reference) work without it.  Point
+# PLOT_ATLAS_ROOT at a checkout of plot_library_recovered to rebuild the R04 package.
+PLOT_ATLAS_ENV = "PLOT_ATLAS_ROOT"
+
+
+def plot_profile_ensemble(*args, **kwargs):
+    import os
+
+    root = os.environ.get(PLOT_ATLAS_ENV)
+    if not root:
+        raise RuntimeError(f"set {PLOT_ATLAS_ENV} to the plot_library_recovered checkout to draw R04 panels")
+    if str(Path(root) / "src") not in sys.path:
+        sys.path.insert(0, str(Path(root) / "src"))
+    from plot_atlas import plot_profile_ensemble as plot_atlas_profile_ensemble
+
+    return plot_atlas_profile_ensemble(*args, **kwargs)
 
 
 GROUP_ORDER = ("Foundation", "FT-600K", "FT-MultiT", "Scratch-600K", "Scratch-MultiT")

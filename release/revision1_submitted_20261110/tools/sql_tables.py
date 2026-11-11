@@ -75,6 +75,9 @@ def table_specs(index, storage, models, index_fields, storage_fields, model_fiel
     }
     for name, rel, key in [
         ("rev1_item_calc_layers", "sources/item_calc_layers.tsv", ["item_id"]),
+        ("rev1_reproducibility", "REPRODUCIBILITY.tsv", ["item_id"]),
+        ("rev1_reproduce_exceptions", "sources/reproduce_exceptions.tsv", ["item_id"]),
+        ("rev1_known_discrepancies", "sources/known_discrepancies.tsv", ["item_id", "match"]),
         ("rev1_rockfish_migration_plan", "ROCKFISH_MIGRATION_PLAN.tsv", ["rockfish_path"]),
         ("rev1_import_plan", "imports/import_plan.tsv", ["source"]),
         ("rev1_imported_files", "imports/IMPORT_MANIFEST.tsv", ["dest"]),

@@ -1,0 +1,57 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR02_resp-controlled-arms",
+  "name": "tab:resp-controlled-arms",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR02_resp-controlled-arms/source/make_table_r02.py",
+  "script_sha256": "e99d409c4bf2169769688d419a8bcee1521c78eab958fc3b5de6b01ebaa8df86",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/parity_summary.csv": "31b20e0378cde7a3fa826f1e2ea29ef54263c6868a33739902c30a744f3453e0",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/grouped_seed_comparison.csv": "84be6798e2ed294f30edab712c346a1c98812b60fe1c6be6ebe7bbb9063225b3",
+    "paper/revision1/data_processed/current_release/zero_force_training_summary.json": "8ca87bf0e0790d88500be0fc9e90bbadb3b288fda70ae414dd8dc308b789d685",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_full_leakage_audit.json": "f35553eeb7600a4d5b01317edc00aee3b57b179947cdf5dac9a4ba7ad36a4ce6",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_scratch5_leakage_audit.json": "0be1ecf2a6f670313eebd2ba02a1c5421b07c1899923c79eac1e6be8c8ca6512"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR02_resp-controlled-arms/rerun_output/tab_resp-controlled-arms.tex": "78210cb50846308bcd6717b47fcdf94d73b9ae4d151650c46c2576fabc13c8fc"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "test frame count identical across seeds of each route",
+      "passed": true,
+      "details": "ok"
+    },
+    {
+      "check": "parity_summary test RMSE equals grouped_seed_comparison per seed (FT-600K, Scratch-600K)",
+      "passed": true,
+      "details": "agree within 0.05"
+    },
+    {
+      "check": "overlap-audit train frame counts appear in the zero-force training audit",
+      "passed": true,
+      "details": "ok"
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-controlled-arms at displayed precision",
+      "passed": false,
+      "details": [
+        "row 3 col 6: submitted 342.0 vs generated 341.0"
+      ]
+    },
+    {
+      "check": "DATA GAP: Scratch-5% test F RMSE not derivable at submitted precision",
+      "passed": false,
+      "details": {
+        "per_seed": [
+          354.4,
+          345.1,
+          324.9
+        ],
+        "mean": 341.46666666666664,
+        "note": "grouped_seed_comparison.csv and accepted_models.tsv store the Scratch-5% per-seed test force RMSE to 0.1 meV/A only; their mean rounds below the submitted value. No higher-precision Scratch-5% evaluation exists in the repo (searched parity_summary.csv, parity_model_registry.tsv, MODEL_REGISTRY.tsv, sources/rockfish_models.tsv, analysis/**, shap per-frame tables). The per-seed MACE run logs are on Rockfish only (retrain_matrix_scratch16_20260927/scratch5_grouped_seed*/*_run-*.log)."
+      }
+    }
+  ],
+  "result": "FAIL"
+}

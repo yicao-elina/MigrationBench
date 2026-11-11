@@ -8,6 +8,7 @@ shape, and Foundation checkpoints are same-hue mint shades.
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -21,8 +22,6 @@ from matplotlib.cm import ScalarMappable
 from matplotlib.lines import Line2D
 from matplotlib.ticker import FuncFormatter
 import numpy as np
-import phate
-import umap
 from sklearn.manifold import TSNE
 from sklearn.metrics import silhouette_samples, silhouette_score
 
@@ -453,19 +452,11 @@ def assert_main_layout_is_clear(fig, axes: list, cbar_ax) -> None:
         raise RuntimeError("main layout QA: colorbar title overlaps panel D")
 
 
-def render() -> dict[str, object]:
-    atlas_font = atlas_style()
-    payload = np.load(FEATURES, allow_pickle=True)
-    features = np.asarray(payload["features"], dtype=float)
-    labels = np.asarray(payload["model_ids"], dtype=str)
-    model_order_from_data = [str(value) for value in payload["model_order"]]
-    if features.shape[1] != 6192:
-        raise ValueError(f"expected 6192 feature columns, got {features.shape[1]}")
-    if set(model_order_from_data) != set(MODEL_ORDER):
-        raise ValueError("campaign model order does not match the 15-model figure contract")
-    if not np.isfinite(features).all():
-        raise ValueError("non-finite feature values")
-    energies = features[:, 0]
+def compute_embeddings(features: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """t-SNE, PHATE and UMAP embeddings with the recorded Figure 6 settings."""
+    import phate  # imported here so --embeddings re-renders work without phate/umap-learn
+    import umap
+
     tsne = TSNE(n_components=2, perplexity=30, random_state=42, max_iter=1000).fit_transform(features)
     phate_embedding = phate.PHATE(random_state=42, n_jobs=-1).fit_transform(features)
     umap_embedding = umap.UMAP(
@@ -477,13 +468,42 @@ def render() -> dict[str, object]:
         transform_seed=42,
         n_jobs=1,
     ).fit_transform(features)
+    return tsne, phate_embedding, umap_embedding
+
+
+def stored_embeddings(path: Path, labels: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Embeddings saved by a previous full run; labels must match the feature rows."""
+    stored = np.load(path, allow_pickle=False)
+    if not np.array_equal(np.asarray(stored["labels"], dtype=str), labels):
+        raise ValueError(f"{path}: labels do not match the feature matrix rows")
+    return stored["tsne"], stored["phate"], stored["umap"]
+
+
+def render(features_path: Path = FEATURES, out: Path = OUT, embeddings_path: Path | None = None) -> dict[str, object]:
+    figures = out / "figures"
+    atlas_font = atlas_style()
+    payload = np.load(features_path, allow_pickle=True)
+    features = np.asarray(payload["features"], dtype=float)
+    labels = np.asarray(payload["model_ids"], dtype=str)
+    model_order_from_data = [str(value) for value in payload["model_order"]]
+    if features.shape[1] != 6192:
+        raise ValueError(f"expected 6192 feature columns, got {features.shape[1]}")
+    if set(model_order_from_data) != set(MODEL_ORDER):
+        raise ValueError("campaign model order does not match the 15-model figure contract")
+    if not np.isfinite(features).all():
+        raise ValueError("non-finite feature values")
+    energies = features[:, 0]
+    if embeddings_path is None:
+        tsne, phate_embedding, umap_embedding = compute_embeddings(features)
+    else:
+        tsne, phate_embedding, umap_embedding = stored_embeddings(embeddings_path, labels)
     density = local_bin_counts(umap_embedding, bins=45)
     overall = float(silhouette_score(tsne, labels))
     sample_scores = silhouette_samples(tsne, labels)
     model_scores = {model_id: float(np.mean(sample_scores[labels == model_id])) for model_id in MODEL_ORDER}
-    OUT.mkdir(parents=True, exist_ok=True)
+    out.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(
-        OUT / "fig6_full_campaign_embeddings.npz",
+        out / "fig6_full_campaign_embeddings.npz",
         tsne=tsne,
         phate=phate_embedding,
         umap=umap_embedding,
@@ -514,7 +534,7 @@ def render() -> dict[str, object]:
     assert_main_layout_is_clear(fig, [ax_a, ax_b, ax_c, ax_d], cbar_ax)
     add_legends(fig)
     for ext in ("png", "pdf", "svg"):
-        outputs[f"main_{ext}"] = save(fig, FIGURES / f"fig6_umap_density_full_campaign_15models_1x4.{ext}")
+        outputs[f"main_{ext}"] = save(fig, figures / f"fig6_umap_density_full_campaign_15models_1x4.{ext}")
     plt.close(fig)
 
     panel_specs = [
@@ -541,7 +561,7 @@ def render() -> dict[str, object]:
             fig.legend(handles=temperature_handles(), loc="lower center", bbox_to_anchor=(0.50, 0.14), ncol=2, frameon=False, fontsize=10.8, title="Temperature", title_fontsize=10.8)
             fig.legend(handles=seed_handles(), loc="lower center", bbox_to_anchor=(0.50, 0.055), ncol=3, frameon=False, fontsize=10.8, title="Seed", title_fontsize=10.8)
         for ext in ("png", "pdf", "svg"):
-            outputs[f"panel_{name}_{ext}"] = save(fig, FIGURES / f"fig6_panel_{name}_full_campaign.{ext}")
+            outputs[f"panel_{name}_{ext}"] = save(fig, figures / f"fig6_panel_{name}_full_campaign.{ext}")
         plt.close(fig)
 
     prep = json.loads(PREP_MANIFEST.read_text())
@@ -597,7 +617,8 @@ def render() -> dict[str, object]:
         },
         "source_artifacts": {
             "preparation_manifest": {"path": str(PREP_MANIFEST), "sha256": sha256(PREP_MANIFEST)},
-            "features": {"path": str(FEATURES), "sha256": sha256(FEATURES)},
+            "features": {"path": str(features_path), "sha256": sha256(features_path)},
+            "embeddings_reused_from": None if embeddings_path is None else {"path": str(embeddings_path), "sha256": sha256(embeddings_path)},
             "campaign_sources": [
                 {"path": str(path), "sha256": sha256(path)} for path in campaign_sources if path.exists()
             ],
@@ -609,10 +630,20 @@ def render() -> dict[str, object]:
         ],
         "outputs": outputs,
     }
-    (OUT / "fig6_full_campaign_manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    (out / "fig6_full_campaign_manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     return manifest
 
 
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--features", type=Path, default=FEATURES, help="feature matrix npz (default: prepared source npz)")
+    parser.add_argument("--out-dir", type=Path, default=OUT, help="output folder (default: the committed umap_density folder)")
+    parser.add_argument("--embeddings", type=Path, default=None,
+                        help="re-render from a saved fig6_full_campaign_embeddings.npz instead of recomputing t-SNE/PHATE/UMAP")
+    return parser.parse_args()
+
+
 if __name__ == "__main__":
-    result = render()
+    args = parse_args()
+    result = render(args.features, args.out_dir, args.embeddings)
     print(json.dumps({"overall_tsne_silhouette": result["embedding"]["overall_tsne_silhouette"], "n_rows": result["data_audit"]["n_rows"]}, indent=2))

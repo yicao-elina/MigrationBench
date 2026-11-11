@@ -1,5 +1,5 @@
 item_id	panel	status	note
-Fig4	a-c	FULL_DATA_MANUAL_LAYOUT	2026-11-10: DFT reference now parsed from QE neb.out (data/raw_compact/cr81_dft_neb_reference_20261013) by src/migrationbench/dft_neb_reference.py; regenerated panel equal to 2e-6 pt. QE NEB not converged (max image force 0.38-3.2 eV/A); Canva typo "Self-relaxted" in final asset.
+Fig4	a-c	FULL_DATA_MANUAL_LAYOUT	"2026-11-10: DFT reference now parsed from QE neb.out (data/raw_compact/cr81_dft_neb_reference_20261013) by src/migrationbench/dft_neb_reference.py; regenerated panel equal to 2e-6 pt. QE NEB not converged (max image force 0.38-3.2 eV/A); Canva typo ""Self-relaxted"" in final asset."
 Fig4	d-f	FULL_DATA_MANUAL_LAYOUT	2026-11-10: same DFT reference fix as a-c.
 Fig6	a	FULL_DATA_MANUAL_LAYOUT	2026-11-10: prepare/render scripts, manifests and embeddings imported to analysis/legacy_fig6_phate_reproduction_20261101; trajectory_samples (extxyz) kept in the local archive store (EXTERNAL_STORE_MANIFEST.tsv).
 Fig6	b	FULL_DATA_MANUAL_LAYOUT	as Fig6 a
@@ -19,8 +19,18 @@ Table S1	tab:current_pointwise	FULL_VALUES_HAND_ROUNDED	Regenerate with audit_cu
 Table S3	tab:profile_coverage	FULL_VALUES_STALE_RELEASE	Values equal cr_three_path_coverage_audit_R02 while Fig. 4 uses R05; reconcile at the next revision.
 Table S4	tab:current_neb_errors	FULL_VALUES_HAND_ROUNDED	tools/verify_table_rounding.py passes.
 Table S5	tab:dft_neb_barriers_revised	FULL_VALUES	2026-11-10: legacy 61-atom QE neb.out imported to data/raw_compact/legacy_61_qe_neb. Submitted table dropped the convergence Status column (caption only).
-Table S8	tab:md_horizons	FULL_VALUES_WORDING	tools/verify_table_rounding.py passes. Foundation rows say "Target reached" while MD15_STATUS_AUDIT_R02 says TARGET_REACHED_PROVISIONAL.
+Table S8	tab:md_horizons	FULL_VALUES_WORDING	"tools/verify_table_rounding.py passes. Foundation rows say ""Target reached"" while MD15_STATUS_AUDIT_R02 says TARGET_REACHED_PROVISIONAL."
 Table S9	tab:current_original_space	FULL_VALUES_HAND_ROUNDED	tools/verify_table_rounding.py passes.
 Table S10	tab:current_tsne_sensitivity	FULL_VALUES_HAND_ROUNDED	tools/verify_table_rounding.py passes (reference env requirements-current.txt).
-Table S11	tab:current_shap_fidelity	FULL_VALUES_HAND_ROUNDED	tools/verify_table_rounding.py passes.
+Table S11	tab:current_shap_fidelity	FULL_VALUES_KNOWN_ERROR	2026-11-10: generator source/make_table_s11.py; Scratch-600K MAE submitted 1.2, data 1.1 (Known issue 15).
 Table R11	tab:resp-c13-shap-reproduction	FULL	2026-11-10: SHAP campaign rerun in the reference env (py 3.11.0, shap 0.46.0); tools/compare_reproduction.py reproduces shap_reproduction_check.json exactly (max diff 0). The original comparison script was not archived.
+Table S2	tab:a2_grouped_audit_summary	FULL	2026-11-10: generator source/make_table_s02.py reproduces the hand-typed table from repo data (Known issue 17: MPA0 label).
+Table S6	tab:path_registry	FULL_WORDING_EDITED	2026-11-10: generator source/make_table_s06.py; path L1 wording edited on Overleaf (Known issue 19).
+Table R1	tab:resp-a1-reference-sets	FULL	2026-11-10: generator source/make_table_r01.py reproduces the hand-typed table.
+Table R2	tab:resp-controlled-arms	FULL_VALUES_KNOWN_ERROR	2026-11-10: generator source/make_table_r02.py; Scratch-5% force RMSE submitted 342, data 341 (Known issue 14); MPA0 label (Known issue 17).
+Table R3	tab:resp-a3-path-errors	FULL	2026-11-10: generator source/make_table_r03.py reproduces the hand-typed table.
+Table R4	tab:resp-a4-scope	FULL	2026-11-10: generator source/make_table_r04.py; counts and dopant list from data.
+Table R5	tab:resp-a6-shap-fidelity	FULL	2026-11-10: generator source/make_table_r05.py.
+Table R7	tab:resp-c9-md-endpoints	FULL_VALUES_WORDING	2026-11-10: generator source/make_table_r07.py; provisional foundation runs print as Target reached (Known issue 2).
+Table R8	tab:resp-c10-grouped-split	FULL	2026-11-10: generator source/make_table_r08.py.
+Table R9	tab:resp-c11-silhouette	FULL	2026-11-10: generator source/make_table_r09.py.

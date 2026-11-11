@@ -29,6 +29,7 @@ cd paper/revision1 && export TEXINPUTS=.:..//: BSTINPUTS=.:..: && latexmk -pdf s
 
 | File | Use it to |
 |---|---|
+| `REPRODUCIBILITY.tsv` | See, per figure/table, the script that regenerates it (`items/<…>/source/`), its evidence (`items/<…>/evidence/*.json`: inputs and outputs with sha256, comparison with the submitted version, hardcoding lint) and PASS / PASS_KNOWN_ISSUE / EXCEPTION. |
 | `OVERVIEW.md`, `OVERVIEW.xlsx` | Read everything below on one page: the master tables, how the data is aggregated, every figure and table, the layers of computed data behind each (L0 DFT/AIMD → L5 final asset) and where each layer is stored. Generated; do not hand-edit. |
 | `RESULTS_INDEX.tsv` | Look up any figure panel or table: final asset + sha256, generator script, plotted data, upstream data, raw location, models, calculation type, status. **This is the maintenance list.** |
 | `items/<main,si,response>/<item>/PROVENANCE.md` | Read the same information per item; item-specific sources sit next to it in `source/` / `upstream/`. |
@@ -52,6 +53,18 @@ applied the same rules to the 2026-10-25 registry tables (per-cell log in
 sqlite3 -header -column analysis/migrationbench_asset_registry_20261025/migrationbench_asset_registry.sqlite "select item_id, panel, status, generator from rev1_results_index where item_id='Fig4'"
 ```
 
+## Reproduction rules
+
+Every figure and table has a script in its item folder's `source/` that reads repo files only
+(repo-relative paths, never `/Users/…`), computes every value from data (no numbers typed into
+code; label maps and rounding rules are named constants) and writes outputs to the git-ignored
+`rerun_output/`. Scripts use `tools/repro_lib.py`: tables are compared with the submitted LaTeX at
+the precision each submitted number shows; figure panels are compared with the committed panel
+that went into Canva (sha256 or a 100 dpi raster comparison). A check may fail only for an
+error in the submitted version or an unrecoverable environment, recorded exactly in
+`sources/known_discrepancies.tsv` with its `KNOWN_ISSUES.md` number. The graphical abstract
+(`sources/reproduce_exceptions.tsv`) has no source to reproduce.
+
 ## Status legend
 
 | Status | Meaning |
@@ -66,6 +79,7 @@ sqlite3 -header -column analysis/migrationbench_asset_registry_20261025/migratio
 ## Checks
 
 ```bash
+.venv/bin/python release/revision1_submitted_20261110/tools/verify_reproducibility.py --rerun  # regenerate every figure/table (~2 min), compare with the submission
 python3 release/revision1_submitted_20261110/tools/build_index.py      # rebuild index, item pages, SQL tables
 python3 release/revision1_submitted_20261110/tools/check_sql.py --compact  # integrity, keys, row counts, portable paths; refresh CSV/JSON mirrors
 python3 release/revision1_submitted_20261110/tools/build_overview.py   # OVERVIEW.md / OVERVIEW.xlsx from the registry

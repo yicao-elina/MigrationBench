@@ -1,0 +1,71 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR04_resp-a4-scope",
+  "name": "tab:resp-a4-scope",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR04_resp-a4-scope/source/make_table_r04.py",
+  "script_sha256": "5bdea7a2d600c96eff37218f90834733890e915c487d1ba0e6af8f3e5e0ff3dd",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/appendix/data/endpoint_level_summary.csv": "adeda90b0a0a3ef3525569b873a127ccb92c72807fd1275c80ce568febe69f35",
+    "release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path/source/source_data/foundation_model_class_profiles_4x3_R03.tsv": "c1cd6d73d7dca8e7b4a62f21c509e6acd524c8fcf0865b23bfdec6a7aa73fc39"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR04_resp-a4-scope/rerun_output/tab_resp-a4-scope.tex": "f22a446de930c9b1be99bb8b853d77ca56b28351b7da078799c07c7e179b2e05"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "fixed-path profiles include the primary dopant plus the supplementary ones",
+      "passed": true,
+      "details": {
+        "elements": [
+          "Cr",
+          "Cu",
+          "Li",
+          "Na"
+        ],
+        "supplementary": [
+          "Cu",
+          "Li",
+          "Na"
+        ]
+      }
+    },
+    {
+      "check": "endpoint campaign covers the primary Cr@Sb2Te3 system",
+      "passed": true,
+      "details": {
+        "systems": [
+          "Cr@Bi2Te3",
+          "Cr@Sb2Te3",
+          "Mn@Bi2Te3",
+          "Mn@Sb2Te3",
+          "V@Bi2Te3",
+          "V@Sb2Te3"
+        ],
+        "rows_per_system": {
+          "Cr@Bi2Te3": 141,
+          "Cr@Sb2Te3": 141,
+          "Mn@Bi2Te3": 141,
+          "Mn@Sb2Te3": 141,
+          "V@Bi2Te3": 141,
+          "V@Sb2Te3": 141
+        }
+      }
+    },
+    {
+      "check": "every endpoint task_id is unique",
+      "passed": true,
+      "details": {
+        "rows": 846,
+        "unique_task_ids": 846
+      }
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-a4-scope at displayed precision",
+      "passed": true,
+      "details": "3 rows match"
+    }
+  ],
+  "result": "PASS"
+}

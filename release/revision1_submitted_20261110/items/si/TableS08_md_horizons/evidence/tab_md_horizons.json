@@ -1,0 +1,115 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS08_md_horizons",
+  "name": "tab:md_horizons",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS08_md_horizons/source/make_table_s08.py",
+  "script_sha256": "6defd6d5379a51f992e44abccac35a5d1388f637b0dd4a449c0df8983f146df0",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/MD15_STATUS_AUDIT_R02.tsv": "89f32a3e5f6587e8ca3652e3b65ca6249d4891601e46fe74fa08ac336c0dd9c3",
+    "paper/revision1/data_processed/current_release/MD15_FIGURE_DATA_R06G.tsv": "929c15b6b46d80b4c69afb9a6b6d6e34acf229c684dfcec2957f65e7a571a62e",
+    "paper/revision1/data_processed/current_release/md_protocol_manifest.json": "316a8f31cd20a0026c2b7312b894d8ad1c2503d62b4a37472371c285b95eda88"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS08_md_horizons/rerun_output/tab_md_horizons.tex": "4a58da4918dc9bf7206a5e7f4dc83fa0f21a5e468a02a8752776e78f655e5963"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "shared module si_tables.py hardcode lint clean",
+      "passed": true,
+      "details": {
+        "path": "release/revision1_submitted_20261110/items/si/_shared_generators/si_tables.py",
+        "sha256": "ba0bf8569bc70d61306766eed2eccc6bdc50d92c03e00c37c9dfeb2d4ef4721d",
+        "findings": []
+      }
+    },
+    {
+      "check": "status audit and figure data agree on clock and status",
+      "passed": true,
+      "details": {
+        "models": 15
+      }
+    },
+    {
+      "check": "last_time_ps = last_step x timestep",
+      "passed": true,
+      "details": {
+        "timestep_fs": 1.0
+      }
+    },
+    {
+      "check": "target-reached runs end at target_step",
+      "passed": true,
+      "details": [
+        {
+          "model_id": "Foundation_MPA0",
+          "status": "TARGET_REACHED_PROVISIONAL",
+          "last_step": 1000000,
+          "target_step": 1000000
+        },
+        {
+          "model_id": "Foundation_MP0b3",
+          "status": "TARGET_REACHED_PROVISIONAL",
+          "last_step": 1000000,
+          "target_step": 1000000
+        },
+        {
+          "model_id": "Foundation_OMAT0",
+          "status": "TARGET_REACHED_PROVISIONAL",
+          "last_step": 1000000,
+          "target_step": 1000000
+        },
+        {
+          "model_id": "FT600K_A2_seed234",
+          "status": "TARGET_REACHED",
+          "last_step": 1000000,
+          "target_step": 1000000
+        }
+      ]
+    },
+    {
+      "check": "Outcome wording mapped from MD15_STATUS_AUDIT_R02 status (provisional shown as reached)",
+      "passed": true,
+      "details": {
+        "map": {
+          "TARGET_REACHED": "Target reached",
+          "TARGET_REACHED_PROVISIONAL": "Target reached",
+          "SCIENTIFIC_FAILURE": "Threshold reached"
+        },
+        "models_per_status": {
+          "SCIENTIFIC_FAILURE": [
+            "FT600K_A2_seed123",
+            "FT600K_A2_seed345",
+            "FTMultiT_A2_seed123",
+            "FTMultiT_A2_seed234",
+            "FTMultiT_A2_seed345",
+            "Scratch600K_Lmax1_seed123",
+            "Scratch600K_Lmax1_seed234",
+            "Scratch600K_Lmax1_seed345",
+            "ScratchMultiT_Lmax1_seed123",
+            "ScratchMultiT_Lmax1_seed234",
+            "ScratchMultiT_Lmax1_seed345"
+          ],
+          "TARGET_REACHED": [
+            "FT600K_A2_seed234"
+          ],
+          "TARGET_REACHED_PROVISIONAL": [
+            "Foundation_MPA0",
+            "Foundation_MP0b3",
+            "Foundation_OMAT0"
+          ]
+        },
+        "unmapped": [],
+        "continuation_start_ps": 200.0,
+        "continuation_start_source": "paper/revision1/data_processed/current_release/md_protocol_manifest.json md_protocol.start_step x timestep_fs"
+      }
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:md_horizons at displayed precision",
+      "passed": true,
+      "details": "15 rows match"
+    }
+  ],
+  "result": "PASS"
+}

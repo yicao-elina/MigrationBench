@@ -1,0 +1,61 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS04_current_neb_errors",
+  "name": "tab:current_neb_errors",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS04_current_neb_errors/source/make_table_s04.py",
+  "script_sha256": "7a3fe7755a26cfc27778145b041fa33777d2457383b74f0a89eb481f6a22d154",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/fig5_corrected_input.tsv": "ee9d43cbb4f6141fb50730a073b25d0a71f6963379ab54614ebe4b17a5019ead",
+    "paper/revision1/data_processed/current_release/fig5_family_statistics.csv": "bfc5408fa18548337b4c8d551ce632ad35a26813d0d66a708595cc2495eff751"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS04_current_neb_errors/rerun_output/tab_current_neb_errors.tex": "9a37c584faac17058ed0744433a9252c6c64268fdffd2fe0537983e434e7ac45"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "shared module si_tables.py hardcode lint clean",
+      "passed": true,
+      "details": {
+        "path": "release/revision1_submitted_20261110/items/si/_shared_generators/si_tables.py",
+        "sha256": "ba0bf8569bc70d61306766eed2eccc6bdc50d92c03e00c37c9dfeb2d4ef4721d",
+        "findings": []
+      }
+    },
+    {
+      "check": "absolute_error_eV = |predicted - DFT reference|",
+      "passed": true,
+      "details": {
+        "rows": 120,
+        "max_diff": 3.552713678800501e-15
+      }
+    },
+    {
+      "check": "row_id prefix equals family column",
+      "passed": true,
+      "details": [
+        "FT-600K",
+        "FT-MultiT",
+        "MP-0B3",
+        "MPA0",
+        "OMAT-0",
+        "Scratch-600K",
+        "Scratch-MultiT"
+      ]
+    },
+    {
+      "check": "groupby equals committed fig5_family_statistics.csv",
+      "passed": true,
+      "details": {
+        "groups": 56
+      }
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:current_neb_errors at displayed precision",
+      "passed": true,
+      "details": "7 rows match"
+    }
+  ],
+  "result": "PASS"
+}

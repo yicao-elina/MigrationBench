@@ -1,0 +1,47 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR09_resp-c11-silhouette",
+  "name": "tab:resp-c11-silhouette",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR09_resp-c11-silhouette/source/make_table_r09.py",
+  "script_sha256": "8ec4b0d806300aa2b008fa489a0fcfc0e10c21f656d755386f280864d712de31",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/fig6_current_original_space_metrics.csv": "3e52fb623cbb3b898ba072043a0afebfafab31bc7c6d848f4bad282d239ea42f",
+    "paper/revision1/data_processed/current_release/fig6_current_tsne_sensitivity.csv": "c409fcdf72744c4c7bc7c19c9abf89e1448e10e40483ce3b7c98a342d2dc4684"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR09_resp-c11-silhouette/rerun_output/tab_resp-c11-silhouette.tex": "cdc09f3808cc8340365c813ec4b462d7bff0ac438b4933ece19df3d01f054657"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "label map covers every original-space row",
+      "passed": true,
+      "details": {
+        "Original output features (6191)": "Original output features, Euclidean",
+        "Original output features, cosine": "Original output features, cosine",
+        "Z-scored output features": "Z-scored output features",
+        "Common neighbour histogram (30)": "Common neighbour histogram",
+        "Z-scored neighbour histogram": "Z-scored neighbour histogram"
+      }
+    },
+    {
+      "check": "t-SNE values are identical across embedding seeds",
+      "passed": true,
+      "details": {
+        "seeds": [
+          0,
+          42,
+          123
+        ],
+        "max_range": 0.0
+      }
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-c11-silhouette at displayed precision",
+      "passed": true,
+      "details": "8 rows match"
+    }
+  ],
+  "result": "PASS"
+}

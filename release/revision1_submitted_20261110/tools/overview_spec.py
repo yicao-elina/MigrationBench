@@ -30,6 +30,8 @@ MASTER_FILES = [
      "MigrationBench files moved from ~/Downloads to the archive store"),
     ("imports/ICLOUD_DATALESS.tsv", "rev1_icloud_dataless", "one iCloud-only file",
      "Workspace files still evicted to iCloud at import time (re-import later)"),
+    ("REPRODUCIBILITY.tsv", "rev1_reproducibility", "one figure or table",
+     "Reproduction script, evidence files and PASS/FAIL per item (tools/verify_reproducibility.py)"),
     ("tools/path_roots.py", "rev1_path_roots", "one path label",
      "Resolves portable paths such as archive:..., chatgpt:..., rockfish:..."),
 ]
@@ -39,6 +41,8 @@ OTHER_TABLES = {
     "rev1_deferred_large_files": "large files left out of git at import time, with intended destination",
     "rev1_import_conflicts": "files whose repo copy differs from the workspace copy (repo kept)",
     "rev1_item_calc_layers": "curated L0-L3 computed-data layers per figure/table",
+    "rev1_reproduce_exceptions": "items that cannot have a script, with reason and resolution",
+    "rev1_known_discrepancies": "exact failing checks accepted because the submitted version is wrong",
     "v_rev1_item_status": "per item: statuses and number of rows not FULL",
     "v_rev1_models_used": "checkpoints used in the paper",
     "v_rev1_open_issues": "unresolved known issues",

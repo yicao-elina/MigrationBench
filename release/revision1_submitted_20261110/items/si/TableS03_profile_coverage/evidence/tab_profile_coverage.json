@@ -1,0 +1,88 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS03_profile_coverage",
+  "name": "tab:profile_coverage",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS03_profile_coverage/source/make_table_s03.py",
+  "script_sha256": "05bb9e7b767ae3b35bcb442aed2ed3e8445fd831c5ae9b5452e45b15fc5bd137",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/cr_three_path_coverage_audit_R02.tsv": "16413c0831c45205752384945a80d105647ec7e0043672baa819a95f2de0e3c2",
+    "paper/revision1/data_processed/current_release/cr_three_path_coverage_audit_R05.tsv": "753de574b2e73912500385f3edfbbdd088fae95623975a10c3d8ecab93db3cc3"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS03_profile_coverage/rerun_output/tab_profile_coverage.tex": "f4be65b7cbd13fe754eaa3d9d9c578a7c9a307acb55d9e3a996f6b2d01257246"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:profile_coverage at displayed precision",
+      "passed": true,
+      "details": "6 rows match"
+    },
+    {
+      "check": "R05 counts (informational, Known issue 4): Fig. 4 uses R05; table submitted from R02",
+      "passed": true,
+      "details": {
+        "differing_cells": [
+          {
+            "row": "Self / in gap",
+            "column": "Legacy Scratch (R05: scratch_600k)",
+            "R02_submitted": "3",
+            "R05": "2"
+          },
+          {
+            "row": "Self / within QL",
+            "column": "Legacy Scratch (R05: scratch_600k)",
+            "R02_submitted": "3",
+            "R05": "2"
+          }
+        ],
+        "r05_rows": [
+          [
+            "Fixed / in gap",
+            "9",
+            "3",
+            "3",
+            "2"
+          ],
+          [
+            "Fixed / gap to QL",
+            "9",
+            "3",
+            "3",
+            "2"
+          ],
+          [
+            "Fixed / within QL",
+            "9",
+            "3",
+            "3",
+            "2"
+          ],
+          [
+            "Self / in gap",
+            "9",
+            "2",
+            "3",
+            "3"
+          ],
+          [
+            "Self / gap to QL",
+            "9",
+            "3",
+            "3",
+            "3"
+          ],
+          [
+            "Self / within QL",
+            "9",
+            "2",
+            "3",
+            "0"
+          ]
+        ]
+      }
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,143 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/FigS2_grouped_retraining_overlap",
+  "name": "FigS2",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/FigS2_grouped_retraining_overlap/source/reproduce_figS2.py",
+  "script_sha256": "78bf3b3906b89bc9d9b11c95e46b8760833a2e66147cf4c96ff09c1edca803a9",
+  "python": "3.11.0",
+  "inputs": {
+    "release/revision1_submitted_20261110/items/si/FigS2_grouped_retraining_overlap/source/plot_grouped_retraining_overlap.py": "c620bd25d66146b0060bc365540fb5f7582826c1e6d18189baae0ea9c8f4b7fe",
+    "release/revision1_submitted_20261110/items/si/FigS2_grouped_retraining_overlap/source/source_data/grouped_retraining_overlap_data.json": "af1978c0deb952b7ef19f8e91f9381712c1448186c1716db615109555fd4d493",
+    "paper/revision1/data_processed/current_release/fig5_plotted_values_as_supplied.tsv": "f22e7dbf4012ad56544afa8da759a0f9f5afe185ec237708ab29515d6005fee6",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_full_leakage_audit.json": "f35553eeb7600a4d5b01317edc00aee3b57b179947cdf5dac9a4ba7ad36a4ce6",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_scratch5_leakage_audit.json": "0be1ecf2a6f670313eebd2ba02a1c5421b07c1899923c79eac1e6be8c8ca6512",
+    "paper/revision1/figures/grouped_retraining_overlap.pdf": "bbed8bf2b28452d7a0527ca39a4d546444d66b6a6c449ccf393db588c1026446"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/FigS2_grouped_retraining_overlap/rerun_output/grouped_retraining_overlap_palette_updated.pdf": "b83a70a308d712defbef7887e5c4257151c6e86df3a712ee6820e360c5f1a0fe"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "hardcode lint release/revision1_submitted_20261110/items/si/FigS2_grouped_retraining_overlap/source/plot_grouped_retraining_overlap.py",
+      "passed": true,
+      "details": "no findings"
+    },
+    {
+      "check": "panel a trained errors equal fig5 in-gap fixed values (6 dp)",
+      "passed": true,
+      "details": {
+        "json": {
+          "FT-600K": [
+            0.034573,
+            0.448904,
+            0.316899
+          ],
+          "FT-MultiT": [
+            0.369348,
+            0.359093,
+            0.360664
+          ],
+          "Scratch-600K": [
+            0.599664,
+            0.280214,
+            0.428165
+          ],
+          "Scratch-MultiT": [
+            0.595216,
+            1.116817,
+            0.673546
+          ]
+        },
+        "upstream": {
+          "Scratch-600K": [
+            0.599664,
+            0.280214,
+            0.428165
+          ],
+          "Scratch-MultiT": [
+            0.595216,
+            1.116817,
+            0.673546
+          ],
+          "FT-600K": [
+            0.034573,
+            0.448904,
+            0.316899
+          ],
+          "FT-MultiT": [
+            0.369348,
+            0.359093,
+            0.360664
+          ]
+        }
+      }
+    },
+    {
+      "check": "panel a foundation errors equal fig5 in-gap fixed values (6 dp)",
+      "passed": true,
+      "details": {
+        "json": {
+          "MP-0B3": 0.379824,
+          "OMAT-0": 0.308188,
+          "MPA0": 0.352634
+        },
+        "upstream": {
+          "MP-0B3": 0.379824,
+          "OMAT-0": 0.308188,
+          "MPA0": 0.352634
+        }
+      }
+    },
+    {
+      "check": "panel a DFT reference equals fig5 reference",
+      "passed": true,
+      "details": [
+        1.524299
+      ]
+    },
+    {
+      "check": "panel b minima equal overlap audits",
+      "passed": true,
+      "details": {
+        "Full grouped": {
+          "soap_cosine": 0.000542785133204049,
+          "cr_local_rmsd_angstrom": 2.055065268285385
+        },
+        "Scratch-5%": {
+          "soap_cosine": 0.0006374028848443736,
+          "cr_local_rmsd_angstrom": 2.056638391614761
+        }
+      }
+    },
+    {
+      "check": "panel b thresholds equal overlap audits",
+      "passed": true,
+      "details": [
+        [
+          0.0001,
+          0.05
+        ]
+      ]
+    },
+    {
+      "check": "generator exits 0",
+      "passed": true,
+      "details": "Wrote /Users/alina/Project/migrationbench-paper-repro/release/revision1_submitted_20261110/items/si/FigS2_grouped_retraining_overlap/rerun_output/grouped_retraining_overlap_palette_updated.pdf/.svg/.png"
+    },
+    {
+      "check": "renders like paper/revision1/figures/grouped_retraining_overlap.pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          822,
+          467
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    }
+  ],
+  "result": "PASS"
+}

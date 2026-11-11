@@ -42,6 +42,7 @@ SLUGS = {
 INDEX_FIELDS = [
     "item_id", "section", "panel", "content", "final_asset", "asset_sha256", "generator",
     "plotted_data", "upstream_data", "raw_location", "models", "calc_type", "status", "note", "item_dir",
+    "reproduce_script", "reproduction",
 ]
 def write_tsv(path: Path, fields: list[str], rows: list[dict]) -> None:
     with path.open("w", newline="") as handle:
@@ -96,6 +97,14 @@ def si_rows(rules) -> list[dict]:
             "item_dir": item_dir(row["item_id"], row["label"]),
         })
     return rows
+
+
+def attach_reproduction(rows: list[dict]) -> list[dict]:
+    """Reproduction script and result per item, from REPRODUCIBILITY.tsv (tools/verify_reproducibility.py)."""
+    path = PACKAGE / "REPRODUCIBILITY.tsv"
+    found = {r["item_id"]: r for r in read_tsv(path)} if path.exists() else {}
+    return [{**row, "reproduce_script": found.get(row["item_id"], {}).get("scripts", ""),
+             "reproduction": found.get(row["item_id"], {}).get("result", "")} for row in rows]
 
 
 def apply_overrides(rows: list[dict]) -> list[dict]:
@@ -178,7 +187,9 @@ def provenance_page(item: str, rows: list[dict]) -> str:
                   f"- **Generator:** {row['generator'] or '—'}", f"- **Plotted data:** {row['plotted_data'] or '—'}",
                   f"- **Upstream data:** {row['upstream_data'] or '—'}", f"- **Raw location:** {row['raw_location'] or '—'}",
                   f"- **Models:** {row['models'] or '—'}", f"- **Calculation type:** {row['calc_type'] or '—'}",
-                  f"- **Notes:** {row['note'] or '—'}", ""]
+                  f"- **Notes:** {row['note'] or '—'}",
+                  f"- **Reproduce:** {' '.join(f'`python {s}`' for s in row['reproduce_script'].split()) or '—'}"
+                  f" → `{row['reproduction'] or 'not run'}` (evidence in `evidence/`)", ""]
     return "\n".join(lines) if head else ""
 
 
@@ -187,7 +198,7 @@ def main() -> int:
     parser.add_argument("--no-sql", action="store_true", help="do not apply the migration to the SQLite DB")
     args = parser.parse_args()
     rules = import_rewrites()
-    index = apply_overrides(main_rows(rules) + si_rows(rules))
+    index = attach_reproduction(apply_overrides(main_rows(rules) + si_rows(rules)))
     storage, models = storage_rows(), model_rows()
     write_tsv(PACKAGE / "RESULTS_INDEX.tsv", INDEX_FIELDS, index)
     write_tsv(PACKAGE / "STORAGE_LOCATIONS.tsv", STORAGE_FIELDS, storage)

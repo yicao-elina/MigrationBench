@@ -31,6 +31,9 @@ TSV_BACKED = {
     "rev1_deferred_large_files": "imports/DEFERRED_LARGE_FILES.tsv",
     "rev1_import_conflicts": "imports/IMPORT_CONFLICTS.tsv",
     "rev1_item_calc_layers": "sources/item_calc_layers.tsv",
+    "rev1_reproducibility": "REPRODUCIBILITY.tsv",
+    "rev1_reproduce_exceptions": "sources/reproduce_exceptions.tsv",
+    "rev1_known_discrepancies": "sources/known_discrepancies.tsv",
 }
 DERIVED = ["rev1_path_roots", "rev1_items", "rev1_pipeline_stages", "rev1_known_issues"]
 

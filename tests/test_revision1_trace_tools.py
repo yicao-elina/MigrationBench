@@ -79,3 +79,49 @@ def test_tiers_detects_storage_and_falls_back_to_referenced_item():
     assert overview_spec.tiers("rockfish:/scratch16/a and analysis/b.csv") == "git, Rockfish"
     assert overview_spec.tiers("see S9") == "as S9"
     assert overview_spec.tiers("n/a") == "—"
+
+
+# ---------------------------------------------------------------- repro_lib
+import re  # noqa: E402
+
+import repro_lib  # noqa: E402
+
+
+def _labels(tex: str) -> list[str]:
+    return re.findall(r"\\label\{(tab:[^}]+)\}", (repro_lib.PAPER / tex).read_text())
+
+
+@pytest.mark.parametrize("tex", ["sn-article-SI.tex", "response_to_reviewers.tex"])
+def test_every_submitted_table_has_body_rows(tex):
+    for label in _labels(tex):
+        assert repro_lib.submitted_table(tex, label), label
+
+
+def test_compare_rows_accepts_submitted_precision_and_rejects_wrong_values():
+    submitted = [["FT-600K", "1,786", r"$0.47\pm0.12$", r"$6.3\times10^{-2}$"]]
+    assert repro_lib.compare_rows(submitted, [["FT-600K", "1786", r"$0.4712\pm0.1234$", "0.0631"]]) == []
+    errors = repro_lib.compare_rows(submitted, [["FT-600K", "1787", r"$0.49\pm0.12$", "0.0631"]])
+    assert len(errors) == 2
+    assert repro_lib.compare_rows(submitted, [["Scratch", "1786", r"$0.47\pm0.12$", "0.063"]])  # text differs
+
+
+def test_formatters_match_submitted_style():
+    assert repro_lib.fmt_int(1786.0) == "1,786"
+    assert repro_lib.fmt_pm(0.4712, 0.1234) == r"$0.47\pm0.12$"
+    assert repro_lib.fmt_sci(0.0631) == r"$6.3\times10^{-2}$"
+
+
+def test_lint_flags_absolute_paths_and_data_arrays_but_not_layout(tmp_path):
+    script = tmp_path / "s.py"
+    script.write_text('"""doc /Users/x"""\nP = "/Users/alina/Downloads/a.pdf"\n'
+                      "DATA = [1.5243, 0.3361, 2.1187, 0.9912, 1.0047, 3.2215]\n"
+                      "TICKS = [0.0, 0.25, 0.5, 0.75, 1.0, 1.25]\n")
+    original = repro_lib.REPO
+    try:
+        repro_lib.REPO = tmp_path
+        findings = repro_lib.lint_script(script)
+    finally:
+        repro_lib.REPO = original
+    assert any("absolute path" in f for f in findings)
+    assert any("literal float array" in f for f in findings)
+    assert len(findings) == 2

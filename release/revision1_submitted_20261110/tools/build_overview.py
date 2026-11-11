@@ -99,37 +99,46 @@ def build_markdown(conn) -> str:
     lines += md_table(["Section", "Item", "Panels / label", "Content", "Status", "Folder"],
                       [[r["section"], r["item"], r["panels"], r["title"], r["status"], f"`{r['folder']}`"]
                        for r in layers])
-    lines += ["## 4. Layers of computed data behind each item", "",
+    lines += ["## 4. Reproduction script and evidence per item", "",
+              "Each item has a script under its folder's `source/` that regenerates it from repo data and writes "
+              "`evidence/*.json` (inputs and outputs with sha256, the comparison with the submitted version, "
+              "a hardcoding lint). `tools/verify_reproducibility.py` checks that the evidence is current; "
+              "`--rerun` regenerates everything first.", ""]
+    lines += md_table(["Item", "Result", "Script(s)", "Checks", "Inputs", "Notes"],
+                      [[r["item_id"], r["result"], " ".join(f"`{s}`" for s in r["scripts"].split()), r["checks"],
+                        r["inputs"], r["problems"][:160]]
+                       for r in rows(conn, "SELECT * FROM rev1_reproducibility")])
+    lines += ["## 5. Layers of computed data behind each item", "",
               "Layers, curated per item in `sources/item_calc_layers.tsv` (SQL `rev1_item_calc_layers`):", ""]
     lines += md_table(["Layer", "Holds"], [[code, meaning] for code, _col, meaning in LAYERS])
     lines += ["L4 (plotted data) for each panel is the `plotted_data` column of `RESULTS_INDEX.tsv`.", "",
-              "### 4a. What each item rests on", ""]
+              "### 5a. What each item rests on", ""]
     lines += md_table(["Item", "L0 reference", "L1 split / models", "L2 MLIP simulations", "L3 derived", "L5"],
                       [[r["item"], r["L0"], r["L1"], r["L2"], r["L3"], r["L5"]] for r in layers])
-    lines += ["### 4b. Where each layer is stored", "",
+    lines += ["### 5b. Where each layer is stored", "",
               "Read from the paths each item cites. *git* = this repository; *archive store* = "
               "`archive:` (laptop, to back up to Skipjack); *Rockfish* = `rockfish:` (to migrate to Skipjack); "
               "*Canva* = composed in Canva design `DAHZXpLtN6U`.", ""]
     lines += md_table(["Item", "L0-L2 raw outputs + models", "L3-L4 derived + plotted data", "L5 generator + final"],
                       [[r["item"], r["raw at"], r["derived + plotted at"], r["generator at"]] for r in layers])
-    lines += ["## 5. Pipeline stages", ""]
+    lines += ["## 6. Pipeline stages", ""]
     lines += md_table(["#", "Stage", "Feeds"], [[r["stage"], r["stage_name"], r["feeds"]]
                                               for r in rows(conn, "SELECT * FROM rev1_pipeline_stages")])
-    lines += ["## 6. Models", ""]
+    lines += ["## 7. Models", ""]
     lines += md_table(["Family", "Used in paper", "Checkpoints", "sha256 verified on Rockfish"],
                       [[r["family"], r["used_in_paper"], r["n"], r["ok"]] for r in rows(conn, """
         SELECT family, used_in_paper, COUNT(*) n, SUM(sha256_verified = 'OK') ok FROM rev1_model_registry
         GROUP BY 1, 2 ORDER BY 1, 2""")])
-    lines += ["## 7. Raw-data storage and migration", ""]
+    lines += ["## 8. Raw-data storage and migration", ""]
     lines += md_table(["Host", "Migrate to", "Locations"], [[r["host"], r["migrate_to"], r["n"]] for r in rows(conn, """
         SELECT host, migrate_to, COUNT(*) n FROM rev1_storage_locations GROUP BY 1, 2 ORDER BY 1, 2""")])
     plan = Counter((r["priority"], r["used_in_paper"]) for r in rows(conn, "SELECT * FROM rev1_rockfish_migration_plan"))
     lines += md_table(["Rockfish priority", "Used in paper", "Directories"],
                       [[p, u, n] for (p, u), n in sorted(plan.items())])
-    lines += ["## 8. Open issues", ""]
+    lines += ["## 9. Open issues", ""]
     lines += md_table(["#", "Group", "Issue"], [[r["issue_no"], r["issue_group"], r["title"]]
                                               for r in rows(conn, "SELECT * FROM v_rev1_open_issues")])
-    lines += ["## 9. SQL registry contents", "",
+    lines += ["## 10. SQL registry contents", "",
               f"`{DB.relative_to(REPO)}`; check with `python3 {PACKAGE.relative_to(REPO)}/tools/check_sql.py`.", ""]
     lines += md_table(["Group", "Type", "Name", "Rows", "Holds"], sql_catalog(conn))
     return "\n".join(lines)
@@ -151,6 +160,7 @@ def build_workbook(conn, path) -> None:
         "RockfishPlan": rows(conn, "SELECT * FROM rev1_rockfish_migration_plan"),
         "KnownIssues": rows(conn, "SELECT * FROM rev1_known_issues"),
         "PathRoots": rows(conn, "SELECT * FROM rev1_path_roots"),
+        "Reproducibility": rows(conn, "SELECT * FROM rev1_reproducibility"),
         "SQLTables": [dict(zip(["group", "type", "name", "rows", "holds"], r)) for r in sql_catalog(conn)],
     }
     for name, data in sheets.items():

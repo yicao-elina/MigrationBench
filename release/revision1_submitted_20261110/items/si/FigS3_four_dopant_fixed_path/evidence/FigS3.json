@@ -1,0 +1,65 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path",
+  "name": "FigS3",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path/source/reproduce_figS3.py",
+  "script_sha256": "1407bb15d0c28429a8b8d4888c4fd2cfde5870489d6aa786ed9f4f512f91d7df",
+  "python": "3.11.0",
+  "inputs": {
+    "release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path/source/render_four_dopant_fixed_path.py": "bdbfcb47804082d2ed366294ed947e38af03efdcb71574a5bf2d2163cae245f8",
+    "release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path/source/source_data/foundation_model_class_profiles_4x3_R03.tsv": "c1cd6d73d7dca8e7b4a62f21c509e6acd524c8fcf0865b23bfdec6a7aa73fc39",
+    "reproducibility/canva_palette_vector_bundle_20261105/MIGRATIONBENCH_FIGURE_PALETTE.json": "8f5922752faf49cd9f0686077e1c7631b0c48a65c4d9a3139c4fac0b6352fefd",
+    "paper/revision1/figures/main/SI/fig_NEB-fixed-path_Cu-Li-Na-Cr.pdf": "72263413e6370f1394f761cd62063a71075d97181000919aaf18303844828770",
+    "release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path/source/source_data/foundation_model_qe_reference_profiles_4x3_R03.tsv": "a97b885cad3aac4663f1eddf640ac74a3ef02e1cc38c02f20e50b20f21f05a8b",
+    "release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path/upstream/qe_neb_path_profiles.csv": "e032b1712b60a5164b38ee313a5f24152801a067023798d327954aeeb6393c81",
+    "src/migrationbench/dft_neb_reference.py": "0b27fd3ab94faeca2f99dd24cf16a9887e427e3f0c20419b3efcafc01d7874f8",
+    "data/raw_compact/cr81_dft_neb_reference_20261013/raw/2L-Cu__neb-QLs/neb.out": "35f8a9011248b28eed4747b2635cf2a854599034a0fd282cb71d8993676b514f",
+    "data/raw_compact/cr81_dft_neb_reference_20261013/raw/2L-Cu__neb-gap-diffuse/neb.out": "02f4680dbdf2e5d627ed09adbb82c4e09acf98f79d43053f6b61ed85b2c696e4",
+    "data/raw_compact/cr81_dft_neb_reference_20261013/raw/2L-Cu__neb-gap2QL/neb.out": "55d626b4e8376dd41883a292c898d2ce57612c5cd4b685cc5c248a4e65618caf"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path/rerun_output/fig_NEB-fixed-path_Cu-Li-Na-Cr_palette_updated.pdf": "1ca4d50753f2be2ecd9f7feb34db503881c8b5ad2f4a68b1a877c18386305af7"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "hardcode lint release/revision1_submitted_20261110/items/si/FigS3_four_dopant_fixed_path/source/render_four_dopant_fixed_path.py",
+      "passed": true,
+      "details": "no findings"
+    },
+    {
+      "check": "Cu/Li/Na QE references equal upstream neb energies relative to image 1",
+      "passed": true,
+      "details": "90 points within 1e-06 eV"
+    },
+    {
+      "check": "Cr QE references equal the parsed neb.out profiles",
+      "passed": true,
+      "details": "30 points within 1e-06 eV"
+    },
+    {
+      "check": "generator exits 0",
+      "passed": true,
+      "details": "ok"
+    },
+    {
+      "check": "renders like paper/revision1/figures/main/SI/fig_NEB-fixed-path_Cu-Li-Na-Cr.pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          1182,
+          1224
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    },
+    {
+      "check": "known limitation (not used for PASS)",
+      "passed": true,
+      "details": "foundation-class aggregate (mean/SD over n_models per class) is plotted as committed; its 1080 per-model fixed-image evaluations stay on Rockfish (foundation_self_relaxed_4x3_20261024_r02/runs, see PROVENANCE.md raw location) and were not re-aggregated here"
+    }
+  ],
+  "result": "PASS"
+}

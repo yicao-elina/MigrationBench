@@ -1,0 +1,41 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS05_dft_neb_barriers_revised",
+  "name": "tab:dft_neb_barriers_revised",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS05_dft_neb_barriers_revised/source/make_table_s05.py",
+  "script_sha256": "89f632dbc8e9351635fbb79a007abed9e027e51797538b549207186c8818dfcc",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/path_registry.csv": "142dd7416fb4232adf3f85bb74284fffbe21563d868ef4c0b16296e2721bb50f",
+    "paper/revision1/data_processed/dft_neb_barriers.csv": "913d04e5a856e77a7194b33e3df554cfbe9b94506ff586cd2466f75bb8fc0ab5",
+    "data/raw_compact/legacy_61_qe_neb/1-4/neb.out": "41fad90be066083c6c588454c0638710e0be405eb4f34dd53d97daaa46ede11b",
+    "data/raw_compact/legacy_61_qe_neb/1-7/neb.out": "7839f02e5836cc18a5ef66eb2e969ff719dd13d57956fdab205c243c744a1b71",
+    "data/raw_compact/legacy_61_qe_neb/1-2/neb.out": "6d999c9608be0a68f0845fa195f58eeb0ad94f7b2c20cbb90e0b82288b47bddf",
+    "data/raw_compact/legacy_61_qe_neb/1-3/neb.out": "31197001d9d91664ee2bbccb56767ae1c8cf83df68d0b289b57a81334738cac3",
+    "data/raw_compact/legacy_61_qe_neb/1-5/neb.out": "e45ffd1b6c93a19633e5a9e83d3a8e264c53d44f6da8157efc1d7c815ace2384",
+    "data/raw_compact/legacy_61_qe_neb/1-6/neb.out": "7226aaf276a6860b840c2d7eea320fdf4973010280d8a73052940775dabfc42d",
+    "data/raw_compact/legacy_61_qe_neb/1-8/neb.out": "48adf69c21f63015c4b7eaa4aa9ac2df29b275b04c677c94941642163c424996",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_1/neb.out": "930f343dc5b2b8a538d62a97c9fa6ee0b739e911a6861b575d6fc14fcaae97e0",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_2/neb.out": "36cc5090b9ae8757e3f70b7bd23a7075b5ef219bcd8112c616e1da87dbc2e99c",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_3/neb.out": "0221db647e64ecb5d81ef55dad664096d24f2cbd9e55daac59bd3986e36c3ad9",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_4/neb.out": "d0af7a9c263c24657e8e3abafd00b337b17f6cfd94f3a7ca5e765bfe6b195d78",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_5/neb.out": "0874029f5dc25c882c6014117e29f0948fc330139a00b5613301af3e0d17a193"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS05_dft_neb_barriers_revised/rerun_output/tab_dft_neb_barriers_revised.tex": "a6d17611a2ffefff25221d1af153286751ae419e0561060bc1ea8a5ee546a5c0"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "dft_neb_barriers.csv equals last-iteration activation energies and num_of_images in neb.out",
+      "passed": true,
+      "details": "12 paths agree to 1e-06 eV"
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:dft_neb_barriers_revised at displayed precision",
+      "passed": true,
+      "details": "12 rows match"
+    }
+  ],
+  "result": "PASS"
+}
