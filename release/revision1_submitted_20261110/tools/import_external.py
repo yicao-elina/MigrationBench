@@ -5,8 +5,9 @@ Reads ``imports/import_plan.tsv`` (columns: source, dest, reason). For a
 directory source, every regular file is copied unless it is a cache/junk file
 or larger than ``--max-dir-file-mb``; oversized files are not copied but are
 listed in ``imports/DEFERRED_LARGE_FILES.tsv`` so they can go to external
-storage. A single-file source is always copied if it is below
-``--max-single-file-mb``. Existing destination files are never overwritten;
+storage. A single-file source is copied if it is below ``--max-single-file-mb``.
+Oversized files and heavy binaries (extxyz, traj, blend, npz > 1 MB) are
+copied to ``--external-store`` at their repo-relative path instead of git. Existing destination files are never overwritten;
 differing ones are reported as conflicts instead.
 
 Outputs (relative to the release package):
@@ -50,7 +51,17 @@ def iter_files(source: Path):
         yield path, rel
 
 
-def import_row(row, repo: Path, limits, out):
+HEAVY_EXTENSIONS = {"extxyz", "traj", "blend", "blend1"}
+HEAVY_NPZ_BYTES = 1_000_000
+
+
+def is_heavy_binary(rel: str, size: int) -> bool:
+    """Trajectories, Blender scenes and large arrays go to the external store, not git."""
+    extension = rel.rsplit(".", 1)[-1].lower()
+    return extension in HEAVY_EXTENSIONS or (extension == "npz" and size > HEAVY_NPZ_BYTES)
+
+
+def import_row(row, repo: Path, limits, out, store: Path):
     source, dest = Path(row["source"]), repo / row["dest"]
     if not source.exists():
         out["missing"].append([str(source), row["dest"], "source missing"])
@@ -64,17 +75,24 @@ def import_row(row, repo: Path, limits, out):
         if getattr(stat, "st_flags", 0) & SF_DATALESS:
             out["dataless"].append([str(path), str(target.relative_to(repo)), size, row["reason"]])
             continue
-        if size > limit:
-            out["deferred"].append([str(path), str(target.relative_to(repo)), size, row["reason"]])
-            continue
         digest = sha256_of(path)
-        if target.exists():
-            if sha256_of(target) != digest:
-                out["conflicts"].append([str(path), str(target.relative_to(repo)), size, digest])
+        rel = str(target.relative_to(repo))
+        if size > limit:
+            out["deferred"].append([str(path), rel, size, row["reason"]])
+        if size > limit or is_heavy_binary(rel, size):
+            stored = store / "repo_mirror" / rel
+            if not stored.exists():
+                stored.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(path, stored)
+            out["external"].append([rel, f"local:{stored}", size, digest, str(path), "backup->skipjack"])
             continue
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(path, target)
-        out["copied"].append([str(path), str(target.relative_to(repo)), size, digest, row["reason"]])
+        if target.exists():
+            if sha256_of(target) != digest:  # repo copy kept (newer or edited after import)
+                out["conflicts"].append([str(path), rel, size, digest])
+        else:
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(path, target)
+        out["copied"].append([str(path), rel, size, digest, row["reason"]])
 
 
 def write_tsv(path: Path, header, rows):
@@ -90,26 +108,30 @@ def main() -> int:
     parser.add_argument("--package", type=Path, required=True, help="release package dir")
     parser.add_argument("--max-dir-file-mb", type=float, default=5.0)
     parser.add_argument("--max-single-file-mb", type=float, default=30.0)
+    parser.add_argument("--external-store", type=Path, default=Path("/Users/alina/Project/migrationbench-archive"),
+                        help="where oversized and heavy binary files are copied instead of git")
     args = parser.parse_args()
 
     plan = args.package / "imports" / "import_plan.tsv"
     with plan.open() as handle:
         rows = list(csv.DictReader(handle, delimiter="\t"))
     limits = {"dir": args.max_dir_file_mb * MB, "single": args.max_single_file_mb * MB}
-    out = {"copied": [], "deferred": [], "conflicts": [], "missing": [], "dataless": []}
+    out = {"copied": [], "deferred": [], "conflicts": [], "missing": [], "dataless": [], "external": []}
     for row in rows:
-        import_row(row, args.repo.resolve(), limits, out)
+        import_row(row, args.repo.resolve(), limits, out, args.external_store)
 
     imports = args.package / "imports"
     write_tsv(imports / "IMPORT_MANIFEST.tsv", ["source", "dest", "bytes", "sha256", "reason"], out["copied"])
     write_tsv(imports / "DEFERRED_LARGE_FILES.tsv", ["source", "intended_dest", "bytes", "reason"], out["deferred"])
     write_tsv(imports / "IMPORT_CONFLICTS.tsv", ["source", "dest", "bytes", "source_sha256"], out["conflicts"])
+    write_tsv(imports / "EXTERNAL_STORE_MANIFEST.tsv",
+              ["repo_path", "stored_at", "bytes", "sha256", "original_source", "migration"], out["external"])
     write_tsv(imports / "ICLOUD_DATALESS.tsv", ["source", "intended_dest", "bytes", "reason"], out["dataless"])
     for item in out["missing"]:
         print("MISSING:", *item, file=sys.stderr)
     total = sum(r[2] for r in out["copied"])
     print(f"copied {len(out['copied'])} files ({total / MB:.1f} MB); "
-          f"deferred {len(out['deferred'])}; iCloud-dataless {len(out['dataless'])}; conflicts {len(out['conflicts'])}; missing {len(out['missing'])}")
+          f"external store {len(out['external'])} (of which >size limit {len(out['deferred'])}); iCloud-dataless {len(out['dataless'])}; conflicts {len(out['conflicts'])}; missing {len(out['missing'])}")
     return 1 if out["missing"] else 0
 
 
