@@ -38,6 +38,16 @@ def sha256_of(path: Path) -> str:
     return digest.hexdigest()
 
 
+LATEX_BUILD_SUFFIXES = {".aux", ".fls", ".fdb_latexmk", ".synctex.gz", ".toc", ".xdv"}
+
+
+def is_latex_build_file(path: Path) -> bool:
+    """LaTeX intermediates (and .log files next to a .tex) are regenerable, never imported."""
+    if path.suffix in LATEX_BUILD_SUFFIXES or path.name == "texput.log":
+        return True
+    return path.suffix == ".log" and path.with_suffix(".tex").exists()
+
+
 def iter_files(source: Path):
     if source.is_file():
         yield source, Path(source.name)
@@ -46,7 +56,7 @@ def iter_files(source: Path):
         rel = path.relative_to(source)
         if any(part in JUNK_DIRS for part in rel.parts):
             continue
-        if path.is_symlink() or not path.is_file() or path.name in JUNK_NAMES:
+        if path.is_symlink() or not path.is_file() or path.name in JUNK_NAMES or is_latex_build_file(path):
             continue
         yield path, rel
 

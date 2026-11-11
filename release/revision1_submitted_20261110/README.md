@@ -89,6 +89,15 @@ python3 release/revision1_submitted_20261110/tools/verify_table_rounding.py --su
 - **Skipjack**: target for the migration and backup; not verified (needs
   interactive login). Run `tools/rockfish_to_skipjack_rsync.sh --dry-run` on
   Rockfish first.
-- **Local archive store** `/Users/alina/Project/migrationbench-archive/repo_mirror/`:
-  imported heavy binaries, at their repo paths. Back up to Skipjack together
-  with the Rockfish data.
+- **Local archive store** `/Users/alina/Project/migrationbench-archive/` (about 8.5 GB), to
+  back up to Skipjack together with the Rockfish data:
+  - `repo_mirror/`: heavy binaries and raw run outputs at their repo-relative
+    paths (`imports/EXTERNAL_STORE_MANIFEST.tsv`, `imports/ARCHIVED_UNTRACKED_RAW.tsv`);
+  - `downloads_20261110/`: everything MigrationBench-related that was in `~/Downloads`
+    (final Overleaf zip, Canva backups, Figure 1 kit, drafts, public MACE checkpoints),
+    per-file sha256 in `imports/DOWNLOADS_ARCHIVE.tsv`.
+- **ChatGPT workspace** `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench` (11 GB, iCloud,
+  partly evicted): everything the trace needs is imported. Keep it as a cold copy until it
+  has been archived in full; deleting it also deletes the iCloud-only files.
+- **Legacy repo** `/Users/alina/Project/26MIgrationBench` (2.6 GB, no remote, uncommitted
+  changes): the only file this release needs (`legacy_61` QE NEB) is imported.

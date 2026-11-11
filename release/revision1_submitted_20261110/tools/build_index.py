@@ -49,7 +49,8 @@ EXTRA_REWRITES = [
     ("/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/output/revision1_camera_ready/reproducibility",
      "release/revision1_camera_ready/reproducibility"),
     # stale pointer recorded in the bundle; the checkpoints are in ~/Downloads/mace-models (MODEL_REGISTRY.tsv)
-    ("/Users/alina/Downloads/mace-foundation-models", "local:/Users/alina/Downloads/mace-models"),
+    ("/Users/alina/Downloads/mace-foundation-models", "local:/Users/alina/Project/migrationbench-archive/downloads_20261110/mace-models"),
+    ("/Users/alina/Downloads/mace-models", "local:/Users/alina/Project/migrationbench-archive/downloads_20261110/mace-models"),
 ]
 
 
@@ -152,9 +153,12 @@ def storage_rows() -> list[dict]:
          "category": "imported heavy binaries (extxyz/traj/blend/npz)", "used_in_paper": "yes",
          "paper_items": "Fig1 Fig6 Fig4 FigS3 FigS4", "migrate_to": "skipjack + backup",
          "notes": f"files listed with sha256 in {PACKAGE_REL}/imports/EXTERNAL_STORE_MANIFEST.tsv"},
-        {"location": "local:/Users/alina/Downloads/mace-models", "host": "laptop", "category": "model",
+        {"location": "local:/Users/alina/Project/migrationbench-archive/downloads_20261110/mace-models", "host": "laptop", "category": "model",
          "used_in_paper": "yes", "paper_items": "foundation rows of Fig2-Fig5, Table S8",
-         "migrate_to": "skipjack + backup", "notes": "public MACE foundation checkpoints; sha in MODEL_REGISTRY.tsv"},
+         "migrate_to": "skipjack + backup", "notes": "public MACE foundation checkpoints moved from ~/Downloads/mace-models (2026-11-10, imports/DOWNLOADS_ARCHIVE.tsv); Rockfish copies in MODEL_REGISTRY.tsv"},
+        {"location": "local:/Users/alina/Project/migrationbench-archive/downloads_20261110", "host": "laptop",
+         "category": "Downloads archive (Overleaf zip, Canva backups, Figure 1 kit, drafts)", "used_in_paper": "partial",
+         "paper_items": "all (lineage)", "migrate_to": "skipjack + backup", "notes": "per-file sha256 in imports/DOWNLOADS_ARCHIVE.tsv"},
         {"location": "icloud:/Users/alina/Documents/ChatGPT/Wiley-MigrationBench", "host": "laptop (iCloud, partly evicted)",
          "category": "workspace", "used_in_paper": "partial", "migrate_to": "skipjack (cold archive) after imports verified",
          "notes": "trace-relevant files imported; see imports/IMPORT_MANIFEST.tsv and ICLOUD_DATALESS.tsv"},
@@ -176,7 +180,7 @@ def model_rows() -> list[dict]:
     with (PACKAGE / "sources/foundation_verify.tsv").open() as handle:
         for line in handle:
             path, size, sha = line.rstrip("\n").split("\t")[:3]
-            rows.append({"model_id": Path(path).stem, "family": "MACE foundation (public)", "location": path,
+            rows.append({"model_id": Path(path).stem, "family": "MACE foundation (public)", "location": f"rockfish:{path}",
                          "sha256_recorded": sha, "sha256_verified": "yes", "used_in_paper": "see paper_items",
                          "migrate_to": "skipjack + backup"})
     return rows
