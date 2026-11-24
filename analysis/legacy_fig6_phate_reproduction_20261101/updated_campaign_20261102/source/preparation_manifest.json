@@ -1,0 +1,328 @@
+{
+  "artifact": "Figure 6 full-campaign 15-model representation input",
+  "status": "RECONSTRUCTION",
+  "model_matrix": "3 Foundation checkpoints + 3 seeds x FT-600K + 3 seeds x FT-MultiT + 3 seeds x Scratch-600K + 3 seeds x Scratch-MultiT",
+  "feature_grammar": "legacy Figure 6: energy + flattened forces + 30-bin neighbor histogram + 10-component SOAP PCA + zero sensitivity placeholder",
+  "sampling": "deterministic evenly spaced frame indices across the listed trajectory segments; maximum 101 frames per model; short Scratch trajectories retain their actual frame count",
+  "input_manifest": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/md15_inputs.tsv",
+  "input_manifest_sha256": "3df322167a2302fffa798b65312d1a84bae4e93ef2f55dadffeedfc65c72fde6",
+  "sample_records": [
+    {
+      "model_id": "FT600K_A2_seed123",
+      "family": "FT-600K",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/grouped_A2_ft_1ns_md_20261025/runs/FT600K_A2_seed123/segment_from_000220000.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/FT600K_A2_seed123.extxyz",
+      "sample_bytes": 26269228,
+      "sample_sha256": "119986803b65c27c16915c1690226dbab8ab3cf3149fbd5a34250a79a8217e11"
+    },
+    {
+      "model_id": "FT600K_A2_seed234",
+      "family": "FT-600K",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/grouped_A2_ft_1ns_md_20261025/runs/FT600K_A2_seed234/segment_from_000220000.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/FT600K_A2_seed234.extxyz",
+      "sample_bytes": 32356093,
+      "sample_sha256": "e5c3b7ac8e8371ee03bf29be31351621f1fe3350f12eec96af9713b62b12d9d9"
+    },
+    {
+      "model_id": "FT600K_A2_seed345",
+      "family": "FT-600K",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/grouped_A2_ft_1ns_md_20261025/runs/FT600K_A2_seed345/segment_from_000220000.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/FT600K_A2_seed345.extxyz",
+      "sample_bytes": 32356210,
+      "sample_sha256": "6c6234d9045fa664bb91b81c57900471ddaa736865c27c9c114f0f2e94f001d9"
+    },
+    {
+      "model_id": "FTMultiT_A2_seed123",
+      "family": "FT-MultiT",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/grouped_A2_ft_1ns_md_20261025/runs/FTMultiT_A2_seed123/segment_from_000220000.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/FTMultiT_A2_seed123.extxyz",
+      "sample_bytes": 28191377,
+      "sample_sha256": "10cf80e04e6b86284fae1321cab0b19add116534ef1a010c1d61c02904ec683a"
+    },
+    {
+      "model_id": "FTMultiT_A2_seed234",
+      "family": "FT-MultiT",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/grouped_A2_ft_1ns_md_20261025/runs/FTMultiT_A2_seed234/segment_from_000220000.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/FTMultiT_A2_seed234.extxyz",
+      "sample_bytes": 32356113,
+      "sample_sha256": "f4fcb65bae67e0d80124089ba55210d568cd96bc179df1aac1c0228bbf51c50b"
+    },
+    {
+      "model_id": "FTMultiT_A2_seed345",
+      "family": "FT-MultiT",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/grouped_A2_ft_1ns_md_20261025/runs/FTMultiT_A2_seed345/segment_from_000220000.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/FTMultiT_A2_seed345.extxyz",
+      "sample_bytes": 32356085,
+      "sample_sha256": "d3ce9be76c3a895c16955b0397b21e38cc0a99de2a7eb1078f8abc87902a8fea"
+    },
+    {
+      "model_id": "Foundation_MP0b3",
+      "family": "Foundation",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/mace_foundation_representatives_1ns_20261006/MP-0b3-medium/segment_from_000220000.extxyz",
+        "/scratch16/pclancy3/yi/mace_foundation_representatives_1ns_20261006/MP-0b3-medium/segment_from_000615000.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/Foundation_MP0b3.extxyz",
+      "sample_bytes": 32356142,
+      "sample_sha256": "9750c3334b91a1c9e583e6bae675c4598e524dca4c225481007e001c5e9cc6ad"
+    },
+    {
+      "model_id": "Foundation_MPA0",
+      "family": "Foundation",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/mace_foundation_representatives_1ns_20261006/Foundation-medium-mpa-0/segment_from_000220000.extxyz",
+        "/scratch16/pclancy3/yi/mace_foundation_representatives_1ns_20261006/Foundation-medium-mpa-0/segment_from_000605000.extxyz",
+        "/scratch16/pclancy3/yi/mace_foundation_representatives_1ns_20261006/Foundation-medium-mpa-0/segment_from_000990000.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/Foundation_MPA0.extxyz",
+      "sample_bytes": 32356136,
+      "sample_sha256": "f338bd741dda0d05ee954ad404cda19f67a631406d7bbc71e78bdd66bc97eeda"
+    },
+    {
+      "model_id": "Foundation_OMAT0",
+      "family": "Foundation",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/mace_foundation_omat_true_1ns_20261013/Foundation-OMAT-zero-shot/segment_from_000220000.extxyz",
+        "/scratch16/pclancy3/yi/mace_foundation_omat_true_1ns_20261013/Foundation-OMAT-zero-shot/retry_01/segment_from_000605000.extxyz",
+        "/scratch16/pclancy3/yi/mace_foundation_omat_true_1ns_20261013/Foundation-OMAT-zero-shot/retry_01/segment_from_000610400.extxyz",
+        "/scratch16/pclancy3/yi/mace_foundation_omat_true_1ns_20261013/Foundation-OMAT-zero-shot/retry_01/segment_from_000610800.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/Foundation_OMAT0.extxyz",
+      "sample_bytes": 32356115,
+      "sample_sha256": "b987061634bebb5cddfd9b9cfc79ebf5af41da158a583445109df59ac005a4d1"
+    },
+    {
+      "model_id": "Scratch600K_Lmax1_seed123",
+      "family": "Scratch-600K",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/scratch_lmax1_g1_md_20261025_r01/smoke/scratch_600k_lmax1_grouped_repair_r01_seed123/segment_smoke20ps.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/Scratch600K_Lmax1_seed123.extxyz",
+      "sample_bytes": 7688045,
+      "sample_sha256": "5ee7b254c0bcd05aa4152edc0481f38b443e983b2cfaf89af7cfa70eb856bdb5"
+    },
+    {
+      "model_id": "Scratch600K_Lmax1_seed234",
+      "family": "Scratch-600K",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/scratch_lmax1_g1_md_20261025_r01/smoke/scratch_600k_lmax1_grouped_repair_r01_seed234/segment_smoke20ps.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/Scratch600K_Lmax1_seed234.extxyz",
+      "sample_bytes": 1922019,
+      "sample_sha256": "53f82e14405cb75d7316c0e64867f687bd22eb5267561623a1bed7efcec9b8a4"
+    },
+    {
+      "model_id": "Scratch600K_Lmax1_seed345",
+      "family": "Scratch-600K",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/scratch_lmax1_g1_md_20261025_r01/smoke/scratch_600k_lmax1_grouped_repair_r01_seed345/segment_smoke20ps.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/Scratch600K_Lmax1_seed345.extxyz",
+      "sample_bytes": 1281345,
+      "sample_sha256": "2f7257605d5164cd08100ecec476116b40da07c683cbbad7882eaf21986833a8"
+    },
+    {
+      "model_id": "ScratchMultiT_Lmax1_seed123",
+      "family": "Scratch-MultiT",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/scratch_lmax1_g1_md_20261025_r01/smoke/scratch_multit_lmax1_grouped_repair_r01_seed123/segment_smoke20ps.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/ScratchMultiT_Lmax1_seed123.extxyz",
+      "sample_bytes": 2562690,
+      "sample_sha256": "b1068f99e244db71e0e76ead101df310f8176bba904c1688d8ba169c6e6cf6d1"
+    },
+    {
+      "model_id": "ScratchMultiT_Lmax1_seed234",
+      "family": "Scratch-MultiT",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/scratch_lmax1_g1_md_20261025_r01/smoke/scratch_multit_lmax1_grouped_repair_r01_seed234/segment_smoke20ps.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/ScratchMultiT_Lmax1_seed234.extxyz",
+      "sample_bytes": 1281341,
+      "sample_sha256": "5f751ae7c951f3f9fed932bed3d74a02119c1ebabfceaa11a275b31c49cc36ef"
+    },
+    {
+      "model_id": "ScratchMultiT_Lmax1_seed345",
+      "family": "Scratch-MultiT",
+      "remote_paths": [
+        "/scratch16/pclancy3/yi/scratch_lmax1_g1_md_20261025_r01/smoke/scratch_multit_lmax1_grouped_repair_r01_seed345/segment_smoke20ps.extxyz"
+      ],
+      "sample_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/trajectory_samples/ScratchMultiT_Lmax1_seed345.extxyz",
+      "sample_bytes": 1281329,
+      "sample_sha256": "f67f35461f89a0eea203a999c599ef99209a7c7588e1ecc4f248d7e8a5c2cd1d"
+    }
+  ],
+  "feature_summary": {
+    "shape": [
+      927,
+      6192
+    ],
+    "feature_sha256": "5aab89df1258a5093c170017b69af949faa46d4d72c5f8d3ceebce9e006e8a6b",
+    "model_order": [
+      "FT600K_A2_seed123",
+      "FT600K_A2_seed234",
+      "FT600K_A2_seed345",
+      "FTMultiT_A2_seed123",
+      "FTMultiT_A2_seed234",
+      "FTMultiT_A2_seed345",
+      "Foundation_MP0b3",
+      "Foundation_MPA0",
+      "Foundation_OMAT0",
+      "Scratch600K_Lmax1_seed123",
+      "Scratch600K_Lmax1_seed234",
+      "Scratch600K_Lmax1_seed345",
+      "ScratchMultiT_Lmax1_seed123",
+      "ScratchMultiT_Lmax1_seed234",
+      "ScratchMultiT_Lmax1_seed345"
+    ],
+    "rows": [
+      {
+        "model_id": "FT600K_A2_seed123",
+        "family": "FT-600K",
+        "n_frames": 82,
+        "n_features": 6192,
+        "sample_sha256": "119986803b65c27c16915c1690226dbab8ab3cf3149fbd5a34250a79a8217e11",
+        "feature_energy_min": -4491407.72692089,
+        "feature_energy_max": -4489959.212214975
+      },
+      {
+        "model_id": "FT600K_A2_seed234",
+        "family": "FT-600K",
+        "n_frames": 101,
+        "n_features": 6192,
+        "sample_sha256": "e5c3b7ac8e8371ee03bf29be31351621f1fe3350f12eec96af9713b62b12d9d9",
+        "feature_energy_min": -4491412.505343314,
+        "feature_energy_max": -4491366.678563832
+      },
+      {
+        "model_id": "FT600K_A2_seed345",
+        "family": "FT-600K",
+        "n_frames": 101,
+        "n_features": 6192,
+        "sample_sha256": "6c6234d9045fa664bb91b81c57900471ddaa736865c27c9c114f0f2e94f001d9",
+        "feature_energy_min": -4491374.073373764,
+        "feature_energy_max": -4491009.45459929
+      },
+      {
+        "model_id": "FTMultiT_A2_seed123",
+        "family": "FT-MultiT",
+        "n_frames": 88,
+        "n_features": 6192,
+        "sample_sha256": "10cf80e04e6b86284fae1321cab0b19add116534ef1a010c1d61c02904ec683a",
+        "feature_energy_min": -4491380.440264103,
+        "feature_energy_max": -4491330.746712522
+      },
+      {
+        "model_id": "FTMultiT_A2_seed234",
+        "family": "FT-MultiT",
+        "n_frames": 101,
+        "n_features": 6192,
+        "sample_sha256": "f4fcb65bae67e0d80124089ba55210d568cd96bc179df1aac1c0228bbf51c50b",
+        "feature_energy_min": -4491349.178017717,
+        "feature_energy_max": -4490922.486047431
+      },
+      {
+        "model_id": "FTMultiT_A2_seed345",
+        "family": "FT-MultiT",
+        "n_frames": 101,
+        "n_features": 6192,
+        "sample_sha256": "d3ce9be76c3a895c16955b0397b21e38cc0a99de2a7eb1078f8abc87902a8fea",
+        "feature_energy_min": -4491347.381488659,
+        "feature_energy_max": -4490897.819156623
+      },
+      {
+        "model_id": "Foundation_MP0b3",
+        "family": "Foundation",
+        "n_frames": 101,
+        "n_features": 6192,
+        "sample_sha256": "9750c3334b91a1c9e583e6bae675c4598e524dca4c225481007e001c5e9cc6ad",
+        "feature_energy_min": -7564.868495289285,
+        "feature_energy_max": -7449.995227592718
+      },
+      {
+        "model_id": "Foundation_MPA0",
+        "family": "Foundation",
+        "n_frames": 101,
+        "n_features": 6192,
+        "sample_sha256": "f338bd741dda0d05ee954ad404cda19f67a631406d7bbc71e78bdd66bc97eeda",
+        "feature_energy_min": -7575.22850800456,
+        "feature_energy_max": -7547.365310534304
+      },
+      {
+        "model_id": "Foundation_OMAT0",
+        "family": "Foundation",
+        "n_frames": 101,
+        "n_features": 6192,
+        "sample_sha256": "b987061634bebb5cddfd9b9cfc79ebf5af41da158a583445109df59ac005a4d1",
+        "feature_energy_min": -7558.280830713182,
+        "feature_energy_max": -7538.049710669781
+      },
+      {
+        "model_id": "Scratch600K_Lmax1_seed123",
+        "family": "Scratch-600K",
+        "n_frames": 24,
+        "n_features": 6192,
+        "sample_sha256": "5ee7b254c0bcd05aa4152edc0481f38b443e983b2cfaf89af7cfa70eb856bdb5",
+        "feature_energy_min": -4491515.6178579405,
+        "feature_energy_max": -4491029.143860257
+      },
+      {
+        "model_id": "Scratch600K_Lmax1_seed234",
+        "family": "Scratch-600K",
+        "n_frames": 6,
+        "n_features": 6192,
+        "sample_sha256": "53f82e14405cb75d7316c0e64867f687bd22eb5267561623a1bed7efcec9b8a4",
+        "feature_energy_min": -4491406.245985148,
+        "feature_energy_max": -4490703.442221405
+      },
+      {
+        "model_id": "Scratch600K_Lmax1_seed345",
+        "family": "Scratch-600K",
+        "n_frames": 4,
+        "n_features": 6192,
+        "sample_sha256": "2f7257605d5164cd08100ecec476116b40da07c683cbbad7882eaf21986833a8",
+        "feature_energy_min": -4491403.607932536,
+        "feature_energy_max": -4491200.231403581
+      },
+      {
+        "model_id": "ScratchMultiT_Lmax1_seed123",
+        "family": "Scratch-MultiT",
+        "n_frames": 8,
+        "n_features": 6192,
+        "sample_sha256": "b1068f99e244db71e0e76ead101df310f8176bba904c1688d8ba169c6e6cf6d1",
+        "feature_energy_min": -4491353.943421301,
+        "feature_energy_max": -4491255.351964915
+      },
+      {
+        "model_id": "ScratchMultiT_Lmax1_seed234",
+        "family": "Scratch-MultiT",
+        "n_frames": 4,
+        "n_features": 6192,
+        "sample_sha256": "5f751ae7c951f3f9fed932bed3d74a02119c1ebabfceaa11a275b31c49cc36ef",
+        "feature_energy_min": -4491751.7014061175,
+        "feature_energy_max": -4491333.575617456
+      },
+      {
+        "model_id": "ScratchMultiT_Lmax1_seed345",
+        "family": "Scratch-MultiT",
+        "n_frames": 4,
+        "n_features": 6192,
+        "sample_sha256": "f67f35461f89a0eea203a999c599ef99209a7c7588e1ecc4f248d7e8a5c2cd1d",
+        "feature_energy_min": -4491357.469480892,
+        "feature_energy_max": -4491221.097909166
+      }
+    ]
+  }
+}

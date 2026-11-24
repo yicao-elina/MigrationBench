@@ -1,0 +1,92 @@
+{
+  "freeze_id": "foundation_interlayer_sliding_2x2_20261024_R02",
+  "freeze_date": "2026-10-24",
+  "status": "FROZEN_BEFORE_PRODUCTION_SUBMISSION",
+  "supersedes": "ACCEPTANCE_FREEZE_R01.json",
+  "campaign_id": "foundation_interlayer_sliding_2x2_20261024",
+  "scope": {
+    "systems": ["bulk", "cr_in_gap"],
+    "models": ["MACE-MP-0b3-medium", "MACE-OMAT-0-medium", "MACE-MPA-0-medium"],
+    "observables": ["FIXED_PATH_SINGLE_POINT", "SELF_RELAXED_ENDPOINT_ONLY_NEB"],
+    "expected_primary_rows": 12,
+    "images_per_row": 10,
+    "excluded": [
+      "legacy Fig. 4 Foundation checkpoint dc41a989…",
+      "fine-tuned checkpoints",
+      "scratch and multihead checkpoints",
+      "top-level 3.neb/2.2-layer-dislocation/{1.bulk,2.cr-in-gap}",
+      "foundation_self_relaxed_4x3_20261024 campaign",
+      "any 4x3 or 9-model campaign"
+    ]
+  },
+  "inputs": {
+    "rockfish_root": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/",
+    "dft_relative_root": "3.neb/2.2-layer-dislocation/b-path2",
+    "mace_recovery_relative_root": "3.fine-tuning/2-layer/neb_benchmark/data/2L-dislocation",
+    "dft_status": "COMPLETED_BUT_SCF_WARNING",
+    "dft_is_ground_truth": false,
+    "top_level_path_allowed": false,
+    "source_frames": "sb2te3.xyz, exactly 10 frames in stored order",
+    "dft_profile": "combined_sb2te3_energy.csv, raw values retained",
+    "reference_pdf_relink": "references/foundation_model_class_3x3_R03.pdf"
+  },
+  "fixed_protocol": {
+    "script": "mace_neb_1-calc.py parameterized copy of recovered native MACE evaluator",
+    "geometry": "all 10 recovered b-path2 frames",
+    "normalization": "subtract image 0 predicted energy",
+    "plot_x": "image_fraction = image_index/(N-1), exactly 10 points from 0 to 1; raw QE Reaction_Coord retained but not used to interpolate model traces",
+    "status_gate": [
+      "model loads",
+      "10 ordered finite predictions",
+      "expected atom count",
+      "input/model/script hashes recorded"
+    ]
+  },
+  "self_protocol": {
+    "engine": "validated ASE/MACE endpoint-only NEB engine with production-role assertions",
+    "initialization": "IDPP interpolation from b-path2 endpoint 0 to endpoint 9",
+    "images": 10,
+    "production_role_assertions": ["no --images input", "initial/final endpoints required", "n_images=10", "IDPP", "climb=false", "steps=500", "fmax=0.05 eV/A", "spring_k=0.1"],
+    "endpoints_fixed": true,
+    "optimizer": "FIRE",
+    "fmax_eV_per_A": 0.05,
+    "steps": 500,
+    "spring_k": 0.1,
+    "climb": false,
+    "seed": 42,
+    "status_gate": [
+      "10 finite final images",
+      "finite energies and forces",
+      "fixed endpoints retained",
+      "engine reports convergence",
+      "final internal NEB residual <= 0.05 eV/A"
+    ]
+  },
+  "provenance_gate": {
+    "required": ["input_sha256", "model_sha256_observed", "model_sha256_registry", "model_registry_sha256", "runner_sha256", "wrapper_sha256", "job_table_sha256", "environment", "job_id", "output_sha256"],
+    "scheduler_completion_is_scientific_success": false,
+    "fixed_self_pooling_allowed": false
+  },
+  "figure": {
+    "layout": "2 rows x 2 columns",
+    "rows": ["FIXED_PATH_SINGLE_POINT", "SELF_RELAXED_ENDPOINT_ONLY_NEB"],
+    "columns": ["bulk", "cr_in_gap"],
+    "formats": ["pdf", "svg", "png"],
+    "palette": {
+      "MACE-MP-0b3-medium": "#d5a238",
+      "MACE-OMAT-0-medium": "#d85a45",
+      "MACE-MPA-0-medium": "#5d8b56"
+    },
+    "x_label": "normalized image coordinate (0 → 1)",
+    "qe_fixed_label": "QE b-path2 retained reference (SCF-warning)",
+    "qe_self_label": "QE retained path (context only)",
+    "accepted_only_if": ["12/12 scientific rows pass", "independent post-run data review PASS", "independent post-run visual review PASS"]
+  },
+  "review_policy": {
+    "pre_run_data_review": "required",
+    "pre_run_visual_review": "required",
+    "post_run_data_review": "required",
+    "post_run_visual_review": "required",
+    "review_agents_may_edit_results": false
+  }
+}

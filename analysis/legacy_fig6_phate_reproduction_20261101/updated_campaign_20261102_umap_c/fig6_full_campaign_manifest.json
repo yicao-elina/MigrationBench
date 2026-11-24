@@ -1,0 +1,216 @@
+{
+  "artifact": "Figure 6 full-campaign representation analysis (C=UMAP)",
+  "status": "RECONSTRUCTION",
+  "claim_scope": "current 15-model MD matrix; representation geometry reconstructed from sampled raw trajectories",
+  "model_order": [
+    "Foundation_MPA0",
+    "Foundation_MP0b3",
+    "Foundation_OMAT0",
+    "FT600K_A2_seed123",
+    "FT600K_A2_seed234",
+    "FT600K_A2_seed345",
+    "FTMultiT_A2_seed123",
+    "FTMultiT_A2_seed234",
+    "FTMultiT_A2_seed345",
+    "Scratch600K_Lmax1_seed123",
+    "Scratch600K_Lmax1_seed234",
+    "Scratch600K_Lmax1_seed345",
+    "ScratchMultiT_Lmax1_seed123",
+    "ScratchMultiT_Lmax1_seed234",
+    "ScratchMultiT_Lmax1_seed345"
+  ],
+  "model_matrix": "3 Foundation checkpoints + 3 seeds x FT-600K + 3 seeds x FT-MultiT + 3 seeds x Scratch-600K + 3 seeds x Scratch-MultiT",
+  "data_audit": {
+    "n_rows": 927,
+    "n_features": 6192,
+    "rows_by_model": {
+      "Foundation_MPA0": 101,
+      "Foundation_MP0b3": 101,
+      "Foundation_OMAT0": 101,
+      "FT600K_A2_seed123": 82,
+      "FT600K_A2_seed234": 101,
+      "FT600K_A2_seed345": 101,
+      "FTMultiT_A2_seed123": 88,
+      "FTMultiT_A2_seed234": 101,
+      "FTMultiT_A2_seed345": 101,
+      "Scratch600K_Lmax1_seed123": 24,
+      "Scratch600K_Lmax1_seed234": 6,
+      "Scratch600K_Lmax1_seed345": 4,
+      "ScratchMultiT_Lmax1_seed123": 8,
+      "ScratchMultiT_Lmax1_seed234": 4,
+      "ScratchMultiT_Lmax1_seed345": 4
+    },
+    "finite_features": true
+  },
+  "embedding": {
+    "tsne": {
+      "perplexity": 30,
+      "random_state": 42,
+      "max_iter": 1000
+    },
+    "phate": {
+      "random_state": 42,
+      "n_jobs": -1
+    },
+    "umap_panel_c": {
+      "n_neighbors": 15,
+      "min_dist": 0.1,
+      "metric": "euclidean",
+      "random_state": 42,
+      "transform_seed": 42,
+      "n_jobs": 1
+    },
+    "overall_tsne_silhouette": 0.11731527745723724,
+    "model_tsne_silhouette": {
+      "Foundation_MPA0": 0.32669875025749207,
+      "Foundation_MP0b3": 0.8016876578330994,
+      "Foundation_OMAT0": 0.4137350022792816,
+      "FT600K_A2_seed123": -0.22300393879413605,
+      "FT600K_A2_seed234": 0.15613868832588196,
+      "FT600K_A2_seed345": -0.1021561399102211,
+      "FTMultiT_A2_seed123": 0.014296860434114933,
+      "FTMultiT_A2_seed234": -0.17207279801368713,
+      "FTMultiT_A2_seed345": -0.07624319940805435,
+      "Scratch600K_Lmax1_seed123": -0.031256239861249924,
+      "Scratch600K_Lmax1_seed234": -0.4392835199832916,
+      "Scratch600K_Lmax1_seed345": -0.3566647171974182,
+      "ScratchMultiT_Lmax1_seed123": -0.3361547887325287,
+      "ScratchMultiT_Lmax1_seed234": -0.3837363123893738,
+      "ScratchMultiT_Lmax1_seed345": -0.32761049270629883
+    }
+  },
+  "style": {
+    "contract": "scientific-plot-atlas",
+    "font_requested": "Arial",
+    "font_selected": "Arial",
+    "strategy_colors": {
+      "Foundation": "#8FC7AB",
+      "Fine-tuning": "#29A7B6",
+      "Scratch": "#327FB1",
+      "DFT": "#303840"
+    },
+    "foundation_checkpoint_colors": {
+      "Foundation_MPA0": "#8FC7AB",
+      "Foundation_MP0b3": "#2F6B4F",
+      "Foundation_OMAT0": "#5F9E73"
+    },
+    "temperature_encoding": "open = 600 K; filled = Multi-T",
+    "seed_encoding": "circle = 123; triangle = 234; square = 345",
+    "foundation_encoding": "diamond marker; same-hue mint shades by checkpoint",
+    "energy_encoding": "monotonic light-blue to deep-blue gradient; 600 K points remain open"
+  },
+  "source_artifacts": {
+    "preparation_manifest": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/preparation_manifest.json",
+      "sha256": "9a4f12a65b6ea1bd691284caddf64b350cd8f302f9ac70a85349fbe871dc4142"
+    },
+    "features": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102/source/fig6_full_campaign_features.npz",
+      "sha256": "5aab89df1258a5093c170017b69af949faa46d4d72c5f8d3ceebce9e006e8a6b"
+    },
+    "campaign_sources": [
+      {
+        "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/FIGURE_MANIFEST_15MODELS_R04.json",
+        "sha256": "d02ebd43388bd58ee2aa921f9b812ee1dbaccc66963d290f855c132593767cb4"
+      },
+      {
+        "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/MD15_FIGURE_DATA_R04.tsv",
+        "sha256": "c219a7153b4e5148c90de26479d80bfb3f7ab74a9b0c05c2017578dc515d0395"
+      },
+      {
+        "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/remote_evidence_R02/MODEL_REGISTRY.tsv",
+        "sha256": "224deb78bb6e88611e1d3de12327cb999f36610794fbb23077f78f280d69b6aa"
+      },
+      {
+        "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/remote_evidence_R02/FT_MODEL_REGISTRY.tsv",
+        "sha256": "224deb78bb6e88611e1d3de12327cb999f36610794fbb23077f78f280d69b6aa"
+      },
+      {
+        "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/remote_evidence_R02/SCRATCH_MODEL_REGISTRY.tsv",
+        "sha256": "b587125cd76aba0cf4a68442eb82be31cd59840d80a77365d71f10f5bca2d901"
+      }
+    ]
+  },
+  "diagnostics": [
+    "PHATE reported three disconnected components with its historical default knn=5; this is retained as a reconstruction diagnostic.",
+    "Panel B uses PHATE for global structure and Panel C uses UMAP for an independent two-dimensional view colored by potential energy.",
+    "The six Scratch trajectories are short failure-bounded runs; their actual sampled frame counts are retained and no 1 ns continuation is inferred."
+  ],
+  "outputs": {
+    "main_png": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_umap_c_full_campaign_15models_1x4.png",
+      "bytes": 595770,
+      "sha256": "8c09b6fd726477b1050fdc316b6e75294de6cc485234e57591f279d8d9738c82"
+    },
+    "main_pdf": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_umap_c_full_campaign_15models_1x4.pdf",
+      "bytes": 105869,
+      "sha256": "ed6baee885604cb983d3927e6ce35d5fd27ef4654fcc4c51435844d587d1a431"
+    },
+    "main_svg": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_umap_c_full_campaign_15models_1x4.svg",
+      "bytes": 569904,
+      "sha256": "df383a1d93ecfab2fb379bb59569aab20c258bd44a080ed88853026a00f4dd73"
+    },
+    "panel_a_tsne_png": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_a_tsne_full_campaign.png",
+      "bytes": 273068,
+      "sha256": "46a7188e952a97a60b8175e36e2ddbd12fd8265e8cce65f178323a5c7bd26beb"
+    },
+    "panel_a_tsne_pdf": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_a_tsne_full_campaign.pdf",
+      "bytes": 56885,
+      "sha256": "feecd3dd96184bba364bc5f79b8536b039813843c1f78fa58766ebd2563c603b"
+    },
+    "panel_a_tsne_svg": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_a_tsne_full_campaign.svg",
+      "bytes": 177495,
+      "sha256": "d563b1f011e2d84740c887981cc809cc0c21e58c012afec9bc1c06be93ebb3f6"
+    },
+    "panel_b_phate_png": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_b_phate_full_campaign.png",
+      "bytes": 178873,
+      "sha256": "d01870e5b7e488e84a1f8103b8de587070800fbb03b551752fc493d9d8cb8ded"
+    },
+    "panel_b_phate_pdf": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_b_phate_full_campaign.pdf",
+      "bytes": 55695,
+      "sha256": "eb4cf257595e429f91f3b5d91bafa25de0e49c838fe049c54abe374c577615ca"
+    },
+    "panel_b_phate_svg": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_b_phate_full_campaign.svg",
+      "bytes": 177256,
+      "sha256": "2ee6980ea4f6fdb9fa854dcb4d212c84bf4191e3a010b37edd88eb543d5f32db"
+    },
+    "panel_c_umap_energy_png": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_c_umap_energy_full_campaign.png",
+      "bytes": 166449,
+      "sha256": "ff1ac812704ab65dba1c9c56cf337a40d99e350806963cd5032c29b2257f88c2"
+    },
+    "panel_c_umap_energy_pdf": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_c_umap_energy_full_campaign.pdf",
+      "bytes": 57105,
+      "sha256": "b763b5c9731c0686eaba8af99237bbe5171594d6257cfe99d56c7bf09a72ac9a"
+    },
+    "panel_c_umap_energy_svg": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_c_umap_energy_full_campaign.svg",
+      "bytes": 218800,
+      "sha256": "b21e6c1166c125e85cc0664a0c27b885f67fa787f3e5db8ec86d178e70e50d61"
+    },
+    "panel_d_silhouette_png": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_d_silhouette_full_campaign.png",
+      "bytes": 89142,
+      "sha256": "744955f162e5a06c0bd43a162bdd226580c5f547b5aa49d059c220a40508c241"
+    },
+    "panel_d_silhouette_pdf": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_d_silhouette_full_campaign.pdf",
+      "bytes": 20305,
+      "sha256": "c933b1d7a9c237c552525a0904098ad77c4fcb8bb13642cc8d5619bd1dd59847"
+    },
+    "panel_d_silhouette_svg": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/legacy_fig6_phate_reproduction_20261101/updated_campaign_20261102_umap_c/figures/fig6_panel_d_silhouette_full_campaign.svg",
+      "bytes": 19060,
+      "sha256": "c072018dc74c682bbd2c1692672f1842a4c38016a92dc2617a904002f845781f"
+    }
+  }
+}

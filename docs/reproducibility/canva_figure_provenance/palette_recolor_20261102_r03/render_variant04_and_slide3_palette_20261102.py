@@ -13,8 +13,10 @@ visual encoding is changed here:
 
 from __future__ import annotations
 
+import argparse
 import hashlib
 import json
+import os
 import sys
 from copy import copy
 from pathlib import Path
@@ -33,11 +35,12 @@ from matplotlib.offsetbox import AnchoredOffsetbox, HPacker, TextArea
 
 
 R03_ROOT = Path(__file__).resolve().parent
-OUTPUT_DIR = R03_ROOT / "figures"
-SOURCE_SCRIPTS = Path(
-    "/Users/alina/.codex/worktrees/paper-figures-repro-release/"
-    "docs/reproducibility/canva_figure_provenance/scripts"
-)
+REPO_ROOT = R03_ROOT.parents[3]
+# Default output root is this folder (figures/ + manifest); override with --out-root or
+# $FIG2_PALETTE_OUT_ROOT so reproduction runs never overwrite the committed outputs.
+OUT_ROOT_ENV = "FIG2_PALETTE_OUT_ROOT"
+# The source builders live next to this folder in the repository.
+SOURCE_SCRIPTS = R03_ROOT.parent / "scripts"
 sys.path.insert(0, str(SOURCE_SCRIPTS))
 
 import _figure02_latest_layout as v12  # noqa: E402
@@ -93,10 +96,30 @@ FAMILY_TEMPERATURE = {
 # horizontal lines = 123, forward slashes = 234, backslashes = 345.
 SEED_HATCH = {"123": "---", "234": "///", "345": "\\\\\\"}
 
-INPUT_PDFS = [
-    Path("/Users/alina/Downloads/variant04_temperature_plus_scratch_ft_shared_legend_square (1).pdf"),
-    Path("/Users/alina/Downloads/slide3_energy_force_train_test_separated (1).pdf"),
-]
+# The two supplied PDFs are hashed for lineage only (they are not read as data).
+# $FIG2_LINEAGE_INPUT_PDFS (os.pathsep-separated paths) overrides the repository copies.
+LINEAGE_PDFS_ENV = "FIG2_LINEAGE_INPUT_PDFS"
+REPO_INPUT_PDFS = (
+    "release/revision1_submitted_20261110/items/main/Fig2_parity/upstream/"
+    "variant04_temperature_plus_scratch_ft_shared_legend_square.pdf",
+    "docs/reproducibility/canva_figure_provenance/R04_slide3_energy_force_train_test_separated_v5/figures/"
+    "slide3_energy_force_train_test_separated.pdf",
+)
+
+
+def lineage_input_pdfs() -> list[Path]:
+    override = os.environ.get(LINEAGE_PDFS_ENV)
+    if override:
+        return [Path(item).expanduser() for item in override.split(os.pathsep) if item]
+    return [REPO_ROOT / item for item in REPO_INPUT_PDFS]
+
+
+def display_path(path: Path) -> str:
+    """Repository-relative path when possible, so manifests carry no user-local paths."""
+    try:
+        return path.resolve().relative_to(REPO_ROOT).as_posix()
+    except ValueError:
+        return str(path)
 
 
 def sha256(path: Path) -> str:
@@ -480,7 +503,7 @@ def suppressed_slide3_top_title(self, x, y, s, *args, **kwargs):
     return _FIGURE_TEXT(self, x, y, s, *args, **kwargs)
 
 
-def render_variant04() -> dict[str, str]:
+def render_variant04(output_dir: Path) -> dict[str, str]:
     v9._house_style()
     mpl.rcParams.update({"hatch.linewidth": 1.85})
     v9.base.FRAME_ROOT = v9.FRAME_ROOT
@@ -517,8 +540,8 @@ def render_variant04() -> dict[str, str]:
     )
     fig.subplots_adjust(left=0.075, right=0.99, bottom=0.115, top=0.84)
     stem = "variant04_temperature_plus_scratch_ft_shared_legend_square_palette_updated"
-    paths = {ext: OUTPUT_DIR / f"{stem}.{ext}" for ext in ("png", "pdf", "svg")}
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
+    paths = {ext: output_dir / f"{stem}.{ext}" for ext in ("png", "pdf", "svg")}
+    output_dir.mkdir(parents=True, exist_ok=True)
     fig.savefig(paths["png"], dpi=300, bbox_inches="tight", facecolor="white")
     fig.savefig(paths["pdf"], bbox_inches="tight", facecolor="white")
     fig.savefig(paths["svg"], bbox_inches="tight", facecolor="white")
@@ -526,7 +549,7 @@ def render_variant04() -> dict[str, str]:
     return {key: str(path) for key, path in paths.items()}
 
 
-def render_slide3() -> tuple[dict[str, str], dict[str, object]]:
+def render_slide3(out_root: Path) -> tuple[dict[str, str], dict[str, object]]:
     """Render the existing 4x4 parity grid with unified blue density encoding."""
     for mapping in (slide3.base.COLORS, slide3.energy_source.COLORS, slide3.COLORS):
         mapping.clear()
@@ -555,7 +578,7 @@ def render_slide3() -> tuple[dict[str, str], dict[str, object]]:
     Figure.text = suppressed_slide3_top_title
     try:
         panels, counts, stats = slide3.load_panels()
-        outputs, extents, norms, visible_counts = slide3.render(panels, counts, stats, out_root=R03_ROOT)
+        outputs, extents, norms, visible_counts = slide3.render(panels, counts, stats, out_root=out_root)
     finally:
         for name, value in original_typography.items():
             setattr(slide3, name, value)
@@ -568,7 +591,7 @@ def render_slide3() -> tuple[dict[str, str], dict[str, object]]:
     stem = "slide3_energy_force_train_test_separated_palette_updated"
     for extension, old_path in outputs.items():
         source = Path(old_path)
-        target = OUTPUT_DIR / f"{stem}.{extension}"
+        target = out_root / "figures" / f"{stem}.{extension}"
         source.replace(target)
         renamed[extension] = str(target)
     return renamed, {
@@ -579,10 +602,23 @@ def render_slide3() -> tuple[dict[str, str], dict[str, object]]:
     }
 
 
+def parse_out_root() -> Path:
+    parser = argparse.ArgumentParser(description=__doc__.splitlines()[0])
+    parser.add_argument("--out-root", type=Path, default=None,
+                        help=f"folder for figures/ and the manifest (default: ${OUT_ROOT_ENV} or this folder)")
+    args = parser.parse_args()
+    if args.out_root is not None:
+        return args.out_root.resolve()
+    override = os.environ.get(OUT_ROOT_ENV)
+    return Path(override).expanduser().resolve() if override else R03_ROOT
+
+
 def main() -> None:
-    OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
-    variant_outputs = render_variant04()
-    slide_outputs, slide_metadata = render_slide3()
+    out_root = parse_out_root()
+    output_dir = out_root / "figures"
+    output_dir.mkdir(parents=True, exist_ok=True)
+    variant_outputs = render_variant04(output_dir)
+    slide_outputs, slide_metadata = render_slide3(out_root)
     source_scripts = [
         SOURCE_SCRIPTS / "_figure02_latest_seed.py",
         SOURCE_SCRIPTS / "_figure02_latest_layout.py",
@@ -595,8 +631,8 @@ def main() -> None:
     manifest = {
         "render_revision": "palette_recolor_20261102_r03",
         "status": "RECONSTRUCTION",
-        "input_pdfs": {str(path): sha256(path) for path in INPUT_PDFS if path.exists()},
-        "source_scripts": {str(path): sha256(path) for path in source_scripts if path.exists()},
+        "input_pdfs": {display_path(path): sha256(path) for path in lineage_input_pdfs() if path.exists()},
+        "source_scripts": {display_path(path): sha256(path) for path in source_scripts if path.exists()},
         "palette": PALETTE,
         "family_mapping": FAMILY_COLORS,
         "semantic_encoding": {
@@ -613,11 +649,11 @@ def main() -> None:
             "outline_style": "all figure/panel borders and model-specific box lines use a darker version of the corresponding strategy color rather than pure black",
             "overview_box_lines": "right-side Energy/Force box borders, whiskers, caps, medians, and mean/error markers use darkened strategy colors with mean/error linewidth=2.4; overview points retain strategy colors",
         },
-        "outputs": outputs,
+        "outputs": {key: display_path(Path(value)) for key, value in outputs.items()},
         "output_hashes": {key: sha256(Path(value)) for key, value in outputs.items()},
         "slide3_metadata": slide_metadata,
     }
-    manifest_path = R03_ROOT / "PALETTE_RECOLOR_R03_MANIFEST.json"
+    manifest_path = out_root / "PALETTE_RECOLOR_R03_MANIFEST.json"
     manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps({"outputs": outputs, "manifest": str(manifest_path)}, indent=2, ensure_ascii=False))
 

@@ -1,0 +1,11 @@
+gate_id,scope,required_check,acceptance_rule,why_it_matters
+Q1,all,source_access,source path readable and exact path recorded,prevents unverifiable provenance
+Q2,all,file_identity,SHA256 recorded for every retained processed artifact,detects drift and accidental mixing
+Q3,DFT,SCF_or_relax_completion,explicit converged/finished marker and no fatal error,Slurm completion alone is insufficient
+Q4,DFT,structure_identity,formula/cell/PBC/dopant/site parsed and cross-checked against input,prevents wrong-system claims
+Q5,NEB,image_integrity,ordered images and consistent atom identity/PBC,prevents malformed paths
+Q6,NEB,energy_force_finiteness,all retained energies/forces finite and units normalized,required for barrier interpretation
+Q7,NEB,convergence,force/energy/path convergence threshold explicitly extracted,distinguishes result from intermediate output
+Q8,all,method_metadata,functional/SOC/D3/cutoff/kpoints/pseudopotentials parsed or marked unknown,controls fair comparison
+Q9,all,duplicate_detection,content hash plus system/method key checked,prevents duplicate counting
+Q10,paper_claim,claim_mapping,linked to figure/table/reviewer item and evidence bundle,prevents unsupported manuscript text

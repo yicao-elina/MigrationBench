@@ -1,0 +1,35 @@
+&CONTROL
+  calculation = 'scf'
+  prefix = 'mb_phase3_qe_smoke'
+  outdir = './out'
+  pseudo_dir = '/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE'
+  verbosity = 'high'
+  tprnfor = .true.
+/
+&SYSTEM
+  ibrav = 0
+  nat = 2
+  ntyp = 2
+  ecutwfc = 30
+  ecutrho = 120
+  occupations = 'smearing'
+  smearing = 'cold'
+  degauss = 0.02
+  nspin = 2
+  starting_magnetization(1) = 0.5
+/
+&ELECTRONS
+  conv_thr = 1.0d-8
+  electron_maxstep = 100
+/
+ATOMIC_SPECIES
+  Cr 51.99610 Cr_PBE_FR.SG15v1.2.UPF
+  Te 127.60000 Te_PBE_FR.SG15v1.2.UPF
+CELL_PARAMETERS angstrom
+  8.0 0.0 0.0
+  0.0 8.0 0.0
+  0.0 0.0 12.0
+ATOMIC_POSITIONS angstrom
+  Cr 2.0 2.0 5.0
+  Te 2.0 2.0 8.0
+K_POINTS gamma

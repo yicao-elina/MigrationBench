@@ -1,0 +1,39 @@
+{
+  "campaign_id": "canonical_model_matrix_20261016",
+  "submitted_at_local": "2026-10-16T08:59:59-07:00",
+  "host": "rockfish",
+  "job_id": "32074582",
+  "array": "32074582_[0-2%3]",
+  "state_at_submission_check": "PENDING",
+  "reason_at_submission_check": "None",
+  "script_sha256": "d20917539e57835046d1173ac46b8b87996422d19f2f4bc230ebc7cb11fe9b97",
+  "remote_script": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/submit_from_scratch_all_data_v1_protocolaligned.slurm",
+  "remote_manifest": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/EXPERIMENT_MANIFEST.json",
+  "output_root": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/from_scratch_all_data_v1",
+  "scientific_status": "TRAINING_PENDING; no model result accepted",
+  "bootstrap_repair": {
+    "previous_failed_jobs": ["32055099_[0-1]", "32069262_[0-2]"],
+    "failure": "/data/apps/go.sh: line 69: RF_CONDA_SITE: unbound variable",
+    "repair": "initialize RF_CONDA_SITE before go.sh and source the cluster conda.sh explicitly before enabling nounset",
+    "failed_launch_scripts_preserved": true,
+    "superseded_pending_job": "32074561_[0-2]"
+  },
+  "successful_template_comparison": {
+    "reference_script": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/ablation_runs/ablation_lmax_2_seed_234/submit.slurm",
+    "reference_script_sha256": "a09c38bc4bafe468f41927b3221e4bb263e3cbcd3c0340ee3c3e6fc890eea90f",
+    "model_command_status": "MATCHED",
+    "aligned_changes": [
+      "added explicit nodes=1 and ntasks-per-node=4",
+      "added date and module-list diagnostics",
+      "kept the successful MACE argument set unchanged"
+    ],
+    "intentional_differences": [
+      "canonical grouped Multi-T data paths replace historical data/ paths",
+      "training seeds are 123/234/345 via the canonical array",
+      "canonical output/model names and absolute log paths",
+      "qos_gpu is required by the current a100 partition policy",
+      "64G requested memory accommodates the larger canonical dataset",
+      "RF_CONDA_SITE initialization and explicit conda.sh are batch bootstrap repairs"
+    ]
+  }
+}

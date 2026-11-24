@@ -1,0 +1,89 @@
+{
+  "scope": "art direction settings; actual Blender geometries must use supplied structures, not generated atom positions",
+  "colors_srgb": {
+    "Te": "#C88DB7",
+    "Sb": "#75BEC8",
+    "Cr": "#E4B44C",
+    "bonds": "#BCC3C8"
+  },
+  "base_color_linear_RGB": {
+    "Te": [
+      0.5775804404296506,
+      0.26635560480286247,
+      0.47353149614800955
+    ],
+    "Sb": [
+      0.17788841598362912,
+      0.5149176653765214,
+      0.5775804404296506
+    ],
+    "Cr": [
+      0.7758222183174236,
+      0.45641102318040466,
+      0.07227185068231748
+    ],
+    "bonds": [
+      0.5028864580325687,
+      0.5457244613701866,
+      0.5775804404296506
+    ]
+  },
+  "camera": {
+    "type": "orthographic",
+    "azimuth_deg": 18,
+    "elevation_deg": 12,
+    "roll_deg": 0,
+    "look_at": "slab center / vdW gap",
+    "same_pose_for_task_atlas": true,
+    "autoframe_margin_fraction": 0.08
+  },
+  "materials": {
+    "metallic": 0.0,
+    "roughness": 0.32,
+    "host_opacity": 1.0,
+    "ghost_opacity": 0.2,
+    "bond_radius_over_host_radius": 0.1,
+    "relative_radii": {
+      "Te": 1.0,
+      "Sb": 0.95,
+      "Cr": 0.9
+    }
+  },
+  "lighting": {
+    "large_key": "upper left; broad soft reflection",
+    "fill_over_key": 0.35,
+    "rim_over_key": 0.12,
+    "depth_of_field": false,
+    "background": "transparent RGBA",
+    "floor_plane": false
+  },
+  "color_management": {
+    "target": "sRGB",
+    "view_transform": "Standard for base-color consistency",
+    "note": "material hex is an sRGB design target; lighting changes rendered pixel values. Validate a white-background test."
+  },
+  "export": {
+    "format": "PNG RGBA",
+    "hero_pixels": [
+      3600,
+      2600
+    ],
+    "task_tile_pixels": [
+      1600,
+      1400
+    ],
+    "local_environment_pixels": [
+      1600,
+      1600
+    ],
+    "transparent_background": true,
+    "text_arrows_legend": "none; compose in vector layer"
+  },
+  "geometry_acceptance": [
+    "Te-Sb-Te-Sb-Te ordering verified against species labels",
+    "correct Cr count and site identity",
+    "periodic images unwrapped with explicit MIC convention",
+    "actual pathways from extxyz; no inferred curved arrow as MEP",
+    "images aligned to reference path hash before energy pairing"
+  ]
+}

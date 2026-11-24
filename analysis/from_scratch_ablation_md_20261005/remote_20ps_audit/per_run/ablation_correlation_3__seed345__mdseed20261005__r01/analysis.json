@@ -1,0 +1,160 @@
+{
+  "run": "/scratch16/pclancy3/yi/mace_from_scratch_ablation_MD_20261005/runs/ablation_correlation_3__seed345__mdseed20261005__r01",
+  "family": "ablation_correlation_3",
+  "training_seed": 345,
+  "md_seed": 20261005,
+  "model_sha256": "877b14ac15dcfd6f6ca9cb4df39773b77f329a078d5e76f9502d86890e45e38f",
+  "input_sha256": "bb42c493fb0c997af3957a89dfde03e3e5a67ebcfd37f5eced8f722dad546161",
+  "natoms": 2050,
+  "pbc": [
+    true,
+    true,
+    true
+  ],
+  "cell_A": [
+    [
+      85.54299859362168,
+      0.0,
+      0.0
+    ],
+    [
+      -21.345801068062194,
+      37.01821938339822,
+      0.0
+    ],
+    [
+      0.0895635195275219,
+      0.05165086255082877,
+      47.428887855240575
+    ]
+  ],
+  "status": {
+    "last_step": 2000,
+    "n_metric_frames": 11,
+    "status": "failed",
+    "stop_reason": "instability_threshold",
+    "target_step": 20000
+  },
+  "frames": 11,
+  "start_step": 0,
+  "last_step": 2000,
+  "duration_ps": 2.0,
+  "finite": true,
+  "complete_step_grid": false,
+  "temperature_K": {
+    "min": 599.8273114544454,
+    "mean": 9683437.498376034,
+    "max": 106511118.70629755
+  },
+  "potential_energy_eV": {
+    "min": -4492191.877405317,
+    "mean": -4491880.457247846,
+    "max": -4491784.381836934
+  },
+  "max_force_eV_A": {
+    "max": 2303.6689216760296,
+    "mean": 211.60879893321035
+  },
+  "msd_xy_A2": {
+    "lag_ps": [
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0,
+      1.2,
+      1.4000000000000001,
+      1.6,
+      1.8,
+      2.0
+    ],
+    "values": [
+      0.2929610932408362,
+      0.4631814584794453,
+      0.4967941060506623,
+      0.5251455296085582,
+      0.5626071823239523,
+      0.5407926148255168,
+      0.5733346561137834,
+      0.6244699276324137,
+      0.6303290483422169,
+      0.6743867222047917
+    ]
+  },
+  "dxy_screening": {
+    "n": 10,
+    "slope_A2_per_ps": 0.16254532453457562,
+    "Dxy_cm2_s": 4.063633113364391e-06,
+    "r2": 0.838613466900051
+  },
+  "blocks_5ps": [
+    {
+      "block": 1,
+      "start_ps": 0.0,
+      "end_ps": 5.0,
+      "n": 11,
+      "slope_A2_per_ps": 0.1806765805715905,
+      "Dxy_cm2_s": 4.516914514289763e-06,
+      "r2": 0.5185465801811879
+    },
+    {
+      "block": 2,
+      "start_ps": 5.0,
+      "end_ps": 10.0,
+      "n": 0,
+      "slope_A2_per_ps": null,
+      "Dxy_cm2_s": null,
+      "r2": null
+    },
+    {
+      "block": 3,
+      "start_ps": 10.0,
+      "end_ps": 15.0,
+      "n": 0,
+      "slope_A2_per_ps": null,
+      "Dxy_cm2_s": null,
+      "r2": null
+    },
+    {
+      "block": 4,
+      "start_ps": 15.0,
+      "end_ps": 20.0,
+      "n": 0,
+      "slope_A2_per_ps": null,
+      "Dxy_cm2_s": null,
+      "r2": null
+    }
+  ],
+  "vacf": {
+    "lag_ps": [
+      0.0,
+      0.2,
+      0.4,
+      0.6,
+      0.8,
+      1.0,
+      1.2,
+      1.4000000000000001,
+      1.6,
+      1.8,
+      2.0
+    ],
+    "values": [
+      1.0,
+      -0.040594570917519765,
+      -0.011356972761358138,
+      -0.017739591897393683,
+      0.0013614098813247895,
+      -0.04574816496369171,
+      -0.01240325345161463,
+      0.012936008673462274,
+      0.01342295249910916,
+      0.015350081038160678,
+      -0.07626574604700039
+    ]
+  },
+  "hop_count": 3,
+  "hop_definition": "candidate lateral Cr displacement > 1.5 A between saved frames; site mapping required for formal hops",
+  "hfacc_status": "unavailable_no_heat_flux_recorded",
+  "scientific_gate": "blocked"
+}

@@ -1,0 +1,112 @@
+{
+  "schema": "migrationbench_canonical_model_matrix_v1",
+  "campaign_id": "canonical_model_matrix_20261016",
+  "status": "SUBMISSION_PENDING_ACCEPTANCE",
+  "scope": "2-layer Cr-Sb2Te3 migration models and the shared 639-candidate static screen",
+  "data_policy": {
+    "canonical_from_scratch_dataset": "from_scratch_all_data_v1",
+    "upstream_release": "Multi-T-A2-grouped",
+    "upstream_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/manifest_multiT_A2.json",
+    "upstream_manifest_sha256": "74f1af2b1bfc064c2a16acbd78cd110215ddd88087cfec7dcdfbedce77c73f60",
+    "split_summary": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT/grouped_split_summary.json",
+    "split_summary_sha256": "a931327975c6c717090468992e53312310954464aeeea687b5d7cdcf8e955bf3",
+    "train": {
+      "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT/train.xyz",
+      "sha256": "b240052d557fb27b41af6fb31ad80b25261d96f9667050ca83fcbdb922694f9b",
+      "periodic_frames": 2656,
+      "isolated_frames": 3
+    },
+    "valid": {
+      "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT/valid.xyz",
+      "sha256": "44d2877ccd9d4ddbf3c470d7a6c5f2b794802a9b03444d211b89237df99dd117",
+      "periodic_frames": 342
+    },
+    "test": {
+      "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT/test.xyz",
+      "sha256": "5adcf16c7220eae90bd2d9a9f792e2dce281e1300bdbb86054ef94e255188648",
+      "periodic_frames": 767
+    },
+    "group_split": true,
+    "group_leakage_policy": "one source trajectory belongs to exactly one split",
+    "excluded_domain": "3D bulk/doped AIMD source; not silently mixed into the 2-layer migration domain",
+    "deduplication_note": "The 600 K source universe is a subset of the Multi-T source universe. Direct concatenation would duplicate trajectories and create split collisions; therefore the canonical all-data release is the deduplicated Multi-T source universe."
+  },
+  "strict_from_scratch_matrix": {
+    "model_family": "from_scratch_all_data_v1",
+    "foundation_model": null,
+    "seeds": [123, 234, 345],
+    "only_varying_factor": "training_seed",
+    "architecture": {
+      "model": "MACE",
+      "num_channels": 32,
+      "max_L": 2,
+      "correlation": 2,
+      "r_max_angstrom": 6.0,
+      "hidden_irreps_argument": "128x0e",
+      "effective_hidden_irreps": "32x0e+32x1o+32x2e",
+      "num_interactions": 2,
+      "num_radial_basis": 8,
+      "num_cutoff_basis": 5
+    },
+    "optimization": {
+      "batch_size": 32,
+      "valid_batch_size": 16,
+      "max_num_epochs": 1000,
+      "forces_weight": 10.0,
+      "swa": true,
+      "start_swa": 800,
+      "ema": true,
+      "ema_decay": 0.99,
+      "lr": 0.01,
+      "swa_lr": 0.001,
+      "weight_decay": 5e-7,
+      "patience": 20,
+      "e0s": "isolated"
+    },
+    "environment": {
+      "mace": "0.3.12 target environment; record resolved version in preflight",
+      "device": "cuda",
+      "dtype": "float64",
+      "elements": [24, 51, 52]
+    },
+    "output_root": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/from_scratch_all_data_v1"
+  },
+  "existing_families_to_register_separately": [
+    {
+      "family": "ft_multit_grouped_A2",
+      "status": "EXISTS_NEEDS_FORMAL_ACCEPTANCE",
+      "seeds": [123, 234, 345],
+      "source": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001",
+      "note": "Compiled models and test logs exist; retain grouped suffix in canonical IDs."
+    },
+    {
+      "family": "ft_600k_grouped_A2",
+      "status": "EXISTS_NEEDS_FORMAL_ACCEPTANCE",
+      "seeds": [123, 234, 345],
+      "source": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2",
+      "note": "All three grouped OMAT-FT models exist; seed123 must not be merged with the historical random-split ID."
+    },
+    {
+      "family": "foundation_zero_shot",
+      "status": "REGISTERED_NON_SEED_COMPARATORS",
+      "replicas": 3,
+      "note": "Foundation checkpoints are distinct checkpoints, not random-seed replicas."
+    }
+  ],
+  "historical_exclusion": {
+    "status": "EXCLUDE_FROM_STRICT_SEED_STATISTICS",
+    "models": ["ablation_lmax_2_seed123", "ablation_lmax_2_seed234", "baseline_seed345"],
+    "reason": "Different data lineage, foundation status, architecture, or split provenance; retain for historical failure-mode comparison only."
+  },
+  "acceptance_gates": [
+    "dataset hashes and source-group assignments match this manifest",
+    "same launch script and environment for all three seeds",
+    "seed in log, directory, output manifest, and registry agrees",
+    "compiled model exists, is finite, loadable, and supports Cr/Sb/Te",
+    "train/valid/test contain no source-trajectory overlap",
+    "test metrics and model hashes are recorded per seed",
+    "639-candidate static screen has exactly one finite result per candidate and model",
+    "strict seed variance excludes all historical heterogeneous models"
+  ],
+  "publication_boundary": "Training completion is not a DFT correctness claim; any mechanistic claim remains bounded by the MLIP/DFT evidence actually accepted."
+}

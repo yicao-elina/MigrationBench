@@ -1,0 +1,336 @@
+{
+  "figure": "mace_1ns_evidence_aware_benchmark",
+  "source_root": "/scratch16/pclancy3/yi/mace_four_model_MD_analysis_20261003",
+  "protocol": {
+    "dt_fs": 1.0,
+    "temperature_K": 600.0,
+    "natoms": 2050,
+    "target_step": 1000000
+  },
+  "scientific_status": {
+    "stable_for_diffusion": [
+      "FT-600K",
+      "FT-MultiT"
+    ],
+    "failure_mode": {
+      "Foundation-OMAT": "first thermal threshold crossing at 8.8 ps",
+      "From-scratch": "first instability at 462.2 ps"
+    },
+    "hfacf_status": "not available from archived four-model 1 ns outputs"
+  },
+  "input_sha256_local_exports": {
+    "data/1-from-scratch/audit.json": "b30a7e3d5bd7c53c56c5fe4227b4e74a6549374eff59a52b7e9a09c74a14336d",
+    "data/1-from-scratch/failure_scan.csv": "631b550b9e802f5211e9064e6ff73bd02539912a00fa40d8e904bc08321dc1ca",
+    "data/1-from-scratch/failure_scan.json": "07f44578b074f79998544f018fc1d25c59ecc7a15b525209a35a2f3fd785e111",
+    "data/2-naive-fine-tuning/audit.json": "8df1d4e84c7811c5a66be6a2d56edeadcb33594c931473ddfaad381ee6d2a278",
+    "data/2-naive-fine-tuning/metrics.json": "bcc4e6ae38971317bf34f429acfabeb1303292f9b0a760a31bb5a4697682ccaf",
+    "data/2-naive-fine-tuning/msd.csv": "a5b135b62626210de5b925af26fae369c7b98e80e54b5a776db23358e16b1a05",
+    "data/2-naive-fine-tuning/timeseries.csv": "af22aeadf5b7afb6c7c4c1a5f6ae7ac5a1c9c2fd8b2abcfdb8cfd087409a4b48",
+    "data/2-naive-fine-tuning/vacf.csv": "dfbbd996bb8c4e7ea25d67913d46f15443a5abc4d84cd5c28d83cc5734224bea",
+    "data/3-multi_T-fine-tuning/audit.json": "cd6d65e33b3dbe1043679d980297a616e612beca79e647657e96c629dce42d03",
+    "data/3-multi_T-fine-tuning/metrics.json": "9adcfb35fcb44abc24f25538a914671b2bb8bc76f363c6fb2b2f41fbfb0369da",
+    "data/3-multi_T-fine-tuning/msd.csv": "9f612e2d48ee83aec916c25d7352fddcd40208b20c781528c7b0084f164d442b",
+    "data/3-multi_T-fine-tuning/timeseries.csv": "cddd7cc1e2b8c132e98296870ced287e856512fc29e743f79335a39db58aad30",
+    "data/3-multi_T-fine-tuning/vacf.csv": "d21f71e638cfcfd9cb46bc659c161a3894145f280d31ce8f581e0a3dac4c9edb",
+    "data/foundation-omat/audit.json": "a76fe57ff530f9201514e94302541c5ecef97e9426c140aaf014df0291ab747f",
+    "data/foundation-omat/metrics.json": "740d65758ce415accbc97fa40cb5318b5c390c58a5557a129d9ceadef8f19924",
+    "data/foundation-omat/msd.csv": "37a8fce4600eee585a4ee41ed9c7e49baf804aa800b27c704a20948a477e9ae6",
+    "data/foundation-omat/timeseries.csv": "1db104b3321f0d2551900b14ce07ca4457ec438e116c32df015901f3e9473805",
+    "data/foundation-omat/vacf.csv": "70ef644f323e66eb61fdf222a081f333ef3ae124330c4075989f01dc953befcf",
+    "data/model_name_map.json": "631c834b470a61c97ed59b5078c2db4d4d20a2848f7a6329fd25c1317b69572c"
+  },
+  "source_audits": {
+    "foundation-omat": {
+      "run_dir": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat",
+      "manifest": {
+        "dt_fs": 1.0,
+        "friction": 0.01,
+        "input": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-omat/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+        "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/finetuned_MACE_compiled.model",
+        "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat/segment_from_000008000.extxyz",
+        "start_step": 8000,
+        "target_step": 1000000,
+        "temperature_K": 600.0,
+        "write_interval_steps": 200
+      },
+      "status": {
+        "last_step": 737000,
+        "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/finetuned_MACE_compiled.model",
+        "natoms": 2050,
+        "pbc": [
+          true,
+          true,
+          true
+        ],
+        "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat/segment_from_000008000.extxyz",
+        "target_step": 1000000
+      },
+      "files": {
+        "input": {
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-omat/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+          "exists": true,
+          "size": 13131406,
+          "mtime": 1754751318.8848562,
+          "sha256": "445cd9b2dd0a902594b925b9228b9c121995b980864a8c5331f994d87cd02a99"
+        },
+        "model": {
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/finetuned_MACE_compiled.model",
+          "exists": true,
+          "size": 13068119,
+          "mtime": 1747926087.0163312,
+          "sha256": "dc41a98908dd25b150fb5c8dd0a28d95f5feeac37022682a7c389c475444d08e"
+        },
+        "segment": {
+          "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat/segment_from_000008000.extxyz",
+          "exists": true,
+          "size": 1173000750,
+          "mtime": 1791019954.4731472,
+          "sha256": "87fec502f638499601ad8ec0518fee3fb36d1addc6eafdc34cfe0bace104c4d4"
+        },
+        "checkpoint": {
+          "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/foundation-omat/latest_restart.extxyz",
+          "exists": true,
+          "size": 322761,
+          "mtime": 1791019954.490551,
+          "sha256": "f21c21b9551ecba67f9f99af5a5a94e7f8621b6bb9c97e64f2dd23351f144dc2"
+        }
+      },
+      "checkpoint_validation": {
+        "natoms": 2050,
+        "pbc": [
+          true,
+          true,
+          true
+        ],
+        "species_sha256": "49297712dc50708ef7ef5a295fce5c9875c0944c0513ebe9128ccb65b8f75c29",
+        "finite_positions": true,
+        "finite_momenta": true,
+        "finite_energy": true,
+        "finite_forces": true,
+        "max_force_eV_A": 77449.92354156,
+        "temperature_K": 590995829315.1891
+      },
+      "model_raw_id": "0-foundation-omat",
+      "model": "Foundation-OMAT"
+    },
+    "1-from-scratch": {
+      "run_dir": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/1-from-scratch",
+      "manifest": {
+        "dt_fs": 1.0,
+        "friction": 0.01,
+        "input": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/1-from-scratch/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+        "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE_models_l1_0802/mace_l1_0802_compiled.model",
+        "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/1-from-scratch/segment_from_000200000.extxyz",
+        "start_step": 200000,
+        "target_step": 1000000,
+        "temperature_K": 600.0,
+        "write_interval_steps": 200
+      },
+      "status": {
+        "last_step": 1000200,
+        "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE_models_l1_0802/mace_l1_0802_compiled.model",
+        "natoms": 2050,
+        "pbc": [
+          true,
+          true,
+          true
+        ],
+        "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/1-from-scratch/segment_from_000200000.extxyz",
+        "target_step": 1000000
+      },
+      "files": {
+        "input": {
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/1-from-scratch/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+          "exists": true,
+          "size": 320598327,
+          "mtime": 1754934305.9981802,
+          "sha256": "55d20a704447677096e0be5d9615a0b2e1d144fc74a6a48b30b6b63863a5d99e"
+        },
+        "model": {
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE_models_l1_0802/mace_l1_0802_compiled.model",
+          "exists": true,
+          "size": 7697552,
+          "mtime": 1754902529.3683953,
+          "sha256": "da17ab17a98241c9ba1ad75f79ef051af4c273879a85e2371213d0b51257f144"
+        },
+        "segment": {
+          "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/1-from-scratch/segment_from_000200000.extxyz",
+          "exists": true,
+          "size": 1283842154,
+          "mtime": 1790888558.6320758,
+          "sha256": "38140e3252961d7e2b470232a179ffbeb65d29f2dca4eb0e1d42c9d94c0b45c7"
+        },
+        "checkpoint": {
+          "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/1-from-scratch/latest_restart.extxyz",
+          "exists": true,
+          "size": 321830,
+          "mtime": 1790888558.664953,
+          "sha256": "4acdc66cbc6f540052950d6d3fe115b2f8809f207a3f49e4a24ad67a4fe15bca"
+        }
+      },
+      "checkpoint_validation": {
+        "natoms": 2050,
+        "pbc": [
+          true,
+          true,
+          true
+        ],
+        "species_sha256": "49297712dc50708ef7ef5a295fce5c9875c0944c0513ebe9128ccb65b8f75c29",
+        "finite_positions": true,
+        "finite_momenta": true,
+        "finite_energy": true,
+        "finite_forces": true,
+        "max_force_eV_A": 167829.29097192,
+        "temperature_K": 474459655977.8341
+      },
+      "model_raw_id": "1-from-scratch",
+      "model": "From-scratch"
+    },
+    "2-naive-fine-tuning": {
+      "run_dir": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning",
+      "manifest": {
+        "dt_fs": 1.0,
+        "friction": 0.01,
+        "input": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/2-naive-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+        "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+        "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning/segment_from_000080000.extxyz",
+        "start_step": 80000,
+        "target_step": 1000000,
+        "temperature_K": 600.0,
+        "write_interval_steps": 200
+      },
+      "status": {
+        "last_step": 1000200,
+        "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+        "natoms": 2050,
+        "pbc": [
+          true,
+          true,
+          true
+        ],
+        "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning/segment_from_000080000.extxyz",
+        "target_step": 1000000
+      },
+      "files": {
+        "input": {
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/2-naive-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+          "exists": true,
+          "size": 128431527,
+          "mtime": 1755188211.628213,
+          "sha256": "1da89bba994e3a1037e46d989e5e7dfbf8874aeae8e86d42381d836a11e29cdf"
+        },
+        "model": {
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+          "exists": true,
+          "size": 13075227,
+          "mtime": 1754340958.2463493,
+          "sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a"
+        },
+        "segment": {
+          "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning/segment_from_000080000.extxyz",
+          "exists": true,
+          "size": 1473735995,
+          "mtime": 1790966490.4279697,
+          "sha256": "229ba65b6ddeebbd63f0ba14fd310a170efed705d5860b5f27dbe708a31b9a4e"
+        },
+        "checkpoint": {
+          "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning/latest_restart.extxyz",
+          "exists": true,
+          "size": 320312,
+          "mtime": 1790966490.4581,
+          "sha256": "0a54ab5ee216b84af72f0694310de60ad24130bcd56004d86f37a0e842d49b2d"
+        }
+      },
+      "checkpoint_validation": {
+        "natoms": 2050,
+        "pbc": [
+          true,
+          true,
+          true
+        ],
+        "species_sha256": "49297712dc50708ef7ef5a295fce5c9875c0944c0513ebe9128ccb65b8f75c29",
+        "finite_positions": true,
+        "finite_momenta": true,
+        "finite_energy": true,
+        "finite_forces": true,
+        "max_force_eV_A": 1.96565856,
+        "temperature_K": 584.3584462089959
+      },
+      "model_raw_id": "2-naive-fine-tuning",
+      "model": "FT-600K"
+    },
+    "3-multi_T-fine-tuning": {
+      "run_dir": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/3-multi_T-fine-tuning",
+      "manifest": {
+        "dt_fs": 1.0,
+        "friction": 0.01,
+        "input": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/3-multi_T-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+        "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_Multi_T/finetuned_MACE_multihead0804.model",
+        "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/3-multi_T-fine-tuning/segment_from_000200000.extxyz",
+        "start_step": 200000,
+        "target_step": 1000000,
+        "temperature_K": 600.0,
+        "write_interval_steps": 200
+      },
+      "status": {
+        "last_step": 1000200,
+        "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_Multi_T/finetuned_MACE_multihead0804.model",
+        "natoms": 2050,
+        "pbc": [
+          true,
+          true,
+          true
+        ],
+        "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/3-multi_T-fine-tuning/segment_from_000200000.extxyz",
+        "target_step": 1000000
+      },
+      "files": {
+        "input": {
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/3-multi_T-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+          "exists": true,
+          "size": 320656648,
+          "mtime": 1755221730.4436245,
+          "sha256": "e2f72e149940af7fd9016d2e1d58545cbe4734f935d91d9e4dc84c2e7645e454"
+        },
+        "model": {
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_Multi_T/finetuned_MACE_multihead0804.model",
+          "exists": true,
+          "size": 12983469,
+          "mtime": 1755059454.1666493,
+          "sha256": "0c132dd8b4b953240ff1cc935b251dfd76df0211869888962a3f0d1e7d1d1522"
+        },
+        "segment": {
+          "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/3-multi_T-fine-tuning/segment_from_000200000.extxyz",
+          "exists": true,
+          "size": 1281661732,
+          "mtime": 1790934001.0570784,
+          "sha256": "6b06e206662e7bce5e29f8bf5788f2bd932bfa367d66c521d6bbd1b4ed13b7c4"
+        },
+        "checkpoint": {
+          "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/3-multi_T-fine-tuning/latest_restart.extxyz",
+          "exists": true,
+          "size": 320341,
+          "mtime": 1790934001.087988,
+          "sha256": "3f1e2ee81ea5e914f4a4ece4b40d41e3b6190e77e887609b3be6df9acde06217"
+        }
+      },
+      "checkpoint_validation": {
+        "natoms": 2050,
+        "pbc": [
+          true,
+          true,
+          true
+        ],
+        "species_sha256": "49297712dc50708ef7ef5a295fce5c9875c0944c0513ebe9128ccb65b8f75c29",
+        "finite_positions": true,
+        "finite_momenta": true,
+        "finite_energy": true,
+        "finite_forces": true,
+        "max_force_eV_A": 2.10773817,
+        "temperature_K": 599.1296763072099
+      },
+      "model_raw_id": "3-multi_T-fine-tuning",
+      "model": "FT-MultiT"
+    }
+  }
+}

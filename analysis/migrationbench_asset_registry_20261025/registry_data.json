@@ -3,7 +3,7 @@
     {
       "source_id": "src_hub",
       "title": "MigrationBench HUB",
-      "source_path": "/Users/alina/Library/CloudStorage/GoogleDrive-yicao.alina@gmail.com/My Drive/Obsidian-google/Projects/MigrationBench/MigrationBench-HUB.md",
+      "source_path": "gdrive:Obsidian-google/Projects/MigrationBench/MigrationBench-HUB.md",
       "source_kind": "Obsidian project hub",
       "evidence_level": "CURATED_STATUS",
       "as_of_date": "2026-10-25",
@@ -12,7 +12,7 @@
     {
       "source_id": "src_data_assets",
       "title": "MigrationBench Data Assets",
-      "source_path": "/Users/alina/Library/CloudStorage/GoogleDrive-yicao.alina@gmail.com/My Drive/Obsidian-google/Projects/MigrationBench/MigrationBench-Data-Assets.md",
+      "source_path": "gdrive:Obsidian-google/Projects/MigrationBench/MigrationBench-Data-Assets.md",
       "source_kind": "Obsidian asset ledger",
       "evidence_level": "CURATED_STATUS",
       "as_of_date": "2026-10-25",
@@ -21,7 +21,7 @@
     {
       "source_id": "src_foundation",
       "title": "Foundation Model Registry",
-      "source_path": "/Users/alina/Library/CloudStorage/GoogleDrive-yicao.alina@gmail.com/My Drive/Obsidian-google/Projects/MigrationBench/Foundation-Model-Registry.md",
+      "source_path": "gdrive:Obsidian-google/Projects/MigrationBench/Foundation-Model-Registry.md",
       "source_kind": "Obsidian registry",
       "evidence_level": "CANONICAL_REGISTRY",
       "as_of_date": "2026-10-25",
@@ -39,11 +39,56 @@
     {
       "source_id": "src_campaign_matrix",
       "title": "Campaign Status Matrix",
-      "source_path": "/Users/alina/Library/CloudStorage/GoogleDrive-yicao.alina@gmail.com/My Drive/Obsidian-google/Projects/MigrationBench/MigrationBench-Data-Assets.md",
+      "source_path": "gdrive:Obsidian-google/Projects/MigrationBench/MigrationBench-Data-Assets.md",
       "source_kind": "status section",
       "evidence_level": "CURATED_STATUS",
       "as_of_date": "2026-10-25",
       "notes": "Counts and scientific qualification of latest campaigns."
+    },
+    {
+      "source_id": "src_matpes_campaign_r01",
+      "title": "MatPES-PBE-OMAT-FT extension campaign R01",
+      "source_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_kind": "campaign package plus independent review",
+      "evidence_level": "AUDITED_RELEASE",
+      "as_of_date": "2026-10-25",
+      "notes": "Fixed-path and sliding components passed independent data/figure review; self-relaxed retains the canonical Na failure; MD remains target-pending."
+    },
+    {
+      "source_id": "src_rockfish_status_20261025",
+      "title": "Rockfish scheduler and runtime snapshot",
+      "source_path": "analysis/rockfish_status_20261025/ROCKFISH_TODO_ANALYSIS_R01.md",
+      "source_kind": "scheduler audit snapshot",
+      "evidence_level": "CURATED_STATUS",
+      "as_of_date": "2026-10-25",
+      "notes": "Scheduler completion is recorded separately from scientific acceptance."
+    },
+    {
+      "source_id": "src_a2_md_20261025",
+      "title": "Grouped A2 1 ns MD campaign R01",
+      "source_path": "analysis/ft_grouped_A2_1ns_md_20261025",
+      "source_kind": "campaign manifest and live status",
+      "evidence_level": "CURATED_STATUS",
+      "as_of_date": "2026-10-25",
+      "notes": "All six smoke runs passed; two continuations are running and four reached the scientific threshold failure."
+    },
+    {
+      "source_id": "src_cr81_restart_20261022",
+      "title": "Cr81 QE path restart-fix campaign",
+      "source_path": "analysis/rockfish_status_20261025/ROCKFISH_TODO_ANALYSIS_R01.md",
+      "source_kind": "scheduler audit snapshot",
+      "evidence_level": "CURATED_STATUS",
+      "as_of_date": "2026-10-25",
+      "notes": "Five parallel paths remain running; a completed scheduler job is not a convergence/barrier claim."
+    },
+    {
+      "source_id": "src_paper_figures_pr14",
+      "title": "Paper figure provenance repo (MigrationBench PR #14)",
+      "source_path": "docs/reproducibility/canva_figure_provenance",
+      "source_kind": "git_worktree",
+      "evidence_level": "user_approved_final",
+      "as_of_date": "2026-10-31",
+      "notes": "Branch codex/canva-figure-provenance, commit 941baf8; older versions only in archive snapshot eaac537."
     }
   ],
   "model_families": [
@@ -240,6 +285,14 @@
       "group_level": "subgroup",
       "sort_order": 90,
       "description": "Campaign display labels not safely mapped to a checkpoint."
+    },
+    {
+      "model_group_id": "foundation_mace_omat",
+      "display_name": "Foundation · MACE-OMAT",
+      "major_class": "Foundation",
+      "group_level": "broad_class",
+      "sort_order": 12,
+      "description": "Broad Foundation class containing zero-shot MACE-OMAT-0 and MatPES-PBE-OMAT-FT fine-tuned identities."
     }
   ],
   "models": [
@@ -411,17 +464,17 @@
       "family_id": "foundation_matpes_omat_ft",
       "identity_kind": "CANONICAL_CHECKPOINT",
       "training_regime": "Foundation fine-tuned",
-      "training_data_label": null,
+      "training_data_label": "MatPES-PBE-OMAT-FT",
       "training_temperature_label": null,
       "training_seed": null,
       "representation_label": "MACE",
-      "checkpoint_sha256": null,
-      "artifact_path": null,
+      "checkpoint_sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0",
+      "artifact_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/X-FORCE/xforce/models/Foundation-MACE-matpes-pbe-omat-ft.model",
       "lineage_status": "LINEAGE_SUPPORTED",
       "release_status": "ACTIVE",
       "scientific_status": "VERIFIED",
       "active_scope": "Current Foundation-10 evaluations",
-      "notes": "Fine-tuned Foundation model: do not label as zero-shot OMAT-0."
+      "notes": "Broad class MACE-OMAT; exact family MACE-OMAT-0; explicit MatPES-PBE fine-tuned checkpoint; do not relabel as zero-shot OMAT-0."
     },
     {
       "model_id": "foundation_mpa0",
@@ -872,6 +925,114 @@
       "scientific_status": "PROVENANCE_PARTIAL",
       "active_scope": "1 ns historical comparison",
       "notes": "Legacy campaign identity pending binary/hash reconciliation."
+    },
+    {
+      "model_id": "finetune_a2_ft600_seed123",
+      "display_name": "FT600K grouped A2 seed 123",
+      "family_id": "finetune_historical",
+      "identity_kind": "CANONICAL_CHECKPOINT",
+      "training_regime": "Fine-tuning grouped A2",
+      "training_data_label": "FT-600K_grouped_A2",
+      "training_temperature_label": "T600K",
+      "training_seed": "123",
+      "representation_label": "MACE",
+      "checkpoint_sha256": "8ff7930c0cf41a8a4e3418e5abb6a97c8f27a1c5a9624313229da1799b1196ff",
+      "artifact_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_scratch16_20260926/MACE-multihead_600K_grouped_A2_OMATFT/finetuned_MACE_multihead0804_grouped_A2_OMATFT_stagetwo_compiled.model",
+      "lineage_status": "PROVENANCE_SUPPORTED",
+      "release_status": "PROVISIONAL",
+      "scientific_status": "PROVISIONAL",
+      "active_scope": "Grouped A2 1 ns MD",
+      "notes": "Exact grouped-A2 checkpoint; do not pool with canonical FT-600K seed matrix."
+    },
+    {
+      "model_id": "finetune_a2_ft600_seed234",
+      "display_name": "FT600K grouped A2 seed 234",
+      "family_id": "finetune_historical",
+      "identity_kind": "CANONICAL_CHECKPOINT",
+      "training_regime": "Fine-tuning grouped A2",
+      "training_data_label": "FT-600K_grouped_A2",
+      "training_temperature_label": "T600K",
+      "training_seed": "234",
+      "representation_label": "MACE",
+      "checkpoint_sha256": "fde4d87c00e748dd8b2124bbaca959842c7de5a1da10dd6dae83c0982e2c2a81",
+      "artifact_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_matrix_scratch16_20260927/ft600k_omatft_grouped_seed234/ft600k_omatft_grouped_seed234_stagetwo_compiled.model",
+      "lineage_status": "PROVENANCE_SUPPORTED",
+      "release_status": "PROVISIONAL",
+      "scientific_status": "PROVISIONAL",
+      "active_scope": "Grouped A2 1 ns MD",
+      "notes": "Exact grouped-A2 checkpoint; do not pool with canonical FT-600K seed matrix."
+    },
+    {
+      "model_id": "finetune_a2_ft600_seed345",
+      "display_name": "FT600K grouped A2 seed 345",
+      "family_id": "finetune_historical",
+      "identity_kind": "CANONICAL_CHECKPOINT",
+      "training_regime": "Fine-tuning grouped A2",
+      "training_data_label": "FT-600K_grouped_A2",
+      "training_temperature_label": "T600K",
+      "training_seed": "345",
+      "representation_label": "MACE",
+      "checkpoint_sha256": "23b7616d96c808c54be1ad7cbe3be998413691dfb9098cb4a350b8243a19c881",
+      "artifact_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_matrix_scratch16_20260927/ft600k_omatft_grouped_seed345/ft600k_omatft_grouped_seed345_stagetwo_compiled.model",
+      "lineage_status": "PROVENANCE_SUPPORTED",
+      "release_status": "PROVISIONAL",
+      "scientific_status": "PROVISIONAL",
+      "active_scope": "Grouped A2 1 ns MD",
+      "notes": "Exact grouped-A2 checkpoint; do not pool with canonical FT-600K seed matrix."
+    },
+    {
+      "model_id": "finetune_a2_ftmultit_seed123",
+      "display_name": "FTMultiT grouped A2 seed 123",
+      "family_id": "finetune_historical",
+      "identity_kind": "CANONICAL_CHECKPOINT",
+      "training_regime": "Fine-tuning grouped A2",
+      "training_data_label": "FT-MultiT_grouped_A2",
+      "training_temperature_label": "T600K",
+      "training_seed": "123",
+      "representation_label": "MACE",
+      "checkpoint_sha256": "2d672eec622fd38f32a7d54b62fb7446b4909a72e25256d0899c67e837486428",
+      "artifact_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/retrain_multit_scratch16_20261001/multit_omatft_grouped_seed123/multit_omatft_grouped_seed123_stagetwo_compiled.model",
+      "lineage_status": "PROVENANCE_SUPPORTED",
+      "release_status": "PROVISIONAL",
+      "scientific_status": "PROVISIONAL",
+      "active_scope": "Grouped A2 1 ns MD",
+      "notes": "Exact grouped-A2 checkpoint; do not pool with canonical FT-MultiT seed matrix."
+    },
+    {
+      "model_id": "finetune_a2_ftmultit_seed234",
+      "display_name": "FTMultiT grouped A2 seed 234",
+      "family_id": "finetune_historical",
+      "identity_kind": "CANONICAL_CHECKPOINT",
+      "training_regime": "Fine-tuning grouped A2",
+      "training_data_label": "FT-MultiT_grouped_A2",
+      "training_temperature_label": "T600K",
+      "training_seed": "234",
+      "representation_label": "MACE",
+      "checkpoint_sha256": "1724e0cda2db3573c6fe7fbfc5450b5de9e558fe29f776cb7a2e8ee81c829e04",
+      "artifact_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/retrain_multit_scratch16_20261001/multit_omatft_grouped_seed234/multit_omatft_grouped_seed234_stagetwo_compiled.model",
+      "lineage_status": "PROVENANCE_SUPPORTED",
+      "release_status": "PROVISIONAL",
+      "scientific_status": "PROVISIONAL",
+      "active_scope": "Grouped A2 1 ns MD",
+      "notes": "Exact grouped-A2 checkpoint; do not pool with canonical FT-MultiT seed matrix."
+    },
+    {
+      "model_id": "finetune_a2_ftmultit_seed345",
+      "display_name": "FTMultiT grouped A2 seed 345",
+      "family_id": "finetune_historical",
+      "identity_kind": "CANONICAL_CHECKPOINT",
+      "training_regime": "Fine-tuning grouped A2",
+      "training_data_label": "FT-MultiT_grouped_A2",
+      "training_temperature_label": "T600K",
+      "training_seed": "345",
+      "representation_label": "MACE",
+      "checkpoint_sha256": "99403890b800f2936bbca9789f5a0c2295ce029238bdd1445eeb1acca9b5c339",
+      "artifact_path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/retrain_multit_scratch16_20261001/multit_omatft_grouped_seed345/multit_omatft_grouped_seed345_stagetwo_compiled.model",
+      "lineage_status": "PROVENANCE_SUPPORTED",
+      "release_status": "PROVISIONAL",
+      "scientific_status": "PROVISIONAL",
+      "active_scope": "Grouped A2 1 ns MD",
+      "notes": "Exact grouped-A2 checkpoint; do not pool with canonical FT-MultiT seed matrix."
     }
   ],
   "model_group_members": [
@@ -1204,6 +1365,51 @@
       "model_group_id": "campaign_identity",
       "model_id": "campaign_finetune_multit_legacy",
       "membership_role": "subgroup"
+    },
+    {
+      "model_group_id": "foundation_mace_omat",
+      "model_id": "foundation_omat0_medium",
+      "membership_role": "broad_class_member"
+    },
+    {
+      "model_group_id": "foundation_mace_omat",
+      "model_id": "foundation_omat0_small",
+      "membership_role": "broad_class_member"
+    },
+    {
+      "model_group_id": "foundation_mace_omat",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "membership_role": "broad_class_member"
+    },
+    {
+      "model_group_id": "finetune_historical",
+      "model_id": "finetune_a2_ft600_seed123",
+      "membership_role": "current_A2_checkpoint"
+    },
+    {
+      "model_group_id": "finetune_historical",
+      "model_id": "finetune_a2_ft600_seed234",
+      "membership_role": "current_A2_checkpoint"
+    },
+    {
+      "model_group_id": "finetune_historical",
+      "model_id": "finetune_a2_ft600_seed345",
+      "membership_role": "current_A2_checkpoint"
+    },
+    {
+      "model_group_id": "finetune_historical",
+      "model_id": "finetune_a2_ftmultit_seed123",
+      "membership_role": "current_A2_checkpoint"
+    },
+    {
+      "model_group_id": "finetune_historical",
+      "model_id": "finetune_a2_ftmultit_seed234",
+      "membership_role": "current_A2_checkpoint"
+    },
+    {
+      "model_group_id": "finetune_historical",
+      "model_id": "finetune_a2_ftmultit_seed345",
+      "membership_role": "current_A2_checkpoint"
     }
   ],
   "model_name_map": [
@@ -1313,9 +1519,9 @@
       "short_label": "MatPES-OMAT-FT",
       "major_class": "Foundation",
       "subgroup_label": "Foundation · MatPES PBE OMAT fine-tuned",
-      "search_text": "foundation_matpes_pbe_omat_ft | MatPES PBE OMAT fine-tuned | MatPES-OMAT-FT | Foundation | MatPES PBE OMAT fine-tuned",
+      "search_text": "foundation_matpes_pbe_omat_ft | MatPES PBE OMAT fine-tuned | MatPES-OMAT-FT | Foundation | MatPES PBE OMAT fine-tuned | MACE-OMAT",
       "naming_status": "STANDARDIZED",
-      "notes": "Canonical registry name retained; plot label is a display alias only."
+      "notes": "Exact label MatPES-OMAT-FT; broad class MACE-OMAT; plot label is not a checkpoint identity."
     },
     {
       "model_id": "foundation_mpa0",
@@ -1591,6 +1797,72 @@
       "search_text": "campaign_finetune_multit_legacy | Fine-tuning-MultiT legacy campaign label | Fine-tuning-MultiT legacy campaign label | Campaign identity | Checkpoint unresolved | Multi-T",
       "naming_status": "STANDARDIZED",
       "notes": "Canonical registry name retained; plot label is a display alias only."
+    },
+    {
+      "model_id": "finetune_a2_ft600_seed123",
+      "preferred_name": "FT600K grouped A2 seed 123",
+      "plot_label": "FT600K-A2-s123",
+      "short_label": "FT600K-A2-s123",
+      "major_class": "Fine-tuning",
+      "subgroup_label": "Fine-tuning · grouped A2",
+      "search_text": "finetune_a2_ft600_seed123 | FT600K grouped A2 seed 123 | FT600K-A2-s123 | Fine-tuning | grouped A2",
+      "naming_status": "STANDARDIZED",
+      "notes": "Exact grouped-A2 checkpoint."
+    },
+    {
+      "model_id": "finetune_a2_ft600_seed234",
+      "preferred_name": "FT600K grouped A2 seed 234",
+      "plot_label": "FT600K-A2-s234",
+      "short_label": "FT600K-A2-s234",
+      "major_class": "Fine-tuning",
+      "subgroup_label": "Fine-tuning · grouped A2",
+      "search_text": "finetune_a2_ft600_seed234 | FT600K grouped A2 seed 234 | FT600K-A2-s234 | Fine-tuning | grouped A2",
+      "naming_status": "STANDARDIZED",
+      "notes": "Exact grouped-A2 checkpoint."
+    },
+    {
+      "model_id": "finetune_a2_ft600_seed345",
+      "preferred_name": "FT600K grouped A2 seed 345",
+      "plot_label": "FT600K-A2-s345",
+      "short_label": "FT600K-A2-s345",
+      "major_class": "Fine-tuning",
+      "subgroup_label": "Fine-tuning · grouped A2",
+      "search_text": "finetune_a2_ft600_seed345 | FT600K grouped A2 seed 345 | FT600K-A2-s345 | Fine-tuning | grouped A2",
+      "naming_status": "STANDARDIZED",
+      "notes": "Exact grouped-A2 checkpoint."
+    },
+    {
+      "model_id": "finetune_a2_ftmultit_seed123",
+      "preferred_name": "FTMultiT grouped A2 seed 123",
+      "plot_label": "FTMultiT-A2-s123",
+      "short_label": "FTMultiT-A2-s123",
+      "major_class": "Fine-tuning",
+      "subgroup_label": "Fine-tuning · grouped A2",
+      "search_text": "finetune_a2_ftmultit_seed123 | FTMultiT grouped A2 seed 123 | FTMultiT-A2-s123 | Fine-tuning | grouped A2",
+      "naming_status": "STANDARDIZED",
+      "notes": "Exact grouped-A2 checkpoint."
+    },
+    {
+      "model_id": "finetune_a2_ftmultit_seed234",
+      "preferred_name": "FTMultiT grouped A2 seed 234",
+      "plot_label": "FTMultiT-A2-s234",
+      "short_label": "FTMultiT-A2-s234",
+      "major_class": "Fine-tuning",
+      "subgroup_label": "Fine-tuning · grouped A2",
+      "search_text": "finetune_a2_ftmultit_seed234 | FTMultiT grouped A2 seed 234 | FTMultiT-A2-s234 | Fine-tuning | grouped A2",
+      "naming_status": "STANDARDIZED",
+      "notes": "Exact grouped-A2 checkpoint."
+    },
+    {
+      "model_id": "finetune_a2_ftmultit_seed345",
+      "preferred_name": "FTMultiT grouped A2 seed 345",
+      "plot_label": "FTMultiT-A2-s345",
+      "short_label": "FTMultiT-A2-s345",
+      "major_class": "Fine-tuning",
+      "subgroup_label": "Fine-tuning · grouped A2",
+      "search_text": "finetune_a2_ftmultit_seed345 | FTMultiT grouped A2 seed 345 | FTMultiT-A2-s345 | Fine-tuning | grouped A2",
+      "naming_status": "STANDARDIZED",
+      "notes": "Exact grouped-A2 checkpoint."
     }
   ],
   "model_aliases": [
@@ -2887,6 +3159,60 @@
       "campaign_date": "2026-10-24",
       "status": "NEEDS_AUDIT",
       "notes": "Cu/Li/Na directories are not accepted merely from JOB DONE markers."
+    },
+    {
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "title": "MatPES-PBE-OMAT-FT Foundation extension R01",
+      "campaign_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "campaign_date": "2026-10-25",
+      "status": "PARTIAL",
+      "notes": "Fixed-path and interlayer sliding are complete with independent data/figure PASS. Self-relaxed NEB is 11/12 with canonical Na failure retained. 1 ns MD is still target-pending."
+    },
+    {
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "title": "Grouped A2 fine-tuning 1 ns MD R01",
+      "campaign_path": "analysis/ft_grouped_A2_1ns_md_20261025",
+      "source_id": "src_a2_md_20261025",
+      "campaign_date": "2026-10-25",
+      "status": "PARTIAL",
+      "notes": "Six smoke runs passed; two continuations are running and four have scientific-threshold failures; no failed-run Dxy is promoted."
+    },
+    {
+      "campaign_id": "cr81_neb_path_restart_fix_20261022",
+      "title": "Cr81 QE path restart-fix",
+      "campaign_path": "analysis/rockfish_status_20261025/ROCKFISH_TODO_ANALYSIS_R01.md",
+      "source_id": "src_cr81_restart_20261022",
+      "campaign_date": "2026-10-25",
+      "status": "RUNNING",
+      "notes": "Five parallel paths are running. QE path convergence and endpoint/force gates remain open."
+    },
+    {
+      "campaign_id": "ft_600k_random_reproduction_20261025_r02",
+      "title": "FT-600K random-split comparator repair R02",
+      "campaign_path": "analysis/rockfish_status_20261025/ROCKFISH_TODO_ANALYSIS_R01.md",
+      "source_id": "src_rockfish_status_20261025",
+      "campaign_date": "2026-10-25",
+      "status": "RUNNING",
+      "notes": "Seed-123 comparator is running; keep separate from Scratch-Lmax1 and require compiled-model/provenance closure."
+    },
+    {
+      "campaign_id": "foundation3_training_queue",
+      "title": "Foundation3 training/model-gate queue",
+      "campaign_path": "analysis/rockfish_status_20261025/ROCKFISH_TODO_ANALYSIS_R01.md",
+      "source_id": "src_rockfish_status_20261025",
+      "campaign_date": "2026-10-25",
+      "status": "PENDING_DEPENDENCY",
+      "notes": "Queued jobs are dependency-blocked; no scientific run has started."
+    },
+    {
+      "campaign_id": "paper_figures_canva_20261031",
+      "title": "Paper figures (Canva provenance) — final set",
+      "campaign_path": "docs/reproducibility/canva_figure_provenance",
+      "source_id": "src_paper_figures_pr14",
+      "campaign_date": "2026-10-31",
+      "status": "VERIFIED_BY_USER",
+      "notes": "User-approved final versions: Figure 1/3/4/6, Figure 2 v16, Slide 3 heatmap."
     }
   ],
   "datasets": [
@@ -3084,6 +3410,84 @@
       "scientific_status": "NOT_AUDITED",
       "dft_reference_status": "UNKNOWN",
       "notes": "Required by registry design; source locator/timepoints and completed model set must be added."
+    },
+    {
+      "dataset_id": "foundation_matpes_fixed_path_neb_r01",
+      "display_name": "MatPES fixed-path NEB R01",
+      "data_layer": "MLIP prediction",
+      "task_id": "fixed_path_neb",
+      "system_id": "cr81_migration",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "record_count": 12,
+      "unit_of_record": "path×image profile",
+      "scientific_status": "FINITE_DIAGNOSTIC",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "notes": "12/12 finite fixed-path profiles; diagnostic only, not a self-relaxed migration barrier."
+    },
+    {
+      "dataset_id": "foundation_matpes_self_relaxed_neb_r03",
+      "display_name": "MatPES self-relaxed NEB R03",
+      "data_layer": "MLIP prediction",
+      "task_id": "self_relaxed_neb",
+      "system_id": "cr81_migration",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "record_count": 12,
+      "unit_of_record": "path×image profile",
+      "scientific_status": "PARTIAL_CANONICAL_FAILURE",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "notes": "11/12 canonical paths converged; Na/within-QL remains NONCONVERGED at the canonical 500-step protocol. Recovery is retained as noncanonical evidence."
+    },
+    {
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "display_name": "MatPES interlayer sliding R14",
+      "data_layer": "MLIP prediction",
+      "task_id": "interlayer_fixed",
+      "system_id": null,
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "record_count": 4,
+      "unit_of_record": "operator×system",
+      "scientific_status": "COMPLETE_WITH_BOUNDARY",
+      "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+      "notes": "2 fixed-path diagnostics plus 2 endpoint-only self-relaxed proxies; independent data and figure review PASS."
+    },
+    {
+      "dataset_id": "foundation_matpes_md_1ns_r01",
+      "display_name": "MatPES 1 ns MD R01",
+      "data_layer": "MLIP simulation",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "record_count": 1,
+      "unit_of_record": "model×velocity seed",
+      "scientific_status": "IN_PROGRESS",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "notes": "Logical chain starts at absolute step 200000; target step 1000000 and MD audit are pending."
+    },
+    {
+      "dataset_id": "ft_grouped_a2_md_1ns_20261025",
+      "display_name": "Grouped A2 1 ns MD R01",
+      "data_layer": "MLIP simulation",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "record_count": 6,
+      "unit_of_record": "model×velocity seed",
+      "scientific_status": "PARTIAL_FAILURE_MODE",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "notes": "All six smoke gates passed. Four continuations failed the scientific threshold and two remain running."
+    },
+    {
+      "dataset_id": "rockfish_cr81_restart_status_20261025",
+      "display_name": "Cr81 restart-fix scheduler evidence",
+      "data_layer": "DFT ground truth",
+      "task_id": "dft_neb_cr81",
+      "system_id": "cr81_migration",
+      "campaign_id": "cr81_neb_path_restart_fix_20261022",
+      "record_count": 5,
+      "unit_of_record": "path",
+      "scientific_status": "RUNNING_NOT_ACCEPTED",
+      "dft_reference_status": "UNKNOWN",
+      "notes": "Scheduler evidence only; convergence, force, endpoint, and SCF gates are not closed."
     }
   ],
   "coverage": [
@@ -4606,6 +5010,246 @@
       "dft_reference_status": "UNKNOWN",
       "result_summary": "Registry placeholder: exact frames, model identities, and completed calculations need a locator manifest.",
       "source_id": "src_data_assets"
+    },
+    {
+      "coverage_id": "cov_matpes_fixed_path_neb_r01",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "fixed_path_neb",
+      "system_id": "cr81_migration",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "dataset_id": "foundation_matpes_fixed_path_neb_r01",
+      "scope_label": "MatPES fixed-path extension",
+      "expected_count": 12,
+      "completed_count": 12,
+      "run_status": "COMPLETE",
+      "scientific_status": "FINITE_DIAGNOSTIC",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "12/12 finite; independent data review PASS and visual/provenance review PASS. Do not call a validated barrier.",
+      "source_id": "src_matpes_campaign_r01"
+    },
+    {
+      "coverage_id": "cov_matpes_self_relaxed_neb_r03",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "self_relaxed_neb",
+      "system_id": "cr81_migration",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "dataset_id": "foundation_matpes_self_relaxed_neb_r03",
+      "scope_label": "MatPES self-relaxed extension",
+      "expected_count": 12,
+      "completed_count": 11,
+      "run_status": "PARTIAL_CANONICAL_FAILURE",
+      "scientific_status": "NONCONVERGED_RETAINED",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "11/12 canonical paths converge. Na/within-QL fails the 500-step canonical gate; exact retry reproduces the failure; 2000-step recovery is noncanonical.",
+      "source_id": "src_matpes_campaign_r01"
+    },
+    {
+      "coverage_id": "cov_matpes_sliding_r14_fixed_bulk",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "interlayer_fixed",
+      "system_id": "interlayer_bulk_2x2",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "scope_label": "MatPES R14 fixed-path bulk sliding",
+      "expected_count": 1,
+      "completed_count": 1,
+      "run_status": "COMPLETE",
+      "scientific_status": "FINITE_DIAGNOSTIC",
+      "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+      "result_summary": "Finite fixed-path single-point diagnostic; independent data and visual/provenance review PASS.",
+      "source_id": "src_matpes_campaign_r01"
+    },
+    {
+      "coverage_id": "cov_matpes_sliding_r14_fixed_gap",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "interlayer_fixed",
+      "system_id": "interlayer_cr_gap_2x2",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "scope_label": "MatPES R14 fixed-path Cr-in-gap sliding",
+      "expected_count": 1,
+      "completed_count": 1,
+      "run_status": "COMPLETE",
+      "scientific_status": "FINITE_DIAGNOSTIC",
+      "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+      "result_summary": "Finite fixed-path single-point diagnostic; independent data and visual/provenance review PASS.",
+      "source_id": "src_matpes_campaign_r01"
+    },
+    {
+      "coverage_id": "cov_matpes_sliding_r14_self_bulk",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "interlayer_self",
+      "system_id": "interlayer_bulk_2x2",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "scope_label": "MatPES R14 endpoint-only self-relaxed bulk sliding",
+      "expected_count": 1,
+      "completed_count": 1,
+      "run_status": "COMPLETE_WITH_BOUNDARY",
+      "scientific_status": "CONVERGED_PROXY",
+      "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+      "result_summary": "Endpoint-only self-relaxed MLIP proxy; not a DFT MEP and no same-geometry DFT rescoring.",
+      "source_id": "src_matpes_campaign_r01"
+    },
+    {
+      "coverage_id": "cov_matpes_sliding_r14_self_gap",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "interlayer_self",
+      "system_id": "interlayer_cr_gap_2x2",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "scope_label": "MatPES R14 endpoint-only self-relaxed Cr-in-gap sliding",
+      "expected_count": 1,
+      "completed_count": 1,
+      "run_status": "COMPLETE_WITH_BOUNDARY",
+      "scientific_status": "CONVERGED_PROXY",
+      "dft_reference_status": "COMPLETED_BUT_SCF_WARNING",
+      "result_summary": "Endpoint-only self-relaxed MLIP proxy; not a DFT MEP and no same-geometry DFT rescoring.",
+      "source_id": "src_matpes_campaign_r01"
+    },
+    {
+      "coverage_id": "cov_matpes_md_1ns_r01",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "dataset_id": "foundation_matpes_md_1ns_r01",
+      "scope_label": "MatPES 1 ns MD absolute-step chain",
+      "expected_count": 1,
+      "completed_count": 0,
+      "run_status": "RUNNING_TARGET_PENDING",
+      "scientific_status": "NOT_ACCEPTED_PENDING_TARGET",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "Job 32461057 at last check: absolute step 880000/1000000; no Dxy promotion before target/audit gates.",
+      "source_id": "src_rockfish_status_20261025"
+    },
+    {
+      "coverage_id": "cov_omat0_medium_md_1ns_r01",
+      "model_id": "foundation_omat0_medium",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "md_1ns_20261016",
+      "dataset_id": null,
+      "scope_label": "OMAT-0 Medium current 1 ns continuation",
+      "expected_count": 1,
+      "completed_count": 0,
+      "run_status": "RUNNING_TARGET_PENDING",
+      "scientific_status": "NOT_ACCEPTED_PENDING_TARGET",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "Job 32455415 at last check: absolute step 605000/1000000; retain as zero-shot OMAT-0, separate from MatPES-OMAT-FT.",
+      "source_id": "src_rockfish_status_20261025"
+    },
+    {
+      "coverage_id": "cov_a2_ft600_seed123_md_r01",
+      "model_id": "finetune_a2_ft600_seed123",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "dataset_id": "ft_grouped_a2_md_1ns_20261025",
+      "scope_label": "FT600K A2 seed 123",
+      "expected_count": 1,
+      "completed_count": 0,
+      "run_status": "FAILED_SCIENTIFIC_THRESHOLD",
+      "scientific_status": "UNSTABLE_NO_DXY",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "Continuation job 32468885 failed with exit 42 at step 236000; preserve raw evidence and do not report Dxy.",
+      "source_id": "src_a2_md_20261025"
+    },
+    {
+      "coverage_id": "cov_a2_ft600_seed234_md_r01",
+      "model_id": "finetune_a2_ft600_seed234",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "dataset_id": "ft_grouped_a2_md_1ns_20261025",
+      "scope_label": "FT600K A2 seed 234",
+      "expected_count": 1,
+      "completed_count": 0,
+      "run_status": "RUNNING_TARGET_PENDING",
+      "scientific_status": "NOT_ACCEPTED_PENDING_TARGET",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "Continuation job 32469237 is running; target and finite-output audit pending.",
+      "source_id": "src_a2_md_20261025"
+    },
+    {
+      "coverage_id": "cov_a2_ft600_seed345_md_r01",
+      "model_id": "finetune_a2_ft600_seed345",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "dataset_id": "ft_grouped_a2_md_1ns_20261025",
+      "scope_label": "FT600K A2 seed 345",
+      "expected_count": 1,
+      "completed_count": 0,
+      "run_status": "RUNNING_TARGET_PENDING",
+      "scientific_status": "NOT_ACCEPTED_PENDING_TARGET",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "Continuation job 32468881 is running; target and finite-output audit pending.",
+      "source_id": "src_a2_md_20261025"
+    },
+    {
+      "coverage_id": "cov_a2_ftmultit_seed123_md_r01",
+      "model_id": "finetune_a2_ftmultit_seed123",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "dataset_id": "ft_grouped_a2_md_1ns_20261025",
+      "scope_label": "FTMultiT A2 seed 123",
+      "expected_count": 1,
+      "completed_count": 0,
+      "run_status": "FAILED_SCIENTIFIC_THRESHOLD",
+      "scientific_status": "UNSTABLE_NO_DXY",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "Continuation job 32468890 failed with exit 42 at step 237200; model identity is retained separately from FT600K.",
+      "source_id": "src_a2_md_20261025"
+    },
+    {
+      "coverage_id": "cov_a2_ftmultit_seed234_md_r01",
+      "model_id": "finetune_a2_ftmultit_seed234",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "dataset_id": "ft_grouped_a2_md_1ns_20261025",
+      "scope_label": "FTMultiT A2 seed 234",
+      "expected_count": 1,
+      "completed_count": 0,
+      "run_status": "FAILED_SCIENTIFIC_THRESHOLD",
+      "scientific_status": "UNSTABLE_NO_DXY",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "Continuation job 32468884 failed with exit 42 at step 270200; preserve failure evidence and do not report Dxy.",
+      "source_id": "src_a2_md_20261025"
+    },
+    {
+      "coverage_id": "cov_a2_ftmultit_seed345_md_r01",
+      "model_id": "finetune_a2_ftmultit_seed345",
+      "task_id": "md_1ns",
+      "system_id": "cr_md_bulk",
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "dataset_id": "ft_grouped_a2_md_1ns_20261025",
+      "scope_label": "FTMultiT A2 seed 345",
+      "expected_count": 1,
+      "completed_count": 0,
+      "run_status": "FAILED_SCIENTIFIC_THRESHOLD",
+      "scientific_status": "UNSTABLE_NO_DXY",
+      "dft_reference_status": "NOT_APPLICABLE",
+      "result_summary": "Continuation job 32468888 failed with exit 42 at step 286000; preserve failure evidence and do not report Dxy.",
+      "source_id": "src_a2_md_20261025"
+    },
+    {
+      "coverage_id": "cov_cr81_restart_status_20261025",
+      "model_id": null,
+      "task_id": "dft_neb_cr81",
+      "system_id": "cr81_migration",
+      "campaign_id": "cr81_neb_path_restart_fix_20261022",
+      "dataset_id": "rockfish_cr81_restart_status_20261025",
+      "scope_label": "Cr81 restart-fix paths",
+      "expected_count": 5,
+      "completed_count": 0,
+      "run_status": "RUNNING_NOT_ACCEPTED",
+      "scientific_status": "CONVERGENCE_PENDING",
+      "dft_reference_status": "UNKNOWN",
+      "result_summary": "Jobs 32359674–32359678 are still running. QE completion, endpoint equality, SCF, and force gates remain open.",
+      "source_id": "src_cr81_restart_20261022"
     }
   ],
   "assets": [
@@ -4751,6 +5395,512 @@
       "existence_at_build": 1,
       "scientific_status": "FAILURE_MODE",
       "notes": "Preserve failures as evidence rather than overwriting with later runs."
+    },
+    {
+      "asset_id": "asset_matpes_campaign_r01",
+      "asset_type": "campaign directory",
+      "display_name": "MatPES-PBE-OMAT-FT extension R01",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "existence_at_build": 1,
+      "scientific_status": "PARTIAL",
+      "notes": "Additive campaign root; raw failure ledgers and independent reviews retained."
+    },
+    {
+      "asset_id": "asset_matpes_fixed_r04",
+      "asset_type": "combined result package",
+      "display_name": "MatPES fixed-path combined R04",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/fixed_path_extension/combined_10models_R04",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "existence_at_build": 1,
+      "scientific_status": "FINITE_DIAGNOSTIC",
+      "notes": "1200 combined profiles; MatPES extension is 12/12 finite; independent data and figure review PASS."
+    },
+    {
+      "asset_id": "asset_matpes_self_r03",
+      "asset_type": "combined result package",
+      "display_name": "MatPES self-relaxed combined R03",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/self_relaxed_extension/combined_4x3_R03",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "existence_at_build": 1,
+      "scientific_status": "PARTIAL_CANONICAL_FAILURE",
+      "notes": "Canonical Na/within-QL failure is retained; 11/12 converged; independent data review blocks final release."
+    },
+    {
+      "asset_id": "asset_matpes_sliding_r14",
+      "asset_type": "combined result package",
+      "display_name": "MatPES interlayer sliding R14",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/sliding_extension",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "existence_at_build": 1,
+      "scientific_status": "COMPLETE_WITH_BOUNDARY",
+      "notes": "R14 result/profile hashes and figure environment manifest registered; visual/provenance and data review PASS."
+    },
+    {
+      "asset_id": "asset_matpes_reviews_r01",
+      "asset_type": "independent review package",
+      "display_name": "MatPES post-run data and visual reviews R01",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/reviews",
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "existence_at_build": 1,
+      "scientific_status": "DATA_REVIEW_BLOCKED",
+      "notes": "Visual/provenance PASS; data review not-final because canonical Na self-relaxed failure and MD target remain open."
+    },
+    {
+      "asset_id": "asset_a2_md_status_20261025",
+      "asset_type": "campaign status package",
+      "display_name": "Grouped A2 1 ns MD status R01",
+      "local_path": "analysis/ft_grouped_A2_1ns_md_20261025",
+      "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+      "source_id": "src_a2_md_20261025",
+      "existence_at_build": 1,
+      "scientific_status": "PARTIAL_FAILURE_MODE",
+      "notes": "Smoke PASS for six; four scientific-threshold failures and two running continuations."
+    },
+    {
+      "asset_id": "asset_cr81_restart_status_20261025",
+      "asset_type": "scheduler status package",
+      "display_name": "Cr81 restart-fix status snapshot",
+      "local_path": "analysis/rockfish_status_20261025/ROCKFISH_TODO_ANALYSIS_R01.md",
+      "campaign_id": "cr81_neb_path_restart_fix_20261022",
+      "source_id": "src_cr81_restart_20261022",
+      "existence_at_build": 1,
+      "scientific_status": "RUNNING_NOT_ACCEPTED",
+      "notes": "Status snapshot only; no convergence claim."
+    },
+    {
+      "asset_id": "plot_gallery_boxplot_cluster_reference_v04",
+      "asset_type": "plot_gallery_case",
+      "display_name": "Plot skill gallery — seed-resolved clustered boxplot (v04 reference)",
+      "local_path": "docs/reproducibility/canva_figure_provenance/gallery/boxplot_cluster_reference_v04",
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "existence_at_build": 1,
+      "scientific_status": "USER_APPROVED_STYLE_REFERENCE",
+      "notes": "Commit 7bf3a70. Entry: reproduce.py (SHA256 a4accc4a…). Manifest SHA256 1711a923…. Default plot-scale grammar in PLOT_SCALE_DEFAULT.md. Reproduces PNG pixel-identical to 941baf8; gallery composite SVG hash 441b43e2… differs from the 941baf8 SVG (f-hash 9f192766…) although pixels match."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_aggregate_png_20261101",
+      "asset_type": "figure_png",
+      "display_name": "NEB seed performance heatmap — aggregate",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap.png",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "Final aggregate heatmap; 56/56 finite cells; layout/labels visually reviewed; branch codex/neb-seed-pairing-heatmap."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_aggregate_pdf_20261101",
+      "asset_type": "figure_pdf",
+      "display_name": "NEB seed performance heatmap — aggregate PDF",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "Editable/vector companion to aggregate PNG; 56/56 finite cells."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_aggregate_svg_20261101",
+      "asset_type": "figure_svg",
+      "display_name": "NEB seed performance heatmap — aggregate SVG",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap.svg",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "Editable/vector companion to aggregate PNG; 56/56 finite cells."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_expanded_png_20261101",
+      "asset_type": "figure_png",
+      "display_name": "NEB seed performance heatmap — seed expanded",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap_seed_expanded.png",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "Final 15-row seed-expanded heatmap; 120/120 finite cells; row/column/group annotations visually reviewed."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_expanded_pdf_20261101",
+      "asset_type": "figure_pdf",
+      "display_name": "NEB seed performance heatmap — seed expanded PDF",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap_seed_expanded.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "Editable/vector companion to seed-expanded PNG; 120/120 finite cells."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_expanded_svg_20261101",
+      "asset_type": "figure_svg",
+      "display_name": "NEB seed performance heatmap — seed expanded SVG",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/figures/fig_neb_seed_performance_heatmap_seed_expanded.svg",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "Editable/vector companion to seed-expanded PNG; 120/120 finite cells."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_aggregate_metrics_20261101",
+      "asset_type": "metrics_tsv",
+      "display_name": "NEB total performance dot metrics — aggregate",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_DOT_METRICS.tsv",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "56 aggregate rows; generated with include-diagnostic-self; nonconverged terminal self values remain explicitly diagnostic."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_expanded_metrics_20261101",
+      "asset_type": "metrics_tsv",
+      "display_name": "NEB total performance dot metrics — seed expanded",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/processed/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "120 seed-expanded rows; generated with include-diagnostic-self; finite terminal diagnostics retained with status."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_gap_audit_20261101",
+      "asset_type": "audit_tsv",
+      "display_name": "NEB missing-cell audit 2026-11-01",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/processed/NEB_MISSING_CELL_AUDIT_20261101.tsv",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "Every prior blank cell traced to a local/remote manifest or fixed retry; remote Rockfish locators preserved."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_foundation_matrix_merged_20261101",
+      "asset_type": "result_matrix_tsv",
+      "display_name": "Foundation migration result matrix — merged retries",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/raw_input/foundation_migration_20261019/TIER1_RESULT_MATRIX_MERGED_20261101.tsv",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "RETRY_VERIFIED_WITH_DIAGNOSTIC",
+      "notes": "Fixed GPU retries and endpoint extensions merged additively; finite diagnostics retained without upgrading science status."
+    },
+    {
+      "asset_id": "asset_neb_seed_heatmap_scratch_matrix_merged_20261101",
+      "asset_type": "result_matrix_tsv",
+      "display_name": "Scratch 600K migration result matrix — merged retries",
+      "local_path": "analysis/neb_seed_paired_heatmap_20261031/raw_input/scratch_600k_migration_20261101/processed/SCRATCH600K_MIGRATION_RESULT_MATRIX_MERGED_20261101.tsv",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "RETRY_VERIFIED_WITH_DIAGNOSTIC",
+      "notes": "Scratch s123/s234 endpoint extensions converged and are merged as primary evidence; additive merge preserves base matrix."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_DOTMATRIX_V3_LATEST_MANIFEST_json",
+      "asset_type": "provenance_json",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_DOTMATRIX_V3_LATEST_MANIFEST.json",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_DOTMATRIX_V3_LATEST_MANIFEST.json",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_dot_encoding_and_layout_v3_pdf",
+      "asset_type": "layout_note_pdf",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_dot_encoding_and_layout_v3.pdf",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_dot_encoding_and_layout_v3.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_dot_heatmap_v3_pdf",
+      "asset_type": "figure_pdf",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_dot_heatmap_v3.pdf",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_dot_heatmap_v3.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_dot_heatmap_v3_png",
+      "asset_type": "figure_png",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_dot_heatmap_v3.png",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_dot_heatmap_v3.png",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_dot_heatmap_v3_svg",
+      "asset_type": "figure_svg",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_dot_heatmap_v3.svg",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_dot_heatmap_v3.svg",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_main_figure_pdf",
+      "asset_type": "figure_pdf",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_main_figure.pdf",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_main_figure.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_main_figure_png",
+      "asset_type": "figure_png",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_main_figure.png",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_main_figure.png",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_main_figure_svg",
+      "asset_type": "figure_svg",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_main_figure.svg",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_main_figure.svg",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_a_design_v3_pdf",
+      "asset_type": "figure_pdf",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_a_design_v3.pdf",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_a_design_v3.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_a_design_v3_png",
+      "asset_type": "figure_png",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_a_design_v3.png",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_a_design_v3.png",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_a_design_v3_svg",
+      "asset_type": "figure_svg",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_a_design_v3.svg",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_a_design_v3.svg",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_c_fixed_within_QL_v3_pdf",
+      "asset_type": "figure_pdf",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_c_fixed_within_QL_v3.pdf",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_c_fixed_within_QL_v3.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_c_fixed_within_QL_v3_png",
+      "asset_type": "figure_png",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_c_fixed_within_QL_v3.png",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_c_fixed_within_QL_v3.png",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_c_fixed_within_QL_v3_svg",
+      "asset_type": "figure_svg",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_c_fixed_within_QL_v3.svg",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_c_fixed_within_QL_v3.svg",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_d_self_relaxed_within_QL_v3_pdf",
+      "asset_type": "figure_pdf",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_d_self_relaxed_within_QL_v3.pdf",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_d_self_relaxed_within_QL_v3.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_d_self_relaxed_within_QL_v3_png",
+      "asset_type": "figure_png",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_d_self_relaxed_within_QL_v3.png",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_d_self_relaxed_within_QL_v3.png",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_d_self_relaxed_within_QL_v3_svg",
+      "asset_type": "figure_svg",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_d_self_relaxed_within_QL_v3.svg",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_d_self_relaxed_within_QL_v3.svg",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_e_sliding_v3_pdf",
+      "asset_type": "figure_pdf",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_e_sliding_v3.pdf",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_e_sliding_v3.pdf",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_e_sliding_v3_png",
+      "asset_type": "figure_png",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_e_sliding_v3.png",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_e_sliding_v3.png",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_NEB_panel_e_sliding_v3_svg",
+      "asset_type": "figure_svg",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / NEB_panel_e_sliding_v3.svg",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_e_sliding_v3.svg",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "VERIFIED_VISUAL",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_README_txt",
+      "asset_type": "provenance_text",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / README.txt",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/README.txt",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_audit_json",
+      "asset_type": "provenance_json",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / audit.json",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/audit.json",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_figure_caption_txt",
+      "asset_type": "provenance_text",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / figure_caption.txt",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/figure_caption.txt",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_plotted_values_tsv",
+      "asset_type": "metrics_tsv",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / plotted_values.tsv",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/plotted_values.tsv",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_style_spec_json",
+      "asset_type": "provenance_json",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / style_spec.json",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/style_spec.json",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_source_build_neb_dotmatrix_py",
+      "asset_type": "source_py",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / source/build_neb_dotmatrix.py",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/source/build_neb_dotmatrix.py",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "RECONSTRUCTION",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn. Editable rebuild source; Helvetica-compatible exports and ASCII arrows avoid glyph tofu."
+    },
+    {
+      "asset_id": "asset_neb_dotmatrix_v3_latest_20261101_data_NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS_tsv",
+      "asset_type": "metrics_tsv",
+      "display_name": "NEB dotmatrix v3 latest 2026-11-01 / data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv",
+      "local_path": "analysis/neb_dotmatrix_v3_latest_20261101/data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv",
+      "campaign_id": "neb_fixed_self_r01_20261019",
+      "source_id": "src_campaign_matrix",
+      "existence_at_build": 1,
+      "scientific_status": "PROVENANCE_AUDITED",
+      "notes": "User-supplied NEB_dotmatrix_v3_complete.zip layout; data replaced with latest merged 120-row seed-expanded TSV. Product render uses all 120 finite values with quantitative predicted-energy color and absolute-error area. Original source statuses remain in plotted_values.tsv/audit.json for provenance; no diagnostic-only glyphs are drawn. Copied input is the exact 120-row merged source used for rendering."
     }
   ],
   "charts": [
@@ -4896,6 +6046,214 @@
       "source_id": "src_data_assets",
       "data_query": "SELECT coverage_id, model_id, task_id, system_id, campaign_id, dataset_id, run_status, scientific_status, dft_reference_status, result_summary FROM coverage WHERE task_id='ood_explosion'",
       "notes": "Logical chart slot created to make the missing pre/during/post plot discoverable; no rendered figure or immutable frame locator is registered yet."
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "title": "MatPES fixed-path NEB extension R01",
+      "chart_kind": "multi_panel_profile",
+      "chart_status": "COMPLETE_WITH_BOUNDARY",
+      "asset_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/fixed_path_extension/results/figures/foundation_fixed_path_4x3_R01/foundation_fixed_path_4x3_R01.png",
+      "asset_mime": "image/png",
+      "asset_exists": 1,
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "data_query": "SELECT * FROM coverage WHERE coverage_id = 'cov_matpes_fixed_path_neb_r01'",
+      "notes": "Independent visual/provenance PASS; fixed-path profiles are finite diagnostics, not validated barriers."
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "title": "MatPES self-relaxed NEB extension R03",
+      "chart_kind": "multi_panel_profile",
+      "chart_status": "COMPLETE_WITH_CAVEATS",
+      "asset_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/self_relaxed_extension/combined_4x3_R03/figures/foundation_self_relaxed_4x3_R03.png",
+      "asset_mime": "image/png",
+      "asset_exists": 1,
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "data_query": "SELECT * FROM coverage WHERE coverage_id = 'cov_matpes_self_relaxed_neb_r03'",
+      "notes": "Visual/provenance PASS; canonical Na failure is explicitly retained and blocks final scientific release."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "title": "MatPES interlayer sliding R14",
+      "chart_kind": "multi_panel_profile",
+      "chart_status": "COMPLETE_WITH_BOUNDARY",
+      "asset_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/sliding_extension/results/figures/foundation_interlayer_sliding_2x2_R14/foundation_interlayer_sliding_2x2_R14.png",
+      "asset_mime": "image/png",
+      "asset_exists": 1,
+      "campaign_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "source_id": "src_matpes_campaign_r01",
+      "data_query": "SELECT * FROM coverage WHERE campaign_id = 'foundation_matpes_pbe_omat_ft_campaign_20261024' AND task_id IN ('interlayer_fixed','interlayer_self')",
+      "notes": "Independent data and visual/provenance PASS; fixed and endpoint-only self-relaxed operators remain separate."
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "title": "Figure 1 — task-conditioned universe (A: clean raw PCA)",
+      "chart_kind": "composite",
+      "chart_status": "VERIFIED",
+      "asset_path": "docs/reproducibility/canva_figure_provenance/R06_clean_raw_pca/figures/figure01_task_conditioned_universe.svg",
+      "asset_mime": "image/svg+xml",
+      "asset_exists": 1,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM chart_data_files WHERE chart_id='chart_fig1_task_conditioned_universe_r06'",
+      "notes": "LATEST universe figure (R06, user-approved 2026-10-31, commit 941baf8, PR #14). Panel A legends: tasks L0 circle/L1 triangle/L2 diamond/L3 cross; DFT split train circle/valid triangle/test square; cluster shading matches task colors. Standalone A: figure01a_clean_raw_pca.{svg,pdf,png}. Older universe versions deleted; recoverable from archive snapshot eaac537."
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_plus_rmse_overview",
+      "title": "Figure 2 v16 — temperature + overall RMSE overview (square composite)",
+      "chart_kind": "composite",
+      "chart_status": "VERIFIED",
+      "asset_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_temperature_plus_scratch_ft_shared_legend_square.svg",
+      "asset_mime": "image/svg+xml",
+      "asset_exists": 1,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM chart_data_files WHERE chart_id='chart_fig2_v16_temperature_plus_rmse_overview'",
+      "notes": "User-approved final (2026-11-01), commit 941baf8, PR #14. Intended use: SI figure, or stitched with the main-text RMSE figure. Seed legend white background, bold borders; seeds 123/234/345 = no hatch / forward hatch / backward hatch. Vector SVG/PDF, no embedded bitmaps. Stats: paired two-sided t-test on 3 seed aggregates, exploratory n=3, no multiplicity correction."
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_class_rmse",
+      "title": "Figure 2 v16 — RMSE by temperature class (standalone)",
+      "chart_kind": "single_panel",
+      "chart_status": "VERIFIED",
+      "asset_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_by_temperature_class_reference_grouped_seed_boxclusters_compact.svg",
+      "asset_mime": "image/svg+xml",
+      "asset_exists": 1,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM chart_data_files WHERE chart_id='chart_fig2_v16_temperature_class_rmse'",
+      "notes": "Standalone temperature panel (Scratch-MultiT vs FT-MultiT; 300K/600K/1200K; seed box clusters). Also a component of chart_fig2_v16_temperature_plus_rmse_overview."
+    },
+    {
+      "chart_id": "canva_p01_figure01",
+      "title": "Canva P01 — MigrationBench configuration universe + model workflow",
+      "chart_kind": "canva_page",
+      "chart_status": "PROVENANCE_SUPPORTED",
+      "asset_path": "docs/reproducibility/canva_figure_provenance/R06_clean_raw_pca/figures/figure01_task_conditioned_universe.pdf",
+      "asset_mime": "application/pdf",
+      "asset_exists": 1,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P01';",
+      "notes": "Composite reconstruction; workflow schematic and universe panel have separate source builders."
+    },
+    {
+      "chart_id": "canva_p02_figure02",
+      "title": "Canva P02 — Do foundation models help to improve MLIP?",
+      "chart_kind": "canva_page",
+      "chart_status": "SCHEMATIC_ONLY",
+      "asset_path": "",
+      "asset_mime": "application/pdf",
+      "asset_exists": 0,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P02';",
+      "notes": "Schematic-only pointer; no numerical result or raw data claim."
+    },
+    {
+      "chart_id": "canva_p03_figure03",
+      "title": "Canva P03 — RMSE",
+      "chart_kind": "canva_page",
+      "chart_status": "PUBLICATION_PROVISIONAL",
+      "asset_path": "",
+      "asset_mime": "application/pdf",
+      "asset_exists": 0,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P03';",
+      "notes": "Derived parity data and builder are vendored; exact downloaded PDF remains pointer-only."
+    },
+    {
+      "chart_id": "canva_p04_figure04",
+      "title": "Canva P04 — Frame-level error distributions",
+      "chart_kind": "canva_page",
+      "chart_status": "PUBLICATION_PROVISIONAL",
+      "asset_path": "",
+      "asset_mime": "application/pdf",
+      "asset_exists": 0,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P04';",
+      "notes": "Per-frame data and builder are vendored; exact downloaded PDF remains pointer-only."
+    },
+    {
+      "chart_id": "canva_p05_figure05",
+      "title": "Canva P05 — MD (1ns)",
+      "chart_kind": "canva_page",
+      "chart_status": "PROVISIONAL_RAW_TRAJECTORIES_EXTERNAL",
+      "asset_path": "docs/reproducibility/canva_figure_provenance/R03_typography18pt_final/figures/figure06_matched_md_diagnostics.pdf",
+      "asset_mime": "application/pdf",
+      "asset_exists": 1,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P05';",
+      "notes": "Compact MD tables and composite builder are vendored; raw trajectories remain external."
+    },
+    {
+      "chart_id": "canva_p06_figure06",
+      "title": "Canva P06 — NEB Cr",
+      "chart_kind": "canva_page",
+      "chart_status": "ENDPOINT_ONLY_MLIP_PROXY_RECONSTRUCTION",
+      "asset_path": "",
+      "asset_mime": "application/pdf",
+      "asset_exists": 0,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P06';",
+      "notes": "External source tables and script pointer; self-relaxed rows are endpoint-only MLIP proxies."
+    },
+    {
+      "chart_id": "canva_p07_figure07",
+      "title": "Canva P07 — NEB Cu Li Na",
+      "chart_kind": "canva_page",
+      "chart_status": "RECONSTRUCTION_QE_SCF_WARNING",
+      "asset_path": "",
+      "asset_mime": "application/pdf",
+      "asset_exists": 0,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P07';",
+      "notes": "Legacy foundation page; QE references carry SCF-warning boundaries."
+    },
+    {
+      "chart_id": "canva_p08_figure08",
+      "title": "Canva P08 — NEB more foundation model",
+      "chart_kind": "canva_page",
+      "chart_status": "RECONSTRUCTION_QE_SCF_WARNING",
+      "asset_path": "",
+      "asset_mime": "application/pdf",
+      "asset_exists": 0,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P08';",
+      "notes": "Foundation 4x3 page; QE references carry SCF-warning boundaries."
+    },
+    {
+      "chart_id": "canva_p09_figure09",
+      "title": "Canva P09 — NEB interlayer sliding",
+      "chart_kind": "canva_page",
+      "chart_status": "RECONSTRUCTION_DFT_SCF_WARNING_ENDPOINT_ONLY_PROXY",
+      "asset_path": "",
+      "asset_mime": "application/pdf",
+      "asset_exists": 0,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P09';",
+      "notes": "Download copy is intact; local staging integrity split remains recorded."
+    },
+    {
+      "chart_id": "canva_p10_figure10",
+      "title": "Canva P10 — NEB interlayer sliding more foundation model",
+      "chart_kind": "canva_page",
+      "chart_status": "RECONSTRUCTION_DFT_SCF_WARNING_CLASS_SD",
+      "asset_path": "",
+      "asset_mime": "application/pdf",
+      "asset_exists": 0,
+      "campaign_id": "paper_figures_canva_20261031",
+      "source_id": "src_paper_figures_pr14",
+      "data_query": "SELECT * FROM canva_pages WHERE figure_id = 'CANVA-P10';",
+      "notes": "Remote Rockfish inputs remain pointer-only; class SD is retained as a boundary."
     }
   ],
   "chart_panels": [
@@ -5150,6 +6508,78 @@
       "dataset_id": "ood_explosion",
       "data_query": "SELECT coverage_id, model_id, run_status, scientific_status, result_summary FROM coverage WHERE task_id='ood_explosion'",
       "notes": ""
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "panel_id": "p1",
+      "panel_label": "Cr81",
+      "panel_title": "Cr81 fixed-path profiles",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "fixed_path_neb",
+      "system_id": "cr81_migration",
+      "dataset_id": "foundation_matpes_fixed_path_neb_r01",
+      "data_query": "SELECT * FROM coverage WHERE coverage_id = 'cov_matpes_fixed_path_neb_r01'",
+      "notes": "Finite diagnostic."
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "panel_id": "p1",
+      "panel_label": "Cr81",
+      "panel_title": "Cr81 self-relaxed profiles",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "self_relaxed_neb",
+      "system_id": "cr81_migration",
+      "dataset_id": "foundation_matpes_self_relaxed_neb_r03",
+      "data_query": "SELECT * FROM coverage WHERE coverage_id = 'cov_matpes_self_relaxed_neb_r03'",
+      "notes": "Na failure retained."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "panel_id": "A",
+      "panel_label": "A",
+      "panel_title": "Fixed-path bulk",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "interlayer_fixed",
+      "system_id": "interlayer_bulk_2x2",
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "data_query": "SELECT * FROM coverage WHERE coverage_id = 'cov_matpes_sliding_r14_fixed_bulk'",
+      "notes": "Fixed path."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "panel_id": "B",
+      "panel_label": "B",
+      "panel_title": "Fixed-path Cr-in-gap",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "interlayer_fixed",
+      "system_id": "interlayer_cr_gap_2x2",
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "data_query": "SELECT * FROM coverage WHERE coverage_id = 'cov_matpes_sliding_r14_fixed_gap'",
+      "notes": "Fixed path."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "panel_id": "C",
+      "panel_label": "C",
+      "panel_title": "Self-relaxed endpoint-only bulk",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "interlayer_self",
+      "system_id": "interlayer_bulk_2x2",
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "data_query": "SELECT * FROM coverage WHERE coverage_id = 'cov_matpes_sliding_r14_self_bulk'",
+      "notes": "Endpoint-only proxy."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "panel_id": "D",
+      "panel_label": "D",
+      "panel_title": "Self-relaxed endpoint-only Cr-in-gap",
+      "model_id": "foundation_matpes_pbe_omat_ft",
+      "task_id": "interlayer_self",
+      "system_id": "interlayer_cr_gap_2x2",
+      "dataset_id": "foundation_matpes_sliding_r14",
+      "data_query": "SELECT * FROM coverage WHERE coverage_id = 'cov_matpes_sliding_r14_self_gap'",
+      "notes": "Endpoint-only proxy."
     }
   ],
   "chart_links": [
@@ -5782,6 +7212,279 @@
       "entity_id": "finetune",
       "role": "family_or_campaign_scope",
       "notes": "Search scope only; exact checkpoint mapping is not asserted."
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "entity_type": "model",
+      "entity_id": "foundation_matpes_pbe_omat_ft",
+      "role": "primary_model",
+      "notes": "Exact checkpoint identity."
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "entity_type": "model_group",
+      "entity_id": "foundation_mace_omat",
+      "role": "broad_class",
+      "notes": "Requested broad class."
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "entity_type": "campaign",
+      "entity_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "role": "source_campaign",
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "entity_type": "model",
+      "entity_id": "foundation_matpes_pbe_omat_ft",
+      "role": "primary_model",
+      "notes": "Exact checkpoint identity."
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "entity_type": "model_group",
+      "entity_id": "foundation_mace_omat",
+      "role": "broad_class",
+      "notes": "Requested broad class."
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "entity_type": "campaign",
+      "entity_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "role": "source_campaign",
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "entity_type": "model",
+      "entity_id": "foundation_matpes_pbe_omat_ft",
+      "role": "primary_model",
+      "notes": "Exact checkpoint identity."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "entity_type": "model_group",
+      "entity_id": "foundation_mace_omat",
+      "role": "broad_class",
+      "notes": "Requested broad class."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "entity_type": "campaign",
+      "entity_id": "foundation_matpes_pbe_omat_ft_campaign_20261024",
+      "role": "source_campaign",
+      "notes": "R14 release."
+    },
+    {
+      "chart_id": "canva_p01_figure01",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p02_figure02",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p03_figure03",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p04_figure04",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p05_figure05",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p06_figure06",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p07_figure07",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p08_figure08",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p09_figure09",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p10_figure10",
+      "entity_type": "canva_design",
+      "entity_id": "DAHZabm1B1g",
+      "role": "historical_design",
+      "notes": "Historical ten-page Canva catalog from PR14."
+    },
+    {
+      "chart_id": "canva_p01_figure01",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P01",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p02_figure02",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P02",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p03_figure03",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P03",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p04_figure04",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P04",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p05_figure05",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P05",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p06_figure06",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P06",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p07_figure07",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P07",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p08_figure08",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P08",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p09_figure09",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P09",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p10_figure10",
+      "entity_type": "canva_page",
+      "entity_id": "CANVA-P10",
+      "role": "page",
+      "notes": "Stable figure ID from the historical Canva catalog."
+    },
+    {
+      "chart_id": "canva_p01_figure01",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p02_figure02",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p03_figure03",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p04_figure04",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p05_figure05",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p06_figure06",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p07_figure07",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p08_figure08",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p09_figure09",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
+    },
+    {
+      "chart_id": "canva_p10_figure10",
+      "entity_type": "campaign",
+      "entity_id": "paper_figures_canva_20261031",
+      "role": "catalog_campaign",
+      "notes": "Canva figure provenance catalog audit campaign."
     }
   ],
   "chart_data_files": [
@@ -5964,6 +7667,312 @@
       "file_format": "CSV",
       "file_exists": 1,
       "notes": ""
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "file_id": "result_matrix",
+      "display_name": "Fixed-path result matrix",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/fixed_path_extension/data/RESULT_MATRIX.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "MatPES-only R01 input table; 12 rows are finite."
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "file_id": "profiles",
+      "display_name": "Fixed-path image profiles",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/fixed_path_extension/data/IMAGE_PROFILES.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "MatPES-only R01 input profile table; 120 rows."
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "file_id": "row_results",
+      "display_name": "Self-relaxed row results",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/self_relaxed_extension/combined_4x3_R03/data/ROW_RESULTS.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "Combined R03 row table; canonical failure row retained."
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "file_id": "profiles",
+      "display_name": "Self-relaxed image profiles",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/self_relaxed_extension/combined_4x3_R03/data/IMAGE_PROFILES.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "Failed curve is not plotted as a converged success."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "file_id": "result_matrix",
+      "display_name": "Sliding result matrix",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/sliding_extension/results/tables/RESULT_MATRIX.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "R14 combined 16-row matrix; authoritative combined table."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "file_id": "profiles",
+      "display_name": "Sliding image profiles",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/sliding_extension/results/tables/IMAGE_PROFILES.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "R14 combined 160-row profile table; authoritative combined table."
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "file_id": "failure_registry",
+      "display_name": "Fixed-path failure registry",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/fixed_path_extension/data/FAILURE_REGISTRY.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "R01 failure ledger input; empty/zero-row failure registry retained."
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "file_id": "failure_registry",
+      "display_name": "Self-relaxed failure registry",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/self_relaxed_extension/combined_4x3_R03/data/FAILURE_REGISTRY.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "Combined R03 failure ledger; canonical Na failure retained."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "file_id": "failure_registry",
+      "display_name": "Sliding failure registry",
+      "local_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/sliding_extension/results/tables/FAILURE_REGISTRY.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "R14 combined failure ledger."
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "file_id": "points",
+      "display_name": "Task map points (x_pca/y_pca)",
+      "local_path": "docs/reproducibility/canva_figure_provenance/data/figure01/comprehensive_task_map_points.csv",
+      "file_format": "CSV",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "file_id": "fig_svg",
+      "display_name": "Figure 1 SVG",
+      "local_path": "docs/reproducibility/canva_figure_provenance/R06_clean_raw_pca/figures/figure01_task_conditioned_universe.svg",
+      "file_format": "SVG",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "file_id": "fig_pdf",
+      "display_name": "Figure 1 PDF",
+      "local_path": "docs/reproducibility/canva_figure_provenance/R06_clean_raw_pca/figures/figure01_task_conditioned_universe.pdf",
+      "file_format": "PDF",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "file_id": "figA_svg",
+      "display_name": "Figure 1A standalone SVG",
+      "local_path": "docs/reproducibility/canva_figure_provenance/R06_clean_raw_pca/figures/figure01a_clean_raw_pca.svg",
+      "file_format": "SVG",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "file_id": "figA_pdf",
+      "display_name": "Figure 1A standalone PDF",
+      "local_path": "docs/reproducibility/canva_figure_provenance/R06_clean_raw_pca/figures/figure01a_clean_raw_pca.pdf",
+      "file_format": "PDF",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "file_id": "script_a",
+      "display_name": "Build script (panel A)",
+      "local_path": "docs/reproducibility/canva_figure_provenance/scripts/build_figure01a_clean_panel.py",
+      "file_format": "PY",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "file_id": "script_all",
+      "display_name": "Build script (atomic figures)",
+      "local_path": "docs/reproducibility/canva_figure_provenance/scripts/build_atomic_migration_figures.py",
+      "file_format": "PY",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_plus_rmse_overview",
+      "file_id": "svg",
+      "display_name": "Composite SVG",
+      "local_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_temperature_plus_scratch_ft_shared_legend_square.svg",
+      "file_format": "SVG",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_plus_rmse_overview",
+      "file_id": "pdf",
+      "display_name": "Composite PDF",
+      "local_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_temperature_plus_scratch_ft_shared_legend_square.pdf",
+      "file_format": "PDF",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_plus_rmse_overview",
+      "file_id": "png",
+      "display_name": "Composite PNG",
+      "local_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_temperature_plus_scratch_ft_shared_legend_square.png",
+      "file_format": "PNG",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_plus_rmse_overview",
+      "file_id": "parity_summary",
+      "display_name": "Parity summary",
+      "local_path": "docs/reproducibility/canva_figure_provenance/data/figure02/parity_summary.csv",
+      "file_format": "CSV",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_plus_rmse_overview",
+      "file_id": "frames",
+      "display_name": "Per-frame parity CSV/NPZ dir",
+      "local_path": "docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity",
+      "file_format": "DIR",
+      "file_exists": 1,
+      "notes": "train/test x 3 seeds x families"
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_plus_rmse_overview",
+      "file_id": "script",
+      "display_name": "Build script",
+      "local_path": "docs/reproducibility/canva_figure_provenance/scripts/build_figure02_latest.py",
+      "file_format": "PY",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_class_rmse",
+      "file_id": "svg",
+      "display_name": "Temperature SVG",
+      "local_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_by_temperature_class_reference_grouped_seed_boxclusters_compact.svg",
+      "file_format": "SVG",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_class_rmse",
+      "file_id": "pdf",
+      "display_name": "Temperature PDF",
+      "local_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/variant04_by_temperature_class_reference_grouped_seed_boxclusters_compact.pdf",
+      "file_format": "PDF",
+      "file_exists": 1,
+      "notes": ""
+    },
+    {
+      "chart_id": "canva_p01_figure01",
+      "file_id": "figure_index",
+      "display_name": "Canva figure index row",
+      "local_path": "figures/publication/canva/CANVA_FIGURE_INDEX.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "Canonical repository-facing figure index."
+    },
+    {
+      "chart_id": "canva_p02_figure02",
+      "file_id": "figure_index",
+      "display_name": "Canva figure index row",
+      "local_path": "figures/publication/canva/CANVA_FIGURE_INDEX.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "Schematic page; numerical data not claimed."
+    },
+    {
+      "chart_id": "canva_p03_figure03",
+      "file_id": "parity_summary",
+      "display_name": "Vendored parity summary",
+      "local_path": "docs/reproducibility/canva_figure_provenance/data/figure02/parity_summary.csv",
+      "file_format": "csv",
+      "file_exists": 1,
+      "notes": "Derived parity table."
+    },
+    {
+      "chart_id": "canva_p04_figure04",
+      "file_id": "parity_summary",
+      "display_name": "Vendored per-frame parity data",
+      "local_path": "docs/reproducibility/canva_figure_provenance/data/figure02",
+      "file_format": "directory",
+      "file_exists": 1,
+      "notes": "Per-frame CSV/NPZ inputs are vendored."
+    },
+    {
+      "chart_id": "canva_p05_figure05",
+      "file_id": "md_figure_data",
+      "display_name": "Vendored MD figure data",
+      "local_path": "docs/reproducibility/canva_figure_provenance/data/figure06/MD15_FIGURE_DATA_R06G.tsv",
+      "file_format": "tsv",
+      "file_exists": 1,
+      "notes": "Compact MD analysis table; raw trajectories external."
+    },
+    {
+      "chart_id": "canva_p06_figure06",
+      "file_id": "external_source_tables",
+      "display_name": "External Cr NEB source tables",
+      "local_path": "analysis/cr_interlayer_sliding_grouped_20261025/three_path_r02/source_tables_remote",
+      "file_format": "directory",
+      "file_exists": 0,
+      "notes": "Pointer-only."
+    },
+    {
+      "chart_id": "canva_p07_figure07",
+      "file_id": "external_source_tables",
+      "display_name": "External foundation 3x3 profiles",
+      "local_path": "analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/archive/legacy_figure_products_20261024/data/foundation_class_3x3_R03",
+      "file_format": "directory",
+      "file_exists": 0,
+      "notes": "Pointer-only."
+    },
+    {
+      "chart_id": "canva_p08_figure08",
+      "file_id": "external_source_tables",
+      "display_name": "External foundation 4x3 profiles",
+      "local_path": "analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/archive/legacy_figure_products_20261024/data/foundation_class_4x3_R03",
+      "file_format": "directory",
+      "file_exists": 0,
+      "notes": "Pointer-only."
+    },
+    {
+      "chart_id": "canva_p09_figure09",
+      "file_id": "external_source_tables",
+      "display_name": "External Cr sliding source tables",
+      "local_path": "analysis/cr_interlayer_sliding_grouped_20261025/source_tables",
+      "file_format": "directory",
+      "file_exists": 0,
+      "notes": "Pointer-only; Downloads copy is the integrity authority."
+    },
+    {
+      "chart_id": "canva_p10_figure10",
+      "file_id": "external_source_tables",
+      "display_name": "External foundation sliding inputs",
+      "local_path": "external:/scratch16/pclancy3/yi/foundation_interlayer_sliding_10model_20261024/inputs/dft_bpath2",
+      "file_format": "directory",
+      "file_exists": 0,
+      "notes": "Pointer-only Rockfish input."
     }
   ],
   "chart_provenance": [
@@ -6076,6 +8085,166 @@
       "processing_command": "",
       "provenance_status": "NOT_AUDITED",
       "notes": "No rendered figure, immutable frame locator, or reproducible plot command is registered yet."
+    },
+    {
+      "chart_id": "chart_matpes_fixed_path_r01",
+      "manifest_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/fixed_path_extension/results/figures/foundation_fixed_path_4x3_R01/FIGURE_PROVENANCE.json",
+      "manifest_exists": 1,
+      "output_sha256": "652d84dfd055a94113b2b5132f0d53790175fa6bcb08c2354d812ef2e0a72338",
+      "input_file_hashes": "{\"result_matrix\":\"4e66fb612ab597191e7b0f2af0f2a724261e218771596ca3f0052d1ee78e79f3\",\"image_profiles\":\"f931a175d9007e99d13f664d17bde4a6d6498e5370cea2e2929a223ba90648ec\",\"failure_registry\":\"82c81144a2e13e1a5586cf2bbdcebeac45b5499e86485c13ebb04127dea99e06\"}",
+      "processing_command": "render_fixed_path_4x3_R01.py",
+      "provenance_status": "PASS",
+      "notes": "Independent visual/provenance review R01 PASS."
+    },
+    {
+      "chart_id": "chart_matpes_self_relaxed_r03",
+      "manifest_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/self_relaxed_extension/combined_4x3_R03/figures/VISUAL_QA_R03.json",
+      "manifest_exists": 1,
+      "output_sha256": "d457e574ccd781a926cfaf6ae8faf540c73d5c9f4bd483f6fb5bcc6ca2fe8f76",
+      "input_file_hashes": "{\"row_results\":\"ef63a4694947782beedf8b37801d29df228ce8a70ff2420a80d33e988f925a4b\",\"image_profiles\":\"56a190f8d045e9dda84a552dc6adeab860ff5ed186d63f4203e6916568c0f991\",\"failure_registry\":\"9bd37b828359dc69fc26aa5908af566b8daf7bfab61db6d4338c0630fbcab3a2\"}",
+      "processing_command": "render_foundation_self_relaxed_4x3_R03.py",
+      "provenance_status": "PASS_WITH_SCIENCE_CAVEAT",
+      "notes": "Visual/provenance PASS; data review remains blocked by canonical Na failure."
+    },
+    {
+      "chart_id": "chart_matpes_sliding_r14",
+      "manifest_path": "analysis/foundation_matpes_pbe_omat_ft_campaign_20261024/sliding_extension/FIGURE_PROVENANCE.json",
+      "manifest_exists": 1,
+      "output_sha256": "43c88c32b009b9631e47aa6aa6ca800562d31d116b155e7bfdf2688573acf31e",
+      "input_file_hashes": "{\"result_matrix\":\"1a2c1e7b20e372e44c0502e764c072bafa630bf505e26164affabbbee58eccb8\",\"image_profiles\":\"83919686bc703015308c5079bb1084ea73dd37856ac2db565701a72d7b0c050f\",\"failure_registry\":\"51155a4b1186db704c6f4b8a7fc371bbcd7b124ef80a692bf0ab21563b30f24f\"}",
+      "processing_command": "plot_2x2_R14.py",
+      "provenance_status": "PASS",
+      "notes": "Independent visual/provenance and data review PASS; output hash is the combined composite PNG."
+    },
+    {
+      "chart_id": "chart_fig1_task_conditioned_universe_r06",
+      "manifest_path": "docs/reproducibility/canva_figure_provenance/R06_clean_raw_pca/manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json",
+      "manifest_exists": 1,
+      "output_sha256": "731aa7d0f1b682a4f4dd713671661cd589624804c835a3f9548781c8cc3847a9",
+      "input_file_hashes": "{\"comprehensive_task_map_points.csv\":\"a3c478bbcf2bf8e976d3d5e9f3e3ea680802aac77d49119dad54f9398cc35f94\",\"manifest\":\"10a6dc5a77167fbe73ef9ac62ab8db9048499d2e0e216dd113aca8ef9d87a801\",\"build_figure01a_clean_panel.py\":\"c52465ca00b941b6b1348a103629161585691854f45d7d8e58d81524d72711e4\",\"build_atomic_migration_figures.py\":\"976857db6ebe31e070e8d173ee837970456e749b8f8f5b7c1d4c81c34e46019c\"}",
+      "processing_command": "python scripts/build_atomic_migration_figures.py; python scripts/build_figure01a_clean_panel.py (in docs/reproducibility/canva_figure_provenance)",
+      "provenance_status": "PASS",
+      "notes": "Output hash = full Figure 1 SVG. Other formats: PNG 15234ccc…, PDF f5dc1f33…; standalone A: SVG 58176198…, PDF 22b74107…, PNG f622242d…."
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_plus_rmse_overview",
+      "manifest_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/figure02_temperature_reference_layout_v16_manifest.json",
+      "manifest_exists": 1,
+      "output_sha256": "9f192766bd694b35db50fddc90e432f599e2dc336d1c4d1909e044a641912797",
+      "input_file_hashes": "{\"manifest\":\"321630da44fb0830ebea778f89a86040afaa7187a5eaf5f6f0853b6b96516d1a\",\"build_figure02_latest.py\":\"4ea3e9fcc6f43ee915cf3985e3fdd568f233c8df6e6e54c058235e52173bcba1\"}",
+      "processing_command": "python scripts/build_figure02_latest.py (in docs/reproducibility/canva_figure_provenance)",
+      "provenance_status": "PASS",
+      "notes": "Output hash = square composite SVG; PDF aad6e442…, PNG 6d841cd1…. Manifest status field says RECONSTRUCTION (from packaged per-frame CSVs in data/figure02/raw_rockfish_parity; train+test merged, isolated atoms excluded)."
+    },
+    {
+      "chart_id": "chart_fig2_v16_temperature_class_rmse",
+      "manifest_path": "git:b2924bc^:docs/reproducibility/canva_figure_provenance/R03_typography18pt/figures/figure02_temperature_reference_layout_v16/figure02_temperature_reference_layout_v16_manifest.json",
+      "manifest_exists": 1,
+      "output_sha256": "f927b18431a9682dfc3e0f99ba011db94c665954c909001906e0d8936d0d6038",
+      "input_file_hashes": "{\"manifest\":\"321630da44fb0830ebea778f89a86040afaa7187a5eaf5f6f0853b6b96516d1a\",\"build_figure02_latest.py\":\"4ea3e9fcc6f43ee915cf3985e3fdd568f233c8df6e6e54c058235e52173bcba1\"}",
+      "processing_command": "python scripts/build_figure02_latest.py (in docs/reproducibility/canva_figure_provenance)",
+      "provenance_status": "PASS",
+      "notes": "Output hash = standalone temperature SVG; PDF 031e883e…, PNG 0543439a…."
+    },
+    {
+      "chart_id": "canva_p01_figure01",
+      "manifest_path": "docs/reproducibility/canva_figure_provenance/R06_clean_raw_pca/manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json",
+      "manifest_exists": 1,
+      "output_sha256": null,
+      "input_file_hashes": "{}",
+      "processing_command": "python docs/reproducibility/canva_figure_provenance/scripts/build_atomic_migration_figures.py",
+      "provenance_status": "PROVENANCE_SUPPORTED",
+      "notes": "Current page-level Canva identity is unverified; historical catalog mapping retained."
+    },
+    {
+      "chart_id": "canva_p02_figure02",
+      "manifest_path": "release/revision1_submitted_20261110/items/si/FigS1_training_design/source/drafts_20261024/literature_and_design_notes.md",
+      "manifest_exists": 0,
+      "output_sha256": null,
+      "input_file_hashes": "{}",
+      "processing_command": "external pointer",
+      "provenance_status": "SCHEMATIC_ONLY",
+      "notes": "No numerical claim."
+    },
+    {
+      "chart_id": "canva_p03_figure03",
+      "manifest_path": "docs/reproducibility/canva_figure_provenance/gallery/boxplot_cluster_reference_v04/outputs/figure02_temperature_reference_layout_v16_manifest.json",
+      "manifest_exists": 1,
+      "output_sha256": null,
+      "input_file_hashes": "{}",
+      "processing_command": "python docs/reproducibility/canva_figure_provenance/scripts/build_figure02_latest.py",
+      "provenance_status": "PUBLICATION_PROVISIONAL",
+      "notes": "Exact Canva export is pointer-only."
+    },
+    {
+      "chart_id": "canva_p04_figure04",
+      "manifest_path": "docs/reproducibility/canva_figure_provenance/gallery/boxplot_cluster_reference_v04/outputs/figure02_temperature_reference_layout_v16_manifest.json",
+      "manifest_exists": 1,
+      "output_sha256": null,
+      "input_file_hashes": "{}",
+      "processing_command": "python docs/reproducibility/canva_figure_provenance/scripts/build_figure02_latest.py --frame-only",
+      "provenance_status": "PUBLICATION_PROVISIONAL",
+      "notes": "Exact Canva export is pointer-only."
+    },
+    {
+      "chart_id": "canva_p05_figure05",
+      "manifest_path": "docs/reproducibility/canva_figure_provenance/R03_typography18pt_final/manifests/ATOMIC_MIGRATION_FIGURE_MANIFEST.json",
+      "manifest_exists": 1,
+      "output_sha256": null,
+      "input_file_hashes": "{}",
+      "processing_command": "python docs/reproducibility/canva_figure_provenance/scripts/build_atomic_migration_figures.py",
+      "provenance_status": "PROVISIONAL_RAW_TRAJECTORIES_EXTERNAL",
+      "notes": "Raw trajectories remain external."
+    },
+    {
+      "chart_id": "canva_p06_figure06",
+      "manifest_path": "analysis/cr_interlayer_sliding_grouped_20261025/results/cr_three_path_fixed_vs_self_2x3_R02.manifest.json",
+      "manifest_exists": 0,
+      "output_sha256": null,
+      "input_file_hashes": "{}",
+      "processing_command": "external pointer",
+      "provenance_status": "ENDPOINT_ONLY_MLIP_PROXY_RECONSTRUCTION",
+      "notes": "Self-relaxed rows are endpoint-only proxies."
+    },
+    {
+      "chart_id": "canva_p07_figure07",
+      "manifest_path": "analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/archive/legacy_figure_products_20261024/figure_data_manifest_foundation_class_3x3_R03.json",
+      "manifest_exists": 0,
+      "output_sha256": null,
+      "input_file_hashes": "{}",
+      "processing_command": "external pointer",
+      "provenance_status": "RECONSTRUCTION_QE_SCF_WARNING",
+      "notes": "Legacy/QE warning boundary retained."
+    },
+    {
+      "chart_id": "canva_p08_figure08",
+      "manifest_path": "analysis/neb_cross_element_triptychs_20261024/foundation_self_relaxed_4x3_20261024/archive/legacy_figure_products_20261024/figure_data_manifest_foundation_class_4x3_R03.json",
+      "manifest_exists": 0,
+      "output_sha256": null,
+      "input_file_hashes": "{}",
+      "processing_command": "external pointer",
+      "provenance_status": "RECONSTRUCTION_QE_SCF_WARNING",
+      "notes": "QE warning boundary retained."
+    },
+    {
+      "chart_id": "canva_p09_figure09",
+      "manifest_path": "analysis/cr_interlayer_sliding_grouped_20261025/manifests/FIGURE_PROVENANCE_CR_INTERLAYER_GROUPED_R04.json",
+      "manifest_exists": 0,
+      "output_sha256": "b47c847559b67afdb96fd8d89eb6f4716e13a6d364041615fd53b69a2d85133c",
+      "input_file_hashes": "{}",
+      "processing_command": "external pointer",
+      "provenance_status": "RECONSTRUCTION_DFT_SCF_WARNING_ENDPOINT_ONLY_PROXY",
+      "notes": "Downloads PDF is integrity authority; local staging split retained."
+    },
+    {
+      "chart_id": "canva_p10_figure10",
+      "manifest_path": "reproducibility/canva_palette_vector_bundle_20261105/data/source_archive/analysis/foundation_interlayer_sliding_10model_20261024/manifests/FIGURE_PROVENANCE_PLOT_ATLAS_GROUPED_R04.json",
+      "manifest_exists": 0,
+      "output_sha256": "cab018579c293179fe5e1c5269c8709a6cc49d44287861a842373e881e79f610",
+      "input_file_hashes": "{}",
+      "processing_command": "external pointer",
+      "provenance_status": "RECONSTRUCTION_DFT_SCF_WARNING_CLASS_SD",
+      "notes": "Remote Rockfish inputs remain pointer-only."
     }
   ],
   "gaps": [
@@ -6210,16 +8379,98 @@
       "recommended_next_action": "Do not synthesize Dxy; register a stable rerun only if it completes full physics gates.",
       "status": "OPEN",
       "source_id": "src_campaign_matrix"
+    },
+    {
+      "gap_id": "gap_matpes_self_na_canonical",
+      "priority": "P0",
+      "entity_type": "coverage",
+      "entity_id": "cov_matpes_self_relaxed_neb_r03",
+      "gap_type": "OPTIMIZER_NONCONVERGENCE",
+      "description": "Canonical MatPES self-relaxed Na/within-QL path remains NONCONVERGED after the exact 500-step retry.",
+      "recommended_next_action": "Retain the failure row and do not promote the self-relaxed package to final scientific release; any longer recovery is noncanonical.",
+      "status": "OPEN",
+      "source_id": "src_matpes_campaign_r01"
+    },
+    {
+      "gap_id": "gap_matpes_md_target",
+      "priority": "P0",
+      "entity_type": "coverage",
+      "entity_id": "cov_matpes_md_1ns_r01",
+      "gap_type": "TARGET_PENDING",
+      "description": "MatPES MD has not yet reached absolute step 1000000 and has no passing final MD audit.",
+      "recommended_next_action": "Wait for target-reached status, run the continuity/finite/geometry/temperature/force audit, then derive transport only if all gates pass.",
+      "status": "OPEN",
+      "source_id": "src_rockfish_status_20261025"
+    },
+    {
+      "gap_id": "gap_omat0_md_target",
+      "priority": "P0",
+      "entity_type": "coverage",
+      "entity_id": "cov_omat0_medium_md_1ns_r01",
+      "gap_type": "TARGET_PENDING",
+      "description": "OMAT-0 Medium continuation remains at step 605000/1000000.",
+      "recommended_next_action": "Continue monitoring and apply the same full MD audit before any Dxy update.",
+      "status": "OPEN",
+      "source_id": "src_rockfish_status_20261025"
+    },
+    {
+      "gap_id": "gap_a2_md_partial_20261025",
+      "priority": "P0",
+      "entity_type": "campaign",
+      "entity_id": "ft_grouped_A2_1ns_md_20261025",
+      "gap_type": "MIXED_RUNTIME_SCIENCE_STATUS",
+      "description": "Grouped A2 has two running continuations and four scientific-threshold failures after six successful smoke gates.",
+      "recommended_next_action": "Keep failed runs as failure-mode evidence, monitor the two live jobs, and only add Dxy for independently audited target-reached trajectories.",
+      "status": "OPEN",
+      "source_id": "src_a2_md_20261025"
+    },
+    {
+      "gap_id": "gap_cr81_restart_convergence_20261025",
+      "priority": "P0",
+      "entity_type": "campaign",
+      "entity_id": "cr81_neb_path_restart_fix_20261022",
+      "gap_type": "CONVERGENCE_PENDING",
+      "description": "Five Cr81 restart-fix paths are still running; scheduler state is not a QE convergence or barrier result.",
+      "recommended_next_action": "Audit all images, SCF status, endpoint equality, path forces, and restart provenance after completion.",
+      "status": "OPEN",
+      "source_id": "src_cr81_restart_20261022"
+    },
+    {
+      "gap_id": "gap_g7_compiled_model_20261025",
+      "priority": "P1",
+      "entity_type": "campaign",
+      "entity_id": "ft_600k_random_reproduction_20261025_r02",
+      "gap_type": "TRAINING_TERMINAL_PENDING",
+      "description": "The FT-600K random-split seed-123 comparator is still running.",
+      "recommended_next_action": "Wait for terminal status, verify compiled model/hash/configuration, then perform the separate comparator acceptance review.",
+      "status": "OPEN",
+      "source_id": "src_rockfish_status_20261025"
+    },
+    {
+      "gap_id": "gap_legacy_dxy_provenance",
+      "priority": "P1",
+      "entity_type": "task",
+      "entity_id": "md_1ns",
+      "gap_type": "LEGACY_PROVENANCE_REVIEW",
+      "description": "Historical MD rows contain legacy Dxy text that is not re-audited by this R01 migration.",
+      "recommended_next_action": "Keep historical Dxy separate from R01 promotions and audit each legacy trajectory/hash before any registry-wide transport claim.",
+      "status": "OPEN",
+      "source_id": "src_rockfish_status_20261025"
     }
   ],
   "metadata": {
     "authoritative_store": "SQLite; spreadsheet is a review/import mirror",
     "built_at_utc": "2026-10-25T19:25:45.595632+00:00",
+    "canva_audit_checked_at": "2026-11-01",
+    "canva_current_design_id": "DAHZXpLtN6U",
+    "canva_provenance_migration": "001_canva_design_and_figure_relations.sql",
     "caveat": "Status labels describe current evidence and do not replace raw-job audits.",
     "chart_registry": "charts + chart_panels + chart_links + chart_data_files + chart_provenance; chart IDs are stable within the registry",
     "fact_grain": "model identity × task/operator × material/system × campaign",
+    "portable_paths_migration": "003_portable_paths_legacy_tables.sql",
     "registry_name": "MigrationBench Asset Registry",
-    "registry_version": "2026-10-25"
+    "registry_version": "2026-10-25+canva-2026-11-01",
+    "revision1_submission_trace": "002 (2026-11-10, keyed tables + issues/pipeline/migration plan)"
   },
   "quality_checks": [
     {

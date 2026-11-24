@@ -1,0 +1,5 @@
+record_id	stage	job_id	state	failure_or_boundary	publication_status	action
+FT600K-OLD-BOOTSTRAP	training bootstrap	32121744_[0-1]	FAILED	invalid conda.sh path before training	FAILURE_MODE	retain original logs; exclude old attempt
+FT600K-R01-GATE	model load/finite probe	32455612	COMPLETED	both models loaded on CUDA and produced finite probes	VERIFIED	models are eligible for MD
+FT600K-R01-MD-234	MD smoke/continuation	32455770_0 / 32455778	FAILED	scientific threshold at step 201800: 1.76e7 K, max force 234.43 eV/A, min distance nan	FAILURE_MODE	retain trajectory; no continuation or 1 ns transport claim
+FT600K-R01-MD-345	MD smoke/continuation	32455770_1 / 32455770	FAILED	scientific threshold at step 201200: 2.17e6 K, max force 550.89 eV/A, min distance nan	FAILURE_MODE	retain trajectory; no continuation or 1 ns transport claim

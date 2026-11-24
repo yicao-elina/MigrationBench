@@ -1,0 +1,86 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS11_current_shap_fidelity",
+  "name": "tab:current_shap_fidelity",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS11_current_shap_fidelity/source/make_table_s11.py",
+  "script_sha256": "159ab215bee8c5696b103b3b5b1f72fa4b9828f22912328ab6c8cc8c3533cef2",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/shap_seed_metrics.csv": "fc3a6a67bc22bc96e2055a420f7aae37482ddcb963eff5207c029b6225b28f32"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS11_current_shap_fidelity/rerun_output/tab_current_shap_fidelity.tex": "1e4a9a589c97a4d2e97eaa4682b446b7616ae11a3216b5e7737578f560009528"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "shared module si_tables.py hardcode lint clean",
+      "passed": true,
+      "details": {
+        "path": "release/revision1_submitted_20261110/items/si/_shared_generators/si_tables.py",
+        "sha256": "ba0bf8569bc70d61306766eed2eccc6bdc50d92c03e00c37c9dfeb2d4ef4721d",
+        "findings": []
+      }
+    },
+    {
+      "check": "three training seeds per condition",
+      "passed": true,
+      "details": {
+        "FT-600K": [
+          123,
+          234,
+          345
+        ],
+        "FT-MultiT": [
+          123,
+          234,
+          345
+        ],
+        "Scratch-600K": [
+          123,
+          234,
+          345
+        ],
+        "Scratch-MultiT": [
+          123,
+          234,
+          345
+        ]
+      }
+    },
+    {
+      "check": "diagnostic (informational): MAE mean rounded once vs via the 2-dp audit table",
+      "passed": true,
+      "details": {
+        "FT-600K": {
+          "data": 1.1501649111435708,
+          "one_step_1dp": "1.2",
+          "two_step_2dp_then_1dp": "1.2"
+        },
+        "FT-MultiT": {
+          "data": 1.287706526052782,
+          "one_step_1dp": "1.3",
+          "two_step_2dp_then_1dp": "1.3"
+        },
+        "Scratch-600K": {
+          "data": 1.145231077605901,
+          "one_step_1dp": "1.1",
+          "two_step_2dp_then_1dp": "1.2"
+        },
+        "Scratch-MultiT": {
+          "data": 1.7256365643523643,
+          "one_step_1dp": "1.7",
+          "two_step_2dp_then_1dp": "1.7"
+        }
+      }
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:current_shap_fidelity at displayed precision",
+      "passed": false,
+      "details": [
+        "row 3 col 3: submitted 1.2 vs generated 1.145"
+      ]
+    }
+  ],
+  "result": "FAIL"
+}

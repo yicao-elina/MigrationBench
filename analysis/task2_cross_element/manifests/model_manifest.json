@@ -1,0 +1,182 @@
+{
+  "schema_version": "task2-model-manifest-1.0",
+  "created_utc": "2026-10-02T07:39:18.237078+00:00",
+  "namespace": "task2_cross_element",
+  "records": [
+    {
+      "model_id": "foundation",
+      "model_label": "Foundation",
+      "family": "Foundation",
+      "training_elements": [
+        "broad/foundation"
+      ],
+      "training_elements_status": "roster_not_present_in_local_manifest",
+      "seed": 0,
+      "remote_model_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/X-FORCE/xforce/models/Foundation-MACE-matpes-pbe-omat-ft.model",
+      "local_model_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models/Foundation-MACE-matpes-pbe-omat-ft.model",
+      "model_sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0",
+      "environment": {
+        "python": "3.11.0",
+        "torch": "2.12.0",
+        "device": "cpu",
+        "mace_calculator": "mace.calculators.MACECalculator"
+      },
+      "load_status": "loaded",
+      "model_supported_elements": [
+        "Cr",
+        "Cu",
+        "Li",
+        "Na",
+        "Sb",
+        "Te"
+      ],
+      "element_support_status": {
+        "Cr": "supported",
+        "Cu": "supported",
+        "Li": "supported",
+        "Na": "supported",
+        "Sb": "supported",
+        "Te": "supported"
+      },
+      "profile_smoke_status": "complete",
+      "scientific_success": false,
+      "failure_reason": "DFT gate failed; model smoke is diagnostic only",
+      "historical_local_model_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element/models/Foundation-MACE-matpes-pbe-omat-ft.model",
+      "rockfish_archive_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models/Foundation-MACE-matpes-pbe-omat-ft.model",
+      "archive_rel": "models/Foundation-MACE-matpes-pbe-omat-ft.model",
+      "git_blob_oid": "4a701e1def120a16ad3e0e3d7dbdaa0881d72fa1",
+      "availability": "ROCKFISH_ARCHIVE_ONLY",
+      "canonical_model_id": "MACE-CHECKPOINT-SHA256-e618ad582b842399",
+      "checkpoint_filename": "Foundation-MACE-matpes-pbe-omat-ft.model",
+      "checkpoint_identity_status": "VERIFIED",
+      "training_lineage_status": "PROVENANCE_PARTIAL",
+      "source_checkpoint_path": null,
+      "source_checkpoint_sha256": null
+    },
+    {
+      "model_id": "cr_ft",
+      "model_label": "Cr-specific FT",
+      "family": "Cr-specific FT",
+      "training_elements": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "training_elements_status": "declared_by_Cr-specific_inventory",
+      "seed": 123,
+      "remote_model_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+      "local_model_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models/FT-600K.model",
+      "model_sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a",
+      "environment": {
+        "python": "3.11.0",
+        "torch": "2.12.0",
+        "device": "cpu",
+        "mace_calculator": "mace.calculators.MACECalculator"
+      },
+      "load_status": "loaded",
+      "model_supported_elements": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "element_support_status": {
+        "Cr": "probe_error",
+        "Cu": "element_unsupported",
+        "Li": "element_unsupported",
+        "Na": "element_unsupported",
+        "Sb": "probe_error",
+        "Te": "probe_error"
+      },
+      "profile_smoke_status": "failed_or_unsupported",
+      "scientific_success": false,
+      "failure_reason": "health gate incomplete",
+      "historical_local_model_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element/models/FT-600K.model",
+      "rockfish_archive_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models/FT-600K.model",
+      "archive_rel": "models/FT-600K.model",
+      "git_blob_oid": "671a4bba6fd517a2f3a303b9dfa012a8fa47a9d6",
+      "availability": "ROCKFISH_ARCHIVE_ONLY",
+      "canonical_model_id": "MACE-CHECKPOINT-SHA256-6829d16e68bdd123",
+      "checkpoint_filename": "FT-600K.model",
+      "checkpoint_identity_status": "VERIFIED",
+      "training_lineage_status": "PROVENANCE_PARTIAL",
+      "source_checkpoint_path": null,
+      "source_checkpoint_sha256": null
+    },
+    {
+      "model_id": "cr_scratch",
+      "model_label": "Cr-specific Scratch",
+      "family": "Cr-specific Scratch",
+      "training_elements": [
+        "Cr",
+        "Sb",
+        "Te"
+      ],
+      "training_elements_status": "declared_by_Cr-specific_inventory",
+      "seed": 123,
+      "remote_model_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/X-FORCE/xforce/models/Scratch_Multi_T.model",
+      "local_model_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models/Scratch_Multi_T.model",
+      "model_sha256": "0d83b39b8ce81a7b7a4a26e5a3dfe51645aee6ca73180d72da4007d701b70fcf",
+      "environment": {
+        "python": "3.11.0",
+        "torch": "2.12.0",
+        "device": "cpu",
+        "mace_calculator": "mace.calculators.MACECalculator"
+      },
+      "load_status": "load_error",
+      "model_supported_elements": [],
+      "element_support_status": {},
+      "profile_smoke_status": null,
+      "scientific_success": false,
+      "failure_reason": "NotImplementedError: Could not run 'aten::empty_strided' with arguments from the 'CUDA' backend. This could be because the operator doesn't exist for this backend, or was omitted during the selective/custom build process (if using custom build). If you are a Facebook employee using PyTorch on mobile, please visit https://fburl.com/ptmfixes for possible resolutions. 'aten::empty_strided' is only available for these backends: [CPU, MPS, Meta, QuantizedCPU, BackendSelect, Python, FuncTorchDynamicLayerBackMode, Function",
+      "historical_local_model_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element/models/Scratch_Multi_T.model",
+      "rockfish_archive_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models/Scratch_Multi_T.model",
+      "archive_rel": "models/Scratch_Multi_T.model",
+      "git_blob_oid": "8ff3cce4fb68342a32853cf3f11c3e698a7be381",
+      "availability": "ROCKFISH_ARCHIVE_ONLY",
+      "canonical_model_id": "MACE-CHECKPOINT-SHA256-0d83b39b8ce81a7b",
+      "checkpoint_filename": "Scratch_Multi_T.model",
+      "checkpoint_identity_status": "VERIFIED",
+      "training_lineage_status": "PROVENANCE_PARTIAL",
+      "source_checkpoint_path": null,
+      "source_checkpoint_sha256": null
+    },
+    {
+      "model_id": "multi_element_ft",
+      "model_label": "Multi-element FT",
+      "family": "Multi-element FT",
+      "training_elements": [
+        "multi-element"
+      ],
+      "training_elements_status": "exact_roster_not_present_in_local_manifest",
+      "seed": 123,
+      "remote_model_path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/X-FORCE/xforce/models/FT_Multi_T.model",
+      "local_model_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models/FT_Multi_T.model",
+      "model_sha256": "f61082f629b1f03db12e9b2f34a525790979d831ada3c895cae48eed18cf7588",
+      "environment": {
+        "python": "3.11.0",
+        "torch": "2.12.0",
+        "device": "cpu",
+        "mace_calculator": "mace.calculators.MACECalculator"
+      },
+      "load_status": "load_error",
+      "model_supported_elements": [],
+      "element_support_status": {},
+      "profile_smoke_status": null,
+      "scientific_success": false,
+      "failure_reason": "NotImplementedError: Could not run 'aten::empty_strided' with arguments from the 'CUDA' backend. This could be because the operator doesn't exist for this backend, or was omitted during the selective/custom build process (if using custom build). If you are a Facebook employee using PyTorch on mobile, please visit https://fburl.com/ptmfixes for possible resolutions. 'aten::empty_strided' is only available for these backends: [CPU, MPS, Meta, QuantizedCPU, BackendSelect, Python, FuncTorchDynamicLayerBackMode, Function",
+      "historical_local_model_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element/models/FT_Multi_T.model",
+      "rockfish_archive_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models/FT_Multi_T.model",
+      "archive_rel": "models/FT_Multi_T.model",
+      "git_blob_oid": "384bb324503d8340ecd70006acf858f6fabfffef",
+      "availability": "ROCKFISH_ARCHIVE_ONLY",
+      "canonical_model_id": "MACE-CHECKPOINT-SHA256-f61082f629b1f03d",
+      "checkpoint_filename": "FT_Multi_T.model",
+      "checkpoint_identity_status": "VERIFIED",
+      "training_lineage_status": "PROVENANCE_PARTIAL",
+      "source_checkpoint_path": null,
+      "source_checkpoint_sha256": null
+    }
+  ],
+  "model_archive_root": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/models",
+  "model_archive_manifest": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/ARCHIVE_MANIFEST.tsv"
+}

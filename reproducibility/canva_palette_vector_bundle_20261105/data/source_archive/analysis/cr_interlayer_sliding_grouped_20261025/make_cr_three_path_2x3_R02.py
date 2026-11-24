@@ -201,15 +201,33 @@ def load_current_ft_self() -> list[dict]:
     return records
 
 
+def _dft_reference_sources() -> list[Path]:
+    """QE neb.out files behind dft_reference(), hashed into the render manifest."""
+    for parent in Path(__file__).resolve().parents:
+        raw = parent / "data" / "raw_compact" / "cr81_dft_neb_reference_20261013" / "raw"
+        if raw.is_dir():
+            return sorted(raw.glob("2L-Cu__neb-*/neb.out"))
+    raise FileNotFoundError("data/raw_compact/cr81_dft_neb_reference_20261013/raw not found")
+
+
 def dft_reference() -> dict[str, tuple[np.ndarray, np.ndarray]]:
-    # Extracted from the vector DFT-NEB line in foundation_self_relaxed_4x3_R03.pdf.
-    # The source PDF is hashed in the output manifest; no values are inferred from
-    # the raster image.
-    return {
-        "in_gap": (np.arange(10) / 9.0, np.array([0.0, 0.14998279, 0.45337452, 0.84019660, 1.23871102, 1.49900233, 1.52429883, 1.32639253, 1.01828651, 0.84891322])),
-        "gap_to_ql": (np.arange(10) / 9.0, np.array([0.0, -0.00599650, -0.01751910, -0.02938830, -0.04046770, -0.05133610, -0.06176651, -0.07202330, -0.08241070, -0.09594731])),
-        "within_ql": (np.arange(10) / 9.0, np.array([0.0, -0.28038152, -0.31615703, -0.30312301, 0.69680110, 1.63002741, 1.84489982, 0.41361450, -0.75147823, -0.50192181])),
-    }
+    """DFT-NEB reference profiles parsed from the committed QE neb.out files.
+
+    Formerly hard-coded arrays copied from foundation_self_relaxed_4x3_R03.pdf;
+    now read via src/migrationbench/dft_neb_reference.py (values identical to
+    1e-6 eV, see tests/test_dft_neb_reference.py). QE status: not converged by
+    the 0.03 eV/A force gate (COMPLETED_BUT_SCF_WARNING).
+    """
+    import importlib.util
+
+    for parent in Path(__file__).resolve().parents:
+        module_path = parent / "src" / "migrationbench" / "dft_neb_reference.py"
+        if module_path.is_file():
+            spec = importlib.util.spec_from_file_location("dft_neb_reference", module_path)
+            module = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(module)
+            return module.profiles_for_plot()
+    raise FileNotFoundError("src/migrationbench/dft_neb_reference.py not found above " + str(Path(__file__)))
 
 
 def grouped(records: list[dict], observable: str, path_key: str) -> dict[str, tuple[np.ndarray, np.ndarray, np.ndarray, int]]:
@@ -323,14 +341,14 @@ def main() -> None:
         SRC / "LEGACY_TIER1_IMAGE_PROFILES.tsv",
         FT / "r02" / "FT_SELF_R02_COLLECT.tsv",
         FT / "r03" / "FT_SELF_R03_RETRY_COLLECT.tsv",
-        Path("/Users/alina/Downloads/foundation_self_relaxed_4x3_R03.pdf"),
+        *_dft_reference_sources(),
     ]
     manifest = {
         "figure": str(stem.with_suffix(".pdf")),
         "columns": [label for _, label, _ in PATHS],
         "rows": ["FIXED_PATH_SINGLE_POINT", "SELF_RELAXED_ENDPOINT_ONLY_NEB"],
         "campaign_boundary": "Endpoint-only MLIP NEB proxy for self-relaxed rows; not a DFT MEP barrier.",
-        "dft_reference": "DFT-NEB vector line extracted from foundation_self_relaxed_4x3_R03.pdf; values are retained as reference only.",
+        "dft_reference": "DFT-NEB profiles parsed from QE neb.out (data/raw_compact/cr81_dft_neb_reference_20261013) via src/migrationbench/dft_neb_reference.py; values are retained as reference only.",
         "current_ft_self": "R02 accepted 15/18; R03 retry 0/3 accepted. Non-converged R03 profiles excluded from plotted evidence.",
         "fixed_boundary": "All fixed-row model curves use the legacy canonical three-path matrix; the current single-model Foundation fixed diagnostic was retained in source staging but excluded from the main plot because its within-QL profile has a 43 eV finite-energy excursion.",
         "scratch_boundary": "Current Scratch Lmax1 three-path raw profiles were not found; legacy From-scratch canonical profiles are plotted as a single orange Scratch legacy line, not relabeled as current Scratch-600K/MultiT.",

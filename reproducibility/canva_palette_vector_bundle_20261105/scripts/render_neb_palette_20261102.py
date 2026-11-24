@@ -6,6 +6,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -21,8 +22,36 @@ BUNDLE = Path(__file__).resolve().parents[1]
 SOURCE_ROOT = BUNDLE / "data/source_archive/analysis/cr_interlayer_sliding_grouped_20261025"
 FOUNDATION_ROOT = BUNDLE / "data/source_archive/analysis/foundation_interlayer_sliding_10model_20261024"
 CAMPAIGN = BUNDLE
-OUT = CAMPAIGN / "figures"
+# NEB_PALETTE_OUT redirects figures and the render manifest (default: the committed bundle).
+OUT = Path(os.environ.get("NEB_PALETTE_OUT", str(CAMPAIGN / "figures")))
+MANIFEST = OUT / "NEB_PALETTE_MANIFEST.json" if "NEB_PALETTE_OUT" in os.environ else CAMPAIGN / "NEB_PALETTE_MANIFEST.json"
 OUT.mkdir(parents=True, exist_ok=True)
+
+# Publication style the committed P06/P09/P10 panels were rendered with.  It used to be
+# applied implicitly when build_cr_grouped_r04.py imported the external plot_atlas
+# package (plot_atlas.style.apply_publication_style(font_size=8.0)); it is stated here
+# so the panels no longer depend on that library being importable.
+BASE_FONT_SIZE = 8.0
+PUBLICATION_STYLE = {
+    "font.family": "sans-serif",
+    "font.sans-serif": ["Arial", "Liberation Sans", "DejaVu Sans"],
+    "font.size": BASE_FONT_SIZE,
+    "axes.titlesize": BASE_FONT_SIZE + 1,
+    "axes.labelsize": BASE_FONT_SIZE,
+    "axes.linewidth": 0.8,
+    "xtick.labelsize": BASE_FONT_SIZE - 1,
+    "ytick.labelsize": BASE_FONT_SIZE - 1,
+    "xtick.major.width": 0.7,
+    "ytick.major.width": 0.7,
+    "legend.fontsize": BASE_FONT_SIZE - 1,
+    "figure.facecolor": "white",
+    "axes.facecolor": "white",
+    "savefig.facecolor": "white",
+    "svg.fonttype": "none",
+    "svg.hashsalt": "plot-atlas",
+    "pdf.fonttype": 42,
+}
+plt.rcParams.update(PUBLICATION_STYLE)
 
 PALETTE = {
     "Foundation": "#8FC7AB",
@@ -230,7 +259,7 @@ def main():
         "visual_encoding": {"strategy_color": PALETTE, "temperature_fill": {"600 K": "open", "Multi-T": "filled"}, "foundation_checkpoint": "diamond", "reference": PALETTE["DFT"], "method_line": {"fixed": "solid", "self-relaxed": "dashed"}},
         "outputs": {key: {ext: {"path": str(stem.with_suffix(f".{ext}")), "sha256": sha256(stem.with_suffix(f".{ext}")), "bytes": stem.with_suffix(f".{ext}").stat().st_size} for ext in ("pdf", "svg", "png")} for key, stem in outputs.items()},
     }
-    (CAMPAIGN / "NEB_PALETTE_MANIFEST.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    MANIFEST.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     print(json.dumps(manifest, indent=2, ensure_ascii=False))
 
 

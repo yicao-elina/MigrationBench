@@ -12,6 +12,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import os
 from pathlib import Path
 
 import matplotlib
@@ -27,7 +28,10 @@ BUNDLE = Path(__file__).resolve().parents[1]
 SOURCE_DIR = BUNDLE / "data/source_archive/analysis/md_1ns_updated_publication_figure_20261025"
 SCRIPT = SOURCE_DIR / "render_md15_figure_R02.py"
 CAMPAIGN = BUNDLE
-OUT = CAMPAIGN / "figures/CANVA-P05"
+# MD_SIX_PANEL_OUT redirects figures and the render manifest (default: the committed bundle).
+OUT_ENV = "MD_SIX_PANEL_OUT"
+OUT = Path(os.environ[OUT_ENV]) if os.environ.get(OUT_ENV) else CAMPAIGN / "figures/CANVA-P05"
+MANIFEST = OUT / "MD_SIX_PANEL_MANIFEST.json" if os.environ.get(OUT_ENV) else CAMPAIGN / "MD_SIX_PANEL_MANIFEST.json"
 OUT.mkdir(parents=True, exist_ok=True)
 
 SPEC = importlib.util.spec_from_file_location("md15_source", SCRIPT)
@@ -319,7 +323,7 @@ def render() -> dict[str, object]:
         "outputs": outputs,
         "boundary": "Raw trajectories and evidence status remain those of the local MD15 R06G package; this revision changes visual encoding and separates Scratch temperature clusters in the coordination bars.",
     }
-    manifest_path = CAMPAIGN / "MD_SIX_PANEL_MANIFEST.json"
+    manifest_path = MANIFEST
     manifest_path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
     return manifest
 

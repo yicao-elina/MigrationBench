@@ -1,0 +1,56 @@
+{
+  "schema": "migrationbench_md_data_index_v1",
+  "local_reference_files": [
+    {"path": "reference_original_paper/thermodynamics_data.csv", "sha256": "295c0f5e38464c15defed2c9693fc0cca84a682e878db2acae2f8aa6caa7f8f6", "source": "paper repository comparison export", "protocol_class": "REFERENCE_PROTOCOL_ORIGINAL"},
+    {"path": "reference_original_paper/hfacf_data.csv", "sha256": "b78d30d6dba9546c179c7a92328287ef332db5e3e332206d93a6b74cf24b773", "source": "paper repository comparison export", "protocol_class": "REFERENCE_PROTOCOL_ORIGINAL"},
+    {"path": "reference_original_paper/kappa_data.csv", "sha256": "dabcb75345d3554a61d2c0f4b7a732a32b0b8e9c7fc63dca2080482bb41836fe", "source": "paper repository comparison export", "protocol_class": "REFERENCE_PROTOCOL_ORIGINAL"},
+    {"path": "reference_original_paper/msd_data.csv", "sha256": "7c7e167bf6fb5e4bb2f6135d877e95476dc2d06fe148f697b3f0e56f6dd35535", "source": "paper repository comparison export", "protocol_class": "REFERENCE_PROTOCOL_ORIGINAL"},
+    {"path": "reference_original_paper/vacf_data.csv", "sha256": "d21ad5f14f0b6cd94b0f6650c68a1d1aa66f1e1bc9ee93bd6a7dd8d25b0b8ab1", "source": "paper repository comparison export", "protocol_class": "REFERENCE_PROTOCOL_ORIGINAL"}
+  ],
+  "local_old_continuation_files": [
+    {"path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/md_continuation_20260930/analysis_publication_20261003/2-naive-fine-tuning/metrics.json", "sha256": "e2f1137ea1b2abea1751a2b9223782eae3594fd570872dc7172b5346cde64ab5", "model": "FT-600K", "protocol_class": "REFERENCE_PROTOCOL_DIFFERENT"},
+    {"path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/md_continuation_20260930/analysis_publication_20261003/3-multi_T-fine-tuning/metrics.json", "sha256": "124de529d225531a42132a4cacd7b8f8b8193089d5ce9d0a25b7d310b41f6d25", "model": "FT-MultiT", "protocol_class": "REFERENCE_PROTOCOL_DIFFERENT"},
+    {"path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/md_continuation_20260930/analysis_publication_20261003/figures/table_stability_diffusion.csv", "sha256": "3095c0eb15d655f61055cdd8910d0e3658d844278f707878d3f367198014aba0", "model": "FT-600K/FT-MultiT", "protocol_class": "REFERENCE_PROTOCOL_DIFFERENT"}
+  ],
+  "new_campaign_artifacts": {
+    "registry": "registry/usable_models.tsv",
+    "blocked_registry": "registry/blocked_models.tsv",
+    "screening_summary": "remote_registry_snapshot/screening_summary.json",
+    "failure_ledger": "remote_registry_snapshot/failure_ledger_20ps.tsv",
+    "unified_20ps_summary": {"path": "remote_unified_20ps/unified_20ps/unified_20ps_summary.csv", "sha256": "2274d62eb66ccb3b4fdb90e1c823440bc394ad8ecdaf85e9c431d144b1d9ff59", "rows": 14},
+    "unified_20ps_per_run": "remote_unified_20ps/unified_20ps/per_run/*/{metrics,timeseries,msd,vacf,hfacf,kappa}.(json|csv)",
+    "continuation_runner": {"path": "continue_ablation_md.py", "sha256": "1dcc3a41783ac75678036a7a79da706752a779d8e99b1cba14c3c9467b6512fb", "remote_path": "/scratch16/pclancy3/yi/mace_from_scratch_ablation_MD_20261005/code/continue_ablation_md.py"},
+    "continuation_submitter": {"path": "submit_1ns_continuation.slurm", "sha256": "e7d57d3bda4e37c2a3932d3e4f9697de8e743e077e756f9a3902ef33de635316", "remote_path": "/scratch16/pclancy3/yi/mace_from_scratch_ablation_MD_20261005/code/submit_1ns_continuation.slurm"},
+    "heartbeat_snapshots": "monitoring/heartbeat_snapshots.tsv",
+    "comparison_inventory": "comparison_inventory.csv",
+    "production_metrics": "blocked: all selected 1 ns branches terminated at instability_threshold before target step",
+    "terminal_failure_postprocess": "remote_postprocess_terminal_20261006/*/{metrics,timeseries,msd,vacf,hfacf,kappa}.(json|csv)",
+    "terminal_failure_manifests": "remote_terminal_manifests_20261006/*.{run_manifest,status}.json",
+    "terminal_failure_bundle": {
+      "directory": "terminal_failure_bundle_20261006",
+      "status": "BLOCKED",
+      "inventory": {"path": "terminal_failure_bundle_20261006/terminal_run_inventory.tsv", "sha256": "44519f5ab595ea956abeafa85193d393a1c81cd61d76e2d56cff21acff34bb1b"},
+      "model_registry": {"path": "terminal_failure_bundle_20261006/MODEL_REGISTRY.tsv", "sha256": "47a3b53d97c800eb96eebcf4558f3cedec5c348f7599c0b5aa65c7e42cbe9637"},
+      "claim_evidence_matrix": {"path": "terminal_failure_bundle_20261006/CLAIM_EVIDENCE_MATRIX.tsv", "sha256": "05f67bf885d005862f6ee75f22d41957dfde9d891314a9c89ad591b26024dc6d"},
+      "gap_report": {"path": "terminal_failure_bundle_20261006/GAP_REPORT.md", "sha256": "0ecab2ea8257231482cc80e2bca6c586c14da714ea28ba4ca2d96ecbfbc2f8f2"},
+      "release_manifest": {"path": "terminal_failure_bundle_20261006/release_manifest.json", "sha256": "5df75391bd658d6e1e551559822967494862c35fc839ba836d133d1b47bb942a"},
+      "environment_manifest": {"path": "terminal_failure_bundle_20261006/environment_manifest.json", "sha256": "02de9e75d76371b838378c378d85bb4d0330fac89744e18e9d3729534e054a95"}
+    },
+    "terminal_failure_figures": {
+      "directory": "figures_terminal_failure_atlas_20261006",
+      "status": "BLOCKED diagnostic only",
+      "png_sha256": "2e86efd0e46fe0a37319b417696d28e315ff66c3e2d2bf010996fd93d8f64e34",
+      "svg_sha256": "6e5ae9e529a8e6299072584f4c364ee8545863b263e87d0ea2d8642bf8268d41",
+      "pdf_sha256": "8e80f2f2523144d552c6e6a7c97a1397e7af302705035f30eb70b391a8f4c827",
+      "figure_manifest_sha256": "2d0bde8f90307d1f71a84a59cfc615ea840295b0033d51c94b300abd6f34f716"
+    },
+    "uncertainty_audit": {
+      "directory": "uncertainty_blocked_20261006",
+      "status": "BLOCKED; zero runs passed complete_step_gate and finite_gate",
+      "manifest": "uncertainty_blocked_20261006/uncertainty_manifest.json",
+      "manifest_sha256": "ad57201cea08e4e9967b7200f059f3f3ef69e1848c9e0a8465d5e9e095bf42fe",
+      "report": "uncertainty_blocked_20261006/uncertainty_report.md",
+      "report_sha256": "0a323dd922714904bd3ccef7cdd57d2322f828cc18cc490d095961ddf9b34604"
+    }
+  }
+}

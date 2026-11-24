@@ -11,42 +11,44 @@ displacement, and scientific-success gates.  These results are model-relaxation
 observables from Foundation-MACE with fixed-cell ASE FIRE relaxation; they are
 not DFT, magnetic, or oxidation-state assignments.
 
+Figure~\ref{fig:endpoint_campaign_overview} summarizes endpoint-level
+force, displacement, and relaxation-effort responses across the six systems
+and three perturbation arms; the accompanying table retains system-by-arm
+statistics and acceptance counts.
+
 \input{revision1/appendix/table/multiarms_table.tex}
 
 \begin{figure}[p]
 \centering
 \includegraphics[width=\textwidth]{revision1/appendix/figures/fig1_campaign_overview.pdf}
-\caption{\textbf{Campaign overview and relaxation outcomes.} (A) Scientific
-success across all 846 formal tasks. (B--C) Final-force and maximum-displacement
-distributions by perturbation arm. (D) Paired energy responses relative to the
-Base arm. (E) FIRE-step distributions. (F) Initial force versus final
-displacement. Points and distributions retain endpoint-level variation rather
-than showing only system medians.}
+\caption{\textbf{Relaxation outcomes across the 846-task campaign.} (A) Final-force distributions by system and perturbation arm. (B) Maximum-displacement distributions by system and arm. (C) FIRE-step distributions by system and arm. (D) Initial maximum force versus final maximum displacement for individual endpoints. Each system--arm group contains 47 endpoints; points and distributions retain endpoint-level variation.}
 \label{fig:endpoint_campaign_overview}
 \end{figure}
 
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{revision1/appendix/figures/fig2_perturbation_response.pdf}
-\caption{\textbf{Perturbation response across systems and endpoints.} Joint
-distributions compare the energy and geometric response of Perturb A and B.
-Forest intervals summarize arm-specific changes relative to Base, and the
-endpoint heatmap exposes the site-level structure hidden by aggregate medians.
-Intervals are bootstrap summaries of the observed endpoint sample and should
-not be interpreted as uncertainty in the MACE potential itself.}
-\label{fig:endpoint_perturbation_response}
-\end{figure}
-
-\begin{figure}[p]
-\centering
-\includegraphics[width=\textwidth]{revision1/appendix/figures/fig3_interaction_and_site_maps.pdf}
-\caption{\textbf{Host--dopant interactions and relaxation effort.} Endpoint
-heatmaps show energy response for each host--dopant system, while the interaction
-map compares the two perturbation arms. The effort panel relates initial force
-to the number of FIRE steps required by the fixed-cell relaxation protocol.}
-\label{fig:endpoint_interaction_maps}
-\end{figure}
-
+% CURATED OUT 2026-11-08 (fig:endpoint_perturbation_response): Detailed view is not cited by the main text and is redundant for the compact SI diagnostic.
+% \begin{figure}[p]
+% \centering
+% \includegraphics[width=\textwidth]{revision1/appendix/figures/fig2_perturbation_response.pdf}
+% \caption{\textbf{Perturbation response across systems and endpoints.} Joint
+% distributions compare the energy and geometric response of Perturb A and B.
+% Forest intervals summarize arm-specific changes relative to Base, and the
+% endpoint heatmap exposes the site-level structure hidden by aggregate medians.
+% Intervals are bootstrap summaries of the observed endpoint sample and should
+% not be interpreted as uncertainty in the MACE potential itself.}
+% \label{fig:endpoint_perturbation_response}
+% \end{figure}
+%
+% CURATED OUT 2026-11-08 (fig:endpoint_interaction_maps): Detailed site maps are not cited by the main text and exceed the evidence needed for the scoped claim.
+% \begin{figure}[p]
+% \centering
+% \includegraphics[width=\textwidth]{revision1/appendix/figures/fig3_interaction_and_site_maps.pdf}
+% \caption{\textbf{Host--dopant interactions and relaxation effort.} Endpoint
+% heatmaps show energy response for each host--dopant system, while the interaction
+% map compares the two perturbation arms. The effort panel relates initial force
+% to the number of FIRE steps required by the fixed-cell relaxation protocol.}
+% \label{fig:endpoint_interaction_maps}
+% \end{figure}
+%
 \subsection{Interpretation and reproducibility}
 
 The complete endpoint-level data used for these figures are provided in
@@ -55,8 +57,10 @@ counterpart.  The summary table is generated from
 \texttt{revision1/appendix/data/multiarms\_summary.csv}.  The plotting source
 is preserved as
 \texttt{revision1/appendix/scripts/plot\_campaign\_atlas.py}; it uses the
-project Plot Atlas primitives and regenerates the three PDF, PNG, and SVG
-figures from the supplied data.  Overleaf compiles the checked-in PDF assets;
+project Plot Atlas primitives and regenerates the three diagnostic PDF, PNG,
+and SVG figures from the supplied data.  The overview is included here; the
+two more detailed views remain commented in the SI source for optional reuse.
+Overleaf compiles the checked-in PDF asset;
 the data and script are included alongside them so that the figures remain
 transparent and reproducible outside the hosted compiler.
 

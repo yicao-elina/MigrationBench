@@ -1,0 +1,7 @@
+# Updated 1 ns MD figure — RDF replacement
+
+**Figure.** Updated evidence-bounded comparison of the 1 ns MD trajectories. (A) Temperature stability. (B) Hydrostatic pressure stability, calculated as (P=-\mathrm{tr}(\sigma)/3) from the extxyz stress tensor and reported in GPa. (C) Mean-square displacement (MSD). (D) Normalized velocity autocorrelation function (VACF). (E) Cr–Cr radial distribution function, $g_{\mathrm{Cr-Cr}}(r)$, calculated directly from the raw Rockfish extxyz trajectories using triclinic minimum-image distances; the ordinate is logarithmic to retain both the short-range coordination peak and weaker medium-range structure. Curves show the mean across available runs and shaded regions show the run-to-run standard deviation. (F) Ratio of the late to early $D_{xy}$ windows.
+
+The FT-600K and FT-MultiT curves use the accepted three-seed 1 ns release. Foundation is the current true zero-shot comparator located by the SQL-first/Rockfish audit and is retained as provisional until the independent full acceptance audit is closed. Scratch-600K and Scratch-MultiT are shown in panel E only as short smoke/failure-mode structural traces; they are not 1 ns transport results and are not used for $D_{xy}$.
+
+Panel E is a local-structure diagnostic, not a transport metric. The underlying run-level RDF data, remote input paths, frame coverage, and calculation metadata are preserved in `rdf_r01/`.

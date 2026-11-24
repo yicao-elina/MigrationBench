@@ -3,7 +3,9 @@
 
 from __future__ import annotations
 
+import argparse
 import csv
+import os
 from pathlib import Path
 
 import matplotlib
@@ -37,11 +39,24 @@ SRC = packaged_data(
     external_path("analysis/migrationbench_universe_publication_20261026/derived/comprehensive_task_map_points.csv"),
 )
 OUT = Path(__file__).resolve().parents[1] / "R06_clean_raw_pca" / "figures"
+# Redirect outputs (e.g. for reproduction checks) without touching the committed panel.
+OUT_ENV = "FIGURE01A_OUT_DIR"
 GROUP_COLORS = TASK_DISPLAY_COLORS
 VISIBLE_SPLITS = ("train", "valid", "test", "md_sample", "dft_neb", "dft_interlayer")
 
 
+def parse_out_dir() -> Path:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--out-dir", type=Path, default=None,
+                        help=f"output directory (default: ${OUT_ENV} or the committed R06 figures folder)")
+    args = parser.parse_args()
+    if args.out_dir is not None:
+        return args.out_dir
+    return Path(os.environ[OUT_ENV]) if os.environ.get(OUT_ENV) else OUT
+
+
 def main() -> None:
+    out_dir = parse_out_dir()
     with SRC.open(newline="", errors="replace") as handle:
         rows = list(csv.DictReader(handle))
     sizes, reference = _ood_marker_sizes(rows)
@@ -118,7 +133,7 @@ def main() -> None:
         handletextpad=0.45,
         columnspacing=0.9,
     )
-    assets = save_figure(fig, OUT, "figure01a_clean_raw_pca")
+    assets = save_figure(fig, out_dir, "figure01a_clean_raw_pca")
     print({"assets": assets, "source": str(SRC), "foreground_splits": sorted(VISIBLE_SPLITS), "ood_reference_p98": reference})
 
 

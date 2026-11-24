@@ -1,0 +1,30 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS02_a2_grouped_audit_summary",
+  "name": "tab:a2_grouped_audit_summary",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS02_a2_grouped_audit_summary/source/make_table_s02.py",
+  "script_sha256": "b0f0e1236f238f35a71961caec24b9abc015344178c7328f84616981daf22e4b",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/grouped_seed_comparison.csv": "84be6798e2ed294f30edab712c346a1c98812b60fe1c6be6ebe7bbb9063225b3",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/grouped_neb_barrier_summary.csv": "2961a6045563c7861598e774ae59fb010bb58b36c45f8a2bdc54820b595f1bdc",
+    "paper/revision1/data_processed/current_release/zero_force_training_summary.json": "8ca87bf0e0790d88500be0fc9e90bbadb3b288fda70ae414dd8dc308b789d685"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS02_a2_grouped_audit_summary/rerun_output/tab_a2_grouped_audit_summary.tex": "f39aa713a63c388d8ddde90128cab5484aae55505b6eb3615ec2a0b96bbbe1f5"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "G1 errors in grouped_seed_comparison equal grouped_neb_barrier_summary (path 1-4)",
+      "passed": true,
+      "details": "all routes agree to 1e-6 eV"
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:a2_grouped_audit_summary at displayed precision",
+      "passed": true,
+      "details": "4 rows match"
+    }
+  ],
+  "result": "PASS"
+}

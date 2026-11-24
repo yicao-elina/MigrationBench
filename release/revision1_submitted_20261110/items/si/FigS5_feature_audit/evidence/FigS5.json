@@ -1,0 +1,57 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/FigS5_feature_audit",
+  "name": "FigS5",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/FigS5_feature_audit/source/reproduce_figS5.py",
+  "script_sha256": "b60c1684e446ea1ae21ebb430c0271b56e150470593a9efd896b75c048e364a7",
+  "python": "3.11.0",
+  "inputs": {
+    "release/revision1_submitted_20261110/items/si/_shared_generators/audit_current_figures.py": "ba626c794276821e6f3d195ecb259ea832958aa5ec633efa423e8110e7e4949d",
+    "release/revision1_camera_ready/reproducibility/fig6_current_input.npz": "a3d27907e073252cb5b01e15bf66bb35da075dbeb66798409a68de84e8a46ee0",
+    "paper/revision1/figures/figS_current_feature_audit.pdf": "04a469592bfd38228970ff6723742ccb6bd6cf5b4fc3157936bac6cca012950e",
+    "paper/revision1/data_processed/current_release/fig6_current_original_space_metrics.csv": "3e52fb623cbb3b898ba072043a0afebfafab31bc7c6d848f4bad282d239ea42f",
+    "paper/revision1/data_processed/current_release/fig6_current_tsne_sensitivity.csv": "c409fcdf72744c4c7bc7c19c9abf89e1448e10e40483ce3b7c98a342d2dc4684"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/FigS5_feature_audit/rerun_output/audit_current_figures/data_processed/current_release/fig6_current_original_space_metrics.csv": "3e52fb623cbb3b898ba072043a0afebfafab31bc7c6d848f4bad282d239ea42f",
+    "release/revision1_submitted_20261110/items/si/FigS5_feature_audit/rerun_output/audit_current_figures/data_processed/current_release/fig6_current_tsne_sensitivity.csv": "c409fcdf72744c4c7bc7c19c9abf89e1448e10e40483ce3b7c98a342d2dc4684",
+    "release/revision1_submitted_20261110/items/si/FigS5_feature_audit/rerun_output/audit_current_figures/figures/figS_current_feature_audit.pdf": "21db93f8479560edc39c99b518a59f0fe8d016b62fb044a45be73ab2f76dc126"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "hardcode lint release/revision1_submitted_20261110/items/si/_shared_generators/audit_current_figures.py",
+      "passed": true,
+      "details": "no findings"
+    },
+    {
+      "check": "generator exits 0",
+      "passed": true,
+      "details": "ok"
+    },
+    {
+      "check": "fig6_current_original_space_metrics.csv equals paper/revision1/data_processed/current_release/fig6_current_original_space_metrics.csv (tol 1e-09)",
+      "passed": true,
+      "details": "equal"
+    },
+    {
+      "check": "fig6_current_tsne_sensitivity.csv equals paper/revision1/data_processed/current_release/fig6_current_tsne_sensitivity.csv (tol 1e-09)",
+      "passed": true,
+      "details": "equal"
+    },
+    {
+      "check": "renders like paper/revision1/figures/figS_current_feature_audit.pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          923,
+          320
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    }
+  ],
+  "result": "PASS"
+}

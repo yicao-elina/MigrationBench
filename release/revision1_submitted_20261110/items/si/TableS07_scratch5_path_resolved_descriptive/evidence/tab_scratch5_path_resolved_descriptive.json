@@ -1,0 +1,30 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS07_scratch5_path_resolved_descriptive",
+  "name": "tab:scratch5_path_resolved_descriptive",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS07_scratch5_path_resolved_descriptive/source/make_table_s07.py",
+  "script_sha256": "fae60a0c2683bbe58d4eed5e3752736ac95c1f789de02ecc747796b7cf4a2a42",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/path_registry.csv": "142dd7416fb4232adf3f85bb74284fffbe21563d868ef4c0b16296e2721bb50f",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/grouped_neb_barrier_summary.csv": "2961a6045563c7861598e774ae59fb010bb58b36c45f8a2bdc54820b595f1bdc",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/a5_path_resolved_table_manifest.json": "94a7f9b7e9c38a81c7b6467034923a71ad72ac6abbe31011bff0a8cea309fb8b"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS07_scratch5_path_resolved_descriptive/rerun_output/tab_scratch5_path_resolved_descriptive.tex": "4f8ccb2a6614542b526e6757f946caaf93183a859a0ff07a1baa6c7309bfa3ea"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "QE references match path_registry.csv; mean/SD equal a5_path_resolved_table_manifest.json",
+      "passed": true,
+      "details": "5 paths x 3 families agree"
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:scratch5_path_resolved_descriptive at displayed precision",
+      "passed": true,
+      "details": "5 rows match"
+    }
+  ],
+  "result": "PASS"
+}

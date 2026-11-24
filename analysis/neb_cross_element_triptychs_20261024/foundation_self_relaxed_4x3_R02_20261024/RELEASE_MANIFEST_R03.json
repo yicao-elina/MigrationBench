@@ -1,0 +1,120 @@
+{
+  "schema_version": "foundation_self_relaxed_4x3_release_manifest_r03_v2",
+  "release_id": "foundation_self_relaxed_4x3_R03_with_qe_reference_weighted_style",
+  "campaign_id": "foundation_self_relaxed_4x3_20261024_r02",
+  "created_at_utc": "2026-10-25T20:07:45Z",
+  "release_ready": true,
+  "validation_mode": "independent_review_bound",
+  "checks": {
+    "collection_finalized_108_rows": true,
+    "mlff_profiles_1080_finite": true,
+    "attempt_and_raw_index_125": true,
+    "retry_lineage_retained": true,
+    "reference_matrix_120_points_12_groups": true,
+    "reference_points_finite_and_image_aligned": true,
+    "reference_statuses_retained": true,
+    "reference_same_geometry_dft_rescoring": false,
+    "reference_unqualified_ground_truth_claim": false,
+    "visual_exports_39": true,
+    "visual_legend_exactly_three_models_plus_dft_neb": true,
+    "visual_no_converged_included_or_failure_excluded_entry": true,
+    "visual_x_axis_label_reaction_coordinate": true,
+    "visual_bold_x_axis_title": true,
+    "visual_spine_linewidth_pt": 1.8,
+    "visual_dft_neb_linewidth_pt": 2.55,
+    "visual_independent_axes_and_gutters": true,
+    "visual_no_grid": true,
+    "visual_no_blender": true,
+    "independent_data_review_pass": true,
+    "independent_visual_review_pass": true,
+    "caption_present": true,
+    "style_standard_recorded": true
+  },
+  "evidence": {
+    "bookkeeping": {
+      "path": "EXECUTION_BOOKKEEPING_R02.json",
+      "sha256": "972ba586c94006670f55bec70976569dfe7b7b609c5e61de1a3e3d81eae60054",
+      "formal_array_status": "COMPLETED_ALL_ROWS",
+      "final_converged_rows": 108,
+      "final_failure_rows": 0,
+      "final_attempt_rows": 125
+    },
+    "collection_manifest": {
+      "path": "data/COLLECTION_MANIFEST.json",
+      "sha256": "0b56ec0a37bafe29e243bc05205da7d1b17d91ac7782c8e36ad8fa87a82844f9"
+    },
+    "row_results": {
+      "path": "data/ROW_RESULTS.tsv",
+      "sha256": "e8e3cd32832549128ed87a84c8de36d8353b7d984426f320d8f1c6ce0463d1cd"
+    },
+    "image_profiles": {
+      "path": "data/IMAGE_PROFILES.tsv",
+      "sha256": "9327bd93104703a94ca3a69a2ec5d4c208685f1bb0fee4a30256bca517de8e5f"
+    },
+    "attempt_ledger": {
+      "path": "data/ATTEMPT_LEDGER.tsv",
+      "sha256": "fcaf8ae748817b35b0adbfe72ecd2997e2d34b89cdf0f3973637784bcc86f2ad"
+    },
+    "raw_artifact_index": {
+      "path": "data/RAW_ARTIFACT_INDEX.tsv",
+      "sha256": "f23468d05857f3d5587007dec65c6fefbe3244ef1d4e0479f7149058291a71fc"
+    },
+    "derived_profile_manifest": {
+      "path": "data/DERIVED_PROFILE_MANIFEST.json",
+      "sha256": "ee02b7e55de3535f62113592692766c6ceffd93c999f219677dbf72272e1bdbe"
+    },
+    "reference_manifest": {
+      "path": "data/GROUND_TRUTH_REFERENCE_MANIFEST_R03.json",
+      "sha256": "216745b34375922d85f04d1427d9c1184a700cc36faf14ce3196bebd985f3aeb",
+      "scientific_status": "PROVISIONAL_DIAGNOSTIC_REFERENCE",
+      "observable": "QE_DFT_FIXED_PATH_SINGLE_POINT_REFERENCE",
+      "same_geometry_dft_rescoring": false,
+      "unqualified_ground_truth_claim": false,
+      "raw_statuses": [
+        "COMPLETED_BUT_SCF_WARNING",
+        "failed_scf_convergence"
+      ]
+    },
+    "reference_profiles": {
+      "path": "data/GROUND_TRUTH_REFERENCE_PROFILES_R03.tsv",
+      "sha256": "25486368d49c24710e8326e8e2ebea75e483b312243b2eba8451b0becd381170",
+      "rows": 120,
+      "groups": 12,
+      "points_per_group": 10,
+      "plot_coordinate": "image_index / 9"
+    },
+    "visual_qa": {
+      "path": "figures/VISUAL_QA_R03.json",
+      "sha256": "8ad172f53d7facbc0d7e145538010e5edb205eb785a9481d3a90711504d79031",
+      "output_count": 39,
+      "legend_label": "DFT-NEB",
+      "x_axis_label": "Reaction Coordinate",
+      "reference_line_width_pt": 2.55,
+      "spine_width_pt": 1.8
+    },
+    "data_review": {
+      "path": "data_review/data_review_R03_final.md",
+      "sha256": "1aeb60adef254cf077556686cc86e3ad9d16f269d70ded9a13140e05a18dc2b8"
+    },
+    "visual_review": {
+      "path": "visual_review/visual_review_R03.md",
+      "sha256": "fade829afb269b4abf7f4c5325c45baae582994942544fbab73ae4218a395373"
+    },
+    "caption": {
+      "path": "CAPTION_FOUNDATION_SELF_RELAXED_4x3_R03.md",
+      "sha256": "172c277a5259ec3a770e52c7a4ac59a01627698996ae26ef80fd30a00345c6c6"
+    },
+    "style_standard": {
+      "path": "NEB_FIGURE_STYLE_STANDARD.md",
+      "sha256": "d2a221d3800bd3ea95996ce500bd0cd9bfacecee4cb71c957ffabb7adc96b8b1"
+    }
+  },
+  "archive": {
+    "pre_weighted_style_products": "archive/figure_products_pre_weighted_style_R04_20261025/",
+    "materialization_failure_products": "archive/figure_products_materialization_fail_R04_20261025/",
+    "prior_visual_fail_products": "archive/figure_products_visual_fail_R03_20261025/",
+    "legacy_products": "archive/figure_products_pre_qe_reference_R03_20261025/"
+  },
+  "scientific_boundary": "MLFF curves are self-relaxed endpoint-only NEB diagnostics. DFT-NEB is a canonical fixed-path QE/DFT single-point reference layer with SCF-warning or failed-SCF-convergence status; it is not same-geometry DFT rescoring, a validated DFT MEP, a converged DFT barrier, or unconditional ground truth.",
+  "no_blender": true
+}

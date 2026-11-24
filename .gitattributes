@@ -8,13 +8,51 @@
 *.npz binary
 
 # Evidence bytes are immutable. Never rewrite scheduler/log line endings during
-# checkout; the SHA256 registry refers to the exact Git blob bytes.
+# checkout; SHA-256 manifests refer to the exact stored bytes.
 data/** binary
 
-# Revision 1 camera-ready evidence: hashes in the release manifests refer to
-# exact bytes (several tables are CRLF), so never normalize them.
+# As-found paper and SQL audit packages carry byte-level SHA-256 manifests.
+archive/paper/revision1_camera_ready_as_found_20261121/** -text
+archive/paper/revision1_camera_ready_as_found_20261121.sha256.tsv -text
+analysis/rockfish_skipjack_migration_audit_20261121/cleanup/*.tsv -text
+registry/snapshots/*.sqlite binary
+
+# Preserve byte hashes recorded by the 639-model release manifests.
+analysis/multimodel_639_screen_20261014/PAPER_RELEASE_MANIFEST.json -text
+analysis/multimodel_639_screen_20261014/*.md -text
+analysis/multimodel_639_screen_20261014/candidate_manifest_639.csv -text
+analysis/multimodel_639_screen_20261014/inputs/*.csv -text
+analysis/multimodel_639_screen_20261014/figures/* -text
+analysis/multimodel_639_screen_20261014/plot_multimodel_overview.py -text
+analysis/multimodel_639_screen_20261014/overleaf_handoff/*.tex -text
+analysis/strict_lmax2_control_20261015/** -text
+paper_evidence/scripts/build_release_package.py -text
+paper_evidence/templates/section_bidirectional_neb.tex -text
+
+# Preserve exact bytes of refreshed Canva bundle metadata.
+analysis/canva_palette_vector_bundle_20261105/CANVA_PALETTE_VECTOR_MANIFEST.json -text
+analysis/canva_palette_vector_bundle_20261105/README.md -text
+
+# Revision 1 submitted evidence: release hashes refer to exact bytes (some
+# source tables are CRLF); do not normalize these files during checkout.
 paper/revision1/data_processed/** binary
 paper/revision1/figures/si_path_audit/*.csv binary
 release/revision1_camera_ready/*.tsv binary
 release/revision1_camera_ready/reproducibility/source_tables/** binary
 release/revision1_camera_ready/reproducibility/source_data/** binary
+
+# Archived full-resolution editable vector is stored on Rockfish, not as a text diff.
+analysis/canva_palette_vector_bundle_20261105/figures/CANVA-P03_parity_2x4_palette_updated.svg binary
+
+# Preserve byte-exact scientific tables and run manifests; their hashes are
+# recorded in evidence packages and in the SQLite provenance catalog.
+*.csv -text -eol
+*.tsv -text -eol
+*.json -text -eol
+*.jsonl -text -eol
+*.extxyz -text -eol
+*.traj -text -eol
+analysis/rockfish_skipjack_migration_audit_20261121/** -text -eol
+paper/revision1/** -text -eol
+release/revision1_submitted_20261110/** -text -eol
+release/revision1_camera_ready/** -text -eol

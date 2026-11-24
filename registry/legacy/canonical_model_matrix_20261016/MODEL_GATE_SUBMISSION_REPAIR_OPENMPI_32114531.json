@@ -1,0 +1,21 @@
+{
+  "campaign_id": "canonical_model_matrix_20261016",
+  "audit_name": "compiled_model_gate",
+  "repair_of": "32075596",
+  "submitted_at_local": "2026-10-16T12:16:15-07:00",
+  "host": "rockfish",
+  "job_id": "32114531",
+  "state_at_submission_check": "PENDING",
+  "failure_evidence": {
+    "prior_job_id": "32075596",
+    "prior_exit_code": "1:0",
+    "prior_stderr": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/model_gate_audit/logs/mb-canonical-model-gate-32075596.err",
+    "failure": "Lmod could not load openmpi/4.1.6 while the default openmpi/3.1.6 module was already loaded"
+  },
+  "repair": "restore the default module collection first, unload openmpi/3.1.6, then load openmpi/4.1.6",
+  "script_sha256": "6a6ca7b38fd4bd44572fa94d7e70c55ef9dfe20ee69f55c2e8f4fd2fbbb3eefe",
+  "remote_script": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/model_gate_audit/run_model_gate_audit_repair_openmpi_20261016.slurm",
+  "acceptance_rule": "hash match, loadable MACE calculator, finite parameters, finite Cr/Sb/Te periodic probe energy and forces",
+  "status": "PENDING",
+  "failed_evidence_preserved": true
+}

@@ -1,0 +1,186 @@
+Resetting modules to system default. Reseting $MODULEPATH back to system default. All extra directories will be removed from $MODULEPATH.
++--------------------------------------------------------------------------------------+
+|              [31mHome[0m Usage for user [31mycao73[0m as of [31mThu Sep  4 22:00:10 2025[0m               |
++----------------------+----------------------+-------------------+--------------------+
+|         Used         |        Quota         |      Percent      |       Files        |
++----------------------+----------------------+-------------------+--------------------+
+|       48.23 GB       |       50.00 GB       |       96.47%      |      598,516       |
++----------------------+----------------------+-------------------+--------------------+
+
++------------------------------------------------------------------------------------------+
+|              [31mGPFS[0m Usage for Group [31mpclancy3:[0m as of [31mThu Sep  4 22:00:15 2025[0m               |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|     FS     |    Used   |   Quota   |  Used % |   Files    |  Files Quota  |   Files %    |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+|    data    |  9.06 TB  |  10.00 TB |  90.00% |  482,302   |   4,096,000   |    11.00%    |
+|  scratch4  |  9.34 TB  |  10.00 TB |  93.00% | 1,481,818  |   5,242,880   |    28.00%    |
+| scratch16  |  17.79 TB |  20.00 TB |  88.00% | 1,435,429  |   20,480,000  |    7.00%     |
++------------+-----------+-----------+---------+------------+---------------+--------------+
+
+Consider completing our user survey to provide feedback to help improve the cluster: https://jh.qualtrics.com/jfe/form/SV_bQOKO9M7xQFmwAu
+Running "module reset". Resetting modules to system default. The following $MODULEPATH directories have been removed: None
+
+Currently Loaded Modules:
+  1) gcc/9.3.0       3) slurm/19.05.7   5) lua/5.4.4       7) git/2.28.0
+  2) openmpi/3.1.6   4) lmod/8.7.24     6) helpers/0.1.1   8) standard/2020.10
+Thu Sep  4 22:30:46 EDT 2025
+This is sbatch-represent.slurm
+Running 1-shap-data.py
+Starting SOAP Descriptor Analysis...
+============================================================
+
+==================== SCENARIO: BULK ====================
+
+Preparing dataset for Bulk...
+  > Reading frames from aimd_merged_traj_bulk.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 927 frames (Energy source: 'manual')
+Extracting comprehensive features...
+  > Extracting neighbor distance histograms...
+  > Extracting SOAP descriptors...
+    Species found: ['Sb', 'Te']
+    SOAP shape: (200, 180)
+  > Extracting structural features...
+  > Combined feature shape: (200, 226)
+    Adjusting SOAP names: expected 60, got 180
+
+==================== SCENARIO: 1/8 ML ====================
+
+Preparing dataset for 1/8 ML...
+  > Reading frames from 2L_octo_Cr1_v2_600K_aimd_1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 200 frames (Energy source: 'manual')
+Extracting comprehensive features...
+  > Extracting neighbor distance histograms...
+  > Extracting SOAP descriptors...
+    Species found: ['Cr', 'Sb', 'Te']
+    SOAP shape: (200, 390)
+  > Extracting structural features...
+  > Combined feature shape: (200, 436)
+    Adjusting SOAP names: expected 120, got 390
+
+==================== SCENARIO: 1/4 ML ====================
+
+Preparing dataset for 1/4 ML...
+  > Reading frames from 2L_octo_Cr2_600K_aimd_1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 346 frames (Energy source: 'manual')
+Extracting comprehensive features...
+  > Extracting neighbor distance histograms...
+  > Extracting SOAP descriptors...
+    Species found: ['Cr', 'Sb', 'Te']
+    SOAP shape: (200, 390)
+  > Extracting structural features...
+  > Combined feature shape: (200, 436)
+    Adjusting SOAP names: expected 120, got 390
+
+==================== SCENARIO: 3/8 ML ====================
+
+Preparing dataset for 3/8 ML...
+  > Reading frames from 2L_octo_Cr3_600K_aimd_1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 272 frames (Energy source: 'manual')
+Extracting comprehensive features...
+  > Extracting neighbor distance histograms...
+  > Extracting SOAP descriptors...
+    Species found: ['Cr', 'Sb', 'Te']
+    SOAP shape: (200, 390)
+  > Extracting structural features...
+  > Combined feature shape: (200, 436)
+    Adjusting SOAP names: expected 120, got 390
+
+==================== SCENARIO: 1/2 ML ====================
+
+Preparing dataset for 1/2 ML...
+  > Reading frames from 2L_tetra_Cr4_600K_aimd1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 431 frames (Energy source: 'manual')
+Extracting comprehensive features...
+  > Extracting neighbor distance histograms...
+  > Extracting SOAP descriptors...
+    Species found: ['Cr', 'Sb', 'Te']
+    SOAP shape: (200, 390)
+  > Extracting structural features...
+  > Combined feature shape: (200, 436)
+    Adjusting SOAP names: expected 120, got 390
+
+==================== SCENARIO: 3/4 ML ====================
+
+Preparing dataset for 3/4 ML...
+  > Reading frames from 2L_o3_t3_600K_aimd_1.xyz...
+  > ASE parsing failed to find energy. Falling back to manual parsing...
+  > Successfully parsed 307 frames (Energy source: 'manual')
+Extracting comprehensive features...
+  > Extracting neighbor distance histograms...
+  > Extracting SOAP descriptors...
+    Species found: ['Cr', 'Sb', 'Te']
+    SOAP shape: (200, 390)
+  > Extracting structural features...
+  > Combined feature shape: (200, 436)
+    Adjusting SOAP names: expected 120, got 390
+  Training predictor for Bulk...
+    Model performance - MAE: 0.0337, R²: 0.9913
+  Training predictor for 1/8 ML...
+    Model performance - MAE: 0.0659, R²: 0.9925
+  Training predictor for 1/4 ML...
+    Model performance - MAE: 0.0530, R²: 0.9603
+  Training predictor for 3/8 ML...
+    Model performance - MAE: 0.0619, R²: 0.9958
+  Training predictor for 1/2 ML...
+    Model performance - MAE: 0.0989, R²: 0.9722
+  Training predictor for 3/4 ML...
+    Model performance - MAE: 0.1132, R²: 0.9708
+
+Creating visualizations...
+Traceback (most recent call last):
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/SHAP/2-concentration/1-shap-data.py", line 768, in <module>
+    main()
+    ~~~~^^
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/SHAP/2-concentration/1-shap-data.py", line 746, in main
+    plot_feature_importance(results)
+    ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/SHAP/2-concentration/1-shap-data.py", line 394, in plot_feature_importance
+    plt.savefig(os.path.join(OUTPUT_DIR, 'feature_importance_by_doping.png'),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                dpi=300, bbox_inches='tight')
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/matplotlib/pyplot.py", line 1251, in savefig
+    res = fig.savefig(*args, **kwargs)  # type: ignore[func-returns-value]
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/matplotlib/figure.py", line 3490, in savefig
+    self.canvas.print_figure(fname, **kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/matplotlib/backend_bases.py", line 2186, in print_figure
+    result = print_method(
+        filename,
+    ...<3 lines>...
+        bbox_inches_restore=_bbox_inches_restore,
+        **kwargs)
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/matplotlib/backend_bases.py", line 2042, in <lambda>
+    print_method = functools.wraps(meth)(lambda *args, **kwargs: meth(
+                                                                 ~~~~^
+        *args, **{k: v for k, v in kwargs.items() if k not in skip}))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/matplotlib/backends/backend_agg.py", line 481, in print_png
+    self._print_pil(filename_or_obj, "png", pil_kwargs, metadata)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/matplotlib/backends/backend_agg.py", line 430, in _print_pil
+    mpl.image.imsave(
+    ~~~~~~~~~~~~~~~~^
+        filename_or_obj, self.buffer_rgba(), format=fmt, origin="upper",
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        dpi=self.figure.dpi, metadata=metadata, pil_kwargs=pil_kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/matplotlib/image.py", line 1657, in imsave
+    image.save(fname, **pil_kwargs)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "/data/pclancy3/yi/.conda/envs/sklearn-env/lib/python3.13/site-packages/PIL/Image.py", line 2583, in save
+    fp = builtins.open(filename, "w+b")
+FileNotFoundError: [Errno 2] No such file or directory: 'soap_analysis_results/feature_importance_by_doping.png'
+Running 1-shap-data.py done
+Running 2-shap-plot.py
+Starting MACE SHAP Visualization...
+============================================================
+Error: Analysis results file not found at 'shap_analysis_results/shap_results.npz'
+Please run 'run_shap_analysis.py' first.
+Running 2-shap-plot.py done
+Thu Sep  4 22:31:17 EDT 2025

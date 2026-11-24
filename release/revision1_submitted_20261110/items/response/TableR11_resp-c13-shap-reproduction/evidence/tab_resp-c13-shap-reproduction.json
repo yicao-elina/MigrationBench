@@ -1,0 +1,169 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR11_resp-c13-shap-reproduction",
+  "name": "tab:resp-c13-shap-reproduction",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR11_resp-c13-shap-reproduction/source/make_table_r11.py",
+  "script_sha256": "f74798c4d558a3cc239bd045db121b2d688ecc96c8e3ca180dc30e30769ac4fa",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/shap_reproduction_check.json": "cff9cf0ada27e95bffdf16227e71b2eb823e2d18b8ab81b7264cafdb53e4936e",
+    "analysis/shap_full_campaign_20261101/results/shap_seed_metrics.csv": "fc3a6a67bc22bc96e2055a420f7aae37482ddcb963eff5207c029b6225b28f32",
+    "paper/revision1/data_processed/current_release/shap_seed_metrics.csv": "fc3a6a67bc22bc96e2055a420f7aae37482ddcb963eff5207c029b6225b28f32",
+    "analysis/shap_full_campaign_20261101/results/shap_family_aggregate.csv": "5da7f4bcf1357ec6e008f0a808c82a0e3e64bfd75662fe9d015dbca90e938d1a",
+    "paper/revision1/data_processed/current_release/shap_family_aggregate.csv": "5da7f4bcf1357ec6e008f0a808c82a0e3e64bfd75662fe9d015dbca90e938d1a",
+    "analysis/shap_full_campaign_20261101/results/shap_seed_feature_importance.csv": "0538942ec73ff8d1d2fe1cfb3520206dae256c47fc8c1dd97f2c1f6df9061643",
+    "paper/revision1/data_processed/current_release/shap_seed_feature_importance.csv": "0538942ec73ff8d1d2fe1cfb3520206dae256c47fc8c1dd97f2c1f6df9061643",
+    "analysis/shap_full_campaign_20261101/results/shap_frame_aligned_full_campaign.csv": "abba67faa4040383d379e2e3ae340ba8aa97037ce3afd9bff103a6a85e790735"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR11_resp-c13-shap-reproduction/rerun_output/tab_resp-c13-shap-reproduction.tex": "19898787ae938a3a63bc1f435980365175911fad619ad7ca4469bf20563fe6a8"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "shap_seed_metrics.csv: column names and text columns match in the rerun",
+      "passed": true,
+      "details": {
+        "shape_source": [
+          12,
+          11
+        ],
+        "shape_rerun": [
+          12,
+          11
+        ],
+        "column_names_match": true,
+        "max_abs_numeric_difference": 0.0,
+        "text_columns_match": true
+      }
+    },
+    {
+      "check": "shap_family_aggregate.csv: column names and text columns match in the rerun",
+      "passed": true,
+      "details": {
+        "shape_source": [
+          1628,
+          9
+        ],
+        "shape_rerun": [
+          1628,
+          9
+        ],
+        "column_names_match": true,
+        "max_abs_numeric_difference": 0.0,
+        "text_columns_match": true
+      }
+    },
+    {
+      "check": "shap_seed_feature_importance.csv: column names and text columns match in the rerun",
+      "passed": true,
+      "details": {
+        "shape_source": [
+          4884,
+          6
+        ],
+        "shape_rerun": [
+          4884,
+          6
+        ],
+        "column_names_match": true,
+        "max_abs_numeric_difference": 0.0,
+        "text_columns_match": true
+      }
+    },
+    {
+      "check": "shap_frame_aligned_full_campaign.csv: column names and text columns match in the rerun",
+      "passed": true,
+      "details": {
+        "shape_source": [
+          3204,
+          10
+        ],
+        "shape_rerun": [
+          3204,
+          10
+        ],
+        "column_names_match": true,
+        "max_abs_numeric_difference": 0.0,
+        "text_columns_match": true
+      }
+    },
+    {
+      "check": "archived output shapes equal source and rerun shapes in the check file",
+      "passed": true,
+      "details": {
+        "shap_seed_metrics.csv": {
+          "archived": [
+            12,
+            11
+          ],
+          "check_source": [
+            12,
+            11
+          ],
+          "check_rerun": [
+            12,
+            11
+          ]
+        },
+        "shap_family_aggregate.csv": {
+          "archived": [
+            1628,
+            9
+          ],
+          "check_source": [
+            1628,
+            9
+          ],
+          "check_rerun": [
+            1628,
+            9
+          ]
+        },
+        "shap_seed_feature_importance.csv": {
+          "archived": [
+            4884,
+            6
+          ],
+          "check_source": [
+            4884,
+            6
+          ],
+          "check_rerun": [
+            4884,
+            6
+          ]
+        },
+        "shap_frame_aligned_full_campaign.csv": {
+          "archived": [
+            3204,
+            10
+          ],
+          "check_source": [
+            3204,
+            10
+          ],
+          "check_rerun": [
+            3204,
+            10
+          ]
+        }
+      }
+    },
+    {
+      "check": "current_release copies are byte-identical to the archived campaign outputs",
+      "passed": true,
+      "details": {
+        "shap_seed_metrics.csv": true,
+        "shap_family_aggregate.csv": true,
+        "shap_seed_feature_importance.csv": true
+      }
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-c13-shap-reproduction at displayed precision",
+      "passed": true,
+      "details": "4 rows match"
+    }
+  ],
+  "result": "PASS"
+}

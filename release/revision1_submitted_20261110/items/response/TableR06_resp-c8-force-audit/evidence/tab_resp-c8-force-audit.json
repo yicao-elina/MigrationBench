@@ -1,0 +1,102 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR06_resp-c8-force-audit",
+  "name": "tab:resp-c8-force-audit",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR06_resp-c8-force-audit/source/make_table_r06.py",
+  "script_sha256": "95de69b704c367e43c77e204bdb6c98e8e6daa45473c430d3dcc543762422322",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/zero_force_training_manifest.csv": "f1643598d219d6756840e97024ccb203404f19048b5d434c883dcdbe09d2cb7a",
+    "paper/revision1/data_processed/current_release/zero_force_training_summary.json": "8ca87bf0e0790d88500be0fc9e90bbadb3b288fda70ae414dd8dc308b789d685"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR06_resp-c8-force-audit/rerun_output/tab_resp-c8-force-audit.tex": "f6040908bd262e65732308d5f0e231c9291722ff7633d4be789befdaddecd920"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "manifest counts equal the summary JSON",
+      "passed": true,
+      "details": {
+        "manifest": {
+          "total": 9163,
+          "zero": 9,
+          "isolated": 9,
+          "unclassified": 0,
+          "neb": 0
+        },
+        "summary": {
+          "total_frames": 9163,
+          "total_all_zero_force_frames": 9,
+          "total_unclassified_zero_force_frames": 0
+        }
+      }
+    },
+    {
+      "check": "isolated-atom references are single-atom frames",
+      "passed": true,
+      "details": [
+        {
+          "dataset": "legacy_FT600K",
+          "frame_index": 1889,
+          "natoms": 1
+        },
+        {
+          "dataset": "legacy_FT600K",
+          "frame_index": 1890,
+          "natoms": 1
+        },
+        {
+          "dataset": "legacy_FT600K",
+          "frame_index": 1891,
+          "natoms": 1
+        },
+        {
+          "dataset": "legacy_FTMultiT",
+          "frame_index": 3013,
+          "natoms": 1
+        },
+        {
+          "dataset": "legacy_FTMultiT",
+          "frame_index": 3014,
+          "natoms": 1
+        },
+        {
+          "dataset": "legacy_FTMultiT",
+          "frame_index": 3015,
+          "natoms": 1
+        },
+        {
+          "dataset": "grouped_FT600K",
+          "frame_index": 1784,
+          "natoms": 1
+        },
+        {
+          "dataset": "grouped_FT600K",
+          "frame_index": 1785,
+          "natoms": 1
+        },
+        {
+          "dataset": "grouped_FT600K",
+          "frame_index": 1786,
+          "natoms": 1
+        }
+      ]
+    },
+    {
+      "check": "zero-force frames per dataset equal the per-file summary",
+      "passed": true,
+      "details": {
+        "grouped_FT600K": 3,
+        "legacy_FT600K": 3,
+        "legacy_FTMultiT": 3
+      }
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-c8-force-audit at displayed precision",
+      "passed": true,
+      "details": "5 rows match"
+    }
+  ],
+  "result": "PASS"
+}

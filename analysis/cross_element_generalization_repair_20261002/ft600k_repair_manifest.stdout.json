@@ -1,0 +1,29 @@
+{
+  "schema_version": "ft600k-broad-roster-repair-plan-1.0",
+  "status": "plan_only_no_checkpoint_created",
+  "target_elements": [
+    "Cr",
+    "Cu",
+    "Li",
+    "Na",
+    "Sb",
+    "Te"
+  ],
+  "base_foundation": {
+    "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element/models/Foundation-MACE-matpes-pbe-omat-ft.model",
+    "sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0"
+  },
+  "reference_ft600k": {
+    "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element/models/FT-600K.model",
+    "sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a"
+  },
+  "required_training_design": {
+    "initialization": "Foundation checkpoint",
+    "task_data": "Cr/Sb/Te AMD fine-tuning trajectory with original labels and provenance",
+    "replay_data": "held-out broad-element Foundation/MPA0 anchor frames for Cr, Cu, Li, Na, Sb, Te",
+    "loss": "energy + forces with explicit replay weighting",
+    "validation": "element-wise probes plus held-out energy/force metrics and catastrophic-forgetting comparison"
+  },
+  "forbidden_shortcut": "Do not edit FT-600K atomic_numbers or append elements without allocating/training the missing embeddings and verifying outputs.",
+  "new_output_namespace": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/cross_element_generalization_repair_20261002/outputs/ft600k_broad_roster_repaired.model"
+}

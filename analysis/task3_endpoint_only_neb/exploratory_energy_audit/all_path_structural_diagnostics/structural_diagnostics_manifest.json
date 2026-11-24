@@ -1,0 +1,44 @@
+{
+  "status": "diagnostic_stage_and_structure_analysis",
+  "n_paths": 10,
+  "n_images": 100,
+  "stage_definition": {
+    "endpoint": [
+      1,
+      10
+    ],
+    "transition_state_window": "argmax(QE path energy) +/- 1",
+    "near_endpoint": [
+      2,
+      3,
+      8,
+      9
+    ],
+    "interior": "remaining non-endpoint, non-TS-window images"
+  },
+  "energy_units": "sb2te3.path energy values converted Hartree to eV with 27.211386245988; positions converted Bohr to Angstrom",
+  "cell_handling": "fixed cell from QE manifest; minimum-image distances; no lattice relaxation descriptor because cell is fixed",
+  "embedding": {
+    "descriptor_columns": [
+      "dopant_displacement_from_image1_A",
+      "dopant_nearest_host_A",
+      "dopant_nearest3_mean_A",
+      "dopant_coordination_n_within_4p3A",
+      "dopant_coordination_n_within_4p6A",
+      "nearest3_distance_std_A",
+      "host_rms_displacement_from_image1_A",
+      "all_atom_rms_displacement_from_image1_A",
+      "max_gradient_norm_eV_per_A",
+      "rms_gradient_norm_eV_per_A",
+      "qe_relative_energy_eV",
+      "foundation_range_eV"
+    ],
+    "n_frames": 100,
+    "pca_explained_variance_ratio": [
+      0.563046960510886,
+      0.2338846008822041
+    ],
+    "scope": "NEB frames only; training/test/AIMD raw structures are not included"
+  },
+  "training_distribution_status": "not_claimed: no authoritative raw training split was found in the current workspace; grouped test and available AIMD assets are separate follow-up inputs"
+}

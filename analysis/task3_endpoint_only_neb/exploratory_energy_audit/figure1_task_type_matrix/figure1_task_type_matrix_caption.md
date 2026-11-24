@@ -1,0 +1,3 @@
+# Figure 1 task-type matrix
+
+**Figure 1 | Foundation-model energy profiles stratified by dopant and migration-path class.** The three upper-left cells define the generic within-QL, in-gap-diffusion, and gap-to-QL path classes schematically; they are not atom-resolved structural renderings. Remaining panels show screened QE path-table points and line segments together with Foundation-model single-point profiles. The ten Cr Foundation models are colored with related Morandi shades within the Agnesi, MH, MP, and OMAT families. The QE `error (eV/A)` residual is not converted into an energy band; it is reported in the separate NEB residual-audit figure.

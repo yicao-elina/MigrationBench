@@ -1,0 +1,4 @@
+record_id	seed	stage	job_id	state	exit_code	failure_or_boundary	publication_status	action
+FT600K-LAUNCH-234	234	training bootstrap	32121744_0 / 32151298	FAILED	1:0	missing conda.sh at script line 28	FAILURE_MODE	retain log; do not treat as a training attempt
+FT600K-LAUNCH-345	345	training bootstrap	32121744_1 / 32121744	FAILED	1:0	missing conda.sh at script line 28	FAILURE_MODE	retain log; do not treat as a training attempt
+FT600K-MD-NOT-SUBMITTED	234;345	MD submission	none	BLOCKED	-	no compiled model or accepted training result	EXCLUDE_FROM_PUBLICATION	wait for repaired retraining and pass smoke gate

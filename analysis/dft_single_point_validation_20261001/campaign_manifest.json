@@ -1,0 +1,50 @@
+{
+  "campaign_id": "dft_single_point_validation_20261001",
+  "created": "2026-10-01",
+  "local_root": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/dft_single_point_validation_20261001",
+  "remote_root": "/scratch16/pclancy3/yi/dft_single_point_validation_20261001",
+  "scope": "independent QE 7.2 non-magnetic SCF single-point validation; no ionic relaxation",
+  "source_campaign_47": {
+    "status": "separate_existing_campaign_not_touched",
+    "input_root": "/scratch16/pclancy3/yi/revision1_migrationbench_inputs/endpoint_dft_qe72_nonmag_campaign_20260930_all/",
+    "result_scope": "will be combined only after independent scientific quality gates"
+  },
+  "method": {
+    "qe_executable": "/data/apps/extern/qe/7.2/bin/pw.x",
+    "pseudo_dir": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/",
+    "pseudopotentials": {
+      "Cr_PBE_FR.SG15v1.2.UPF": "a9352047039238c12614fb6c3ed93acb6e84b2cd9011db2f62eda1858045c5e4",
+      "Sb_PBE_FR.SG15v1.2.UPF": "998415c8a49d852c7376645c0a896110258aa7bb40b5c331a1e2874ed34e8132",
+      "Te_PBE_FR.SG15v1.2.UPF": "1b6d3177b82988cecabebf7da1636825613b7270bc269795a1fb6c12743e12fa"
+    },
+    "ecutwfc_Ry": 70,
+    "ecutrho_Ry": 280,
+    "kpoints": "2 2 2 1 1 1",
+    "smearing": "cold",
+    "degauss_Ry": 0.0146997236,
+    "vdw_corr": "DFT-D3",
+    "spin": "QE default nspin=1; magnetic keywords absent",
+    "calculation": "scf"
+  },
+  "selection": {
+    "candidate_inventory": 80,
+    "selected_wave1": 20,
+    "coverage": {
+      "stable_endpoint": 5,
+      "neb_intermediate": 5,
+      "near_saddle": 5,
+      "failure_evidence": 5
+    },
+    "md_high_energy_snapshots": 5,
+    "md_status": "provenance_incomplete_and_dft_blocked",
+    "scratch_seed234_runaway_15": "not_located_in_authoritative_current_inventory; no structures fabricated"
+  },
+  "quality_gate": [
+    "explicit QE JOB DONE",
+    "finite total energy",
+    "finite total force",
+    "QE-reported nat matches candidate manifest",
+    "no QE error markers",
+    "input hash and non-magnetic SCF contract retained"
+  ]
+}

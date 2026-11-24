@@ -1,0 +1,15 @@
+command=quota -s; df -P -B1 /scratch16 /data
+exit_status=0
+stdout+stderr:
+UTC:
+2026-11-23T12:10:56Z
+quota -s:
+quota: error while getting quota from 172.21.41.101:/eande106 for ycao73 (id 3901): Operation not permitted
+quota: error while getting quota from 172.21.41.112:/jchen230 for ycao73 (id 3901): Operation not permitted
+quota: error while getting quota from 172.21.41.113:/lisik3 for ycao73 (id 3901): Operation not permitted
+quota: error while getting quota from 172.21.41.116:/jbailey7 for ycao73 (id 3901): Operation not permitted
+quota: error while getting quota from 172.21.41.102:/vlakshm1 for ycao73 (id 3901): Operation not permitted
+df -P -B1 /scratch16 /data:
+Filesystem             1-blocks             Used        Available Capacity Mounted on
+scratch16      2158665595355136 1781916164423680  376749430931456      83% /scratch16
+data           5791776283557888 3951024989536256 1840751294021632      69% /data

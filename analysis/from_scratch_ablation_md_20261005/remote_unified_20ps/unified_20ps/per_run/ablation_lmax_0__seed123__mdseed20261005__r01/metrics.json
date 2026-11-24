@@ -1,0 +1,116 @@
+{
+  "trajectory": "/scratch16/pclancy3/yi/mace_from_scratch_ablation_MD_20261005/runs/ablation_lmax_0__seed123__mdseed20261005__r01/trajectory.extxyz",
+  "trajectory_sha256": "b5389ed373bf23dfe1f0610487c26762996b5809f4efd0c4b9f06b922211bc8c",
+  "manifest": "/scratch16/pclancy3/yi/mace_from_scratch_ablation_MD_20261005/runs/ablation_lmax_0__seed123__mdseed20261005__r01/run_manifest.json",
+  "status": {
+    "last_step": 600,
+    "n_metric_frames": 4,
+    "status": "failed",
+    "stop_reason": "instability_threshold",
+    "target_step": 20000
+  },
+  "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/ablation_runs/ablation_lmax_0/ablation_lmax_0_stagetwo_compiled.model",
+  "model_sha256": "91d3913d12da3a266d2f710da994bccf17a6125abb190fe7d4f4e8868ac78ff9",
+  "frames": 4,
+  "start_step": 0,
+  "last_step": 600,
+  "duration_ps": 0.6,
+  "natoms": 2050,
+  "pbc": [
+    true,
+    true,
+    true
+  ],
+  "cell_A": [
+    [
+      85.54299859362168,
+      0.0,
+      0.0
+    ],
+    [
+      -21.345801068062194,
+      37.01821938339822,
+      0.0
+    ],
+    [
+      0.0895635195275219,
+      0.05165086255082877,
+      47.428887855240575
+    ]
+  ],
+  "finite_gate": true,
+  "complete_step_gate": false,
+  "scientific_gate": "blocked_or_incomplete",
+  "temperature_K": {
+    "min": 599.8273114544454,
+    "mean": 2208.5588737353096,
+    "max": 6283.897233238406
+  },
+  "max_force_eV_A": {
+    "max": 82.74634587577157,
+    "mean": 40.31381441257909
+  },
+  "pressure_GPa": {
+    "finite_frames": 4,
+    "mean": 0.2316301964891127
+  },
+  "msd": {
+    "definition": "Cr multi-origin MSD; unwrapped fixed-cell coordinates; origin_stride=10",
+    "Dxy_200_500_ps": {
+      "n": 0,
+      "slope_A2_per_ps": null,
+      "D_cm2_s": null,
+      "window_ps": [
+        200.0,
+        500.0
+      ]
+    },
+    "Dxy_500_900_ps": {
+      "n": 0,
+      "slope_A2_per_ps": null,
+      "D_cm2_s": null,
+      "window_ps": [
+        500.0,
+        900.0
+      ]
+    },
+    "D3D_200_500_ps": {
+      "n": 0,
+      "slope_A2_per_ps": null,
+      "D_cm2_s": null,
+      "window_ps": [
+        200.0,
+        500.0
+      ]
+    },
+    "D3D_500_900_ps": {
+      "n": 0,
+      "slope_A2_per_ps": null,
+      "D_cm2_s": null,
+      "window_ps": [
+        500.0,
+        900.0
+      ]
+    }
+  },
+  "vacf": {
+    "definition": "Cr velocity VACF with per-frame center-of-mass velocity removed",
+    "frames": 4,
+    "initial": 1.0
+  },
+  "hop_count": {
+    "status": "candidate_only_site_mapping_required",
+    "threshold_A": 1.5,
+    "events_between_saved_frames": 13
+  },
+  "heat_flux": {
+    "status": "available",
+    "stress_frames": 4,
+    "formula": "repository_simplified_stress_based_heat_flux_v1",
+    "kappa_final_W_mK": 5907.899531881338
+  },
+  "uncertainty": {
+    "status": "single_replica_until_all_selected_runs_complete",
+    "required": "block and replica uncertainty; 1 ns does not imply transport convergence"
+  }
+}

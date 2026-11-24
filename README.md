@@ -5,6 +5,15 @@ paper artifacts, and the compact evidence needed to audit every reported
 result. Overleaf is a publication mirror; Rockfish is a compute backend, not a
 source of truth.
 
+## Revision 1 as submitted (2026-11-10)
+
+Start at [`release/revision1_submitted_20261110/README.md`](release/revision1_submitted_20261110/README.md).
+It holds the submitted PDF and the results master table (`RESULTS_INDEX.tsv`),
+which maps every main/SI figure panel and table to its generator, data, raw
+location and models. It also has the end-to-end pipeline map, the model and
+storage registries, and the Rockfish → Skipjack migration plan. The earlier
+`release/revision1_camera_ready/` package is superseded by it.
+
 ## Reproduction levels
 
 1. **Paper reproduction (offline):** regenerate registries, manuscript macros,
@@ -85,3 +94,11 @@ The migration inventory, source hashes, inclusion policy, and known gaps are
 documented in `docs/history/MIGRATION_REPORT.md`. The remote branch
 `archive/main-before-paper-repro-2026-09-17` preserves the previous GitHub
 `main` exactly.
+
+## Rockfish → Skipjack migration
+
+The current cleanup and SQL reconciliation are tracked in
+[`analysis/rockfish_skipjack_migration_audit_20261121/README.md`](analysis/rockfish_skipjack_migration_audit_20261121/README.md).
+The audit is incremental: it records verified restart-file cleanup, the
+as-found paper and database snapshots, and the remaining file-level inventory
+before bulk transfer.

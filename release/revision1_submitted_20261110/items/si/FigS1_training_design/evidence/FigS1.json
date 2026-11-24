@@ -1,0 +1,78 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/FigS1_training_design",
+  "name": "FigS1",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/FigS1_training_design/source/reproduce_figS1.py",
+  "script_sha256": "8b1347957bfd7bafcf6fc3a024a79af57abf71a6e37acb1847fd4c4c66e7928d",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/figures/main/SI/fig_training_design_routes.pdf": "2eb42aa47b272889ede2aa18d841b85de37c7ec21dd2fa0b918f759e0ba6e846",
+    "release/revision1_submitted_20261110/items/si/FigS1_training_design/source/fig_training_design_routes_submitted.drawio": "a14820156f087d496427aa0031e35de101e0c82eec8b6269d2a3cbb75ad052c8",
+    "release/revision1_submitted_20261110/items/si/FigS1_training_design/source/method-P02_palette_updated_pre_vector_export.pdf.drawio": "0d15c6983f2b3ea828b399743fcc55d3b60b0fd19f9b9ccf7a7e6ed4ea47a03b"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/FigS1_training_design/rerun_output/embedded_in_submitted_pdf.drawio": "a14820156f087d496427aa0031e35de101e0c82eec8b6269d2a3cbb75ad052c8"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "submitted asset sha256 matches RESULTS_INDEX",
+      "passed": true,
+      "details": {
+        "sha256": "2eb42aa47b272889ede2aa18d841b85de37c7ec21dd2fa0b918f759e0ba6e846",
+        "indexed": "2eb42aa4"
+      }
+    },
+    {
+      "check": "editable source release/revision1_submitted_20261110/items/si/FigS1_training_design/source/fig_training_design_routes_submitted.drawio equals the diagram embedded in the asset",
+      "passed": true,
+      "details": {
+        "embedded_sha256": "a14820156f087d496427aa0031e35de101e0c82eec8b6269d2a3cbb75ad052c8",
+        "source_sha256": "a14820156f087d496427aa0031e35de101e0c82eec8b6269d2a3cbb75ad052c8"
+      }
+    },
+    {
+      "check": "known difference: older editable file vs submitted diagram (not used for PASS)",
+      "passed": true,
+      "details": {
+        "cells_submitted": 105,
+        "cells_older": 104,
+        "only_in_submitted": [
+          "R6WHaOz9ij6fjfkim-iY-3",
+          "R6WHaOz9ij6fjfkim-iY-5"
+        ],
+        "only_in_older": [
+          "txt_77"
+        ],
+        "changed_cells": [
+          "atom_18",
+          "atom_19",
+          "desc_box",
+          "edge_24",
+          "edge_57",
+          "edge_59",
+          "edge_61",
+          "edge_62",
+          "edge_75",
+          "edge_76",
+          "foundation",
+          "hdr_ft",
+          "hdr_scratch",
+          "txt_22",
+          "txt_23",
+          "txt_58",
+          "txt_60",
+          "txt_67",
+          "txt_70",
+          "zeroshot"
+        ]
+      }
+    },
+    {
+      "check": "diagrams.net re-export (informational)",
+      "passed": true,
+      "details": "no diagrams.net CLI found; export not re-run"
+    }
+  ],
+  "result": "PASS"
+}

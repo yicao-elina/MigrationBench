@@ -1,0 +1,73 @@
+{
+  "run_dir": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning",
+  "manifest": {
+    "dt_fs": 1.0,
+    "friction": 0.01,
+    "input": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/2-naive-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+    "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+    "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning/segment_from_000080000.extxyz",
+    "start_step": 80000,
+    "target_step": 1000000,
+    "temperature_K": 600.0,
+    "write_interval_steps": 200
+  },
+  "status": {
+    "last_step": 1000200,
+    "model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+    "natoms": 2050,
+    "pbc": [
+      true,
+      true,
+      true
+    ],
+    "segment": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning/segment_from_000080000.extxyz",
+    "target_step": 1000000
+  },
+  "files": {
+    "input": {
+      "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/2-naive-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+      "exists": true,
+      "size": 128431527,
+      "mtime": 1755188211.628213,
+      "sha256": "1da89bba994e3a1037e46d989e5e7dfbf8874aeae8e86d42381d836a11e29cdf"
+    },
+    "model": {
+      "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-multihead_600K/finetuned_MACE_multihead0804_compiled.model",
+      "exists": true,
+      "size": 13075227,
+      "mtime": 1754340958.2463493,
+      "sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a"
+    },
+    "segment": {
+      "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning/segment_from_000080000.extxyz",
+      "exists": true,
+      "size": 1473735995,
+      "mtime": 1790966490.4279697,
+      "sha256": "229ba65b6ddeebbd63f0ba14fd310a170efed705d5860b5f27dbe708a31b9a4e"
+    },
+    "checkpoint": {
+      "path": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/2-naive-fine-tuning/latest_restart.extxyz",
+      "exists": true,
+      "size": 320312,
+      "mtime": 1790966490.4581,
+      "sha256": "0a54ab5ee216b84af72f0694310de60ad24130bcd56004d86f37a0e842d49b2d"
+    }
+  },
+  "checkpoint_validation": {
+    "natoms": 2050,
+    "pbc": [
+      true,
+      true,
+      true
+    ],
+    "species_sha256": "49297712dc50708ef7ef5a295fce5c9875c0944c0513ebe9128ccb65b8f75c29",
+    "finite_positions": true,
+    "finite_momenta": true,
+    "finite_energy": true,
+    "finite_forces": true,
+    "max_force_eV_A": 1.96565856,
+    "temperature_K": 584.3584462089959
+  },
+  "model_raw_id": "2-naive-fine-tuning",
+  "model": "FT-600K"
+}
