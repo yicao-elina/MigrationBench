@@ -1,0 +1,6 @@
+Rockfish timezone observations from read-only shell commands:
+default_date=2026-11-22T22:35:35EST -0500
+utc_date=2026-11-23T03:35:35Z UTC +0000
+sacct_path=(not found on current SSH login PATH, also not found after sourcing /data/apps/go.sh)
+
+The parent-provided qe_candidate_sacct_utc_20261123.psv is the TZ=UTC recapture. It contains the same 12 job/step IDs as qe_candidate_sacct_20261123.psv. All 24 Start/End timestamps differ by exactly +04:00. The original PSV carries no timezone column or adjacent command receipt establishing TZ. The three historical Slurm stdout files explicitly label their completion dates EDT (July 2025). Current EST observation does not establish the original capture's timezone.

@@ -1,0 +1,75 @@
+{
+  "schema": "migrationbench_canonical_model_matrix_v1",
+  "campaign_id": "scratch_600k_grouped_v1",
+  "status": "READY_FOR_SUBMISSION",
+  "scope": "2-layer Cr-Sb2Te3 migration models and the shared 639-candidate static screen",
+  "data_policy": {
+    "canonical_dataset": "scratch_600k_grouped_v1",
+    "upstream_release": "FT-600K-A2-grouped-provisional",
+    "upstream_manifest": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/manifest_proposed_A2.json",
+    "upstream_manifest_sha256": "c085fa3167d0ecceda83a6ef2760df8ed8a70c0f241f085ee6cb518d3320cf34",
+    "split_summary": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/grouped_split_summary.json",
+    "split_summary_sha256": "ff2205a92adfeb2eba4a37ba7e2100381b005b5c2217c387a6ff686cb32d7c94",
+    "train": {
+      "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/train.xyz",
+      "sha256": "04b1369d0da0b630c55aa6da6b3f85ea9ff4bffb107de804ead6fe7214fa34b8",
+      "periodic_frames": 1783,
+      "isolated_frames": 3
+    },
+    "valid": {
+      "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/valid.xyz",
+      "sha256": "aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502",
+      "periodic_frames": 311
+    },
+    "test": {
+      "path": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/data_grouped/test.xyz",
+      "sha256": "d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab",
+      "periodic_frames": 267
+    },
+    "group_split": true,
+    "group_leakage_policy": "one source trajectory belongs to exactly one split",
+    "provenance_status": "PROVISIONAL_UPSTREAM_MANIFEST",
+    "deduplication_note": "This grouped 600 K release is audited independently. It is not concatenated with the Multi-T release; the 600 K source universe is contained within the broader Multi-T source universe."
+  },
+  "strict_from_scratch_matrix": {
+    "model_family": "scratch_600k_grouped_v1",
+    "foundation_model": null,
+    "seeds": [123, 234, 345],
+    "only_varying_factor": "training_seed",
+    "architecture": {
+      "model": "MACE",
+      "num_channels": 32,
+      "max_L": 2,
+      "correlation": 2,
+      "r_max_angstrom": 6,
+      "hidden_irreps_argument": "128x0e",
+      "effective_hidden_irreps": "32x0e+32x1o+32x2e",
+      "num_interactions": 2,
+      "num_radial_basis": 8,
+      "num_cutoff_basis": 5
+    },
+    "optimization": {
+      "batch_size": 32,
+      "valid_batch_size": 16,
+      "max_num_epochs": 1000,
+      "forces_weight": 10,
+      "swa": true,
+      "start_swa": 800,
+      "ema": true,
+      "ema_decay": 0.99,
+      "lr": 0.01,
+      "swa_lr": 0.001,
+      "weight_decay": 5e-07,
+      "patience": 20,
+      "e0s": "isolated"
+    },
+    "environment": {
+      "mace": "0.3.12 target environment; record resolved version in preflight",
+      "device": "cuda",
+      "dtype": "float64",
+      "elements": [24, 51, 52]
+    },
+    "output_root": "/scratch16/pclancy3/yi/canonical_model_matrix_20261016/scratch_600k_grouped_v1"
+  },
+  "publication_boundary": "Training completion is not a DFT correctness claim; any mechanistic claim remains bounded by the MLIP/DFT evidence actually accepted."
+}

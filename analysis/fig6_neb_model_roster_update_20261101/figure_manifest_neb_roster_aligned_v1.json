@@ -1,0 +1,105 @@
+{
+  "artifact": "Figure 6 NEB-roster-aligned four-panel update",
+  "status": "RECONSTRUCTION",
+  "model_roster": {
+    "n_models": 15,
+    "models": [
+      "MP-0B3",
+      "OMAT-0",
+      "MPA0",
+      "FT-600K / s123",
+      "FT-600K / s234",
+      "FT-600K / s345",
+      "FT-MultiT / s123",
+      "FT-MultiT / s234",
+      "FT-MultiT / s345",
+      "Scratch-600K / s123",
+      "Scratch-600K / s234",
+      "Scratch-600K / s345",
+      "Scratch-MultiT / s123",
+      "Scratch-MultiT / s234",
+      "Scratch-MultiT / s345"
+    ],
+    "family_counts": {
+      "Foundation": 3,
+      "Fine-tuning": 6,
+      "Scratch": 6
+    },
+    "source_reference": "NEB_main_figure_reference.pdf"
+  },
+  "data_scope": {
+    "records": 120,
+    "observables": [
+      "migration fixed",
+      "migration self-relaxed",
+      "sliding fixed"
+    ],
+    "source_metrics": "source/neb_dotmatrix_v3/NEB_Dotmatrix_v3/data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv",
+    "audit_input_sha256": "cbf62a71ac637da217725d9e92bf13458cad1e2caeb20398ca7b1bdf116a97e4",
+    "nonconverged_records": 3
+  },
+  "scientific_boundaries": [
+    "Fixed-path migration and sliding are supporting diagnostics.",
+    "Self-relaxed migration is primary only where the source status is CONVERGED/PRIMARY_EVIDENCE.",
+    "The three nonconverged within-QL self-relaxed records remain NC/diagnostic and are not converted to numeric evidence.",
+    "DFT references in the source package carry the source warning boundary; no validated DFT MEP claim is inferred.",
+    "This update is not tied to the SHAP campaign; it follows the model roster and metrics used by the NEB main figure."
+  ],
+  "style": {
+    "contract": "scientific-plot-atlas",
+    "runtime": "local-contract fallback; recovered Plot Atlas package was not hydrated",
+    "font_requested": "Arial",
+    "font_selected": "Arial",
+    "dpi_png": 350,
+    "editable_exports": [
+      "pdf",
+      "svg"
+    ],
+    "family_colors": {
+      "Foundation": "#95D1B1",
+      "Fine-tuning": "#36B3C0",
+      "Scratch": "#2F83B8"
+    }
+  },
+  "source_sha256": {
+    "source/DERIVED_RESULTS_MANIFEST.json": "9f46307c38bec5ecb22b28fd641cdd2b798347049b09088f633da5dbd5ca1451",
+    "source/NEB_dotmatrix_v3_complete.zip": "e2779587d1738a2967af4e2e89f014c90438fed026056842a39d2dd3460d27dc",
+    "source/NEB_main_figure_reference.pdf": "c5c99343562b61ded977603936fa7fe82397ed8fad7e2694a555925b4daa45c0",
+    "source/TIER1_FAILURE_REGISTRY.tsv": "589a894efda2afc7e0a0799dc689c1635b7503ec3a5406bb5baf7c38c178de15",
+    "source/TIER1_PAIRED_SUMMARY.tsv": "a97057005360ab89d341862e60ec32ba127dfbf8ae5c42f59cf01b8815e5d18f",
+    "source/TIER1_RESULT_MATRIX.tsv": "9c5fcfa7fe6e57bf5c1a37cee57d3f86e2f635d21ad60a834536a9a571711ca2",
+    "source/TIER1_VALIDATION_REPORT.json": "ff21a10b2d08ec888111650f28b408cb8c66478f7e47f52c79eb5339c26e45d3",
+    "source/neb_dotmatrix_v3/NEB_Dotmatrix_v3/README.txt": "4b93dcb3e3a5dbdc2cf05b490c709e49cd6208b08b9fadfe716bad7db35d4076",
+    "source/neb_dotmatrix_v3/NEB_Dotmatrix_v3/audit.json": "f07432d0c5f8952144048b4a125a31fce8c87ecfc95ed658ce1c89c89a4215ea",
+    "source/neb_dotmatrix_v3/NEB_Dotmatrix_v3/data/NEB_TOTAL_PERFORMANCE_SEED_EXPANDED_METRICS.tsv": "cbf62a71ac637da217725d9e92bf13458cad1e2caeb20398ca7b1bdf116a97e4",
+    "source/neb_dotmatrix_v3/NEB_Dotmatrix_v3/figure_caption.txt": "81a776bbaa961652070a99ed74a7902a6cbd5143ae15968d5c1169b33b8abe93",
+    "source/neb_dotmatrix_v3/NEB_Dotmatrix_v3/plotted_values.tsv": "1d440b0023eb9fe0b64c12f8f4b30e282f8b3f308a6fb07e534de8af6317edff",
+    "source/neb_dotmatrix_v3/NEB_Dotmatrix_v3/source/build_neb_dotmatrix.py": "1b1bd3d250090abffb8008f76c10ab78aecd8477375913082249e3520bc228db",
+    "source/neb_dotmatrix_v3/NEB_Dotmatrix_v3/style_spec.json": "accefdc45a894e97da5bd31679d91c175613064cc7009fb0d0469405a323151e"
+  },
+  "model_registry_sha256": "599432ccfed80ce2ce4cb12001e0f119cfafc2c910bf00cc300f4365030c0a4f",
+  "outputs_sha256": {
+    "figures/fig6_neb_panel_a_error_matrix.png": "5c0eea6dc75304d9e341a8943f4dec0a74499c404eb43690e549beb07cdf1550",
+    "figures/fig6_neb_panel_a_error_matrix.pdf": "879ade16c46f9343af5bea6d402dc798af16709ec304b056b7053fc411db289b",
+    "figures/fig6_neb_panel_a_error_matrix.svg": "4189eb67d49b7cbb12c97f21975e325b5fba2760de8349ebe2a24977fbf4b5b1",
+    "figures/fig6_neb_panel_b_migration_operator_error.png": "a3ba1a550a80cc773b395e4bfa63c667113575085103c64a6504da420e052a8e",
+    "figures/fig6_neb_panel_b_migration_operator_error.pdf": "4dd70f5a287445da15526e1cccb62ccadc1cbe0c57b74f9af36fde14cbd07399",
+    "figures/fig6_neb_panel_b_migration_operator_error.svg": "1f5fc5103d620f91feb29a4871d01a4e5360dbe0f113eab8dfc8d969b0e1ce8d",
+    "figures/fig6_neb_panel_c_within_ql_barriers.png": "4a345656ac4f6b97c3fb3e0c647f262e290723be86d6add1cafc102898129766",
+    "figures/fig6_neb_panel_c_within_ql_barriers.pdf": "da2731b838893f3f145313da673b5dd5003c9a58693d31ea65831e5d8395f7b0",
+    "figures/fig6_neb_panel_c_within_ql_barriers.svg": "2978985a8b60fb633ad26b719e57b9c813113cb6c58955b438c147e8a6adb9b9",
+    "figures/fig6_neb_panel_d_sliding_peaks.png": "f9a95b5c37561489cc9b34f40e7d1dcefd50ee8c07a7c356eddea4f98f9f2409",
+    "figures/fig6_neb_panel_d_sliding_peaks.pdf": "32674a8e0d1c53810622d0a951ea14ef3d750df0176e5eae99352fde6429d963",
+    "figures/fig6_neb_panel_d_sliding_peaks.svg": "6fb6128147fd48c6026b4864599b680f3995fee0e41404b4d655eeeed7ec0955",
+    "figures/fig6_neb_roster_aligned_v1.png": "f3696273281dd269d5b6a9dd799c7fbc09576258f5c112e1e8a165991d66280e",
+    "figures/fig6_neb_roster_aligned_v1.pdf": "d3a1128f58242ef287bec7ffe40c2b3fa5968228f9b2efa664d13100e280149c",
+    "figures/fig6_neb_roster_aligned_v1.svg": "fb7c1b55a02f7fabdd4f15f8f32f495ae4e8f9b01360038d18a0e71a4c9a2fa7"
+  },
+  "environment": {
+    "python": "3.14.3 (main, Feb  3 2026, 15:32:20) [Clang 16.0.0 (clang-1600.0.26.6)]",
+    "platform": "macOS-14.2.1-arm64-arm-64bit-Mach-O",
+    "matplotlib": "3.11.2",
+    "pandas": "3.1.0",
+    "numpy": "2.5.4"
+  }
+}

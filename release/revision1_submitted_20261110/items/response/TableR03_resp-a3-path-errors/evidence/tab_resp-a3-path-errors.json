@@ -1,0 +1,43 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR03_resp-a3-path-errors",
+  "name": "tab:resp-a3-path-errors",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR03_resp-a3-path-errors/source/make_table_r03.py",
+  "script_sha256": "1d3653fdd1fd379f143ba781029f43c53b3a4754593a0edbebb339c2fd03352c",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/path_registry.csv": "142dd7416fb4232adf3f85bb74284fffbe21563d868ef4c0b16296e2721bb50f",
+    "paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/grouped_neb_barrier_summary.csv": "2961a6045563c7861598e774ae59fb010bb58b36c45f8a2bdc54820b595f1bdc",
+    "paper/revision1/data_processed/current_release/fig5_family_statistics.csv": "bfc5408fa18548337b4c8d551ce632ad35a26813d0d66a708595cc2495eff751"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR03_resp-a3-path-errors/rerun_output/tab_resp-a3-path-errors.tex": "85d2efdb5fdfdb4fd4d51dc46a89c2db6a3eeabd1aa16421f9021fc2e5b66880"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "three training seeds behind every row (caption)",
+      "passed": true,
+      "details": {
+        "Q1/Scratch": 3,
+        "Q1/FT-600K": 3,
+        "Q2/Scratch": 3,
+        "Q2/FT-600K": 3,
+        "Q3/Scratch": 3,
+        "Q3/FT-600K": 3,
+        "G1/Scratch": 3,
+        "G1/FT-600K": 3,
+        "G1/Scratch-5\\%": 3,
+        "G2/Scratch": 3,
+        "G2/FT-600K": 3,
+        "Within-QL/Scratch-600K": 3
+      }
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-a3-path-errors at displayed precision",
+      "passed": true,
+      "details": "12 rows match"
+    }
+  ],
+  "result": "PASS"
+}

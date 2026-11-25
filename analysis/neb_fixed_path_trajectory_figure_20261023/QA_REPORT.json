@@ -1,0 +1,383 @@
+{
+  "schema_version": "migrationbench_fixed_path_trajectory_figure_qa_v1",
+  "status": "PROVISIONAL_DIAGNOSTIC_CANDIDATE",
+  "figure_accepted": false,
+  "generated_at_utc": "2026-10-24T01:40:51.084342+00:00",
+  "summary": {
+    "checks_total": 32,
+    "pass": 18,
+    "blocked": 14,
+    "blocked_codes": [
+      "VIS-01",
+      "VIS-02",
+      "VIS-03",
+      "VIS-08",
+      "VIS-09",
+      "VIS-10",
+      "VIS-13",
+      "PHY-12",
+      "PHY-16",
+      "DFT-02",
+      "DFT-04",
+      "SEED-04",
+      "PUB-09",
+      "PUB-10"
+    ],
+    "numeric_fixed_rows": 330,
+    "fixed_failure_blocks": 3,
+    "dft_rows": 30,
+    "blender_visual_review": "PENDING; existing render is an unreviewed candidate"
+  },
+  "render_metadata": {
+    "font": "Arial",
+    "arial_available": true,
+    "standalone_panels": [
+      {
+        "path_id": "cr_canonical_in_gap",
+        "display_label": "within gap",
+        "y_limits": [
+          -0.2427331749247969,
+          1.6084431797688012
+        ],
+        "failures_visible": [
+          "ftmultit_seed123"
+        ],
+        "output_stem": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels/panel_within_gap"
+      },
+      {
+        "path_id": "cr_canonical_gap_to_ql",
+        "display_label": "gap2QL",
+        "y_limits": [
+          -0.2544758324325085,
+          0.07498829776701087
+        ],
+        "failures_visible": [
+          "ftmultit_seed123"
+        ],
+        "output_stem": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels/panel_gap2ql"
+      },
+      {
+        "path_id": "cr_canonical_within_ql",
+        "display_label": "withinQL",
+        "y_limits": [
+          -2.116146645941575,
+          27.906559164936716
+        ],
+        "failures_visible": [
+          "ftmultit_seed123"
+        ],
+        "output_stem": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/panels/panel_within_ql"
+      }
+    ],
+    "composite": {
+      "output_stem": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels",
+      "panels": [
+        {
+          "path_id": "cr_canonical_in_gap",
+          "display_label": "within gap",
+          "y_limits": [
+            -0.2427331749247969,
+            1.6084431797688012
+          ],
+          "failures_visible": [
+            "ftmultit_seed123"
+          ]
+        },
+        {
+          "path_id": "cr_canonical_gap_to_ql",
+          "display_label": "gap2QL",
+          "y_limits": [
+            -0.2544758324325085,
+            0.07498829776701087
+          ],
+          "failures_visible": [
+            "ftmultit_seed123"
+          ]
+        },
+        {
+          "path_id": "cr_canonical_within_ql",
+          "display_label": "withinQL",
+          "y_limits": [
+            -2.116146645941575,
+            27.906559164936716
+          ],
+          "failures_visible": [
+            "ftmultit_seed123"
+          ]
+        }
+      ]
+    }
+  },
+  "checks": [
+    {
+      "code": "VIS-01",
+      "status": "BLOCKED",
+      "detail": "rendered Blender candidate is not visually signed off; three equal lower columns rendered in the frozen order within gap → gap2QL → withinQL",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "VIS-02",
+      "status": "BLOCKED",
+      "detail": "rendered Blender candidate is not visually signed off; upper Blender interface and lower profile data share path_id and observable",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/blender_input.json",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv"
+      ]
+    },
+    {
+      "code": "VIS-03",
+      "status": "BLOCKED",
+      "detail": "rendered Blender candidate is not visually signed off; each upper-path interface contains 81 atoms and 10 real retained frames with an explicit Cr index",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/blender_input.json"
+      ]
+    },
+    {
+      "code": "VIS-08",
+      "status": "BLOCKED",
+      "detail": "rendered Blender candidate is not visually signed off; each line connects ten retained points directly; no spline or extra point",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/build_fixed_path_figure.py"
+      ]
+    },
+    {
+      "code": "VIS-09",
+      "status": "BLOCKED",
+      "detail": "rendered Blender candidate is not visually signed off; exact FIG-168 family colors are loaded from the project style file",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/figure1_family_seed_audit_20261016/FIG168_MODEL_STYLE.json"
+      ]
+    },
+    {
+      "code": "VIS-10",
+      "status": "BLOCKED",
+      "detail": "rendered Blender candidate is not visually signed off; DFT/QE is graphite and is labeled SCF warning; diagnostic",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/caption.md"
+      ]
+    },
+    {
+      "code": "VIS-13",
+      "status": "BLOCKED",
+      "detail": "rendered Blender candidate is not visually signed off; failure blocks have no numeric line and are shown with a × status annotation",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv"
+      ]
+    },
+    {
+      "code": "PHY-01",
+      "status": "PASS",
+      "detail": "path hashes, cell/PBC, atom count, species order and endpoint registry references are recorded",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/blender_input.json",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "PHY-02",
+      "status": "PASS",
+      "detail": "all retained and DFT-selected profiles contain ten ordered images",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/blender_input.json",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/dft_profiles.tsv"
+      ]
+    },
+    {
+      "code": "PHY-04",
+      "status": "PASS",
+      "detail": "each profile uses ΔE_i = E_i − E_0 and stores the raw energy separately",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/dft_profiles.tsv"
+      ]
+    },
+    {
+      "code": "PHY-05",
+      "status": "PASS",
+      "detail": "only FIXED_PATH_SINGLE_POINT and DFT_RETAINED_PATH rows enter the lower panel",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv"
+      ]
+    },
+    {
+      "code": "PHY-06",
+      "status": "PASS",
+      "detail": "SELF_RELAXED_ENDPOINT_ONLY_NEB and MIC_LINEAR are excluded and named in the manifest",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "PHY-07",
+      "status": "PASS",
+      "detail": "all numeric energy values are finite; failure rows have no fabricated numeric value",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/dft_profiles.tsv"
+      ]
+    },
+    {
+      "code": "PHY-08",
+      "status": "PASS",
+      "detail": "DFT force-error values are retained separately and never used as ΔE uncertainty",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/dft_profiles.tsv"
+      ]
+    },
+    {
+      "code": "PHY-09",
+      "status": "PASS",
+      "detail": "four families, target arm counts, excluded arms, and failures are in the manifest",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "PHY-10",
+      "status": "PASS",
+      "detail": "Foundation rows retain checkpoint_variant_not_seed semantics",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "PHY-11",
+      "status": "PASS",
+      "detail": "From-scratch rows retain heterogeneous-branch semantics and no branch SD",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "PHY-12",
+      "status": "BLOCKED",
+      "detail": "no FT family has three verified training seeds under the frozen registry/provenance gate",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "PHY-14",
+      "status": "PASS",
+      "detail": "missing/failure blocks are retained without zero fill or interpolation",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv"
+      ]
+    },
+    {
+      "code": "PHY-16",
+      "status": "BLOCKED",
+      "detail": "curve blocks record model, family, seed/variant semantics, status, source and SHA256 fields, but the remote fixed profile CSVs are unreadable at runtime; numeric values therefore use the explicitly recorded TIER1_IMAGE_PROFILES fallback and raw per-profile hashes remain unavailable",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "DFT-01",
+      "status": "PASS",
+      "detail": "all three DFT references retain COMPLETED_BUT_SCF_WARNING and the diagnostic label",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/dft_profiles.tsv",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/caption.md"
+      ]
+    },
+    {
+      "code": "DFT-02",
+      "status": "BLOCKED",
+      "detail": "warning-bearing references cannot be called unconditional ground truth",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/SYSTEM_PATH_REGISTRY.tsv"
+      ]
+    },
+    {
+      "code": "DFT-03",
+      "status": "PASS",
+      "detail": "SCF warning/error is status and provenance only; no DFT uncertainty band is plotted",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/dft_profiles.tsv"
+      ]
+    },
+    {
+      "code": "DFT-04",
+      "status": "BLOCKED",
+      "detail": "the selected tables are still warning-bearing and lack the required clean image-wise convergence gate",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/rockfish_cr_neb_20261013"
+      ]
+    },
+    {
+      "code": "SEED-01",
+      "status": "PASS",
+      "detail": "training seed, checkpoint variant, heterogeneous branch and NEB seed are separate fields",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "SEED-02",
+      "status": "PASS",
+      "detail": "Foundation variants are not aggregated as training seeds",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "SEED-03",
+      "status": "PASS",
+      "detail": "From-scratch heterogeneous branches remain discrete",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "SEED-04",
+      "status": "BLOCKED",
+      "detail": "FT-600K seed 123 is base-unproven and FT-MultiT seed 123 is MODEL_LOAD failure",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "SEED-05",
+      "status": "PASS",
+      "detail": "seed presence, failure and band-withheld reasons are explicit",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json"
+      ]
+    },
+    {
+      "code": "PUB-07",
+      "status": "PASS",
+      "detail": "PDF, SVG and 600 dpi PNG lower-panel exports exist",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels.pdf",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels.svg",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/generated/fixed_path_lower_panels.png"
+      ]
+    },
+    {
+      "code": "PUB-09",
+      "status": "BLOCKED",
+      "detail": "source scripts, data tables, scene interface and available hashes are preserved, but the remote fixed-profile read fallback must be repaired or independently revalidated before release",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/figure_data_manifest.json",
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/build_fixed_path_figure.py"
+      ]
+    },
+    {
+      "code": "PUB-10",
+      "status": "BLOCKED",
+      "detail": "DFT and seed hard gates remain blocked; this candidate is not final sign-off",
+      "evidence": [
+        "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/visual_review/FROZEN_VISUAL_ACCEPTANCE_CRITERIA.md"
+      ]
+    }
+  ],
+  "targeted_next_actions": [
+    "DFT-02/DFT-04: repair or rerun all three canonical DFT paths with image-wise SCF convergence, finite values, hashes and updated registry.",
+    "SEED-04/PHY-12: provide three verified fixed-path training-seed profiles for each FT family on all three paths, or retain bands withheld.",
+    "PUB-10: have the visual reviewer inspect the Blender PNGs and integrated composite against every frozen VIS item."
+  ]
+}

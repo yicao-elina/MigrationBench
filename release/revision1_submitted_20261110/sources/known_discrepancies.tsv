@@ -1,0 +1,6 @@
+item_id	match	issue_no	note
+Table R2	row 3 col 6: submitted 342.0 vs generated 341.0	14	Scratch-5% test force RMSE: per-seed values 354.4/345.1/324.9 (repo and Rockfish MACE logs, 0.1 precision) average 341.47, which rounds to 341 for any hidden digits; submitted 342
+Table R2	DATA GAP: Scratch-5% test F RMSE not derivable at submitted precision	14	same cell; Rockfish logs checked 2026-11-10, no higher precision recorded
+Table S11	row 3 col 3: submitted 1.2 vs generated 1.145	15	Scratch-600K five-fold MAE mean 1.145 rounds to 1.1; submitted 1.2 came from double rounding (1.15 -> 1.2)
+Fig6	embedding packages available for full recomputation	16	phate and umap-learn are not in the reference .venv
+Fig6	t-SNE recomputed in this environment equals stored t-SNE coordinates	16	stored embeddings were made in an unrecorded environment; sklearn 1.6.1 with the true input (sha 5aab89df) differs by up to 30 units under every init/learning-rate default; panels re-render pixel-identical from the stored embeddings

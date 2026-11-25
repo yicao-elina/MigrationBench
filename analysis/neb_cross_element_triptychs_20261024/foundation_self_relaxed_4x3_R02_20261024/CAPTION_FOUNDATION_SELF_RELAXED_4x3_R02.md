@@ -1,0 +1,7 @@
+# Foundation self-relaxed 4×3 NEB profiles
+
+Foundation-model self-relaxed, endpoint-only NEB profiles for Cr, Cu, Li, and Na in Sb₂Te₃. Rows are ordered Cr, Cu, Li, and Na; columns are in-gap diffusion, gap→QL, and within-QL migration. Each colored trace is the mean relative energy over the accepted Foundation models in its model family, with the translucent band showing the within-family standard deviation: MACE-MP (n=5), MACE-OMAT-0 (n=2), and MACE-MH (n=2). Energies are referenced to the initial image of each path and the horizontal coordinate is the normalized ten-image coordinate, s.
+
+The campaign contains 108/108 accepted element×path×model rows, each using the canonical endpoint pair, endpoint-only IDPP initialization, ten images, and deterministic seed 42. The displayed profiles are self-relaxed MLFF observables and diagnostics; they are not DFT ground truth, validated DFT minimum-energy paths, or unconditional physical barrier rankings. No Blender or molecular-rendering layer is included. Historical nonconverged retry attempts remain in the attempt ledger and raw-artifact index but are excluded from the accepted class profiles.
+
+The visual grammar follows the archived authoritative R03 reference standard recorded in `figures/VISUAL_QA_R02.json`; the archived reference is a style reference only. Legacy raw stems, including `2L-Cu__...`, are aliases and do not change the canonical element identities.

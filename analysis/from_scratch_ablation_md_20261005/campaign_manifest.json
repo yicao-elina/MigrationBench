@@ -1,0 +1,68 @@
+{
+  "schema": "migrationbench_from_scratch_ablation_md_manifest_v1",
+  "campaign": "mace_from_scratch_ablation_MD_20261005",
+  "remote_root": "/scratch16/pclancy3/yi/mace_from_scratch_ablation_MD_20261005",
+  "old_root_protected": "/scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930",
+  "model_scope": {
+    "families": [
+      {"family": "baseline", "max_L": 1, "correlation": 2},
+      {"family": "ablation_correlation_1", "max_L": 1, "correlation": 1},
+      {"family": "ablation_correlation_3", "max_L": 1, "correlation": 3},
+      {"family": "ablation_lmax_0", "max_L": 0, "correlation": 2},
+      {"family": "ablation_lmax_2", "max_L": 2, "correlation": 2}
+    ],
+    "training_seeds": [123, 234, 345],
+    "formal_usable_model_count": 14,
+    "blocked": [
+      {
+        "family": "ablation_correlation_3",
+        "training_seed": 123,
+        "reason": "PROVENANCE_CONFLICT: overlapping legacy data_600K/foundation and later data/scratch artifacts"
+      }
+    ],
+    "registry": "registry/usable_models.tsv",
+    "blocked_registry": "registry/blocked_models.tsv"
+  },
+  "md_protocol": {
+    "input": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/4.lmp/Rippling/2L_octo_Cr2_v2/0806/0-foundation-mace_mp/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+    "input_sha256": "bb42c493fb0c997af3957a89dfde03e3e5a67ebcfd37f5eced8f722dad546161",
+    "natoms": 2050,
+    "pbc": [true, true, true],
+    "timestep_fs": 1.0,
+    "ensemble": "Langevin NVT",
+    "temperature_K": 600.0,
+    "friction_fs^-1": 0.01,
+    "write_interval_steps": 200,
+    "md_seed": 20261005,
+    "screening_steps": 20000,
+    "production_steps": 1000000,
+    "equilibration": "No separate restart/equilibration stage; fresh-start Langevin trajectory is retained and production-window exclusions are recorded in post-processing.",
+    "heat_flux": "Repository simplified stress-based convention; only used when stress is present in the trajectory or recomputed from the exact model. Otherwise HFACF/kappa are unavailable."
+  },
+  "acceptance_gates": {
+    "identity": "2050 atoms, fixed species order, fixed cell, fully periodic PBC",
+    "finite": "finite positions, momenta, energy, temperature, force, and saved observables",
+    "stability": "temperature <= 5000 K, max force <= 100 eV/A, min distance >= 0.5 A",
+    "transport": "Dxy/HFACF/kappa remain exploratory until window, block, and replica convergence are demonstrated",
+    "failure_model": "unstable — no Dxy; retain first-divergence frame and diagnostics"
+  },
+  "jobs": {
+    "screening_initial": "31629868_0",
+    "screening_retry_array": "31629915_[1-13]",
+    "production_array": "31630588_[0-2]",
+    "production_concurrency_cap": 2,
+    "production_continuation_submitter": "code/submit_1ns_continuation.slurm",
+    "production_continuation_runner": "code/continue_ablation_md.py"
+  },
+  "comparison_sources": {
+    "original_paper_csv_dir": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/AI4MAT25/mlff-benchmark-cr-sb2te3/results/analysis_plots_comparison",
+    "local_original_paper_csv_dir": "reference_original_paper",
+    "old_continuation_processed_dir": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/md_continuation_20260930/analysis_publication_20261003",
+    "old_continuation_protocol_note": "Existing FT-600K/FT-MultiT outputs are 1 ns continuation analyses with different model/input/start-step provenance; retain as labeled reference, not protocol-identical replicas."
+  },
+  "monitoring": {
+    "automation_id": "monitor-migrationbench-from-scratch-ablation-md",
+    "schedule": "FREQ=HOURLY;INTERVAL=6",
+    "policy": "quiet when healthy and unchanged; notify on failure, scientific-gate change, checkpoint stall, continuation decision, or completion"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "campaign_id": "canonical_model_matrix_20261016",
+  "status": "VERIFIED",
+  "audit_rule": "trajectory/group IDs must be disjoint across train, valid, and test; isolated atomic references are retained only in train",
+  "auditor": "remote ASE group-level audit on Rockfish",
+  "datasets": {
+    "ft_600k_full": {
+      "train_frames": 1786,
+      "train_periodic_frames": 1783,
+      "train_isolated_frames": 3,
+      "valid_frames": 311,
+      "test_frames": 267,
+      "train_groups": 7,
+      "valid_groups": 1,
+      "test_groups": 1,
+      "train_sha256": "04b1369d0da0b630c55aa6da6b3f85ea9ff4bffb107de804ead6fe7214fa34b8",
+      "valid_sha256": "aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502",
+      "test_sha256": "d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab",
+      "cross_split_group_overlaps": 0
+    },
+    "ft_multit_full": {
+      "train_frames": 2659,
+      "train_periodic_frames": 2656,
+      "train_isolated_frames": 3,
+      "valid_frames": 342,
+      "test_frames": 767,
+      "train_groups": 11,
+      "valid_groups": 2,
+      "test_groups": 2,
+      "train_sha256": "b240052d557fb27b41af6fb31ad80b25261d96f9667050ca83fcbdb922694f9b",
+      "valid_sha256": "44d2877ccd9d4ddbf3c470d7a6c5f2b794802a9b03444d211b89237df99dd117",
+      "test_sha256": "5adcf16c7220eae90bd2d9a9f792e2dce281e1300bdbb86054ef94e255188648",
+      "cross_split_group_overlaps": 0
+    },
+    "ft_600k_5pct": {
+      "train_frames": 92,
+      "train_periodic_frames": 89,
+      "train_isolated_frames": 3,
+      "valid_frames": 311,
+      "test_frames": 267,
+      "train_groups": 7,
+      "valid_groups": 1,
+      "test_groups": 1,
+      "selected_train_sha256": "4e233986f0400a44106a0c817feda0bc0432565c76d3ed2a2ea2483ba1dc2f1c",
+      "valid_sha256": "aa9a9502854d14419bc1f43831c103e8cf22432643cbafdb68df691a2a8b2502",
+      "test_sha256": "d49cf4b2ab49fc1e521d314c5828cf5dcaea6853e70cecb2727ffd0678bb27ab",
+      "cross_split_group_overlaps": 0
+    },
+    "ft_multit_5pct": {
+      "train_frames": 136,
+      "train_periodic_frames": 133,
+      "train_isolated_frames": 3,
+      "valid_frames": 342,
+      "test_frames": 767,
+      "train_groups": 11,
+      "valid_groups": 2,
+      "test_groups": 2,
+      "selected_train_sha256": "a17dfa538bc7fe1a3b023d7c440700a7e6c2cd4bc07cd4bbef62a7835480c5cc",
+      "valid_sha256": "44d2877ccd9d4ddbf3c470d7a6c5f2b794802a9b03444d211b89237df99dd117",
+      "test_sha256": "5adcf16c7220eae90bd2d9a9f792e2dce281e1300bdbb86054ef94e255188648",
+      "cross_split_group_overlaps": 0
+    }
+  },
+  "interpretation": "No trajectory/group crosses train, validation, or test in the audited grouped releases. The provisional upstream status of the 600K source manifest remains a separate provenance boundary."
+}

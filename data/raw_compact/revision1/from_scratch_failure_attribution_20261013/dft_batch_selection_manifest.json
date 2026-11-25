@@ -1,0 +1,56 @@
+{
+  "schema": "migrationbench_mlip_driven_dft_selection_v1",
+  "status": "PREPARED_ONLY",
+  "n_selected": 20,
+  "requested": 20,
+  "analysis_manifest": "analysis/from_scratch_failure_attribution_20261011/mlip_candidate_campaign_20261013/results/analysis_manifest.json",
+  "analysis_manifest_sha256": "5b2601680c37740b1e33257a8447c199041b4f236db8275986d1e752e55e5992",
+  "candidate_manifest": "analysis/from_scratch_failure_attribution_20261011/mlip_candidate_campaign_20261013/candidate_manifest_639.csv",
+  "candidate_manifest_sha256": "65937709eed9562d1c16cadbf91e2d40c0769e777eef55bb912d6de71d0d486c",
+  "selection_rules": [
+    [
+      "threshold_or_terminal",
+      4
+    ],
+    [
+      "precursor_near_onset",
+      8
+    ],
+    [
+      "stable_pre_onset",
+      4
+    ],
+    [
+      "stable_early_control",
+      2
+    ],
+    [
+      "terminal_stable_target",
+      1
+    ]
+  ],
+  "groups_selected": {
+    "precursor_near_onset": 12,
+    "stable_pre_onset": 4,
+    "stable_early_control": 2,
+    "threshold_or_terminal": 1,
+    "terminal_stable_target": 1
+  },
+  "geometry_gate": "min_distance_A >= 0.8 on the source 2050-atom candidate before PBC-preserving reconstruction",
+  "n_geometry_excluded_from_selection": 11,
+  "geometry_excluded_candidate_ids": [
+    "dftcand_0072",
+    "dftcand_0216",
+    "dftcand_0357",
+    "dftcand_0358",
+    "dftcand_0359",
+    "dftcand_0360",
+    "dftcand_0431",
+    "dftcand_0432",
+    "dftcand_0504",
+    "dftcand_0568",
+    "dftcand_0639"
+  ],
+  "no_dft_submitted": true,
+  "boundary": "MLIP force disagreement selects informative candidates; it does not establish DFT correctness or causal mechanism"
+}

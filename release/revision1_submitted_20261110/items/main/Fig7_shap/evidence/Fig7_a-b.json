@@ -1,0 +1,104 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/main/Fig7_shap",
+  "name": "Fig7_a-b",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/main/Fig7_shap/source/reproduce_fig7.py",
+  "script_sha256": "d900288281e408e7a4c769fb55c8f384b0d55f8d191e2c8d227fed235a486cec",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/fig7_render_manifest.json": "54ee04a9d1cf29003f092467799ff00b689790ebb455f9123d2c5768f6e99bcb",
+    "paper/revision1/data_processed/current_release/shap_family_aggregate.csv": "5da7f4bcf1357ec6e008f0a808c82a0e3e64bfd75662fe9d015dbca90e938d1a",
+    "paper/revision1/data_processed/current_release/shap_seed_feature_importance.csv": "0538942ec73ff8d1d2fe1cfb3520206dae256c47fc8c1dd97f2c1f6df9061643",
+    "release/revision1_camera_ready/reproducibility/plot_shap_top20_bar_transposed_seed_heatmap_20261102.py": "e9159ba4985beb010e5c2f3be103c39e073dfb87e6c0c03a44b809a8ae3c6d55",
+    "release/revision1_camera_ready/reproducibility/plot_shap_top20_bar_seed_heatmap_20261102.py": "3d806c4270d557b9b1ec88d14a9ab06f8b9fdaf1c705ce7a9f0b65c54a6ecb5d",
+    "release/revision1_camera_ready/reproducibility/shap_feature_labels.py": "ca00f02ea4a965eea2caf5a2ccfd68e6697f335861e2851e7aec916f0720d2e2"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/main/Fig7_shap/rerun_output/fig7/top20_bar_transposed_seed_heatmap_20261102/shap_top20_bar_transposed_seed_heatmap.pdf": "40ef4b688ded6b22642df333aaa3d74dc6b2d13d5b7d86aa9033acb675f9cb13",
+    "release/revision1_submitted_20261110/items/main/Fig7_shap/rerun_output/fig7/top20_bar_transposed_seed_heatmap_20261102/panel_a_top20_strategy_bars.pdf": "e411935d34dc58642ca2aa6c49b9f76113e8c1f28c7202c02339ee9dcec52f2c",
+    "release/revision1_submitted_20261110/items/main/Fig7_shap/rerun_output/fig7/top20_bar_transposed_seed_heatmap_20261102/panel_b_top20_transposed_seed_heatmap.pdf": "b60b99b0d1547e7b9308cea2e49211691dcad2e78f886f6aa335bd19a8380d43"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "hardcode lint of renderer chain",
+      "passed": true,
+      "details": [
+        "release/revision1_camera_ready/reproducibility/plot_shap_top20_bar_transposed_seed_heatmap_20261102.py",
+        "release/revision1_camera_ready/reproducibility/plot_shap_top20_bar_seed_heatmap_20261102.py",
+        "release/revision1_camera_ready/reproducibility/shap_feature_labels.py"
+      ]
+    },
+    {
+      "check": "reference panels sha256 equal paper/revision1/data_processed/current_release/fig7_render_manifest.json files",
+      "passed": true,
+      "details": {
+        "shap_top20_bar_transposed_seed_heatmap": {
+          "recorded": "1443c25e0c51b495a6f09ba5a12d043928a7493e65f82e535041c9bb52f867c8",
+          "reference": "1443c25e0c51b495a6f09ba5a12d043928a7493e65f82e535041c9bb52f867c8"
+        },
+        "panel_a_top20_strategy_bars": {
+          "recorded": "4e654c34edb98dba96ce95f1689fffa300a1197de85704a14745d03d10a3f7d5",
+          "reference": "4e654c34edb98dba96ce95f1689fffa300a1197de85704a14745d03d10a3f7d5"
+        },
+        "panel_b_top20_transposed_seed_heatmap": {
+          "recorded": "65f697b8fae44aac61368fe94600346350a136341100bc9d89d73e0f0947bfec",
+          "reference": "65f697b8fae44aac61368fe94600346350a136341100bc9d89d73e0f0947bfec"
+        }
+      }
+    },
+    {
+      "check": "renderer script sha256 equals the one recorded in the render manifest",
+      "passed": true,
+      "details": {
+        "recorded": "e9159ba4985beb010e5c2f3be103c39e073dfb87e6c0c03a44b809a8ae3c6d55",
+        "current": "e9159ba4985beb010e5c2f3be103c39e073dfb87e6c0c03a44b809a8ae3c6d55"
+      }
+    },
+    {
+      "check": "renderer exits 0",
+      "passed": true,
+      "details": "ok"
+    },
+    {
+      "check": "renders like analysis/shap_full_campaign_20261101/figures/variants_20261102/top20_bar_transposed_seed_heatmap_20261102/shap_top20_bar_transposed_seed_heatmap.pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          1736,
+          915
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    },
+    {
+      "check": "renders like analysis/shap_full_campaign_20261101/figures/variants_20261102/top20_bar_transposed_seed_heatmap_20261102/panel_a_top20_strategy_bars.pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          982,
+          869
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    },
+    {
+      "check": "renders like analysis/shap_full_campaign_20261101/figures/variants_20261102/top20_bar_transposed_seed_heatmap_20261102/panel_b_top20_transposed_seed_heatmap.pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          1269,
+          833
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,20 @@
+Rockfish-only live scheduler audit, 2026-10-16
+
+Connection: ssh rockfish
+Observed host: login03
+Account: ycao73
+Root: /scratch16/pclancy3/yi/MigrationBench_rockfish_cr_neb_20261013
+
+The first bare sacct/squeue call lacked the site Slurm configuration and
+returned a configuration-source/DNS error. Repeating the same read-only query
+with SLURM_CONF=/cm/shared/apps/slurm/var/etc/slurm/slurm.conf succeeded.
+
+JobIDRaw|JobName|State|ExitCode|Elapsed|NodeList|WorkDir
+31916908|neb_Qls|COMPLETED|0:0|2-21:27:21|c[091,523]|/scratch16/pclancy3/yi/MigrationBench_rockfish_cr_neb_20261013/2L-Cu__neb-QLs
+31916909|neb_gap2QL|COMPLETED|0:0|2-21:27:06|c[309,315]|/scratch16/pclancy3/yi/MigrationBench_rockfish_cr_neb_20261013/2L-Cu__neb-gap2QL
+31916910|neb|COMPLETED|0:0|2-21:27:27|c615|/scratch16/pclancy3/yi/MigrationBench_rockfish_cr_neb_20261013/2L-Cu__neb-gap-diffuse
+
+squeue -h -j 31916908,31916909,31916910 returned no rows.
+
+No Discovery path, scheduler query, submission, cancellation, or file was
+accessed by this audit.

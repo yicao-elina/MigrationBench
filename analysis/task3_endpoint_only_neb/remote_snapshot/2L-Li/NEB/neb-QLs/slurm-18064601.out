@@ -1,0 +1,39 @@
+Thu Mar  5 19:11:11 EST 2026
+c145
+
+Lmod is automatically replacing "openmpi/3.1.6" with "intel-mpi/2021.7".
+
+
+Lmod is automatically replacing "gcc/9.3.0" with "intel/2022.2".
+
+
+The following have been reloaded with a version change:
+  1) git/2.28.0 => git/2.38.1
+
+
+The following have been reloaded with a version change:
+  1) intel-mkl/2022.0 => intel-mkl/2021.7
+  2) intel/2022.2 => intel/2022.2-dpcpp
+
+
+Currently Loaded Modules:
+  1) slurm/19.05.7   5) standard/2020.10         9) intel/2022.2-dpcpp (k,E)
+  2) lmod/8.7.24     6) intel-mpi/2021.7 (k,E)  10) qe/7.2
+  3) lua/5.4.4       7) intel-mkl/2021.7 (k,E)
+  4) helpers/0.1.1   8) git/2.38.1
+
+  Where:
+   E:  Experimental
+   k:  Spack, a package manager for supercomputers
+[mpiexec@c145] check_exit_codes (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:117): unable to run bstrap_proxy on c518 (pid 1008000, exit code 65280)
+[mpiexec@c145] poll_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:159): check exit codes error
+[mpiexec@c145] HYD_dmx_poll_wait_for_proxy_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:212): poll for event error
+[mpiexec@c145] HYD_bstrap_setup (../../../../../src/pm/i_hydra/libhydra/bstrap/src/intel/i_hydra_bstrap.c:1061): error waiting for event
+[mpiexec@c145] HYD_print_bstrap_setup_error_message (../../../../../src/pm/i_hydra/mpiexec/intel/i_mpiexec.c:1027): error setting up the bootstrap proxies
+[mpiexec@c145] Possible reasons:
+[mpiexec@c145] 1. Host is unavailable. Please check that all hosts are available.
+[mpiexec@c145] 2. Cannot launch hydra_bstrap_proxy or it crashed on one of the hosts. Make sure hydra_bstrap_proxy is available on all hosts and it has right permissions.
+[mpiexec@c145] 3. Firewall refused connection. Check that enough ports are allowed in the firewall and specify them with the I_MPI_PORT_RANGE variable.
+[mpiexec@c145] 4. Ssh bootstrap cannot launch processes on remote host. Make sure that passwordless ssh connection is established across compute hosts.
+[mpiexec@c145]    You may try using -bootstrap option to select alternative launcher.
+Thu Mar  5 19:12:12 EST 2026

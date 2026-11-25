@@ -1,0 +1,203 @@
+{
+  "figure_id": "foundation_model_class_4x3_R03",
+  "status": "RECONSTRUCTION",
+  "scope": "nine local Foundation checkpoints and screened QE references for Cr, Cu, Li, and Na on twelve 10-image fixed paths",
+  "rows": [
+    "Cr",
+    "Cu",
+    "Li",
+    "Na"
+  ],
+  "columns": [
+    {
+      "path_key": "within_gap",
+      "label": "in-gap diffusion"
+    },
+    {
+      "path_key": "gap_to_ql",
+      "label": "gap\u2192QL"
+    },
+    {
+      "path_key": "within_ql",
+      "label": "within-QL"
+    }
+  ],
+  "model_classes": {
+    "MACE-MP": [
+      "mace-large-density-agnesi-stress",
+      "mace-medium-density-agnesi-stress",
+      "mace-small-density-agnesi-stress",
+      "mace_agnesi_medium",
+      "mace-mp-0b3-medium"
+    ],
+    "MACE-OMAT-0": [
+      "mace-omat-0-medium",
+      "mace-omat-0-small"
+    ],
+    "MACE-MH": [
+      "mace-mh-0",
+      "mace-mh-1"
+    ]
+  },
+  "aggregation": "pointwise mean with sample SD (ddof=1); hollow circles show class means; individual model markers are omitted",
+  "qe_label": "screened QE path table for all four elements; all retained reference paths carry SCF convergence warnings",
+  "model_directory": "/Users/alina/Downloads/mace-foundation-models",
+  "model_hashes": {
+    "mace-large-density-agnesi-stress": "348390e758e1c90011c7675e864850f8e9c5b3e7c217f79a2b4bad1baaa657ad",
+    "mace-medium-density-agnesi-stress": "a90be07c8aa6623c390fcc4653d3e319c4a356f8b4a53d323f96b2012d375caf",
+    "mace-small-density-agnesi-stress": "d5773bf9440e96d6eb8c598f84bd0e6369fcfa432f626a87f890e07da3c651c9",
+    "mace_agnesi_medium": "ab8baff639a8f295f3eccad3d3ccf574efb6fb63220bd52cd88664211569e521",
+    "mace-mh-0": "d62ff8f293664e6556cfa49364b28ee72a70cf1e6150f3c111a578397fed609d",
+    "mace-mh-1": "a522eb7f59c7879963d41586528f4980baf33e086c94aa92e3eafdeccad3be47",
+    "mace-mp-0b3-medium": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012",
+    "mace-omat-0-medium": "d4b14be9afa294eebdbe31a0280b26a0fa29715771e978cbfd3ca24e0d90307a",
+    "mace-omat-0-small": "0abfde07862cf1e93b8b4d03cb702f29ce9c344ff2fc4de2ec0d7166d6c113a5"
+  },
+  "cr_input_paths": {
+    "within_gap": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/inputs/fixed_r01/cr_canonical_in_gap.extxyz",
+    "gap_to_ql": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/inputs/fixed_r01/cr_canonical_gap_to_ql.extxyz",
+    "within_ql": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/inputs/fixed_r01/cr_canonical_within_ql.extxyz"
+  },
+  "cr_input_hashes": {
+    "within_gap": "44011747f36333f51f4342dc752298e56a807233ad955472759fd846cdb8bdcf",
+    "gap_to_ql": "c84e01e2a92aed4023dab993e95553019a39a2f5d1b564346bd50f6760d7d94f",
+    "within_ql": "397a7b2693da5c9cc39ed1786cf1430e91e0f4249cd0e9c1d2ee782a9cfb84cb"
+  },
+  "cr_reference_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/data/Cr_fixed_path_representative_profiles.tsv",
+  "cr_reference_sha256": "a34d9d14d18c94946336a73f4ccc2b37ececa2040a19050c8a6ae547de7f1d20",
+  "model_rows": 1080,
+  "class_rows": 360,
+  "qe_rows": 120,
+  "cr_available_model_ids": [
+    "mace-large-density-agnesi-stress",
+    "mace-medium-density-agnesi-stress",
+    "mace-mh-0",
+    "mace-mh-1",
+    "mace-mp-0b3-medium",
+    "mace-omat-0-medium",
+    "mace-omat-0-small",
+    "mace-small-density-agnesi-stress",
+    "mace_agnesi_medium"
+  ],
+  "cr_missing_model_ids": [],
+  "cr_mh1_supplement": {
+    "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/data/foundation_class_4x3_R02/Cr_mace_mh1_fixed_path_profiles_R02.tsv",
+    "status": "FINITE_DIAGNOSTIC_LOCAL_MACE",
+    "operator": "fixed-path single-point; no relaxation",
+    "head": "omat_pbe"
+  },
+  "cr_qe_reference": "COMPLETED_BUT_SCF_WARNING_DIAGNOSTIC",
+  "artifact_hashes": {
+    "figure_png": "f04f70fc3e58df1fce36f4a168ba13bfc9a0e02911407d8f9d141be7b6160e90",
+    "figure_svg": "d78752b2a0fb1707f8285addaf83e1411140afe78378dbfb60c84aee0b13c12d",
+    "figure_pdf": "9e68a7408e8edafc906858404b3c5ba5d1b065c650168ea6f4749acdcd1cc6a7",
+    "model_profiles": "f0ec97b3839815553e9e84b9cddaa59c937383f59f55b05a13267c34fda10e81",
+    "class_profiles": "b4bd5f7f8779cc57c9fa26098d6b413f98c47517e59d65074169b806ed0fc57d",
+    "qe_reference_profiles": "ccc9ea3d1e3f8b7d224e898d30e13929a14d9aa48a5304e23edae29c2c45cb60",
+    "cr_reference": "a34d9d14d18c94946336a73f4ccc2b37ececa2040a19050c8a6ae547de7f1d20"
+  },
+  "script_path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/build_foundation_class_4x3_r03.py",
+  "script_sha256": "538b3feaa2061e3e33d41f7f8287b8856b478b1324e5c3455aa13a9ee337ead4",
+  "outputs": {
+    "figure": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/foundation_class_4x3_R03/foundation_model_class_4x3_R03",
+    "panels": [
+      {
+        "element": "Cr",
+        "path_key": "within_gap",
+        "y_limits": [
+          -0.0914579280006,
+          1.6157567280106
+        ]
+      },
+      {
+        "element": "Cr",
+        "path_key": "gap_to_ql",
+        "y_limits": [
+          -0.1359472999966,
+          0.1138863118954804
+        ]
+      },
+      {
+        "element": "Cr",
+        "path_key": "within_ql",
+        "y_limits": [
+          -2.5407819484320355,
+          30.85955468909663
+        ]
+      },
+      {
+        "element": "Cu",
+        "path_key": "within_gap",
+        "y_limits": [
+          -0.4328201697430869,
+          0.621743661495216
+        ]
+      },
+      {
+        "element": "Cu",
+        "path_key": "gap_to_ql",
+        "y_limits": [
+          -0.040675399991451,
+          0.20496501608102444
+        ]
+      },
+      {
+        "element": "Cu",
+        "path_key": "within_ql",
+        "y_limits": [
+          -3.1327516158787327,
+          55.345278547190944
+        ]
+      },
+      {
+        "element": "Li",
+        "path_key": "within_gap",
+        "y_limits": [
+          -0.22018725361206049,
+          0.6271371803952487
+        ]
+      },
+      {
+        "element": "Li",
+        "path_key": "gap_to_ql",
+        "y_limits": [
+          -0.04604609999573,
+          0.2873499140067509
+        ]
+      },
+      {
+        "element": "Li",
+        "path_key": "within_ql",
+        "y_limits": [
+          -1.2260263361719705,
+          21.65979860570481
+        ]
+      },
+      {
+        "element": "Na",
+        "path_key": "within_gap",
+        "y_limits": [
+          -0.05381773875816417,
+          0.9507800513942337
+        ]
+      },
+      {
+        "element": "Na",
+        "path_key": "gap_to_ql",
+        "y_limits": [
+          -0.04,
+          0.2959569621589169
+        ]
+      },
+      {
+        "element": "Na",
+        "path_key": "within_ql",
+        "y_limits": [
+          -2.73835565262874,
+          48.37761652977441
+        ]
+      }
+    ]
+  },
+  "prior_campaign_raw": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/data/foundation_model_profiles_9models_3x3.tsv"
+}

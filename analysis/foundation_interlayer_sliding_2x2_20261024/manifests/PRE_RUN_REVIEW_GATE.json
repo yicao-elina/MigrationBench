@@ -1,0 +1,37 @@
+{
+  "schema_version": "foundation_interlayer_sliding_pre_run_review_gate_v1",
+  "campaign_id": "foundation_interlayer_sliding_2x2_20261024",
+  "freeze_id": "foundation_interlayer_sliding_2x2_20261024_R13",
+  "freeze_path": "ACCEPTANCE_FREEZE_R13.json",
+  "freeze_sha256": "4d78c516ce6eb30ba6c0e2192d07076ae7fcf1e21a0ad8446f3127221008bd11",
+  "status": "PASS",
+  "data_status": "PASS",
+  "visual_status": "PASS",
+  "review_policy": "independent reviewers inspect and report only; no reviewer edited files or submitted jobs",
+  "reviewers": {
+    "data": {
+      "agent_id": "01a17110-3010-7e32-a2b8-6f20d8ffbbf4",
+      "status": "PASS",
+      "scope": "R13 pre-run data/code/provenance audit"
+    },
+    "visual": {
+      "agent_id": "01a17110-3070-7fd0-9d7d-2fe6913c5edd",
+      "status": "PASS",
+      "scope": "R13 pre-run visual/style/data-gate audit"
+    }
+  },
+  "local_checks": {
+    "python_compile": "PASS",
+    "slurm_shell_syntax": "PASS",
+    "immutable_runtime_writer_smoke": "PASS",
+    "plot_missing_table_refusal": "PASS",
+    "plot_gate_negative_tests": "PASS",
+    "production_outputs_present_before_submission": false
+  },
+  "rockfish_preflight": {
+    "target_root_absent_before_upload": true,
+    "remote_model_sha256_registry_verified": true,
+    "scheduler_submission_before_gate": false
+  },
+  "created_at_utc": "2026-10-25T03:20:23Z"
+}

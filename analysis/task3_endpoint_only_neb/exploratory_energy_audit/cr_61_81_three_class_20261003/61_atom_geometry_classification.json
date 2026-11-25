@@ -1,0 +1,643 @@
+{
+  "created_at_utc": "2026-10-03T08:33:24.523048+00:00",
+  "parameters": {
+    "output_json": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/61_atom_geometry_classification.json",
+    "output_csv": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/61_atom_geometry_classification.csv",
+    "migrant_element": "Cr",
+    "cell_input": null,
+    "coord_cutoff_A": 3.2,
+    "z_density_sigma_A": 0.8,
+    "deep_coordination_scale": 5.0,
+    "deep_density_scale": 0.16,
+    "close_contact_distance_A": 2.0,
+    "open_channel_distance_A": 3.0,
+    "open_channel_z_A": 1.6,
+    "paths": [
+      "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-2/sb2te3.xyz",
+      "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-3/sb2te3.xyz",
+      "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-4/sb2te3.xyz",
+      "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5/sb2te3.xyz",
+      "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/sb2te3.xyz",
+      "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-7/sb2te3.xyz",
+      "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/sb2te3.xyz"
+    ]
+  },
+  "results": [
+    {
+      "source_path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-2/sb2te3.xyz",
+      "source_sha256": "ed1acbfb3531bf4a0d7bc666b028d44851a8b1739f3966b442aee533734c2ba0",
+      "cell_source": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-2/pw_1.in",
+      "cell_source_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4",
+      "pbc_applied": true,
+      "n_images": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "path_length_A": 4.169453576932988,
+      "endpoint_distance_A": 4.105451683306464,
+      "min_host_distance_A": 1.4101720229582146,
+      "mean_host_distance_A": 1.9038631054650579,
+      "mean_coordination": 4.4,
+      "max_coordination": 6,
+      "mean_nearest_host_plane_dz_A": 0.6899820939199991,
+      "mean_z_density_score": 0.059590731947125844,
+      "penetration_score": 0.6323432579371235,
+      "gap_score": 0.17493358304499979,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 2.1071089138,
+          "cr_y_A": 3.6496196957,
+          "cr_z_A": 15.5167186127,
+          "nearest_host_distance_A": 2.8725187880923664,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 1.5662075790999985,
+          "z_density_score": 0.01921221881980406
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 2.1071088908,
+          "cr_y_A": 3.4636425313,
+          "cr_z_A": 16.517589634,
+          "nearest_host_distance_A": 2.389610597329968,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.5653365577999985,
+          "z_density_score": 0.05324419773106141
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 2.1071088671,
+          "cr_y_A": 3.2469151971,
+          "cr_z_A": 17.625607011,
+          "nearest_host_distance_A": 1.4219452573181715,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.5043329493000002,
+          "z_density_score": 0.07846790285034962
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 2.1071088561,
+          "cr_y_A": 2.6604956034,
+          "cr_z_A": 18.5246832743,
+          "nearest_host_distance_A": 1.4101720229582146,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.20089313449999935,
+          "z_density_score": 0.07934725672996815
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 2.1071088321,
+          "cr_y_A": 2.2195856376,
+          "cr_z_A": 19.3650606085,
+          "nearest_host_distance_A": 1.4250688616265708,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.6131402488999989,
+          "z_density_score": 0.06768208360444596
+        }
+      ],
+      "class_label": "deep_penetration",
+      "class_confidence": 0.903,
+      "historical_qe": {
+        "activation_forward_eV": 2.790171,
+        "activation_reverse_eV": 1.01533,
+        "job_done": false,
+        "warning_count": 0,
+        "max_reported_image_error_eV_A": 3.212886,
+        "last_complete_iteration": 121
+      }
+    },
+    {
+      "source_path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-3/sb2te3.xyz",
+      "source_sha256": "77ab28a0430d525d458ee3c3981cd062bd444feb184b4034a53d1035b10e943a",
+      "cell_source": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-3/pw_1.in",
+      "cell_source_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4",
+      "pbc_applied": true,
+      "n_images": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "path_length_A": 6.866095252800005,
+      "endpoint_distance_A": 6.866095252800004,
+      "min_host_distance_A": 1.376672716400214,
+      "mean_host_distance_A": 2.0609188805929044,
+      "mean_coordination": 5.6,
+      "max_coordination": 7,
+      "mean_nearest_host_plane_dz_A": 0.47485088232000017,
+      "mean_z_density_score": 0.06428574177064683,
+      "penetration_score": 0.6988468790299424,
+      "gap_score": 0.131287126774307,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 2.1071089138,
+          "cr_y_A": 3.6496196957,
+          "cr_z_A": 15.5167186127,
+          "nearest_host_distance_A": 2.8841155019638895,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 1.5640072628000006,
+          "z_density_score": 0.019574294430162224
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 2.1071089746,
+          "cr_y_A": 3.6496196606,
+          "cr_z_A": 13.5873183468,
+          "nearest_host_distance_A": 1.376672716400214,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.34970288969999963,
+          "z_density_score": 0.07771823956968188
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 2.1071089809,
+          "cr_y_A": 3.6496196569,
+          "cr_z_A": 12.0918969222,
+          "nearest_host_distance_A": 1.4092895053002055,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.18449487340000026,
+          "z_density_score": 0.07553476239723876
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 2.1071090606,
+          "cr_y_A": 3.6496196109,
+          "cr_z_A": 10.3845610931,
+          "nearest_host_distance_A": 2.2320885180000993,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.038292314899999624,
+          "z_density_score": 0.07381820776749429
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 2.1071091187,
+          "cr_y_A": 3.6496195774,
+          "cr_z_A": 8.6506233599,
+          "nearest_host_distance_A": 2.4024281613001124,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.23775707080000075,
+          "z_density_score": 0.07478320468865701
+        }
+      ],
+      "class_label": "deep_penetration",
+      "class_confidence": 0.963,
+      "historical_qe": {
+        "activation_forward_eV": 4.003362,
+        "activation_reverse_eV": 3.950126,
+        "job_done": false,
+        "warning_count": 0,
+        "max_reported_image_error_eV_A": 5.364093,
+        "last_complete_iteration": 25
+      }
+    },
+    {
+      "source_path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-4/sb2te3.xyz",
+      "source_sha256": "81c61faf152df1f1c274ccafdbc9810e682b64cf59d1e8f73650ba9b77252b44",
+      "cell_source": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-4/pw_1.in",
+      "cell_source_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4",
+      "pbc_applied": true,
+      "n_images": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "path_length_A": 4.496043609949548,
+      "endpoint_distance_A": 3.9186392109881467,
+      "min_host_distance_A": 2.4199889716179253,
+      "mean_host_distance_A": 2.5389427441415666,
+      "mean_coordination": 6.0,
+      "max_coordination": 7,
+      "mean_nearest_host_plane_dz_A": 0.6986236411200004,
+      "mean_z_density_score": 0.056900940496917504,
+      "penetration_score": 0.6131382092291454,
+      "gap_score": 0.395348156358705,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 2.1071089138,
+          "cr_y_A": 3.6496196957,
+          "cr_z_A": 15.5167186127,
+          "nearest_host_distance_A": 2.8017721062843854,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 1.5074496121999985,
+          "z_density_score": 0.020415046584545137
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 2.8127016719,
+          "cr_y_A": 3.2422456442,
+          "cr_z_A": 16.5239464033,
+          "nearest_host_distance_A": 2.493601165242759,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.5002218216000003,
+          "z_density_score": 0.05488114741284932
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 3.5134604375,
+          "cr_y_A": 2.8376621789,
+          "cr_z_A": 16.4329918485,
+          "nearest_host_distance_A": 2.55293093736276,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.5911763764,
+          "z_density_score": 0.05037438584326847
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 3.7057550386,
+          "cr_y_A": 2.726640713,
+          "cr_z_A": 17.8898693607,
+          "nearest_host_distance_A": 2.4199889716179253,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.7964517443000005,
+          "z_density_score": 0.07886665298373992
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 4.2142178275,
+          "cr_y_A": 2.4330797972,
+          "cr_z_A": 18.5885024539,
+          "nearest_host_distance_A": 2.4264205402000023,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.09781865110000254,
+          "z_density_score": 0.07996746966018471
+        }
+      ],
+      "class_label": "probable_deep_penetration",
+      "class_confidence": 0.703,
+      "historical_qe": {
+        "activation_forward_eV": 0.33605,
+        "activation_reverse_eV": 0.016829,
+        "job_done": false,
+        "warning_count": 0,
+        "max_reported_image_error_eV_A": 0.482407,
+        "last_complete_iteration": 261
+      }
+    },
+    {
+      "source_path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5/sb2te3.xyz",
+      "source_sha256": "a3a71d88c87d36562f0c1e1491a95f3eba760745102bf3e00de584d77c0d7fe7",
+      "cell_source": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-5/pw_1.in",
+      "cell_source_sha256": "e770e3d40a5c41ce68cd73f04a023af795621b5bfa7c3bcdcb2d71979cea4a0d",
+      "pbc_applied": true,
+      "n_images": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "path_length_A": 13.370790201700014,
+      "endpoint_distance_A": 13.370790201700014,
+      "min_host_distance_A": 1.4084953492002121,
+      "mean_host_distance_A": 2.3241879541327752,
+      "mean_coordination": 6.6,
+      "max_coordination": 8,
+      "mean_nearest_host_plane_dz_A": 0.7412938297000001,
+      "mean_z_density_score": 0.05518282154649383,
+      "penetration_score": 0.6768127321862745,
+      "gap_score": 0.30804260460662386,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 2.1071089138,
+          "cr_y_A": 3.6496196957,
+          "cr_z_A": 15.5167186127,
+          "nearest_host_distance_A": 2.846878209168705,
+          "coordination": 8,
+          "nearest_host_plane_dz_A": 1.5690454866000003,
+          "z_density_score": 0.018945604307466796
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 2.1071089715,
+          "cr_y_A": 3.6496196624,
+          "cr_z_A": 12.5890286084,
+          "nearest_host_distance_A": 1.4084953492002121,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.26972410479999986,
+          "z_density_score": 0.07983413924070201
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 2.1071091733,
+          "cr_y_A": 3.6496195459,
+          "cr_z_A": 8.8733505355,
+          "nearest_host_distance_A": 2.3972094058001323,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.40499348560000037,
+          "z_density_score": 0.07209089264994138
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 2.1071092622,
+          "cr_y_A": 3.6496194945,
+          "cr_z_A": 4.6736820799,
+          "nearest_host_distance_A": 2.4981449447947637,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 1.199527051,
+          "z_density_score": 0.023183461899979284
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 2.1071093989,
+          "cr_y_A": 3.6496194156,
+          "cr_z_A": 2.145928411,
+          "nearest_host_distance_A": 2.4702118617000632,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.26317902049999997,
+          "z_density_score": 0.08186000963437969
+        }
+      ],
+      "class_label": "deep_penetration",
+      "class_confidence": 0.98,
+      "historical_qe": {
+        "activation_forward_eV": 1.099583,
+        "activation_reverse_eV": 0.753468,
+        "job_done": false,
+        "warning_count": 0,
+        "max_reported_image_error_eV_A": 4.673162,
+        "last_complete_iteration": 261
+      }
+    },
+    {
+      "source_path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/sb2te3.xyz",
+      "source_sha256": "7db35bb57ad82b75a5c46c66814249d2f2a9a7a0c79019cd359e525e3a7235a8",
+      "cell_source": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/pw_1.in",
+      "cell_source_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4",
+      "pbc_applied": true,
+      "n_images": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "path_length_A": 2.7296873176281,
+      "endpoint_distance_A": 2.71273642076973,
+      "min_host_distance_A": 2.5262500651464066,
+      "mean_host_distance_A": 2.614425581207608,
+      "mean_coordination": 5.6,
+      "max_coordination": 8,
+      "mean_nearest_host_plane_dz_A": 0.8605568078000008,
+      "mean_z_density_score": 0.041429594884795876,
+      "penetration_score": 0.5722105678007305,
+      "gap_score": 0.46473831324967374,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 2.1071089138,
+          "cr_y_A": 3.6496196957,
+          "cr_z_A": 15.5167186127,
+          "nearest_host_distance_A": 2.8561602629134946,
+          "coordination": 8,
+          "nearest_host_plane_dz_A": 1.5685984916999995,
+          "z_density_score": 0.018838625296647385
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 2.8179095046,
+          "cr_y_A": 3.2392388487,
+          "cr_z_A": 16.074714793,
+          "nearest_host_distance_A": 2.558207626741363,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 1.0106023114000031,
+          "z_density_score": 0.03140878971758723
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 3.3189444796,
+          "cr_y_A": 2.9499661126,
+          "cr_z_A": 16.2838875891,
+          "nearest_host_distance_A": 2.5262500651464066,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.8014295153000006,
+          "z_density_score": 0.04106688609448028
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 3.7692408503,
+          "cr_y_A": 2.6899873128,
+          "cr_z_A": 16.5321529435,
+          "nearest_host_distance_A": 2.5404889161402373,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.5531641608999998,
+          "z_density_score": 0.05358737704619911
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 4.2142178275,
+          "cr_y_A": 2.4330797972,
+          "cr_z_A": 16.7163275447,
+          "nearest_host_distance_A": 2.5910210350965386,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.368989559700001,
+          "z_density_score": 0.062246296269065346
+        }
+      ],
+      "class_label": "mixed_transition",
+      "class_confidence": 0.65,
+      "historical_qe": {
+        "activation_forward_eV": 1.026035,
+        "activation_reverse_eV": 0.205627,
+        "job_done": false,
+        "warning_count": 0,
+        "max_reported_image_error_eV_A": 0.584852,
+        "last_complete_iteration": 87
+      }
+    },
+    {
+      "source_path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-7/sb2te3.xyz",
+      "source_sha256": "25d81dee86702bd59e64180528de84b8133be8ff0a0511071fb62a9f3299d7ed",
+      "cell_source": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-7/pw_1.in",
+      "cell_source_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4",
+      "pbc_applied": true,
+      "n_images": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "path_length_A": 2.733399643116173,
+      "endpoint_distance_A": 2.6978497723646186,
+      "min_host_distance_A": 2.5352807173102136,
+      "mean_host_distance_A": 2.6241784386046607,
+      "mean_coordination": 5.6,
+      "max_coordination": 8,
+      "mean_nearest_host_plane_dz_A": 0.8427433021999999,
+      "mean_z_density_score": 0.042343459610556036,
+      "penetration_score": 0.5736076034107438,
+      "gap_score": 0.4652303947283473,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 2.1071089138,
+          "cr_y_A": 3.6496196957,
+          "cr_z_A": 15.5167186127,
+          "nearest_host_distance_A": 2.8471940951846224,
+          "coordination": 8,
+          "nearest_host_plane_dz_A": 1.5690976325000001,
+          "z_density_score": 0.018914420791859246
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 1.3298778774,
+          "cr_y_A": 4.0983541493,
+          "cr_z_A": 14.8864402439,
+          "nearest_host_distance_A": 2.5352807173102136,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.9388192636999992,
+          "z_density_score": 0.03464154547192484
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 0.8168729768,
+          "cr_y_A": 4.3945377746,
+          "cr_z_A": 14.7528583988,
+          "nearest_host_distance_A": 2.5745049796384363,
+          "coordination": 4,
+          "nearest_host_plane_dz_A": 0.8052374186000009,
+          "z_density_score": 0.04098577830130377
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 0.2877133308,
+          "cr_y_A": 4.7000483312,
+          "cr_z_A": 14.4446395301,
+          "nearest_host_distance_A": 2.58339053734688,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.49701854989999994,
+          "z_density_score": 0.056411894145511954
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 0.0,
+          "cr_y_A": 4.8661595943,
+          "cr_z_A": 14.3511646265,
+          "nearest_host_distance_A": 2.580521863543151,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.4035436462999993,
+          "z_density_score": 0.06076365934218039
+        }
+      ],
+      "class_label": "mixed_transition",
+      "class_confidence": 0.65,
+      "historical_qe": {
+        "activation_forward_eV": 0.582586,
+        "activation_reverse_eV": 0.02465,
+        "job_done": false,
+        "warning_count": 0,
+        "max_reported_image_error_eV_A": 0.291742,
+        "last_complete_iteration": 120
+      }
+    },
+    {
+      "source_path": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/sb2te3.xyz",
+      "source_sha256": "7bf2d109530748172c95967b3c813cc2c28bfb39ff44c2829f327d642402f1cc",
+      "cell_source": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/pw_1.in",
+      "cell_source_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4",
+      "pbc_applied": true,
+      "n_images": 5,
+      "n_atoms": 61,
+      "migrant_element": "Cr",
+      "migrant_index_zero_based": 60,
+      "path_length_A": 4.982265670687541,
+      "endpoint_distance_A": 4.218756398902269,
+      "min_host_distance_A": 2.488303668801087,
+      "mean_host_distance_A": 2.559568285221865,
+      "mean_coordination": 6.0,
+      "max_coordination": 7,
+      "mean_nearest_host_plane_dz_A": 0.5100657845999994,
+      "mean_z_density_score": 0.03506167918187603,
+      "penetration_score": 0.5608105119569481,
+      "gap_score": 0.36338261873108907,
+      "descriptor_notes": [
+        "penetration_score combines coordination, z-plane density, and closest contact.",
+        "gap_score combines open nearest-neighbor distance, separation from host z-planes, and low coordination.",
+        "Use continuous scores in the dataset; class_label is a documented bin, not a hidden hand label."
+      ],
+      "per_image": [
+        {
+          "image_index": 0,
+          "cr_x_A": 2.1071089138,
+          "cr_y_A": 3.6496196957,
+          "cr_z_A": 15.5167186127,
+          "nearest_host_distance_A": 2.6445856697771934,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.886218423399999,
+          "z_density_score": 0.02456206372881131
+        },
+        {
+          "image_index": 1,
+          "cr_x_A": 3.7664403895,
+          "cr_y_A": 3.3453758024,
+          "cr_z_A": 16.0982123924,
+          "nearest_host_distance_A": 2.4927788508138273,
+          "coordination": 5,
+          "nearest_host_plane_dz_A": 0.3047246436999984,
+          "z_density_score": 0.03415431695936267
+        },
+        {
+          "image_index": 2,
+          "cr_x_A": 4.1259657153,
+          "cr_y_A": 3.3844253848,
+          "cr_z_A": 16.6743899836,
+          "nearest_host_distance_A": 2.488303668801087,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.27145294750000204,
+          "z_density_score": 0.05953501752142773
+        },
+        {
+          "image_index": 3,
+          "cr_x_A": 4.7942105246,
+          "cr_y_A": 3.4230764935,
+          "cr_z_A": 16.0055770827,
+          "nearest_host_distance_A": 2.606596608039468,
+          "coordination": 6,
+          "nearest_host_plane_dz_A": 0.39735995339999874,
+          "z_density_score": 0.03138740000626129
+        },
+        {
+          "image_index": 4,
+          "cr_x_A": 6.3213263069,
+          "cr_y_A": 3.6492102243,
+          "cr_z_A": 15.7123640811,
+          "nearest_host_distance_A": 2.5655766286777477,
+          "coordination": 7,
+          "nearest_host_plane_dz_A": 0.6905729549999986,
+          "z_density_score": 0.025669597693517152
+        }
+      ],
+      "class_label": "probable_deep_penetration",
+      "class_confidence": 0.69,
+      "historical_qe": {
+        "activation_forward_eV": 1.75562,
+        "activation_reverse_eV": 0.989243,
+        "job_done": true,
+        "warning_count": 0,
+        "max_reported_image_error_eV_A": 0.327388,
+        "last_complete_iteration": 999
+      }
+    }
+  ]
+}

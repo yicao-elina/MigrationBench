@@ -1,0 +1,10 @@
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/e3nn/o3/_wigner.py:10: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  _Jd, _W3j_flat, _W3j_indices = torch.load(os.path.join(os.path.dirname(__file__), 'constants.pt'))
+Traceback (most recent call last):
+  File "/scratch16/pclancy3/yi/phase2_handoff_md_20261002/scripts/handoff_md.py", line 188, in <module>
+    main()
+  File "/scratch16/pclancy3/yi/phase2_handoff_md_20261002/scripts/handoff_md.py", line 92, in main
+    out.mkdir(parents=True, exist_ok=False)
+  File "/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/pathlib.py", line 1323, in mkdir
+    self._accessor.mkdir(self, mode)
+FileExistsError: [Errno 17] File exists: '/scratch16/pclancy3/yi/phase2_handoff_md_20261002/runs/snapshot_461800/model_multi_T-fine-tuning'

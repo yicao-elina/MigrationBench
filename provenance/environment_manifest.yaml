@@ -1,0 +1,21 @@
+campaign_id: mace_foundation3_ft_seed123_20261013
+ordinary_runtime:
+  platform: Rockfish
+  conda_env: mace
+  python: 3.9.22
+  mace_torch: 0.3.12
+  torch: 2.7.0+cu118
+  ase: 3.25.0
+  graph_longrange: absent
+  status: verified_for_MPA0_and_MP0b3_preflight
+polar_runtime:
+  path: /scratch16/pclancy3/yi/mace_polar_venv_20261013
+  python: 3.9.22
+  mace_torch: 0.3.16
+  torch: 2.7.0+cu118
+  ase: 3.25.0
+  graph_longrange: 0.4.4
+  install_command: >-
+    python -m pip install --no-cache-dir mace-torch==0.3.16
+    git+https://github.com/WillBaldwin0/graph_electrostatics.git@v0.4.4
+  status: runtime_verified_but_data_contract_blocked

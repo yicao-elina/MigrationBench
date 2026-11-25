@@ -1,0 +1,22 @@
+{
+  "scope": "migration-path diagnostic framework",
+  "dft_reference_rule": "formal reference requires finite images, completed job, no SCF warning, explicit path convergence marker, complete final table, and endpoint/path identity <= 0.05 A",
+  "current_dft_counts": {
+    "exploratory_fixed_geometry": 8,
+    "rejected_or_incomplete": 2
+  },
+  "energy_alignment_modes": [
+    "image1",
+    "endpoint_mean",
+    "path_min"
+  ],
+  "same_geometry_foundation_evaluations": 720,
+  "stage_definition": "endpoint images 1 and 10; TS window = QE path-table maximum +/- 1; near-endpoint = 2,3,8,9 after TS-window exclusion; remaining images = interior",
+  "failure_predictor": "grouped 4-fold cross-validated logistic regression using geometry/image-index features only; no QE energy, force, model spread, or stage labels used as predictors",
+  "high_error_thresholds_eV": [
+    0.2,
+    0.5
+  ],
+  "embedding_scope": "NEB frames only; no provenance-qualified raw training/test/AIMD split included",
+  "claim_boundary": "screened QE path-table reference; no converged DFT barrier or model-accuracy certification"
+}

@@ -1,0 +1,77 @@
+{
+  "schema": "migrationbench_canonical_preflight_audit_v1",
+  "status": "PRELIMINARY_PASS",
+  "scientific_acceptance": "NOT_YET_EVALUATED",
+  "root": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/canonical_model_matrix_20261016",
+  "required_file_count": 8,
+  "missing_required_files": [],
+  "model_count": 21,
+  "acceptance_row_count": 21,
+  "models_pending_training_or_gate": [
+    "scratch_600k_grouped_v1_seed123",
+    "scratch_600k_grouped_v1_seed234",
+    "scratch_600k_grouped_v1_seed345",
+    "from_scratch_all_data_v1_seed123",
+    "from_scratch_all_data_v1_seed234",
+    "from_scratch_all_data_v1_seed345",
+    "ft_600k_5pct_grouped_v1_seed123",
+    "ft_600k_5pct_grouped_v1_seed234",
+    "ft_600k_5pct_grouped_v1_seed345",
+    "ft_multit_5pct_grouped_v1_seed123",
+    "ft_multit_5pct_grouped_v1_seed234",
+    "ft_multit_5pct_grouped_v1_seed345"
+  ],
+  "python_compile_status": "PASS",
+  "downstream_tool_hashes": {
+    "preflight_audit": {
+      "path": "analysis/canonical_model_matrix_20261016/preflight_campaign_audit.py",
+      "expected": "5c454e0989251c03c06c8ff667859b11e83467cc4532fecc21abbd023db1c55a",
+      "observed": "5c454e0989251c03c06c8ff667859b11e83467cc4532fecc21abbd023db1c55a",
+      "match": true
+    },
+    "screen_input_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/build_canonical_639_screen_inputs.py",
+      "expected": "857d32e6b3d5c2ed443aa0350f53cb967eb34f4a79c63f8f1b3ecc4d52390978",
+      "observed": "857d32e6b3d5c2ed443aa0350f53cb967eb34f4a79c63f8f1b3ecc4d52390978",
+      "match": true
+    },
+    "screen_analysis_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/build_canonical_screen_analysis.py",
+      "expected": "eaea776cc6ee363b5e33d8da370dc9f6646f094e962b2003b5b5ed57f09157ab",
+      "observed": "eaea776cc6ee363b5e33d8da370dc9f6646f094e962b2003b5b5ed57f09157ab",
+      "match": true
+    },
+    "plot_script": {
+      "path": "analysis/canonical_model_matrix_20261016/plot_canonical_639_overview.py",
+      "expected": "d0d8893e3bae85c53d785b30a91d35014949917ee96ec404a039013ff268ad39",
+      "observed": "d0d8893e3bae85c53d785b30a91d35014949917ee96ec404a039013ff268ad39",
+      "match": true
+    },
+    "figure_book_entry_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/prepare_figure_book_entry.py",
+      "expected": "157a2cafa3a4f88ec1f624ba5a04a8ff012793a3de0985b7f4523c2d9c21b1f2",
+      "observed": "157a2cafa3a4f88ec1f624ba5a04a8ff012793a3de0985b7f4523c2d9c21b1f2",
+      "match": true
+    },
+    "handoff_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/build_canonical_handoff.py",
+      "expected": "204f9abd26f5717cf685eca6607afde98192d977520531b646fd31323340f132",
+      "observed": "204f9abd26f5717cf685eca6607afde98192d977520531b646fd31323340f132",
+      "match": true
+    },
+    "release_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/build_final_release_manifest.py",
+      "expected": "417ecb78e0724ccbfc2712248652302130310f34c5af4dcbba85bb61b3f5259d",
+      "observed": "417ecb78e0724ccbfc2712248652302130310f34c5af4dcbba85bb61b3f5259d",
+      "match": true
+    },
+    "dft_selection_builder": {
+      "path": "analysis/canonical_model_matrix_20261016/select_dft_candidates_from_canonical_screen.py",
+      "expected": "c28da7472a1d9ab9877f65df7af94a1f894a39b27cc73ad27e076d4e09b768ce",
+      "observed": "c28da7472a1d9ab9877f65df7af94a1f894a39b27cc73ad27e076d4e09b768ce",
+      "match": true
+    }
+  },
+  "failure_reasons": [],
+  "boundary": "This preflight proves structural reproducibility only; it does not accept models, jobs, static outputs, DFT, or publication claims."
+}

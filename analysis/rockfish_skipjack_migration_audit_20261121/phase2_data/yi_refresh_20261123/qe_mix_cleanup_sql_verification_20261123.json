@@ -1,0 +1,110 @@
+{
+  "batch": {
+    "actual_bytes": 5352688896,
+    "cleanup_batch_id": "RF-DATA-YI-CR-IN-GAP-MIX-CLEANUP-20261123",
+    "completed_utc": "2026-11-23T04:09:46Z",
+    "expected_bytes": 5352688896,
+    "status": "COMPLETED"
+  },
+  "cleanup_item_states": [
+    {
+      "deletion_state": "VERIFIED",
+      "logical_bytes": 5352688896,
+      "n": 12
+    }
+  ],
+  "execution_receipt": {
+    "actual_allocated_bytes": 5352980480,
+    "actual_logical_bytes": 5352688896,
+    "deleted_file_count": 12,
+    "execution_state": "COMPLETED",
+    "queue_snapshot_source_id": 245,
+    "quota_after_observation_id": 56,
+    "quota_before_observation_id": 53
+  },
+  "foreign_key_violations": 0,
+  "qe_mix_location_states": [
+    {
+      "availability": "REMOVED",
+      "n": 12
+    }
+  ],
+  "quality_gates": [
+    {
+      "gate_id": "batch_script_exit_propagation",
+      "run_count": 3,
+      "status": "FAIL"
+    },
+    {
+      "gate_id": "fresh_start_recipe_execution",
+      "run_count": 3,
+      "status": "NOT_RUN"
+    },
+    {
+      "gate_id": "postprocessing_success",
+      "run_count": 3,
+      "status": "FAIL"
+    },
+    {
+      "gate_id": "pw_relaxation_converged",
+      "run_count": 3,
+      "status": "FAIL"
+    },
+    {
+      "gate_id": "slurm_accounting_exit",
+      "run_count": 3,
+      "status": "PASS"
+    }
+  ],
+  "quota_bracket": [
+    {
+      "files_used": 1100237,
+      "observed_utc": "2026-11-23T04:01:47Z",
+      "quota_observation_id": 53,
+      "used_bytes": 14941272342528
+    },
+    {
+      "files_used": 1100225,
+      "observed_utc": "2026-11-23T04:10:00Z",
+      "quota_observation_id": 56,
+      "used_bytes": 14935919362048
+    }
+  ],
+  "recipes": [
+    {
+      "executable_version": "Quantum ESPRESSO 7.2; pw.x SHA256 e893e483...",
+      "recipe_status": "REVIEWED",
+      "run_id": "RF-DATA-CR-IN-GAP-BASE_SPIN-7104884"
+    },
+    {
+      "executable_version": "Quantum ESPRESSO 7.2; pw.x SHA256 e893e483...",
+      "recipe_status": "REVIEWED",
+      "run_id": "RF-DATA-CR-IN-GAP-CHARGED3_SPIN-7167643"
+    },
+    {
+      "executable_version": "Quantum ESPRESSO 7.2; pw.x SHA256 e893e483...",
+      "recipe_status": "REVIEWED",
+      "run_id": "RF-DATA-CR-IN-GAP-MAG3-7105613"
+    }
+  ],
+  "runs": [
+    {
+      "run_id": "RF-DATA-CR-IN-GAP-BASE_SPIN-7104884",
+      "run_label": "base_spin",
+      "scheduler_state": "COMPLETED",
+      "scientific_status": "FAILURE_MODE"
+    },
+    {
+      "run_id": "RF-DATA-CR-IN-GAP-CHARGED3_SPIN-7167643",
+      "run_label": "charged3_spin",
+      "scheduler_state": "COMPLETED",
+      "scientific_status": "FAILURE_MODE"
+    },
+    {
+      "run_id": "RF-DATA-CR-IN-GAP-MAG3-7105613",
+      "run_label": "mag3",
+      "scheduler_state": "COMPLETED",
+      "scientific_status": "FAILURE_MODE"
+    }
+  ]
+}

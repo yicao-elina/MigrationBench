@@ -1,0 +1,6 @@
+record_type	row_id_or_scope	status	reason	evidence_path	impact	next_action
+exclusion	legacy_foundation_dc41a989	EXCLUDED	Old Fig. 4 Foundation checkpoint; not current OMAT-0	MODEL_REGISTRY.tsv	Not part of primary 12 rows	Do not submit
+exclusion	top_level_neb_paths	EXCLUDED	Endpoints do not return to zero; different unclosed path	ACCEPTANCE_FREEZE_R01.md	Not an allowed input	Do not copy or score
+warning	QE_reference_bulk	WARNING	QE reference is COMPLETED_BUT_SCF_WARNING	PATH_REGISTRY.tsv	Reference only; not ground truth	Retain warning in all claims
+warning	QE_reference_cr_in_gap	WARNING	QE reference is COMPLETED_BUT_SCF_WARNING	PATH_REGISTRY.tsv	Reference only; not ground truth	Retain warning in all claims
+pending	all_12_primary_rows	VERIFIED	All 12 primary rows pass the frozen scientific gates; independent post-run data and visual reviews PASS	manifests/COLLECTION_MANIFEST.json;manifests/PRE_RUN_REVIEW_GATE.json;manifests/POST_RUN_REVIEW_GATE.json;manifests/RELEASE_MANIFEST_R13.json	Complete campaign accepted with documented QE and self-observable limitations	Preserve release; do not pool fixed/self

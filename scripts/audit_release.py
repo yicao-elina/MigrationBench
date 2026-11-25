@@ -65,6 +65,11 @@ def main() -> int:
     # paths and must not be flagged.
     absolute_path = re.compile(r"(?<![A-Za-z0-9_])/(Users|home|scratch|data)/[^\s{}]+")
     for path in (root / "paper").rglob("*.tex"):
+        # figure_registry/** is an internal provenance index (not compiled into
+        # the manuscript); its evidence records intentionally keep the original
+        # external source locations.
+        if "figure_registry" in path.relative_to(root).parts:
+            continue
         for number, line in enumerate(path.read_text(encoding="utf-8", errors="ignore").splitlines(), 1):
             if absolute_path.search(line):
                 errors.append(f"absolute path in {path.relative_to(root)}:{number}")

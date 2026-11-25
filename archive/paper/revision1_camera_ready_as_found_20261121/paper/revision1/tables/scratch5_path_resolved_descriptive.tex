@@ -1,0 +1,18 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{\textbf{Path-resolved fixed-path errors for the grouped models.} Absolute errors (eV), mean $\pm$ sample standard deviation across three independent training initializations for FT-600K, Scratch-5\%, and full Scratch. The QE reference column gives the forward energy reference of each image set. Q1--Q3 are UNCONVERGED paths; their entries are image-set energy spans used for fixed-path comparison, not physical migration barriers. Errors are fixed-path errors on identical images, reported per path and not pooled across classes. Path names are defined in Table~\ref{tab:path_registry}.}
+\label{tab:scratch5_path_resolved_descriptive}
+\setlength{\tabcolsep}{3pt}
+\begin{tabular}{l p{0.30\linewidth} c c c c}
+\toprule
+Path & Class & QE reference & FT-600K & Scratch-5\% & Scratch \\
+\midrule
+G1 & within-gap (reference path) & 0.34 & $0.47 \pm 0.12$ & $0.68 \pm 0.20$ & $1.20 \pm 0.27$ \\
+G2 & within-gap & 0.58 & $0.21 \pm 0.18$ & $0.25 \pm 0.21$ & $0.33 \pm 0.06$ \\
+Q1 & gap-to-QL/into-QL & 2.79 & $9.60 \pm 0.57$ & $0.33 \pm 0.31$ & $0.51 \pm 0.11$ \\
+Q2 & gap-to-QL/into-QL & 4.00 & $10.40 \pm 0.44$ & $1.22 \pm 0.66$ & $0.72 \pm 0.55$ \\
+Q3 & gap-to-QL/into-QL & 1.10 & $9.70 \pm 0.20$ & $1.07 \pm 0.31$ & $1.77 \pm 1.00$ \\
+\bottomrule
+\end{tabular}
+\end{table}

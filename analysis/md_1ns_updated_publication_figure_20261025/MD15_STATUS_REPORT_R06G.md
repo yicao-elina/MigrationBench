@@ -1,0 +1,7 @@
+# 15-model MD figure R06G change note
+
+R06G changes only panel E of R05. A second structural summary was recomputed directly from the raw Rockfish extended-XYZ trajectories: an all-atom global RDF using ordered atom-pair counts, triclinic minimum-image distances, $r_{\max}=10$ Å, $dr=0.1$ Å and every twentieth eligible frame. The normalization is the accumulated $N(N-1)/V$ denominator times the spherical-shell volume, so the large-$r$ reference is $g_{\mathrm{all}}(r)\approx1$ when sampled structure is sufficiently homogeneous.
+
+All 15 model-specific global RDF curves are retained as thin, low-alpha background evidence. The four visible summaries are Foundation, FT-600K, FT-MultiT and Scratch; each is a class mean with a sample-standard-deviation envelope. Class colors follow the established reference palette: red, dark blue, light blue and orange. The class summaries receive conservative display-only smoothing; the raw global RDF CSV files are unchanged.
+
+The remote audit produced 15/15 global RDF CSV and metadata files, all with `invalid_frames=0`. Foundation-MPA-0, Foundation-MP-0b3, Foundation-OMAT-0 and FT600K-A2 seed234 contain the full 196 sampled frames through step 1,000,000; the remaining trajectories are retained at their observed scientific-failure horizons. Panel D remains the requested pair-resolved CN grouped bars and panel F remains the original normalized multi-origin VACF. The global RDF is an alternate structural summary, not a replacement for the raw 15-model Cr–Cr RDF release.

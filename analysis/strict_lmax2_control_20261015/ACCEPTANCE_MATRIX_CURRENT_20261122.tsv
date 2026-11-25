@@ -1,0 +1,13 @@
+gate_id	artifact	status_as_of_2026-11-22	evidence_summary	evidence_path
+TRAIN-01	launch script	NOT_ASSESSED	No independent template diff was performed in this recheck.	strict_lmax2_train.slurm
+TRAIN-02	Slurm jobs	FAILED	32055099_0 and _1 failed with exit 1:0 before training.	rockfish_followup_20261122/sacct_recheck.txt
+TRAIN-03	compiled models	NOT_RUN	Neither job reached training; no compiled checkpoints were found.	rockfish_followup_20261122/
+TRAIN-04	provenance	INCOMPLETE	No training manifest or model hashes were produced.	rockfish_followup_20261122/
+EVAL-01	candidate coverage	NOT_RUN	No strict model checkpoints exist for the 639-candidate evaluation.	rockfish_followup_20261122/
+EVAL-02	numerical validity	NOT_RUN	No strict evaluation rows exist.	rockfish_followup_20261122/
+EVAL-03	paired comparison	NOT_RUN	No strict evaluation rows exist.	rockfish_followup_20261122/
+SCI-01	within-family variance	NOT_RUN	No strict trio results exist.	rockfish_followup_20261122/
+SCI-02	legacy separation	RETAINED	Historical heterogeneous seed123 remains excluded from strict pooling.	../multimodel_639_screen_20261014/MODEL_GROUPING.md
+SCI-03	causal boundary	PROVENANCE_PARTIAL	The DFT-correctness boundary remains open.	../multimodel_639_screen_20261014/README.md
+FIG-01	panel b	NOT_RUN	No strict-trio figure was generated.	rockfish_followup_20261122/
+FIG-02	figure release	NOT_RUN	No strict-trio figure manifest exists.	rockfish_followup_20261122/

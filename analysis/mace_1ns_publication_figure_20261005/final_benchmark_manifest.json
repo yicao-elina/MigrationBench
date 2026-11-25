@@ -1,0 +1,62 @@
+{
+  "figure": "mace_1ns_diffusion_stability_benchmark",
+  "source_root": "/scratch16/pclancy3/yi/mace_four_model_MD_analysis_20261003",
+  "panels": [
+    "temperature",
+    "pressure",
+    "max_force_geometry_stability",
+    "MSD",
+    "Dxy_block_uncertainty",
+    "VACF"
+  ],
+  "removed_from_final": [
+    "HFACF",
+    "kappa"
+  ],
+  "protocol": {
+    "dt_fs": 1.0,
+    "temperature_K": 600.0,
+    "natoms": 2050,
+    "target_step": 1000000
+  },
+  "scientific_status": {
+    "stable_for_diffusion": [
+      "FT-600K",
+      "FT-MultiT"
+    ],
+    "failure_mode": {
+      "Foundation-OMAT": "8.8 ps",
+      "From-scratch": "462.2 ps"
+    },
+    "thermal_transport": "not claimed; heat current was not recorded"
+  },
+  "local_input_sha256": {
+    "data/1-from-scratch/audit.json": "b30a7e3d5bd7c53c56c5fe4227b4e74a6549374eff59a52b7e9a09c74a14336d",
+    "data/1-from-scratch/failure_scan.csv": "631b550b9e802f5211e9064e6ff73bd02539912a00fa40d8e904bc08321dc1ca",
+    "data/1-from-scratch/failure_scan.json": "07f44578b074f79998544f018fc1d25c59ecc7a15b525209a35a2f3fd785e111",
+    "data/2-naive-fine-tuning/audit.json": "8df1d4e84c7811c5a66be6a2d56edeadcb33594c931473ddfaad381ee6d2a278",
+    "data/2-naive-fine-tuning/metrics.json": "bcc4e6ae38971317bf34f429acfabeb1303292f9b0a760a31bb5a4697682ccaf",
+    "data/2-naive-fine-tuning/msd.csv": "a5b135b62626210de5b925af26fae369c7b98e80e54b5a776db23358e16b1a05",
+    "data/2-naive-fine-tuning/timeseries.csv": "af22aeadf5b7afb6c7c4c1a5f6ae7ac5a1c9c2fd8b2abcfdb8cfd087409a4b48",
+    "data/2-naive-fine-tuning/vacf.csv": "dfbbd996bb8c4e7ea25d67913d46f15443a5abc4d84cd5c28d83cc5734224bea",
+    "data/3-multi_T-fine-tuning/audit.json": "cd6d65e33b3dbe1043679d980297a616e612beca79e647657e96c629dce42d03",
+    "data/3-multi_T-fine-tuning/metrics.json": "9adcfb35fcb44abc24f25538a914671b2bb8bc76f363c6fb2b2f41fbfb0369da",
+    "data/3-multi_T-fine-tuning/msd.csv": "9f612e2d48ee83aec916c25d7352fddcd40208b20c781528c7b0084f164d442b",
+    "data/3-multi_T-fine-tuning/timeseries.csv": "cddd7cc1e2b8c132e98296870ced287e856512fc29e743f79335a39db58aad30",
+    "data/3-multi_T-fine-tuning/vacf.csv": "d21f71e638cfcfd9cb46bc659c161a3894145f280d31ce8f581e0a3dac4c9edb",
+    "data/foundation-omat/audit.json": "a76fe57ff530f9201514e94302541c5ecef97e9426c140aaf014df0291ab747f",
+    "data/foundation-omat/metrics.json": "740d65758ce415accbc97fa40cb5318b5c390c58a5557a129d9ceadef8f19924",
+    "data/foundation-omat/msd.csv": "37a8fce4600eee585a4ee41ed9c7e49baf804aa800b27c704a20948a477e9ae6",
+    "data/foundation-omat/timeseries.csv": "1db104b3321f0d2551900b14ce07ca4457ec438e116c32df015901f3e9473805",
+    "data/foundation-omat/vacf.csv": "70ef644f323e66eb61fdf222a081f333ef3ae124330c4075989f01dc953befcf",
+    "data/model_name_map.json": "631c834b470a61c97ed59b5078c2db4d4d20a2848f7a6329fd25c1317b69572c",
+    "data/thermo/1-from-scratch.headers": "b851e41cf92f04ef92e832846753c99849a93d3fa1911687c87dc218c2f6808b",
+    "data/thermo/1-from-scratch.pressure_derived.csv": "34fda3933bc412ce80812a3dc53198a6d589b46c34e9bdc8cd55774e6a51a706",
+    "data/thermo/2-naive-fine-tuning.headers": "6aad030af25937f1055a2bc7636b2fb806947c7c8490dddfd0a73b26d8e319ca",
+    "data/thermo/2-naive-fine-tuning.pressure_derived.csv": "842a0e71d0369c5b95d7005823a17e2b3e09147534ede053dffa58f4c802faec",
+    "data/thermo/3-multi_T-fine-tuning.headers": "d741b2e127a00cda04fe2a88b766bd69b02a99bca3788a5143cd5dd78078db04",
+    "data/thermo/3-multi_T-fine-tuning.pressure_derived.csv": "5f5d048da0b9272c11fbf3006133667514bcd9891c0675d60047d6a14a35ec92",
+    "data/thermo/foundation-omat.headers": "bd0565f3a9d116c6c74622d2bbc4242d680a0a48ca867d118312510823c4f68b",
+    "data/thermo/foundation-omat.pressure_derived.csv": "bc78927de327ce2214797869bfb148ff18a83f74d7a2f772f775e3f46039039d"
+  }
+}

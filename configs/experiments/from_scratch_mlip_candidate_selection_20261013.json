@@ -1,0 +1,112 @@
+{
+  "schema": "migrationbench_from_scratch_mlip_candidate_selection_v1",
+  "campaign_date": "2026-10-13",
+  "source_system": "MigrationBench from-scratch failure-attribution campaign",
+  "source_geometry": {
+    "n_atoms": 2050,
+    "pbc": [true, true, true],
+    "candidate_source": "all-replicate prepared-only candidate inventory",
+    "candidate_inventory_sha256": "33dbb8e4990a4eb335af7a0105e7fe7c5e42fc8a53c25dc7855ed6370baa4eb9"
+  },
+  "inventory": {
+    "n_candidates": 639,
+    "candidate_id_scheme": "dftcand_0001 through dftcand_0639 after deterministic source/seed/step/window ordering",
+    "category_counts": {
+      "stable_early_control": 207,
+      "stable_pre_onset": 216,
+      "precursor_near_onset": 208,
+      "threshold_or_terminal": 7,
+      "terminal_stable_target": 1
+    },
+    "classification": {
+      "stable_early": "stable_early_control",
+      "stable_pre": "stable_pre_onset",
+      "precursor": "precursor_near_onset",
+      "threshold_with_observed_trigger": "threshold_or_terminal",
+      "threshold_with_trigger_not_observed": "terminal_stable_target"
+    }
+  },
+  "wave_01": {
+    "purpose": "mechanism-focused first inventory for the original DFT proposal",
+    "n_candidates": 20,
+    "selection_counts": {
+      "threshold_or_terminal": 7,
+      "terminal_stable_target": 1,
+      "precursor_near_onset": 9,
+      "stable_early_model_control": 3
+    },
+    "rules": [
+      "retain every threshold row, including the terminal 1000 ps stable target",
+      "select the latest sampled precursor frame for every source/training-seed run",
+      "select the approximately 10 ps stable-early control for each training seed from the original source"
+    ],
+    "manifest": "data/raw_compact/revision1/from_scratch_failure_attribution_20261013/wave_01_manifest.csv",
+    "manifest_sha256": "292f57c9bc95cee2253aedfe74f1f953839aad54031c6c6998702f1554925b2a"
+  },
+  "mlip_informed_dft_subset": {
+    "purpose": "select informative reduced-cell DFT follow-up points after the complete three-model static MLIP screen",
+    "n_candidates": 20,
+    "model_success_gate": "n_models_success == 3",
+    "source_geometry_gate": "min_distance_A >= 0.8 on the original 2050-atom PBC candidate",
+    "priority": [
+      "ensemble_force_std_rms_eV_A descending",
+      "pairwise_force_max_max_eV_A descending",
+      "candidate_id ascending"
+    ],
+    "quota_pass": {
+      "threshold_or_terminal": 4,
+      "precursor_near_onset": 8,
+      "stable_pre_onset": 4,
+      "stable_early_control": 2,
+      "terminal_stable_target": 1
+    },
+    "fill_rule": "after the quota pass, fill any remaining slots from the unused gate-passing candidates using the same priority order",
+    "selection_counts": {
+      "threshold_or_terminal": 1,
+      "precursor_near_onset": 12,
+      "stable_pre_onset": 4,
+      "stable_early_control": 2,
+      "terminal_stable_target": 1
+    },
+    "n_geometry_excluded": 11,
+    "geometry_excluded_ids": [
+      "dftcand_0072", "dftcand_0216", "dftcand_0357", "dftcand_0358",
+      "dftcand_0359", "dftcand_0360", "dftcand_0431", "dftcand_0432",
+      "dftcand_0504", "dftcand_0568", "dftcand_0639"
+    ],
+    "selection_manifest": "data/raw_compact/revision1/from_scratch_failure_attribution_20261013/mlip_dft_selection.csv",
+    "selection_manifest_sha256": "6b68429b5da5440feb2fab3081b4afe7cc6a7b0f7ea87203ce441537dffa060d",
+    "submitted_selection_sha256": "78c1b5038761a14960836dccdd7899b77c3e4cfe9cc9464ce4f253315d207c6d1"
+  },
+  "models": {
+    "registry": "data/raw_compact/revision1/from_scratch_failure_attribution_20261013/MODEL_REGISTRY.tsv",
+    "registry_sha256": "6d2a9eadd7f2b24e4892862de5d200c4b53e124a0a2019a3d7b60d5f39e55d58",
+    "canonical_model_ids": [
+      "ablation_lmax_2_seed123",
+      "ablation_lmax_2_seed234",
+      "baseline_seed345"
+    ],
+    "training_seeds": [123, 234, 345],
+    "md_velocity_seed": 20261005,
+    "seed_policy": "training seed and source-trajectory MD velocity seed are recorded separately"
+  },
+  "reconciliation": {
+    "execution_to_canonical_mapping": "data/raw_compact/revision1/from_scratch_failure_attribution_20261013/candidate_execution_mapping.csv",
+    "mapping_sha256": "68fee83fc16d1fa5c27ec38fbdd39a1ee11c51a66e64f4424eda6f60c026a3d7",
+    "mapping_key": "immutable prepared_extxyz path, not the execution candidate ID",
+    "n_canonical_candidates": 639,
+    "n_model_candidate_rows": 1917,
+    "duplicate_candidate_model_rows": 0
+  },
+  "status": {
+    "mlip_static_screen": "VERIFIED",
+    "full_cell_dft": "BLOCKED_RESOURCE_GATED",
+    "reduced_cell_dft": "SUBMITTED_PENDING",
+    "dft_scientific_result": "PENDING"
+  },
+  "scientific_boundaries": [
+    "Static MLIP force disagreement is a descriptive candidate-prioritization signal, not DFT correctness or causal proof.",
+    "The 120-atom PBC local-periodic-shell input is a reconstruction and is not exact full-cell parity with the 2050-atom snapshot.",
+    "No DFT energy or force result is promoted until the scheduler, QE convergence, finite-output, input-identity, and reconstruction-boundary gates pass."
+  ]
+}

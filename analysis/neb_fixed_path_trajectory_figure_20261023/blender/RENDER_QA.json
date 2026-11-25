@@ -1,0 +1,148 @@
+{
+  "blender_version": "4.0.2",
+  "contract_checks": {
+    "DFT-01_status_transparency": "PENDING_PYTHON_INTEGRATION_LABEL; DFT status preserved in manifest",
+    "DFT-02_unconditional_ground_truth": "BLOCKED_BY_FROZEN_DFT_WARNING",
+    "DFT-03_warning_not_energy_error_band": "PENDING_PYTHON_INTEGRATION",
+    "PHY-01_to_PHY-03_geometry_identity_and_MIP_unwrap": "PASS_AUTOMATED",
+    "PHY-15_no_61_atom_or_historical_path_mix": "PASS_AUTOMATED",
+    "PUB-07_full_figure_PDF_SVG_PNG": "PENDING_PYTHON_INTEGRATION",
+    "PUB-10_final_signoff": "NOT_ACCEPTED",
+    "SEED-01_to_SEED-05": "PENDING_PYTHON_INTEGRATION",
+    "VIS-01_three_columns_and_order": "PASS_AUTOMATED",
+    "VIS-02_same_path_semantics": "PASS_AUTOMATED",
+    "VIS-03_real_atom_ghost_layers": "PENDING_MANUAL_REVIEW",
+    "VIS-04_direction_0_to_9_arrow_and_labels": "PENDING_MANUAL_REVIEW",
+    "VIS-05_alpha_is_overlay_order_only": "PASS_AUTOMATED",
+    "VIS-06_common_camera_scale_and_unwrap_recorded": "PENDING_MANUAL_REVIEW",
+    "VIS-07_no_synthetic_PES_or_coordinates": "PASS_AUTOMATED",
+    "VIS-16_render_dimensions": "PASS_AUTOMATED"
+  },
+  "expected_output_sizes_px": {
+    "cr_canonical_gap_to_ql": [
+      1400,
+      1750
+    ],
+    "cr_canonical_in_gap": [
+      1400,
+      1750
+    ],
+    "cr_canonical_within_ql": [
+      1400,
+      1750
+    ],
+    "triptych_top": [
+      4200,
+      1750
+    ]
+  },
+  "failure_or_limitation_ledger": [
+    {
+      "criterion": "DFT-02/DFT-03",
+      "reason": "All three canonical DFT/QE references remain COMPLETED_BUT_SCF_WARNING; this geometry render does not upgrade them to ground truth.",
+      "status": "BLOCKED"
+    },
+    {
+      "criterion": "PUB-02/SEED-04",
+      "reason": "The lower fixed-path family/seed numerical matrix and legal mean±1 SD uncertainty gate are outside this Blender-only scope and remain frozen as blocked.",
+      "status": "BLOCKED"
+    },
+    {
+      "criterion": "VIS-03/VIS-04/VIS-06",
+      "reason": "The prior render failed the user visual check for low Cr contrast/visibility, oversized atoms, and framing.  This rerender applies smaller radii, stronger Cr/path contrast, and independent data-derived column cameras; acceptance remains pending a new human visual check.",
+      "status": "PENDING_MANUAL_REVIEW"
+    }
+  ],
+  "figure_id": "NEB_FIXED_PATH_TRAJECTORY_TRIPTYCH_20261023",
+  "geometry_checks": {
+    "cr_canonical_gap_to_ql": {
+      "10_images": true,
+      "81_atoms": true,
+      "Cr_index_80": true,
+      "endpoint_consistency_PASS": true,
+      "pbc_TTT": true,
+      "source_hash_matches_registry": true,
+      "species_order_matches_registry": true
+    },
+    "cr_canonical_in_gap": {
+      "10_images": true,
+      "81_atoms": true,
+      "Cr_index_80": true,
+      "endpoint_consistency_PASS": true,
+      "pbc_TTT": true,
+      "source_hash_matches_registry": true,
+      "species_order_matches_registry": true
+    },
+    "cr_canonical_within_ql": {
+      "10_images": true,
+      "81_atoms": true,
+      "Cr_index_80": true,
+      "endpoint_consistency_PASS": true,
+      "pbc_TTT": true,
+      "source_hash_matches_registry": true,
+      "species_order_matches_registry": true
+    }
+  },
+  "manual_visual_review_required": [
+    "VIS-03 targeted rerender completed; confirm all ten real image layers and the Cr ghost/trajectory remain readable at final-size",
+    "VIS-04 targeted rerender completed; confirm arrow and 0→9 endpoint labels are unambiguous in grayscale",
+    "VIS-06 targeted independent cameras completed; confirm no endpoint or host layer is visually clipped",
+    "VIS-14 confirm any eventual composite legend does not cover this render",
+    "PUB-08 final-size and grayscale QA after Python integration"
+  ],
+  "output_metadata": {
+    "cr_canonical_gap_to_ql": {
+      "bytes": 777012,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_gap_to_ql.png",
+      "sha256": "d5c6be4f0f9167715429f930fb183feee80a511dead87cb78710700a97bc2c94",
+      "width_px": 1400
+    },
+    "cr_canonical_in_gap": {
+      "bytes": 862269,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_in_gap.png",
+      "sha256": "98171c66932cdd4bc424005349cf4ef4b5e7c6b7f15869cbb25c471f5f707277",
+      "width_px": 1400
+    },
+    "cr_canonical_within_ql": {
+      "bytes": 820962,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/cr_canonical_within_ql.png",
+      "sha256": "5f73d0c4132e824cb689934865cd1ab0fdc20c25e3dd3059621bb7dddf3fdcb2",
+      "width_px": 1400
+    },
+    "triptych_top": {
+      "bytes": 1985910,
+      "channels": 4,
+      "exists": true,
+      "file_format": "PNG",
+      "height_px": 1750,
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/triptych_top.png",
+      "sha256": "1103f4fc6b4a97de58656ba3f97b0e5afe5febdca010534b3dbd084189aa3bab",
+      "width_px": 4200
+    }
+  },
+  "provenance": {
+    "input_hashes_written_to_manifest": true,
+    "output_hashes_written_to_manifest_after_render": true,
+    "scene_source_script": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/blender/render_scene.py"
+  },
+  "qa_status": "RENDERED_CANDIDATE_NOT_ACCEPTED",
+  "render_success": true,
+  "size_checks": {
+    "cr_canonical_gap_to_ql": true,
+    "cr_canonical_in_gap": true,
+    "cr_canonical_within_ql": true,
+    "triptych_top": true
+  }
+}

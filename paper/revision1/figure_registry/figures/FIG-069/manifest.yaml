@@ -1,0 +1,83 @@
+schema_version: 1
+figure_id: FIG-069
+logical_figure: analysis/from_scratch_ablation_md_20261005/figures_plot_atlas/screening_plot_atlas_msd_dxy
+title: Screening plot atlas msd dxy
+group_id: MD-ABLATION-20PS
+parent_group: MD-ABLATION-20PS
+sibling_ids:
+- FIG-070
+- FIG-071
+article_targets:
+- 'Results/SI: ablation stability and transport-screen boundary'
+reviewer_status: PARTIAL
+reviewer_links:
+- id: REV-C9
+  status: PENDING
+  question: Resolve the asymmetric FT-600K MD transport protocol and its effect on
+    D and kappa.
+  completed_evidence: Legacy FT-600K transport values are quarantined and excluded
+    from ranking; the figure can document that boundary.
+  still_required: Run the corrected matched-protocol FT-600K long trajectory, block-average
+    D/kappa, and close the multi-seed uncertainty before reporting a final transport
+    comparison.
+- id: REV-A3
+  status: PARTIAL
+  question: Add seed-level uncertainty and test whether the deep-penetration result
+    is seed-stable rather than a chance outcome.
+  completed_evidence: Three-seed grouped in-gap comparisons and uncertainty are available
+    for the declared Scratch/FT-600K/Scratch-5% scope.
+  still_required: Complete path-resolved deep-penetration classification and restarted
+    QE references before reporting a pooled deep-penetration ranking.
+- id: REV-A5
+  status: PARTIAL
+  question: Add a Scratch-5% random-initialization control to separate foundation
+    pretraining from data-volume effects.
+  completed_evidence: The three-seed Scratch-5% control and the in-gap pathway comparison
+    are complete and can be shown with the stated small-sample caveat.
+  still_required: Do not generalize to FT-MultiT or all pathways until the corresponding
+    grouped retraining and path comparisons exist.
+scientific_status: unclassified
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.pdf
+asset_sha256: ada54708fe37dc9af2b3cd1399c7a764db2237de3f39e7599e18f0817e5068c4
+source_export: /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/figures_plot_atlas/screening_plot_atlas_msd_dxy.pdf
+legacy_v1_page: ../figure_pages.tex#FIG-069
+evidence_candidates:
+  caption_discussion_source_candidates:
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/20ps_screening_report.md
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/PROTOCOL_AND_COMPARISON.md
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/README.md
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/discussion_draft.md
+  raw_or_processed_data_candidates:
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/campaign_manifest.json
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/comparison_inventory.csv
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/data_index.json
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/failure_ledger_20ps.tsv
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/retry_ledger.tsv
+  plot_script_candidates:
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/analyze_ablation_md.py
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/analyze_production_uncertainty.py
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/continue_ablation_md.py
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/make_comparison_inventory.py
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/plot_atlas_figures.py
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/plot_unified_comparison.py
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/run_ablation_md.py
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/submit_1ns.slurm
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/submit_1ns_continuation.slurm
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/submit_20ps.slurm
+  - /Users/alina/.codex/worktrees/bf6e/Wiley-MigrationBench/analysis/from_scratch_ablation_md_20261005/unified_postprocess_md.py
+authored_hashes:
+  page.tex: 3ca86c0e4d1cb5a704cf957ceb686462f9d32a64ab3882af443713c294ffbc5d
+  figure.tex: 2aadd76503c87f07102e466d1b3bd2984ca4703d8981760447b44b83c312fe86
+  caption.tex: 7963bbe6ef0b5f1380671331decd4ab15c4934662d9d777b59f989b972d3f7fa
+  results.tex: 9912d7e6eb130e4ac38b0aca500bbdbb25c5c3d813c1491f055720843c63f731
+  discussion.tex: 5640581b4adaa78f0d3d9ed57e899175d421a64b09878cae7b347f8d4cc974be
+  reviewer.tex: c64ae3600428ea13e41a47f646d6571af4be2d6bd4646777ec841796eda81b47
+  evidence.tex: b974679992f8805d32e235db64434d973ee806b07af6c39112994584d354398e
+  article.tex: 3866b232cb0193144961cf807940ca526bf0ceecc4c759b818b751a9ec801b83
+  gap.tex: 0175974f65eac1bded131c9915ddcd4ef024d3599ad413f196b64cf443839b16
+migration_note: Migrated from frozen 211-page review book; authored fragments are
+  now the editable surface.
+evidence_metadata_source: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/figure_evidence_matrix.tsv
+hash_updated_by: figurectl update-hashes

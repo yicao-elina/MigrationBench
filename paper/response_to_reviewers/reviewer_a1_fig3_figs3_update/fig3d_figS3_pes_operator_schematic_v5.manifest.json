@@ -1,0 +1,74 @@
+{
+  "figure_id": "A1-PES-OPERATOR-SCHEMATIC-V5",
+  "status": "RECONSTRUCTION_OPERATOR_SCHEMATIC_WITH_EXPLICIT_FIVE_IMAGE_ANCHORS",
+  "base_release": "fig3d_figS3_pes_operator_schematic_v4",
+  "surface_status": "synthetic reduced-coordinate PES; z-dependent colour is a visual distinction, not a quantitative PES",
+  "fixed_energy_profile_status": "synthetic section evaluated from the same synthetic DFT/MLIP surfaces used above",
+  "geometry_status": "five-image coordinate-derived 61-atom DFT fixture and current Foundation MLIP self-relaxed path",
+  "self_rescore_status": "synthetic operator definition only; same-system DFT re-score remains unavailable",
+  "atom_figure_mapping": {
+    "image_labels": [
+      "A",
+      "1",
+      "TS",
+      "3",
+      "B"
+    ],
+    "image_indices": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "standalone_figures": [
+      "fig3d_figS3_atom_path_dft_fivepanel_v4",
+      "fig3d_figS3_atom_path_mlip_fivepanel_v4"
+    ]
+  },
+  "anchor_policy": {
+    "fixed_path": "five DFT/MLIP pairs share the same s positions; faint vertical guides make the alignment explicit",
+    "self_relaxed_geometry": "five DFT and five MLIP markers are shown at their q1-q2 coordinates; paired geometry shifts are plain non-directional segments",
+    "self_relaxed_energy": "five markers are shown on both synthetic re-score curves at the five path-progress anchors",
+    "arrows": false,
+    "arrowheads": false
+  },
+  "q_coordinate_definition": {
+    "cr_index_zero_based": 60.0,
+    "endpoint_distance_A": 3.9186392109881463,
+    "q1_axis_x": 0.5377144463291019,
+    "q1_axis_y": -0.3104495803259292,
+    "q1_axis_z": 0.7838904466087349,
+    "q2_axis_x": 0.6788689876349231,
+    "q2_axis_y": -0.3919453149509257,
+    "q2_axis_z": -0.6208991606658476
+  },
+  "palette": {
+    "name": "nature_steered_dynamics",
+    "roles": {
+      "DFT": "#9B9B9B",
+      "MLIP": "#337FB0",
+      "DFT_surface_high": "#9B9B9B",
+      "MLIP_surface_high": "#337FB0",
+      "DFT_surface_low": "#EDEDED",
+      "MLIP_surface_low": "#DAE8F1"
+    },
+    "high_saturation_red_used": false
+  },
+  "inputs": {
+    "tests/fixtures/historical_neb/legacy_61/1-4/sb2te3.xyz": "81c61faf152df1f1c274ccafdbc9810e682b64cf59d1e8f73650ba9b77252b44",
+    "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/data/self_relaxed_foundation_path_61_1-4.extxyz": "59e949d007461381ce7ce89de795079ef7b7303d9a71cec6f97b868d70ccb557"
+  },
+  "path_coordinate_csv": "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/pes_operator_v5_path_coordinates.csv",
+  "source_scripts": {
+    "v4_base": "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/plot_pes_operator_schematic_v4.py",
+    "v4_sha256": "c965eda99259e2e3f97d3b6d146829001e0aab733ab9566f0b21140a075cd7d5"
+  },
+  "notes": [
+    "The five image anchors correspond left-to-right to A, 1, TS, 3, B in the independent atom strips.",
+    "The markers are restored as the minimal visual correspondence cue requested in review; no raster atom image is embedded in the main figure.",
+    "The lower panels remain synthetic operator schematics and do not imply an unavailable self-consistent DFT re-score.",
+    "No historical 0.410 eV record is used."
+  ],
+  "script_sha256": "36b74b3d85e5600294179095d3c5c7e661a634ec0ec5b2fe80ddd66ddce84df8"
+}

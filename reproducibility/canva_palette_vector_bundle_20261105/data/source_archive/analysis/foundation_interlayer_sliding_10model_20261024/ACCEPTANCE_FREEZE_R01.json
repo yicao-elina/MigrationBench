@@ -1,0 +1,53 @@
+{
+  "schema_version": "foundation_interlayer_sliding_10model_freeze_v1",
+  "campaign_id": "foundation_interlayer_sliding_10model_20261024",
+  "revision": "R01",
+  "status": "FROZEN_BEFORE_ARRAY_SUBMISSION",
+  "model_count": 10,
+  "system_count": 2,
+  "primary_rows": 40,
+  "fixed_rows": 20,
+  "self_rows": 20,
+  "profile_rows": 400,
+  "systems": ["bulk", "cr_in_gap"],
+  "models": [
+    "foundation_agnesi_large",
+    "foundation_agnesi_medium_density",
+    "foundation_agnesi_small_density",
+    "foundation_agnesi_medium",
+    "foundation_mp0b3",
+    "foundation_omat0_medium",
+    "foundation_omat0_small",
+    "foundation_mh0",
+    "foundation_mh1",
+    "foundation_matpes_pbe_omat_ft"
+  ],
+  "fixed_protocol": {
+    "observable": "FIXED_PATH_SINGLE_POINT",
+    "geometry_source": "retained_QE_b_path2_images",
+    "n_images": 10,
+    "normalization": "energy_minus_image_0",
+    "acceptance": ["exact_atom_count_per_frame", "model_sha256_match", "finite_energy_and_forces", "runtime_provenance"]
+  },
+  "self_protocol": {
+    "observable": "SELF_RELAXED_ENDPOINT_ONLY_NEB",
+    "initialization": "ASE_IDPP_FROM_ENDPOINTS_ONLY",
+    "n_images": 10,
+    "steps": 500,
+    "fmax_eV_A": 0.05,
+    "spring_constant": 0.1,
+    "seed": 42,
+    "climb": false,
+    "fixed_endpoints": true,
+    "endpoint_tolerance_A": 1e-8,
+    "acceptance": ["endpoint_input_atom_count", "model_sha256_match", "optimizer_converged", "finite_profile", "neb_residual_leq_fmax", "runtime_provenance"]
+  },
+  "explicit_heads": {
+    "foundation_mh0": "omat_pbe",
+    "foundation_mh1": "omat_pbe"
+  },
+  "qe_boundary": "COMPLETED_BUT_SCF_WARNING_REFERENCE_ONLY",
+  "separation_rule": "fixed_path_and_self_relaxed_are_distinct_observables_and_are_never_pooled",
+  "remote_root": "/scratch16/pclancy3/yi/foundation_interlayer_sliding_10model_20261024",
+  "completion_rule": "collection_pass_and_data_review_pass_and_visual_review_pass"
+}

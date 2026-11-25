@@ -1,0 +1,493 @@
+{
+  "all_complete": true,
+  "all_completions_ok": true,
+  "all_frame_counts_ok": true,
+  "all_initial_state_checks_ok": true,
+  "classifications": {
+    "runaway_or_nonfinite": 5,
+    "stable_short_handoff": 3
+  },
+  "input_hash_consistency_by_snapshot": {
+    "460000": {
+      "cell_sha256": true,
+      "input_sha256": true,
+      "momenta_sha256": true,
+      "positions_sha256": true
+    },
+    "462200": {
+      "cell_sha256": true,
+      "input_sha256": true,
+      "momenta_sha256": true,
+      "positions_sha256": true
+    }
+  },
+  "runs": 8,
+  "runs_detail": [
+    {
+      "cell_sha256": "fabd3cc1e180c3812aa9167ea4248c19539b064f597f0d4b4c20ecfdc3a77923",
+      "classification": "runaway_or_nonfinite",
+      "completion_completed": true,
+      "completion_last_step": 462000,
+      "completion_ok": true,
+      "end_step": 462000,
+      "expected_end_step": 462000,
+      "expected_frames": 202,
+      "finite_required_metrics": true,
+      "first_frame": {
+        "all_initial_state_checks": true,
+        "cell_match_tol_1e-8_A": true,
+        "first_step": 460000,
+        "first_step_matches_source_step": true,
+        "momenta_match_tol_1e-6": true,
+        "natoms": 2050,
+        "natoms_match": true,
+        "pbc_match": true,
+        "positions_match_tol_1e-6_A": true,
+        "source_file_sha256_matches_handoff": true,
+        "species_match": true
+      },
+      "first_gate": {
+        "gate": "force_gt_100_eV_A",
+        "step": 460180,
+        "time_ps": 460.18
+      },
+      "frame_count_ok": true,
+      "frames": 202,
+      "gate_crossings": {
+        "force_gt_100_eV_A": {
+          "step": 460180,
+          "time_ps": 460.18
+        },
+        "min_distance_lt_1p5_A": {
+          "step": 460190,
+          "time_ps": 460.19
+        },
+        "n_atoms_gt5_A_ge_100": {
+          "step": 460640,
+          "time_ps": 460.64
+        },
+        "temperature_gt_2000_K": {
+          "step": 460220,
+          "time_ps": 460.22
+        },
+        "total_energy_span_ge_250_eV": {
+          "step": 460190,
+          "time_ps": 460.19
+        },
+        "unwrapped_displacement_gt_50_A": {
+          "step": 460340,
+          "time_ps": 460.34
+        },
+        "velocity_gt_1000_A_ps": {
+          "step": 460210,
+          "time_ps": 460.21
+        }
+      },
+      "input_sha256": "fd3a1fcd789f30c16cb4d1f9920d2f24a1984aa60103967fcda90d5afc2e1c92",
+      "metrics_sha256": "5c8d04d0e4a272af13788e0d01e5bb790179b8070a96040aa8e162b219507526",
+      "model": "foundation-omat",
+      "model_sha256": "dc41a98908dd25b150fb5c8dd0a28d95f5feeac37022682a7c389c475444d08e",
+      "momenta_sha256": "535e0fa94469cf441602da60034ca03f9d8fdfd2133d986e9e67d38032206347",
+      "positions_sha256": "b7462ce9dd4e60b942f13bcaadd941fae1f5b2b7df15d0b5a3ce1f94d441c096",
+      "snapshot": 460000,
+      "start_step": 460000,
+      "status": "COMPLETE",
+      "total_energy_span_eV": 1779454904.3492231
+    },
+    {
+      "cell_sha256": "fabd3cc1e180c3812aa9167ea4248c19539b064f597f0d4b4c20ecfdc3a77923",
+      "classification": "stable_short_handoff",
+      "completion_completed": true,
+      "completion_last_step": 462000,
+      "completion_ok": true,
+      "end_step": 462000,
+      "expected_end_step": 462000,
+      "expected_frames": 202,
+      "finite_required_metrics": true,
+      "first_frame": {
+        "all_initial_state_checks": true,
+        "cell_match_tol_1e-8_A": true,
+        "first_step": 460000,
+        "first_step_matches_source_step": true,
+        "momenta_match_tol_1e-6": true,
+        "natoms": 2050,
+        "natoms_match": true,
+        "pbc_match": true,
+        "positions_match_tol_1e-6_A": true,
+        "source_file_sha256_matches_handoff": true,
+        "species_match": true
+      },
+      "first_gate": null,
+      "frame_count_ok": true,
+      "frames": 202,
+      "gate_crossings": {
+        "force_gt_100_eV_A": null,
+        "min_distance_lt_1p5_A": null,
+        "n_atoms_gt5_A_ge_100": null,
+        "temperature_gt_2000_K": null,
+        "total_energy_span_ge_250_eV": null,
+        "unwrapped_displacement_gt_50_A": null,
+        "velocity_gt_1000_A_ps": null
+      },
+      "input_sha256": "fd3a1fcd789f30c16cb4d1f9920d2f24a1984aa60103967fcda90d5afc2e1c92",
+      "metrics_sha256": "5b200789e0e142cf42d95d75b3309720ed2a33508e95f243ca275c9240cc93e9",
+      "model": "from-scratch",
+      "model_sha256": "da17ab17a98241c9ba1ad75f79ef051af4c273879a85e2371213d0b51257f144",
+      "momenta_sha256": "535e0fa94469cf441602da60034ca03f9d8fdfd2133d986e9e67d38032206347",
+      "positions_sha256": "b7462ce9dd4e60b942f13bcaadd941fae1f5b2b7df15d0b5a3ce1f94d441c096",
+      "snapshot": 460000,
+      "start_step": 460000,
+      "status": "COMPLETE",
+      "total_energy_span_eV": 9.406774142757058
+    },
+    {
+      "cell_sha256": "fabd3cc1e180c3812aa9167ea4248c19539b064f597f0d4b4c20ecfdc3a77923",
+      "classification": "stable_short_handoff",
+      "completion_completed": true,
+      "completion_last_step": 462000,
+      "completion_ok": true,
+      "end_step": 462000,
+      "expected_end_step": 462000,
+      "expected_frames": 202,
+      "finite_required_metrics": true,
+      "first_frame": {
+        "all_initial_state_checks": true,
+        "cell_match_tol_1e-8_A": true,
+        "first_step": 460000,
+        "first_step_matches_source_step": true,
+        "momenta_match_tol_1e-6": true,
+        "natoms": 2050,
+        "natoms_match": true,
+        "pbc_match": true,
+        "positions_match_tol_1e-6_A": true,
+        "source_file_sha256_matches_handoff": true,
+        "species_match": true
+      },
+      "first_gate": null,
+      "frame_count_ok": true,
+      "frames": 202,
+      "gate_crossings": {
+        "force_gt_100_eV_A": null,
+        "min_distance_lt_1p5_A": null,
+        "n_atoms_gt5_A_ge_100": null,
+        "temperature_gt_2000_K": null,
+        "total_energy_span_ge_250_eV": null,
+        "unwrapped_displacement_gt_50_A": null,
+        "velocity_gt_1000_A_ps": null
+      },
+      "input_sha256": "fd3a1fcd789f30c16cb4d1f9920d2f24a1984aa60103967fcda90d5afc2e1c92",
+      "metrics_sha256": "cedeba28f8d8b7558bb58ab92022ec2b212cbcae3de89768e328412c1c2dada9",
+      "model": "naive-fine-tuning",
+      "model_sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a",
+      "momenta_sha256": "535e0fa94469cf441602da60034ca03f9d8fdfd2133d986e9e67d38032206347",
+      "positions_sha256": "b7462ce9dd4e60b942f13bcaadd941fae1f5b2b7df15d0b5a3ce1f94d441c096",
+      "snapshot": 460000,
+      "start_step": 460000,
+      "status": "COMPLETE",
+      "total_energy_span_eV": 7.295520895160735
+    },
+    {
+      "cell_sha256": "fabd3cc1e180c3812aa9167ea4248c19539b064f597f0d4b4c20ecfdc3a77923",
+      "classification": "stable_short_handoff",
+      "completion_completed": true,
+      "completion_last_step": 462000,
+      "completion_ok": true,
+      "end_step": 462000,
+      "expected_end_step": 462000,
+      "expected_frames": 202,
+      "finite_required_metrics": true,
+      "first_frame": {
+        "all_initial_state_checks": true,
+        "cell_match_tol_1e-8_A": true,
+        "first_step": 460000,
+        "first_step_matches_source_step": true,
+        "momenta_match_tol_1e-6": true,
+        "natoms": 2050,
+        "natoms_match": true,
+        "pbc_match": true,
+        "positions_match_tol_1e-6_A": true,
+        "source_file_sha256_matches_handoff": true,
+        "species_match": true
+      },
+      "first_gate": null,
+      "frame_count_ok": true,
+      "frames": 202,
+      "gate_crossings": {
+        "force_gt_100_eV_A": null,
+        "min_distance_lt_1p5_A": null,
+        "n_atoms_gt5_A_ge_100": null,
+        "temperature_gt_2000_K": null,
+        "total_energy_span_ge_250_eV": null,
+        "unwrapped_displacement_gt_50_A": null,
+        "velocity_gt_1000_A_ps": null
+      },
+      "input_sha256": "fd3a1fcd789f30c16cb4d1f9920d2f24a1984aa60103967fcda90d5afc2e1c92",
+      "metrics_sha256": "a82677e530f1577f9e437ae6877fd7b9e3b3b961f6be85497c16d62b77ecfea8",
+      "model": "multi_T-fine-tuning",
+      "model_sha256": "0c132dd8b4b953240ff1cc935b251dfd76df0211869888962a3f0d1e7d1d1522",
+      "momenta_sha256": "535e0fa94469cf441602da60034ca03f9d8fdfd2133d986e9e67d38032206347",
+      "positions_sha256": "b7462ce9dd4e60b942f13bcaadd941fae1f5b2b7df15d0b5a3ce1f94d441c096",
+      "snapshot": 460000,
+      "start_step": 460000,
+      "status": "COMPLETE",
+      "total_energy_span_eV": 11.050475732423365
+    },
+    {
+      "cell_sha256": "fabd3cc1e180c3812aa9167ea4248c19539b064f597f0d4b4c20ecfdc3a77923",
+      "classification": "runaway_or_nonfinite",
+      "completion_completed": true,
+      "completion_last_step": 464200,
+      "completion_ok": true,
+      "end_step": 464200,
+      "expected_end_step": 464200,
+      "expected_frames": 202,
+      "finite_required_metrics": true,
+      "first_frame": {
+        "all_initial_state_checks": true,
+        "cell_match_tol_1e-8_A": true,
+        "first_step": 462200,
+        "first_step_matches_source_step": true,
+        "momenta_match_tol_1e-6": true,
+        "natoms": 2050,
+        "natoms_match": true,
+        "pbc_match": true,
+        "positions_match_tol_1e-6_A": true,
+        "source_file_sha256_matches_handoff": true,
+        "species_match": true
+      },
+      "first_gate": {
+        "gate": "force_gt_100_eV_A",
+        "step": 462200,
+        "time_ps": 462.2
+      },
+      "frame_count_ok": true,
+      "frames": 202,
+      "gate_crossings": {
+        "force_gt_100_eV_A": {
+          "step": 462200,
+          "time_ps": 462.2
+        },
+        "min_distance_lt_1p5_A": {
+          "step": 462200,
+          "time_ps": 462.2
+        },
+        "n_atoms_gt5_A_ge_100": {
+          "step": 462690,
+          "time_ps": 462.69
+        },
+        "temperature_gt_2000_K": {
+          "step": 462470,
+          "time_ps": 462.47
+        },
+        "total_energy_span_ge_250_eV": {
+          "step": 462480,
+          "time_ps": 462.48
+        },
+        "unwrapped_displacement_gt_50_A": {
+          "step": 462540,
+          "time_ps": 462.54
+        },
+        "velocity_gt_1000_A_ps": {
+          "step": 462480,
+          "time_ps": 462.48
+        }
+      },
+      "input_sha256": "763718818c8c0f72028dd3639c2c1524f0c7aa7f5664d7fbfcdf3eea9f2068c8",
+      "metrics_sha256": "1afce60a0260b0476f7063a00e60ae74947d6b53e211f0241909ec956d1d0a09",
+      "model": "foundation-omat",
+      "model_sha256": "dc41a98908dd25b150fb5c8dd0a28d95f5feeac37022682a7c389c475444d08e",
+      "momenta_sha256": "fb8282f3423f60981bf3a8f63f517b2ea7e2453cba1313d85482de82b47e4067",
+      "positions_sha256": "a3f463bc0343a3ac97a0ec08f22a415e9e3deb9efeb8b6c94235a602b055b517",
+      "snapshot": 462200,
+      "start_step": 462200,
+      "status": "COMPLETE",
+      "total_energy_span_eV": 7203496056.536219
+    },
+    {
+      "cell_sha256": "fabd3cc1e180c3812aa9167ea4248c19539b064f597f0d4b4c20ecfdc3a77923",
+      "classification": "runaway_or_nonfinite",
+      "completion_completed": true,
+      "completion_last_step": 464200,
+      "completion_ok": true,
+      "end_step": 464200,
+      "expected_end_step": 464200,
+      "expected_frames": 202,
+      "finite_required_metrics": true,
+      "first_frame": {
+        "all_initial_state_checks": true,
+        "cell_match_tol_1e-8_A": true,
+        "first_step": 462200,
+        "first_step_matches_source_step": true,
+        "momenta_match_tol_1e-6": true,
+        "natoms": 2050,
+        "natoms_match": true,
+        "pbc_match": true,
+        "positions_match_tol_1e-6_A": true,
+        "source_file_sha256_matches_handoff": true,
+        "species_match": true
+      },
+      "first_gate": {
+        "gate": "force_gt_100_eV_A",
+        "step": 462200,
+        "time_ps": 462.2
+      },
+      "frame_count_ok": true,
+      "frames": 202,
+      "gate_crossings": {
+        "force_gt_100_eV_A": {
+          "step": 462200,
+          "time_ps": 462.2
+        },
+        "min_distance_lt_1p5_A": {
+          "step": 462200,
+          "time_ps": 462.2
+        },
+        "n_atoms_gt5_A_ge_100": null,
+        "temperature_gt_2000_K": null,
+        "total_energy_span_ge_250_eV": null,
+        "unwrapped_displacement_gt_50_A": null,
+        "velocity_gt_1000_A_ps": null
+      },
+      "input_sha256": "763718818c8c0f72028dd3639c2c1524f0c7aa7f5664d7fbfcdf3eea9f2068c8",
+      "metrics_sha256": "52c71667036a7862e42f564faab897d9dc1e1ca2743b4bd69d765763fc34d6c6",
+      "model": "from-scratch",
+      "model_sha256": "da17ab17a98241c9ba1ad75f79ef051af4c273879a85e2371213d0b51257f144",
+      "momenta_sha256": "fb8282f3423f60981bf3a8f63f517b2ea7e2453cba1313d85482de82b47e4067",
+      "positions_sha256": "a3f463bc0343a3ac97a0ec08f22a415e9e3deb9efeb8b6c94235a602b055b517",
+      "snapshot": 462200,
+      "start_step": 462200,
+      "status": "COMPLETE",
+      "total_energy_span_eV": 237.53994694445282
+    },
+    {
+      "cell_sha256": "fabd3cc1e180c3812aa9167ea4248c19539b064f597f0d4b4c20ecfdc3a77923",
+      "classification": "runaway_or_nonfinite",
+      "completion_completed": true,
+      "completion_last_step": 464200,
+      "completion_ok": true,
+      "end_step": 464200,
+      "expected_end_step": 464200,
+      "expected_frames": 202,
+      "finite_required_metrics": true,
+      "first_frame": {
+        "all_initial_state_checks": true,
+        "cell_match_tol_1e-8_A": true,
+        "first_step": 462200,
+        "first_step_matches_source_step": true,
+        "momenta_match_tol_1e-6": true,
+        "natoms": 2050,
+        "natoms_match": true,
+        "pbc_match": true,
+        "positions_match_tol_1e-6_A": true,
+        "source_file_sha256_matches_handoff": true,
+        "species_match": true
+      },
+      "first_gate": {
+        "gate": "force_gt_100_eV_A",
+        "step": 462200,
+        "time_ps": 462.2
+      },
+      "frame_count_ok": true,
+      "frames": 202,
+      "gate_crossings": {
+        "force_gt_100_eV_A": {
+          "step": 462200,
+          "time_ps": 462.2
+        },
+        "min_distance_lt_1p5_A": {
+          "step": 462200,
+          "time_ps": 462.2
+        },
+        "n_atoms_gt5_A_ge_100": null,
+        "temperature_gt_2000_K": {
+          "step": 462210,
+          "time_ps": 462.21
+        },
+        "total_energy_span_ge_250_eV": {
+          "step": 462600,
+          "time_ps": 462.6
+        },
+        "unwrapped_displacement_gt_50_A": null,
+        "velocity_gt_1000_A_ps": {
+          "step": 462210,
+          "time_ps": 462.21
+        }
+      },
+      "input_sha256": "763718818c8c0f72028dd3639c2c1524f0c7aa7f5664d7fbfcdf3eea9f2068c8",
+      "metrics_sha256": "a34b1124fde3e0e0453f4e6c87837495a3700315454a5c4876e33be7cba547cb",
+      "model": "naive-fine-tuning",
+      "model_sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a",
+      "momenta_sha256": "fb8282f3423f60981bf3a8f63f517b2ea7e2453cba1313d85482de82b47e4067",
+      "positions_sha256": "a3f463bc0343a3ac97a0ec08f22a415e9e3deb9efeb8b6c94235a602b055b517",
+      "snapshot": 462200,
+      "start_step": 462200,
+      "status": "COMPLETE",
+      "total_energy_span_eV": 447.7198985312134
+    },
+    {
+      "cell_sha256": "fabd3cc1e180c3812aa9167ea4248c19539b064f597f0d4b4c20ecfdc3a77923",
+      "classification": "runaway_or_nonfinite",
+      "completion_completed": true,
+      "completion_last_step": 464200,
+      "completion_ok": true,
+      "end_step": 464200,
+      "expected_end_step": 464200,
+      "expected_frames": 202,
+      "finite_required_metrics": true,
+      "first_frame": {
+        "all_initial_state_checks": true,
+        "cell_match_tol_1e-8_A": true,
+        "first_step": 462200,
+        "first_step_matches_source_step": true,
+        "momenta_match_tol_1e-6": true,
+        "natoms": 2050,
+        "natoms_match": true,
+        "pbc_match": true,
+        "positions_match_tol_1e-6_A": true,
+        "source_file_sha256_matches_handoff": true,
+        "species_match": true
+      },
+      "first_gate": {
+        "gate": "force_gt_100_eV_A",
+        "step": 462200,
+        "time_ps": 462.2
+      },
+      "frame_count_ok": true,
+      "frames": 202,
+      "gate_crossings": {
+        "force_gt_100_eV_A": {
+          "step": 462200,
+          "time_ps": 462.2
+        },
+        "min_distance_lt_1p5_A": {
+          "step": 462200,
+          "time_ps": 462.2
+        },
+        "n_atoms_gt5_A_ge_100": null,
+        "temperature_gt_2000_K": {
+          "step": 462210,
+          "time_ps": 462.21
+        },
+        "total_energy_span_ge_250_eV": {
+          "step": 462260,
+          "time_ps": 462.26
+        },
+        "unwrapped_displacement_gt_50_A": null,
+        "velocity_gt_1000_A_ps": {
+          "step": 462210,
+          "time_ps": 462.21
+        }
+      },
+      "input_sha256": "763718818c8c0f72028dd3639c2c1524f0c7aa7f5664d7fbfcdf3eea9f2068c8",
+      "metrics_sha256": "d7d85e77eddf7a8ff8ee59c14aedbf9cd9113979182e0c6134b6b32ada5c5cd8",
+      "model": "multi_T-fine-tuning",
+      "model_sha256": "0c132dd8b4b953240ff1cc935b251dfd76df0211869888962a3f0d1e7d1d1522",
+      "momenta_sha256": "fb8282f3423f60981bf3a8f63f517b2ea7e2453cba1313d85482de82b47e4067",
+      "positions_sha256": "a3f463bc0343a3ac97a0ec08f22a415e9e3deb9efeb8b6c94235a602b055b517",
+      "snapshot": 462200,
+      "start_step": 462200,
+      "status": "COMPLETE",
+      "total_energy_span_eV": 670.443989019841
+    }
+  ]
+}

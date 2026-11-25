@@ -1,0 +1,23 @@
+\begin{table}[htbp]
+\centering
+\tiny
+\setlength{\tabcolsep}{1.5pt}
+\caption{\textbf{A4 cross-element diagnostic.} The Cr-trained broad-roster models were evaluated on archived Cu/Li/Na paths in the same host. All ten DFT records retain SCF-convergence warnings and therefore fail the scientific DFT gate. The final-column diagnostic is the mean $\pm$ sample SD of the maximum MLIP relative energy across three checkpoints; it is not a DFT barrier error.}
+\label{tab:a4_cross_element_diagnostic}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+Element & Path & DFT gate & $<0.1$ eV screen & Max relative energy (eV) & Seed range (eV) \\
+\midrule
+Cu & \texttt{Cu\_neb} & failed & no & $123.43 \pm 3.95$ & 8.45 \\
+Cu & \texttt{Cu\_neb-QLs} & failed & yes & $1.15 \pm 0.03$ & 0.08 \\
+Cu & \texttt{Cu\_neb-gap-diffuse} & failed & yes & $0.06 \pm 0.01$ & 0.02 \\
+Cu & \texttt{Cu\_neb-gap2QL} & failed & yes & $0.02 \pm 0.01$ & 0.03 \\
+Li & \texttt{Li\_neb-QLs} & failed & yes & $1.14 \pm 0.02$ & 0.05 \\
+Li & \texttt{Li\_neb-gap-diffuse} & failed & yes & $0.10 \pm 0.04$ & 0.09 \\
+Li & \texttt{Li\_neb-gap2Ql} & failed & yes & $0.07 \pm 0.03$ & 0.06 \\
+Na & \texttt{Na\_neb-QLs} & failed & no & $1.62 \pm 0.10$ & 0.25 \\
+Na & \texttt{Na\_neb-gap-diffuse} & failed & yes & $0.30 \pm 0.17$ & 0.39 \\
+Na & \texttt{Na\_neb-gap2QL} & failed & yes & $0.12 \pm 0.04$ & 0.08 \\
+\bottomrule
+\end{tabular}
+\end{table}
