@@ -13,6 +13,10 @@ Conflict decisions were made by comparing the competing file contents and their 
 
 The resulting staged tree had no unresolved index entries at capture. The eventual commit SHA and CI run must be added here after the candidate is committed and pushed. This document does not claim that the PR is merged.
 
+The GitHub branch audit found that every open MigrationBench PR head #5–15 and #17–19 is an ancestor of PR #20; PR #16 is already merged and its head is also an ancestor. Those branches are already represented in the aggregate history, so they should not be merged a second time. The tree comparison found two missing unique deliverables, now restored from their source PRs: the 14,741,298-byte 639-candidate result CSV from PR #11 (`analysis/multimodel_639_screen_20261014/inputs/new_analysis/mlip_candidate_results_all.csv`, SHA-256 `1610544452a612f7969899bc7dfefb3088066b695eb8ffd1ceb7129666e22dd6`) and the 18,170,185-byte MigrationBench story video from PR #18 (`video/migration_story/release/migration_story.mp4`, SHA-256 `999b2dbe1de999e151e7c397ee0e5f2d31d002065afdf0f410605d5ee8ef3cd7`). PR #19's Fig. 6 NPZ is at a new archive path in PR #20 with the same Git blob; no content copy is missing. PR #13's only absent paths are generated Python bytecode.
+
+The PR #20 head was `9a7a1106e83ecda4b7fc84fbb25c10e1dfe6c947` when these two unique deliverables were restored. The `test-and-audit` workflow passed on that head after removing the 54.3 MB SVG from the Git working tree; a new CI run is required for the CSV/video commits below. The 54.3 MB figure remains in the Rockfish archive with its exact source hash.
+
 ## Current storage scope and evidence
 
 New inventory/cleanup work is restricted to `/data/pclancy3/yi` and `/scratch4/pclancy3/yi`. The 2026-11-25 metadata-only reports and compact evidence are in `phase2_data/data_yi_refresh_20261125/` and `phase2_data/scratch4_yi_refresh_20261125/`. Full inventories and hardlink path lists are intentionally retained in the Rockfish evidence archive rather than Git:
@@ -31,6 +35,6 @@ No claim is made that the large storage inventory is itself a complete experimen
 ## Remaining canonicalization gates
 
 - Rockfish login has no `git` executable. The two Scratch16 clones therefore have not yet been refreshed with a Git pull or verified clean against these PR heads.
-- Both PRs remain open. Do not delete source branches, worktrees, or duplicate checkouts until the updated PRs are reviewed/merged and each canonical Scratch16 clone is verified at the merged commit.
+- MigrationBench PR #20 and X-FORCE PR #1 remain open. Do not delete source branches, worktrees, or duplicate checkouts until the updated PRs are reviewed/merged and each canonical Scratch16 clone is verified at the merged commit.
 - The DUAL-X crosswalk currently matches model identity by SHA-256 for 10 of 23 X-FORCE checkpoints. It does not yet map MigrationBench task-level performance, claim evidence, failure diagnoses, or active-learning decisions into DUAL-X. The 414-cell DUAL-X design matrix is not a 414-result dataset; the run database currently contains 80 model-run records.
 - Publication audit findings remain intact, including QE NEB residual/convergence limits, the SI Fig. S2 caption/plot mismatch, and MD termination/result-lineage gaps. No scientific claims were rewritten by repository reconciliation.
