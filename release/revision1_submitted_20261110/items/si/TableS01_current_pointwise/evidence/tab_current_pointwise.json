@@ -1,0 +1,114 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS01_current_pointwise",
+  "name": "tab:current_pointwise",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS01_current_pointwise/source/make_table_s01.py",
+  "script_sha256": "a11667101ad7f4a487b5b82ead198b8b377f914e8693b9eb1875354b7749bbd0",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/parity_summary.csv": "31b20e0378cde7a3fa826f1e2ea29ef54263c6868a33739902c30a744f3453e0"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS01_current_pointwise/rerun_output/tab_current_pointwise.tex": "68088afb130ac4de238d7217ca259ca9e8069ab0ba5a7be131eb57e5e4b1c660"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "shared module si_tables.py hardcode lint clean",
+      "passed": true,
+      "details": {
+        "path": "release/revision1_submitted_20261110/items/si/_shared_generators/si_tables.py",
+        "sha256": "ba0bf8569bc70d61306766eed2eccc6bdc50d92c03e00c37c9dfeb2d4ef4721d",
+        "findings": []
+      }
+    },
+    {
+      "check": "Scratch-600K: one test-frame count across seeds",
+      "passed": true,
+      "details": {
+        "n_frames": [
+          267
+        ],
+        "seeds": [
+          123,
+          234,
+          345
+        ]
+      }
+    },
+    {
+      "check": "FT-600K: one test-frame count across seeds",
+      "passed": true,
+      "details": {
+        "n_frames": [
+          267
+        ],
+        "seeds": [
+          123,
+          234,
+          345
+        ]
+      }
+    },
+    {
+      "check": "Scratch-MultiT: one test-frame count across seeds",
+      "passed": true,
+      "details": {
+        "n_frames": [
+          767
+        ],
+        "seeds": [
+          123,
+          234,
+          345
+        ]
+      }
+    },
+    {
+      "check": "FT-MultiT: one test-frame count across seeds",
+      "passed": true,
+      "details": {
+        "n_frames": [
+          767
+        ],
+        "seeds": [
+          123,
+          234,
+          345
+        ]
+      }
+    },
+    {
+      "check": "three training seeds per condition",
+      "passed": true,
+      "details": {
+        "Scratch-600K": [
+          123,
+          234,
+          345
+        ],
+        "FT-600K": [
+          123,
+          234,
+          345
+        ],
+        "Scratch-MultiT": [
+          123,
+          234,
+          345
+        ],
+        "FT-MultiT": [
+          123,
+          234,
+          345
+        ]
+      }
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:current_pointwise at displayed precision",
+      "passed": true,
+      "details": "4 rows match"
+    }
+  ],
+  "result": "PASS"
+}

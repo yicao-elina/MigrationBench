@@ -1,0 +1,34 @@
+{
+  "release_id": "neb_cross_element_triptychs_20261024_R01",
+  "overall": "PASS_WITH_SCIENTIFIC_BOUNDARIES",
+  "visual_gates": {
+    "three_panel_gutter_present": true,
+    "independent_y_spines_and_ticks": true,
+    "shared_x_label_only": true,
+    "grid_disabled": true,
+    "editable_svg_written": true,
+    "png_written": true,
+    "pdf_written": true
+  },
+  "data_gates": {
+    "finite_plotted_values": true,
+    "all_three_canonical_path_classes_present": true,
+    "reference_rows_retained": true,
+    "failure_and_nonconvergence_statuses_retained": true,
+    "perturbation_arms_excluded_from_main_but_ledgered": true
+  },
+  "scientific_status": {
+    "Cr_fixed_path": "PROVISIONAL_DIAGNOSTIC_CANDIDATE",
+    "Cr_four_model_neb": "MODEL_OBSERVABLE_WITH_NONCONVERGED_ROWS_AND_SCF_WARNING_REFERENCE",
+    "Cu": "PROVISIONAL_DIAGNOSTIC_CANDIDATE",
+    "Li": "PROVISIONAL_DIAGNOSTIC_CANDIDATE",
+    "Na": "PROVISIONAL_DIAGNOSTIC_CANDIDATE",
+    "reference_claim": "QE/DFT reference curves are SCF-warning diagnostics, not unconditional ground truth"
+  },
+  "qa_notes": [
+    "Cr current R03 raw stems contain 2L-Cu text, but the validated geometry/model source identifies a Cr migrant; species identity is taken from the canonical Cr evidence, not the legacy filename stem.",
+    "The main Cr fixed-path figure uses four named representative arms to keep the figure publication-readable; the complete 12-arm matrix is retained in data/Cr_fixed_path_full_12_arm_matrix.tsv.",
+    "Cu/Li/Na main curves use the base variant only; perturbation variants are not silently discarded and are retained as excluded rows with reason.",
+    "No Blender or atom-rendering layer is included."
+  ]
+}

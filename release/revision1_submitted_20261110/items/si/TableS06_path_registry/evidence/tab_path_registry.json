@@ -1,0 +1,59 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS06_path_registry",
+  "name": "tab:path_registry",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS06_path_registry/source/make_table_s06.py",
+  "script_sha256": "e5d54d74fceb32a22a7137356baa1eee3d28d369c8a09289c6e8357c147ea22d",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/scripts/build_path_registry.py": "689f74bd14ebffe84074d1e203e36f58a9dfe794a665e4ad336412b925c5974d",
+    "paper/revision1/data_processed/path_registry.csv": "142dd7416fb4232adf3f85bb74284fffbe21563d868ef4c0b16296e2721bb50f",
+    "data/raw_compact/legacy_61_qe_neb/1-4/sb2te3.xyz": "81c61faf152df1f1c274ccafdbc9810e682b64cf59d1e8f73650ba9b77252b44",
+    "data/raw_compact/legacy_61_qe_neb/1-7/sb2te3.xyz": "25d81dee86702bd59e64180528de84b8133be8ff0a0511071fb62a9f3299d7ed",
+    "data/raw_compact/legacy_61_qe_neb/1-2/sb2te3.xyz": "ed1acbfb3531bf4a0d7bc666b028d44851a8b1739f3966b442aee533734c2ba0",
+    "data/raw_compact/legacy_61_qe_neb/1-3/sb2te3.xyz": "77ab28a0430d525d458ee3c3981cd062bd444feb184b4034a53d1035b10e943a",
+    "data/raw_compact/legacy_61_qe_neb/1-5/sb2te3.xyz": "a3a71d88c87d36562f0c1e1491a95f3eba760745102bf3e00de584d77c0d7fe7",
+    "data/raw_compact/legacy_61_qe_neb/1-6/sb2te3.xyz": "7db35bb57ad82b75a5c46c66814249d2f2a9a7a0c79019cd359e525e3a7235a8",
+    "data/raw_compact/legacy_61_qe_neb/1-8/sb2te3.xyz": "7bf2d109530748172c95967b3c813cc2c28bfb39ff44c2829f327d642402f1cc",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_1/sb2te3.xyz": "3770bf661fb3cbb61420b51860a72e1c717c0dfb7509dc4ebd7672900abd7934",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_2/sb2te3.xyz": "8d9d92ebbcf6e967e9f969d6835dd87d04929450e8da2b31be9f79541158ae86",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_3/sb2te3.xyz": "84c0d4f8fb5ef8a7f1887d8bbc3cdda9b72fe216841c42bac75961f6923c57c2",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_4/sb2te3.xyz": "78b2a5a88dc45cbc7f3f8c11345a7ac97eb0a207bd3dc2b219dc258965c335df",
+    "data/raw_compact/revision1/81_atom_2D_421_Diffusion_traj/neb_5/sb2te3.xyz": "3c1e67172bf3fa9e9f976f741db89f15210bece564613d1b334a0184e356cee6"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS06_path_registry/rerun_output/tab_path_registry.tex": "0b54f66c7791dbfbb08e4d0d49ac6a6362b12b5d616804570ca43548af1ae01b"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "atoms (sb2te3.xyz), class and audit ID agree with path_registry.csv and the generator",
+      "passed": true,
+      "details": "12 paths agree"
+    },
+    {
+      "check": "basis wording differing from generator or path_registry.csv (informational)",
+      "passed": true,
+      "details": [
+        {
+          "name": "G1",
+          "rendered": "Cr stays in the vdW gap between sites defined as in-gap in the path queue; image-set reference path",
+          "generator": "Cr stays in the vdW gap between sites defined as in-gap in the path queue; image-set reference path",
+          "path_registry_csv": "Cr stays in the vdW gap between sites defined as in-gap in the path queue; barrier reference path"
+        },
+        {
+          "name": "L1",
+          "rendered": "Exact image coordinates place Cr within the quintuple layer",
+          "generator": "Exact image coordinates give probable deep penetration",
+          "path_registry_csv": "Exact image coordinates give probable deep penetration"
+        }
+      ]
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:path_registry at displayed precision",
+      "passed": true,
+      "details": "12 rows match"
+    }
+  ],
+  "result": "PASS"
+}

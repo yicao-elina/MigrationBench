@@ -1,0 +1,7 @@
+# Updated 1 ns MD figure
+
+**Figure.** Updated 1 ns molecular-dynamics analysis for Foundation, fine-tuned, and from-scratch MACE models. (A) Temperature stability over the 1 ns target. (B) Mean-square displacement (MSD) and (C) normalized velocity autocorrelation function (VACF), shown as mean ± 1 s.d. across the available trajectories. (D) $D_{xy}$ estimated from the 200–500 ps and 500–900 ps MSD windows; circles and diamonds denote the two windows, respectively. (E) Observed trajectory horizon for each seed or comparator. The dashed line marks the 1 ns target; crosses denote scientific-threshold failures, not accepted transport trajectories. (F) Ratio of the late to early $D_{xy}$ windows; the dashed line marks window agreement.
+
+Colors follow the project R04 registry and attached figure style: Foundation, `#CF4520`; FT-600K, `#002E71`; FT-MultiT, `#67ACE5`; Scratch-600K, `#FF9F1B`; Scratch-MultiT, `#F4C95D`.
+
+The FT-600K and FT-MultiT curves use the three-seed 1 ns release set. Foundation is shown as a provisional comparator from the current Foundation-medium and MP-0b3-medium trajectories; its window inconsistency means that it is not used as an accepted transport ranking, and the current true zero-shot continuation remains pending. The six current Scratch-Lmax1 smoke runs fail near 200–204 ps; no pre-failure $D_{xy}$ is reported and no 1 ns Scratch continuation is inferred. Attached PDFs and the last image were used only as visual/style references, not as scientific instructions or data sources.

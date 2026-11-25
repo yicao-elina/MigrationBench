@@ -1,0 +1,5 @@
+claim_id	claim	evidence	status	caveat
+FIG-PARITY	DFT/reference versus MLIP/prediction for energy and force across train/test AIMD points	figures/fig_parity_r2_4x2.{pdf,svg,png}; raw/rockfish_parity/*__parity.npz; parity_summary.csv	SUPPORTED	Display points are deterministically subsampled at 9000 per split; R2/RMSE use full arrays.
+FIG-FRAME	Frame-level error distributions contain the evaluated train/test frames	figures/fig_rmse_frame_distributions.{pdf,svg,png}; raw/rockfish_parity/*__per_frame.csv	SUPPORTED	Energy is absolute error per atom; force is per-frame component RMSE.
+DATA-LINEAGE	The 24 model/seed/split evaluations use hash-checked model and XYZ inputs	MODEL_REGISTRY.tsv; parity_manifest.tsv; QUALITY_AUDIT.tsv	SUPPORTED	Current parity values are a direct Rockfish re-evaluation, not recovered historical paired training output.
+SCIENTIFIC-STATUS	Test energy R2 is negative for 600K families because the test reference-energy span is narrow	parity_summary.csv; GAP_REPORT.md	DIAGNOSTIC	Retained; no outlier or model was silently removed.

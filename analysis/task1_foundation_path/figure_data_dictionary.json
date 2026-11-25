@@ -1,0 +1,20 @@
+{
+  "figure_policy": "schema-only until accepted DFT paths and real MACE results exist; no scientific PNG/SVG/PDF is rendered from fabricated values",
+  "reason": "All 10 DFT candidates are ledger-only after explicit reference gate; no Foundation MACE scientific rows were executed.",
+  "required_figure_panels": [
+    "DFT_vs_Foundation_profiles",
+    "barrier_scatter",
+    "imagewise_force_error",
+    "return_distance_distribution",
+    "basin_heatmap",
+    "model_path_image_stability_matrix"
+  ],
+  "scientific_status": "blocked",
+  "tables": {
+    "dft_reference_manifest.csv": "One row per remote DFT NEB candidate; hashes are remote raw-file hashes and no raw tree is copied.",
+    "failure_retry_ledger.csv": "DFT failed/unfinished evidence plus downstream matrix blocks; SLURM completion is not success.",
+    "foundation_path_force_errors.csv": "Image-wise force-error schema; empty numeric cells because the DFT reference gate failed.",
+    "foundation_path_single_point.csv": "One blocked row per model-path; numeric fields are intentionally blank, never placeholders for measurements.",
+    "foundation_perturb_relax_summary.csv": "Three perturbation rows per model-path; no relaxation was started."
+  }
+}

@@ -1,0 +1,10 @@
+claim_id	claim	status	evidence	boundary_or_gap
+C001	639 canonical candidate structures were evaluated with all three registered MLIP checkpoints	VERIFIED	results/analysis_manifest.json; results/candidate_execution_mapping.csv	No runtime failures; static single points only
+C002	The three checkpoint identities and SHA256 hashes are fixed and reproducible	VERIFIED	MODEL_REGISTRY.tsv; results/analysis_manifest.json	Training seed and source MD seed are distinct fields
+C003	Stable, precursor, and threshold source stages show increasing static maximum-force tails	VERIFIED	results/model_stage_summary.csv; figures/fig_mlip_force_by_group.pdf	Descriptive stage comparison; source labels are not redefined by static evaluation
+C004	Cross-model force disagreement rises toward precursor and threshold structures	VERIFIED	results/candidate_model_spread.csv; results/pairwise_force_disagreement.csv	Descriptive paired-model diagnostic, not calibrated uncertainty
+C005	The MLIP force is DFT-correct or incorrect for the full 2050-atom cell	PROVENANCE_PARTIAL	results/analysis_manifest.json; dft_ready_batch_20261013/SUBMISSION_RECORD.json	No converged DFT result yet; 2050-atom full-cell QE was not feasible
+C006	A specific MLIP feature or lmax reduction is the causal origin of the MD runaway	PROVENANCE_PARTIAL	figures/MLIP_RESULTS_DISCUSSION.md	Shared lineage, geometry, and stochastic sensitivity remain confounded; no causal claim
+C007	The unstable branches provide a publishable Dxy or transport coefficient	FAILURE_MODE	results_all_replicates/RESULTS_DISCUSSION.md	Unstable branches remain no-Dxy; static candidate evaluation does not create transport data
+C008	The 120-atom systems are exact parity reductions of the 2050-atom supercell	RECONSTRUCTION	dft_ready_batch_20261013/remote_prepared/dft_ready_batch_manifest.json	PBC is preserved, but local-periodic shells are reconstructions pending parity/convergence checks
+C009	The first DFT-ready batch is running with at most 20 candidates	SUBMITTED_PENDING	dft_ready_batch_20261013/SUBMISSION_RECORD.json; Rockfish Job 31924176_[0-19%2]	QE outputs, JOB DONE, finite forces, and convergence remain pending

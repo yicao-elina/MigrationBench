@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/run_mace_single_points.py", line 44, in main
+    calc = MACECalculator(model_paths=str(args.model_path), device=args.device, default_dtype="float64")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/alina/anaconda3/lib/python3.11/site-packages/mace/calculators/mace.py", line 297, in __init__
+    raise ValueError(
+ValueError: Head keyword was not provided, and no head in the model is 'default'. Please provide a head keyword to specify the head you want to use. Available heads are: ['matpes_r2scan', 'mp_pbe_refit_add', 'spice_wB97M', 'oc20_usemppbe', 'omol', 'omat_pbe']

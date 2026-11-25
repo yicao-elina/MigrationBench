@@ -7,7 +7,7 @@
 | Abstract | Claims "generalizable standard" too strongly | N14 | Candidate framework demonstrated on Cr-doped Sb2Te3; broader validation as outlook | done-local draft |
 | Introduction | Research question implies established generality | N14 | Phrase as benchmark question and scope statement | done-local draft |
 | Introduction delta paragraph | Missing delta from arXiv:2509.00090 | N14 | Add exact novelty delta: MD transport, NEB stability, SHAP framework, sliding analysis | done-local draft |
-| §3.1 transport | FT-600K naive-FT MD protocol invalid | N11 | Quarantine old value; insert corrected values once rerun finishes | partial |
+| §3.1 transport | FT-600K MD protocol invalid (legacy source alias: naive-FT) | N11 | Quarantine old value; insert corrected values once rerun finishes | partial |
 | §3.2 NEB reference | 0.34 vs ~0.3 eV inconsistency | N2, N6 | Use one path id and one barrier definition; currently 1-4 candidate 0.336050 eV with caveat | partial |
 | §3.2 fixed vs self-NEB | Foundation "unacceptable" vs "exceptional" conflict | N6, N8 | Explain that Fig. 3 fixed-path scoring and Fig. S3 self-relaxed NEB are different observables; recheck the `~0.7 eV` and `0.41 eV` values by provenance/rerun before retaining either qualitative claim | protocol distinction accepted; numeric audit pending |
 | §3.2 deep penetration | "by chance" unsupported | N9, N6 | Replace with seed-stability decision rule and measured std | pending data |

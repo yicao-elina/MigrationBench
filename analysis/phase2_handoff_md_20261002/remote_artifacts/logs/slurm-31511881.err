@@ -1,0 +1,14 @@
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/e3nn/o3/_wigner.py:10: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  _Jd, _W3j_flat, _W3j_indices = torch.load(os.path.join(os.path.dirname(__file__), 'constants.pt'))
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/mace/calculators/mace.py:139: UserWarning: Environment variable TORCH_FORCE_NO_WEIGHTS_ONLY_LOAD detected, since the`weights_only` argument was not explicitly passed to `torch.load`, forcing weights_only=False.
+  torch.load(f=model_path, map_location=device)
+/data/pclancy3/yi/.conda/envs/mace/lib/python3.9/site-packages/torch/serialization.py:1488: UserWarning: 'torch.load' received a zip file that looks like a TorchScript archive dispatching to 'torch.jit.load' (call 'torch.jit.load' directly to silence this warning)
+  warnings.warn(
+Traceback (most recent call last):
+  File "/scratch16/pclancy3/yi/phase2_handoff_md_20261002/scripts/handoff_md.py", line 188, in <module>
+    main()
+  File "/scratch16/pclancy3/yi/phase2_handoff_md_20261002/scripts/handoff_md.py", line 177, in main
+    record()
+  File "/scratch16/pclancy3/yi/phase2_handoff_md_20261002/scripts/handoff_md.py", line 171, in record
+    raise FloatingPointError(f"non-finite metric at step {step}: {row}")
+FloatingPointError: non-finite metric at step 461800: {'absolute_step': 461800, 'time_ps': 461.8, 'potential_energy_eV': -2565341.591005645, 'kinetic_energy_eV': 157.6734686428649, 'total_energy_eV': -2565183.9175370024, 'temperature_K': 595.0326000670153, 'max_force_eV_A': 4.245187318519821, 'max_velocity_A_ps': 116.05167840913892, 'max_momentum_amu_A_ps': 10.529111079189816, 'min_distance_A': 2.3599968026688285, 'max_mic_displacement_A': 0.0, 'n_atoms_mic_displacement_gt5A': 0, 'max_unwrapped_displacement_A': 0.0, 'n_atoms_unwrapped_displacement_gt5A': 0, 'rdf_l1_vs_initial': 0.0, 'min_Cr_Sb_A': 2.441309636047953, 'mean_Cr_Sb_A': 4.950702618979273, 'coord_Cr_Sb_lt_3.6A': 63, 'min_Cr_Te_A': 2.3599968026688285, 'mean_Cr_Te_A': 4.399358306232187, 'coord_Cr_Te_lt_3.4A': 294, 'min_Cr_Cr_A': nan, 'mean_Cr_Cr_A': nan, 'coord_Cr_Cr_lt_3.5A': 0}

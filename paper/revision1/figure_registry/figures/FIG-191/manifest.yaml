@@ -1,0 +1,80 @@
+schema_version: 1
+figure_id: FIG-191
+logical_figure: paper/revision1/figures/figS_latent_robustness
+title: Figs latent robustness
+group_id: REV1-ARTICLE
+parent_group: REV1-ARTICLE
+sibling_ids:
+- FIG-189
+- FIG-190
+- FIG-192
+- FIG-193
+article_targets:
+- Mapped by sn-article-final.tex or sn-article-SI.tex
+reviewer_status: PARTIAL
+reviewer_links:
+- id: REV-A6
+  status: PARTIAL
+  question: Soften t-SNE/PHATE and SHAP interpretation claims and add projection/original-space
+    and surrogate-fidelity checks.
+  completed_evidence: Projection sensitivity, original-descriptor-space separation,
+    and per-model cross-validated surrogate R2 are available; the text is scoped to
+    descriptive/surrogate evidence.
+  still_required: A direct MACE Cr-Cr perturbation test remains pending if a causal
+    claim about the dominant feature is desired; otherwise retain the surrogate-scoped
+    wording.
+- id: REV-C11
+  status: DONE
+  question: Compute separability in the original/high-dimensional descriptor space
+    rather than only on a 2D embedding.
+  completed_evidence: Original-space metrics and projection-sensitivity checks are
+    available; embedding scores are retained only as descriptive baselines.
+  still_required: No new numerical figure is required; preserve the feature-space
+    definition and scaling sensitivity in the caption/methods.
+- id: REV-C12
+  status: DONE
+  question: Remove the always-zero force-sensitivity feature stub from the latent
+    analysis.
+  completed_evidence: The inactive channel was removed and no unsupported force-sensitivity
+    claim is made.
+  still_required: No additional figure evidence is required unless a genuine finite-difference
+    force-sensitivity analysis is later added.
+scientific_status: publication
+lock_status: draft
+promotion_status: review_book_only
+asset: asset.pdf
+asset_sha256: cd7b44769abda94c23b75b40227793121a5a7cde254c9a2e6fb7aaf6cfe99dfa
+source_export: /Users/alina/Project/migrationbench-paper-repro/paper/revision1/figures/figS_latent_robustness.pdf
+legacy_v1_page: ../figure_pages.tex#FIG-191
+evidence_candidates:
+  caption_discussion_source_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/benchmark_formalization.tex
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/response_to_reviewers.log
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/response_to_reviewers.out
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/response_to_reviewers.tex
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/revision1_pitch_walkthrough.tex
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/sn-article-SI.log
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/sn-article-SI.out
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/sn-article-SI.tex
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/sn-article-final.log
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/sn-article-final.out
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/sn-article-final.tex
+  raw_or_processed_data_candidates:
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/data_processed/latent_embedding_sensitivity.csv
+  - /Users/alina/Project/migrationbench-paper-repro/paper/revision1/data_processed/latent_silhouette_all_spaces.csv
+  - /Users/alina/Project/migrationbench-paper-repro/docs/audit/revision1/latent_robustness_note.md
+  plot_script_candidates: []
+authored_hashes:
+  page.tex: b5a0d111277d6e37cf921869345e302c6f1a758d74b995707101da5086ded7c4
+  figure.tex: 6f3a3f9ef2ac84af094ddadd25986e5e756dc6628c6f61a4ce0a991b97080caa
+  caption.tex: ae7b81d5a8ec367f2384e9d4473834f4fcb03cdfcca411c288d0a33c921da403
+  results.tex: 177fc8b5c86fcd1a2c3b9ca5c63fa1a1788d116567f08213c3107986000b9603
+  discussion.tex: 5520ae3a76f349bad47f1f25c72c4883a2fa7b31be0aacd13877e4b98d887ea5
+  reviewer.tex: 7eee1d496655820e58363443f8c6b662caa234a3be47ed35d4f756418a377001
+  evidence.tex: e64bbe77a6cc0ec58c153b111c05c8979122b68aa03f2a4b040dde6a6be99681
+  article.tex: f2a1d3e954e69bbb1081e9b0ff0597f353850815d74d6712b4c17efddd342d73
+  gap.tex: 5bc3c26335d109bf78468bee3486ab976be0a425af6c28d7b8c3313f0be86fcb
+migration_note: Migrated from frozen 211-page review book; authored fragments are
+  now the editable surface.
+evidence_metadata_source: /Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/figure_evidence_matrix.tsv
+hash_updated_by: figurectl update-hashes

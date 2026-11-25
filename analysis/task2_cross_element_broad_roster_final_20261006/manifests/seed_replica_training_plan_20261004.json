@@ -1,0 +1,28 @@
+{
+  "schema_version": "task2-broad-roster-seed-replica-plan-1.0",
+  "status": "submitted",
+  "slurm_job_id": "31585322",
+  "slurm_array": "31585322_[456,789]",
+  "reference_seed": 123,
+  "replica_seeds": [456, 789],
+  "remote_root": "/scratch16/pclancy3/yi/cross_element_generalization_seeds_20261004",
+  "data_root": "/scratch16/pclancy3/yi/revision1_migrationbench_runs/multit_grouped_A2_20261001/data_grouped_multiT",
+  "foundation_sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0",
+  "model_config": {
+    "max_num_epochs": 1000,
+    "required_final_epoch": 999,
+    "eval_interval": 1,
+    "patience": 2000,
+    "ema": true,
+    "ema_decay": 0.99,
+    "save_all_checkpoints": true,
+    "keep_checkpoints": true,
+    "save_cpu": true,
+    "atomic_numbers": [3, 11, 23, 24, 25, 29, 35, 42, 51, 52, 55, 82]
+  },
+  "output_dirs": {
+    "456": "/scratch16/pclancy3/yi/cross_element_generalization_seeds_20261004/broad_roster_ft_seed456_final_epoch",
+    "789": "/scratch16/pclancy3/yi/cross_element_generalization_seeds_20261004/broad_roster_ft_seed789_final_epoch"
+  },
+  "downstream_gate": "Do not pool or compare a seed until its epoch-999 checkpoint, exported model state_dict, compiled model, A100 element probes, and finite Task 2 profile outputs pass independent audit."
+}

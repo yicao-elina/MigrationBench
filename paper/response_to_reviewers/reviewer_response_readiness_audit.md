@@ -1,6 +1,6 @@
 # Reviewer Response Readiness Audit
 
-Last updated: 2026-09-11  
+Last updated: 2026-10-18
 Overleaf source commit: `29310f4`
 
 ## Bottom Line
@@ -15,10 +15,10 @@ audit workflow before the response can be sent.
 | Reviewer point | Current status | Blocks final submission? | What is still needed |
 |---|---|---:|---|
 | A1 Fig. 3d vs Fig. S3 inconsistency | Text-ready, data-partial | Yes | Final QE NEB convergence metadata for path 1--4 and accepted DFT barrier |
-| A2 FT-600K train/test overlap | Method written, data pending | Yes | SOAP nearest-neighbor distances and RMSD checks; exclusion retrain if triggered |
-| A3 kinetic uncertainty / “chance” claim | Text softened, data pending | Yes | Three-seed Scratch and FT-600K barrier statistics |
+| A2 FT-600K train/test overlap | Grouped audit and retraining complete for declared FT-600K/Scratch/Scratch-5% files; DFT anchor provisional | Yes | Final QE reference closure; FT-Multi$_T$ was not part of this grouped round |
+| A3 kinetic uncertainty / “chance” claim | Grouped three-seed in-gap and path-resolved candidate statistics complete; hard-OOD scope remains conditional | Yes | Converged higher-distortion DFT references, final path classification, and same-system self-relaxed DFT rescoring |
 | A4 generalizability scope | Complete | No | Optional second-system result only if we choose that route |
-| A5 Scratch-5% control | Placeholder written, data pending | Yes | Scratch-5% training and barrier/RMSE evaluation |
+| A5 Scratch-5% control | Grouped 89-frame control complete for the controlled in-gap scope; exact approximately 1000-frame ablation remains open | Yes | Decide whether to run the exact group-preserving ablation; retain current limitation explicitly |
 | A6 t-SNE/PHATE and SHAP claims | Mostly complete | Partial | SHAP code-release provenance; optional full-set rerun / perturbation test if retained |
 | A7 related work and delta | Complete | No | None |
 | C8 zero-force exporters | Response drafted, evidence pending | Yes | Cluster training-log evidence and patched exporter commit |

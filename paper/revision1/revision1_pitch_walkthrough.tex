@@ -40,7 +40,7 @@
 \newcommand{\epsreport}{\varepsilon_{\mathrm{report}}}
 \newcommand{\dpath}{d_{\mathrm{path}}}
 
-\title[Non-Equilibrium Probes for MLFFs]{Non-Equilibrium Migration Probes as a Task-Relevant Benchmark for MLFFs}
+\title[Non-Equilibrium Probes for MLIPs]{Non-Equilibrium Migration Probes as a Task-Relevant Benchmark for MLIPs}
 \subtitle{Revision 1 walkthrough: scientific pitch, reviewer challenges, and executable closure plan}
 \author{Yi Cao, Peter Mastracco, Paulette Clancy}
 \institute{Johns Hopkins University}
@@ -54,7 +54,7 @@
 
 \begin{frame}{One-Sentence Pitch}
   \begin{block}{Core thesis}
-  The bottleneck in MLFF evaluation is not equilibrium accuracy alone, but robustness under distribution-shifted, non-equilibrium migration probes.
+  The bottleneck in MLIP evaluation is not equilibrium accuracy alone, but robustness under distribution-shifted, non-equilibrium migration probes.
   \end{block}
 
   \vspace{0.4cm}
@@ -75,7 +75,7 @@
   path geometry, and long-range mechanical response.
 \end{frame}
 
-\begin{frame}{Why This Is Not Just ``Which MLFF Is Better''}
+\begin{frame}{Why This Is Not Just ``Which MLIP Is Better''}
   \begin{columns}[T]
     \begin{column}{0.48\textwidth}
       \begin{block}{Traditional evaluation}
@@ -172,7 +172,7 @@
   \begin{align*}
   \textbf{DFT path:}\quad
   \Gdft &= \operatorname{NEB}_{\mathrm{DFT}}(x_0,x_1),\\
-  \textbf{MLFF path:}\quad
+  \textbf{MLIP path:}\quad
   \GM &= \operatorname{NEB}_{M}(x_0,x_1),\\
   \textbf{Fixed-path evaluation:}\quad
   \EM(\Gdft) &= \{\EM(X_i^{\mathrm{DFT}})\}_i.
@@ -205,7 +205,7 @@
   \begin{itemize}
     \item This isolates energy-surface accuracy on the same path.
     \item This is the Fig. 3d type of comparison.
-    \item It should not be compared directly to a self-relaxed MLFF path barrier.
+    \item It should not be compared directly to a self-relaxed MLIP path barrier.
   \end{itemize}
 \end{frame}
 
@@ -349,9 +349,9 @@
   \toprule
   Evidence & Current status & Manuscript use \\
   \midrule
-  1-4 DFT barrier $0.336050$ eV & stationary but not fully formal-converged & cite only with caveat \\
+  1-4 DFT barrier $0.34$ eV & stationary but not fully formal-converged & cite only with caveat \\
   Foundation fixed-path error $\approx +0.69$ eV & reproducible on 1-4 & useful for A1 \\
-  1-7 MACE pre-NEB & technically works; internal fmax $\sim 0.048$ eV/A & good QE initializer \\
+  1-7 MACE pre-NEB & technically works; internal fmax $\sim 0.05$ eV/A & good QE initializer \\
   81-atom paths & all deep-penetration by descriptors & candidates only \\
   81-atom DFT barriers & historical force errors too high & quarantined \\
   Zero-force leakage & no evidence in reported training & reviewer response usable \\
@@ -372,7 +372,7 @@
   The answer must specify:
   \begin{align*}
   \text{same pathway?} &\quad \tau_{\mathrm{Fig3d}} = \tau_{\mathrm{FigS3}} \; ?\\
-  \text{same DFT reference?} &\quad \Delta E_{\mathrm{DFT}}(\Gamma) = 0.336\ \mathrm{eV}\; ?\\
+  \text{same DFT reference?} &\quad \Delta E_{\mathrm{DFT}}(\Gamma) = 0.34\ \mathrm{eV}\; ?\\
   \text{same protocol?} &\quad \epsfixed \neq \epsself.
   \end{align*}
 
@@ -571,7 +571,7 @@
 
 \begin{frame}{Final Manuscript Narrative}
   \begin{enumerate}
-    \item Equilibrium MLFF metrics are necessary but not sufficient.
+    \item Equilibrium MLIP metrics are necessary but not sufficient.
     \item Migration and sliding induce non-equilibrium distribution shift.
     \item NEB paths define a task-relevant probe distribution $\Dne$.
     \item Fixed-path and self-relaxed evaluations expose different failure modes.
@@ -581,7 +581,7 @@
 
   \vspace{0.25cm}
   \begin{block}{Take-home}
-  The paper's contribution is a formal diagnostic framework for MLFF deployment risk under non-equilibrium material tasks.
+  The paper's contribution is a formal diagnostic framework for MLIP deployment risk under non-equilibrium material tasks.
   \end{block}
 \end{frame}
 

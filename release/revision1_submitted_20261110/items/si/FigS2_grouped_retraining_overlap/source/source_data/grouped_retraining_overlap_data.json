@@ -1,0 +1,38 @@
+{
+  "panel_a": {
+    "metric": "absolute fixed-path barrier error (eV)",
+    "reference_barrier_eV": 1.524299,
+    "reference_status": "FINITE_DIAGNOSTIC; DFT source retains convergence warning",
+    "trained_models": {
+      "FT-600K": [0.034573, 0.448904, 0.316899],
+      "FT-MultiT": [0.369348, 0.359093, 0.360664],
+      "Scratch-600K": [0.599664, 0.280214, 0.428165],
+      "Scratch-MultiT": [0.595216, 1.116817, 0.673546]
+    },
+    "foundation_models": {
+      "MP-0B3": 0.379824,
+      "OMAT-0": 0.308188,
+      "MPA0": 0.352634
+    },
+    "source": "output/revision1_camera_ready/paper/revision1/data_processed/current_release/fig5_plotted_values_as_supplied.tsv",
+    "source_rows": "column_id=migration_in_gap_fixed; absolute_error_eV; canonical DFT reference=1.524299 eV"
+  },
+  "panel_b": {
+    "scope": "Legacy G1 / 25-image overlap audit",
+    "thresholds": {
+      "soap_cosine": 0.0001,
+      "cr_local_rmsd_angstrom": 0.05
+    },
+    "minimums": {
+      "Full grouped": {
+        "soap_cosine": 0.000542785133204049,
+        "cr_local_rmsd_angstrom": 2.055065268285385
+      },
+      "Scratch-5%": {
+        "soap_cosine": 0.0006374028848443736,
+        "cr_local_rmsd_angstrom": 2.056638391614761
+      }
+    },
+    "source": "/Users/alina/Project/migrationbench-paper-repro/paper/response_to_reviewers/reviewer_a2_grouped_retraining/data/overlap_full_leakage_audit.json; overlap_scratch5_leakage_audit.json"
+  }
+}

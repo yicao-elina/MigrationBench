@@ -1,0 +1,64 @@
+{
+  "inputs": [
+    {
+      "natoms": 81,
+      "qe_input": "analysis/dft_validation_phase3_20261002/qe_inputs_81/step_460000/scf.in",
+      "qe_input_sha256": "50a6d906587136273b359732e81217e3a0735fd1d172d519652c42aba0adc9e3",
+      "source_comment": "Lattice=\"17.10859971872434 0.00000000000000 0.00000000000000 -4.26916021361244 7.40364387667964 0.00000000000000 0.08956351952752 0.05165086255083 47.42888785524057\" Properties=species:S:1:pos:R:3:momenta:R:3:forces:R:3 step=460000 time_fs=460000.0 pbc=\"T T T\" source_block_model=T",
+      "source_extxyz": "analysis/dft_validation_phase3_20261002/inputs/ordered_block7/snapshot_step_460000_same_site81_ordered.extxyz",
+      "source_sha256": "54b4a390c974ae3394d6b0afe38c35172eb5b47f3ad7fb05a9b6215ee057ceb3",
+      "step": 460000
+    },
+    {
+      "natoms": 81,
+      "qe_input": "analysis/dft_validation_phase3_20261002/qe_inputs_81/step_461800/scf.in",
+      "qe_input_sha256": "94b5a5eb558bd21ff2d9326ad539d022ecf8168fcd449ce871ef6e7cc1900054",
+      "source_comment": "Lattice=\"17.10859971872434 0.00000000000000 0.00000000000000 -4.26916021361244 7.40364387667964 0.00000000000000 0.08956351952752 0.05165086255083 47.42888785524057\" Properties=species:S:1:pos:R:3:momenta:R:3:forces:R:3 step=461800 time_fs=461800.0 pbc=\"T T T\" source_block_model=T",
+      "source_extxyz": "analysis/dft_validation_phase3_20261002/inputs/ordered_block7/snapshot_step_461800_same_site81_ordered.extxyz",
+      "source_sha256": "9fc2f8974f5fbb62f380a768c91a850ab50cb4a06c4818b824d77ef093274108",
+      "step": 461800
+    },
+    {
+      "natoms": 81,
+      "qe_input": "analysis/dft_validation_phase3_20261002/qe_inputs_81/step_462000/scf.in",
+      "qe_input_sha256": "10720a6bbbe71e81d3ce88863e870817492d79b16c1066d51047d21ea2da04a9",
+      "source_comment": "Lattice=\"17.10859971872434 0.00000000000000 0.00000000000000 -4.26916021361244 7.40364387667964 0.00000000000000 0.08956351952752 0.05165086255083 47.42888785524057\" Properties=species:S:1:pos:R:3:momenta:R:3:forces:R:3 step=462000 time_fs=462000.0 pbc=\"T T T\" source_block_model=T",
+      "source_extxyz": "analysis/dft_validation_phase3_20261002/inputs/ordered_block7/snapshot_step_462000_same_site81_ordered.extxyz",
+      "source_sha256": "b6c2959002c4d6b19086919a10515380580a62dfbcaf05d89e4a95729669a6e6",
+      "step": 462000
+    },
+    {
+      "natoms": 81,
+      "qe_input": "analysis/dft_validation_phase3_20261002/qe_inputs_81/step_462200/scf.in",
+      "qe_input_sha256": "75978051038f54a668a776a91848154cfb2e661c4a6f0128595a79bd005df300",
+      "source_comment": "Lattice=\"17.10859971872434 0.00000000000000 0.00000000000000 -4.26916021361244 7.40364387667964 0.00000000000000 0.08956351952752 0.05165086255083 47.42888785524057\" Properties=species:S:1:pos:R:3:momenta:R:3:forces:R:3 step=462200 time_fs=462200.0 pbc=\"T T T\" source_block_model=T",
+      "source_extxyz": "analysis/dft_validation_phase3_20261002/inputs/ordered_block7/snapshot_step_462200_same_site81_ordered.extxyz",
+      "source_sha256": "8faca82f04bc5e8fa0a6a98329e94c0741228d536b8b505aa125fef76448adb2",
+      "step": 462200
+    }
+  ],
+  "protocol": {
+    "calculation": "scf",
+    "code": "Quantum ESPRESSO pw.x 7.3.1-cpu",
+    "conv_thr_Ry": 1e-06,
+    "degauss_Ry": 0.0146997236,
+    "ecutrho_Ry": 280,
+    "ecutwfc_Ry": 70,
+    "electron_maxstep": 400,
+    "fixed_positions_and_cell": true,
+    "functional": "PBE + DFT-D3",
+    "kpoints": "2 2 2 1 1 1",
+    "nspin": 2,
+    "occupations": "smearing",
+    "pseudopotential_dir": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE",
+    "pseudopotentials": {
+      "Cr": "Cr_PBE_FR.SG15v1.2.UPF",
+      "Sb": "Sb_PBE_FR.SG15v1.2.UPF",
+      "Te": "Te_PBE_FR.SG15v1.2.UPF"
+    },
+    "smearing": "cold",
+    "soc": false,
+    "tprnfor": true,
+    "tstress": true
+  }
+}

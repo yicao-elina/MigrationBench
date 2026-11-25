@@ -1,0 +1,51 @@
+{
+  "package_id": "MD-SENSITIVITY-48RUN",
+  "generated_by": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/scripts/render_table_backed_packages.py",
+  "plot_atlas_root": "/Users/alina/Documents/Codex/plot_library",
+  "plot_atlas_panels": [
+    "timecourse",
+    "grouped_bar",
+    "bar_with_points",
+    "clustered_heatmap"
+  ],
+  "source_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/phase2_integrator_sensitivity_20261003/audit_20261004_final/sensitivity_summary.csv",
+      "sha256": "91008f40fded4f0fdc301e01de8b46a0d23c981494ffffa7851b081ae89b4a9f"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/phase2_integrator_sensitivity_20261003/SENSITIVITY_RESULTS.md",
+      "sha256": "9c25caa729b405ea62396169ae25a6d7932e74842df484166b613cc7d0cc54c0"
+    }
+  ],
+  "processed_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MD-SENSITIVITY-48RUN/processed_sensitivity_summary.csv",
+      "sha256": "cf5205fe25bd66629a1c61b901a2792f26fea90200e6febb54ee00ba86d88931"
+    }
+  ],
+  "figure_files": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MD-SENSITIVITY-48RUN/phase2_sensitivity_ablation_atlas.png",
+      "sha256": "e69b20a10fdc440b67afa7bc8eba54f4f863e9e4e8ac878beb5eabf4a12456ac"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MD-SENSITIVITY-48RUN/phase2_sensitivity_ablation_atlas.svg",
+      "sha256": "5836222abb21b7bbb8ebb6323d45ff7a1ba78e4b730651c3b5d0e29e1b6880d7"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/figure_evidence_audit_20261008/generated/table_backed_packages/MD-SENSITIVITY-48RUN/phase2_sensitivity_ablation_atlas.pdf",
+      "sha256": "70d4364183ad6d168e7348b0210179271d31f1eb4f4acfdfa22bda8a84aaaab2"
+    }
+  ],
+  "article_target": "Results/SI: integrator/thermostat sensitivity and dynamic-stability boundary",
+  "scientific_status": "complete short-handoff ablation; not a transport result",
+  "caption": "A–B, stability classification for 48 complete short-handoff runs across two input snapshots, four model families, and six integrator/thermostat settings; C, runaway fraction by snapshot; D, first divergence timing for Foundation-OMAT and from-scratch branches.",
+  "results": "Foundation-OMAT and from-scratch are classified as runaway/nonfinite for all six settings at both snapshots. The smaller 0.5 fs timestep delays some first crossings but does not restore a finite bounded handoff. Naive-FT remains stable for 461800 and bounded/structurally shifted for 462000; Multi-T is stable for 461800 and bounded/structurally shifted for 462000.",
+  "discussion": "The table-backed ablation supports a model-dependent PES-instability interpretation rather than a current Langevin-bath-only explanation. It is a short-range counterfactual stability result, not a diffusivity, DFT-validation, or long-trajectory chemical-mechanism result.",
+  "caveats": [
+    "All 48 metrics files have 202 rows and the campaign README records input/model/cell hash checks.",
+    "Do not infer thermostat/timestep irrelevance beyond the tested settings.",
+    "Keep this package separate from the 1 ns transport figures."
+  ]
+}

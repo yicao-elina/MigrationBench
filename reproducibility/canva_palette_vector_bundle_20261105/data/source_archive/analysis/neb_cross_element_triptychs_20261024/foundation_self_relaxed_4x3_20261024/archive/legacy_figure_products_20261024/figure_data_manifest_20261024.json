@@ -1,0 +1,1206 @@
+{
+  "release_id": "neb_cross_element_triptychs_20261024_R01",
+  "generated_by": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/build_neb_cross_element_triptychs_r01.py",
+  "generated_date": "2026-10-24",
+  "species_identity": {
+    "Cr": "Cr migrant / Cr canonical path evidence; legacy 2L-Cu raw stems are not used as species identity",
+    "Cu": "2L-Cu interlayer insertion/diffusion diagnostic",
+    "Li": "2L-Li interlayer insertion/diffusion diagnostic",
+    "Na": "2L-Na interlayer insertion/diffusion diagnostic"
+  },
+  "path_order": [
+    "within_gap",
+    "gap_to_ql",
+    "within_ql"
+  ],
+  "path_labels": {
+    "within_gap": "within gap",
+    "gap_to_ql": "gap→QL",
+    "within_ql": "within QL",
+    "extra_path": "excluded extra path"
+  },
+  "coordinate_definition": "s=(image_index-1)/(expected_images-1); normalized image order, not inferred geometry arc length",
+  "observable_boundaries": {
+    "fixed_path": "retained path geometries; MLIP single-point relative energies",
+    "self_relaxed_neb": "MLFF-NEB optimized image geometries; separate observable",
+    "reference": "QE/DFT path reference with SCF warning; provisional diagnostic only",
+    "training_seed": "model training seed; not a NEB optimizer seed"
+  },
+  "source_files": {
+    "r03_fixed_path_long": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv",
+      "exists": true,
+      "sha256": "78252eea1405d388c9183df09fe26b37bdc3ab856492919e158b4b5b5fa97c10",
+      "bytes": 446241
+    },
+    "r03_dft_profiles": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/dft_profiles.tsv",
+      "exists": true,
+      "sha256": "fa41c385affee7fb1e9490945b671ae2ac32eba6d8536bf9d763ac4caa4ee906",
+      "bytes": 12919
+    },
+    "cr_four_model_profiles_long": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/cr_neb_sota_20261015/derived_model_profiles_20261016/results/cr_four_model_profiles_long.csv",
+      "exists": true,
+      "sha256": "eb8ffc0da614089eb84ce55b0302dc8b83c7f963f5423d96f55b35ba71098d0b",
+      "bytes": 48512
+    },
+    "cr_four_model_summary": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/cr_neb_sota_20261015/derived_model_profiles_20261016/results/cr_four_model_barrier_summary.csv",
+      "exists": true,
+      "sha256": "14b9562f344b617cff0fe0a002f2f33e0b1ca7c320d6a9910ba981ab6863895c",
+      "bytes": 6380
+    },
+    "cr_tier1_fallback": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/neb_fixed_vs_self_matrix_20261019/derived_r01/TIER1_IMAGE_PROFILES.tsv",
+      "exists": true,
+      "sha256": "431afb77043fee4104ed691c0de0a46eb8645fa3d21458f167fb4f2ed4bb5a4c",
+      "bytes": 487689
+    },
+    "cross_element_mlip_profiles": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element_broad_roster_final_20261006/results/validation/diagnostic_profiles.csv",
+      "exists": true,
+      "sha256": "4e28a9c4c3971e15e6a7bfc6b031e1348cd8e5cdc85df227b7dc7728842bb053",
+      "bytes": 517101
+    },
+    "cross_element_qe_profiles": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element_broad_roster_final_20261006/results/broad_roster/qe_neb_path_profiles.csv",
+      "exists": true,
+      "sha256": "794dd13cc2ab96b4256834e5d595a1f4631d36043ad3ff815265dd215c04db37",
+      "bytes": 19388
+    },
+    "cross_element_dft_manifest": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element_broad_roster_final_20261006/manifests/dft_neb_provenance_manifest.json",
+      "exists": true,
+      "sha256": "88e6c02c7a8da224774afd850681250749e36cce33c896bfdaa9fdc749a8a9b4",
+      "bytes": 103915
+    },
+    "model_style": {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/figure1_family_seed_audit_20261016/FIG168_MODEL_STYLE.json",
+      "exists": true,
+      "sha256": "f731f2aae0a0879b68c4e1356757d06eeb30cb6d83167fd4be5f7e12d39f1cf0",
+      "bytes": 1692
+    },
+    "data_assets": {
+      "path": "/Users/alina/Library/CloudStorage/GoogleDrive-yicao.alina@gmail.com/My Drive/Obsidian-google/Projects/MigrationBench/MigrationBench-Data-Assets.md",
+      "exists": true,
+      "sha256": "e23f90d483ec1aa55d2bcf8e5d1a6c197b74a2829f6c15e0d34a12903af046e6",
+      "bytes": 115115
+    },
+    "reference_pdf": {
+      "path": "/Users/alina/Library/CloudStorage/GoogleDrive-yicao.alina@gmail.com/My Drive/Obsidian-google/Projects/MigrationBench/NEB-diffusion-pathway.pdf",
+      "exists": true,
+      "sha256": "4dbe9c4fa0d3e865cecb5138b975b89a6b508e24c8b52c821cfb45a13361b564",
+      "bytes": 918864
+    },
+    "pasted_campaign_table": {
+      "path": "/Users/alina/.codex/attachments/26375b7f-802f-4177-9f62-639800729597/Pasted text.txt",
+      "exists": true,
+      "sha256": "665e128125ae3b3e307f2f76ad3907d33aa3558469653cd07e4028c3896b5e11",
+      "bytes": 6648
+    }
+  },
+  "campaign_boundaries": {
+    "Cr_fixed_path": {
+      "source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_fixed_path_trajectory_figure_20261023/python/data/fixed_path_long.tsv",
+      "full_target_arms": 12,
+      "main_figure_arms": [
+        "foundation_omat0_medium",
+        "from_scratch_seed123",
+        "ft600k_seed123",
+        "ftmultit_seed234"
+      ],
+      "excluded_from_main": "remaining finite arms plus the FT-MultiT seed-123 MODEL_LOAD failure are retained in Cr_fixed_path_full_12_arm_matrix.tsv"
+    },
+    "Cr_four_model_neb": {
+      "source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/cr_neb_sota_20261015/derived_model_profiles_20261016/results/cr_four_model_profiles_long.csv",
+      "model_families": [
+        "foundation_omat",
+        "from_scratch",
+        "ft_600k",
+        "ft_multit"
+      ],
+      "protocol": "self-relaxed MLFF-NEB"
+    },
+    "Cu_Li_Na": {
+      "source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task2_cross_element_broad_roster_final_20261006/results/validation/diagnostic_profiles.csv",
+      "main_variant": "base",
+      "excluded_variant_rows_per_element": {
+        "Cu": 360,
+        "Li": 240,
+        "Na": 240
+      },
+      "excluded_variant_reason": "perturbation arms are sensitivity diagnostics, not averaged into the main profile",
+      "extra_Cu_path_excluded": "Cu_neb baseline path is retained in the source QE/MLIP tables but the three-column figure uses the shared gap-diffuse/gap2QL/QLs path vocabulary"
+    }
+  },
+  "style_contract": {
+    "font_preference": [
+      "Arial",
+      "Helvetica",
+      "DejaVu Sans"
+    ],
+    "font_size_final_placement": "axis labels/titles ~11-14 pt; tick labels ~9.5 pt; legend ~8.4-9 pt",
+    "panel_gutter_fraction": 0.038,
+    "independent_y_axes": true,
+    "shared_x_label": true,
+    "full_spines": true,
+    "grid": false,
+    "color_source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/figure1_family_seed_audit_20261016/FIG168_MODEL_STYLE.json",
+    "colors": {
+      "foundation_omat": "#CF4520",
+      "from_scratch": "#FF9F1B",
+      "ft_600k": "#002E71",
+      "ft_multit": "#67ACE5"
+    }
+  },
+  "row_checks": {
+    "Cr_fixed_path_representative": {
+      "finite_model_rows": 120,
+      "finite_reference_rows": 30,
+      "model_rows_by_path": {
+        "within_gap": 40,
+        "gap_to_ql": 40,
+        "within_ql": 40
+      },
+      "reference_rows_by_path": {
+        "within_gap": 10,
+        "gap_to_ql": 10,
+        "within_ql": 10
+      },
+      "model_status_counts": {
+        "FINITE_DIAGNOSTIC": 120
+      },
+      "reference_status_counts": {
+        "COMPLETED_BUT_SCF_WARNING": 30
+      }
+    },
+    "Cr_four_model_self_relaxed_neb": {
+      "finite_model_rows": 120,
+      "finite_reference_rows": 30,
+      "model_rows_by_path": {
+        "within_ql": 40,
+        "within_gap": 40,
+        "gap_to_ql": 40
+      },
+      "reference_rows_by_path": {
+        "within_ql": 10,
+        "within_gap": 10,
+        "gap_to_ql": 10
+      },
+      "model_status_counts": {
+        "CONVERGED_MODEL_OBSERVABLE": 100,
+        "FAILURE_MODE_NONCONVERGED": 20
+      },
+      "reference_status_counts": {
+        "COMPLETED_BUT_SCF_WARNING": 30
+      }
+    },
+    "Cu_fixed_path_base": {
+      "finite_model_rows": 120,
+      "finite_reference_rows": 30,
+      "model_rows_by_path": {
+        "within_ql": 40,
+        "within_gap": 40,
+        "gap_to_ql": 40
+      },
+      "reference_rows_by_path": {
+        "within_ql": 10,
+        "within_gap": 10,
+        "gap_to_ql": 10
+      },
+      "model_status_counts": {
+        "FINITE_DIAGNOSTIC": 120
+      },
+      "reference_status_counts": {
+        "failed_scf_convergence": 30
+      },
+      "excluded_perturbation_rows": 360
+    },
+    "Li_fixed_path_base": {
+      "finite_model_rows": 120,
+      "finite_reference_rows": 30,
+      "model_rows_by_path": {
+        "within_ql": 40,
+        "within_gap": 40,
+        "gap_to_ql": 40
+      },
+      "reference_rows_by_path": {
+        "within_ql": 10,
+        "within_gap": 10,
+        "gap_to_ql": 10
+      },
+      "model_status_counts": {
+        "FINITE_DIAGNOSTIC": 120
+      },
+      "reference_status_counts": {
+        "failed_scf_convergence": 30
+      },
+      "excluded_perturbation_rows": 240
+    },
+    "Na_fixed_path_base": {
+      "finite_model_rows": 120,
+      "finite_reference_rows": 30,
+      "model_rows_by_path": {
+        "within_ql": 40,
+        "within_gap": 40,
+        "gap_to_ql": 40
+      },
+      "reference_rows_by_path": {
+        "within_ql": 10,
+        "within_gap": 10,
+        "gap_to_ql": 10
+      },
+      "model_status_counts": {
+        "FINITE_DIAGNOSTIC": 120
+      },
+      "reference_status_counts": {
+        "failed_scf_convergence": 30
+      },
+      "excluded_perturbation_rows": 240
+    }
+  },
+  "figures": [
+    {
+      "figure_key": "Cr_fixed_path_triptych_R04",
+      "element": "Cr",
+      "observable": "fixed-path NEB profiles",
+      "outputs": {
+        "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.png",
+        "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.svg",
+        "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.pdf",
+        "panel_within_gap": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.pdf"
+        },
+        "panel_gap2ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.pdf"
+        },
+        "panel_within_ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.pdf"
+        }
+      },
+      "panel_qa": [
+        {
+          "path_key": "within_gap",
+          "y_limits": [
+            -0.11432241000075,
+            1.63862121001075
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": [
+            "FT-MultiT (seed 123)"
+          ]
+        },
+        {
+          "path_key": "gap_to_ql",
+          "y_limits": [
+            -0.1359472999966,
+            0.0668763930537
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": [
+            "FT-MultiT (seed 123)"
+          ]
+        },
+        {
+          "path_key": "within_ql",
+          "y_limits": [
+            -2.611085520002475,
+            25.902893386809474
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": [
+            "FT-MultiT (seed 123)"
+          ]
+        }
+      ],
+      "panel_layout": {
+        "left": 0.085,
+        "right": 0.985,
+        "bottom": 0.175,
+        "top": 0.705,
+        "gutter": 0.038
+      },
+      "panel_width": 0.27466666666666667,
+      "panel_gutter": 0.038,
+      "has_independent_y_scales": true,
+      "has_shared_x_label": true,
+      "grid_enabled": false,
+      "model_series": [
+        {
+          "key": "foundation_omat0_medium",
+          "label": "Foundation (OMAT-0-M)",
+          "color": "#CF4520",
+          "marker": "o"
+        },
+        {
+          "key": "from_scratch_seed123",
+          "label": "From-scratch (seed 123)",
+          "color": "#FF9F1B",
+          "marker": "o"
+        },
+        {
+          "key": "ft600k_seed123",
+          "label": "FT-600K (seed 123)",
+          "color": "#002E71",
+          "marker": "o"
+        },
+        {
+          "key": "ftmultit_seed234",
+          "label": "FT-MultiT (seed 234)",
+          "color": "#67ACE5",
+          "marker": "o"
+        }
+      ],
+      "output_files": {
+        "png": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.png",
+          "exists": true,
+          "sha256": "ad6a0161ab54f9cdc16265b2fb729c37be649fa70161b67eb4e92caecb24aca8",
+          "bytes": 436106,
+          "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.png"
+        },
+        "svg": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.svg",
+          "exists": true,
+          "sha256": "2c90bdcb632f5152770b4434665b8fd7b98ff53461da8f6a838aa7db06ba5c3d",
+          "bytes": 58923,
+          "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.svg"
+        },
+        "pdf": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.pdf",
+          "exists": true,
+          "sha256": "f3a03b0ddb00010ad1ec2cb86db9d7159f1b4665324be2e323ad55dcc5ac9aab",
+          "bytes": 55170,
+          "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04.pdf"
+        },
+        "panel_within_gap": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.png",
+            "exists": true,
+            "sha256": "f7cf2d169753f183bf32945d59b9010aa632b2b25dc128ed0a41f11e50ad3792",
+            "bytes": 206359,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.svg",
+            "exists": true,
+            "sha256": "33631a87ff17b5d9c682ff32dbcaa98cce526cd4f8464f17c83c77ec9e6ae864",
+            "bytes": 26745,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.pdf",
+            "exists": true,
+            "sha256": "0ec146b531964f9b98e2f56a40aeab5fa36acf369e91b7891830ba03bc50da8f",
+            "bytes": 44563,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_gap.pdf"
+          }
+        },
+        "panel_gap2ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.png",
+            "exists": true,
+            "sha256": "5c9a7e8a45d6f9169f7425b7b4343e29aac7f4cf7b2c8540747f6fc168d98a0f",
+            "bytes": 157846,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.svg",
+            "exists": true,
+            "sha256": "ac070a8630c218a14a8a5e392ca1e587dcc5a45abad29ebad2f8f27d6761bb65",
+            "bytes": 26337,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.pdf",
+            "exists": true,
+            "sha256": "eac7c027489e94d1d9f62cc015acda5c0e0cbf8a6c6bd13f7efe2bc9fb656ebe",
+            "bytes": 43441,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_gap2ql.pdf"
+          }
+        },
+        "panel_within_ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.png",
+            "exists": true,
+            "sha256": "8cb29c333a692fe520678154429f7101bb87370d64bf240be32b3043cc2d3cf9",
+            "bytes": 168042,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.svg",
+            "exists": true,
+            "sha256": "3c2809c2161e63d31e3ffd423b734a1794976c05779282968e1bd6ec7d552ce1",
+            "bytes": 26726,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.pdf",
+            "exists": true,
+            "sha256": "c45963e4d78fcbd60efa5c7f8781b9e57c1b1da666708e18207362c613dc7546",
+            "bytes": 43980,
+            "relative_to_output": "figures/Cr_fixed_path/Cr_fixed_path_triptych_R04_panel_within_ql.pdf"
+          }
+        }
+      }
+    },
+    {
+      "figure_key": "Cr_four_model_neb_triptych_R01",
+      "element": "Cr",
+      "observable": "four-model MLFF-NEB profiles",
+      "outputs": {
+        "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.png",
+        "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.svg",
+        "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.pdf",
+        "panel_within_gap": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.pdf"
+        },
+        "panel_gap2ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.pdf"
+        },
+        "panel_within_ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.pdf"
+        }
+      },
+      "panel_qa": [
+        {
+          "path_key": "within_gap",
+          "y_limits": [
+            -1.5351429694352499,
+            1.73774822578525
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        },
+        {
+          "path_key": "gap_to_ql",
+          "y_limits": [
+            -1.42629517499485,
+            0.16978985375285
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        },
+        {
+          "path_key": "within_ql",
+          "y_limits": [
+            -2.52520383357075,
+            2.14979075120075
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        }
+      ],
+      "panel_layout": {
+        "left": 0.085,
+        "right": 0.985,
+        "bottom": 0.175,
+        "top": 0.705,
+        "gutter": 0.038
+      },
+      "panel_width": 0.27466666666666667,
+      "panel_gutter": 0.038,
+      "has_independent_y_scales": true,
+      "has_shared_x_label": true,
+      "grid_enabled": false,
+      "model_series": [
+        {
+          "key": "foundation_omat",
+          "label": "Foundation (OMAT-FT)",
+          "color": "#CF4520",
+          "marker": "o"
+        },
+        {
+          "key": "from_scratch",
+          "label": "From-scratch (full AIMD)",
+          "color": "#FF9F1B",
+          "marker": "s"
+        },
+        {
+          "key": "ft_600k",
+          "label": "FT-600K",
+          "color": "#002E71",
+          "marker": "^"
+        },
+        {
+          "key": "ft_multit",
+          "label": "FT-MultiT",
+          "color": "#67ACE5",
+          "marker": "D"
+        }
+      ],
+      "output_files": {
+        "png": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.png",
+          "exists": true,
+          "sha256": "524cd0fad8fb3564a014d01a68e8d86dbec133384510e729b1cc812a24be47aa",
+          "bytes": 471466,
+          "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.png"
+        },
+        "svg": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.svg",
+          "exists": true,
+          "sha256": "df9e9e7b641c19b60dcd6dbe9178b8f7c7f6447d4cc214e098681046aefdbb04",
+          "bytes": 57500,
+          "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.svg"
+        },
+        "pdf": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.pdf",
+          "exists": true,
+          "sha256": "9a064aed9e99995513a6a9debc2d58a5f1e35ba2e316716752b0fc485083e65b",
+          "bytes": 54440,
+          "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01.pdf"
+        },
+        "panel_within_gap": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.png",
+            "exists": true,
+            "sha256": "b5a1732254ceb253dcf49ae95101ce5bacbea37cd4fda0211319d182accdccb1",
+            "bytes": 187008,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.svg",
+            "exists": true,
+            "sha256": "c25b3b0b04f05f85cb69a618c702082a61bcdb4502bbb3d6c94e29c7887eee10",
+            "bytes": 24387,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.pdf",
+            "exists": true,
+            "sha256": "d29a6ed986197224d8fc163a592a07cb196023d26098f4f2b685f4d2b76bfe0b",
+            "bytes": 43520,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_gap.pdf"
+          }
+        },
+        "panel_gap2ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.png",
+            "exists": true,
+            "sha256": "f029c451b027bca72ce38c5549478675554ce92d298c421d8ddc077cbfb682fd",
+            "bytes": 172514,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.svg",
+            "exists": true,
+            "sha256": "cda89c9d5ba3f987f9bd3c48d50931edfb56bef40ef7cdb41a4eec28eafb2e75",
+            "bytes": 24385,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.pdf",
+            "exists": true,
+            "sha256": "4ab7a6ae5318528f211020b2d15d25a8d5ee911c69e417ebe489a402bea6453b",
+            "bytes": 43135,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_gap2ql.pdf"
+          }
+        },
+        "panel_within_ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.png",
+            "exists": true,
+            "sha256": "779f569a57bd1645c1541755ccd71c4a0c3fbd1f540a19fc3558623e8637563a",
+            "bytes": 182986,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.svg",
+            "exists": true,
+            "sha256": "bf79c9b1dd64eefcd6d8bbd980cc1c09be86da17d17d79cb6fc1e7bd183fb02b",
+            "bytes": 24835,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.pdf",
+            "exists": true,
+            "sha256": "ba24d361a91944478302fc8d1702db1a7bcea109631608fc145dc1f67e2bca60",
+            "bytes": 42562,
+            "relative_to_output": "figures/Cr_four_model_neb/Cr_four_model_neb_triptych_R01_panel_within_ql.pdf"
+          }
+        }
+      }
+    },
+    {
+      "figure_key": "Cu_fixed_path_triptych_R01",
+      "element": "Cu",
+      "observable": "broad-roster fixed-path profiles",
+      "outputs": {
+        "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.png",
+        "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.svg",
+        "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.pdf",
+        "panel_within_gap": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.pdf"
+        },
+        "panel_gap2ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.pdf"
+        },
+        "panel_within_ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.pdf"
+        }
+      },
+      "panel_qa": [
+        {
+          "path_key": "within_gap",
+          "y_limits": [
+            -0.050931200027700005,
+            0.419150390625
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        },
+        {
+          "path_key": "gap_to_ql",
+          "y_limits": [
+            -0.040675399991451,
+            0.10369018554689999
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        },
+        {
+          "path_key": "within_ql",
+          "y_limits": [
+            -1.8269485473599998,
+            26.18626251216
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        }
+      ],
+      "panel_layout": {
+        "left": 0.085,
+        "right": 0.985,
+        "bottom": 0.175,
+        "top": 0.705,
+        "gutter": 0.038
+      },
+      "panel_width": 0.27466666666666667,
+      "panel_gutter": 0.038,
+      "has_independent_y_scales": true,
+      "has_shared_x_label": true,
+      "grid_enabled": false,
+      "model_series": [
+        {
+          "key": "foundation",
+          "label": "Foundation",
+          "color": "#CF4520",
+          "marker": "o"
+        },
+        {
+          "key": "broad_roster_ft_seed123",
+          "label": "Broad-roster FT (seed 123)",
+          "color": "#002E71",
+          "marker": "o"
+        },
+        {
+          "key": "broad_roster_ft_seed456",
+          "label": "Broad-roster FT (seed 456)",
+          "color": "#002E71",
+          "marker": "s"
+        },
+        {
+          "key": "broad_roster_ft_seed789",
+          "label": "Broad-roster FT (seed 789)",
+          "color": "#002E71",
+          "marker": "^"
+        }
+      ],
+      "output_files": {
+        "png": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.png",
+          "exists": true,
+          "sha256": "e69d338897f3dfd877a09fe465b9a57394ce478b0209bb6901d09590f26b8314",
+          "bytes": 328551,
+          "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.png"
+        },
+        "svg": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.svg",
+          "exists": true,
+          "sha256": "3254a36689122a9d671bbe7474e206a054888d4fe3e55df5e496c963b4ccdecc",
+          "bytes": 57596,
+          "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.svg"
+        },
+        "pdf": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.pdf",
+          "exists": true,
+          "sha256": "39f2455d74fd17ae1211d593a7b0b90da4d7c27ef13896e56c7939df1e5d4cfd",
+          "bytes": 50875,
+          "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01.pdf"
+        },
+        "panel_within_gap": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.png",
+            "exists": true,
+            "sha256": "f00b4668e9f3d79c61d3035ffa8cafde1c30e00c1469f42d1cf0999e1fe95913",
+            "bytes": 162499,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.svg",
+            "exists": true,
+            "sha256": "633d5b5fef47be16c26c9b3824cfdfedc6f71f49deefe1a1ec85b52af0375239",
+            "bytes": 24722,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.pdf",
+            "exists": true,
+            "sha256": "6c82136afccdfe10d8998f669c225258e34b8f380aa0147b6f06fbc82e3a3ef0",
+            "bytes": 41775,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_gap.pdf"
+          }
+        },
+        "panel_gap2ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.png",
+            "exists": true,
+            "sha256": "2bd1a9d0b6ecff93ed7842f266f6fd8cbc8a95ad87f0d3711b4b11e154ca63e8",
+            "bytes": 132647,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.svg",
+            "exists": true,
+            "sha256": "20f63181dd0db4e36b9b4bf1f0d21200c38e06fe493981b2b62062e6d38e6dae",
+            "bytes": 24781,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.pdf",
+            "exists": true,
+            "sha256": "8475d044184964369692a0bb719294b10d7ea98fd7fee178691b8cefd133b7bf",
+            "bytes": 41158,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_gap2ql.pdf"
+          }
+        },
+        "panel_within_ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.png",
+            "exists": true,
+            "sha256": "84e71cb8a1eae11d613c824191e64757c090b8af35429bda9d21563a069c4475",
+            "bytes": 125596,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.svg",
+            "exists": true,
+            "sha256": "7c7e38d5584a7a197616a47ba1a7af4c2bc0ef02a0c4b885cc5311fc4a6398e1",
+            "bytes": 24762,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.pdf",
+            "exists": true,
+            "sha256": "9a74b40f8b871174addf6c8f1bfae788d223cd4218cdfc1b77d740dc11e9ab37",
+            "bytes": 41335,
+            "relative_to_output": "figures/Cu_fixed_path/Cu_fixed_path_triptych_R01_panel_within_ql.pdf"
+          }
+        }
+      }
+    },
+    {
+      "figure_key": "Li_fixed_path_triptych_R01",
+      "element": "Li",
+      "observable": "broad-roster fixed-path profiles",
+      "outputs": {
+        "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01.png",
+        "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01.svg",
+        "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01.pdf",
+        "panel_within_gap": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.pdf"
+        },
+        "panel_gap2ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.pdf"
+        },
+        "panel_within_ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.pdf"
+        }
+      },
+      "panel_qa": [
+        {
+          "path_key": "within_gap",
+          "y_limits": [
+            -0.04363086000015,
+            0.6253756600021501
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        },
+        {
+          "path_key": "gap_to_ql",
+          "y_limits": [
+            -0.04604609999573,
+            0.13375
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        },
+        {
+          "path_key": "within_ql",
+          "y_limits": [
+            -0.1488098144535,
+            2.1329406738335
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        }
+      ],
+      "panel_layout": {
+        "left": 0.085,
+        "right": 0.985,
+        "bottom": 0.175,
+        "top": 0.705,
+        "gutter": 0.038
+      },
+      "panel_width": 0.27466666666666667,
+      "panel_gutter": 0.038,
+      "has_independent_y_scales": true,
+      "has_shared_x_label": true,
+      "grid_enabled": false,
+      "model_series": [
+        {
+          "key": "foundation",
+          "label": "Foundation",
+          "color": "#CF4520",
+          "marker": "o"
+        },
+        {
+          "key": "broad_roster_ft_seed123",
+          "label": "Broad-roster FT (seed 123)",
+          "color": "#002E71",
+          "marker": "o"
+        },
+        {
+          "key": "broad_roster_ft_seed456",
+          "label": "Broad-roster FT (seed 456)",
+          "color": "#002E71",
+          "marker": "s"
+        },
+        {
+          "key": "broad_roster_ft_seed789",
+          "label": "Broad-roster FT (seed 789)",
+          "color": "#002E71",
+          "marker": "^"
+        }
+      ],
+      "output_files": {
+        "png": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01.png",
+          "exists": true,
+          "sha256": "2c377e0493aff6a78af376e6701f898f7135f987037684b1804c19f78be1595e",
+          "bytes": 388666,
+          "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01.png"
+        },
+        "svg": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01.svg",
+          "exists": true,
+          "sha256": "bafcf2fec28b074cdd0405974ea1b1e6bc7d41d1252eed04678face39d69f4b1",
+          "bytes": 57592,
+          "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01.svg"
+        },
+        "pdf": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01.pdf",
+          "exists": true,
+          "sha256": "4efadb97882171f35ef843b00ec6f95dfd335eba9cc6339eeac70e6f61fff5d4",
+          "bytes": 50450,
+          "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01.pdf"
+        },
+        "panel_within_gap": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.png",
+            "exists": true,
+            "sha256": "e75a8c6274f0db657990dd3bf2f530118c7b32839a6a902b8c7e6c500c352ff7",
+            "bytes": 160409,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.svg",
+            "exists": true,
+            "sha256": "348db19c22b32f08830ff8650a8a4fa23fd07e67fbcb6f3ed5c19a7e1f0111e0",
+            "bytes": 24778,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.pdf",
+            "exists": true,
+            "sha256": "29baa5d926a8ef633b7390a3dae5336992f9219d067d2d697d5003e366c08e0a",
+            "bytes": 41479,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_gap.pdf"
+          }
+        },
+        "panel_gap2ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.png",
+            "exists": true,
+            "sha256": "5647ac74ba0f8fb4295b8fc476b8b3ffb0f8bfd9bd91fca59e6614fd44438630",
+            "bytes": 138747,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.svg",
+            "exists": true,
+            "sha256": "ffa788cc39b1485387e4ed2f6211c2e28679dc8bec4ffdd37b9bc435a36d3f94",
+            "bytes": 24778,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.pdf",
+            "exists": true,
+            "sha256": "62d25d45419d01151dab323b8cc2997541389c18c04eee8d3f74844f1611d063",
+            "bytes": 40787,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_gap2ql.pdf"
+          }
+        },
+        "panel_within_ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.png",
+            "exists": true,
+            "sha256": "5aa11aa8a5712490b3bcecc4f0cf1f30f291c8cf9ac09f27e7691eb7ed81757f",
+            "bytes": 170839,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.svg",
+            "exists": true,
+            "sha256": "4bade8eea6337ce3c81177969587a9d7be04ece6da28df2d79712349b6e5547e",
+            "bytes": 24774,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.pdf",
+            "exists": true,
+            "sha256": "2beb5f967107dc553fba166317311c92560979ecdf4828f15749624c4a31b272",
+            "bytes": 40853,
+            "relative_to_output": "figures/Li_fixed_path/Li_fixed_path_triptych_R01_panel_within_ql.pdf"
+          }
+        }
+      }
+    },
+    {
+      "figure_key": "Na_fixed_path_triptych_R01",
+      "element": "Na",
+      "observable": "broad-roster fixed-path profiles",
+      "outputs": {
+        "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01.png",
+        "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01.svg",
+        "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01.pdf",
+        "panel_within_gap": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.pdf"
+        },
+        "panel_gap2ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.pdf"
+        },
+        "panel_within_ql": {
+          "png": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.png",
+          "svg": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.svg",
+          "pdf": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.pdf"
+        }
+      },
+      "panel_qa": [
+        {
+          "path_key": "within_gap",
+          "y_limits": [
+            -0.065504407500675,
+            0.938896507509675
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        },
+        {
+          "path_key": "gap_to_ql",
+          "y_limits": [
+            -0.04,
+            0.211875
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        },
+        {
+          "path_key": "within_ql",
+          "y_limits": [
+            -0.23718338012699997,
+            3.399628448487
+          ],
+          "model_points": 40,
+          "reference_points": 10,
+          "failure_labels": []
+        }
+      ],
+      "panel_layout": {
+        "left": 0.085,
+        "right": 0.985,
+        "bottom": 0.175,
+        "top": 0.705,
+        "gutter": 0.038
+      },
+      "panel_width": 0.27466666666666667,
+      "panel_gutter": 0.038,
+      "has_independent_y_scales": true,
+      "has_shared_x_label": true,
+      "grid_enabled": false,
+      "model_series": [
+        {
+          "key": "foundation",
+          "label": "Foundation",
+          "color": "#CF4520",
+          "marker": "o"
+        },
+        {
+          "key": "broad_roster_ft_seed123",
+          "label": "Broad-roster FT (seed 123)",
+          "color": "#002E71",
+          "marker": "o"
+        },
+        {
+          "key": "broad_roster_ft_seed456",
+          "label": "Broad-roster FT (seed 456)",
+          "color": "#002E71",
+          "marker": "s"
+        },
+        {
+          "key": "broad_roster_ft_seed789",
+          "label": "Broad-roster FT (seed 789)",
+          "color": "#002E71",
+          "marker": "^"
+        }
+      ],
+      "output_files": {
+        "png": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01.png",
+          "exists": true,
+          "sha256": "bba8ec4d5a3cf90589eb5376d4bada2015473592f69013d0aaa069529184cf2a",
+          "bytes": 415409,
+          "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01.png"
+        },
+        "svg": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01.svg",
+          "exists": true,
+          "sha256": "08d986cd50e3d1abea4a1ade16aa454c9b788a8e1243981082e1ea00f28a8e49",
+          "bytes": 56785,
+          "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01.svg"
+        },
+        "pdf": {
+          "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01.pdf",
+          "exists": true,
+          "sha256": "a610b888e5248ffb04ae7d659f5c59a4d61ee0266a76124a0021180d4899d106",
+          "bytes": 51029,
+          "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01.pdf"
+        },
+        "panel_within_gap": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.png",
+            "exists": true,
+            "sha256": "95d76c77e9a5ae3e2e5b4e9d9b44a418cf77b7fdb4571e9414e1fcc3713e17bf",
+            "bytes": 165604,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.svg",
+            "exists": true,
+            "sha256": "1560b1f23dc45cf95012f2b46b0f1623060b7ac253443999442795780741e300",
+            "bytes": 24377,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.pdf",
+            "exists": true,
+            "sha256": "548dc4a547971a1189611ef9a075ba9fe8a531bd242d9c1b2d645484bfe28b7b",
+            "bytes": 41795,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_gap.pdf"
+          }
+        },
+        "panel_gap2ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.png",
+            "exists": true,
+            "sha256": "6954ea8464517e11ab1f3ece12e89fca1965f27b502442a642281eedc846c7ea",
+            "bytes": 151730,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.svg",
+            "exists": true,
+            "sha256": "1a49429176b668de81521612f9fc638f6cc27edc91d96bf5f3547d8d7b1b13fc",
+            "bytes": 24382,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.pdf",
+            "exists": true,
+            "sha256": "26c2edf9a891347d3f99e50b5008b836a57950d1afb1e4eed0209490858e3aae",
+            "bytes": 41082,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_gap2ql.pdf"
+          }
+        },
+        "panel_within_ql": {
+          "png": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.png",
+            "exists": true,
+            "sha256": "f670875ae56add38227db914dbf43361b6754c40105c220a16bc517b25a2ca51",
+            "bytes": 183073,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.png"
+          },
+          "svg": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.svg",
+            "exists": true,
+            "sha256": "bac2c27273f2714d3de05876f42f949be0bb275253bab72e435c2e803fabb297",
+            "bytes": 24780,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.svg"
+          },
+          "pdf": {
+            "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/neb_cross_element_triptychs_20261024/figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.pdf",
+            "exists": true,
+            "sha256": "bc1020fa55c0893e4c30860d9a79a623ad5d45a1f54305e37ed1e81671569796",
+            "bytes": 41818,
+            "relative_to_output": "figures/Na_fixed_path/Na_fixed_path_triptych_R01_panel_within_ql.pdf"
+          }
+        }
+      }
+    }
+  ]
+}

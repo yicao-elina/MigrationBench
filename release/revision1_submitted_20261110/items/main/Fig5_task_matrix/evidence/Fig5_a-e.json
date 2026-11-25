@@ -1,0 +1,96 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/main/Fig5_task_matrix",
+  "name": "Fig5_a-e",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/main/Fig5_task_matrix/source/reproduce_fig5.py",
+  "script_sha256": "9900e6b5f4cabf3064dfeeb1852804adf501e8b1e41a4f56ec758468ee86385b",
+  "python": "3.11.0",
+  "inputs": {
+    "release/revision1_camera_ready/reproducibility/render_fig5_corrected.py": "ffc7381000937fd6f5de16f340f32b53a08466203cf1047030f6c4dc9ea2a5b6",
+    "paper/revision1/data_processed/current_release/fig5_corrected_input.tsv": "ee9d43cbb4f6141fb50730a073b25d0a71f6963379ab54614ebe4b17a5019ead",
+    "paper/revision1/data_processed/current_release/fig5_correction_audit.json": "724e96baa421f517efa2ee2f470a4b292df373c000bcad5d14e519dff2d29293",
+    "paper/revision1/data_processed/current_release/fig5_render_audit.json": "7c46cb439b478034c7517c3d3ef1cd45bce497684590a969923a06596b2480ea",
+    "paper/revision1/data_processed/current_release/fig5_plotted_values.tsv": "ee9d43cbb4f6141fb50730a073b25d0a71f6963379ab54614ebe4b17a5019ead",
+    "paper/revision1/figures/main/fig5_NEB_main_figure (2).pdf": "c6ed8c1818ee713a4b6e4fa2f46e750fa62d53c9fe9d5585e62796c7ac58a330",
+    "analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_a_design_v3.pdf": "ee2cdc53c47d69dbfb4c804f972eba977e11cddfb8eda64ef18be2982a02220e",
+    "paper/revision1/figures/main/fig5_NEB_main_figure_new.pdf": "ab123ea605e9974a290d0ccb9d552b4a3125a175f57745ddcbe8282891796fb1"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/main/Fig5_task_matrix/rerun_output/NEB_Dotmatrix_v3/NEB_main_figure.pdf": "866f7c8fc04accbba94c99b7f7e7f636b37d2c85c81cf612e8c440b0e90c133e",
+    "release/revision1_submitted_20261110/items/main/Fig5_task_matrix/rerun_output/NEB_Dotmatrix_v3/NEB_panel_a_design_v3.pdf": "280b1477164a0752c529806150f26423f4b155d631244ed9d7ad3086f83d29d3",
+    "release/revision1_submitted_20261110/items/main/Fig5_task_matrix/rerun_output/NEB_Dotmatrix_v3/audit.json": "7c46cb439b478034c7517c3d3ef1cd45bce497684590a969923a06596b2480ea",
+    "release/revision1_submitted_20261110/items/main/Fig5_task_matrix/rerun_output/NEB_Dotmatrix_v3/plotted_values.tsv": "1bba4fd8d9c04c8d65370a9d3cda34ec913aeee45bbd81c9a8a5ac8ca067fc78",
+    "release/revision1_submitted_20261110/items/main/Fig5_task_matrix/rerun_output/NEB_Dotmatrix_v3/figure_caption.txt": "a32c3e56a0c04beaf1e493d4588e3e2eb4d9b04f09216bfec5a8031d6e7f0fdb"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "hardcode lint release/revision1_camera_ready/reproducibility/render_fig5_corrected.py",
+      "passed": true,
+      "details": "no findings"
+    },
+    {
+      "check": "renderer exits 0",
+      "passed": true,
+      "details": "{\"output\": \"/Users/alina/Project/migrationbench-paper-repro/release/revision1_submitted_20261110/items/main/Fig5_task_matrix/rerun_output/NEB_Dotmatrix_v3\", \"pdf_count\": 6, \"records\": 120}\n"
+    },
+    {
+      "check": "renders like paper/revision1/figures/main/fig5_NEB_main_figure (2).pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          721,
+          985
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    },
+    {
+      "check": "renders like analysis/neb_dotmatrix_v3_latest_20261101/NEB_panel_a_design_v3.pdf at 100 dpi",
+      "passed": true,
+      "details": {
+        "same_size": true,
+        "size": [
+          721,
+          178
+        ],
+        "max_channel_diff": 0,
+        "fraction_pixels_diff_gt16": 0.0
+      }
+    },
+    {
+      "check": "audit.json equals paper/revision1/data_processed/current_release/fig5_render_audit.json",
+      "passed": true,
+      "details": "byte-identical"
+    },
+    {
+      "check": "plotted_values.tsv equals paper/revision1/data_processed/current_release/fig5_plotted_values.tsv cell by cell",
+      "passed": true,
+      "details": "120 rows equal"
+    },
+    {
+      "check": "generated caption carries the audited counts",
+      "passed": true,
+      "details": {
+        "caption": "Fixed and self-relaxed forward-peak diagnostics. Original layout and quantitative mappings are retained. The hash-matched Scratch-600K seed-123 within-QL self value is corrected from 0 to 2.3507669 eV; that run and seed-234 in-gap self are marked nonconverged. Crosses identify all five nonconverged source records. There are 75 finite-diagnostic, 40 converged-optimizer and five nonconverged records. Reference profiles retain SCF warnings; no physical barrier or successful kinetic prediction is inferred from a small peak or a converged optimizer label.",
+        "status_counts": {
+          "FINITE_DIAGNOSTIC": 75,
+          "CONVERGED": 40,
+          "NONCONVERGED": 5
+        }
+      }
+    },
+    {
+      "check": "known differences (not used for PASS)",
+      "passed": true,
+      "details": {
+        "caption_rounding": "the previous hand-typed caption said 2.3507667 eV; the value in the input and the correction audit is 2.3507668938545976 eV, so the generated 7-decimal caption reads 2.3507669 eV (only auxiliary figure_caption.txt; not in the submitted manuscript)",
+        "note_pdf": "NEB_dot_encoding_and_layout_v3.pdf (reportlab layout note) is skipped: reportlab not installed",
+        "final_asset": "paper/revision1/figures/main/fig5_NEB_main_figure_new.pdf is the Canva composition: panel a redrawn with icons, panels b-e placed from the script page compared above"
+      }
+    }
+  ],
+  "result": "PASS"
+}

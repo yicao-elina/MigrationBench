@@ -74,15 +74,15 @@ reference (0.336~eV, Table~SX). Fixed-geometry evaluation freezes the band on DF
 geometries and isolates pure energetic accuracy; self-consistent NEB additionally relaxes the images
 under the model's own forces, so it probes both energetics and force consistency. Under the unified
 re-evaluation (same checkpoints, same pathway, same reference), the fixed-geometry barrier errors are
-Foundation [NUMBER-PENDING: JB-5]~eV, Scratch [NUMBER-PENDING: JB-5]~eV, FT--600K
+Foundation [NUMBER-PENDING: JB-5]~eV, Scratch [NUMBER-PENDING: JB-5]~eV, FT-600K
 [NUMBER-PENDING: JB-5]~eV, and FT--MultiT [NUMBER-PENDING: JB-5]~eV, whereas the self-consistent NEB
 barriers are [NUMBER-PENDING: JB-5]~eV, respectively. The quantitative offset between the two
 protocols for the same checkpoint—most visibly the relaxation of the foundation model's barrier
 toward the DFT reference once images are allowed to relax—explains the differing verdicts and yields
 a single, consistent per-model ranking under each protocol. Uncertainty from training-seed variation
 is reported as mean $\pm$ std over three seeds (seeds 123, 234, 345): in-gap barrier errors are
-Scratch [NUMBER-PENDING: JB-2]~eV and FT--600K [NUMBER-PENDING: JB-2]~eV, and deep-penetration
-barrier errors are Scratch [NUMBER-PENDING: JB-2]~eV and FT--600K [NUMBER-PENDING: JB-2]~eV
+Scratch [NUMBER-PENDING: JB-2]~eV and FT-600K [NUMBER-PENDING: JB-2]~eV, and deep-penetration
+barrier errors are Scratch [NUMBER-PENDING: JB-2]~eV and FT-600K [NUMBER-PENDING: JB-2]~eV
 (Table~S1, extended).
 ```
 
@@ -148,31 +148,31 @@ This approach allows us to interpret the complex MACE potential by analyzing a s
 
 **NEW**:
 ```
-This approach allows us to interpret the complex MACE potential by analyzing a simpler model of its error behavior, whose fidelity we quantify explicitly: the surrogate's held-out $R^2$ scores are [NUMBER-PENDING: JB-8] (Foundation), [NUMBER-PENDING: JB-8] (Scratch), [NUMBER-PENDING: JB-8] (FT--600K), and [NUMBER-PENDING: JB-8] (FT--MultiT) (see Fig. S4 and Table~SX for performance validation). All conclusions below are statements about the surrogate's model of MACE's errors, and are only as strong as these $R^2$ values permit.
+This approach allows us to interpret the complex MACE potential by analyzing a simpler model of its error behavior, whose fidelity we quantify explicitly: the surrogate's held-out $R^2$ scores are [NUMBER-PENDING: JB-8] (Foundation), [NUMBER-PENDING: JB-8] (Scratch), [NUMBER-PENDING: JB-8] (FT-600K), and [NUMBER-PENDING: JB-8] (FT--MultiT) (see Fig. S4 and Table~SX for performance validation). All conclusions below are statements about the surrogate's model of MACE's errors, and are only as strong as these $R^2$ values permit.
 ```
 
 ### E6b. L365 ("internalize" → surrogate-scoped)
 
 **OLD** (within L365):
 ```
-The FT–Multi-T model’s ability to consistently isolate and amplify this descriptor—also identified as part of the stable consensus set—demonstrates that fine-tuning enables the model to internalize a physically coherent representation of the potential energy surface. Conversely, the scratch model’s diffuse landscape and heavy reliance on non-consensus descriptors reflect a relatively unstable and poorly structured inductive bias, explaining its inability to generalize to critical tasks such as resolving transition-state energetics or maintaining NEB stability.
+The FT-MultiT model’s ability to consistently isolate and amplify this descriptor—also identified as part of the stable consensus set—demonstrates that fine-tuning enables the model to internalize a physically coherent representation of the potential energy surface. Conversely, the scratch model’s diffuse landscape and heavy reliance on non-consensus descriptors reflect a relatively unstable and poorly structured inductive bias, explaining its inability to generalize to critical tasks such as resolving transition-state energetics or maintaining NEB stability.
 ```
 
 **NEW**:
 ```
-For the FT–Multi-T model, the surrogate's error predictions are most sensitive to this descriptor—also identified as part of the stable consensus set—which is consistent with fine-tuning producing a more physically structured error landscape. Conversely, the scratch model's surrogate distributes importance diffusely over non-consensus descriptors, a pattern consistent with a less structured error model and with the scratch model's observed failures on transition-state energetics and NEB stability. As a direct check beyond the surrogate, we perturbed MACE's own inputs along the dominant Cr--Cr structural mode (constrained Cr--Cr distance scans on held-out configurations): the ordering of MACE's own energy response [NUMBER-PENDING: JB-8] [agrees / partially agrees] with the surrogate's SHAP ranking, lending [NUMBER-PENDING: JB-8]-quantified support to the feature-level interpretation.
+For the FT-MultiT model, the surrogate's error predictions are most sensitive to this descriptor—also identified as part of the stable consensus set—which is consistent with fine-tuning producing a more physically structured error landscape. Conversely, the scratch model's surrogate distributes importance diffusely over non-consensus descriptors, a pattern consistent with a less structured error model and with the scratch model's observed failures on transition-state energetics and NEB stability. As a direct check beyond the surrogate, we perturbed MACE's own inputs along the dominant Cr--Cr structural mode (constrained Cr--Cr distance scans on held-out configurations): the ordering of MACE's own energy response [NUMBER-PENDING: JB-8] [agrees / partially agrees] with the surrogate's SHAP ranking, lending [NUMBER-PENDING: JB-8]-quantified support to the feature-level interpretation.
 ```
 
 ### E6c. Fig. caption L376 ("orders of magnitude" wording kept only if R² supports)
 
 **OLD** (within L376):
 ```
-The analysis highlights the FT--Multi-T model's reliance on the \texttt{Cr-Cr\_n13\_l3} feature, which is orders of magnitude more important than any other feature.
+The analysis highlights the FT-MultiT model's reliance on the \texttt{Cr-Cr\_n13\_l3} feature, which is orders of magnitude more important than any other feature.
 ```
 
 **NEW**:
 ```
-The analysis highlights that the surrogate error model for FT--Multi-T is dominated by the \texttt{Cr-Cr\_n13\_l3} feature, whose mean absolute SHAP value is [NUMBER-PENDING: JB-8]-fold larger than the next-ranked feature (surrogate $R^2$ values reported in Table~SX).
+The analysis highlights that the surrogate error model for FT-MultiT is dominated by the \texttt{Cr-Cr\_n13\_l3} feature, whose mean absolute SHAP value is [NUMBER-PENDING: JB-8]-fold larger than the next-ranked feature (surrogate $R^2$ values reported in Table~SX).
 ```
 
 ---
@@ -183,12 +183,12 @@ The analysis highlights that the surrogate error model for FT--Multi-T is domina
 
 **OLD**:
 ```
-We benchmarked specialist (from-scratch) and generalist (foundation-based) MLFFs for Cr-doped \ce{Sb2Te3} using non-equilibrium configuration probes as a unified framework for evaluating both interpolation and extrapolation behavior.
+We benchmarked specialist (Scratch) and generalist (Foundation-based) MLFFs for Cr-doped \ce{Sb2Te3} using non-equilibrium configuration probes as a unified framework for evaluating both interpolation and extrapolation behavior.
 ```
 
 **NEW** (insert hedged scope sentence after the unchanged first clause — minimal edit of the same sentence):
 ```
-We benchmarked specialist (from-scratch) and generalist (foundation-based) MLFFs for Cr-doped \ce{Sb2Te3} using non-equilibrium configuration probes as a candidate framework for evaluating both interpolation and extrapolation behavior, demonstrated here on a single material system and a single architecture.
+We benchmarked specialist (Scratch) and generalist (Foundation-based) MLFFs for Cr-doped \ce{Sb2Te3} using non-equilibrium configuration probes as a candidate framework for evaluating both interpolation and extrapolation behavior, demonstrated here on a single material system and a single architecture.
 ```
 
 ### E7b. L388 ("broader principles" → hypotheses)

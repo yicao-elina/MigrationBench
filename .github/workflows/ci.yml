@@ -13,6 +13,7 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
+          python-version: "3.11"
       - run: uv sync --extra test --extra workflow
       - run: uv run snakemake --snakefile workflow/Snakefile --cores 1 all
       - run: uv run pytest

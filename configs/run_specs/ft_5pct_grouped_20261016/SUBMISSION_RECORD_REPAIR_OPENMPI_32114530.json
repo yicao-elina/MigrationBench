@@ -1,0 +1,20 @@
+{
+  "campaign_id": "ft_5pct_grouped_20261016",
+  "repair_of": "32075144_[0-5]",
+  "submitted_at_local": "2026-10-16T12:16:15-07:00",
+  "host": "rockfish",
+  "job_id": "32114530",
+  "array": "32114530_[0-5%6]",
+  "state_at_submission_check": "PENDING",
+  "failure_evidence": {
+    "prior_job_id": "32075144_[0-5]",
+    "prior_exit_code": "1:0",
+    "prior_stderr": "/scratch16/pclancy3/yi/ft_5pct_grouped_v1/logs/mb-ft-5pct-grouped-32075144_<array>.err",
+    "failure": "Lmod could not load openmpi/4.1.6 while the default openmpi/3.1.6 module was already loaded"
+  },
+  "repair": "retain the SINGULARITY_BIND bootstrap repair, restore the default module collection first, unload openmpi/3.1.6, then load openmpi/4.1.6",
+  "script_sha256": "d74ba9f06ef5c2da372a08fac1aaf06a615a63adc4b3a04f7566c93226ec69f3",
+  "remote_script": "/scratch16/pclancy3/yi/ft_5pct_grouped_v1/submit_ft_5pct_grouped_v1_repair_openmpi_20261016.slurm",
+  "scientific_status": "TRAINING_SUBMITTED; no 5% FT result accepted",
+  "failed_evidence_preserved": true
+}

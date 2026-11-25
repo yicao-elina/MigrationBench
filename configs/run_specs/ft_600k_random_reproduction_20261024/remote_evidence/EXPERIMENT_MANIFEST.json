@@ -1,0 +1,37 @@
+{
+  "schema": "migrationbench_ft_600k_random_reproduction_v1",
+  "campaign_id": "ft_600k_random_reproduction_20261016",
+  "scientific_question": "Does the historical FT-600K stability result persist across training seeds when the exact historical data_600K random split is held fixed?",
+  "publication_role": "forensic seed-reproducibility campaign; separate from grouped-split generalization benchmarks",
+  "data_policy": {
+    "dataset_release": "historical_data_600K_random_split",
+    "remote_root": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/data_600K",
+    "train_sha256": "79140b6300e868bcbf7bbeee84db088495f0c8fb2fd1db2c6f41f03678f23104",
+    "valid_sha256": "fd393767e07f6645480093f1bae766918fce7ba65658949bc0365892bd857177",
+    "test_sha256": "cbe062a7be5235d7dd8399fa000f088f328305543551847c9658841ba3ade6f8",
+    "counts": {"train": 1891, "valid": 236, "test": 237},
+    "split_type": "historical random split; not trajectory-grouped",
+    "seed123_evidence": "Historical seed123 log records data_600K/train.xyz, valid.xyz and test.xyz with 1888 periodic plus 3 isolated training configurations."
+  },
+  "model_matrix": {
+    "family": "ft_600k_random_reproduction_v1",
+    "foundation_model": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/2-layer/MACE-omat/MACE-matpes-pbe-omat-ft.model",
+    "foundation_sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0",
+    "seeds": [234, 345],
+    "anchor_seed": 123,
+    "anchor_model": "historical FT-600K seed123 trained on the same data_600K release",
+    "only_varying_factor": "training_seed",
+    "architecture": {"model": "MACE", "num_channels": 32, "max_L": 1, "correlation": 3, "r_max_angstrom": 6.0, "hidden_irreps": "128x0e + 128x1o"},
+    "optimization": {"batch_size": 32, "valid_batch_size": 16, "max_num_epochs": 1000, "forces_weight": 10.0, "energy_weight": 1.0, "stress_weight": 0.0, "swa": true, "start_swa": 200, "ema": true, "ema_decay": 0.99, "lr": 0.01, "swa_lr": 0.001, "weight_decay": 5e-7, "patience": 20, "e0s": "isolated"},
+    "output_root": "/scratch16/pclancy3/yi/ft_600k_random_reproduction_20261016"
+  },
+  "acceptance_gates": [
+    "both tasks use the frozen data_600K hashes above",
+    "foundation hash and training protocol match the seed123 anchor",
+    "seed and job identity are recorded in preflight and registry",
+    "compiled models exist, load, support Cr/Sb/Te, and produce finite probes",
+    "test RMSE is reported separately for seed123, seed234 and seed345",
+    "results are never merged with ft_600k_grouped_A2 or other grouped-split models"
+  ],
+  "scientific_boundary": "This campaign repairs the historical random-split seed comparison; it does not establish trajectory-level generalization."
+}

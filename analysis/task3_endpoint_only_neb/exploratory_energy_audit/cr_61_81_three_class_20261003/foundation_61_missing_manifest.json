@@ -1,0 +1,285 @@
+{
+  "protocol": "fixed-path single-point Foundation energy/force evaluation",
+  "paths": {
+    "1-6": {
+      "input": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/inputs_61/1-6.extxyz",
+      "input_sha256": "fd002a78fd9a066c38febc2657ccfa513b68aa897a21d5da3b44edbf960d1de2",
+      "source_xyz": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/sb2te3.xyz",
+      "source_xyz_sha256": "7db35bb57ad82b75a5c46c66814249d2f2a9a7a0c79019cd359e525e3a7235a8",
+      "source_qe_input": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-6/pw_1.in",
+      "source_qe_input_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4"
+    },
+    "1-8": {
+      "input": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/inputs_61/1-8.extxyz",
+      "input_sha256": "b560ebc46bf45b6ac4b532f7b31ca205f76aaf7e41461a921f61b980c1a3d401",
+      "source_xyz": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/sb2te3.xyz",
+      "source_xyz_sha256": "7bf2d109530748172c95967b3c813cc2c28bfb39ff44c2829f327d642402f1cc",
+      "source_qe_input": "/Users/alina/Project/26MIgrationBench/data_raw/historical_neb/legacy_61/1-8/pw_1.in",
+      "source_qe_input_sha256": "1ae7a28f9614639fa321b79de4bfc0e1829166dc34fed11f0c3f9e346fe8fcb4"
+    }
+  },
+  "models": [
+    {
+      "model_id": "mp_0b3_medium",
+      "family": "MP",
+      "variant": "MP-0b3-medium",
+      "head": "",
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace-mp-0b3-medium.model",
+      "resolved_sha256": "2f2be696351ac9e94fbe01cdfb6f017679acdbd2db7645209ef55fec9826b012"
+    },
+    {
+      "model_id": "mpa0_medium",
+      "family": "MP",
+      "variant": "MPA0-medium",
+      "head": "",
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-mpa-0-medium.model",
+      "resolved_sha256": "75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638"
+    },
+    {
+      "model_id": "omat0_small",
+      "family": "OMAT",
+      "variant": "OMAT-0-small",
+      "head": "omat_pbe",
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace-omat-0-small.model",
+      "resolved_sha256": "0abfde07862cf1e93b8b4d03cb702f29ce9c344ff2fc4de2ec0d7166d6c113a5"
+    },
+    {
+      "model_id": "omat0_medium",
+      "family": "OMAT",
+      "variant": "OMAT-0-medium",
+      "head": "omat_pbe",
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace-omat-0-medium.model",
+      "resolved_sha256": "d4b14be9afa294eebdbe31a0280b26a0fa29715771e978cbfd3ca24e0d90307a"
+    },
+    {
+      "model_id": "mh0",
+      "family": "MH",
+      "variant": "MH-0",
+      "head": "omat_pbe",
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace-mh-0.model",
+      "resolved_sha256": "d62ff8f293664e6556cfa49364b28ee72a70cf1e6150f3c111a578397fed609d"
+    },
+    {
+      "model_id": "mh1",
+      "family": "MH",
+      "variant": "MH-1",
+      "head": "omat_pbe",
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace-mh-1.model",
+      "resolved_sha256": "a522eb7f59c7879963d41586528f4980baf33e086c94aa92e3eafdeccad3be47"
+    },
+    {
+      "model_id": "agnesi_medium",
+      "family": "Agnesi",
+      "variant": "Agnesi-medium",
+      "head": "",
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace_agnesi_medium.model",
+      "resolved_sha256": "ab8baff639a8f295f3eccad3d3ccf574efb6fb63220bd52cd88664211569e521"
+    },
+    {
+      "model_id": "agnesi_stress_small",
+      "family": "Agnesi-stress/density",
+      "variant": "small",
+      "head": null,
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace-small-density-agnesi-stress.model",
+      "resolved_sha256": "d5773bf9440e96d6eb8c598f84bd0e6369fcfa432f626a87f890e07da3c651c9"
+    },
+    {
+      "model_id": "agnesi_stress_medium",
+      "family": "Agnesi-stress/density",
+      "variant": "medium",
+      "head": null,
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace-medium-density-agnesi-stress.model",
+      "resolved_sha256": "a90be07c8aa6623c390fcc4653d3e319c4a356f8b4a53d323f96b2012d375caf"
+    },
+    {
+      "model_id": "agnesi_stress_large",
+      "family": "Agnesi-stress/density",
+      "variant": "large",
+      "head": null,
+      "resolved_local_checkpoint": "/Users/alina/Downloads/mace-foundation-models/mace-large-density-agnesi-stress.model",
+      "resolved_sha256": "348390e758e1c90011c7675e864850f8e9c5b3e7c217f79a2b4bad1baaa657ad"
+    }
+  ],
+  "results": [
+    {
+      "model_id": "mp_0b3_medium",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/mp_0b3_medium__1-6.json",
+      "result_sha256": "26557ef4e39efaf6dccd4158b1ec9ea975c4afd247a02f5d51ef6c83baf0f77e",
+      "finite": true,
+      "barrier_eV": 0.5918890088565831,
+      "n_images": 5
+    },
+    {
+      "model_id": "mp_0b3_medium",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/mp_0b3_medium__1-8.json",
+      "result_sha256": "7873c4e20ab6ce72a3c5d2314cef71fa330ba59b5725401cdb737269a7408fa9",
+      "finite": true,
+      "barrier_eV": 0.2308521998471349,
+      "n_images": 5
+    },
+    {
+      "model_id": "mpa0_medium",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/mpa0_medium__1-6.json",
+      "result_sha256": "7e95bff337da1b7229a2da34f01c16509f16a6b2736f113826d224c39de13527",
+      "finite": true,
+      "barrier_eV": 0.6562172080340076,
+      "n_images": 5
+    },
+    {
+      "model_id": "mpa0_medium",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/mpa0_medium__1-8.json",
+      "result_sha256": "2180c574f7c1c29f07e009bf6f1ec1fe4b2815a1ebb84b27a2ca35452bb8eeaf",
+      "finite": true,
+      "barrier_eV": 0.20063606119319388,
+      "n_images": 5
+    },
+    {
+      "model_id": "omat0_small",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/omat0_small__1-6.json",
+      "result_sha256": "f9e6d70e4e798c66b7af2149052ca3d3a467c158949a0e03656250b9196e94b1",
+      "finite": true,
+      "barrier_eV": 0.5049026330100048,
+      "n_images": 5
+    },
+    {
+      "model_id": "omat0_small",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/omat0_small__1-8.json",
+      "result_sha256": "1a0a0d0d1381db3bad75402ae09b76120624368aba030e62a8b09343a9590501",
+      "finite": true,
+      "barrier_eV": 0.0778410623927357,
+      "n_images": 5
+    },
+    {
+      "model_id": "omat0_medium",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/omat0_medium__1-6.json",
+      "result_sha256": "cb9140b3f3c70ec5155b697d17c095bc97f34f2e6bb6aa4ff8e44a2ea31be4ea",
+      "finite": true,
+      "barrier_eV": 0.539534646814019,
+      "n_images": 5
+    },
+    {
+      "model_id": "omat0_medium",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/omat0_medium__1-8.json",
+      "result_sha256": "411319c115b143a8d1b3ca4ad67f17764b0938eb182e2434e3d8d8da18a3fe35",
+      "finite": true,
+      "barrier_eV": 0.0,
+      "n_images": 5
+    },
+    {
+      "model_id": "mh0",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/mh0__1-6.json",
+      "result_sha256": "0d56fe468add5eef5091152b441e9adbf7bf962b57d355358ad135cefbd29300",
+      "finite": true,
+      "barrier_eV": 0.5274259985526726,
+      "n_images": 5
+    },
+    {
+      "model_id": "mh0",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/mh0__1-8.json",
+      "result_sha256": "6d989d46969fc458ef25f983f0fb095daa35de022848c6934fd8efb2ac18c8dc",
+      "finite": true,
+      "barrier_eV": 0.0,
+      "n_images": 5
+    },
+    {
+      "model_id": "mh1",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/mh1__1-6.json",
+      "result_sha256": "8264c03f2bc57dcd3d0be6186c73d3b3c401a592916305a4a47b571df0eaef68",
+      "finite": true,
+      "barrier_eV": 0.4462430986643824,
+      "n_images": 5
+    },
+    {
+      "model_id": "mh1",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/mh1__1-8.json",
+      "result_sha256": "591e88a17019c9ee61764786c52517a25eadcad88a4504977bd702f2cf9c4775",
+      "finite": true,
+      "barrier_eV": 0.0,
+      "n_images": 5
+    },
+    {
+      "model_id": "agnesi_medium",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/agnesi_medium__1-6.json",
+      "result_sha256": "9c8855090d3a4743c7d898bb3ae315857b0c14906eac08398a49b5a7d3bd1243",
+      "finite": true,
+      "barrier_eV": 0.6990131709728473,
+      "n_images": 5
+    },
+    {
+      "model_id": "agnesi_medium",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/agnesi_medium__1-8.json",
+      "result_sha256": "e726c0751c956a4329bbc65b70a4b211b2199b978aa74731776e12249afde3fb",
+      "finite": true,
+      "barrier_eV": 0.08156691399531724,
+      "n_images": 5
+    },
+    {
+      "model_id": "agnesi_stress_small",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/agnesi_stress_small__1-6.json",
+      "result_sha256": "c44832e7bfaebef449a7c5a491585bca864a0e80e6ca6e53908605e9dcd41be4",
+      "finite": true,
+      "barrier_eV": 0.41185243391655035,
+      "n_images": 5
+    },
+    {
+      "model_id": "agnesi_stress_small",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/agnesi_stress_small__1-8.json",
+      "result_sha256": "d2531353c8d62dbc74c4a3276f9b681ce5293c01efaa92c453f9493e3c5b97a2",
+      "finite": true,
+      "barrier_eV": 0.0,
+      "n_images": 5
+    },
+    {
+      "model_id": "agnesi_stress_medium",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/agnesi_stress_medium__1-6.json",
+      "result_sha256": "ca49ec186b9aa5613f23247e2d8a604883d476ed0e608dee49b2a359787dd2e2",
+      "finite": true,
+      "barrier_eV": 0.7824244419747686,
+      "n_images": 5
+    },
+    {
+      "model_id": "agnesi_stress_medium",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/agnesi_stress_medium__1-8.json",
+      "result_sha256": "87460506df4d6a66b6c76250e8308466ca0080ed22865d95edb46c0477d2f66c",
+      "finite": true,
+      "barrier_eV": 0.0,
+      "n_images": 5
+    },
+    {
+      "model_id": "agnesi_stress_large",
+      "path_id": "1-6",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/agnesi_stress_large__1-6.json",
+      "result_sha256": "e197cecb7b0af7f623f86c47d1fb236437df51e6b0c2f0e5e960221faa2ff6e9",
+      "finite": true,
+      "barrier_eV": 0.9521595080549616,
+      "n_images": 5
+    },
+    {
+      "model_id": "agnesi_stress_large",
+      "path_id": "1-8",
+      "result": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/task3_endpoint_only_neb/exploratory_energy_audit/cr_61_81_three_class_20261003/foundation_61_missing/agnesi_stress_large__1-8.json",
+      "result_sha256": "ab2b8506721877d2c41a496e83a2263c90d57a50edfe794ea06cc20b8b177a05",
+      "finite": true,
+      "barrier_eV": 0.13043006604169705,
+      "n_images": 5
+    }
+  ]
+}

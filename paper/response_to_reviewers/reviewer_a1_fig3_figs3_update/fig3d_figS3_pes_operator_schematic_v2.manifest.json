@@ -1,0 +1,39 @@
+{
+  "figure_id": "A1-PES-OPERATOR-SCHEMATIC-V2",
+  "status": "RECONSTRUCTION_SCHEMATIC_WITH_REAL_PATH_GEOMETRY",
+  "surface_status": "synthetic reduced-coordinate PES; color is z-dependent and not a quantitative PES",
+  "fixed_profile_status": "derived from current 1-4 processed DFT candidate profile and FT-600K fixed-path predictions",
+  "fixed_geometry_status": "five-image 61-atom DFT fixture",
+  "self_geometry_status": "five-image 61-atom Foundation MLIP self-relaxed path; converged under the MLIP optimization potential but provisional for publication",
+  "self_rescore_status": "operator definition only; same-system DFT re-score is not available and is not plotted as data",
+  "q_coordinate_definition": {
+    "cr_index_zero_based": 60.0,
+    "endpoint_distance_A": 3.9186392109881463,
+    "q1_axis_x": 0.5377144463291019,
+    "q1_axis_y": -0.3104495803259292,
+    "q1_axis_z": 0.7838904466087349,
+    "q2_axis_x": 0.6788689876349231,
+    "q2_axis_y": -0.3919453149509257,
+    "q2_axis_z": -0.6208991606658476
+  },
+  "equations": {
+    "fixed": "deltaE_i = E_MLIP(R_i^DFT) - E_DFT(R_i^DFT)",
+    "self": "Gamma_MLIP = NEB_MLIP(R_A,R_B)",
+    "decomposition": "DeltaE_i = [E_DFT(R_i^MLIP)-E_DFT(R_i^DFT)] + [E_MLIP(R_i^MLIP)-E_DFT(R_i^MLIP)]"
+  },
+  "inputs": {
+    "data/processed/dft_neb_profiles.csv": "074ab3e9e3e99414a2f3bf18476048d27ac202747c3106129a9f105a7025180f",
+    "data/raw_compact/revision1/neb_benchmark/data/1-4/neb_predictions.csv": "2d92262b02bddb600d12e15ddeec61f33ea666477a7e9ca9958730f7c0cb3a25",
+    "tests/fixtures/historical_neb/legacy_61/1-4/sb2te3.xyz": "81c61faf152df1f1c274ccafdbc9810e682b64cf59d1e8f73650ba9b77252b44",
+    "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/data/self_relaxed_foundation_path_61_1-4.extxyz": "59e949d007461381ce7ce89de795079ef7b7303d9a71cec6f97b868d70ccb557"
+  },
+  "atom_render_manifest": "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/atom_renders_v2/atom_render_manifest.json",
+  "path_coordinate_csv": "paper/response_to_reviewers/reviewer_a1_fig3_figs3_update/pes_operator_v2_path_coordinates.csv",
+  "notes": [
+    "The five atomistic snapshots are structural anchors and contain no labels.",
+    "The right-hand path uses actual Foundation MLIP self-relaxed geometries with shared endpoints, not the excluded historical 0.410 eV record.",
+    "The lower-right re-score curves are synthetic smooth operator definitions because a matched DFT re-score on the self-relaxed path is still missing.",
+    "No publication barrier or model ranking is inferred from the schematic surfaces or synthetic re-score curves."
+  ],
+  "script_sha256": "4cd01fe05f932e3d71f96f1bdee10957036bffa5c9997607804b414ac1060fa9"
+}

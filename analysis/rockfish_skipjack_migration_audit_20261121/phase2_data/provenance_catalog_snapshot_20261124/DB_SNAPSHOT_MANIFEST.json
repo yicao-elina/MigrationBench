@@ -1,0 +1,35 @@
+{
+  "snapshot_id": "MB-PROVENANCE-CATALOG-ROCKFISH-20261124",
+  "status": "VERIFIED",
+  "verified_at_utc": "2026-11-24T10:07:30Z",
+  "source": {
+    "path": "/Users/alina/.codex/worktrees/migrationbench-unified-20261121/analysis/rockfish_skipjack_migration_audit_20261121/provenance_catalog.sqlite",
+    "size_bytes": 3970719744,
+    "sha256": "2a46a3380ea291db3fc02dc0f148931eba40297ada670ab773ddcab8fe75d053"
+  },
+  "rockfish_copy": {
+    "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/provenance_catalog_snapshots/20261124/provenance_catalog_20261124.sqlite",
+    "size_bytes": 3970719744,
+    "sha256": "2a46a3380ea291db3fc02dc0f148931eba40297ada670ab773ddcab8fe75d053",
+    "permissions": "0600"
+  },
+  "integrity": {
+    "sqlite_quick_check": "ok",
+    "foreign_key_violations": 0,
+    "registered_deliverable_rows": 991
+  },
+  "verification": {
+    "source_and_destination_sha256_match": true,
+    "destination_opened_read_only_on_rockfish": true,
+    "database_snapshot_manifest_is_external_to_database": true,
+    "personal_quota_after": "UNAVAILABLE"
+  },
+  "stale_transfer_residue_cleanup": {
+    "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/provenance_catalog_snapshots/20261124/provenance_catalog_20261124.sqlite.transfer2.partial",
+    "size_bytes": 1966440448,
+    "sha256": "9b08146cac92151082dca72162bcc28ada19aba6e5b8c39d0a9161d8008f6d5f",
+    "deleted": true,
+    "verified_absent_at_utc": "2026-11-24T10:07:30Z",
+    "reason": "Abandoned transfer residue with an epoch-era mtime; no active snapshot or rsync writer remained. The complete current snapshot was independently verified at the same destination."
+  }
+}

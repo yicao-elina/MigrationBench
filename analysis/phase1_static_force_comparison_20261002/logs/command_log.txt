@@ -1,0 +1,11 @@
+# Phase 1 command/provenance summary
+# Source inventory and hashes were read-only on Rockfish.
+ssh rockfish 'find /scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930 -type f \( -name "*.extxyz" -o -name "*.xyz" -o -name "status.json" -o -name "run_manifest.json" \)'
+ssh rockfish 'sha256sum /scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/{1-from-scratch/segment_from_000200000.extxyz,2-naive-fine-tuning/segment_from_000080000.extxyz,3-multi_T-fine-tuning/segment_from_000200000.extxyz,foundation-omat/segment_from_000008000.extxyz}'
+python scripts/extract_static_snapshots.py --source /scratch16/pclancy3/yi/mace_four_model_MD_continuation_20260930/1-from-scratch/segment_from_000200000.extxyz --output-dir inputs
+SLURM_CONF=/cm/shared/apps/slurm/var/etc/slurm/slurm.conf /cm/shared/apps/slurm/current/bin/sbatch /scratch16/pclancy3/yi/phase1_static_force_comparison_20261002/run_remote_eval.slurm
+# Submitted formal single-point run: Slurm job 31511914; result 16/16 complete.
+python scripts/analyze_static_comparison.py --snapshot-manifest inputs/snapshot_manifest.json --evaluation-dir results --output-dir analysis
+python scripts/plot_phase1.py --analysis-dir analysis --output-dir figures
+# Local diagnostic fallback was run separately in results_local_diagnostic; it
+# completed Foundation only and retained CUDA-backend failures for the other 3.

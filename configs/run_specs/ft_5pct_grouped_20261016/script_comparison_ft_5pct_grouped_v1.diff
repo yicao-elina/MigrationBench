@@ -1,0 +1,19 @@
+--- submit_ft_5pct_grouped_v1.slurm (failed job 32069341_[0-5])
++++ submit_ft_5pct_grouped_v1.slurm (bootstrap repair)
+@@
+ set -euo pipefail
+ export SLURM_CONF=/cm/shared/apps/slurm/var/etc/slurm/slurm.conf
+ export RF_CONDA_SITE="${RF_CONDA_SITE:-}"
++export SINGULARITY_BIND="${SINGULARITY_BIND:-}"
+ source /data/apps/go.sh
+ source /data/apps/helpers/singularity.sh
+
+Failure evidence preserved on Rockfish:
+  job: 32069341_[0-5]
+  state: FAILED, exit 1:0, elapsed 0 seconds to 1 second
+  stderr: /data/apps/helpers/singularity.sh: line 23: SINGULARITY_BIND: unbound variable
+  logs: /scratch16/pclancy3/yi/ft_5pct_grouped_v1/logs/mb-ft-5pct-grouped-32069341_[0-5].{out,err}
+
+Scope of repair: initialize the helper's expected environment variable before
+the helper is sourced. Training arguments, dataset release, foundation model,
+architecture, optimizer, and output root are unchanged.

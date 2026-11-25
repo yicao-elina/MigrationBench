@@ -1,0 +1,56 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR07_resp-c9-md-endpoints",
+  "name": "tab:resp-c9-md-endpoints",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR07_resp-c9-md-endpoints/source/make_table_r07.py",
+  "script_sha256": "55ae63cb76f1f706788920521036609cf8ceb93a6b35f92d1813938e22ff1868",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/MD15_STATUS_AUDIT_R02.tsv": "89f32a3e5f6587e8ca3652e3b65ca6249d4891601e46fe74fa08ac336c0dd9c3",
+    "paper/revision1/data_processed/current_release/MD15_FIGURE_DATA_R06G.tsv": "929c15b6b46d80b4c69afb9a6b6d6e34acf229c684dfcec2957f65e7a571a62e",
+    "paper/revision1/data_processed/current_release/md_protocol_manifest.json": "316a8f31cd20a0026c2b7312b894d8ad1c2503d62b4a37472371c285b95eda88"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR07_resp-c9-md-endpoints/rerun_output/tab_resp-c9-md-endpoints.tex": "3bdffa10771e65de587ca7e5858bd44ab6fde5b24316fbf0ca01655a24d99680"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "all 15 runs continue from the same input as the protocol manifest",
+      "passed": true,
+      "details": {
+        "start_ps": 200.0,
+        "input_sha256": "e2f72e149940af7fd9016d2e1d58545cbe4734f935d91d9e4dc84c2e7645e454"
+      }
+    },
+    {
+      "check": "status audit agrees with the MD15 figure data (final clock, status)",
+      "passed": true,
+      "details": "15 models compared"
+    },
+    {
+      "check": "Outcome label map covers every audit status (code -> submitted wording)",
+      "passed": true,
+      "details": {
+        "SCIENTIFIC_FAILURE": "Scientific stop",
+        "TARGET_REACHED": "Target reached",
+        "TARGET_REACHED_PROVISIONAL": "Target reached",
+        "note": "PROVISIONAL qualifier of the foundation runs and the 'scientific_threshold' reason are shown as 'Target reached' / 'Scientific stop' in the submitted table"
+      }
+    },
+    {
+      "check": "every audited run appears once",
+      "passed": true,
+      "details": {
+        "rows": 15,
+        "audit": 15
+      }
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-c9-md-endpoints at displayed precision",
+      "passed": true,
+      "details": "15 rows match"
+    }
+  ],
+  "result": "PASS"
+}

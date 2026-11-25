@@ -1,0 +1,11 @@
+record_id	job_id	purpose	state	exit_code	start_or_submit	end	resource_or_reason	publication_action
+FT600K-PREFLIGHT	32211668	bootstrap/data/GPU preflight	COMPLETED	0:0	2026-10-19T05:40:00	2026-10-19T05:40:19	gpu10	retain as environment evidence
+FT600K-TRAIN-234	32211669_0 / 32211672	seed234 full training	COMPLETED	0:0	2026-10-19T05:40:31	2026-10-19T14:40:05	gpu11	model eligible after gate
+FT600K-TRAIN-345	32211669_1 / 32211669	seed345 full training	COMPLETED	0:0	2026-10-20T09:01:26	2026-10-20T18:01:34	gpu12	model eligible after gate
+FT600K-GATE-OLD	32455385	initial GPU model gate	CANCELLED	0:0	2026-10-24T18:41:00	2026-10-24T18:41:20	pending resources with mem=0	preserve submission boundary; no work ran
+FT600K-MD-OLD	32455473_[0-1]	initial dependent smoke array	CANCELLED	0:0	2026-10-24	2026-10-24	dependency on cancelled gate	preserve submission boundary; no work ran
+FT600K-GATE-R01	32455612	GPU model load/finite probe	COMPLETED	0:0	2026-10-24T18:41:00	2026-10-24T18:41:42	gpu03	gate PASS
+FT600K-MD-DUPLICATE	32455647_[0-1]	duplicate smoke array	CANCELLED	0:0	2026-10-24T18:41:47	2026-10-24	pending resources; no task started	preserve submission boundary; no work ran
+FT600K-MD-MEM-RETRY	32455657_[0-1]	smoke array before mem32 update	CANCELLED	0:0	2026-10-24	2026-10-24	pending; no task started	preserve submission boundary; no work ran
+FT600K-MD-234	32455770_0 / 32455778	seed234 20 ps smoke	FAILED	1:0	2026-10-24T18:47:02	2026-10-24T18:53:32	gpu18; scientific threshold at step 201800	FAILURE_MODE; no continuation
+FT600K-MD-345	32455770_1 / 32455770	seed345 20 ps smoke	FAILED	1:0	2026-10-24T18:47:02	2026-10-24T18:51:46	gpu18; scientific threshold at step 201200	FAILURE_MODE; no continuation

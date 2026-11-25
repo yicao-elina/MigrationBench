@@ -1,0 +1,18 @@
+Rockfish read-only audit, 2026-10-24
+
+Command:
+source /etc/profile; sacct -j 32121744_0 -n -p --starttime=2026-10-16 --format=JobIDRaw,JobName%30,State,ExitCode,Elapsed,Start,End,NodeList
+
+32151298|mb-ft-600k-random-repro|FAILED|1:0|00:00:03|2026-10-18T06:35:16|2026-10-18T06:35:19|gpu04|
+32151298.batch|batch|FAILED|1:0|00:00:03|2026-10-18T06:35:16|2026-10-18T06:35:19||gpu04|
+32151298.extern|extern|COMPLETED|0:0|00:00:03|2026-10-18T06:35:16|2026-10-18T06:35:19||gpu04|
+
+Command:
+source /etc/profile; sacct -j 32121744_1 -n -p --starttime=2026-10-16 --format=JobIDRaw,JobName%30,State,ExitCode,Elapsed,Start,End,NodeList
+
+32121744|mb-ft-600k-random-repro|FAILED|1:0|00:00:01|2026-10-18T06:35:28|2026-10-18T06:35:29|gpu04|
+32121744.batch|batch|FAILED|1:0|00:00:01|2026-10-18T06:35:28|2026-10-18T06:35:29||gpu04|
+32121744.extern|extern|COMPLETED|0:0|00:00:01|2026-10-18T06:35:28|2026-10-18T06:35:29||gpu04|
+
+The parent/array job is no longer active (`squeue` returned Invalid job id).
+The remote `models/` directory exists but contains no files.

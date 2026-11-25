@@ -1,0 +1,95 @@
+{
+  "schema_version": "2.0",
+  "created": "2026-10-18",
+  "purpose": "Reviewer-response diagnostic for grouped split coverage, static pointwise accuracy, and MLIP-generated MD configuration space",
+  "figure_outputs": {
+    "main_atlas": "figures/fig_task_conditioned_distribution_atlas.pdf",
+    "main_atlas_png": "figures/fig_task_conditioned_distribution_atlas.png",
+    "main_atlas_svg": "figures/fig_task_conditioned_distribution_atlas.svg",
+    "panel_a": "figures/fig_task_conditioned_panel_a.pdf",
+    "panel_a_png": "figures/fig_task_conditioned_panel_a.png",
+    "panel_a_svg": "figures/fig_task_conditioned_panel_a.svg",
+    "archived_static_panel_b": "figures/fig_task_conditioned_panel_b.pdf",
+    "archived_static_panel_b_png": "figures/fig_task_conditioned_panel_b.png",
+    "archived_static_panel_b_svg": "figures/fig_task_conditioned_panel_b.svg",
+    "panel_c": "figures/fig_task_conditioned_panel_c.pdf",
+    "panel_c_png": "figures/fig_task_conditioned_panel_c.png",
+    "panel_c_svg": "figures/fig_task_conditioned_panel_c.svg",
+    "original_training_rmse": "figures/fig_original_training_rmse_four_model.pdf",
+    "original_training_rmse_png": "figures/fig_original_training_rmse_four_model.png",
+    "original_training_rmse_svg": "figures/fig_original_training_rmse_four_model.svg",
+    "original_training_rmse_caption": "fig_original_training_rmse_four_model_caption.tex",
+    "panel_a_caption": "fig_task_conditioned_panel_a_caption.tex",
+    "archived_static_panel_b_caption": "fig_task_conditioned_panel_b_caption.tex",
+    "panel_c_caption": "fig_task_conditioned_panel_c_caption.tex",
+    "failure_stage": "figures/fig_failure_stage_grouped.pdf",
+    "failure_stage_png": "figures/fig_failure_stage_grouped.png",
+    "failure_stage_svg": "figures/fig_failure_stage_grouped.svg",
+    "caption": "fig_task_conditioned_distribution_atlas_caption.tex",
+    "failure_caption": "fig_failure_stage_grouped_caption.tex"
+  },
+  "panel_grammar": {
+    "a": "Grouped train/validation/test SOAP/PCA joint distributions with 2D density contours and marginal densities; fixed-path pathway-1--4 images are separate markers",
+    "b": "MLIP-generated 600 K MD SOAP/PCA clouds over grouped-training density",
+    "rmse": "Original Rockfish validation RMSE histories in a separate four-model figure",
+    "rendering": "The two configuration-space panels are independently rendered Plot Atlas recipes and then composed into the stacked reviewer atlas; the original-training RMSE figure is kept separate.",
+    "model_order": ["Foundation", "Scratch", "FT-600K", "FT-MultiT"],
+    "in_figure_text_rule": "No free-form descriptive or diagnostic prose; scope belongs in the caption"
+  },
+  "grouped_reference": {
+    "split_type": "whole source AIMD trajectory/group assignment",
+    "counts": {"train": 1786, "valid": 311, "test": 267, "fixed_path_neb": 5},
+    "train_breakdown": {"periodic_aimd": 1783, "isolated_atom_calibration": 3},
+    "pca_fit": "grouped training split only",
+    "descriptor": {
+      "species": ["Cr", "Sb", "Te"],
+      "periodic": true,
+      "r_cut_A": 5.0,
+      "n_max": 4,
+      "l_max": 4,
+      "sigma_A": 0.5,
+      "average": "inner",
+      "sparse": false
+    }
+  },
+  "md_distribution": {
+    "velocity_seed": "common stored continuation seed; not independent velocity replicas",
+    "short_contact_guard_A": 1.2,
+    "status_by_family": {
+      "Foundation": {"rows": 4961, "soap_valid": 3, "short_contact_skipped": 4958},
+      "Scratch": {"rows": 4001, "soap_valid": 1310, "short_contact_skipped": 2691},
+      "FT-600K": {"rows": 4601, "soap_valid": 4601, "short_contact_skipped": 0},
+      "FT-MultiT": {"rows": 4001, "soap_valid": 4001, "short_contact_skipped": 0}
+    },
+    "claim_status": "descriptive MLIP-only configuration-space diagnostic; not DFT error and not calibrated uncertainty"
+  },
+  "static_error_evidence": {
+    "Foundation": "representative grouped-test zero-shot checkpoints",
+    "Scratch": "grouped multi-seed retraining",
+    "FT-600K": "grouped multi-seed retraining",
+    "FT-MultiT": "historical frame-level descriptive point; grouped retraining not performed in this round"
+  },
+  "original_training_rmse": {
+    "source": "raw_cache/rockfish_original_training_20261019/logs/*.txt",
+    "selection": "mode=eval and head=default",
+    "records": 87,
+    "plot_records": 84,
+    "claim_status": "descriptive single-run validation histories; not grouped held-out test errors or seed uncertainty",
+    "manifest": "derived/rockfish_training_rmse_manifest.json"
+  },
+  "standalone_failure": {
+    "source": "639-candidate MLIP-only failure/CAR diagnostic",
+    "claim_status": "descriptive paired model-disagreement and force-envelope diagnostic; not DFT error or calibrated uncertainty"
+  },
+  "scripts": {
+    "embedding": "compute_soap_pca.py",
+    "panel_common": "panel_common.py",
+    "panel_a": "plot_task_conditioned_panel_a.py",
+    "archived_static_panel_b": "plot_task_conditioned_panel_b.py",
+    "panel_c": "plot_task_conditioned_panel_c.py",
+    "composition": "compose_task_conditioned_distribution_atlas.py",
+    "atlas_compatibility_entrypoint": "plot_distribution_atlas_v2.py",
+    "failure": "plot_failure_stage_grouped.py",
+    "metadata": "write_release_metadata.py"
+  }
+}

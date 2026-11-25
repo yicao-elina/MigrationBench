@@ -1,0 +1,35 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/response/TableR05_resp-a6-shap-fidelity",
+  "name": "tab:resp-a6-shap-fidelity",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/response/TableR05_resp-a6-shap-fidelity/source/make_table_r05.py",
+  "script_sha256": "2fe25e49fe836b0da9151ba1e1d66e372b7da9058eeba4224c05e2980775f958",
+  "python": "3.11.0",
+  "inputs": {
+    "paper/revision1/data_processed/current_release/shap_seed_metrics.csv": "fc3a6a67bc22bc96e2055a420f7aae37482ddcb963eff5207c029b6225b28f32"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/response/TableR05_resp-a6-shap-fidelity/rerun_output/tab_resp-a6-shap-fidelity.tex": "18186e8f7cec4c8cefe9874ea40ec980458d416dff76ba45ecc19bb7df50fbe3"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "table families are exactly the families in the metrics file",
+      "passed": true,
+      "details": {
+        "data": [
+          "FT-600K",
+          "FT-MultiT",
+          "Scratch-600K",
+          "Scratch-MultiT"
+        ]
+      }
+    },
+    {
+      "check": "values equal submitted response_to_reviewers.tex tab:resp-a6-shap-fidelity at displayed precision",
+      "passed": true,
+      "details": "4 rows match"
+    }
+  ],
+  "result": "PASS"
+}

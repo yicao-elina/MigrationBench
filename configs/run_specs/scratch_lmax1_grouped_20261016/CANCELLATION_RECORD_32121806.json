@@ -1,0 +1,21 @@
+{
+  "campaign_id": "scratch_lmax1_grouped_20261016",
+  "job_id": "32121806",
+  "cancelled_array_tasks": [0, 1, 2],
+  "cancelled_family": "scratch_600k_lmax1_grouped_v1",
+  "reason": "Exact duplicate of pre-existing historical scratch_grouped_seed123/234/345 models: same grouped 600K dataset, max_L=1, correlation=3, no foundation, and seeds 123/234/345.",
+  "evidence": [
+    "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_matrix_scratch16_20260927/scratch_grouped_seed123/scratch_grouped_seed123_run-123_debug.log",
+    "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_matrix_scratch16_20260927/scratch_grouped_seed234/scratch_grouped_seed234_run-234_debug.log",
+    "/scratch16/pclancy3/yi/revision1_migrationbench_runs/ft600k_grouped_A2/retrain_matrix_scratch16_20260927/scratch_grouped_seed345/scratch_grouped_seed345_run-345_debug.log",
+    "../mace_endpoint_grouped_retrain_10model/models.tsv"
+  ],
+  "action": "scancel 32121806_0 32121806_1 32121806_2",
+  "post_action_verification": {
+    "squeue": "tasks 0-2 absent; tasks 3-5 remain PENDING (Priority)",
+    "remaining_tasks": [3, 4, 5],
+    "remaining_family": "scratch_multit_lmax1_grouped_v1",
+    "training_outputs_deleted": false
+  },
+  "preservation": "Original SUBMISSION_RECORD.json and the submitted script are retained unchanged."
+}

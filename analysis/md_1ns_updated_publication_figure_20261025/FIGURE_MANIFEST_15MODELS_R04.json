@@ -1,0 +1,108 @@
+{
+  "figure": "fig_md_1ns_updated_A_to_F_15models_R04",
+  "panel_order": {
+    "A": "Temperature stability",
+    "B": "Pressure stability",
+    "C": "MSD_xy",
+    "D": "Short-range Cr-Cr coordination",
+    "E": "Cr-Cr RDF",
+    "F": "Normalized VACF"
+  },
+  "model_count": 15,
+  "model_matrix": "3 Foundation checkpoints + 3 seeds x FT-600K + 3 seeds x FT-MultiT + 3 seeds x Scratch-600K + 3 seeds x Scratch-MultiT",
+  "style_reference": "FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json",
+  "palette": {
+    "Foundation": "#CF4520",
+    "FT-600K": "#002E71",
+    "FT-MultiT": "#67ACE5",
+    "Scratch-600K": "#FF9F1B",
+    "Scratch-MultiT": "#F4C95D"
+  },
+  "trajectory_policy": "plot each model only through its observed raw trajectory horizon; failures are retained and never extended",
+  "temperature_definition": "instantaneous kinetic temperature recomputed from extxyz momenta with ASE masses and k_B",
+  "pressure_definition": "P = -trace(stress)/3, converted from eV/A^3 to GPa with 160.21766208",
+  "msd_definition": "xy mean-square displacement from the first retained production frame with triclinic fractional unwrapping",
+  "vacf_definition": "normalized multi-origin VACF using every fourth retained frame; short trajectories retain their observed lag range",
+  "rdf_definition": "Cr-Cr pair RDF from raw trajectories, triclinic minimum-image distances, rmax=12 A, dr=0.1 A, every 20th eligible frame; panel displays 0-10 A",
+  "rdf_zero_policy": "retain g(r)=0 and use a zero-inclusive symlog ordinate; the 0-2 A baseline is not converted to NaN",
+  "cn_definition": "Cr-Cr coordination/contact number integrated from the validated Cr-Cr RDF as 4*pi*rho_Cr*integral[g_CrCr(r) r^2 dr]",
+  "cn_cutoff_A": 2.5,
+  "cn_normalization": "mean Cr number density from the same fixed-cell RDF normalization; units are neighbors per Cr",
+  "d_panel_mode": "cn_short",
+  "f_panel_mode": "vacf",
+  "source_summary": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/md15_analysis_r03/analysis_summary.tsv",
+  "source_status": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/MD15_STATUS_AUDIT_R02.tsv",
+  "source_inputs": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/md15_inputs.tsv",
+  "outputs": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/results/fig_md_1ns_updated_A_to_F_15models_R04.pdf",
+      "sha256": "61d4b7d901d9d4c9812391a296a275205b462794c40fc4921595d33f1e1cd608"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/results/fig_md_1ns_updated_A_to_F_15models_R04.png",
+      "sha256": "56df85b612b46c1f67f99855efba78015742fe2cf4b80fdb2651329e98282a0f"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/results/fig_md_1ns_updated_A_to_F_15models_R04.svg",
+      "sha256": "8574344841125e4517acda24ac42eb347fb0679ca7fe9d983720c10883eb1c7a"
+    }
+  ],
+  "source_artifacts": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/md15_inputs.tsv",
+      "sha256": "3df322167a2302fffa798b65312d1a84bae4e93ef2f55dadffeedfc65c72fde6"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/compute_md15.cpp",
+      "sha256": "aa6430e5e063165f06ff90fd716b1ac459901c2dffc655cde63daa846f3ef000"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/render_md15_figure_R02.py",
+      "sha256": "ca34c8201748cba60047c53e5a586420f2eaf22de6a24a16a0ae42e5f767eb82"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/render_md15_figure_R04.py",
+      "sha256": "9ffda06173168489b5d8fb44108bcedd5b8c92719cec070d82bd86fa891fef47"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/md15_analysis_r03/analysis_summary.tsv",
+      "sha256": "88dd1bec7cda5596a74bb06b6156b51effba45219bb9e7506451f979c6308635"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/MD15_STATUS_AUDIT_R02.tsv",
+      "sha256": "89f32a3e5f6587e8ca3652e3b65ca6249d4891601e46fe74fa08ac336c0dd9c3"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/MD15_FIGURE_DATA_R04.tsv",
+      "sha256": "c219a7153b4e5148c90de26479d80bfb3f7ab74a9b0c05c2017578dc515d0395"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/remote_evidence_R02/FT_MODEL_REGISTRY.tsv",
+      "sha256": "224deb78bb6e88611e1d3de12327cb999f36610794fbb23077f78f280d69b6aa"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/remote_evidence_R02/SCRATCH_MODEL_REGISTRY.tsv",
+      "sha256": "b587125cd76aba0cf4a68442eb82be31cd59840d80a77365d71f10f5bca2d901"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/remote_evidence_R02/FT_CAMPAIGN_MANIFEST.json",
+      "sha256": "316a8f31cd20a0026c2b7312b894d8ad1c2503d62b4a37472371c285b95eda88"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/remote_evidence_R02/MODEL_REGISTRY.tsv",
+      "sha256": "224deb78bb6e88611e1d3de12327cb999f36610794fbb23077f78f280d69b6aa"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/remote_evidence_R02/CAMPAIGN_MANIFEST.json",
+      "sha256": "316a8f31cd20a0026c2b7312b894d8ad1c2503d62b4a37472371c285b95eda88"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/FIGURE_CAPTION_15MODELS_R04.md",
+      "sha256": "68dab8d87a2e869130d4b7e943e70ce67bf59afc146229578c3f2459a5a25e20"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/MD15_STATUS_REPORT_R04.md",
+      "sha256": "a4039646b9ace95e1b37a2d5d3f541a33c9652e3b0c2066215a350917d6858ba"
+    }
+  ]
+}

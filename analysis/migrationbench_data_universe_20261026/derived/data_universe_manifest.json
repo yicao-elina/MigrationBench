@@ -1,0 +1,43 @@
+{
+  "schema_version": "1.0",
+  "status": "RECONSTRUCTION",
+  "created": "2026-10-26",
+  "representation": {
+    "pca": "audited grouped Cr/Sb/Te SOAP/PCA coordinates",
+    "umap": {
+      "n_neighbors": 30,
+      "min_dist": 0.18,
+      "metric": "euclidean"
+    },
+    "tsne": {
+      "perplexity": 35,
+      "max_iter": 1500,
+      "init": "pca"
+    },
+    "seed": 42
+  },
+  "inputs": [
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/task_conditioned_distribution_atlas_20261018/derived/grouped_reference_embedding.csv",
+      "sha256": "c97d76978543e7b7c02124012fbafb8e100039b7a23ffaf21af8bb4c2d30c556",
+      "role": "grouped_reference_SOAP_PCA"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/task_conditioned_distribution_atlas_20261018/derived/md_distribution_points.csv",
+      "sha256": "628c985e11b3f8357a866ce915c9bac07504bc21f7b42fe6cb544ebaf9bcef19",
+      "role": "MLIP_MD_SOAP_PCA"
+    },
+    {
+      "path": "/Users/alina/Project/migrationbench-paper-repro/analysis/task_conditioned_distribution_atlas_20261018/derived/task_distribution_long.csv",
+      "sha256": "8a9e4e696bbdab7b5b4cddfa0f3b91b2a5aec4d38fb2114a99799f76eaa177f3",
+      "role": "task_status_crosswalk"
+    }
+  ],
+  "counts": {
+    "n_points": 3632,
+    "reference_points": 2369,
+    "mlip_md_points": 1263,
+    "md_sample_per_family": 420
+  },
+  "scientific_boundary": "MLIP MD occupancy is descriptive and not a DFT error; short-contact-skipped frames are retained in the source table but excluded from the manifold coordinates."
+}

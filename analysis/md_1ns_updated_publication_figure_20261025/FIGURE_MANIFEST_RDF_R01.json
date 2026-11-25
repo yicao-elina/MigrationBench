@@ -1,0 +1,78 @@
+{
+  "figure": "fig_md_1ns_updated_A_to_F_RDF_R01",
+  "panel_change": "Panel B is hydrostatic pressure stability from raw extxyz stress; panel E replaces the prior observed-horizon panel with Cr-Cr RDF; panel F remains the Dxy window ratio.",
+  "style_reference": "FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json",
+  "palette": {
+    "Foundation": "#CF4520",
+    "FT-600K": "#002E71",
+    "FT-MultiT": "#67ACE5",
+    "Scratch-600K": "#FF9F1B",
+    "Scratch-MultiT": "#F4C95D"
+  },
+  "rdf": {
+    "pair": "Cr-Cr",
+    "source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/rdf_groups.csv",
+    "remote_compute": "Rockfish raw extxyz, triclinic minimum-image distances, rmax=12 A, dr=0.1 A, frame_stride=20; panel displays r<=10 A",
+    "metadata": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/rdf_meta.tsv",
+    "status": "FT 3-seed release plus Foundation true zero-shot and Scratch smoke/failure-mode trajectories; Scratch is not a 1 ns acceptance claim"
+  },
+  "pressure": {
+    "source": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/pressure_runs.csv",
+    "definition": "P = -trace(stress)/3, converted from eV/A^3 to GPa using 160.21766208",
+    "coverage": "production frames from step 220000; run mean and run SD bands"
+  },
+  "scientific_boundaries": {
+    "FT": "accepted 1 ns three-seed trajectories",
+    "Foundation": "current true zero-shot continuation found on Rockfish at step 1,000,000; retain provisional comparator status pending full independent acceptance audit",
+    "Scratch": "six current smoke runs are short failure-mode trajectories; no 1 ns Dxy or stability claim"
+  },
+  "cached_source_directory": "/tmp/md_data",
+  "source_artifacts": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/rdf_input_manifest.tsv",
+      "sha256": "511364e0390e4c4d9ea017283567d6710fe03a0d6d4ac4a581650f2507caf0ca"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/compute_rdf.cpp",
+      "sha256": "3e3b4f102b62304ad8e8fdcf5f7e73ced03caa4ec884b6ee4aee842abc90f6ff"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/compute_pressure.cpp",
+      "sha256": "724f2f327d0b8e3e13f86b24fcc765563ed16e63f82b0d6b0b03d505d23ad92a"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/rdf_runs.csv",
+      "sha256": "ab9d7064bb946e3db18d0111bdfaf458b397069f9c663a9ac2c880e80470d285"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/rdf_groups.csv",
+      "sha256": "a55a4865dcfa49751542ce514f11eb8860542dddfb0133d2c63f15f309ab71a2"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/rdf_meta.tsv",
+      "sha256": "5c400e6d88f2dd03deb01a9d38eb8082fefedbec9a05f3eff530e531d60718be"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/rdf_r01/pressure_runs.csv",
+      "sha256": "5388a1e2482197f304116b4589be9894d7a0ac44d3089220f4965f0ed6094762"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/results/fig_md_1ns_updated_A_to_F_RDF_R01.pdf",
+      "sha256": "f45dbb0d40d8a256124926d61d53e297ea5d805b8dbb54a5c6161009d46c9c85"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/results/fig_md_1ns_updated_A_to_F_RDF_R01.png",
+      "sha256": "f1f1aa12bb840af13b32d999085ffe1901769b14cb38728eb81ceb71a1375535"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/results/fig_md_1ns_updated_A_to_F_RDF_R01.svg",
+      "sha256": "9cbc9a803e24d98f25a37c1bee658fe8a9ee91f2f0d15cf98f3847d73f6ff944"
+    },
+    {
+      "path": "/Users/alina/Documents/ChatGPT/Wiley-MigrationBench/analysis/md_1ns_updated_publication_figure_20261025/md_1ns_family_summary_RDF_R01.csv",
+      "sha256": "51e6d14b3c209ea49441273a93c44e3447122458d04193b3aff59ce711d5eb1d"
+    }
+  ]
+}

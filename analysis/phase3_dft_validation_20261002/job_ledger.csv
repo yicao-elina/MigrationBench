@@ -1,0 +1,21 @@
+job_id,scope,state,reason_or_result,scientific_use
+31511976,parallel smoke,PENDING,queued before launcher repair; retained as historical pending job,not used as gate
+31511981,express smoke,FAILED,RF_CONDA_SITE unbound in wrapper,not used
+31511983,shared smoke,FAILED,RF_CONDA_SITE unbound in wrapper,not used
+31511986,shared smoke,FAILED,copy source and destination were identical,not used
+31511989,shared smoke,FAILED,Intel MPI bootstrap proxy exit 127,not used
+31511993,shared smoke,FAILED,srun not found on compute node,not used
+31511996,shared smoke,FAILED,PMI2 request malformed for Intel-MPI-linked pw.x,not used
+31512000,shared smoke,FAILED,Intel MPI bootstrap proxy could not launch,not used
+31512007,parallel direct smoke,COMPLETED,finite energy and forces; SCF converged in 12 iterations; JOB DONE,environment gate passed
+31512012,shared 81-atom direct array,CANCELLED,QOSMaxCpuPerJobLimit for two-element array; no task started,not used
+31512028,shared 81-atom direct single task,PENDING,step 461800; one CPU; direct pw.x,not yet a scientific result
+31512029,shared 81-atom direct single task,PENDING,step 462000; one CPU; direct pw.x,not yet a scientific result
+31512033,express 81-atom direct single task,PENDING,step 461800; one CPU; direct pw.x,not yet a scientific result
+31512034,express 81-atom direct single task,PENDING,step 462000; one CPU; direct pw.x,not yet a scientific result
+31537676,shared 81-atom direct single task,CANCELLED,32G startup estimate exceeded 70.89GB; cancelled before SCF,not used
+31537677,shared 81-atom direct single task,CANCELLED,32G startup estimate exceeded 70.89GB; cancelled before SCF,not used
+31537708,shared 81-atom direct single task,RUNNING,step 461800; 96G; started QE initialization on sr47; no energy/force yet,in progress
+31537709,shared 81-atom direct single task,RUNNING,step 462000; 96G; started QE initialization on sr46; no energy/force yet,in progress
+31537708,shared 81-atom direct single task,CANCELLED,user-directed stop: input used nspin=2/starting_magnetization(1)=0.5 (spin-polarized) which contradicts the required non-magnetic protocol; cancelled before any SCF energy/force was produced (scf.out had not reached total-energy output),not used; superseded by non-magnetic regeneration
+31537709,shared 81-atom direct single task,CANCELLED,user-directed stop: same nspin=2 magnetism issue as 31537708; cancelled before any SCF energy/force was produced,not used; superseded by non-magnetic regeneration

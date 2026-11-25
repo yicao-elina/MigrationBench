@@ -1,0 +1,46 @@
+{
+  "campaign_id": "ft_grouped_A2_1ns_md_20261025",
+  "status": "SMOKE_RUNNING",
+  "submitted_smoke_array_job": "32468152_[0-5]",
+  "submitted_date": "2026-10-25",
+  "heartbeat_id": "monitor-exact-grouped-a2-ft-1-ns-md",
+  "scope": "six exact user-specified FT grouped A2 stage-two compiled models",
+  "model_registry": "MODEL_REGISTRY.tsv",
+  "trajectory_audit": "PREEXISTING_TRAJECTORY_AUDIT.tsv",
+  "remote_root": "/scratch16/pclancy3/yi/grouped_A2_ft_1ns_md_20261025",
+  "input": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/3.fine-tuning/AI4MAT25/mlff-benchmark-cr-sb2te3/results/MD/3-multi_T-fine-tuning/2L_octo_Cr2_v2_relax_maceMD_eval_5x5x1_T600K.xyz",
+  "input_sha256": "e2f72e149940af7fd9016d2e1d58545cbe4734f935d91d9e4dc84c2e7645e454",
+  "input_protocol": {
+    "natoms": 2050,
+    "pbc": [true, true, true],
+    "final_input_absolute_step": 200000,
+    "final_input_time_fs": 200000.0,
+    "source_frames": 1001,
+    "source_state": "common 200 ps state with finite momenta"
+  },
+  "md_protocol": {
+    "start_step": 200000,
+    "target_step": 1000000,
+    "target_time_fs": 1000000.0,
+    "timestep_fs": 1.0,
+    "temperature_target_K": 600.0,
+    "friction": 0.01,
+    "md_seed": 1100,
+    "velocity_initialization": "preserved common-input momenta",
+    "smoke_steps": 20000,
+    "write_interval_steps": 200,
+    "checkpoint_interval_steps": 5000,
+    "automatic_walltime_continuation": true
+  },
+  "runtime": {
+    "python": "/data/pclancy3/yi/.conda/envs/mace/bin/python",
+    "smoke_script": "/scratch16/pclancy3/yi/foundation_md_backlog_20261024/seedreplica_smoke_head.py",
+    "continuation_script": "/scratch16/pclancy3/yi/foundation_md_backlog_20261024/seedreplica_continue_head.py",
+    "model_head": null,
+    "device": "cuda",
+    "account": "pclancy3_gpu",
+    "partition": "a100",
+    "qos": "qos_gpu"
+  },
+  "scientific_boundary": "A target step or Slurm completion alone is not scientific acceptance; final audit must check hashes, continuity, finite state, geometry, temperature, forces, and target-reached ledger."
+}

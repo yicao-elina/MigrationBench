@@ -1,0 +1,677 @@
+\documentclass[pdflatex,sn-mathphys-num]{sn-jnl}% Math and Physical Sciences Numbered Reference Style
+%%\documentclass[pdflatex,sn-mathphys-ay]{sn-jnl}% Math and Physical Sciences Author Year Reference Style
+%%\documentclass[pdflatex,sn-aps]{sn-jnl}% American Physical Society (APS) Reference Style
+%%\documentclass[pdflatex,sn-vancouver-num]{sn-jnl}% Vancouver Numbered Reference Style
+%%\documentclass[pdflatex,sn-vancouver-ay]{sn-jnl}% Vancouver Author Year Reference Style
+%%\documentclass[pdflatex,sn-apa]{sn-jnl}% APA Reference Style
+%%\documentclass[pdflatex,sn-chicago]{sn-jnl}% Chicago-based Humanities Reference Style
+
+%%%% Standard Packages
+%%<additional latex packages if required can be included here>
+
+\usepackage{graphicx}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts}%
+\usepackage{amsthm}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+
+% User defined
+%%%%Userd-added package
+\usepackage[version=3]{mhchem}
+\usepackage{subcaption}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+
+\usepackage[utf8]{inputenc} % allow utf-8 input
+\usepackage{hyperref}       % hyperlinks
+\usepackage{url}            % simple URL typesetting
+\usepackage{amsfonts}       % blackboard math symbols
+\usepackage{nicefrac}       % compact symbols for 1/2, etc.
+\usepackage{microtype}      % microtypography
+\usepackage{lineno}
+
+%%%%
+%% as per the requirement new theorem styles can be included as shown below
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}% 
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}%
+
+% Supplementary numbering
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{S\arabic{figure}}
+\setcounter{table}{0}
+\renewcommand{\thetable}{S\arabic{table}}
+\raggedbottom
+%%\unnumbered% uncomment this for unnumbered level heads
+
+\begin{document}
+\linenumbers
+
+\title[Article Title]{Supplementary Information: Non-Equilibrium Probes Reveal the Limits of Specialist and Foundation Machine-Learned Interatomic Potentials}
+
+%%=============================================================%%
+%% GivenName	-> \fnm{Joergen W.}
+%% Particle	-> \spfx{van der} -> surname prefix
+%% FamilyName	-> \sur{Ploeg}
+%% Suffix	-> \sfx{IV}
+%% \author*[1,2]{\fnm{Joergen W.} \spfx{van der} \sur{Ploeg} 
+%%  \sfx{IV}}\email{iauthor@gmail.com}
+%%=============================================================%%
+
+\author[1]{\fnm{Yi} \sur{Cao}}\email{ycao73@jh.edu}
+
+\author[1]{\fnm{Peter} \sur{Mastracco}}\email{pmastra2@jh.edu}
+% \author[1]{\fnm{Victor} \sur{Wu}}\email{vwu16@jhu.edu}
+% % \equalcont{These authors contributed equally to this work.}
+
+\author*[1]{\fnm{Paulette} \sur{Clancy}}\email{pclancy3@jhu.edu}
+% \equalcont{These authors contributed equally to this work.}
+
+\affil*[1]{\orgdiv{Department of Chemical and Biomolecular Engineering}, \orgname{ Johns Hopkins University}, \orgaddress{\street{3400 N. Charles Street}, \city{Baltimore}, \postcode{21218}, \state{Maryland}, \country{USA}}}
+
+
+%%\pacs[JEL Classification]{D8, H51}
+
+%%\pacs[MSC Classification]{35A01, 65L10, 65L12, 65L20, 65L70}
+
+\maketitle
+
+\section*{Supplementary Information Roadmap}
+This Supplementary Information is organized to make the benchmark traceable from reference calculations to model evaluation. Section~1 describes the first-principles setup, NEB reference protocol, MACE training configurations, dataset provenance, and split controls. Section~2 provides the supporting analyses: RMSE benchmarking, structural and thermodynamic validation, molecular-dynamics property calculations, representation-learning descriptors, migration-path diagnostics, self-consistent MLIP-NEB tests, and SHAP surrogate interpretation. Together, these sections separate three observables that are otherwise easy to conflate: the QE energy reference on a path with a recorded convergence status, the MLIP energy assigned to a fixed DFT path, and the stability behavior obtained after a model relaxes its own path.
+
+\paragraph{Data and provenance record.}
+Numerical values and figures are tracked in a source ledger (\texttt{manuscript\_source\_ledger.csv}) released with the data. The ledger records the manuscript location, displayed value, and source table or script for each value, allowing the reported results to be reproduced from the declared inputs.
+
+
+\newcommand{\pc}[1]{{\color{purple}[Paulette: #1]}}
+\newcommand{\yi}[1]{{\color{orange!80}[Yi: #1]}}
+
+
+\section{Detailed Computational Methods}
+\subsection{First-Principles Reference Calculations}
+% All DFT calculations were performed using the \textsc{Quantum ESPRESSO} package~\cite{giannozzi2009quantum}. The exchange-correlation interaction was treated using the Perdew–Burke–Ernzerhof (PBE) functional within the generalized gradient approximation (GGA)~\cite{perdew1996generalized}. To accurately capture the long-range van der Waals (vdW) interactions that are critical to represent in layered materials, dispersion corrections were included \textit{via} the Grimme DFT-D3 scheme.  
+% We employed ultrasoft pseudopotentials for all elements (Cr, Sb, Te) with a plane-wave kinetic energy cutoff of 400 eV. The Brillouin zone was sampled using a Monkhorst-Pack k-point grid of $4 \times 4 \times 1$ for structural relaxations and Nudged Elastic Band (NEB) calculations. 
+
+All first-principles calculations were performed using the \textsc{Quantum ESPRESSO} package~\cite{giannozzi2009quantum}. The exchange–correlation energy was described using the Perdew–Burke–Ernzerhof (PBE) functional within the generalized gradient approximation (GGA)~\cite{perdew1996generalized}. Long-range dispersion interactions, essential for accurately representing the interlayer physics of \ce{Sb2Te3}, were included through the Grimme DFT-D3 correction scheme. Spin–orbit coupling (SOC) was incorporated through fully relativistic ONCV pseudopotentials (SG15 v1.2).
+
+A plane-wave kinetic energy cutoff of 100~Ry and a charge density cutoff of 400~Ry were used for all calculations. Electronic occupations were treated with the cold-smearing scheme using a smearing width of 0.0147~Ry, which provides stable convergence for narrow-gap chalcogenides. Electronic states were iterated until the total electronic energy converged below $10^{-6}$~Ry, using a mixing parameter of 0.4 and a maximum of 200 electronic iterations per self-consistent cycle.
+
+All structural relaxations were performed using the Broyden–Fletcher–Goldfarb–Shanno (BFGS) algorithm for both ionic and cell degrees of freedom, with force and pressure convergence thresholds of $10^{-3}$~Ry/Bohr and 0.5~kbar, respectively. A uniform Monkhorst–Pack mesh of $4 \times 4 \times 1$ was employed to sample the Brillouin zone for relaxations and Nudged Elastic Band (NEB) calculations. The $4 \times 2 \times 1$ supercell with dopant contained 81 atoms, corresponding to a two-quintuple-layer (2QL) slab of \ce{Sb2Te3} with one interstitial Cr atom, separated by sufficient vacuum to avoid spurious periodic interaction. Restart files were written periodically to ensure computational stability during long relaxations.
+
+
+The training dataset was generated from ab initio molecular dynamics (AIMD) simulations performed in the NVT ensemble using a Langevin thermostat. These simulations covered a range of temperatures (300 K, 600 K, 1200 K) and Cr doping concentrations to ensure the model was exposed to a diverse set of thermodynamic and structural configurations. Each AIMD trajectory was run for 10 ps on a system of 120 atoms. To investigate the nature of atomic migration pathways, minimum energy paths (MEPs) and energy profiles were calculated using the Nudged Elastic Band (NEB) method. In the accompanying data release, each NEB path is reported with its task label, number of images, input structure provenance, restart lineage, convergence threshold, achieved maximum force, and convergence status. Fixed-path scoring compares MLIP and QE energies on identical images. The within-gap reference path G1 (five images, PBE+D3) has a forward QE image-set reference of 0.336~eV, and the fixed-path errors in the main text are quantified against this reference. For G1, G2, Q1--Q3, and M1, which are marked UNCONVERGED in Table~\ref{tab:dft_neb_barriers_revised}, the forward and reverse values are image-set energy references/spans rather than physical migration barriers. Only rows marked CONVERGED are interpreted as activation-energy estimates under the fixed-image definition. The NEB source file, the number of NEB iterations, and the change of the forward reference relative to the previous iteration are recorded for every path in the released path registry (\texttt{path\_registry.csv}). Paths are named by class (G, within-gap; Q, gap-to-QL/into-QL; M, mixed; L and C, within-QL), and Table~\ref{tab:path_registry} gives the name, class, and classification basis of every path together with the internal identifier used in the data release.
+NEB paths are evaluation/reference data and were not merged into the FT-600K or FT-Multi$_T$ training splits. The released NEB-to-training exporters now fail closed when real QE forces are unavailable, so a NEB geometry cannot silently acquire fabricated force labels.
+
+% \subsection{MACE Model Training Protocols}
+% \subsubsection{Training Hyperparameters}
+% All training and fine-tuning procedures were executed with a consistent set of hyperparameters to ensure fair comparison:
+% \begin{itemize}
+%     \item Optimizer: Adam
+%     \item Initial learning rate: $1\times10^{-3}$
+%     \item Batch size: 32
+%     \item Early stopping: Implemented based on validation set Force MAE
+%     \item Maximum epochs: 1000
+%     \item Validation split: 10\% of training data
+% \end{itemize}
+
+% \subsubsection{Fine-Tuning Details}
+% For the FT-Multi\_T model, the training subset was composed equally from 300K, 600K, and 1200K trajectories, ensuring exposure to diverse thermal conditions. The multi-temperature dataset was designed to test whether broader thermodynamic sampling improves generalization.
+
+% For the FT-600K model, we selected a representative 5\% subset (approximately 1,000 configurations) from the 600K AIMD trajectories. The subset was chosen to capture the full range of structural variations observed at this temperature, including both equilibrium fluctuations and transitional configurations. Model training and fine-tuning were focused at 600 K, as this temperature is representative of typical thermoelectric operating conditions. At roughly two-thirds of Sb$_2$Te$_3$'s melting point, this temperature captures significant thermal dynamics without structural deterioration.
+
+% Fine-tuning foundation models for specific chemical systems presents a fundamental challenge: how to adapt to new domains while preserving learned representations. This document discusses our fine-tuning strategy.
+
+
+\subsection{MACE Model Training Protocols}
+
+\subsubsection{Training Hyperparameters}
+All training and fine-tuning procedures were performed with consistent hyperparameters to ensure direct comparability. Unless otherwise stated, we used the Adam optimizer with an initial learning rate of $1\times10^{-3}$, a batch size of 32, a maximum of 1000 epochs, and early stopping based on validation-set force MAE. A 10\% validation split was applied to all datasets.
+
+Fine-tuning was initialized from the \texttt{MACE-MP-0 (PBE)}~\cite{batatia_mace_nodate} foundation model. All model parameters were updated without freezing any layers, and all output heads were fine-tuned using the standard multi-head strategy. Stochastic Weight Averaging (SWA) was activated from epoch 100, and Exponential Moving Average (EMA) tracking ($\alpha=0.99$) was applied throughout training. Energy and forces were read using the keys \texttt{energy} and \texttt{forces}, respectively, with force, energy, and stress loss weights of 100.0, 1.0, and 0.0. The training configuration employed $l_{\max}=2$, cutoff radius $r_{\max}=6.0$~Å.
+The reported fine-tuned models are documented as being trained on AIMD frames with real DFT energies and forces, not on NEB-derived exports lacking real force labels. The data manifest records source trajectories, split assignments, energy/force key mappings, and checksums for the model-training files. Across 9,163 frames, the nine exact zero-force records are explicitly labelled one-atom Cr/Sb/Te isolated-atom $E_0$ references; no unclassified or NEB-derived zero-force frame is included. The NEB exporters stop when validated QE forces are unavailable, so an evaluation geometry cannot silently acquire a fabricated force label.
+
+% To stabilize multi-head finetuning, we incorporated 1000 FPS-selected structures from the pretraining dataset, weighted at 1.0 for the replay head. Identical optimizer settings, loss definitions, learning rate schedules, and train/validation/test splits were used for both FT-600K and FT-Multi\_T.
+
+\subsubsection{Fine-Tuning Details}
+The multi-temperature fine-tuning model (FT-Multi\_T) was constructed by combining configurations at 300~K, 600~K, and 1200~K. Each configuration was simulated at all three temperatures, ensuring that the Multi\_T dataset is strictly balanced across temperatures without statistical or configurational bias. This design probes whether broader thermodynamic sampling improves model robustness and generalization.
+
+Two data protocols are used. The frame-level baseline (Table~\ref{tab:mace_performance_detailed}) uses the original frame-level split, in which the FT-600K model was trained on approximately 5\% of the 600~K AIMD pool (about 1000 configurations). The trajectory-grouped protocol (Table~\ref{tab:mace_performance_grouped}) trains the OMAT-FT-start FT-600K family on the full grouped training partition (1,786 configurations; validation/test partitions of 311/267 configurations). Scratch-5\% is the low-data control: 89 configurations, 5\% of the grouped training pool, drawn so that complete source trajectories stay intact. The 600~K data are representative of realistic thermoelectric operating conditions, lying near two-thirds of the melting point of Sb$_2$Te$_3$ and exhibiting significant anharmonic dynamics without structural degradation.
+
+The evaluation split assigns complete source trajectories to train, validation, or test. For the fine-tuning files used here, this gives 1,786/311/267 configurations for the full grouped split and 89/311/267 for Scratch-5\%. Across 25 NEB images, no exact or near-duplicate training match is found: the minimum SOAP cosine distances are $5.4\times10^{-4}$ and $6.4\times10^{-4}$ (near-duplicate threshold $10^{-4}$), and the minimum comparable Cr-local RMSDs are 2.06~\AA{} for both splits (threshold 0.05~\AA). Grouped retraining results are reported below.
+% corresponding structures occupy identical partitions in both cases.
+
+% Fine-tuning foundation models for chemically complex chalcogenides requires balancing adaptation to new bonding motifs against preservation of transferable learned representations. The unified protocol described above provides a controlled and reproducible framework for evaluating domain adaptation across temperatures and data regimes.
+
+
+% \subsubsection{Fine-tuning Underlying Mechanism}
+
+% In fine-tuning, the pre-trained model parameters $\theta_0$ are directly optimized on the target dataset $\mathcal{D}_{\text{target}}$:
+
+% \begin{equation}
+% \theta^* = \arg\min_\theta \mathcal{L}(\theta; \mathcal{D}_{\text{target}})
+% \end{equation}
+
+
+
+
+% \paragraph{Characteristics}
+% \begin{itemize}
+%     \item \textbf{Simple implementation}: Direct optimization on new data
+%     \item \textbf{Fast convergence}: High learning rate ($\alpha \sim 10^{-2}$)
+%     \item \textbf{Catastrophic forgetting}: Loss of original capabilities
+%     \item \textbf{Single objective}: Optimizes only for target domain performance
+% \end{itemize}
+
+% \subsubsection{Implementation Details}
+
+% \subsubsection{Fine-tuning Algorithm}
+
+% \begin{algorithm}
+% \caption{Fine-tuning}
+% \begin{algorithmic}
+% \STATE Initialize: $\theta \leftarrow \theta_{\text{foundation}}$
+% \FOR{epoch = 1 to $N_{\text{epochs}}$}
+%     \FOR{batch $\in \mathcal{D}_{\text{target}}$}
+%         \STATE $\mathcal{L} \leftarrow \text{MSE}(f_\theta(\text{batch}), y_{\text{batch}})$
+%         \STATE $\theta \leftarrow \theta - \alpha \nabla_\theta \mathcal{L}$
+%     \ENDFOR
+% \ENDFOR
+% \end{algorithmic}
+% \end{algorithm}
+
+% \subsubsection{Practical Considerations}
+
+% \paragraph{When to Use Fine-tuning}
+% \begin{itemize}
+%     \item Limited computational resources
+%     \item Domain-specific applications only
+%     \item Rapid prototyping requirements
+%     \item No need for generalization beyond the target dataset
+% \end{itemize}
+
+% \paragraph{Take-away}
+
+% Fine-tuning offers rapid adaptation to new datasets with relatively low computational cost. However, naive fine-tuning comes at the expense of catastrophic forgetting, where the model loses its original generalization capabilities.
+
+
+
+\subsection{Task-Conditioned Benchmark Definitions}
+\label{sec:si_benchmark_definitions}
+
+We distinguish pointwise tests from process tests. For a configuration $x$, the pointwise test compares the model energy and forces with the DFT values on a fixed set of near-equilibrium structures. For a process task $\tau$, the relevant observable is evaluated on a correlated path or trajectory, so accuracy depends on the model's behavior over the configurations visited by that process rather than on the average error near a local minimum. We therefore report the pointwise error, process observables, and model-generated stability tests separately.
+
+For a DFT reference path $\Gamma_{\mathrm{D},\tau}$ with images $x_i$, fixed-path scoring assigns the MLIP forward-minus-first-image energy difference
+\begin{equation}
+\Delta E_{\mathrm{fixed}}(M,\tau)=\max_i E_M(x_i)-E_M(x_0),
+\end{equation}
+where the images remain fixed. Self-relaxed NEB instead lets the MLIP forces update the images and evaluates the resulting band as a stability and path-generation test. The two values need not agree because they sample different paths; a self-relaxed band that does not converge does not provide a physical barrier. We use G1 for the principal fixed-image reference comparison and report Q1--Q3 as fixed-path errors on the QE image sets.
+
+The benchmark has two complementary axes: the configuration distribution moves from near-equilibrium structures to fixed migration images and then to larger-distortion or collective-displacement probes, while the measurement operator moves from common-reference scoring to model-generated paths and trajectories. Molecular dynamics supplies long-trajectory stability and mobility observables; self-relaxed NEB supplies model-in-the-loop path stability. We do not combine these observables into a single scalar difficulty score.
+
+\section{Supplementary Materials}
+\subsection{MACE Model Performance Evaluation by RMSE}
+
+The trained MLIPs show low near-equilibrium energy and force errors in the parity plots (Figure~\ref{fig:mace_parity}), which compare model predictions with the reference DFT calculations. The performance of each trained model across the training, validation, and test sets is summarized in Table~\ref{tab:mace_performance_detailed}. These values provide the pointwise-accuracy baseline on the original frame-level split. Table~\ref{tab:mace_performance_grouped} reports the trajectory-grouped, multi-seed retraining RMSE values and the within-gap fixed-path error statistics.
+
+\begin{table}[htbp]
+    \centering
+    \scriptsize
+    \setlength{\tabcolsep}{2pt}
+    \caption{Performance metrics for MACE models across training, validation, and test sets. The FT-600K metrics are the mean $\pm$ standard deviation across three independent training runs with different random seeds.}
+    \label{tab:mace_performance_detailed}
+    \begin{tabular}{lcccc}
+        \toprule
+        \textbf{Model} & \textbf{Train RMSE F} & \textbf{Valid RMSE F} & \textbf{Test RMSE F} & \textbf{Test RMSE E} \\
+         & (meV/\AA) & (meV/\AA) & (meV/\AA) & (meV/atom) \\
+        \midrule
+        From Scratch & 67.1 & 76.1 & 75.2 & 1.0 \\
+        FT-600K & 20.7 $\pm$ 11.8 & 44.6 $\pm$ 2.9 & 37.2 $\pm$ 0.6 & 0.5 $\pm$ 0.0 \\
+        FT-MultiT & 20.3 & 49.1 & 45.5 & 0.5 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+    \centering
+\scriptsize
+\setlength{\tabcolsep}{1.5pt}
+    \caption{\textbf{Trajectory-grouped comparison.} Values are means $\pm$ sample standard deviations across three independent training initializations unless noted. The within-gap column is the absolute fixed-path error relative to the 0.336~eV QE image-set reference of G1. FT-Multi$_T$ is evaluated on the frame-level baseline (Table~\ref{tab:mace_performance_detailed}) and in the MD and sliding tests.}
+    \label{tab:mace_performance_grouped}
+    \begin{tabular}{@{}lccc@{}}
+        \toprule
+        \textbf{Model} & \shortstack{\textbf{Test $E$}\\\textbf{RMSE}} & \shortstack{\textbf{Test $F$}\\\textbf{RMSE}} & \shortstack{\textbf{Within-gap}\\\textbf{error}} \\
+        & \textbf{(meV/atom)} & \textbf{(meV/\AA)} & \textbf{(eV)} \\
+        \midrule
+        \shortstack[l]{FT-600K (OMAT-FT\\start)} & $40.7 \pm 5.0$ & $259.7 \pm 5.8$ & $0.47 \pm 0.12$ \\
+        Scratch & $30.5 \pm 3.6$ & $343.6 \pm 35.9$ & $1.20 \pm 0.27$ \\
+        Scratch-5\% & $16.7 \pm 9.2$ & $341.5 \pm 15.0$ & $0.68 \pm 0.20$ \\
+        \shortstack[l]{FT-600K (MPA-0 start;\\single initialization)} & $38.7$ & $278.5$ & $0.24$ \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+Fixed-image reference statistics use the five DFT images of the within-gap path. The path registry (Table~\ref{tab:path_registry}) assigns each path to the within-gap, gap-to-QL/into-QL, mixed, or within-QL class; each class is reported separately.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.98\textwidth]{revision1/figures/grouped_retraining_overlap.pdf}
+    \caption{\textbf{Grouped retraining and train--path overlap check.} (a) Absolute fixed-path reference errors for the controlled within-gap image set under the trajectory-grouped protocol. G1 is marked UNCONVERGED in the SI status table, so these are fixed-image reference errors rather than physical migration barriers. Open points are the three independent training initializations, bars/whiskers are the mean $\pm$ sample standard deviation, and the single-checkpoint MPA0 comparator is shown as a diamond. The dashed line marks the 0.16~eV single-run estimate obtained with the frame-level split, which the grouped FT-600K evaluation does not reproduce. (b) Minimum training-set SOAP and comparable Cr-local RMSD distances normalized by the declared near-duplicate gates. The dashed line at one is the declared near-duplicate gate; values above one lie outside that gate. RMSD is computed only for species-composition-compatible local environments, while SOAP covers all retained target images.}
+    \label{fig:grouped_retraining_overlap_si}
+\end{figure}
+
+\subsubsection{Task-conditioned distribution diagnostics}
+
+The grouped reference distribution was recomputed with a SOAP/PCA fit learned from the grouped training partition only and then applied without refitting to the validation, test, and fixed-path images. The grouped split contains 1,786 training, 311 validation, and 267 test configurations; the training partition contains 1,783 periodic AIMD frames and three isolated-atom calibration frames, while complete source trajectories remain assigned to one partition. The fixed-path images are displayed as a separate geometry class because the retained within-gap images contain 61 atoms, whereas the grouped AIMD cells contain 81--86 atoms. The resulting marginal and smooth two-dimensional densities are shown in the independently rendered reference and MD panels in Fig.~\ref{fig:task_conditioned_panel_a_si} and Fig.~\ref{fig:task_conditioned_panel_c_si}; the original Rockfish validation histories are provided separately in Fig.~\ref{fig:task_conditioned_training_rmse_si}.
+
+\IfFileExists{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_distribution_atlas.pdf}{\def\migrationatlasfigure{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_distribution_atlas.pdf}\def\migrationatlascaption{../analysis/task_conditioned_distribution_atlas_20261018/fig_task_conditioned_distribution_atlas_caption.tex}\def\migrationfailurefigure{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_failure_stage_grouped.pdf}\def\migrationfailurecaption{../analysis/task_conditioned_distribution_atlas_20261018/fig_failure_stage_grouped_caption.tex}}{\def\migrationatlasfigure{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_distribution_atlas.pdf}\def\migrationatlascaption{../analysis/task_conditioned_distribution_atlas_20261018/fig_task_conditioned_distribution_atlas_caption.tex}\def\migrationfailurefigure{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_failure_stage_grouped.pdf}\def\migrationfailurecaption{../analysis/task_conditioned_distribution_atlas_20261018/fig_failure_stage_grouped_caption.tex}}
+\IfFileExists{analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_a.pdf}{\def\migrationpanelafigure{analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_a.pdf}\def\migrationpanelbfigure{analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_b.pdf}\def\migrationpanelcfigure{analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_c.pdf}\def\migrationpanelacaption{analysis/task_conditioned_distribution_atlas_20261018/fig_task_conditioned_panel_a_caption.tex}\def\migrationpanelbcaption{analysis/task_conditioned_distribution_atlas_20261018/fig_task_conditioned_panel_b_caption.tex}\def\migrationpanelccaption{analysis/task_conditioned_distribution_atlas_20261018/fig_task_conditioned_panel_c_caption.tex}}{\def\migrationpanelafigure{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_a.pdf}\def\migrationpanelbfigure{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_b.pdf}\def\migrationpanelcfigure{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_c.pdf}\def\migrationpanelacaption{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_a_caption.tex}\def\migrationpanelbcaption{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_b_caption.tex}\def\migrationpanelccaption{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_task_conditioned_panel_c_caption.tex}}
+\begin{figure}[p]
+    \centering
+    \def\migrationpanelafigure{revision1/figures/task_conditioned/fig_task_conditioned_panel_a.pdf}
+    \def\migrationpanelacaption{revision1/figures/task_conditioned/fig_task_conditioned_panel_a_caption.tex}
+    \includegraphics[width=0.98\textwidth]{\migrationpanelafigure}
+    \captionsetup{aboveskip=0pt}
+    \input{revision1/tables/task_conditioned_panel_a_caption.tex}
+    \label{fig:task_conditioned_panel_a_si}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \IfFileExists{analysis/task_conditioned_distribution_atlas_20261018/figures/fig_original_training_rmse_four_model.pdf}{\def\migrationrmsefigure{analysis/task_conditioned_distribution_atlas_20261018/figures/fig_original_training_rmse_four_model.pdf}\def\migrationrmsecaption{analysis/task_conditioned_distribution_atlas_20261018/fig_original_training_rmse_four_model_caption.tex}}{\def\migrationrmsefigure{../analysis/task_conditioned_distribution_atlas_20261018/figures/fig_original_training_rmse_four_model.pdf}\def\migrationrmsecaption{../analysis/task_conditioned_distribution_atlas_20261018/fig_original_training_rmse_four_model_caption.tex}}
+    \def\migrationrmsefigure{revision1/figures/task_conditioned/fig_original_training_rmse_four_model.pdf}
+    \def\migrationrmsecaption{revision1/figures/task_conditioned/fig_original_training_rmse_four_model_caption.tex}
+    \includegraphics[width=0.98\textwidth]{\migrationrmsefigure}
+    \captionsetup{aboveskip=0pt}
+    \input{revision1/figures/task_conditioned/fig_original_training_rmse_four_model_caption.tex}
+    \label{fig:task_conditioned_training_rmse_si}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \def\migrationpanelcfigure{revision1/figures/task_conditioned/fig_task_conditioned_panel_c.pdf}
+    \def\migrationpanelccaption{revision1/figures/task_conditioned/fig_task_conditioned_panel_c_caption.tex}
+    \includegraphics[width=0.98\textwidth]{revision1/figures/task_conditioned/fig_task_conditioned_panel_c.pdf}
+    \captionsetup{aboveskip=0pt}
+    \input{revision1/figures/task_conditioned/fig_task_conditioned_panel_c_caption.tex}
+    \label{fig:task_conditioned_panel_c_si}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{\textbf{Stored MLIP-generated MD configuration-space summary.} The table reports every stored row available to the SOAP/PCA diagnostic. ``Short-contact skip'' denotes a row retained in the raw inventory but excluded from SOAP because the minimum interatomic distance was below 1.2~\AA; it is a geometry-safety status, not a calibrated uncertainty estimate. The common MD velocity seed means that model/checkpoint branches are not independent velocity replicas.}
+    \label{tab:md_soap_distribution_status}
+    \begin{tabular}{lrrrr}
+        \toprule
+        \textbf{Family} & \textbf{Stored rows} & \textbf{SOAP-valid} & \textbf{Short-contact skip} & \textbf{PCA points} \\
+        \midrule
+        Foundation & 4,961 & 3 & 4,958 & 3 \\
+        Scratch & 4,001 & 1,310 & 2,691 & 1,310 \\
+        FT-600K & 4,601 & 4,601 & 0 & 4,601 \\
+        FT-Multi$_T$ & 4,001 & 4,001 & 0 & 4,001 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+The grouped analysis also reports the available static test RMSE evidence in the manuscript order Foundation, Scratch, FT-600K, and FT-Multi$_T$. Foundation points are representative zero-shot grouped-test checkpoints, Scratch and FT-600K points are grouped multi-seed observations, and the FT-Multi$_T$ point is the frame-level evaluation. The MD clouds are configuration-space diagnostics, not DFT errors. Rows with an interatomic distance below 1.2~\AA{} (4,958 of 4,961 Foundation rows and 2,691 of 4,001 Scratch rows) are marked as short-contact configurations and excluded from the SOAP projection.
+
+\begin{figure}[htbp]
+    \centering
+    \def\migrationfailurefigure{revision1/figures/task_conditioned/fig_failure_stage_grouped.pdf}
+    \def\migrationfailurecaption{revision1/figures/task_conditioned/fig_failure_stage_grouped_caption.tex}
+    \includegraphics[width=0.98\textwidth]{revision1/figures/task_conditioned/fig_failure_stage_grouped.pdf}
+    \input{revision1/figures/task_conditioned/fig_failure_stage_grouped_caption.tex}
+    \label{fig:failure_stage_grouped_si}
+\end{figure}
+
+The separate failure/CAR figure is an MLIP-only stage-resolved diagnostic based on the 639-candidate failure trajectories. It reports maximum force, paired model disagreement, stage-wise force envelopes, and distance to the grouped training representation. These panels describe failure progression and model disagreement. The accompanying data release records the source paths, hashes, and row counts used for these summaries.
+
+\subsubsection{Seed-aware kinetic uncertainty}
+Grouped retraining quantifies initialization uncertainty in the fixed-image observable. For the within-gap path, the absolute fixed-path reference errors are $0.47\pm0.12$~eV for FT-600K, $1.20\pm0.27$~eV for Scratch, and $0.68\pm0.20$~eV for Scratch-5\%, across three independent training initializations (sample standard deviations across training runs). On the gap-to-QL/into-QL paths (Q1, Q2 and Q3), the Scratch errors are $0.51\pm0.11$, $0.72\pm0.55$ and $1.77\pm1.00$~eV, and the corresponding FT-600K errors are $9.60\pm0.57$, $10.40\pm0.44$ and $9.70\pm0.20$~eV. The first Scratch value is stable across initializations; the other two vary more between runs. The initialization spread therefore does not account for the order-of-magnitude difference between FT-600K and Scratch on these sets.
+
+\input{revision1/tables/seed_resolved_path_errors.tex}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.98\textwidth]{revision1/figures/seed_resolved_path_errors.pdf}
+    \caption{\textbf{Seed-resolved fixed-path reference uncertainty.} The grouped within-gap comparison and representative gap-to-QL/into-QL reference errors are shown with the individual-run observations and mean $\pm$ sample standard deviation. G1 and Q1--Q3 are UNCONVERGED image sets; the plotted quantities are fixed-image reference errors, not physical migration barriers. For Scratch, Q1 is stable across initializations and Q2 and Q3 vary more between runs.}
+    \label{fig:a3_seed_uncertainty_si}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{revision1/figure_pages/assets/fig_041.pdf}
+        \caption{Q1.}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{revision1/figure_pages/assets/fig_042.pdf}
+        \caption{Q2.}
+    \end{subfigure}
+    \caption{\textbf{Fixed-path energy profiles for gap-to-QL/into-QL paths.} Model energies on the DFT images of Q1 and Q2, with the QE profile for comparison. Seed-resolved errors for these paths are given in Table~\ref{tab:scratch5_path_resolved_descriptive}.}
+    \label{fig:a3_reused_paths_12_13_si}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \includegraphics[width=0.94\textwidth]{revision1/figure_pages/assets/fig_043.pdf}
+    \caption{\textbf{Fixed-path energy profile for the within-gap path G1.} Model energies on the common DFT images used for the fixed-image reference comparison. The grouped three-initialization errors are given in Table~\ref{tab:mace_performance_grouped} and Fig.~\ref{fig:a3_seed_uncertainty_si}.}
+    \label{fig:a3_reused_path_14_si}
+\end{figure}
+
+\begin{figure}[p]
+    \centering
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{revision1/figure_pages/assets/fig_044.pdf}
+        \caption{Q3 (gap-to-QL/into-QL).}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.48\textwidth}
+        \centering
+        \includegraphics[width=\linewidth]{revision1/figure_pages/assets/fig_045.pdf}
+        \caption{G2 (within-gap).}
+    \end{subfigure}
+    \caption{\textbf{Fixed-path energy profiles for Q3 and G2.} Q3 is a gap-to-QL/into-QL path and G2 a within-gap path; each is reported separately.}
+    \label{fig:a3_reused_paths_15_17_si}
+\end{figure}
+
+A deeper analysis of the training dynamics reveals important characteristics of the models. The model trained from scratch exhibits a relatively small gap between training (67.1 meV/\AA) and validation (76.1 meV/\AA) force RMSEs. While this suggests only moderate overfitting, its high error across all datasets indicates that it underfits the true physical interactions.
+
+In contrast, the fine-tuned models display a more pronounced overfitting behavior, characterized by a large gap between their low training RMSEs and higher validation RMSEs. For instance, the FT-MultiT model shows a 142\% increase in force RMSE from the training (20.3 meV/\AA) to the validation set (49.1 meV/\AA). This aggressive fitting is expected when fine-tuning on smaller, more specialized datasets. The high standard deviation in the FT-600K model's training RMSE (11.8 meV/\AA) also suggests a sensitivity to initialization during the training process.
+
+The fine-tuned models show lower errors than the scratch model on the current near-equilibrium test partition. Table~\ref{tab:mace_performance_grouped} reports the grouped-split values used for the leakage-controlled comparison. RMSE is a pointwise baseline; the fixed-image reference and transport analyses below measure process fidelity.
+
+\begin{figure}[ht]
+    \includegraphics[width=0.8\textwidth]{Fig/NeurIPS2025-AI4MAT-SI1.pdf}
+    \centering
+    \caption{\textbf{Parity plots comparing MACE-predicted energies and forces against DFT reference calculations for the test set.} (a, b) Model trained from scratch, (c, d) fine-tuned 600 K model (``FT-600K''), and (e, f) fine-tuned multi-temperature model (``FT-MultiT''). Parity plots for energies (a, c, e) demonstrate excellent agreement for all models, while force parity plots (b, d, f) show strong overall correlation but subtle differences in error distributions that are not distinguishable visually. These results highlight the necessity of quantitative and property-based benchmarks for robust model evaluation.}
+    \label{fig:mace_parity}
+\end{figure}
+
+
+
+
+
+\subsection{Detailed Structural and Thermodynamic Analysis}
+The RDF analysis reveals that all MACE models, regardless of training strategy, successfully reproduce the key structural features of the Cr-doped Sb$_2$Te$_3$ system when compared to the AIMD ground truth (Fig.~\ref{fig:rdf}b).
+
+All models correctly capture the primary coordination shells, with the first peak positions for Cr--Cr, Cr--Sb, and Cr--Te pairs occurring at approximately 3.0~\AA, 3.2~\AA, and 2.8~\AA, respectively, in excellent agreement with the AIMD reference. The peak heights and positions remain consistent across all training strategies (Figures~\ref{fig:rdf}c--f), indicating that the local atomic structure is well preserved regardless of whether the model was trained from scratch, used as a foundation model, or fine-tuned with temperature-specific data.
+
+The primary observable difference between models lies in the smoothness of the RDF curves rather than their fundamental features. The scratch-trained model (Fig.~\ref{fig:rdf}d) exhibits slightly smoother RDF profiles compared to the fine-tuned variants (Figures~\ref{fig:rdf}e--f). This difference arises from practical computational considerations rather than fundamental accuracy: the scratch model, being more compact with fewer parameters, allowed for longer MD trajectories within the same computational budget, resulting in better statistical sampling. In contrast, the fine-tuned models, while maintaining larger parameter counts from their foundation architectures, required more computational resources per MD step, limiting the total simulation time and resulting in slightly noisier RDF profiles.
+
+% Notably, both fine-tuning strategies---whether using single-temperature (600~K) or multi-temperature AIMD data---produce nearly identical RDF profiles, suggesting that the structural representation of the material is robust to the temperature range of the training data. This indicates that, for structural properties, the choice of training strategy has minimal impact, with all approaches converging to similar descriptions of the local atomic environment. The preservation of accurate structural features across all models provides confidence that the learned interatomic potentials correctly capture the fundamental bonding characteristics of the Cr-doped Sb$_2$Te$_3$ system.
+
+Notably, both fine-tuning strategies—whether using single-temperature (600 K) or multi-temperature AIMD data—yield RDF profiles that are nearly indistinguishable for this Cr-doped Sb$_2$Te$_3$ system. Within the scope of this test case, this similarity suggests that the structural descriptors learned by the models are not strongly sensitive to the temperature range of the fine-tuning dataset. While this observation is system-specific, it indicates that, for the structural properties examined here, the different training strategies converge to comparable representations of the local atomic environment. The consistent reproduction of key RDF features across all models supports the conclusion that each MLIP captures the essential bonding motifs relevant to this particular material.
+
+
+
+\begin{figure}[ht]
+    \includegraphics[width=0.8\textwidth]{Fig/NeurIPS2025-AI4MAT-figure2.png}
+    \centering
+    \caption{\textbf{Radial distribution function (RDF) analysis of Cr-doped Sb$_2$Te$_3$ at 600 K.} (a) Schematic illustration of the local atomic environment around a Cr dopant (purple) in the Sb$_2$Te$_3$ lattice, showing the first coordination shell of Te atoms (gold) and second-shell Sb atoms (orange). The dashed circles indicate the radial distances used for RDF calculation. (b-f) Computed RDFs for different atom pairs from molecular dynamics simulations: (b) Ab initio molecular dynamics (AIMD) ground truth reference, (c) MACE foundation model without fine-tuning, (d) MACE model trained from scratch on Cr-Sb$_2$Te$_3$ data, (e) MACE model fine-tuned with 600 K AIMD data (``FT-600K''), and (f) MACE model fine-tuned with multi-temperature AIMD data (``FT-MultiT''). All simulations were performed at 600 K with 5$\times$5$\times$1 supercells for 200 ps. The RDF peaks correspond to characteristic interatomic distances in the doped structure, with the first peak representing nearest-neighbor correlations.}
+    \label{fig:rdf}
+\end{figure}
+
+\subsection{Thermodynamic Ensemble Stability}
+A detailed analysis of the pressure profiles reveals subtle but important differences between models. The zero-shot MACE Foundation model equilibrates to a slightly different average pressure than the models trained or fine-tuned on our in-house AIMD data. This is likely a consequence of the foundation model being trained on a vast dataset of materials at their 0K equilibrium volumes. A minor mismatch between the foundation model's predicted equilibrium lattice parameters and the true DFT values for our specific Cr:Sb$_2$Te$_3$ system at 600K manifests as a persistent non-zero average pressure in an NVT simulation. The fine-tuned and scratch models, having been trained explicitly on data from this system's true ensemble, do not exhibit this deviation.
+
+\subsection{Transport Property Analysis}
+The seed-aware benchmark uses one-nanosecond trajectories with training seeds 123, 234, and 345 and a common velocity seed of 1100. All FT-600K and FT-MultiT seeds remain stable; their $D_{xy}$ estimates from the 200--500~ps and 500--900~ps windows are reported with training-seed sample standard deviations in Table~\ref{tab:md_transport_revised}. The from-scratch branches cross the scientific stability threshold and are retained as failure modes without a diffusion estimate. Two foundation representatives remain stable, while the remaining foundation branch is a failure; their spread is model-to-model variation, not a training-seed uncertainty estimate. Pressure is available only from the archived parent four-model campaign and is not assigned a seed-aware uncertainty for the new runs. No same-campaign heat-flux time series was archived, so HFACF, Green--Kubo thermal conductivity, and any transport ranking are outside the scope of this benchmark.
+
+\begin{table}[htbp]
+    \centering
+    \caption{\textbf{Seed-aware molecular-dynamics metrics.} $D_{xy}$ values are means $\pm$ sample standard deviations across the three training seeds for each fine-tuned family. Foundation values summarize the two stable representatives and therefore describe model-to-model spread, not training-seed uncertainty. From-scratch branches are unstable and have no reported $D_{xy}$. The velocity seed is 1100 for all trajectories. No same-campaign heat-flux record is available, so no HFACF or thermal-conductivity quantity is reported.}
+    \label{tab:md_transport_revised}
+    \input{revision1/tables/md_transport_metrics.tex}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.98\textwidth]{revision1/figures/fig_md_seed_aware_1ns.pdf}
+    \caption{\textbf{Seed-aware one-nanosecond stability and mobility benchmark.} (B) Temperature histories, (C) maximum force, (D) MSD, (E) pressure from the archived parent campaign, (F) two-window $D_{xy}$ estimates, and (G) normalized VACF. Fine-tuned bands quantify variation across training seeds 123, 234, and 345; foundation traces are representative models; from-scratch branches are failure modes. No heat-flux time series was archived for this campaign, so HFACF and thermal conductivity are not reported.}
+    \label{fig:md_transport_revised}
+\end{figure}
+
+
+\subsection{Molecular Dynamics Simulations}
+
+
+\subsubsection{Simulation Protocol}
+
+MD simulations were performed using the Atomic Simulation Environment (ASE) with the following protocol:
+
+\begin{itemize}
+    \item \textbf{Integrator}: Langevin dynamics for NVT ensemble or Nosé-Hoover for NPT ensemble
+    \item \textbf{Timestep}: 1.0 fs
+    \item \textbf{Friction coefficient}: $\gamma = 0.01$ fs$^{-1}$ (Langevin)
+    \item \textbf{Barostat parameters}: $\tau_p = 1000$ fs, $P = 1$ bar (NPT only)
+    \item \textbf{Equilibration}: 50,000 steps (50 ps)
+    \item \textbf{Production}: 200,000 steps (200 ps) for the archived parent property calculations; 1,000,000 steps (1 ns) for the seed-aware benchmark
+    \item \textbf{Sampling interval}: Every 100 steps for the parent calculations and the declared analysis windows for the seed-aware benchmark
+    \item \textbf{System size}: 20$\times$20$\times$1 supercell (4000 atoms)
+\end{itemize}
+
+Simulations were conducted at two temperatures: 300 K and 600 K, to assess model performance under different thermal conditions. Initial velocities were assigned according to the Maxwell-Boltzmann distribution with removal of center-of-mass motion and angular momentum.
+
+\subsection{Property Calculations}
+
+\subsubsection{Structural Properties}
+
+The radial distribution function (RDF) $g(r)$ was computed for all unique atom pairs:
+
+\begin{equation}
+g_{\alpha\beta}(r) = \frac{V}{4\pi r^2 \Delta r N_\alpha N_\beta} \left\langle \sum_{i \in \alpha} \sum_{j \in \beta} \delta(r - r_{ij}) \right\rangle
+\end{equation}
+
+where $\alpha$ and $\beta$ denote atomic species, $V$ is the system volume, $N_\alpha$ is the number of atoms of species $\alpha$, and the angle brackets denote time averaging.
+
+\subsubsection{Dynamic Properties}
+
+The mean square displacement (MSD) was calculated for each atomic species:
+
+\begin{equation}
+\text{MSD}_\alpha(t) = \left\langle \frac{1}{N_\alpha} \sum_{i \in \alpha} |\mathbf{r}_i(t) - \mathbf{r}_i(0)|^2 \right\rangle
+\end{equation}
+
+Diffusion coefficients were extracted from the linear regime of MSD using the Einstein relation:
+
+\begin{equation}
+D_\alpha = \lim_{t \to \infty} \frac{\text{MSD}_\alpha(t)}{6t}
+\end{equation}
+
+The velocity autocorrelation function (VACF) was computed as:
+
+\begin{equation}
+C_v(t) = \frac{\langle \mathbf{v}(t) \cdot \mathbf{v}(0) \rangle}{\langle \mathbf{v}(0) \cdot \mathbf{v}(0) \rangle}
+\end{equation}
+
+\subsubsection{Thermodynamic Properties}
+
+Average potential energy per atom, temperature, and volume (for NPT simulations) were calculated over the production phase:
+
+\begin{equation}
+\langle E \rangle = \frac{1}{N_{\text{frames}}} \sum_{i=1}^{N_{\text{frames}}} \frac{E_{\text{pot}}^{(i)}}{N_{\text{atoms}}}
+\end{equation}
+
+with corresponding standard deviations to assess thermal fluctuations.
+
+\subsubsection{Transport Properties}
+
+The seed-aware campaign archived coordinates, velocities, temperatures, forces, and the observables needed for MSD, $D_{xy}$, pressure availability, and VACF diagnostics. It did not archive a same-campaign heat-flux time series. We therefore do not compute HFACF or Green--Kubo thermal conductivity from this campaign, and do not compare models by $\kappa$.
+
+\subsection{Representation Learning Feature Extraction}
+The following physically interpretable descriptors were extracted from MD trajectories:
+\begin{enumerate}
+\item \textbf{Energy landscape}: Total potential energy per atom
+\item \textbf{Force fields}: 3N-dimensional force vectors for all atoms
+\item \textbf{Structural order parameters}: Radial distribution histograms computed with 100 bins up to 5.0 \AA{} cutoff
+\item \textbf{SOAP descriptors}: Smooth Overlap of Atomic Positions with:
+  \begin{itemize}
+  \item Cutoff radius: 5.0 \AA
+  \item Number of radial basis functions: 8
+  \item Maximum angular momentum: 4
+  \item Gaussian width: 0.3 \AA
+  \end{itemize}
+\end{enumerate}
+
+The feature matrix excludes the earlier always-zero force-sensitivity placeholder; it carried no physical information and is not counted in the reported descriptor dimension. The sensitivity analysis evaluates $t$-SNE perplexities 5, 30, and 50 and nominal PHATE seeds 0--2.
+
+\subsection{Evaluation Metrics Definitions}
+\begin{itemize}
+\item \textbf{Force MAE}: $\frac{1}{3N} \sum_{i=1}^{N} \sum_{\alpha=x,y,z} |F_{i,\alpha}^{\text{MLIP}} - F_{i,\alpha}^{\text{DFT}}|$
+\item \textbf{Energy MAE}: $\frac{1}{N} |E^{\text{MLIP}} - E^{\text{DFT}}|$
+\item \textbf{RMSD Growth Rate}: Linear fit slope of $\text{RMSD}(t) = \sqrt{\frac{1}{N}\sum_{i=1}^{N}|\mathbf{r}_i(t) - \mathbf{r}_i(0)|^2}$
+\item \textbf{Silhouette Score}: Average of $\frac{b_i - a_i}{\max(a_i, b_i)}$ where $a_i$ is mean intra-cluster distance and $b_i$ is mean nearest-cluster distance
+\end{itemize}
+
+
+\subsection{Detailed Migration Pathway Analysis}
+\begin{table}[htbp]
+    \centering
+    \caption{\textbf{QE path energy references for Cr migration.} Forward and reverse entries are energy references relative to the first image of each path. The status column records the convergence state of the underlying QE path: entries marked CONVERGED may be interpreted as activation-energy estimates for the fixed-image path, whereas entries marked UNCONVERGED---including G1, G2, Q1--Q3, and M1---are image-set energy references/spans retained for fixed-path comparison and are not physical migration barriers. Path names are given in Table~\ref{tab:path_registry}.}
+    \label{tab:dft_neb_barriers_revised}
+    \input{revision1/tables/dft_neb_barriers.tex}
+\end{table}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{revision1/figures/figS_dft_neb_mep_profiles.pdf}
+    \caption{\textbf{DFT NEB minimum-energy-path profiles.} Profiles of the within-QL paths L1 and C1--C5; the corresponding path energy references are in Table~\ref{tab:dft_neb_barriers_revised}.}
+    \label{fig:dft_neb_profiles_revised}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{\textbf{Cr migration path registry.} Each path is named by class and index. The path identifier is used to connect the geometry, image set, and released data. Classes follow the geometry label of the path definition (path queue) or, for M1, L1 and C1--C5, the exact image coordinates (see the classification basis); model errors are reported per path and are not pooled across classes.}
+    \label{tab:path_registry}
+    \input{revision1/tables/path_registry.tex}
+\end{table}
+
+Table~\ref{tab:scratch5_path_resolved_descriptive} reports the three-initialization absolute fixed-path errors for FT-600K, Scratch-5\%, and Scratch on the 61-atom paths. Within-gap paths (G1, G2) and gap-to-QL/into-QL paths (Q1, Q2, Q3) are listed separately because they probe different lattice distortions. The column labelled ``QE reference'' gives the forward energy reference of each image set. G1 and G2 are also marked UNCONVERGED in Table~\ref{tab:dft_neb_barriers_revised}; for G1, G2, and Q1--Q3, these values are image-set energy references/spans used to align fixed-image comparisons, not physical migration barriers.
+\input{revision1/tables/scratch5_path_resolved_descriptive.tex}
+
+The 61-atom fixed-image evaluations are single-point model energies on the DFT images of each path. Here ``gap-to-QL/into-QL'' denotes motion from the vdW gap toward or into the interior of a covalently bonded QL, and ``within-gap'' denotes motion that stays in the vdW gap. Path tortuosity describes the winding geometry of a trajectory, whereas lattice distortion describes the displacement of the surrounding QL; the within-QL label is based on the latter.
+
+\subsubsection{In-Gap Diffusion}
+The Scratch-5\% control is a random-initialization low-data comparison with 89 grouped training configurations and 311/267 validation/test configurations. Its within-gap fixed-path error is $0.68 \pm 0.20$~eV, versus $0.47 \pm 0.12$~eV for FT-600K and $1.20 \pm 0.27$~eV for Scratch, both trained on 1,786 configurations. The from-scratch error is not monotonic in training-set size on this path, and the fine-tuned model has the lowest error.
+
+For a matched foundation-model comparison, we evaluated ten single-checkpoint models on the same five fixed images. The four main representatives (MP-0b3, MPA0, OMAT-0 medium, and MH-1) produced forward-minus-first-image energy differences of 1.50, 1.79, 1.60, and 1.84~eV, respectively, against the QE image-set reference of 0.34~eV. The ten individual profiles are shown in Fig.~\ref{fig:foundation_profiles}a and the family means with pointwise $\pm1$ standard-deviation bands are shown in Fig.~\ref{fig:foundation_profiles}b. The family bands describe variation among sub-models within each foundation family, not training-initialization uncertainty. The profiles are smooth but systematically elevated relative to the QE image-set reference, so equilibrium accuracy and fixed-path migration fidelity are distinct observables.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.49\textwidth]{revision1/figures/foundation_grouped/path_1-4_energy_profiles_corrected.pdf}
+    \hfill
+    \includegraphics[width=0.49\textwidth]{revision1/figures/foundation_grouped/path_1-4_energy_profiles_family_aggregated.pdf}
+    \caption{\textbf{Foundation-model fixed-path energy profiles for the within-gap path.} (a) Relative-energy profiles for all ten foundation checkpoints evaluated on the same five DFT-path images. (b) Family-aggregated profiles for Agnesi, MH, MP, and OMAT; shaded bands denote pointwise $\pm1$ standard deviation across sub-models within each family, not training-initialization uncertainty. The QE image-set reference is 0.34~eV; the underlying G1 path is marked UNCONVERGED, so this value is not presented as a physical migration barrier. These are fixed-image single-point profiles.}
+    \label{fig:foundation_profiles}
+\end{figure}
+
+\subsubsection{Higher-Distortion and Within-QL Paths}
+Within-QL migration is defined here as Cr entering the interior of a covalently bonded QL, which can require substantial lattice distortion. The path registry (Table~\ref{tab:path_registry}) assigns each path to the within-gap, gap-to-QL/into-QL, mixed, or within-QL class, and errors are reported per path because the classes probe different distortions.
+
+On the gap-to-QL/into-QL paths, the FT-600K fixed-path errors are 9.6--10.4~eV in every training initialization (Table~\ref{tab:scratch5_path_resolved_descriptive}). The from-scratch models deviate by 0.3--1.8~eV with larger run-to-run spread. Grouped multi-seed retraining gives the model-level uncertainty for these comparisons.
+
+\subsubsection{Implications for MLIP Development}
+
+These findings highlight critical considerations for practical MLIP deployment:
+\begin{itemize}
+    \item \textbf{Validation Insufficiency}: Testing only on stable configurations masks critical failures at transition states
+    \item \textbf{Hidden Extrapolation}: Models can appear accurate at trajectory endpoints while failing at crucial transition states
+    \item \textbf{Data Quality over Quantity}: Task-specific training data outweighs larger but less relevant datasets
+    \item \textbf{Foundation Model Limitations}: Pre-trained models require careful adaptation for processes involving significant atomic rearrangement
+\end{itemize}
+
+
+\subsection{Nudged Elastic Band (NEB) Benchmark for Cr Migration}
+
+We assess each model on a Cr migration event with two operators (Fig.~\ref{fig:neb_benchmark}). Fixed-path scoring (panel a) assigns a forward-minus-first-image energy difference to the five DFT images of the 61-atom, one-Cr within-gap path; the QE image-set reference is 0.336~eV and the models assign 1.02 (Foundation), 4.54 (Scratch), 0.50 (FT-600K) and 0.82~eV (FT-MultiT). Self-relaxed NEB (panel b) lets the model move the images under its own forces; this is a stability test of model-in-the-loop path generation, and it is run on the 82-atom, two-Cr cell.
+
+The Scratch band does not converge: the maximum image energy rises to $10^{2}$--$10^{4}$~eV above the endpoint within about 100 optimizer steps and stays there for the remaining 1,300 steps. The Scratch and fine-tuned models (FT-600K and FT-MultiT) all show a rapid increase in the maximum image force ($f_{max}$) during NEB optimization, and the runs terminate before a converged band is obtained. Self-relaxed NEB therefore detects a force-feedback instability that the fixed-path operator, which never moves the images, cannot.
+
+The fixed-path and self-relaxed NEB evaluations are different measurement operators. In the fixed-path evaluation, the DFT-relaxed images of the 61-atom, one-Cr within-gap path are held fixed; the QE image-set reference is 0.336~eV (0.34~eV) and the Foundation model assigns 1.02~eV (+0.69~eV). The self-relaxed stability test uses a separate band that belonged to a different path (82 atoms, two Cr, twelve images), so it is not used for fixed-path ranking. Fixed-path scoring is used for the reference-profile comparison; self-relaxed NEB is used as a stability test.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.98\textwidth]{revision1/figures/figS_neb_operators.pdf}
+    \caption{\textbf{Fixed-path scoring and self-relaxed NEB.} (a) Forward-minus-first-image energy differences assigned by each model to the five DFT images of the 61-atom, one-Cr within-gap path G1; the dashed line is the QE image-set reference of 0.336~eV. (b) Self-relaxed NEB of the Scratch model on the 82-atom, two-Cr cell: maximum image energy above the fixed endpoint at each optimizer step (logarithmic scale; steps with non-positive values are omitted). The band does not converge.}
+    \label{fig:neb_benchmark}
+\end{figure}
+
+\subsection{Representation and Surrogate Diagnostics}
+
+
+The representation analysis uses 404 trajectory frames and 6,191 descriptors after removing the all-zero force-sensitivity placeholder. In the original descriptor space, the overall Euclidean silhouette is 0.33 and the cosine silhouette is 0.28. After z-scoring each descriptor, the Euclidean silhouette is $-0.02$; a 95\% variance PCA of the z-scored matrix gives $-0.03$ in 364 dimensions. Because the descriptor vector combines total energy, forces, RDF features, and SOAP components, the raw-space value separates the models' recorded outputs largely through the scale of these components, and the z-scored value shows no separation once scale is removed.
+
+The projection check gives a $t$-SNE silhouette of $0.40\pm0.03$ across perplexities 5, 30, and 50, with a range of 0.36--0.42 and trustworthiness of 0.963--0.973. PHATE gives $0.47\pm0.00$ across three nominal seeds. At fixed perplexity, the nominal $t$-SNE seeds are bitwise-identical under the fixed PCA initialization; the reported spread therefore reflects perplexity sensitivity rather than independent seed uncertainty. The projections are qualitative diagnostics consistent with different descriptor distributions.
+
+For the SHAP analysis, the frame-aligned workflow uses 150 configurations, 390 SOAP descriptors, and 17 structural descriptors. Over 30 random seeds, the 5-fold cross-validated surrogate $R^2$ values (mean $\pm$ s.d.) are $0.973\pm0.008$ for FT-600K, $0.858\pm0.051$ for FT-MultiT, and $0.970\pm0.013$ for Scratch, with corresponding MAEs of $0.045\pm0.005$, $0.027\pm0.002$, and $0.027\pm0.004$~eV. The most frequent top-ranked descriptor is \texttt{Cr-Sb\_n43\_l0} for FT-MultiT (30/30 seeds), \texttt{Cr-Sb\_n13\_l0} for FT-600K (20/30), and \texttt{Cr-Te\_n32\_l2} for Scratch (19/30). These values describe the surrogate's sensitivity to predictors of absolute energy error and do not establish a causal attribution within MACE. The released workflow reproduces the declared 150-frame/450-row structure and frame alignment; it is used as a surrogate-scoped diagnostic rather than as a reconstruction of historical numerical outputs.
+
+A complementary endpoint campaign contains 846 fixed-cell native-MACE FIRE relaxations across six Cr/V/Mn--\ce{Sb2Te3}/\ce{Bi2Te3} systems and three perturbation arms; all tasks pass the finite-value, topology, minimum-distance, displacement, and convergence gates. It measures the local stability of native-MACE endpoint relaxations under dopant displacement (endpoint appendix); it perturbs the dopant position and does not isolate a single SOAP channel.
+
+\begin{table}[htbp]
+    \centering
+    \scriptsize
+    \setlength{\tabcolsep}{2pt}
+    \caption{\textbf{Separation metrics across projected and descriptor spaces.} Projected values are baselines. The raw descriptor-space value depends on the relative scale of the energy, force, RDF, and SOAP components; the z-scored and PCA values remove that dependence.}
+    \label{tab:latent_descriptor_space_check}
+    \begin{tabular}{p{0.38\linewidth}rp{0.38\linewidth}}
+        \toprule
+        Space & Overall silhouette & Interpretation \\
+        \midrule
+        Original 6,191-d, Euclidean & 0.33 & Raw descriptor space \\
+        Original 6,191-d, cosine & 0.28 & Cosine metric \\
+        Original 6,191-d, $z$-scored Euclidean & $-0.02$ & Scale removed \\
+        PCA 95\%, $z$-scored Euclidean & $-0.03$ & 364 dimensions \\
+        $t$-SNE, $p\in\{5,30,50\}$, 3 nominal seeds & $0.40\pm0.03$ & Range 0.36--0.42; trustworthiness 0.963--0.973 \\
+        PHATE 2D, 3 nominal seeds & $0.47\pm0.00$ & Range 0.47265--0.47277 \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.95\textwidth]{revision1/figures/figS_latent_robustness.pdf}
+    \caption{\textbf{Latent-space robustness and original-descriptor checks.} The $t$-SNE panels show the examined perplexity range 0.36--0.42 and trustworthiness range 0.963--0.973; nominal seeds at fixed perplexity are identical under the fixed PCA initialization. The PHATE summary is $0.47\pm0.00$. The summary panel compares these descriptive projection scores with original-descriptor-space silhouettes of 0.33 (raw Euclidean), 0.28 (cosine), and $-0.02$ (z-scored Euclidean).}
+    \label{fig:latent_robustness_revised}
+\end{figure}
+
+\begin{table}[htbp]
+    \centering
+    \caption{\textbf{SHAP surrogate fidelity.} 5-fold cross-validated $R^2$ and MAE (mean $\pm$ s.d. over 30 seeds) of the gradient-boosting surrogate for the absolute energy error, on the 150-frame, frame-aligned workflow.}
+    \label{tab:shap_surrogate_cv_revised}
+    \input{revision1/tables/shap_surrogate_r2.tex}
+\end{table}
+
+\input{revision1/appendix/endpoint_perturbation_appendix.tex}
+
+\newpage
+\bibliography{sn-bibliography}
+
+\end{document}

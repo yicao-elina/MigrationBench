@@ -1,0 +1,12 @@
+\setlength{\tabcolsep}{2pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.22\linewidth}>{\centering\arraybackslash}p{0.13\linewidth}>{\centering\arraybackslash}p{0.25\linewidth}>{\centering\arraybackslash}p{0.25\linewidth}>{\raggedright\arraybackslash}p{0.15\linewidth}@{}}
+\toprule
+Model family & Runs & \shortstack{$D_{xy}$, 200--500~ps\\(cm$^2$/s)} & \shortstack{$D_{xy}$, 500--900~ps\\(cm$^2$/s)} & Scope \\
+\midrule
+FT-600K & 3 seeds & $(3.96\pm3.78)\times10^{-7}$ & $(3.64\pm3.15)\times10^{-7}$ & stable \\
+FT-MultiT & 3 seeds & $(1.12\pm0.26)\times10^{-6}$ & $(1.08\pm0.10)\times10^{-6}$ & stable \\
+Foundation representatives & 2 stable & $(1.21\pm1.29)\times10^{-6}$ & $(1.71\pm1.50)\times10^{-6}$ & model spread \\
+From scratch & 3 failures & -- & -- & no $D_{xy}$ \\
+\bottomrule
+\multicolumn{5}{@{}p{0.94\linewidth}@{}}{\footnotesize Fine-tuned values are means $\pm$ sample standard deviations across training seeds 123, 234, and 345. Foundation values summarize stable representatives and are not training-seed uncertainties; all trajectories use velocity seed 1100. No same-campaign heat-flux record is available, so HFACF and thermal conductivity are not reported.\par} \\
+\end{tabular}

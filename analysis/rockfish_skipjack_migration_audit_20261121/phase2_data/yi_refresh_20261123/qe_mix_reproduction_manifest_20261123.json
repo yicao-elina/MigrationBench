@@ -1,0 +1,546 @@
+{
+  "all_mix_files_are_hashed_stable_owned_single_link": true,
+  "captured_utc": "2026-11-23T03:47:11Z",
+  "fresh_start_helper": {
+    "local_path": "/Users/alina/.codex/worktrees/migrationbench-unified-20261121/analysis/rockfish_skipjack_migration_audit_20261121/phase2_data/yi_refresh_20261123/prepare_qe_mix_fresh_start.py",
+    "sha256": "1329c09190bd618bb7112a6538bdf52c040a1483cc0cb48f9abb7faba059379a",
+    "usage": "Copy this helper to Rockfish; run `python3 prepare_qe_mix_fresh_start.py base_spin|mag3|charged3_spin`. It checks source and pseudopotential hashes and prepares a unique PW-only working directory on /scratch16; it never edits sources or submits a job. Review the prepared input/script and manually run `sbatch sbatch-relax-pw-fresh.slurm` if the rerun is desired."
+  },
+  "mix_allocated_bytes": 5352980480,
+  "mix_file_count": 12,
+  "mix_logical_bytes": 5352688896,
+  "qe_binary_identity": {
+    "pp.x": {
+      "mode": "0755",
+      "path": "/data/apps/extern/qe/7.2/bin/pp.x",
+      "sha256": "ab617735f7d8ea62870a2886a8afcfab4fd342a6a56221dec63c8036dbc6c328",
+      "size_bytes": 25618952
+    },
+    "pw.x": {
+      "mode": "0755",
+      "path": "/data/apps/extern/qe/7.2/bin/pw.x",
+      "sha256": "e893e4835199422ac09218709bab451b6d47620fdfaa873d135c582da028cb81",
+      "size_bytes": 32383312
+    }
+  },
+  "runs": [
+    {
+      "campaign_id": "MBREG-CR-IN-GAP-RELAX-202507",
+      "input_restart_mode": "QE default from_scratch",
+      "mix_intermediates": [
+        {
+          "allocated_bytes": 412286976,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 505936355,
+          "mode_octal": "0644",
+          "mtime_ns": 1752396573771856086,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/out/sb2te3.mix3",
+          "sha256": "16c944bfba3cefca2024750b1763856c4644a4104b7785b9a09858b82b8d097f",
+          "size_bytes": 412285952,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 412286976,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 505936354,
+          "mode_octal": "0644",
+          "mtime_ns": 1752396573774662163,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/out/sb2te3.mix4",
+          "sha256": "22e64bf33e5aeca5a587a0f6b76f1eb3d1f62d6f83a023a0cb3001a8e2bf56f3",
+          "size_bytes": 412285952,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 412286976,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 505936356,
+          "mode_octal": "0644",
+          "mtime_ns": 1752396573764698370,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/out/sb2te3.mix2",
+          "sha256": "fc8df3d5ecda495a4a2be276a7bb2ac101658c36e22e8f4cbd41df161829f921",
+          "size_bytes": 412284928,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 412286976,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 505936357,
+          "mode_octal": "0644",
+          "mtime_ns": 1752396573742926860,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/out/sb2te3.mix1",
+          "sha256": "d3ccf9e07364b2d012aec85040f8bee15e7ede87a766836b7baac18a9f9334a9",
+          "size_bytes": 412283392,
+          "stable_during_read": true,
+          "uid": 3901
+        }
+      ],
+      "project_id": "MIGRATIONBENCH",
+      "pseudo_dir": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/",
+      "quality_gates": {
+        "postprocessing": "FAIL: retained pp.out reports Error in routine chdens (1): wrong nx",
+        "pw_relaxation_convergence": "FAIL: QE log reports Maximum CPU time exceeded before JOB DONE; this is not a validated converged relaxation",
+        "pw_save_xml": "PRESENT, time-limited output evidence",
+        "scheduler_exit": "COMPLETED 0:0; the batch script ends with date, so this does not override QE/postprocessing gates",
+        "slurm_script_success": "FAIL: stdout reports Abort(1) ... MPI_Abort during the historical pp.x stage, despite sacct COMPLETED 0:0; script ends with date and does not propagate the pp.x failure."
+      },
+      "reproduction_recipe": {
+        "action": "Copy source relax.in and sbatch-relax.slurm into a new run directory. In the copied input set restart_mode=from_scratch and point outdir at a fresh run-specific directory; use the copied script to run only pw.x to a new relax.fresh.out. For charged3_spin replace restart_mode=restart only in the copy. Do not overwrite historical outputs or include pp.x in the PW recipe. Keep pp.in and the failed pp.out linked as separate postprocessing evidence. Preserve QE 7.2, intel/qe/7.2 modules, original 4-rank pw.x command and Slurm resource directives. Mark DOCUMENTED/REVIEWED until a clean-start PW job is actually run and its output gates are inspected.",
+        "consequence": "Deleting the mix histories discards the exact continuation point for this time-limited partial run; the reviewed fresh-start recipe creates a new trajectory, not an exact continuation.",
+        "fresh_start_helper_path": "/Users/alina/.codex/worktrees/migrationbench-unified-20261121/analysis/rockfish_skipjack_migration_audit_20261121/phase2_data/yi_refresh_20261123/prepare_qe_mix_fresh_start.py",
+        "helper_command": "python3 prepare_qe_mix_fresh_start.py base_spin; inspect printed directory; cd <printed-directory> && sbatch sbatch-relax-pw-fresh.slurm",
+        "helper_sha256": "1329c09190bd618bb7112a6538bdf52c040a1483cc0cb48f9abb7faba059379a",
+        "job_submitted": false,
+        "status": "REVIEWED_NOT_RUN",
+        "working_filesystem": "/scratch16/pclancy3/yi"
+      },
+      "retained_artifacts": [
+        {
+          "mtime_ns": 1752146489110761000,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/relax.in",
+          "role": "pw_input",
+          "sha256": "d16a1cc8b78132fdadea7c7433a2f1a34c160e3a03ad93a33245c5b8944f1ef0",
+          "size_bytes": 4750
+        },
+        {
+          "mtime_ns": 1752146081708347073,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/pp.in",
+          "role": "pp_input",
+          "sha256": "4b68df9d1eb6d17570dc6984770fe55a75b47bed251c3f097f6d31a20ed662e1",
+          "size_bytes": 277
+        },
+        {
+          "mtime_ns": 1752146069854038297,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/sbatch-relax.slurm",
+          "role": "scheduler_script",
+          "sha256": "93842b62517e6965f76cfb152dff6ec2882efc540a7a0978d65024bf556e8cb9",
+          "size_bytes": 785
+        },
+        {
+          "mtime_ns": 1752396578262729723,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/relax.out",
+          "role": "pw_output_log",
+          "sha256": "13e0b0a220fef73137344266b29f8bbd2a14fe017641ca3517595fce7f2caadd",
+          "size_bytes": 1723043
+        },
+        {
+          "mtime_ns": 1752396616607017947,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/pp.out",
+          "role": "failed_pp_output_log",
+          "sha256": "e75ec96ffc12ca0bf73d3319fb8f9f0e0720a224c19560504ddb21ddac7efa71",
+          "size_bytes": 1663
+        },
+        {
+          "mtime_ns": 1752396573815726808,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/out/sb2te3.save/data-file-schema.xml",
+          "role": "time_limited_pw_save_xml",
+          "sha256": "a1245e4188494fe50809838699ce150d3aa28483fe3f2570d00e3c74f6824c00",
+          "size_bytes": 410113
+        },
+        {
+          "mtime_ns": 1730701472578156457,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Sb_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Sb",
+          "sha256": "998415c8a49d852c7376645c0a896110258aa7bb40b5c331a1e2874ed34e8132",
+          "size_bytes": 356202
+        },
+        {
+          "mtime_ns": 1730701472681744628,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Te_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Te",
+          "sha256": "1b6d3177b82988cecabebf7da1636825613b7270bc269795a1fb6c12743e12fa",
+          "size_bytes": 320714
+        },
+        {
+          "mtime_ns": 1730701472190942191,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Cr_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Cr",
+          "sha256": "a9352047039238c12614fb6c3ed93acb6e84b2cd9011db2f62eda1858045c5e4",
+          "size_bytes": 370450
+        }
+      ],
+      "run_id": "RF-DATA-CR-IN-GAP-BASE_SPIN-7104884",
+      "run_key": "base_spin",
+      "scheduler_job": {
+        "account": "pclancy3",
+        "cluster": "Rockfish",
+        "end_utc": "2025-07-13T08:50:16Z",
+        "exit_code": "0:0",
+        "job_id": "7104884",
+        "job_name": "pbs",
+        "partition": "parallel",
+        "scheduler_state": "COMPLETED",
+        "start_utc": "2025-07-10T11:21:53Z"
+      },
+      "scientific_status": "FAILURE_MODE",
+      "workdir": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin",
+      "workflow_type": "QE_PW_RELAX"
+    },
+    {
+      "campaign_id": "MBREG-CR-IN-GAP-RELAX-202507",
+      "input_restart_mode": "QE default from_scratch",
+      "mix_intermediates": [
+        {
+          "allocated_bytes": 463863808,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 210697006,
+          "mode_octal": "0644",
+          "mtime_ns": 1752397801782486688,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/out/sb2te3.mix3",
+          "sha256": "13aefe621158fdf36dea282039138c452232a59603657dcd0134d6617b32090d",
+          "size_bytes": 463821696,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 463863808,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 210697010,
+          "mode_octal": "0644",
+          "mtime_ns": 1752397801783176960,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/out/sb2te3.mix4",
+          "sha256": "87c36f529652498b7963a2644a8ea3bf2b627fa93583294a3ec1c35fa9fb93c0",
+          "size_bytes": 463821696,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 463863808,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 210696996,
+          "mode_octal": "0644",
+          "mtime_ns": 1752397801773238595,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/out/sb2te3.mix2",
+          "sha256": "012674b0f66cd2be92e65a691fe451d2a3cde712e7b0f8da6618bea8fc177433",
+          "size_bytes": 463820544,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 463863808,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 210697016,
+          "mode_octal": "0644",
+          "mtime_ns": 1752397801755808575,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/out/sb2te3.mix1",
+          "sha256": "dae5a74041a45b81cc23341b3aa681f0ed9b7eb377fc399ab10a6e549bc19604",
+          "size_bytes": 463818816,
+          "stable_during_read": true,
+          "uid": 3901
+        }
+      ],
+      "project_id": "MIGRATIONBENCH",
+      "pseudo_dir": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/",
+      "quality_gates": {
+        "postprocessing": "FAIL: retained pp.out reports Error in routine chdens (1): wrong nx",
+        "pw_relaxation_convergence": "FAIL: QE log reports Maximum CPU time exceeded before JOB DONE; this is not a validated converged relaxation",
+        "pw_save_xml": "PRESENT, time-limited output evidence",
+        "scheduler_exit": "COMPLETED 0:0; the batch script ends with date, so this does not override QE/postprocessing gates",
+        "slurm_script_success": "FAIL: stdout reports Abort(1) ... MPI_Abort during the historical pp.x stage, despite sacct COMPLETED 0:0; script ends with date and does not propagate the pp.x failure."
+      },
+      "reproduction_recipe": {
+        "action": "Copy source relax.in and sbatch-relax.slurm into a new run directory. In the copied input set restart_mode=from_scratch and point outdir at a fresh run-specific directory; use the copied script to run only pw.x to a new relax.fresh.out. For charged3_spin replace restart_mode=restart only in the copy. Do not overwrite historical outputs or include pp.x in the PW recipe. Keep pp.in and the failed pp.out linked as separate postprocessing evidence. Preserve QE 7.2, intel/qe/7.2 modules, original 4-rank pw.x command and Slurm resource directives. Mark DOCUMENTED/REVIEWED until a clean-start PW job is actually run and its output gates are inspected.",
+        "consequence": "Deleting the mix histories discards the exact continuation point for this time-limited partial run; the reviewed fresh-start recipe creates a new trajectory, not an exact continuation.",
+        "fresh_start_helper_path": "/Users/alina/.codex/worktrees/migrationbench-unified-20261121/analysis/rockfish_skipjack_migration_audit_20261121/phase2_data/yi_refresh_20261123/prepare_qe_mix_fresh_start.py",
+        "helper_command": "python3 prepare_qe_mix_fresh_start.py mag3; inspect printed directory; cd <printed-directory> && sbatch sbatch-relax-pw-fresh.slurm",
+        "helper_sha256": "1329c09190bd618bb7112a6538bdf52c040a1483cc0cb48f9abb7faba059379a",
+        "job_submitted": false,
+        "status": "REVIEWED_NOT_RUN",
+        "working_filesystem": "/scratch16/pclancy3/yi"
+      },
+      "retained_artifacts": [
+        {
+          "mtime_ns": 1752147533845950000,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/relax.in",
+          "role": "pw_input",
+          "sha256": "c137554c50a31a4364f86d9404f847f290120dbffeb15533d9569353aded99d7",
+          "size_bytes": 4750
+        },
+        {
+          "mtime_ns": 1752146531535926042,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/pp.in",
+          "role": "pp_input",
+          "sha256": "4b68df9d1eb6d17570dc6984770fe55a75b47bed251c3f097f6d31a20ed662e1",
+          "size_bytes": 277
+        },
+        {
+          "mtime_ns": 1752146531368044023,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/sbatch-relax.slurm",
+          "role": "scheduler_script",
+          "sha256": "93842b62517e6965f76cfb152dff6ec2882efc540a7a0978d65024bf556e8cb9",
+          "size_bytes": 785
+        },
+        {
+          "mtime_ns": 1752397806195226834,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/relax.out",
+          "role": "pw_output_log",
+          "sha256": "4c43f25efa00d7658906fd4d6d58af72e19a366c8cffd8611bf1d3520d81301f",
+          "size_bytes": 1723821
+        },
+        {
+          "mtime_ns": 1752397844365285856,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/pp.out",
+          "role": "failed_pp_output_log",
+          "sha256": "51636b9e7cce35c9a0a866f9c4655aeaaef28af50cdc5dbd4f4e80bd81bffc0b",
+          "size_bytes": 1663
+        },
+        {
+          "mtime_ns": 1752397801823880427,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3/out/sb2te3.save/data-file-schema.xml",
+          "role": "time_limited_pw_save_xml",
+          "sha256": "d41a98a827070e7b9269b7a0de5cddf2ae064e60003b98835b9b83ebde157721",
+          "size_bytes": 410113
+        },
+        {
+          "mtime_ns": 1730701472578156457,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Sb_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Sb",
+          "sha256": "998415c8a49d852c7376645c0a896110258aa7bb40b5c331a1e2874ed34e8132",
+          "size_bytes": 356202
+        },
+        {
+          "mtime_ns": 1730701472681744628,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Te_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Te",
+          "sha256": "1b6d3177b82988cecabebf7da1636825613b7270bc269795a1fb6c12743e12fa",
+          "size_bytes": 320714
+        },
+        {
+          "mtime_ns": 1730701472190942191,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Cr_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Cr",
+          "sha256": "a9352047039238c12614fb6c3ed93acb6e84b2cd9011db2f62eda1858045c5e4",
+          "size_bytes": 370450
+        }
+      ],
+      "run_id": "RF-DATA-CR-IN-GAP-MAG3-7105613",
+      "run_key": "mag3",
+      "scheduler_job": {
+        "account": "pclancy3",
+        "cluster": "Rockfish",
+        "end_utc": "2025-07-13T09:10:44Z",
+        "exit_code": "0:0",
+        "job_id": "7105613",
+        "job_name": "pbs",
+        "partition": "parallel",
+        "scheduler_state": "COMPLETED",
+        "start_utc": "2025-07-10T11:39:30Z"
+      },
+      "scientific_status": "FAILURE_MODE",
+      "workdir": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/spin/mag3",
+      "workflow_type": "QE_PW_RELAX"
+    },
+    {
+      "campaign_id": "MBREG-CR-IN-GAP-RELAX-202507",
+      "input_restart_mode": "explicit restart_mode='restart' in retained source; replace only in fresh copy",
+      "mix_intermediates": [
+        {
+          "allocated_bytes": 462094336,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 6268739,
+          "mode_octal": "0644",
+          "mtime_ns": 1752685189427813660,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/out/sb2te3.mix4",
+          "sha256": "d5bb7056a5617da6f472932138357da8e8e28d99f93ae54f2c3d5da6afab1106",
+          "size_bytes": 462067200,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 462094336,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 6268745,
+          "mode_octal": "0644",
+          "mtime_ns": 1752685189421991116,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/out/sb2te3.mix1",
+          "sha256": "2952b1588cb858148d11aefe80e792872e8afb7adf736b575173aa7d99f66868",
+          "size_bytes": 462066624,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 462094336,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 6268737,
+          "mode_octal": "0644",
+          "mtime_ns": 1752685189450432149,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/out/sb2te3.mix3",
+          "sha256": "ecbfad01c4044074db6af2ddd48b1b5c4423fee2d95517b0715c5c64c59705dd",
+          "size_bytes": 462066048,
+          "stable_during_read": true,
+          "uid": 3901
+        },
+        {
+          "allocated_bytes": 462094336,
+          "deletion_state": "PENDING_SQL_REGISTRATION_AND_GUARDED_PREFLIGHT",
+          "device": 52,
+          "gid": 3001,
+          "inode": 6268735,
+          "mode_octal": "0644",
+          "mtime_ns": 1752685189416145558,
+          "nlink": 1,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/out/sb2te3.mix2",
+          "sha256": "bcaafae2629bb9e912eea135c500f4de158211ad3e612fd91350fe1a892c1121",
+          "size_bytes": 462066048,
+          "stable_during_read": true,
+          "uid": 3901
+        }
+      ],
+      "project_id": "MIGRATIONBENCH",
+      "pseudo_dir": "/home/ycao73/ONCVPseudoPack/SG15_v1.2/UPF/PBE/",
+      "quality_gates": {
+        "postprocessing": "FAIL: retained pp.out reports Error in routine chdens (1): wrong nx",
+        "pw_relaxation_convergence": "FAIL: QE log reports Maximum CPU time exceeded before JOB DONE; this is not a validated converged relaxation",
+        "pw_save_xml": "PRESENT, time-limited output evidence",
+        "scheduler_exit": "COMPLETED 0:0; the batch script ends with date, so this does not override QE/postprocessing gates",
+        "slurm_script_success": "FAIL: stdout reports Abort(1) ... MPI_Abort during the historical pp.x stage, despite sacct COMPLETED 0:0; script ends with date and does not propagate the pp.x failure."
+      },
+      "reproduction_recipe": {
+        "action": "Copy source relax.in and sbatch-relax.slurm into a new run directory. In the copied input set restart_mode=from_scratch and point outdir at a fresh run-specific directory; use the copied script to run only pw.x to a new relax.fresh.out. For charged3_spin replace restart_mode=restart only in the copy. Do not overwrite historical outputs or include pp.x in the PW recipe. Keep pp.in and the failed pp.out linked as separate postprocessing evidence. Preserve QE 7.2, intel/qe/7.2 modules, original 4-rank pw.x command and Slurm resource directives. Mark DOCUMENTED/REVIEWED until a clean-start PW job is actually run and its output gates are inspected.",
+        "consequence": "Deleting the mix histories discards the exact continuation point for this time-limited partial run; the reviewed fresh-start recipe creates a new trajectory, not an exact continuation.",
+        "fresh_start_helper_path": "/Users/alina/.codex/worktrees/migrationbench-unified-20261121/analysis/rockfish_skipjack_migration_audit_20261121/phase2_data/yi_refresh_20261123/prepare_qe_mix_fresh_start.py",
+        "helper_command": "python3 prepare_qe_mix_fresh_start.py charged3_spin; inspect printed directory; cd <printed-directory> && sbatch sbatch-relax-pw-fresh.slurm",
+        "helper_sha256": "1329c09190bd618bb7112a6538bdf52c040a1483cc0cb48f9abb7faba059379a",
+        "job_submitted": false,
+        "status": "REVIEWED_NOT_RUN",
+        "working_filesystem": "/scratch16/pclancy3/yi"
+      },
+      "retained_artifacts": [
+        {
+          "mtime_ns": 1752435119507906000,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/relax.in",
+          "role": "pw_input",
+          "sha256": "00dd50b361ab3acf5157b6c9146ebd968485fa3980133ecb269232cde0b41120",
+          "size_bytes": 4362
+        },
+        {
+          "mtime_ns": 1752438415326223692,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/pp.in",
+          "role": "pp_input",
+          "sha256": "f60fef393b019b56ca865c9f1674018e03e176a6d61742d382556a4588a480b6",
+          "size_bytes": 258
+        },
+        {
+          "mtime_ns": 1752145744574120682,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/sbatch-relax.slurm",
+          "role": "scheduler_script",
+          "sha256": "93842b62517e6965f76cfb152dff6ec2882efc540a7a0978d65024bf556e8cb9",
+          "size_bytes": 785
+        },
+        {
+          "mtime_ns": 1752685194549430791,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/relax.out",
+          "role": "pw_output_log",
+          "sha256": "57387aef195a94caa1c707c4c9ab8baef8c79481867dd13abe9f66d7c0ad12ef",
+          "size_bytes": 1638561
+        },
+        {
+          "mtime_ns": 1752685234442862497,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/pp.out",
+          "role": "failed_pp_output_log",
+          "sha256": "3331df620e6308ccb4537432f5e1e047ccd43d0c3700b420aa6ca2c48c2e5fde",
+          "size_bytes": 1663
+        },
+        {
+          "mtime_ns": 1752685189484626006,
+          "path": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin/out/sb2te3.save/data-file-schema.xml",
+          "role": "time_limited_pw_save_xml",
+          "sha256": "95901bb037f3d26e3019e9f3d236e7bf354eb1ead50dc47df27f65aef193cd22",
+          "size_bytes": 392664
+        },
+        {
+          "mtime_ns": 1738686976577407032,
+          "nlink": 3,
+          "path": "/home/ycao73/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Sb_PBE_FR.SG15v1.2.UPF",
+          "resolved_path": "/data/pclancy3/yi/cyqe/data/pseudos/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Sb_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Sb",
+          "same_content_note": "HOME alias and data path have matching SHA-256; HOME path reports nlink=3.",
+          "sha256": "998415c8a49d852c7376645c0a896110258aa7bb40b5c331a1e2874ed34e8132",
+          "size_bytes": 356202
+        },
+        {
+          "mtime_ns": 1738686977061909940,
+          "nlink": 3,
+          "path": "/home/ycao73/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Te_PBE_FR.SG15v1.2.UPF",
+          "resolved_path": "/data/pclancy3/yi/cyqe/data/pseudos/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Te_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Te",
+          "same_content_note": "HOME alias and data path have matching SHA-256; HOME path reports nlink=3.",
+          "sha256": "1b6d3177b82988cecabebf7da1636825613b7270bc269795a1fb6c12743e12fa",
+          "size_bytes": 320714
+        },
+        {
+          "mtime_ns": 1738686974634574807,
+          "nlink": 3,
+          "path": "/home/ycao73/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Cr_PBE_FR.SG15v1.2.UPF",
+          "resolved_path": "/data/pclancy3/yi/cyqe/data/pseudos/ONCVPseudoPack/SG15_v1.2/UPF/PBE/Cr_PBE_FR.SG15v1.2.UPF",
+          "role": "pseudopotential_Cr",
+          "same_content_note": "HOME alias and data path have matching SHA-256; HOME path reports nlink=3.",
+          "sha256": "a9352047039238c12614fb6c3ed93acb6e84b2cd9011db2f62eda1858045c5e4",
+          "size_bytes": 370450
+        }
+      ],
+      "run_id": "RF-DATA-CR-IN-GAP-CHARGED3_SPIN-7167643",
+      "run_key": "charged3_spin",
+      "scheduler_job": {
+        "account": "pclancy3",
+        "cluster": "Rockfish",
+        "end_utc": "2025-07-16T17:00:34Z",
+        "exit_code": "0:0",
+        "job_id": "7167643",
+        "job_name": "pbs",
+        "partition": "parallel",
+        "scheduler_state": "COMPLETED",
+        "start_utc": "2025-07-13T19:32:56Z"
+      },
+      "scientific_status": "FAILURE_MODE",
+      "workdir": "/data/pclancy3/yi/flare-data/1-Cr-Sb2Te3/1.pwrelax/3-2.2-layer_CrSb2Te3/2.Cr-in-gap/charged_3/spin",
+      "workflow_type": "QE_PW_RELAX"
+    }
+  ],
+  "sacct_capture_path": "/Users/alina/.codex/worktrees/migrationbench-unified-20261121/analysis/rockfish_skipjack_migration_audit_20261121/phase2_data/yi_refresh_20261123/qe_candidate_sacct_utc_20261123.psv",
+  "sacct_timezone_method": "Captured with TZ=UTC and the absolute Slurm sacct path; do not interpret the earlier timezone-naive PSV as UTC.",
+  "schema_version": "1.0",
+  "source_hash_ledger": "qe_mix_retained_artifact_hashes_20261123.jsonl",
+  "source_hash_ledger_sha256": "5bb782b601203e2457a9f42d29caffdbfa4202b9481583efaeaaae317babe06a"
+}

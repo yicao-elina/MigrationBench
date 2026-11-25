@@ -1,0 +1,32 @@
+Mon Sep 29 20:37:00 EDT 2025
+
+Lmod is automatically replacing "openmpi/3.1.6" with "intel-mpi/2021.7".
+
+
+Lmod is automatically replacing "gcc/9.3.0" with "intel/2022.2".
+
+
+The following have been reloaded with a version change:
+  1) git/2.28.0 => git/2.38.1
+
+
+The following have been reloaded with a version change:
+  1) intel-mkl/2022.0 => intel-mkl/2021.7
+  2) intel/2022.2 => intel/2022.2-dpcpp
+
+forrtl: Disk quota exceeded
+forrtl: severe (38): error during write, unit -130, file /scratch4/pclancy3/joshitha/vdW-sratch/sb2te3/2L/NEB/neb-QLs/pw_1.in
+Image              PC                Routine            Line        Source             
+neb.x              00000000010047F1  Unknown               Unknown  Unknown
+neb.x              0000000001002476  Unknown               Unknown  Unknown
+neb.x              000000000041C4D4  parse_and_split_          114  path_gen_inputs.f90
+neb.x              000000000041BE88  path_gen_inputs_           36  path_gen_inputs.f90
+neb.x              0000000000407889  MAIN__                     59  neb.f90
+neb.x              00000000004076DD  Unknown               Unknown  Unknown
+libc-2.28.so       000015554B9EBD85  __libc_start_main     Unknown  Unknown
+neb.x              00000000004075FE  Unknown               Unknown  Unknown
+[mpiexec@c483] HYD_sock_write (../../../../../src/pm/i_hydra/libhydra/sock/hydra_sock_intel.c:362): write error (Disk quota exceeded)
+[mpiexec@c483] splice_cb (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_splice.c:118): error writing to fd
+[mpiexec@c483] HYDI_dmx_poll_wait_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:80): callback returned error status
+[mpiexec@c483] main (../../../../../src/pm/i_hydra/mpiexec/mpiexec.c:2086): error waiting for event
+Mon Sep 29 20:37:06 EDT 2025

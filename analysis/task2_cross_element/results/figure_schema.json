@@ -1,0 +1,22 @@
+{
+  "schema_version": "task2-figure-schema-1.0",
+  "created_utc": "2026-10-02T07:39:18.237078+00:00",
+  "status": "placeholder_only_no_dft_gated_paths",
+  "figures": [
+    "model_element_error_heatmap",
+    "foundation_vs_cr_ft_vs_scratch",
+    "barrier_grouped_boxplot",
+    "force_violin",
+    "transfer_gain_matrix",
+    "seed_spread",
+    "basin_agreement"
+  ],
+  "required_inputs": {
+    "dft_quality": "results/table_schemas/table_1_dft_quality.csv",
+    "success": "results/table_schemas/table_2_success.csv",
+    "barrier_force": "results/table_schemas/table_3_barrier_force.csv",
+    "transfer_gain": "results/table_schemas/table_4_transfer_gain.csv",
+    "basin_seed": "results/table_schemas/table_5_basin_seed_uncertainty.csv"
+  },
+  "rule": "Do not render scientific values until at least one path passes explicit DFT convergence, finite all-image energy/force, image/identity/cell/PBC, and retry audit gates."
+}

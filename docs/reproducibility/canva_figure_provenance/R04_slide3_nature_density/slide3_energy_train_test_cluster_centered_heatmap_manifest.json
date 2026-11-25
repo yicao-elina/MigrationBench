@@ -1,0 +1,177 @@
+{
+  "data_root": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02",
+  "raw_root": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/data/figure02/raw_rockfish_parity",
+  "input_matrix": "24 parity NPZ outputs plus matching per-frame CSV labels: 4 families x 3 seeds x train/test",
+  "normalization": "within each family and trajectory cluster, subtract the pooled train+test DFT E/N mean from both train and test DFT/MLIP E/N",
+  "cluster_identity": "per-frame CSV trajectory; isolated_atoms_SG15 is split into three singleton clusters by its three distinct absolute reference energies",
+  "split_alignment": "shared trajectory clusters use one common E0; test-only trajectories use a test-derived E0 and are explicitly recorded",
+  "complete_data": "all finite train and held-out test frames are used in the heatmap and point overlays; no point sampling or clipping",
+  "heatmap": "pooled train+test magma hexbin count density with shared LogNorm across family panels",
+  "overlay": "train points are gray with alpha 0.28; held-out test points are black with alpha 0.78",
+  "cluster_counts": {
+    "Scratch-600K": 11,
+    "FT-600K": 11,
+    "Scratch-MultiT": 16,
+    "FT-MultiT": 16
+  },
+  "test_only_clusters": {
+    "Scratch-600K": [
+      "2L_o3_t3_600K_aimd_1"
+    ],
+    "FT-600K": [
+      "2L_o3_t3_600K_aimd_1"
+    ],
+    "Scratch-MultiT": [
+      "2L_o3_t3_600K_aimd_1",
+      "2L_tetra_Cr4_600K_aimd_1"
+    ],
+    "FT-MultiT": [
+      "2L_o3_t3_600K_aimd_1",
+      "2L_tetra_Cr4_600K_aimd_1"
+    ]
+  },
+  "cluster_centers_eV_per_atom": {
+    "Scratch-600K": {
+      "2L_o3_t1_600K_aimd_1": -2192.9759866153495,
+      "2L_o3_t2_600K_aimd_1": -2194.019381921268,
+      "2L_octo_Cr1_v2_600K_aimd_1": -2189.826286315918,
+      "2L_octo_Cr2_600K_aimd_1": -2190.8958389182494,
+      "2L_octo_Cr3_600K_aimd_1": -2191.936556059739,
+      "2L_tetra_Cr3_600K_aimd_1": -2191.957192452901,
+      "2L_tetra_Cr4_600K_aimd_1": -2193.0065473632812,
+      "isolated_atom_-2270.518799": -2270.518798828125,
+      "isolated_atom_-1908.633301": -1908.63330078125,
+      "isolated_atom_-2369.398193": -2369.398193359375,
+      "2L_o3_t3_600K_aimd_1": -2194.981498346793
+    },
+    "FT-600K": {
+      "2L_o3_t1_600K_aimd_1": -2192.9759866153495,
+      "2L_o3_t2_600K_aimd_1": -2194.019381921268,
+      "2L_octo_Cr1_v2_600K_aimd_1": -2189.826286315918,
+      "2L_octo_Cr2_600K_aimd_1": -2190.8958389182494,
+      "2L_octo_Cr3_600K_aimd_1": -2191.936556059739,
+      "2L_tetra_Cr3_600K_aimd_1": -2191.957192452901,
+      "2L_tetra_Cr4_600K_aimd_1": -2193.0065473632812,
+      "isolated_atom_-2270.518799": -2270.518798828125,
+      "isolated_atom_-1908.633301": -1908.63330078125,
+      "isolated_atom_-2369.398193": -2369.398193359375,
+      "2L_o3_t3_600K_aimd_1": -2194.981498346793
+    },
+    "Scratch-MultiT": {
+      "2L_o3_t1_1200K_aimd": -2192.825292355845,
+      "2L_o3_t1_600K_aimd_1": -2192.9759866153495,
+      "2L_o3_t2_600K_aimd_1": -2194.019381921268,
+      "2L_octo_Cr1_v2_600K_aimd_1": -2189.826286315918,
+      "2L_octo_Cr2_300K_aimd_1": -2190.954164915447,
+      "2L_octo_Cr2_600K_aimd_1": -2190.8958389182494,
+      "2L_octo_Cr2_v2_300K_aimd_1": -2190.9492684057204,
+      "2L_octo_Cr2_v2_600K_aimd_1": -2190.907498178758,
+      "2L_octo_Cr3_600K_aimd_1": -2191.936556059739,
+      "2L_tetra_Cr3_600K_aimd_1": -2191.957192452901,
+      "2L_tetra_Cr4_300K_aimd_1": -2193.0428964752696,
+      "isolated_atom_-2270.518799": -2270.518798828125,
+      "isolated_atom_-1908.633301": -1908.63330078125,
+      "isolated_atom_-2369.398193": -2369.398193359375,
+      "2L_o3_t3_600K_aimd_1": -2194.981498346793,
+      "2L_tetra_Cr4_600K_aimd_1": -2193.0065473632812
+    },
+    "FT-MultiT": {
+      "2L_o3_t1_1200K_aimd": -2192.825292355845,
+      "2L_o3_t1_600K_aimd_1": -2192.9759866153495,
+      "2L_o3_t2_600K_aimd_1": -2194.019381921268,
+      "2L_octo_Cr1_v2_600K_aimd_1": -2189.826286315918,
+      "2L_octo_Cr2_300K_aimd_1": -2190.954164915447,
+      "2L_octo_Cr2_600K_aimd_1": -2190.8958389182494,
+      "2L_octo_Cr2_v2_300K_aimd_1": -2190.9492684057204,
+      "2L_octo_Cr2_v2_600K_aimd_1": -2190.907498178758,
+      "2L_octo_Cr3_600K_aimd_1": -2191.936556059739,
+      "2L_tetra_Cr3_600K_aimd_1": -2191.957192452901,
+      "2L_tetra_Cr4_300K_aimd_1": -2193.0428964752696,
+      "isolated_atom_-2270.518799": -2270.518798828125,
+      "isolated_atom_-1908.633301": -1908.63330078125,
+      "isolated_atom_-2369.398193": -2369.398193359375,
+      "2L_o3_t3_600K_aimd_1": -2194.981498346793,
+      "2L_tetra_Cr4_600K_aimd_1": -2193.0065473632812
+    }
+  },
+  "cluster_sizes": {
+    "Scratch-600K": {
+      "2L_o3_t1_600K_aimd_1": 510,
+      "2L_o3_t2_600K_aimd_1": 618,
+      "2L_octo_Cr1_v2_600K_aimd_1": 480,
+      "2L_octo_Cr2_600K_aimd_1": 918,
+      "2L_octo_Cr3_600K_aimd_1": 696,
+      "2L_tetra_Cr3_600K_aimd_1": 627,
+      "2L_tetra_Cr4_600K_aimd_1": 1500,
+      "isolated_atom_-2270.518799": 3,
+      "isolated_atom_-1908.633301": 3,
+      "isolated_atom_-2369.398193": 3,
+      "2L_o3_t3_600K_aimd_1": 801
+    },
+    "FT-600K": {
+      "2L_o3_t1_600K_aimd_1": 510,
+      "2L_o3_t2_600K_aimd_1": 618,
+      "2L_octo_Cr1_v2_600K_aimd_1": 480,
+      "2L_octo_Cr2_600K_aimd_1": 918,
+      "2L_octo_Cr3_600K_aimd_1": 696,
+      "2L_tetra_Cr3_600K_aimd_1": 627,
+      "2L_tetra_Cr4_600K_aimd_1": 1500,
+      "isolated_atom_-2270.518799": 3,
+      "isolated_atom_-1908.633301": 3,
+      "isolated_atom_-2369.398193": 3,
+      "2L_o3_t3_600K_aimd_1": 801
+    },
+    "Scratch-MultiT": {
+      "2L_o3_t1_1200K_aimd": 717,
+      "2L_o3_t1_600K_aimd_1": 510,
+      "2L_o3_t2_600K_aimd_1": 618,
+      "2L_octo_Cr1_v2_600K_aimd_1": 480,
+      "2L_octo_Cr2_300K_aimd_1": 474,
+      "2L_octo_Cr2_600K_aimd_1": 918,
+      "2L_octo_Cr2_v2_300K_aimd_1": 708,
+      "2L_octo_Cr2_v2_600K_aimd_1": 933,
+      "2L_octo_Cr3_600K_aimd_1": 696,
+      "2L_tetra_Cr3_600K_aimd_1": 627,
+      "2L_tetra_Cr4_300K_aimd_1": 1287,
+      "isolated_atom_-2270.518799": 3,
+      "isolated_atom_-1908.633301": 3,
+      "isolated_atom_-2369.398193": 3,
+      "2L_o3_t3_600K_aimd_1": 801,
+      "2L_tetra_Cr4_600K_aimd_1": 1500
+    },
+    "FT-MultiT": {
+      "2L_o3_t1_1200K_aimd": 717,
+      "2L_o3_t1_600K_aimd_1": 510,
+      "2L_o3_t2_600K_aimd_1": 618,
+      "2L_octo_Cr1_v2_600K_aimd_1": 480,
+      "2L_octo_Cr2_300K_aimd_1": 474,
+      "2L_octo_Cr2_600K_aimd_1": 918,
+      "2L_octo_Cr2_v2_300K_aimd_1": 708,
+      "2L_octo_Cr2_v2_600K_aimd_1": 933,
+      "2L_octo_Cr3_600K_aimd_1": 696,
+      "2L_tetra_Cr3_600K_aimd_1": 627,
+      "2L_tetra_Cr4_300K_aimd_1": 1287,
+      "isolated_atom_-2270.518799": 3,
+      "isolated_atom_-1908.633301": 3,
+      "isolated_atom_-2369.398193": 3,
+      "2L_o3_t3_600K_aimd_1": 801,
+      "2L_tetra_Cr4_600K_aimd_1": 1500
+    }
+  },
+  "limits": [
+    -0.06367873280607456,
+    0.19908271669402894,
+    -0.06367873280607456,
+    0.19908271669402894
+  ],
+  "count_norm": {
+    "vmin": 1.0,
+    "vmax": 1135.0
+  },
+  "min_text_size_pt": 18,
+  "outputs": {
+    "png": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_nature_density/figures/slide3_energy_train_test_cluster_centered_heatmap.png",
+    "pdf": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_nature_density/figures/slide3_energy_train_test_cluster_centered_heatmap.pdf",
+    "svg": "/Users/alina/.codex/worktrees/canva-figure-provenance/docs/reproducibility/canva_figure_provenance/R04_slide3_nature_density/figures/slide3_energy_train_test_cluster_centered_heatmap.svg"
+  }
+}

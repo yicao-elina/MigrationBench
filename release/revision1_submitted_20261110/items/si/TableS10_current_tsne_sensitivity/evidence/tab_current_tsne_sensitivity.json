@@ -1,0 +1,80 @@
+{
+  "item_dir": "release/revision1_submitted_20261110/items/si/TableS10_current_tsne_sensitivity",
+  "name": "tab:current_tsne_sensitivity",
+  "date": "2026-11-10",
+  "command": "python release/revision1_submitted_20261110/items/si/TableS10_current_tsne_sensitivity/source/make_table_s10.py",
+  "script_sha256": "ae418cf6ac648903eab09a942a6f1db7aacb5d31bb77e69998ef38d1ce42677d",
+  "python": "3.11.0",
+  "inputs": {
+    "release/revision1_camera_ready/reproducibility/fig6_current_input.npz": "a3d27907e073252cb5b01e15bf66bb35da075dbeb66798409a68de84e8a46ee0",
+    "paper/revision1/data_processed/current_release/fig6_current_tsne_sensitivity.csv": "c409fcdf72744c4c7bc7c19c9abf89e1448e10e40483ce3b7c98a342d2dc4684"
+  },
+  "outputs": {
+    "release/revision1_submitted_20261110/items/si/TableS10_current_tsne_sensitivity/rerun_output/tab_current_tsne_sensitivity.tex": "efff98ff347170e15a53738b8e3ef1e6fe5d11c94e3bf1f7d2a509d73aca31e1"
+  },
+  "hardcode_lint": [],
+  "checks": [
+    {
+      "check": "shared module si_tables.py hardcode lint clean",
+      "passed": true,
+      "details": {
+        "path": "release/revision1_submitted_20261110/items/si/_shared_generators/si_tables.py",
+        "sha256": "ba0bf8569bc70d61306766eed2eccc6bdc50d92c03e00c37c9dfeb2d4ef4721d",
+        "findings": []
+      }
+    },
+    {
+      "check": "feature matrix finite; last column is the all-zero placeholder (removed)",
+      "passed": true,
+      "details": {
+        "shape": [
+          927,
+          6192
+        ],
+        "models": 15
+      }
+    },
+    {
+      "check": "neighbour histogram block non-negative",
+      "passed": true,
+      "details": {
+        "shape": [
+          927,
+          30
+        ]
+      }
+    },
+    {
+      "check": "recomputed values equal committed paper/revision1/data_processed/current_release/fig6_current_tsne_sensitivity.csv",
+      "passed": true,
+      "details": {
+        "max_abs_diff": {
+          "silhouette": 0.0,
+          "trustworthiness": 1.1102230246251565e-16
+        },
+        "rows": 9
+      }
+    },
+    {
+      "check": "environment note",
+      "passed": true,
+      "details": {
+        "sklearn": "1.6.1",
+        "numpy": "2.0.2",
+        "tsne": {
+          "n_components": 2,
+          "init": "pca",
+          "max_iter": 1000,
+          "n_jobs": 1
+        },
+        "trustworthiness_n_neighbors": 5
+      }
+    },
+    {
+      "check": "values equal submitted sn-article-SI.tex tab:current_tsne_sensitivity at displayed precision",
+      "passed": true,
+      "details": "9 rows match"
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,36 @@
+{
+  "n_dft_frames": 240,
+  "n_model_image_rows": 720,
+  "n_successful_model_image_rows": 480,
+  "models": [
+    {
+      "model_id": "legacy_foundation",
+      "n_rows": 240,
+      "n_success": 240,
+      "n_failure": 0,
+      "model_sha256": "e618ad582b84239905b9c3b77ce6e9ce111b0ecd1533223a1a6aac7a696b8aa0",
+      "failure_reasons": ""
+    },
+    {
+      "model_id": "legacy_ft600k",
+      "n_rows": 240,
+      "n_success": 0,
+      "n_failure": 240,
+      "model_sha256": "6829d16e68bdd1238ee4226363f76ceac936d9e7325c9282283d72093e2bb88a",
+      "failure_reasons": "ValueError: 11 is not in list;ValueError: 29 is not in list;ValueError: 3 is not in list"
+    },
+    {
+      "model_id": "legacy_mpa0",
+      "n_rows": 240,
+      "n_success": 240,
+      "n_failure": 0,
+      "model_sha256": "75428afe3a1d7d8062e19bcaabd5c433623cabf308242ec9fb493e38604fb638",
+      "failure_reasons": ""
+    }
+  ],
+  "relative_energy_rule": "E_rel(model,path,variant,image)=E(model,path,variant,image)-E(model,path,variant,image_1)",
+  "absolute_cross_model_energy_comparison": false,
+  "dft_status": "non-equilibrium path samples; energy-table stability gate only",
+  "dft_path_energy_conversion": "sb2te3.path energies converted from Hartree to eV with 27.211386245988; path coordinates converted from Bohr to Angstrom with 0.529177210903",
+  "scientific_claim_boundary": "finite single-point prediction and within-model profile/perturbation response, not DFT barrier accuracy"
+}

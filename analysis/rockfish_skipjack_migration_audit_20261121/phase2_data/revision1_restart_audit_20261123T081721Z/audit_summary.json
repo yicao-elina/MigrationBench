@@ -1,0 +1,56 @@
+{
+  "audit_root": "/scratch16/pclancy3/yi/revision1_migrationbench_runs",
+  "captured_candidate_count": 4298,
+  "run_group_count": 113,
+  "candidate_bytes": 1036297176856,
+  "allocated_bytes": 1036429164544,
+  "candidate_kind_counts": {
+    "QE_MIX": 481,
+    "QE_WFC": 3817
+  },
+  "disposition_counts": {
+    "DELETE_CANDIDATE_COORDINATES_VERIFIED": 4282,
+    "DELETE_CANDIDATE_SUPERSEDED_BY_LATER_COORDINATES": 16
+  },
+  "coordinate_xml_hash_attached_count": 4298,
+  "coordinate_evidence_missing_count": 0,
+  "candidate_stat_identity_captured_fields": [
+    "mode",
+    "uid",
+    "gid",
+    "device",
+    "inode",
+    "nlink",
+    "mtime_ns",
+    "size_bytes",
+    "allocated_bytes"
+  ],
+  "restart_payload_hashes_computed": false,
+  "sacct_capture": {
+    "captured_utc": "2026-11-23T08:26:54Z",
+    "job_ids_requested": 113,
+    "batch_size": 20,
+    "concurrent_queries": 2,
+    "rows_returned": 113,
+    "errors": [],
+    "command_template": "bash -lc 'sacct -n -P -X -S 2026-01-01 -E 2026-11-24 -j <comma-separated IDs> --format=JobID,JobName,User,State,ExitCode,Submit,Start,End,WorkDir'"
+  },
+  "queue_capture": {
+    "captured_utc": "2026-11-23T08:28:02Z",
+    "returncode": 0,
+    "rows": 1377,
+    "stderr": "",
+    "format": "jobid|user|jobname|state|workdir",
+    "command": "squeue -h -o \"%i|%u|%j|%T|%Z\""
+  },
+  "manifest_restart_required_explicit_true_count": 0,
+  "manifest_missing_groups": 7,
+  "neb_path_groups": 28,
+  "neb_path_groups_all_complete": 28,
+  "notes": [
+    "Recommendation-only table: no deletion, transfer, remote write, or restart content hash performed.",
+    "Delete candidate disposition is conditioned on user policy that latest usable checkpoint or complete coordinates suffice.",
+    "QE XML atomic positions are coordinate evidence, not scientific convergence/acceptance evidence.",
+    "Slurm log file paths were not captured; sacct job id/state/times/workdir and QE output log paths are included."
+  ]
+}

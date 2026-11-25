@@ -1,0 +1,53 @@
+% SI-ready method fragment. Keep this fragment separate until the coauthor
+% manuscript review explicitly decides where it enters sn-article-SI.tex.
+\subsection{Failure-attribution candidate classification and selection}
+\label{sec:si_candidate_selection}
+
+We constructed a provenance-preserving inventory from the prepared-only
+snapshots of the all-replicate failure-attribution analysis. Each candidate was
+a saved 2050-atom fully periodic configuration. Frame-level diagnostics were
+joined using the exact tuple $(\texttt{source},\texttt{training\_seed},
+\texttt{window},\texttt{step})$, and run-level metadata using
+$(\texttt{source},\texttt{training\_seed})$. No frame was discarded because it
+was unstable. After deterministic sorting by source, training seed, step, and
+window order, we assigned canonical identifiers
+\texttt{dftcand\_0001}--\texttt{dftcand\_0639}.
+
+The source windows were relabeled as follows: \texttt{stable\_early} became
+\texttt{stable\_early\_control}, \texttt{stable\_pre} became
+\texttt{stable\_pre\_onset}, and \texttt{precursor} became
+\texttt{precursor\_near\_onset}. A threshold frame with an observed trigger
+was labeled \texttt{threshold\_or\_terminal}; a threshold window with
+\texttt{trigger = not\_observed} was labeled
+\texttt{terminal\_stable\_target}. The resulting inventory contained 207,
+216, 208, 7, and 1 frames in these five groups, respectively.
+
+The original 20-frame coverage wave retained all seven observed
+threshold/terminal rows and the one 1000~ps stable endpoint, selected the latest
+sampled precursor frame from each of the nine source/training-seed runs, and
+added one approximately 10~ps stable-early control for each training seed.
+This wave therefore contained 7 threshold, 1 stable endpoint, 9 precursor,
+and 3 early-stable controls. The exact row-level ledger is archived with the
+reproduction package.
+
+For the subsequent MLIP-informed DFT prioritization, every candidate was
+evaluated as a static single point with three SHA256-identified checkpoints.
+We first required successful results from all three models and then imposed a
+source-geometry gate of $d_{\min}\geq0.8$~\AA. Within each source-stage group,
+we ranked candidates by decreasing ensemble force-spread RMS, decreasing
+maximum pairwise force difference, and increasing canonical ID. We applied
+quotas of 4 threshold/terminal, 8 precursor, 4 stable-pre, 2 early-stable,
+and 1 stable-terminal candidate; if the geometry gate left a quota unfilled,
+the remaining slots were filled from unused gate-passing rows in the same
+priority order. The realized 20-frame subset contained 1 threshold/terminal,
+12 precursor, 4 stable-pre, 2 early-stable, and 1 stable-terminal candidate.
+
+The three checkpoints were the $l_{\max}=2$ ablation models trained with seeds
+123 and 234 and the baseline model trained with seed 345. The source MD
+velocity seed (20261005) was recorded separately from the training seed. The
+static force-spread score is used only to prioritize independent reference
+calculations; it is not a calibrated uncertainty and does not establish that
+any model force is incorrect or causal. The reduced-cell QE inputs are
+explicitly reconstructions of the full-cell periodic snapshots, so they are
+not promoted to full-cell DFT parity until the corresponding convergence and
+identity gates pass.
