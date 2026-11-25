@@ -54,12 +54,7 @@ def main() -> None:
 
     for step in steps:
         step_models = by_step[step]
-        arrays = {}
-        for m in step_models:
-            raw = Path(step_models[m]["raw_output_npz"])
-            if not raw.exists():
-                raw = args.evaluation_dir / "npz" / raw.name
-            arrays[m] = np.load(raw, allow_pickle=False)
+        arrays = {m: np.load(step_models[m]["raw_output_npz"], allow_pickle=False) for m in step_models}
         common = sorted(step_models)
         forces = np.stack([arrays[m]["forces"] for m in common])
         energies = np.array([float(arrays[m]["energy_eV"]) for m in common])
