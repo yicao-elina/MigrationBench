@@ -1,0 +1,47 @@
+Mon Apr 20 16:22:39 EDT 2026
+c102
+
+Lmod is automatically replacing "openmpi/3.1.6" with "intel-mpi/2021.7".
+
+
+Lmod is automatically replacing "gcc/9.3.0" with "intel/2022.2".
+
+
+The following have been reloaded with a version change:
+  1) git/2.28.0 => git/2.38.1
+
+
+The following have been reloaded with a version change:
+  1) intel-mkl/2022.0 => intel-mkl/2021.7
+  2) intel/2022.2 => intel/2022.2-dpcpp
+
+
+Currently Loaded Modules:
+  1) slurm/19.05.7   5) standard/2020.10         9) intel/2022.2-dpcpp (k,E)
+  2) lmod/8.7.24     6) intel-mpi/2021.7 (k,E)  10) qe/7.2
+  3) lua/5.4.4       7) intel-mkl/2021.7 (k,E)
+  4) helpers/0.1.1   8) git/2.38.1
+
+  Where:
+   E:  Experimental
+   k:  Spack, a package manager for supercomputers
+forrtl: Disk quota exceeded
+forrtl: severe (38): error during write, unit 4, file /scratch4/pclancy3/joshitha/vdW-sratch/sb2te3/2L-Na/NEB/neb-gap2QL/./out/sb2te3_8/sb2te3.save/wfc1.dat
+Image              PC                Routine            Line        Source             
+neb.x              0000000000FFFB9D  Unknown               Unknown  Unknown
+neb.x              0000000000FFD894  Unknown               Unknown  Unknown
+neb.x              0000000000AAEACE  io_base_mp_write_         186  io_base.f90
+neb.x              000000000059D5EB  pw_restart_new_mp         987  pw_restart_new.f90
+neb.x              0000000000592377  punch_                    133  punch.f90
+neb.x              000000000043D422  compute_scf_IP_do         362  compute_scf.f90
+neb.x              000000000043B337  compute_scf_              191  compute_scf.f90
+neb.x              000000000040E90B  path_base_mp_sear         910  path_base.f90
+neb.x              0000000000407B3F  MAIN__                    113  neb.f90
+neb.x              00000000004076DD  Unknown               Unknown  Unknown
+libc-2.28.so       000015554B9EBD85  __libc_start_main     Unknown  Unknown
+neb.x              00000000004075FE  Unknown               Unknown  Unknown
+[mpiexec@c102] HYD_sock_write (../../../../../src/pm/i_hydra/libhydra/sock/hydra_sock_intel.c:362): write error (Disk quota exceeded)
+[mpiexec@c102] splice_cb (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_splice.c:118): error writing to fd
+[mpiexec@c102] HYDI_dmx_poll_wait_for_event (../../../../../src/pm/i_hydra/libhydra/demux/hydra_demux_poll.c:80): callback returned error status
+[mpiexec@c102] main (../../../../../src/pm/i_hydra/mpiexec/mpiexec.c:2086): error waiting for event
+Mon Apr 20 18:52:08 EDT 2026
