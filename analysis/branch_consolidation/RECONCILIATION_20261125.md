@@ -2,7 +2,7 @@
 
 ## PR state and branch reconciliation
 
-MigrationBench PR #20 is the aggregate review path. Its current head is `de55e769c061a81ad881f0361e19b936414b7970` on `integrate/final-paper-20261106`; GitHub reports the PR mergeable and both `test-and-audit` and `reproducibility` successful. The PR remains open for review. No branch or worktree has been deleted.
+MigrationBench PR #20 is the aggregate review path. Its current head is `b5d7e7b9da52466a6144eea6ded370bf8cc4d47c` on `integrate/final-paper-20261106`; the earlier code/evidence head was `de55e769c061a81ad881f0361e19b936414b7970`. At the time of this reconciliation refresh, GitHub reports both `test-and-audit` and `reproducibility` in progress on `b5d7e7b9`; the prior checks passed at `de55e769`. The PR remains open for review. No branch or worktree has been deleted.
 
 The local unified evidence head `8fd83b65` and PR #20 originally diverged at `476ca161`; a normal merge produced 45 add/add conflicts. The candidate compared both contents and evidence dates, kept 24 paths from the later PR revision and 21 from the local revision, and excluded four model checkpoint blobs and the 54.3 MB Canva SVG from the Git working tree after preserving them in the Rockfish archive. The SVG is at `/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/figures/CANVA-P03_parity_2x4_palette_updated.svg`, SHA-256 `6844ea40abfb75f8f1310b52b3e5633af2f024fd19329695332b815f8656371f`.
 
