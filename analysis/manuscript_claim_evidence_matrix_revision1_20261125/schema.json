@@ -1,0 +1,151 @@
+{
+  "format": "TSV",
+  "encoding": "UTF-8",
+  "delimiter": "\\t",
+  "newline": "LF",
+  "header": [
+    "matrix_id",
+    "claim_type",
+    "source_document",
+    "source_location",
+    "source_object_id",
+    "assertion_or_panel",
+    "exact_source_quote_or_value",
+    "numeric_tokens",
+    "referenced_labels",
+    "sql_item_id",
+    "sql_panel",
+    "registry_content",
+    "artifact_pointer",
+    "artifact_sha256",
+    "generator_or_query",
+    "registry_status",
+    "reproduction_status",
+    "lineage_status",
+    "gap_reason",
+    "source_sha256"
+  ],
+  "columns": [
+    {
+      "name": "matrix_id",
+      "type": "string",
+      "description": "Stable row key derived from row type, source context and deterministic order."
+    },
+    {
+      "name": "claim_type",
+      "type": "enum",
+      "description": "NUMERIC_ASSERTION, SCIENTIFIC_ASSERTION, METHOD_OR_SCOPE_ASSERTION, FIGURE_PANEL, TABLE_OBJECT, TABLE_CELL, or REVIEWER_QUESTION."
+    },
+    {
+      "name": "source_document",
+      "type": "string",
+      "description": "Source path relative to repository root, or included table source path."
+    },
+    {
+      "name": "source_location",
+      "type": "string",
+      "description": "TeX line (`L#`) or reviewer-ledger row."
+    },
+    {
+      "name": "source_object_id",
+      "type": "string",
+      "description": "Line, panel, table row/cell, or reviewer claim identifier."
+    },
+    {
+      "name": "assertion_or_panel",
+      "type": "string",
+      "description": "Section heading, panel, cell descriptor, or reviewer prompt descriptor."
+    },
+    {
+      "name": "exact_source_quote_or_value",
+      "type": "string",
+      "description": "Exact TeX segment, caption/table cell, registry content, or reviewer boundary text."
+    },
+    {
+      "name": "numeric_tokens",
+      "type": "string",
+      "description": "Numeric tokens extracted from the source text; not recalculated."
+    },
+    {
+      "name": "referenced_labels",
+      "type": "string",
+      "description": "Explicit LaTeX refs or source ledger location."
+    },
+    {
+      "name": "sql_item_id",
+      "type": "string",
+      "description": "Matched `rev1_results_index.item_id`, when direct label resolution succeeds."
+    },
+    {
+      "name": "sql_panel",
+      "type": "string",
+      "description": "Matched registry panel/label, where applicable."
+    },
+    {
+      "name": "registry_content",
+      "type": "string",
+      "description": "Exact registry content/status text used for this row."
+    },
+    {
+      "name": "artifact_pointer",
+      "type": "string",
+      "description": "Exact artifact/source/script pointers present in the registry or reviewer ledger; semicolon-separated if multiple."
+    },
+    {
+      "name": "artifact_sha256",
+      "type": "string",
+      "description": "Registry SHA-256 value(s), if recorded."
+    },
+    {
+      "name": "generator_or_query",
+      "type": "string",
+      "description": "Registered generator script or reviewer-ledger query pointer."
+    },
+    {
+      "name": "registry_status",
+      "type": "string",
+      "description": "Original registry/reviewer status value."
+    },
+    {
+      "name": "reproduction_status",
+      "type": "string",
+      "description": "Original registry reproduction result."
+    },
+    {
+      "name": "lineage_status",
+      "type": "enum",
+      "description": "TRACEABLE, PARTIAL, or MISSING under this package’s conservative link semantics."
+    },
+    {
+      "name": "gap_reason",
+      "type": "string",
+      "description": "Reason the claim-to-artifact path is incomplete or absent."
+    },
+    {
+      "name": "source_sha256",
+      "type": "string",
+      "description": "SHA-256 of source file that supplied the text/value."
+    }
+  ],
+  "enums": {
+    "claim_type": [
+      "NUMERIC_ASSERTION",
+      "SCIENTIFIC_ASSERTION",
+      "METHOD_OR_SCOPE_ASSERTION",
+      "FIGURE_PANEL",
+      "TABLE_OBJECT",
+      "TABLE_CELL",
+      "REVIEWER_QUESTION"
+    ],
+    "lineage_status": [
+      "TRACEABLE",
+      "PARTIAL",
+      "MISSING"
+    ]
+  },
+  "status_semantics": {
+    "TRACEABLE": "A figure/table registry row has a registered asset identity and passing reproduction/generator pointer, with no recorded manual-layout or known-issue exception. This is artifact lineage only, not scientific validation.",
+    "PARTIAL": "An explicit artifact/registry route exists, but claim/cell-level binding, source identity, reproduction, known issue, manual layout, exception, or scope remains incomplete.",
+    "MISSING": "No exact local claim-to-artifact pointer was resolved, or the reviewer ledger explicitly records a validation/provenance gap."
+  }
+}
