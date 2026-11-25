@@ -1,16 +1,16 @@
 # Cr migration in Sb₂Te₃ — Blender render asset set
 
-This directory is the local, provenance-bounded archive of the eight requested render panels and their Blender scenes.
+This directory contains the small Git-tracked manifests and code for the render set. Eleven large source payloads (nine Blender scenes and two PNGs) were recovered from Git commit `15e1250112d1dda115fa2c89505b4c11007513c1` and are stored in the canonical Rockfish archive `rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/`. Their combined logical size is 300,400,629 bytes. `RENDER_SET_ARCHIVE_MANIFEST.tsv` maps every source path to its archive path, source Git blob, size and SHA256; Rockfish copies were independently SHA256-verified on 2026-11-25.
 
 ## Contents
 
-- `renders/` — eight primary PNG outputs: one full-system panorama, six previously approved render states, and the current pristine sliding preview without Cr.
-- `blender/` — one corresponding `.blend` scene for each primary render.
+- `renders/` — metadata refers to eight primary PNG outputs; seven legacy payloads are in the Rockfish archive or in the current release tree, and one preview payload remains explicitly located by the archive manifest.
+- `blender/` — eight `.blend` scenes are in the Rockfish archive; the checksums and Git blob IDs are in `RENDER_SET_ARCHIVE_MANIFEST.tsv`.
 - `provenance/` — copied source manifests, the original sliding scene used for the no-Cr derivative, and the no-Cr preview QA note.
 - `scripts/remove_cr_render_preview.py` — the small, auditable transformation used for the no-Cr scene: hide only `Cr_image_00` from render and viewport while preserving all host atoms and lights.
 - `references/six_panel_contact_sheet.png` — the user-provided six-panel mapping reference (Static, MD, In-gap, Gap-to-QL, Within-QL, Sliding).
 - `RENDER_SET_MANIFEST.json` — panel-level mapping, source paths, dimensions, scientific-status notes, and SHA256 values.
-- `SHA256SUMS.txt` — hashes for every archived file.
+- `SHA256SUMS.txt` — hashes for files materialized in this repository directory. External large payloads are hashed in `RENDER_SET_ARCHIVE_MANIFEST.tsv` and the Rockfish archive `SHA256SUMS.txt`.
 
 ## Panel mapping
 

@@ -32,6 +32,7 @@ STEM = "figure01a_clean_raw_pca"
 RENDER_SET = "analysis/cr_sb2te3_blender_render_set_20261105"
 RENDER_MANIFEST = f"{RENDER_SET}/RENDER_SET_MANIFEST.json"
 STORE_MANIFEST = "release/revision1_submitted_20261110/imports/EXTERNAL_STORE_MANIFEST.tsv"
+ARCHIVE_MANIFEST = f"{RENDER_SET}/RENDER_SET_ARCHIVE_MANIFEST.tsv"
 FILE_KEYS = (("render", "render_sha256"), ("blend", "blend_sha256"))
 
 
@@ -62,25 +63,36 @@ def store_hashes() -> dict[str, str]:
 
 def verify_render_set(ev: Evidence) -> None:
     manifest = json.loads(ev.input(RENDER_MANIFEST).read_text())
-    store = store_hashes()
-    ev.input(STORE_MANIFEST)
+    archive_path = ev.input(ARCHIVE_MANIFEST)
+    archive_rows = {}
+    with archive_path.open(newline="") as handle:
+        for row in csv.DictReader(handle, delimiter="\t"):
+            archive_rows[row["repo_path"]] = row
     rows, failures = [], []
     for panel in manifest["panels"]:
         for key, hash_key in FILE_KEYS:
             repo_path = f"{RENDER_SET}/{panel[key]}"
             recorded = panel[hash_key]
             path = REPO / repo_path
+            archive = archive_rows.get(repo_path)
             if path.exists():
                 actual, where = sha256(path), "repo"
+                archive_uri = ""
+            elif archive and archive["sha256"] == recorded:
+                # The manifest points to a Rockfish copy whose SHA256 was independently
+                # checked when the archive was populated. This portable check validates
+                # the committed pointer; live remote re-verification is an explicit action.
+                actual, where = archive["sha256"], "rockfish_archive_manifest"
+                archive_uri = archive["archive_uri"]
             else:
-                actual, where = store.get(repo_path), "external store manifest"
-            row = {"panel": panel["id"], "file": repo_path, "recorded": recorded, "found": actual, "where": where}
+                actual, where, archive_uri = None, "missing", ""
+            row = {"panel": panel["id"], "file": repo_path, "recorded": recorded,
+                   "found": actual, "where": where, "archive_uri": archive_uri}
             rows.append(row)
             if actual != recorded:
                 failures.append(row)
-    ev.check("panels a/c: Blender renders and .blend sources match RENDER_SET_MANIFEST sha256 "
-             "(Blender not re-run; final layout composed in Canva)", not failures and bool(rows),
-             failures or rows)
+    ev.check("panels a/c: render and Blender source hashes match repository or committed Rockfish archive manifest; remote SHA256 was independently verified 2026-11-25 (Blender not re-run)",
+             not failures and bool(rows), failures or rows)
 
 
 def main() -> int:

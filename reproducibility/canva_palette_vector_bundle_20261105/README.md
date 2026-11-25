@@ -70,4 +70,11 @@ The machine-readable output paths and hashes are in `CANVA_PALETTE_VECTOR_MANIFE
 50 MB release-audit limit, so it is not tracked on `main`. The manifests in
 this bundle still list it. The PDF and PNG exports of the same figure are
 tracked. The SVG is preserved in git history as blob `3c1151a8` on
-`codex/discovery-dft-transfer-20261004` (commit `bbace69`).
+`codex/discovery-dft-transfer-20261004` (commit `bbace69`). Its canonical large-file copy is
+`rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/canva_palette_vector_bundle_20261105/figures/CANVA-P03_parity_2x4_palette_updated.svg`; its SHA256 was verified there on 2026-11-25.
+
+A different, same-size P03 SVG from the earlier `analysis/canva_palette_vector_bundle_20261105`
+master is retained separately at
+`rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/figures/CANVA-P03_parity_2x4_palette_updated.svg`
+(SHA256 `6844ea40abfb75f8f1310b52b3e5633af2f024fd19329695332b815f8656371f`). The two are
+not byte-identical and are separately recorded in `release/revision1_submitted_20261110/imports/EXTERNAL_STORE_MANIFEST.tsv`.

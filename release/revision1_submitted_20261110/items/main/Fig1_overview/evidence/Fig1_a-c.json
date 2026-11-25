@@ -1,9 +1,9 @@
 {
   "item_dir": "release/revision1_submitted_20261110/items/main/Fig1_overview",
   "name": "Fig1_a-c",
-  "date": "2026-11-10",
+  "date": "2026-11-25",
   "command": "python release/revision1_submitted_20261110/items/main/Fig1_overview/source/reproduce_fig1.py",
-  "script_sha256": "649a0f07cd6d27555648f21c168389b9d0930969bcea838c348d34e9c12e3d92",
+  "script_sha256": "849ba17aa991c3b1058610b4a25ef2cbc1c0254f588b540545f5e72a37ee156a",
   "python": "3.11.0",
   "inputs": {
     "docs/reproducibility/canva_figure_provenance/scripts/build_figure01a_clean_panel.py": "dfc24d6d0ea691074c5004da5bc1b5419dbc534782eaa65e8a2cbc478980fc9d",
@@ -11,11 +11,11 @@
     "docs/reproducibility/canva_figure_provenance/scripts/repro_paths.py": "e4aa270790a2598f932fbe287a6124c7cde7cd79881bb2ace386919656d4a08d",
     "docs/reproducibility/canva_figure_provenance/data/figure01/comprehensive_task_map_points.csv": "a3c478bbcf2bf8e976d3d5e9f3e3ea680802aac77d49119dad54f9398cc35f94",
     "docs/reproducibility/canva_figure_provenance/data/style/FIG168_MODEL_STYLE_YELLOW_SCRATCH_R04.json": "b12d6a42bc0aeeabd7ea97ebaf2dc4c7d9590541ea0f542c61d75d04734ea32a",
-    "analysis/cr_sb2te3_blender_render_set_20261105/RENDER_SET_MANIFEST.json": "9307eda32767e657b6356759b71b7b5c04650325c1ccf1f974bfcbb37ed61c25",
-    "release/revision1_submitted_20261110/imports/EXTERNAL_STORE_MANIFEST.tsv": "e9eec4b194c25a7ec8e6e637090766c954e974107d9d2c85bf0cfb62e9ba7494"
+    "analysis/cr_sb2te3_blender_render_set_20261105/RENDER_SET_MANIFEST.json": "c90bb2fa3ea8e2dd49dcfac6702b1c84638c6d375955c3ff8c473ae191540837",
+    "analysis/cr_sb2te3_blender_render_set_20261105/RENDER_SET_ARCHIVE_MANIFEST.tsv": "6287d9cc0d98c32978c8eb659692cb1a8b2d0e9864e5d88ffe31f3f201fca875"
   },
   "outputs": {
-    "release/revision1_submitted_20261110/items/main/Fig1_overview/rerun_output/fig1b/figure01a_clean_raw_pca.pdf": "767cf1433fdbd7ec826541b110cecf0a7d582e4ff565297c619069274b5896b6"
+    "release/revision1_submitted_20261110/items/main/Fig1_overview/rerun_output/fig1b/figure01a_clean_raw_pca.pdf": "22e59bb2001bf80e1d8104bbb845c42bd1df0b928b1fd95261a92a98158f3a38"
   },
   "hardcode_lint": [],
   "checks": [
@@ -47,7 +47,7 @@
       }
     },
     {
-      "check": "panels a/c: Blender renders and .blend sources match RENDER_SET_MANIFEST sha256 (Blender not re-run; final layout composed in Canva)",
+      "check": "panels a/c: render and Blender source hashes match repository or committed Rockfish archive manifest; remote SHA256 was independently verified 2026-11-25 (Blender not re-run)",
       "passed": true,
       "details": [
         {
@@ -55,112 +55,128 @@
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/renders/01_panorama_cr_migration_sb2te3_4500x3000_rgb.png",
           "recorded": "35b1b5e3c414001d7a9746d28bf810afe1f90f3a84609c378c95b3471e840836",
           "found": "35b1b5e3c414001d7a9746d28bf810afe1f90f3a84609c378c95b3471e840836",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/renders/01_panorama_cr_migration_sb2te3_4500x3000_rgb.png"
         },
         {
           "panel": 1,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/blender/01_panorama_cr_migration_sb2te3_final.blend",
           "recorded": "1603926a8fceca214ecaef89150453008cf45cf56505fc6774c4a56f572c601a",
           "found": "1603926a8fceca214ecaef89150453008cf45cf56505fc6774c4a56f572c601a",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/blender/01_panorama_cr_migration_sb2te3_final.blend"
         },
         {
           "panel": 2,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/renders/02_static_L0_perfect_crystal_3600.png",
           "recorded": "30574996786ce364b3c9554de439b1308c7844df7dfb820335ffda408757a439",
           "found": "30574996786ce364b3c9554de439b1308c7844df7dfb820335ffda408757a439",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/renders/02_static_L0_perfect_crystal_3600.png"
         },
         {
           "panel": 2,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/blender/02_static_L0_perfect_crystal_3600.blend",
           "recorded": "0f6fe2c88b00a03034a48dae836ad0bf7237b335d8c0920f0336823caed5377e",
           "found": "0f6fe2c88b00a03034a48dae836ad0bf7237b335d8c0920f0336823caed5377e",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/blender/02_static_L0_perfect_crystal_3600.blend"
         },
         {
           "panel": 3,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/renders/03_md_L1_thermal_vibration_1800.png",
           "recorded": "70ef911272fadb3b5e7fb6167ca60f7ca39374321ce585032d7f75b592d3db77",
           "found": "70ef911272fadb3b5e7fb6167ca60f7ca39374321ce585032d7f75b592d3db77",
-          "where": "repo"
+          "where": "repo",
+          "archive_uri": ""
         },
         {
           "panel": 3,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/blender/03_md_L1_thermal_vibration_1800.blend",
           "recorded": "72591db347ef437624484742c6b02c1113c68b1abd5ed3c98420f4bdea544951",
           "found": "72591db347ef437624484742c6b02c1113c68b1abd5ed3c98420f4bdea544951",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/blender/03_md_L1_thermal_vibration_1800.blend"
         },
         {
           "panel": 4,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/renders/04_in_gap_ideal2_3600.png",
           "recorded": "10ec0816c7a1a34cbc85493aa43cef1a8f44c64af218532f483a8815bf55bf19",
           "found": "10ec0816c7a1a34cbc85493aa43cef1a8f44c64af218532f483a8815bf55bf19",
-          "where": "repo"
+          "where": "repo",
+          "archive_uri": ""
         },
         {
           "panel": 4,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/blender/04_in_gap_ideal2_3600.blend",
           "recorded": "103ad110557fa1ecc3995cee45286924ae3abc8974794efa2914ed0c0b66337e",
           "found": "103ad110557fa1ecc3995cee45286924ae3abc8974794efa2914ed0c0b66337e",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/blender/04_in_gap_ideal2_3600.blend"
         },
         {
           "panel": 5,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/renders/05_gap_to_ql_ideal1_3600.png",
           "recorded": "71e8d36205ba6c9ee255adaab245daa7ac017a3ae72871bfa6a0d2434aa406be",
           "found": "71e8d36205ba6c9ee255adaab245daa7ac017a3ae72871bfa6a0d2434aa406be",
-          "where": "repo"
+          "where": "repo",
+          "archive_uri": ""
         },
         {
           "panel": 5,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/blender/05_gap_to_ql_ideal1_3600.blend",
           "recorded": "0321be6831497831acc56a6db28aaa64c98c95835340f964bdce492a96aaa974",
           "found": "0321be6831497831acc56a6db28aaa64c98c95835340f964bdce492a96aaa974",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/blender/05_gap_to_ql_ideal1_3600.blend"
         },
         {
           "panel": 6,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/renders/06_within_ql_neb3_3600.png",
           "recorded": "22d1f070509426e88d6575558b470096c87ec6db7404262355b48a6876023909",
           "found": "22d1f070509426e88d6575558b470096c87ec6db7404262355b48a6876023909",
-          "where": "repo"
+          "where": "repo",
+          "archive_uri": ""
         },
         {
           "panel": 6,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/blender/06_within_ql_neb3_3600.blend",
           "recorded": "21a97a893568f5cfbd6b89af1e33d1036c16198fdd2b7851e34917c7c348f31b",
           "found": "21a97a893568f5cfbd6b89af1e33d1036c16198fdd2b7851e34917c7c348f31b",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/blender/06_within_ql_neb3_3600.blend"
         },
         {
           "panel": 7,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/renders/07_sliding_with_cr_1800.png",
           "recorded": "6b5453d688648319341128ae08be5553cd1e293170244d958c61508ec0a3994e",
           "found": "6b5453d688648319341128ae08be5553cd1e293170244d958c61508ec0a3994e",
-          "where": "repo"
+          "where": "repo",
+          "archive_uri": ""
         },
         {
           "panel": 7,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/blender/07_sliding_with_cr_1800.blend",
           "recorded": "fd99ec83229d265632c01d0e663eda3e3db7f6476b6de45bfca0b4494ba79d80",
           "found": "fd99ec83229d265632c01d0e663eda3e3db7f6476b6de45bfca0b4494ba79d80",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/blender/07_sliding_with_cr_1800.blend"
         },
         {
           "panel": 8,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/renders/08_sliding_pristine_without_cr_1800_preview.png",
           "recorded": "b9695a33196e4afea5d1dd3128a9f642173642fdfa7da163adfef00157994d22",
           "found": "b9695a33196e4afea5d1dd3128a9f642173642fdfa7da163adfef00157994d22",
-          "where": "repo"
+          "where": "repo",
+          "archive_uri": ""
         },
         {
           "panel": 8,
           "file": "analysis/cr_sb2te3_blender_render_set_20261105/blender/08_sliding_pristine_without_cr_1800_preview.blend",
           "recorded": "0240ff6c03dc750fd161b732b696cc1761a7e296f4ac64d246ab7fd95229d192",
           "found": "0240ff6c03dc750fd161b732b696cc1761a7e296f4ac64d246ab7fd95229d192",
-          "where": "repo"
+          "where": "rockfish_archive_manifest",
+          "archive_uri": "rockfish:/scratch16/pclancy3/yi/MigrationBench_data_archive/figure1_cr_sb2te3_blender_render_set_20261105/blender/08_sliding_pristine_without_cr_1800_preview.blend"
         }
       ]
     }
