@@ -9,6 +9,7 @@ Conflict decisions were made by comparing the competing file contents and their 
 - Kept PR #20 content for 24 conflict paths with the later 2026-11-24 revision, including Canva export metadata, Cr sliding analysis, Fig. 6 artifacts, audit SQL/catalog material, SHAP updates, and Task 2 manifests/scripts.
 - Kept the local unified content for 21 conflict paths where the local Phase 1/Phase 2 evidence revision dated 2026-10-03 superseded the PR branch's 2026-10-02 version.
 - Four MACE checkpoint blobs were excluded from the Git tree after exact SHA-256 matches were confirmed in the organized Rockfish model archive. The repository model manifest remains the source of archive pointers and labels these weights as archive-only; the checkpoints were not renamed or relabeled.
+- The 54.3 MB Canva P03 editable SVG is also archive-only to satisfy the repository's release size audit. Rockfish holds an exact SHA-256 copy at `/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_git_large_assets_20261124/figures/CANVA-P03_parity_2x4_palette_updated.svg` (`6844ea40abfb75f8f1310b52b3e5633af2f024fd19329695332b815f8656371f`).
 
 The resulting staged tree had no unresolved index entries at capture. The eventual commit SHA and CI run must be added here after the candidate is committed and pushed. This document does not claim that the PR is merged.
 
