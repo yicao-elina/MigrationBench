@@ -115,3 +115,31 @@ LEFT JOIN r4__models AS m
   ON length(m.checkpoint_sha256) = 64
  AND lower(m.checkpoint_sha256) = lower(c.model_sha256)
 ORDER BY c.mb_model_id;
+
+-- QMB07: expand exact-SHA-matched MB15 models across the 18 DUAL-X design tasks.
+-- These are DUAL-X design/run cells, not MigrationBench task results.
+SELECT
+    c.mb_model_id,
+    c.md_status_r02 AS mb_r1_md_status,
+    c.reuse_class AS mb_to_dualx_reuse_class,
+    c.model_sha256,
+    d.model_id AS dualx_model_id_exact_sha,
+    cell.task_id AS dualx_task_id,
+    cell.dataset_id AS dualx_dataset_id,
+    cell.planned_status AS dualx_planned_status,
+    count(DISTINCT r.run_id) AS dualx_run_rows,
+    group_concat(DISTINCT r.run_id) AS dualx_run_ids,
+    group_concat(DISTINCT r.run_scope || ':' || r.run_type || ':' || r.run_status) AS distinct_dualx_run_states,
+    'DUALX_DESIGN_CELL_NOT_MIGRATIONBENCH_TASK_RESULT' AS project_boundary
+FROM mb15_model_coverage AS c
+LEFT JOIN dx__models AS d
+  ON length(d.checkpoint_sha256) = 64
+ AND lower(d.checkpoint_sha256) = lower(c.model_sha256)
+LEFT JOIN dx__matrix_cells AS cell
+  ON cell.model_id = d.model_id
+LEFT JOIN dx__runs AS r
+  ON r.model_id = cell.model_id
+ AND r.task_id = cell.task_id
+GROUP BY c.mb_model_id, c.md_status_r02, c.reuse_class, c.model_sha256,
+         d.model_id, cell.task_id, cell.dataset_id, cell.planned_status
+ORDER BY c.mb_model_id, cell.task_id;

@@ -256,7 +256,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sources-manifest", default=str(DEFAULT_SOURCES), help="pinned SQLite source manifest")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, or QMB01-06 query")
+    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, or QMB01-07 query")
     group.add_argument("--sql-file", help="run one read-only SELECT/WITH query using source-prefixed views")
     parser.add_argument("--list-queries", action="store_true", help="list registered query IDs")
     parser.add_argument("--verify-hashes", action="store_true", help="hash all pinned DBs; this reads about 4.96 GB")
@@ -266,7 +266,7 @@ def main(argv=None):
         print("QL21-QL26  R4 lineage and Table S5")
         print("Q1-Q7      manifest sidecar")
         print("QX01-QX05  DUAL-X and exact MB bridge")
-        print("QMB01-06   MB 15-model status, DUAL-X coverage, and source-qualified joins")
+        print("QMB01-07   MB 15-model status, DUAL-X coverage, and source-qualified joins")
         return 0
     if not args.query_id and not args.sql_file:
         parser.error("choose --query-id or --sql-file")
