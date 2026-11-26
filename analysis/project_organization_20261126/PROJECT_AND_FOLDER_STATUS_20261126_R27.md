@@ -57,13 +57,17 @@ MigrationBench and DUAL-X can reuse model, failure and diagnostic evidence throu
 
 ## Repository and SQL state
 
-- MigrationBench GitHub `main`, the canonical local checkout, and Scratch16 `MigrationBench` are at `03084e55302e3a0f8e63b08217ad71c7ba7aea93`. PRs #35–#40 are merged. Scratch16 has zero other local branch heads. Because Rockfish has no Git executable, the latest update used an exact pack/index, changed tracked files and checksum verification; the receipt does not call this a `git pull`.
+- At the PR #40 baseline, MigrationBench GitHub `main`, the canonical local checkout, and Scratch16 `MigrationBench` were at `03084e55302e3a0f8e63b08217ad71c7ba7aea93`. The subsequent documentation-only PR #41 sync aligned all three refs at `4258db69c2422f454c63f418518a49c4deb39748`. PRs #35–#41 are merged. Scratch16 has zero other local branch heads. Because Rockfish has no Git executable, the updates used exact pack/index transfers, changed tracked files and checksum verification; the receipts do not call this a `git pull`.
 - X-FORCE GitHub `main` and Scratch16 `X-FORCE` are at `f1e16d65e7ea5f72a2daf0c847226ba6f67f4b06`; no open X-FORCE PR or additional Scratch16 local head was found.
 - The MigrationBench bridge pins 11 sources. QCE01–QCE05 ran on Rockfish SQLite 3.26 with `query_only=true`; QCE05 returns 30 summary mappings: 29 present and one explicitly missing/excluded. It does not establish run-attempt identity or scientific acceptance.
 - The Revision 1 claim index retains 639 claim rows. The R2 snapshot adds the Fig. 4 to R05 summary crosswalk without replacing immutable R1.
 - Cross-element checkpoint, Lmax1 and R2 claim databases are versioned snapshots in `MigrationBench_data_archive`; each has a separate manifest/hash and validation receipt. The federated source registry is the entry point for lookup.
 
-The PR39–40 Scratch16 sync receipt and QCE outputs are archived at:
+The PR41 Scratch16 sync receipt and QCE outputs are archived at:
+
+`/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr41_final_sync_20261126/`
+
+The preceding PR39–40 receipt is archived at:
 
 `/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr39_pr40_final_sync_20261126/`
 
