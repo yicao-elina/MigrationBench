@@ -224,8 +224,6 @@ def create_connection(sources, manifest, verify_hash):
         if alias == "central":
             continue
         connection.execute("ATTACH DATABASE ? AS {}".format(alias), (file_uri(sources[alias]["path"]),))
-    # Compatibility alias used in the frozen QX SQL; it is also attached read-only.
-    connection.execute("ATTACH DATABASE ? AS mb", (file_uri(sources["r4"]["path"]),))
     versions = {}
     for alias in ALIASES:
         version = connection.execute("PRAGMA {}.user_version".format(schema_for(alias))).fetchone()[0]

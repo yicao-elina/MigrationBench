@@ -17,10 +17,10 @@ SELECT d.model_id AS dualx_model_id,
        GROUP_CONCAT(DISTINCT l.source_id) AS explicit_link_sources,
        COUNT(DISTINCT l.source_id) AS explicit_link_source_count
 FROM models d
-LEFT JOIN mb.rev1_model_registry r
+LEFT JOIN r4.rev1_model_registry r
   ON length(r.sha256_recorded)=64
  AND lower(r.sha256_recorded)=lower(d.checkpoint_sha256)
-LEFT JOIN mb.models m
+LEFT JOIN r4.models m
   ON length(m.checkpoint_sha256)=64
  AND lower(m.checkpoint_sha256)=lower(d.checkpoint_sha256)
 LEFT JOIN mb_external_model_links l
