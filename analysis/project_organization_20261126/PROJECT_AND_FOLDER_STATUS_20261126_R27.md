@@ -60,6 +60,7 @@ MigrationBench and DUAL-X can reuse model, failure and diagnostic evidence throu
 - At the PR #40 baseline, MigrationBench GitHub `main`, the canonical local checkout, and Scratch16 `MigrationBench` were at `03084e55302e3a0f8e63b08217ad71c7ba7aea93`. The subsequent documentation-only PR #41 sync aligned all three refs at `4258db69c2422f454c63f418518a49c4deb39748`. PRs #35–#41 are merged. Scratch16 has zero other local branch heads. Because Rockfish has no Git executable, the updates used exact pack/index transfers, changed tracked files and checksum verification; the receipts do not call this a `git pull`.
 - X-FORCE GitHub `main` and Scratch16 `X-FORCE` are at `f1e16d65e7ea5f72a2daf0c847226ba6f67f4b06`; no open X-FORCE PR or additional Scratch16 local head was found.
 - The MigrationBench bridge pins 11 sources. QCE01–QCE05 ran on Rockfish SQLite 3.26 with `query_only=true`; QCE05 returns 30 summary mappings: 29 present and one explicitly missing/excluded. It does not establish run-attempt identity or scientific acceptance.
+- The Scratch16 directory hierarchy is now queryable in a separate, immutable SQLite sidecar: 5,288 directory rows through depth 3, zero scan errors, and the R21 direct-child family labels. QH01–QH05 provide snapshot metadata, first-level family summaries, the captured tree, a project subtree, and family counts. It remains separate from the 11-source federation because Rockfish SQLite 3.26 is already at the default attachment limit. The database passed `quick_check` and has zero foreign-key violations; it is metadata, not recursive storage usage or run/claim provenance.
 - The Revision 1 claim index retains 639 claim rows. The R2 snapshot adds the Fig. 4 to R05 summary crosswalk without replacing immutable R1.
 - Cross-element checkpoint, Lmax1 and R2 claim databases are versioned snapshots in `MigrationBench_data_archive`; each has a separate manifest/hash and validation receipt. The federated source registry is the entry point for lookup.
 
@@ -70,6 +71,10 @@ The PR41 Scratch16 sync receipt and QCE outputs are archived at:
 The preceding PR39–40 receipt is archived at:
 
 `/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr39_pr40_final_sync_20261126/`
+
+The hierarchy database, source inventory, manifest and SQL package are archived at:
+
+`/scratch16/pclancy3/yi/MigrationBench_data_archive/project_hierarchy_snapshots/20261126/scratch16_depth3_hierarchy_r1/`
 
 The PR36–38 receipt remains in its earlier versioned directory. See the [Revision 1 bridge](../revision1_evidence_bridge_20261126/README.md) for source IDs, query IDs and source roles.
 
