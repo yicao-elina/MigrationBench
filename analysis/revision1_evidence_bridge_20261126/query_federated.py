@@ -28,8 +28,9 @@ QUERY_SOURCES = {
     "QF": (HERE / "mb15_fig5_matrix_r1" / "queries.sql", "fig5"),
     "QLR": (HERE / "learning_loop_review_r1" / "queries.sql", "learning_review"),
     "QCE": (HERE / "claim_matrix_r1" / "queries.sql", "claim_matrix"),
+    "QCK": (HERE / "cross_element_checkpoint_r1" / "queries.sql", "cross_element"),
 }
-ALIASES = ("central", "r4", "sc", "dx", "mb15", "md15a", "fig5", "learning_review", "claim_matrix")
+ALIASES = ("central", "r4", "sc", "dx", "mb15", "md15a", "fig5", "learning_review", "claim_matrix", "cross_element")
 
 
 def schema_for(alias):
@@ -163,7 +164,7 @@ def statements(text):
 
 
 def builtin_sql(query_id):
-    prefix = re.match(r"^(QMB|QMA|QLR|QCE|QF|QX|QL|Q)(\d+)$", query_id, re.I)
+    prefix = re.match(r"^(QMB|QMA|QLR|QCE|QCK|QF|QX|QL|Q)(\d+)$", query_id, re.I)
     if not prefix:
         raise ValueError("unknown query id: " + query_id)
     family = prefix.group(1).upper()
@@ -275,6 +276,7 @@ def main(argv=None):
         print("QF501-504  Revision 1 Figure 5 15×8 measured source cells and status counts")
         print("QLR01-03   failure-mode audit summaries and learning-loop evidence gates")
         print("QCE01-04   Revision 1 claim-to-evidence inventory, gaps, and source pins")
+        print("QCK01-06   Cross-element checkpoint inventory, historical job status, and exact-hash joins")
         return 0
     if not args.query_id and not args.sql_file:
         parser.error("choose --query-id or --sql-file")
