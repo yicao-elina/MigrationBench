@@ -15,6 +15,7 @@ from pathlib import Path, PurePosixPath
 AUDIT = Path(__file__).resolve().parent.parent
 DB = AUDIT / "provenance_catalog.sqlite"
 SCAN_DIR = AUDIT / "phase2_scratch4/scratch4_refresh_20261123_r04_remaining"
+PERSONAL_ROOT = PurePosixPath("/scratch4/pclancy3/yi")
 
 
 def digest(path: Path) -> str:
@@ -33,24 +34,39 @@ def slug(value: str) -> str:
     return re.sub(r"[^A-Z0-9]+", "-", value.upper()).strip("-")
 
 
+def is_personal_root(root: str) -> bool:
+    """Accept only the user's `/scratch4/pclancy3/yi` tree and descendants."""
+    if not isinstance(root, str):
+        return False
+    path = PurePosixPath(root)
+    if not path.is_absolute() or ".." in path.parts:
+        return False
+    try:
+        path.relative_to(PERSONAL_ROOT)
+        return True
+    except ValueError:
+        return False
+
+
 def specifications() -> list[dict]:
     result = []
     for status_path in sorted(SCAN_DIR.glob("*.status.json")):
         status = json.loads(status_path.read_text())
+        root = status.get("root")
+        # Filter by the declared root before resolving or opening any ledger.
+        # This importer must never consume sibling subtree snapshots.
+        if not is_personal_root(root):
+            continue
         ledger_path = Path(status.get("stdout_gzip", ""))
         if not ledger_path.is_absolute():
             ledger_path = AUDIT / ledger_path
         if not ledger_path.is_file():
             ledger_path = status_path.with_name(status_path.name.removesuffix(".status.json") + ".jsonl.gz")
         if not ledger_path.is_file():
-            if status_path.name == "cganley_users_direct_lstat.status.json":
-                # This exact-target sample is imported by import_r04_targeted_lstat.py.
-                continue
             raise RuntimeError("status has no matching gzip ledger: " + str(status_path))
-        root = status.get("root")
-        if not root or not root.startswith("/scratch4/pclancy3/"):
-            raise RuntimeError("unexpected R04 subtree root: " + repr(root))
         result.append({"status_path": status_path, "ledger_path": ledger_path, "status": status, "root": root})
+    if not result:
+        raise RuntimeError("no R04 metadata snapshots found for /scratch4/pclancy3/yi")
     return result
 
 
@@ -74,6 +90,10 @@ def source(con: sqlite3.Connection, path: Path, key: str, kind: str,
 
 def relative_path(root: str, path: str) -> str:
     absolute, scope = PurePosixPath(path), PurePosixPath(root)
+    if not absolute.is_absolute() or ".." in absolute.parts:
+        raise RuntimeError("ledger path is not a normalized absolute path: " + path)
+    if not is_personal_root(root):
+        raise RuntimeError("ledger root is outside the personal Scratch4 scope: " + root)
     try:
         return "" if absolute == scope else str(absolute.relative_to(scope))
     except ValueError as exc:
