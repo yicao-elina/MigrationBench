@@ -16,7 +16,7 @@ The 37 copied payloads (1,819,048,604 bytes) are under:
 
 `/scratch16/pclancy3/yi/MigrationBench_data_archive/campaigns/cr_sb2te3/mace_from_scratch_ablation_md_20261005/`
 
-`ARCHIVE_COPY_MANIFEST.json`, `SOURCE_INPUT_SYMLINK.json`, `ARCHIVE_COPY_RECEIPT.json`, and `SHA256SUMS` capture the copy and identity evidence. The R4 database, importer, manifest, queries, and checksums are stored in the matching `revision1_lineage_overlays/20261125_r4/` snapshot directory. Query examples QL21–QL24 in `queries.sql` expose per-run archive paths, symlink/target identities, matching source/archive copies, and failure dispositions.
+`ARCHIVE_COPY_MANIFEST.json`, `SOURCE_INPUT_SYMLINK.json`, `ARCHIVE_COPY_RECEIPT.json`, and `SHA256SUMS` capture the copy and identity evidence. The R4 database, importer, manifest, queries, and checksums are stored in the matching `revision1_lineage_overlays/20261125_r4/` snapshot directory. Query examples QL21–QL24 in `queries.sql` expose per-run archive paths, symlink/target identities, matching source/archive copies, and failure dispositions. QL25–QL26 in the same query file expose the Table S5 raw QE output and status rows.
 
 ## Rebuild
 

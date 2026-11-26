@@ -55,3 +55,32 @@ JOIN result_run_links rr ON rr.run_id=r.run_id
 JOIN lineage_results x ON x.result_id=rr.result_id
 WHERE r.campaign_id='mace_from_scratch_ablation_md_20261005'
 ORDER BY r.run_id;
+
+-- QL25: Table S5 cell -> result status -> current raw neb.out identity.
+SELECT x.source_row_key AS table_cell,
+       x.scientific_status AS result_status,
+       json_extract(x.value_json,'$.source_scientific_status') AS source_gate_status,
+       json_extract(x.value_json,'$.submitted_or_source_value') AS submitted_value_ev,
+       a.source_path AS raw_neb_output,
+       a.byte_size, a.sha256,
+       l.evidence_status AS artifact_link_status, l.note
+FROM lineage_results x
+JOIN result_artifact_links l ON l.result_id=x.result_id
+JOIN lineage_artifacts a ON a.artifact_id=l.artifact_id
+WHERE x.result_key LIKE 'R1X:Table S5:table:%'
+  AND a.source_path LIKE '%neb.out'
+  AND (a.source_path LIKE '/scratch16/%'
+       OR a.source_path LIKE 'data/raw_compact/%')
+ORDER BY x.source_row_key, a.source_path;
+
+-- QL26: registered result-status counts by Table S5 path identifier.
+SELECT substr(x.source_row_key,1,instr(x.source_row_key,' / ')-1) AS path_id,
+       x.scientific_status AS result_status,
+       json_extract(x.value_json,'$.source_scientific_status') AS source_gate_status,
+       count(*) AS table_cells
+FROM lineage_results x
+WHERE x.result_key LIKE 'R1X:Table S5:table:%'
+GROUP BY substr(x.source_row_key,1,instr(x.source_row_key,' / ')-1),
+         x.scientific_status,
+         json_extract(x.value_json,'$.source_scientific_status')
+ORDER BY path_id;
