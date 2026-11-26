@@ -1,0 +1,29 @@
+{
+  "captured_on": "2026-11-26",
+  "host": "Rockfish login02",
+  "python": "3.6-compatible launcher",
+  "sqlite_version": "3.26.0",
+  "source_connection": "central as main; r4, sc, dx, and QX-compatible mb aliases opened using URI mode=ro",
+  "source_byte_checks": "All four pinned database sizes matched; SHA-256 pins were reported but not recomputed in this smoke run.",
+  "query_only": true,
+  "query_only_authorizer": "SELECT, READ, FUNCTION, and recursive-CTE actions allowed; writes, DDL, ATTACH/DETACH, and transaction actions denied.",
+  "prefixed_temp_view_counts": {
+    "central": 49,
+    "r4": 76,
+    "sc": 14,
+    "dx": 59
+  },
+  "registered_query_rows": {
+    "QL25": 24,
+    "Q1": 7,
+    "QX01": 23
+  },
+  "custom_cross_database_query": {
+    "description": "Exact checkpoint SHA join between dx__models and r4__models.",
+    "rows": 1,
+    "exact_model_sha_rows": 7
+  },
+  "write_guard": "A multi-statement SELECT + DELETE input was rejected before execution with 'exactly one SQL statement is required'.",
+  "source_databases_modified": false,
+  "full_snapshot_sha256_recomputed": false
+}
