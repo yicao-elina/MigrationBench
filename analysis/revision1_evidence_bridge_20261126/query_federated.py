@@ -171,8 +171,10 @@ def builtin_sql(query_id):
     family = prefix.group(1).upper()
     number = int(prefix.group(2))
     source_file, alias = QUERY_SOURCES[family]
-    if family == "QCE" and number >= 5:
+    if family == "QCE" and number == 5:
         source_file = HERE / "claim_matrix_r2" / "queries.sql"
+    elif family == "QCE" and number >= 6:
+        source_file = HERE / "claim_matrix_r3" / "queries.sql"
     content = source_file.read_text()
     marker = re.compile(r"^\s*--\s*{}\d+\s*:".format(re.escape(family)), re.I | re.M)
     matches = list(marker.finditer(content))
@@ -262,7 +264,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sources-manifest", default=str(DEFAULT_SOURCES), help="pinned SQLite source manifest")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, QMB01-07, QMA01-07, QF501-504, QLR01-03, QCE01-05, QLM01-07, or QCK01-06 query")
+    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, QMB01-07, QMA01-07, QF501-504, QLR01-03, QCE01-09, QLM01-07, or QCK01-06 query")
     group.add_argument("--sql-file", help="run one read-only SELECT/WITH query using source-prefixed views")
     parser.add_argument("--list-queries", action="store_true", help="list registered query IDs")
     parser.add_argument("--verify-hashes", action="store_true", help="hash all pinned DBs; this reads about 4.96 GB")
@@ -276,8 +278,9 @@ def main(argv=None):
         print("QMA01-07   MD15 per-model attempt-lineage audit and missing evidence")
         print("QF501-504  Revision 1 Figure 5 15×8 measured source cells and status counts")
         print("QLR01-03   failure-mode audit summaries and learning-loop evidence gates")
-        print("QCE01-04   Revision 1 claim-to-evidence inventory, gaps, and source pins")
+        print("QCE01-04   Revision 1 submitted claim-to-evidence inventory, gaps, and source pins")
         print("QCE05      Fig. 4 R4 summary rows to R05 group rows; no run/attempt linkage")
+        print("QCE06-09   Manuscript source versions, ledger deltas, and complete PR #10 file reconciliation; not scientific validation")
         print("QCK01-06   Cross-element checkpoint inventory, historical job status, and exact-hash joins")
         print("QLM01-07   Lmax1 Tier-1 failure, explicit retry/perturbation links, missing variants, and Tier-2 gates")
         return 0
