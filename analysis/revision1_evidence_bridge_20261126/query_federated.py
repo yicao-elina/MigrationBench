@@ -23,8 +23,9 @@ QUERY_SOURCES = {
     "QL": (HERE.parent / "revision1_lineage_overlay_r4" / "queries.sql", "r4"),
     "Q": (HERE / "manifest_sidecar_r1" / "queries.sql", "sc"),
     "QX": (HERE / "dualx_exact_bridge_r1" / "EXTERNAL_EVIDENCE_BRIDGE_DRAFT.sql", "dx"),
+    "QMB": (HERE / "mb15_dualx_snapshot" / "queries.sql", "mb15"),
 }
-ALIASES = ("central", "r4", "sc", "dx")
+ALIASES = ("central", "r4", "sc", "dx", "mb15")
 
 
 def schema_for(alias):
@@ -158,7 +159,7 @@ def statements(text):
 
 
 def builtin_sql(query_id):
-    prefix = re.match(r"^(QX|QL|Q)(\d+)$", query_id, re.I)
+    prefix = re.match(r"^(QMB|QX|QL|Q)(\d+)$", query_id, re.I)
     if not prefix:
         raise ValueError("unknown query id: " + query_id)
     family = prefix.group(1).upper()
@@ -213,7 +214,9 @@ def create_connection(sources, manifest, verify_hash):
         checked[alias] = check_source(alias, sources[alias], verify_hash)
     connection = sqlite3.connect(file_uri(sources["central"]["path"]), uri=True)
     connection.row_factory = sqlite3.Row
-    for alias in ("r4", "sc", "dx"):
+    for alias in ALIASES:
+        if alias == "central":
+            continue
         connection.execute("ATTACH DATABASE ? AS {}".format(alias), (file_uri(sources[alias]["path"]),))
     # Compatibility alias used in the frozen QX SQL; it is also attached read-only.
     connection.execute("ATTACH DATABASE ? AS mb", (file_uri(sources["r4"]["path"]),))
@@ -253,16 +256,17 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sources-manifest", default=str(DEFAULT_SOURCES), help="pinned SQLite source manifest")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, or QX01-05 query")
-    group.add_argument("--sql-file", help="run one read-only SELECT/WITH query using central__, r4__, sc__, dx__ views")
+    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, or QMB01-06 query")
+    group.add_argument("--sql-file", help="run one read-only SELECT/WITH query using source-prefixed views")
     parser.add_argument("--list-queries", action="store_true", help="list registered query IDs")
-    parser.add_argument("--verify-hashes", action="store_true", help="hash all four DBs; this reads about 4.95 GB")
+    parser.add_argument("--verify-hashes", action="store_true", help="hash all pinned DBs; this reads about 4.96 GB")
     parser.add_argument("--format", choices=("json", "csv"), default="json")
     args = parser.parse_args(argv)
     if args.list_queries:
         print("QL21-QL26  R4 lineage and Table S5")
         print("Q1-Q7      manifest sidecar")
         print("QX01-QX05  DUAL-X and exact MB bridge")
+        print("QMB01-06   MB 15-model status, DUAL-X coverage, and source-qualified joins")
         return 0
     if not args.query_id and not args.sql_file:
         parser.error("choose --query-id or --sql-file")
