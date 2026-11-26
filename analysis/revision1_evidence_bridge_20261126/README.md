@@ -25,7 +25,8 @@ The full MigrationBench central provenance catalog remains an immutable 2026-11-
 - `md15_attempt_lineage_r1/`: QMA01–QMA07 and a separate per-model audit of attempt/run evidence, scheduler-ID candidates, trajectory segments, and missing links. Candidate jobs are not treated as confirmed attempts.
 - `mb15_fig5_matrix_r1/`: QF501–QF504 and a separate, pinned snapshot of the submitted Figure 5 source cells (15 models × 8 tasks = 120 rows); it is not the complete MigrationBench model-by-task matrix.
 - `learning_loop_review_r1/`: QLR01–QLR03 and a separate seven-row audit-summary index of failure-mode signals and missing next-round decision/gain evidence. Rows are summaries, not event labels.
-- `claim_matrix_r1/`: QCE01–QCE04 and an immutable 639-row Revision 1 claim/evidence inventory. Source-native `matrix_id` values remain distinct from catalog IDs; lexical segmentation and `TRACEABLE` status do not establish scientific acceptance.
+- `claim_matrix_r1/`: the immutable 639-row Revision 1 claim/evidence source and its R1 build instructions. The original R1 snapshot remains archived separately and addressable.
+- `claim_matrix_r2/`: R2 preserves the R1 claim table and metadata unchanged while adding a 30-row summary-grain Fig. 4 → R05 crosswalk. QCE01–QCE04 query the unchanged tables; QCE05 returns 29 source-row matches and one explicit missing/excluded slot. No additional SQLite source is attached.
 - `cross_element_checkpoint_r1/`: QCK01–QCK06 and a separate no-payload index for three cross-element training runs. It preserves all 3,027 file paths and the captured scheduler state; 2,997 intermediate checkpoint content hashes were not computed and remain on hold.
 - `lmax1_failure_retry_r1/`: QLM01–QLM07 and a source-pinned event-level sidecar for Tier-1, retry, perturbation, and Tier-2 diagnostic collector rows. It preserves the ten missing retry variants and all 90 `PENDING_G3_11` gates and does not claim active-learning benefit.
 - `neb_dft/`: 24 Table S5 cell/output recheck rows and the issue/gap register. Its query source is QL25–QL26 in R4.
@@ -44,11 +45,12 @@ python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-i
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QMB01
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QMB07
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QCE02
+python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QCE05
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QCK02
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QLM01
 ```
 
-Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), QX01–QX05 (DUAL-X), QMB01–QMB07 (MB15 status/reuse coverage and DUAL-X task-cell expansion), QMA01–QMA07 (MD15 attempt-lineage evidence), QF501–QF504 (Revision 1 Figure 5 source cells), QLR01–QLR03 (failure-mode review summaries), QCE01–QCE04 (claim inventory and provenance gaps), QCK01–QCK06 (cross-element training artifact inventory and exact-hash bridge), and QLM01–QLM07 (Lmax1 diagnostic events, explicit retry/perturbation links, and gate states). The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
+Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), QX01–QX05 (DUAL-X), QMB01–QMB07 (MB15 status/reuse coverage and DUAL-X task-cell expansion), QMA01–QMA07 (MD15 attempt-lineage evidence), QF501–QF504 (Revision 1 Figure 5 source cells), QLR01–QLR03 (failure-mode review summaries), QCE01–QCE04 (claim inventory and provenance gaps) plus QCE05 (Fig. 4 summary → R05 group-row mapping), QCK01–QCK06 (cross-element training artifact inventory and exact-hash bridge), and QLM01–QLM07 (Lmax1 diagnostic events, explicit retry/perturbation links, and gate states). QCE05 maps summary rows only; it does not imply a curve-to-run/attempt relation, validate output, or accept a scientific claim. The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
 
 ```sql
 SELECT dx__models.model_id, dx__models.checkpoint_sha256
@@ -63,7 +65,7 @@ The `fig5__fig5_matrix_cell` table stores the 120 Figure 5 records from the comm
 
 The `learning_review__failure_mode_review` source is an audit synthesis. It has seven evidence-family rows, no event-level failure labels or decision/action records, and no measured learning benefit. Use it to navigate gaps and closure work, not as training labels or an active-learning classifier.
 
-The `claim_matrix__claim_evidence_row` view holds one row per pinned source inventory item, including its exact quote/value, artifact pointer, source status, and recorded gap reason. It is an index, not an independent scientific validation. QCE01–QCE04 retain assertion segments, panels, table objects/cells, and reviewer questions at their original grains.
+The `claim_matrix__claim_evidence_row` view holds one row per pinned source inventory item, including its exact quote/value, artifact pointer, source status, and recorded gap reason. It is an index, not an independent scientific validation. QCE01–QCE04 retain assertion segments, panels, table objects/cells, and reviewer questions at their original grains; QCE05 adds a separate, summary-grain Fig. 4/R05 crosswalk and does not alter the 639 claim rows or R1 metadata.
 
 The `cross_element__artifact_inventory` view stores exact paths and stat/hash metadata for 3,027 output files across seeds 123/456/789. It does not contain checkpoint bytes; hashes for epochs 0–998 were not computed. `cross_element__training_run_snapshot` records the dated 2026-11-25 Slurm result capture, not live scheduler state. QCK04 joins only exact recorded SHA values to model checkpoint hashes and proves identity at that row grain, not shared task results.
 

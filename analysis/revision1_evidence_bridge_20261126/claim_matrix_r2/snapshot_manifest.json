@@ -1,0 +1,66 @@
+{
+  "base_r1": {
+    "bytes": 892928,
+    "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_claim_matrix_snapshots/20261126/claim_matrix_r1.sqlite",
+    "sha256": "cdc723b93143b6778fa1b3d6915a798e0cfd6fc6f31a6dce9e969a580e766578"
+  },
+  "builder_sha256": {
+    "importer": "c6d50d4ee6835098dc4b163972db9c55bc9d0685f94a206d8b7a66ab3473900e",
+    "schema": "27ec9b23dd9a59e783356633416dc8dc89f67b5464d29c6e930bcdbbfb80a737"
+  },
+  "bytes": 946176,
+  "captured_utc": "2026-11-26T05:35:16.533531+00:00",
+  "claim_evidence_row_count": 639,
+  "database_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_claim_matrix_snapshots/20261126_r2/claim_matrix_r2.sqlite",
+  "fig4_r05_crosswalk_row_count": 30,
+  "fig4_r05_match_status_counts": {
+    "MISSING_OR_EXCLUDED": 1,
+    "PRESENT": 29
+  },
+  "foreign_key_violations": 0,
+  "limitations": [
+    "QCE01-QCE04 tables and snapshot_metadata are copied unchanged from the pinned R1 database.",
+    "The 30-row table maps aggregate Fig. 4 summaries to R05 aggregate rows only.",
+    "The explicit missing row is not evidence of zero attempts.",
+    "Hash identity does not establish run provenance, plotted-output validity, or scientific acceptance.",
+    "Fixed-path single-point and endpoint-only self-relaxed MLIP-NEB are different protocols."
+  ],
+  "mapping_grain": "summary row to R05 group row; no run/attempt linkage",
+  "mapping_key": [
+    "observable",
+    "path_key",
+    "group"
+  ],
+  "quick_check": "ok",
+  "r05_sources": {
+    "coverage_tsv": {
+      "path": "paper/revision1/data_processed/current_release/cr_three_path_coverage_audit_R05.tsv",
+      "rows": 30,
+      "sha256": "753de574b2e73912500385f3edfbbdd088fae95623975a10c3d8ecab93db3cc3"
+    },
+    "fig4_pdf": {
+      "path": "paper/revision1/figures/main/fig4_NEB_new.pdf",
+      "sha256": "7b1016535481017801e07694d86e0d3943613c739d20f821dec83663fcf2cc93"
+    },
+    "manifest": {
+      "path": "paper/revision1/data_processed/current_release/cr_three_path_fixed_vs_self_2x3_R05.manifest.json",
+      "sha256": "d4221a019c3a047da022404e6c31a1f3c5896cf6d1d1cb5d1a48ff3f5f590071"
+    },
+    "profile_tsv": {
+      "path": "paper/revision1/data_processed/current_release/cr_three_path_plotted_profiles_R05.tsv",
+      "rows": 29,
+      "sha256": "705643bbad0220de074853cf11b94eacbe739f6dc8ca5d5c16921374d2e6d398"
+    }
+  },
+  "r4": {
+    "bytes": 8921088,
+    "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_lineage_overlays/20261125_r4/migrationbench_r1_lineage_overlay_20261125_r4.sqlite",
+    "sha256": "d033f47913eaf33d61a2ce7b0b0281b90b385d23190890a97f477e2f901896d7"
+  },
+  "sha256": "bbc13c16855d54760944ba9b98287ef91e578558a4a9e63bfd580296c8e075d2",
+  "snapshot": "MigrationBench Revision 1 claim matrix R2 with Fig. 4/R05 summary crosswalk",
+  "snapshot_metadata_row_count": 20,
+  "snapshot_version": "claim_matrix_r2",
+  "source_main_commit": "296ef562a5bc28151a824d9201c383766cfa116f",
+  "user_version": 1
+}
