@@ -6,7 +6,7 @@ This bundle is the current project-level and direct-folder-level index for the u
 - `/scratch4/pclancy3/yi`
 - `/scratch16/pclancy3/yi`
 
-It does not include scans of other users' directories. Start with [the current R25 project/folder map](CURRENT_PROJECT_AND_FOLDER_MAP_20261126_R25.md) for project relationships, root inventory, cleanup state, SQL/provenance boundaries, remaining work and consolidated author decisions. The [directory-only R21 table](SCRATCH16_DIRECTORIES_CLASSIFICATION_20261126_R21.tsv) contains the 222 direct child directories and their family assignment. The full [R21 Scratch16 direct-child index](SCRATCH16_FOLDER_CLASSIFICATION_20261126_R21.tsv) preserves all 328 direct children: those 222 directories plus 106 files.
+It does not include scans of other users' directories. Start with the [current R26 project/folder map](CURRENT_PROJECT_AND_FOLDER_MAP_20261126_R26.md) for project relationships, root inventory, cleanup state, SQL/provenance boundaries, remaining work and consolidated author decisions. The [R25 map](CURRENT_PROJECT_AND_FOLDER_MAP_20261126_R25.md) is retained as a historical snapshot and is not edited in place. The [local workspace reconciliation](LOCAL_WORKSPACE_RECONCILIATION_20261126.md) records the path-level mapping needed before retiring that separate local workspace. The [directory-only R21 table](SCRATCH16_DIRECTORIES_CLASSIFICATION_20261126_R21.tsv) contains the 222 direct child directories and their family assignment. The full [R21 Scratch16 direct-child index](SCRATCH16_FOLDER_CLASSIFICATION_20261126_R21.tsv) preserves all 328 direct children: those 222 directories plus 106 files.
 
 ## Intended Scratch16 organization
 
@@ -24,16 +24,16 @@ The Git repositories hold code, schemas, compact manifests, query interfaces and
 
 ## Current state and limits
 
-- MigrationBench main is at `3c9f598ff96d3b52cffad4f1205efaae3f1a304d`; PR #35 added the tenth pinned read-only SQL source for cross-element training artifact metadata. Its CI passed, and the merged bridge plus QCK02/QCK04 remote query outputs were synced to the evidence archive.
+- MigrationBench main is at `296ef562a5bc28151a824d9201c383766cfa116f`; PRs #36–#38 are merged. The read-only SQL bridge has 11 pinned sources. PR #37 added the Lmax1 sidecar (194 diagnostic rows, 50 explicit links, 10 missing retries, 90 pending Tier-2 gates), and PR #38 fixed the duplicate SQLite attachment so the full bridge runs on Rockfish SQLite 3.26.0. QCK02/QCK04, QLM01–QLM07 and QX01–QX05 passed remote `query_only=true` smoke queries.
 - All 222 Scratch16 direct-child directories are classified. Classification describes folder purpose; it does not close artifact hashes, attempt/run lineage, manuscript claims or safe-retirement decisions. Many of the 218 noncanonical campaign directories still need those links or a written hold disposition.
-- The existing local legacy workspace `/Users/alina/Documents/ChatGPT/Wiley-MigrationBench` is dirty with uncommitted and untracked project evidence. Preserve it and map unique content to the canonical repository or verified archive before considering cleanup; it is not an interchangeable clean main checkout.
+- A separate local legacy workspace has uncommitted and untracked project evidence. Its six priority groups have now been mapped at path/size/hash levels where feasible; see the reconciliation report. It is not an interchangeable clean main checkout, and retirement remains gated on finishing the listed metadata mapping and any author retention choices.
 - The cross-element SQL index contains 3,027 artifact metadata rows. The 2,997 intermediate checkpoints remain held pending a documented retention decision; this bundle does not authorize their deletion.
 - This is a dated navigation snapshot, not a statement that the full project organization, evidence closure, manuscript reconciliation or storage cleanup is complete.
 
 ## Evidence archive
 
-The merged PR #35 sync receipt, R25 map copy, classification table, and read-only remote query outputs are archived under:
+The merged PR #36–#38 sync receipt and read-only remote query outputs are archived under:
 
-`/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr35_cross_element_20261126/`
+`/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr36_pr38_final_sync_20261126/`
 
-The receipt records the exact merge SHA, remote refs, pack/index/file hashes, 10-source count and QCK02/QCK04 query details. The canonical GitHub source is [MigrationBench](https://github.com/yicao-elina/MigrationBench) at the pinned main commit above; this folder remains a map and index, while experimental payloads remain in the personal Scratch16 data archive.
+The receipt records the exact merge SHA, remote refs, pack/index/file hashes, 11-source count and QCK02/QCK04, QLM01–QLM07, and QX01–QX05 query details. The canonical GitHub source is [MigrationBench](https://github.com/yicao-elina/MigrationBench) at the pinned main commit above; this folder remains a map and index, while experimental payloads remain in the personal Scratch16 data archive.
