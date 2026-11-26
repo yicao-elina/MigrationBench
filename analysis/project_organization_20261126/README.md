@@ -34,6 +34,6 @@ The Git repositories hold code, schemas, compact manifests, query interfaces and
 
 The merged PR #36–#38 sync receipt and read-only remote query outputs are archived under:
 
-`/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr36_pr38_20261126/`
+`/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr36_pr38_final_sync_20261126/`
 
 The receipt records the exact merge SHA, remote refs, pack/index/file hashes, 11-source count and QCK02/QCK04, QLM01–QLM07, and QX01–QX05 query details. The canonical GitHub source is [MigrationBench](https://github.com/yicao-elina/MigrationBench) at the pinned main commit above; this folder remains a map and index, while experimental payloads remain in the personal Scratch16 data archive.

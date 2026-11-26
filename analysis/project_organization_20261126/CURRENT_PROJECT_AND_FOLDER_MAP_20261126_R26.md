@@ -41,7 +41,7 @@ The last three links are an evidence requirement for future reuse. Current recor
 - The cross-element checkpoint index has 3,027 metadata rows; 2,997 intermediate checkpoint payloads remain unhashed and held pending retention review. No checkpoint payload was included in these documentation changes.
 - Mainline and Scratch16 refs were synchronized to the same commit using the documented no-Git transfer process. This verifies repository state at the receipt's capture time; it does not establish the live scheduler state or replace a future Git pull.
 
-The detailed bridge, source roles, query IDs, and scientific boundaries are in [the Revision 1 evidence bridge index](../revision1_evidence_bridge_20261126/README.md). The PR #36–#38 transfer receipt and remote query outputs are archived under `/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr36_pr38_20261126/`.
+The detailed bridge, source roles, query IDs, and scientific boundaries are in [the Revision 1 evidence bridge index](../revision1_evidence_bridge_20261126/README.md). The PR #36–#38 transfer receipt and remote query outputs are archived under `/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/migrationbench_pr36_pr38_final_sync_20261126/`.
 
 ## Local workspace reconciliation and retirement status
 
