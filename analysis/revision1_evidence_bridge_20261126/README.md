@@ -19,6 +19,37 @@ The full MigrationBench central provenance catalog remains an immutable 2026-11-
 - `dualx_exact_bridge_r1/`: QX01–QX05 read-only attached-database queries, per-model exact SHA index, and source snapshot manifest.
 - `neb_dft/`: 24 Table S5 cell/output recheck rows and the issue/gap register. Its query source is QL25–QL26 in R4.
 
+## One read-only SQL entry point
+
+`query_federated.py` opens the immutable central catalog as SQLite `main`, attaches R4, the manifest sidecar, and DUAL-X v14 with URI `mode=ro`, checks exact pinned file sizes and SQLite `user_version`s, and exposes every table/view through source-prefixed temporary views (`central__*`, `r4__*`, `sc__*`, `dx__*`). The central snapshot stays at the 2026-11-24 release. Source-native IDs are intentionally kept separate.
+
+Run from the repository root or pass the script path directly on Rockfish (Python 3.6+):
+
+```sh
+python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --list-queries
+python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QL25
+python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id Q1 --format csv
+python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QX01
+```
+
+Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), and QX01–QX05 (DUAL-X). The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
+
+```sql
+SELECT dx__models.model_id, dx__models.checkpoint_sha256
+FROM dx__models
+JOIN r4__models
+  ON lower(dx__models.checkpoint_sha256)=lower(r4__models.checkpoint_sha256);
+```
+
+```sh
+python3 analysis/revision1_evidence_bridge_20261126/query_federated.py \
+  --sql-file /path/to/read_only_query.sql
+```
+
+Each invocation enables `PRAGMA query_only=ON` and a SQLite authorizer that permits only `SELECT`, `READ`, `FUNCTION`, and recursive-CTE operations. Writes, DDL, transaction control, further `ATTACH`/`DETACH`, and non-SELECT statements are denied. Source databases are opened read-only. `--verify-hashes` performs full SHA-256 reads of all four snapshots (about 4.95 GB); by default, the launcher checks file sizes and `user_version` and emits the pinned SHA values without claiming to have rehashed them during that invocation.
+
+The launcher is a federated query interface, not a merged database. It does not infer run/result/claim equivalence from coincident integer IDs or checkpoint hashes. Use `FEDERATED_SOURCES.json` for exact path, byte-size, SHA, and `user_version` pins.
+
 ## Scientific and identity boundaries
 
 - Hash identity is necessary but does not prove that a plotted value came from a particular run, attempt, job, processing recipe, or manuscript release.
