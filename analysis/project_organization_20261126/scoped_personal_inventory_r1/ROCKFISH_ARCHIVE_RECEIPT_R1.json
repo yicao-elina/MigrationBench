@@ -1,0 +1,88 @@
+{
+  "archive_directory": "/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1/",
+  "archive_directory_mode": "2700",
+  "archived_utc": "2026-11-26T08:00:36Z",
+  "captured_utc": "2026-11-26T07:13:21Z",
+  "cleanup_reconciliation_sources": [
+    "analysis/rockfish_skipjack_migration_audit_20261121/PHASE2_REPORT.md",
+    "phase2_data/wfc_mix_residual_20261124/postdelete_path_check_20261124.json"
+  ],
+  "companion_artifacts": {
+    "exact_restart_query_script": {
+      "mode": "0600",
+      "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1/query_exact_restart_recheck.py",
+      "sha256": "35691a9d615729ac490b83fd2932e4df41ff97cd10367276ac8164a475970d1e"
+    },
+    "exact_restart_recheck": {
+      "candidate_count": 0,
+      "logical_bytes": 0,
+      "mode": "0600",
+      "nonempty_candidate_count": 0,
+      "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1/EXACT_RESTART_RECHECK_R1.json",
+      "sha256": "58f068cf2983c500ec78dd53400f1e8c2b40e1eee2c4acfa110255c687fe94d9"
+    },
+    "manifest": {
+      "mode": "0600",
+      "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1/SNAPSHOT_MANIFEST_R1.json",
+      "sha256": "d8ac00c28d0149082f8361eb92e798db82f3ed9c567d147386d01ff4031c1427"
+    },
+    "summary": {
+      "bytes": 278429,
+      "mode": "0600",
+      "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1/scoped_personal_root_inventory_r1_summary.json",
+      "sha256": "61ee59a2fb9e65f83d81d6d3bd9a88f2a43fb5a040364022a5655fa56ceeb6f4"
+    },
+    "wfc_mix_filename_recheck": {
+      "mode": "0600",
+      "path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1/WFC_MIX_CANDIDATES_R1.json",
+      "sha256": "2352f1d879c48105f05cb3cadcb7baed92487218cb0d0e0ff69f2941891df8ac"
+    }
+  },
+  "historical_restart_path_reconciliation": {
+    "accounting_status": "The 1,592 historical paths reconcile as 1,584 nonempty files plus 8 zero-byte placeholders; 384 + 1,584 + 8 = the 1,976-entry difference from the older composite inventory. The deletion receipts and post-delete scans support the removals. No personal quota delta was measured.",
+    "current_r1_exact_mixN_paths": 0,
+    "known_cleanup_batch_entries": [
+      384,
+      1584,
+      8
+    ],
+    "known_cleanup_batches": [
+      "2026-11-22 384-file guarded WFC/mix cleanup",
+      "RF-YI-QE-RESTART-CLEANUP-20261123: 7,581 restart files including 1,584 nonempty members of the .mixN cohort (9,236,905,920 bytes)",
+      "RF-YI-QE-ZERO-MIX-CLEANUP-20261124: eight zero-byte .mixN placeholders"
+    ],
+    "previous_exact_mixN_paths": 1592,
+    "previous_logical_bytes": 9236905920,
+    "previous_root": "/data/pclancy3/yi",
+    "previous_snapshot_date": "2026-11-24",
+    "r04_to_r1_entry_delta": 1976
+  },
+  "host": "login03",
+  "integrity": {
+    "entry_count": 1026780,
+    "foreign_key_violations": 0,
+    "path_records_including_root_rows": 1026780,
+    "quick_check": "ok",
+    "snapshot_completion_state": "COMPLETE",
+    "traversal_errors": 0
+  },
+  "inventory_captured_finished_utc": "2026-11-26T07:13:21Z",
+  "inventory_captured_started_utc": "2026-11-26T06:50:55Z",
+  "partial_database_absent_after_promotion": true,
+  "quota_reading": "not captured; allocated bytes are filesystem metadata tallies, not quota savings or quota usage.",
+  "receipt_type": "rockfish_scoped_personal_root_inventory_archive",
+  "remote_database_bytes": 495513600,
+  "remote_database_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1/scoped_personal_root_inventory_r1.sqlite",
+  "remote_mode": "0600",
+  "remote_sha256": "712125e415b6e646f4c27a4971a62e1ffe0afddd182b821cc9068c7749405971",
+  "remote_summary_bytes": 278429,
+  "remote_summary_mode": "0600",
+  "remote_summary_path": "/scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1/scoped_personal_root_inventory_r1_summary.json",
+  "scanner_reporting_recovery": "The scanner completed traversal and stored completion state, then raised FileNotFoundError in its final report step because it measured the intended final path before promoting the .partial path. The partial SQLite database was independently checked (quick_check=ok, foreign_key_check=0, COMPLETE state and timestamps), chmodded 0600, and atomically promoted to the final name. The capture script and corrected reusable scanner are both retained in the package.",
+  "scope": [
+    "/data/pclancy3/yi",
+    "/scratch16/pclancy3/yi",
+    "/scratch4/pclancy3/yi"
+  ],
+  "scope_exclusion_note": "The Scratch16 archive subtree /scratch16/pclancy3/yi/MigrationBench_data_archive/storage_audits/scoped_personal_root_inventories/20261126_r1 was excluded to prevent self-inclusion. The inventory is traversal-complete on the allowlisted scope except for that explicit subtree."
+}

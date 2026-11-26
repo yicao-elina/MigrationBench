@@ -13,6 +13,11 @@ source-frame hashes, execution-to-canonical mapping, and scientific status.
 The absence of those heavyweight files from Git is a storage boundary, not a
 claim that the underlying data are absent.
 
+The model registry link in `mlip_analysis_manifest.json` is repository-relative
+and its recorded hash matches the tracked registry. The checkpoint files remain
+external under the owner-scoped Rockfish `/data/pclancy3/yi` tree; their model
+identities and hashes are recorded in `MODEL_REGISTRY.tsv`.
+
 The repeatability audit is retained in `run_summary.csv`,
 `initial_state_audit.csv`, `diagnostic_manifest.json` and
 `failure_attribution_results_discussion.md`. The manuscript-facing composite
