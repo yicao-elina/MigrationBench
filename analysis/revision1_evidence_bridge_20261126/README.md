@@ -19,11 +19,13 @@ The full MigrationBench central provenance catalog remains an immutable 2026-11-
 - `manifest_sidecar_r1/`: central-compatible schema, Python 3.6+ importer, Q1–Q7, staging snapshot manifest/receipt, and exact SQL row-grain definitions. The actual SQLite payload and frozen scan/revalidation inputs are in the pinned Scratch16 archive.
 - `dualx_exact_bridge_r1/`: QX01–QX05 read-only attached-database queries, per-model exact SHA index, and source snapshot manifest.
 - `mb15_dualx_snapshot/`: QMB01–QMB07 and an immutable model-grain SQLite snapshot for the submitted 15-model MD status plus exact-hash DUAL-X coverage. It preserves candidate, NEB, and historical run counts as distinct evidence types; QMB06 recomputes cross-source exact-hash joins and QMB07 expands the matching DUAL-X model/task design cells and run records.
+- `md15_attempt_lineage_r1/`: QMA01–QMA07 and a separate per-model audit of attempt/run evidence, scheduler-ID candidates, trajectory segments, and missing links. Candidate jobs are not treated as confirmed attempts.
+- `mb15_fig5_matrix_r1/`: QF501–QF504 and a separate, pinned snapshot of the submitted Figure 5 source cells (15 models × 8 tasks = 120 rows); it is not the complete MigrationBench model-by-task matrix.
 - `neb_dft/`: 24 Table S5 cell/output recheck rows and the issue/gap register. Its query source is QL25–QL26 in R4.
 
 ## One read-only SQL entry point
 
-`query_federated.py` opens the immutable central catalog as SQLite `main`, attaches R4, the manifest sidecar, DUAL-X v14, and the MB15 model-grain coverage snapshot with URI `mode=ro`, checks exact pinned file sizes and SQLite `user_version`s, and exposes every table/view through source-prefixed temporary views (`central__*`, `r4__*`, `sc__*`, `dx__*`, `mb15__*`). The central snapshot stays at the 2026-11-24 release. Source-native IDs are intentionally kept separate.
+`query_federated.py` opens the immutable central catalog as SQLite `main`, attaches R4, the manifest sidecar, DUAL-X v14, the MB15 model-grain coverage snapshot, the MD15 attempt-lineage audit, and the Figure 5 source-cell snapshot with URI `mode=ro`, checks exact pinned file sizes and SQLite `user_version`s, and exposes every table/view through source-prefixed temporary views (`central__*`, `r4__*`, `sc__*`, `dx__*`, `mb15__*`, `md15a__*`, `fig5__*`). The central snapshot stays at the 2026-11-24 release. Source-native IDs are intentionally kept separate.
 
 Run from the repository root or pass the script path directly on Rockfish (Python 3.6+):
 
@@ -36,7 +38,7 @@ python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-i
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QMB07
 ```
 
-Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), QX01–QX05 (DUAL-X), and QMB01–QMB07 (MB15 status/reuse coverage, snapshot provenance, cross-source exact-hash links, and the DUAL-X task-cell expansion). The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
+Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), QX01–QX05 (DUAL-X), QMB01–QMB07 (MB15 status/reuse coverage and DUAL-X task-cell expansion), QMA01–QMA07 (MD15 attempt-lineage evidence), and QF501–QF504 (Revision 1 Figure 5 source cells). The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
 
 ```sql
 SELECT dx__models.model_id, dx__models.checkpoint_sha256
@@ -45,7 +47,9 @@ JOIN r4__models
   ON lower(dx__models.checkpoint_sha256)=lower(r4__models.checkpoint_sha256);
 ```
 
-The `mb15__mb15_model_coverage` view is a 15-row model-summary/crosswalk source. Its exact checkpoint SHA joins can be used to find candidate project identity links; it does not supply attempt-level producer or scientific-acceptance joins.
+The `mb15__mb15_model_coverage` view is a 15-row model-summary/crosswalk source. Its exact checkpoint SHA joins can be used to find candidate project identity links; it does not supply attempt-level producer or scientific-acceptance joins. The separate `md15a__model_attempt_audit` source adds per-model evidence observations but does not provide definitive attempt UUIDs or raw trajectory hashes. Candidate Slurm IDs remain log-derived candidates.
+
+The `fig5__fig5_matrix_cell` table stores the 120 Figure 5 records from the committed 15×8 source slice, including all primary, diagnostic-only, and supporting rows. It is not a full MACE task matrix; 24 source rows lack model SHA and remain unjoinable by checkpoint identity in that table.
 
 ```sh
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py \

@@ -24,8 +24,10 @@ QUERY_SOURCES = {
     "Q": (HERE / "manifest_sidecar_r1" / "queries.sql", "sc"),
     "QX": (HERE / "dualx_exact_bridge_r1" / "EXTERNAL_EVIDENCE_BRIDGE_DRAFT.sql", "dx"),
     "QMB": (HERE / "mb15_dualx_snapshot" / "queries.sql", "mb15"),
+    "QMA": (HERE / "md15_attempt_lineage_r1" / "queries.sql", "md15a"),
+    "QF": (HERE / "mb15_fig5_matrix_r1" / "queries.sql", "fig5"),
 }
-ALIASES = ("central", "r4", "sc", "dx", "mb15")
+ALIASES = ("central", "r4", "sc", "dx", "mb15", "md15a", "fig5")
 
 
 def schema_for(alias):
@@ -159,7 +161,7 @@ def statements(text):
 
 
 def builtin_sql(query_id):
-    prefix = re.match(r"^(QMB|QX|QL|Q)(\d+)$", query_id, re.I)
+    prefix = re.match(r"^(QMB|QMA|QF|QX|QL|Q)(\d+)$", query_id, re.I)
     if not prefix:
         raise ValueError("unknown query id: " + query_id)
     family = prefix.group(1).upper()
@@ -256,7 +258,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sources-manifest", default=str(DEFAULT_SOURCES), help="pinned SQLite source manifest")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, or QMB01-07 query")
+    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, QMB01-07, QMA01-07, or QF501-504 query")
     group.add_argument("--sql-file", help="run one read-only SELECT/WITH query using source-prefixed views")
     parser.add_argument("--list-queries", action="store_true", help="list registered query IDs")
     parser.add_argument("--verify-hashes", action="store_true", help="hash all pinned DBs; this reads about 4.96 GB")
@@ -267,6 +269,8 @@ def main(argv=None):
         print("Q1-Q7      manifest sidecar")
         print("QX01-QX05  DUAL-X and exact MB bridge")
         print("QMB01-07   MB 15-model status, DUAL-X coverage, and source-qualified joins")
+        print("QMA01-07   MD15 per-model attempt-lineage audit and missing evidence")
+        print("QF501-504  Revision 1 Figure 5 15×8 measured source cells and status counts")
         return 0
     if not args.query_id and not args.sql_file:
         parser.error("choose --query-id or --sql-file")
