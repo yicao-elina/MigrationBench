@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Build an additive R4 lineage snapshot with organized archive copies and symlink correction."""
-import argparse, csv, hashlib, json, mimetypes, shutil, sqlite3
+import argparse, csv, hashlib, json, mimetypes, platform, shutil, sqlite3
 from pathlib import Path
 
 CAMPAIGN_ID='mace_from_scratch_ablation_md_20261005'
@@ -179,6 +179,7 @@ def main():
         'input_identity_correction':{'symlink_bytes':145,'target_bytes':320651971,'target_sha256':symlink['target_sha256']},
         'archive_payload_verification':payload_verification,'result_database':out.name,'result_sha256':sha256(out),
         'result_bytes':out.stat().st_size,'counts':counts,'quick_check':qc,'foreign_key_violations':len(fk),
+        'build_runtime':{'python_version':platform.python_version(),'sqlite_version':sqlite3.sqlite_version},
         'scientific_boundary':'3 terminal instability failures; FAILURE_MODE; EXCLUDE_FROM_PUBLICATION',
         'built_at':CAPTURED_AT}
       (out.parent/'R4_MANIFEST.json').write_text(json.dumps(outmanifest,indent=2,sort_keys=True)+'\n')

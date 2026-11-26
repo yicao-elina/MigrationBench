@@ -33,4 +33,4 @@ python3 import_mace_archive_lineage_r4.py \
   --output-db /path/to/migrationbench_r1_lineage_overlay_20261125_r4.sqlite
 ```
 
-The importer refuses to overwrite output, verifies the R3 base and frozen control hashes, checks each payload against the live archive when `--archive-root` is provided, and records a manifest with SQLite integrity and row counts. The resulting database reports `quick_check=ok` and zero foreign-key violations.
+The importer refuses to overwrite output, verifies the R3 base and frozen control hashes, checks each payload against the live archive when `--archive-root` is provided, and records its Python/SQLite build runtime, integrity, and row counts in the manifest. The Rockfish snapshot was built with Python 3.6.8 and SQLite 3.26.0; its byte-level database SHA is pinned for that snapshot. Rebuilds on a different SQLite runtime may serialize identical SQL content to different bytes, so cross-runtime verification should compare table contents, counts, queries, `quick_check`, and foreign keys. The recorded snapshot reports `quick_check=ok` and zero foreign-key violations.
