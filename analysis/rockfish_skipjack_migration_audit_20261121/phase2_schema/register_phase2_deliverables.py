@@ -128,7 +128,7 @@ DELIVERABLES = [
     ("phase2_data/victor_duplicate_delete_receipt_20261122.json", "FORMER_COLLAB_GUARDED_DELETE_RECEIPT", "Authoritative checked-queue Victor receipt; nine exact duplicate copies unlinked and verified missing", "PERMANENT_SOURCE"),
     ("phase2_data/yuqi_pseudopotential_delete_receipt_20261122.jsonl", "FORMER_COLLAB_GUARDED_DELETE_RECEIPT", "Zero-overlap Yuqi receipt; 65 exact duplicate UPF copies unlinked and verified missing", "PERMANENT_SOURCE"),
     ("phase2_data/yi_refresh_20261123/handoff_roots_20261123.jsonl", "FORMER_COLLAB_CURRENT_HANDOFF_INVENTORY", "Complete current metadata refresh confirming retained paths in for-victor and for-yuqi after cleanup", "PERMANENT_SOURCE"),
-    ("phase2_schema/import_scoped_r04_scratch4.py", "R04_SCRATCH4_INVENTORY_IMPORTER", "Imports complete and partial isolated R04 subtree scans without promoting lower bounds to complete", "PERMANENT_SOURCE"),
+    ("phase2_schema/import_scoped_r04_scratch4.py", "R04_SCRATCH4_INVENTORY_IMPORTER", "Imports only personal /scratch4/pclancy3/yi metadata roots; skips sibling roots before resolving or reading ledgers", "PERMANENT_SOURCE"),
     ("phase2_schema/011_project_artifact_lookup_indexes.sql", "SQL_SCHEMA_MIGRATION", "Indexes for project-scoped artifact and reverse path lookup", "PERMANENT_SOURCE"),
     ("phase2_schema/import_r04_targeted_lstat.py", "R04_TARGETED_LSTAT_IMPORTER", "Imports one explicitly partial no-follow lstat sample under the historical R04 audit", "PERMANENT_SOURCE"),
     ("phase2_schema/import_r04_data_yi.py", "R04_DATA_YI_COMPOSITE_IMPORTER", "Imports exact /data/pclancy3/yi path coverage from R04 non-Conda metadata plus reconciled R03 .conda evidence", "PERMANENT_SOURCE"),
