@@ -20,7 +20,7 @@ The full MigrationBench central provenance catalog remains an immutable 2026-11-
 
 - `revision1_lineage_overlay_r4/queries.sql`: QL21–QL26 query R4 run archives, corrected symlink/input identities, Table S5 outputs, and their source statuses.
 - `manifest_sidecar_r1/`: central-compatible schema, Python 3.6+ importer, Q1–Q7, staging snapshot manifest/receipt, and exact SQL row-grain definitions. The actual SQLite payload and frozen scan/revalidation inputs are in the pinned Scratch16 archive.
-- `dualx_exact_bridge_r1/`: QX01–QX05 read-only attached-database queries, per-model exact SHA index, and source snapshot manifest.
+- `dualx_exact_bridge_r1/`: QX01–QX05 read-only attached-database queries, per-model exact SHA index, and source snapshot manifest. The cross-source QX query reads the MigrationBench lineage tables from the existing `r4` attachment; it does not create a duplicate alias.
 - `mb15_dualx_snapshot/`: QMB01–QMB07 and an immutable model-grain SQLite snapshot for the submitted 15-model MD status plus exact-hash DUAL-X coverage. It preserves candidate, NEB, and historical run counts as distinct evidence types; QMB06 recomputes cross-source exact-hash joins and QMB07 expands the matching DUAL-X model/task design cells and run records.
 - `md15_attempt_lineage_r1/`: QMA01–QMA07 and a separate per-model audit of attempt/run evidence, scheduler-ID candidates, trajectory segments, and missing links. Candidate jobs are not treated as confirmed attempts.
 - `mb15_fig5_matrix_r1/`: QF501–QF504 and a separate, pinned snapshot of the submitted Figure 5 source cells (15 models × 8 tasks = 120 rows); it is not the complete MigrationBench model-by-task matrix.
