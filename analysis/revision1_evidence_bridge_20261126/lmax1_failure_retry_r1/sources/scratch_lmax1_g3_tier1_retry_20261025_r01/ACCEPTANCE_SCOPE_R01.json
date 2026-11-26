@@ -1,0 +1,45 @@
+{
+  "all_outputs_root": "/scratch16/pclancy3/yi/scratch_lmax1_g3_tier1_retry_20261025_r01",
+  "campaign_id": "scratch_lmax1_g3_tier1_retry_20261025_r01",
+  "created_at_utc": "2026-10-25T10:21:06.186959+00:00",
+  "model_registry_sha256": "1d21cb6ccdd9c1ab06d5e48a5295d5149cc74140e6df8e834caed7d6e15596e2",
+  "non_overwrite_rule": "Original Tier-1 runs, manifests, and failure ledger are immutable inputs.",
+  "path_registry_sha256": "cf5ab5c9477f1d2da5bb9026b9679f6c705b4aa4c4d0190a1498465f5b2ce53e",
+  "publication_status": "CANDIDATE_ONLY",
+  "purpose": "G3.4 diagnostic attribution of Tier-1 NOT_CONVERGED rows",
+  "retry_jobs_sha256": "1a7538fbf7abf7c658f99a41a4458273f468b2ee16a68f577fbcc46c0973bcb5",
+  "retry_rows": 30,
+  "scientific_status": "DIAGNOSTIC_ONLY",
+  "source_campaign": "/scratch16/pclancy3/yi/scratch_lmax1_g3_tier1_20261025_r01",
+  "source_failure_ledger_sha256": "825dfc92b9135d87bfdc0a6fc7d4c0886c4293b222d31dda6af75c17f5543064",
+  "source_failure_rows": 10,
+  "variants": [
+    {
+      "climb": false,
+      "fire_dt": 0.1,
+      "fire_maxstep": 0.2,
+      "fmax": 0.05,
+      "seed": 42,
+      "steps": 1500,
+      "variant": "long_no_climb"
+    },
+    {
+      "climb": true,
+      "fire_dt": 0.1,
+      "fire_maxstep": 0.2,
+      "fmax": 0.05,
+      "seed": 43,
+      "steps": 1500,
+      "variant": "climb_long"
+    },
+    {
+      "climb": false,
+      "fire_dt": 0.05,
+      "fire_maxstep": 0.1,
+      "fmax": 0.08,
+      "seed": 44,
+      "steps": 2000,
+      "variant": "small_fire"
+    }
+  ]
+}

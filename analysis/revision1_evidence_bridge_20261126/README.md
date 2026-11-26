@@ -12,6 +12,7 @@ This directory links the validated Revision 1 evidence interfaces that can be qu
 | MB15 status/DUAL-X coverage snapshot v1 | `/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_matrix_coverage_snapshots/20261126/mb15_dualx_coverage.sqlite` | `cb314a7e30560654e1d0576f764b24d505a7f75c37b7cd5c82258dd026e3e80e` | 15 model-grain R1 status rows and typed exact-identity/reuse counts; not an attempt/task matrix |
 | Claim-to-evidence inventory R1 | `/scratch16/pclancy3/yi/MigrationBench_data_archive/revision1_claim_matrix_snapshots/20261126/claim_matrix_r1.sqlite` | `cdc723b93143b6778fa1b3d6915a798e0cfd6fc6f31a6dce9e969a580e766578` | 639 manuscript assertion, figure/table, numeric-cell, and reviewer-question index rows; not scientific validation |
 | Cross-element checkpoint inventory R1 | `/scratch16/pclancy3/yi/MigrationBench_data_archive/training_checkpoint_inventory_snapshots/20261125/cross_element_checkpoint_inventory_r1.sqlite` | `a88efbf43ae12b58a690d48978ffa2c8780dd33e92b5580ede90ee2270834fe3` | 3,027 file metadata rows across three training seeds; 2,997 intermediate checkpoint payloads remain unhashed and held |
+| Lmax1 G3 failure/retry evidence R1 | `/scratch16/pclancy3/yi/MigrationBench_data_archive/lmax1_g3_failure_retry_snapshots/20261126/lmax1_failure_retry_r1.sqlite` | `0e6de64489a8bd00fcd42a739042764dac4f5e6c3aa3eb09a0fbfe8cba98ded1` | 194 diagnostic collector rows; 50 exact source-record edges; 10 missing retry variants and 90 pending Tier-2 gates |
 
 The full MigrationBench central provenance catalog remains an immutable 2026-11-24 snapshot. The manifest sidecar is staged separately; it has not been merged into a new central catalog snapshot. The R4 and DUAL-X databases are attached read-only for cross-project queries so their source hashes and schemas remain independently verifiable.
 
@@ -26,11 +27,12 @@ The full MigrationBench central provenance catalog remains an immutable 2026-11-
 - `learning_loop_review_r1/`: QLR01–QLR03 and a separate seven-row audit-summary index of failure-mode signals and missing next-round decision/gain evidence. Rows are summaries, not event labels.
 - `claim_matrix_r1/`: QCE01–QCE04 and an immutable 639-row Revision 1 claim/evidence inventory. Source-native `matrix_id` values remain distinct from catalog IDs; lexical segmentation and `TRACEABLE` status do not establish scientific acceptance.
 - `cross_element_checkpoint_r1/`: QCK01–QCK06 and a separate no-payload index for three cross-element training runs. It preserves all 3,027 file paths and the captured scheduler state; 2,997 intermediate checkpoint content hashes were not computed and remain on hold.
+- `lmax1_failure_retry_r1/`: QLM01–QLM07 and a source-pinned event-level sidecar for Tier-1, retry, perturbation, and Tier-2 diagnostic collector rows. It preserves the ten missing retry variants and all 90 `PENDING_G3_11` gates and does not claim active-learning benefit.
 - `neb_dft/`: 24 Table S5 cell/output recheck rows and the issue/gap register. Its query source is QL25–QL26 in R4.
 
 ## One read-only SQL entry point
 
-`query_federated.py` opens the immutable central catalog as SQLite `main`, attaches R4, the manifest sidecar, DUAL-X v14, the MB15 model-grain coverage snapshot, the MD15 attempt-lineage audit, the Figure 5 source-cell snapshot, the learning-loop audit index, the claim matrix snapshot, and the cross-element inventory snapshot with URI `mode=ro`, checks exact pinned file sizes and SQLite `user_version`s, and exposes every table/view through source-prefixed temporary views (`central__*`, `r4__*`, `sc__*`, `dx__*`, `mb15__*`, `md15a__*`, `fig5__*`, `learning_review__*`, `claim_matrix__*`, `cross_element__*`). The central snapshot stays at the 2026-11-24 release. Source-native IDs are intentionally kept separate.
+`query_federated.py` opens the immutable central catalog as SQLite `main`, attaches R4, the manifest sidecar, DUAL-X v14, the MB15 model-grain coverage snapshot, the MD15 attempt-lineage audit, the Figure 5 source-cell snapshot, the learning-loop audit index, the claim matrix snapshot, the cross-element inventory, and the Lmax1 event sidecar with URI `mode=ro`, checks exact pinned file sizes and SQLite `user_version`s, and exposes every table/view through source-prefixed temporary views (`central__*`, `r4__*`, `sc__*`, `dx__*`, `mb15__*`, `md15a__*`, `fig5__*`, `learning_review__*`, `claim_matrix__*`, `cross_element__*`, `lmax1__*`). The central snapshot stays at the 2026-11-24 release. Source-native IDs are intentionally kept separate.
 
 Run from the repository root or pass the script path directly on Rockfish (Python 3.6+):
 
@@ -43,9 +45,10 @@ python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-i
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QMB07
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QCE02
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QCK02
+python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QLM01
 ```
 
-Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), QX01–QX05 (DUAL-X), QMB01–QMB07 (MB15 status/reuse coverage and DUAL-X task-cell expansion), QMA01–QMA07 (MD15 attempt-lineage evidence), QF501–QF504 (Revision 1 Figure 5 source cells), QLR01–QLR03 (failure-mode review summaries), QCE01–QCE04 (claim inventory and provenance gaps), and QCK01–QCK06 (cross-element training artifact inventory and exact-hash bridge). The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
+Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), QX01–QX05 (DUAL-X), QMB01–QMB07 (MB15 status/reuse coverage and DUAL-X task-cell expansion), QMA01–QMA07 (MD15 attempt-lineage evidence), QF501–QF504 (Revision 1 Figure 5 source cells), QLR01–QLR03 (failure-mode review summaries), QCE01–QCE04 (claim inventory and provenance gaps), QCK01–QCK06 (cross-element training artifact inventory and exact-hash bridge), and QLM01–QLM07 (Lmax1 diagnostic events, explicit retry/perturbation links, and gate states). The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
 
 ```sql
 SELECT dx__models.model_id, dx__models.checkpoint_sha256
