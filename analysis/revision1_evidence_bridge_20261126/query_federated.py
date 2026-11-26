@@ -29,8 +29,9 @@ QUERY_SOURCES = {
     "QLR": (HERE / "learning_loop_review_r1" / "queries.sql", "learning_review"),
     "QCE": (HERE / "claim_matrix_r1" / "queries.sql", "claim_matrix"),
     "QCK": (HERE / "cross_element_checkpoint_r1" / "queries.sql", "cross_element"),
+    "QLM": (HERE / "lmax1_failure_retry_r1" / "queries.sql", "lmax1"),
 }
-ALIASES = ("central", "r4", "sc", "dx", "mb15", "md15a", "fig5", "learning_review", "claim_matrix", "cross_element")
+ALIASES = ("central", "r4", "sc", "dx", "mb15", "md15a", "fig5", "learning_review", "claim_matrix", "cross_element", "lmax1")
 
 
 def schema_for(alias):
@@ -164,7 +165,7 @@ def statements(text):
 
 
 def builtin_sql(query_id):
-    prefix = re.match(r"^(QMB|QMA|QLR|QCE|QCK|QF|QX|QL|Q)(\d+)$", query_id, re.I)
+    prefix = re.match(r"^(QMB|QMA|QLR|QCE|QCK|QLM|QF|QX|QL|Q)(\d+)$", query_id, re.I)
     if not prefix:
         raise ValueError("unknown query id: " + query_id)
     family = prefix.group(1).upper()
@@ -261,7 +262,7 @@ def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--sources-manifest", default=str(DEFAULT_SOURCES), help="pinned SQLite source manifest")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, QMB01-07, QMA01-07, QF501-504, or QLR01-03 query")
+    group.add_argument("--query-id", help="run a registered QL21-26, Q1-7, QX01-05, QMB01-07, QMA01-07, QF501-504, QLR01-03, QLM01-07, or QCK01-06 query")
     group.add_argument("--sql-file", help="run one read-only SELECT/WITH query using source-prefixed views")
     parser.add_argument("--list-queries", action="store_true", help="list registered query IDs")
     parser.add_argument("--verify-hashes", action="store_true", help="hash all pinned DBs; this reads about 4.96 GB")
@@ -277,6 +278,7 @@ def main(argv=None):
         print("QLR01-03   failure-mode audit summaries and learning-loop evidence gates")
         print("QCE01-04   Revision 1 claim-to-evidence inventory, gaps, and source pins")
         print("QCK01-06   Cross-element checkpoint inventory, historical job status, and exact-hash joins")
+        print("QLM01-07   Lmax1 Tier-1 failure, explicit retry/perturbation links, missing variants, and Tier-2 gates")
         return 0
     if not args.query_id and not args.sql_file:
         parser.error("choose --query-id or --sql-file")

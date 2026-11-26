@@ -1,0 +1,69 @@
+{
+  "campaign_id": "scratch_lmax1_g3_tier1_20261025_r01",
+  "gate": "G3_TIER1_3_PATHS_X_6_MODELS_X_3_OPERATORS",
+  "scope": "Cr 81-atom canonical paths; fixed path, self-relaxed IDPP, and MIC-linear initialization are separate observables",
+  "model_registry": "/scratch16/pclancy3/yi/scratch_lmax1_g3_tier1_20261025_r01/MODEL_REGISTRY.tsv",
+  "path_registry": "/scratch16/pclancy3/yi/scratch_lmax1_g3_tier1_20261025_r01/PATH_REGISTRY.tsv",
+  "job_table": "/scratch16/pclancy3/yi/scratch_lmax1_g3_tier1_20261025_r01/jobs/JOBS_TIER1.tsv",
+  "expected_counts": {"fixed_path": 18, "self_idpp": 18, "mic_linear": 18, "total": 54},
+  "row_key": ["operator", "path_id", "model_id", "record_id", "attempt_id"],
+  "paths": ["within_ql", "in_gap", "gap_to_ql"],
+  "models": 6,
+  "protocol": {
+    "nat": 81,
+    "n_images": 10,
+    "optimizer": "FIRE",
+    "steps": 500,
+    "fmax_eV_A": 0.05,
+    "spring_eV_A2": 0.1,
+    "climb": false,
+    "device": "cpu",
+    "neb_seed": 42,
+    "migrant_element": "Cr",
+    "mic": true,
+    "self_idpp_interpolation": "ASE NEB interpolate(method=idpp, mic=True)",
+    "mic_linear_interpolation": "ASE NEB interpolate(method=linear, mic=True)"
+  },
+  "acceptance": {
+    "fixed_path": ["finite energies and forces", "10 images", "81 atoms", "exact model SHA", "input hash", "termination evidence"],
+    "self_idpp": ["same gates as fixed", "endpoint hashes", "leakage_gate recorded", "optimizer convergence recorded", "failure class retained"],
+    "mic_linear": ["same gates as fixed", "endpoint hashes", "leakage_gate recorded", "optimizer convergence recorded", "failure class retained"],
+    "publication_boundary": "MLIP NEB proxy only; DFT SCF_WARNING remains a boundary and no validated DFT barrier/ranking is accepted"
+  },
+  "g3_11_leakage_gate": "PENDING_POST_RUN_AUDIT",
+  "source_campaign": "/scratch16/pclancy3/yi/mace_neb_cr_canonical_four_model_20261015",
+  "output_root": "/scratch16/pclancy3/yi/scratch_lmax1_g3_tier1_20261025_r01",
+  "prohibited_output_roots": ["/data", "/home/ycao73", "personal_home"],
+  "smoke": {"table": "G3_SMOKE.tsv", "rows": 3, "operators": ["fixed_path", "self_idpp", "mic_linear"]},
+  "endpoint_registry": "/scratch16/pclancy3/yi/scratch_lmax1_g3_tier1_20261025_r01/ENDPOINT_REGISTRY.tsv",
+  "input_hashes": {
+    "within_ql": "8e004ea756399dca8bc75fec3a67be99329fb8069bc10ffc279285bcfe98f652",
+    "in_gap": "8ab2aebb73be1d440f2cf8e948d37e7c8aea9b8c8cb50fa4ddf2470d59d017e8",
+    "gap_to_ql": "c9f0ef322d8ded0f19f0beaa9c07adb833ec4fc7cef57ba4723468a16fc6d948"
+  },
+  "endpoint_hashes": {
+    "within_ql_initial": "1a0999ef4f06b56918d0f05bc184060cd8f201ab7a0ce093e04c98c5d066846e",
+    "within_ql_final": "71275e905af0c4f649d6c3d3e97b9f9b8e5c4f21c4afbad5ada6ca743adc6db3",
+    "in_gap_initial": "93d79956786bf04c0c631df5880621366fbd4e2b4e5c3df053dacc5a1a5b2679",
+    "in_gap_final": "8109e0cee51c6af31dce0fbcd74eff3e7cce0d4643ba9256767b98001c4ad91d",
+    "gap_to_ql_initial": "eed7d46d609863cc942887b70491bca08d6e35760a6a37f21deabe2c979c12db",
+    "gap_to_ql_final": "fa5c611b229da9978d7b637f61de86aa8920c115f26191660006fd5ac25dc9f1"
+  },
+  "artifact_hashes": {
+    "model_registry": "1d21cb6ccdd9c1ab06d5e48a5295d5149cc74140e6df8e834caed7d6e15596e2",
+    "path_registry": "cf5ab5c9477f1d2da5bb9026b9679f6c705b4aa4c4d0190a1498465f5b2ce53e",
+    "job_table": "464853ddfb635e3e1ebeda85b5e7ffb17d1c023ffe2654283d38bba90315c18a",
+    "smoke_table": "63cec1f1ae56870400fcf1929286375a658a8c879609107121c9810c20465941",
+    "failure_ledger": "803a5f09c7904a96ca29a213fea4a0b7fd649ed523940f0409402d3a8d41b47a",
+    "endpoint_registry": "baff30e2b8ea8c0cba0151b270eabd29e4bd25c0380a196d2c35f8027d6f9dea"
+  },
+  "runner_hashes": {
+    "run_mlff_neb.py": "4b5ad3e46789f83562576befe82999e747a756131515f75625decb69691155c7",
+    "export_mlff_neb_iteration_history.py": "49a95c373e62be784a8a9b2d3ebc8f002bd0e4d481c32c15babf2a4e78a5bc41",
+    "g3_run_row.py": "498514956b6d5eb2876fddf26604b11539292d757398f630c68a431d5c9dbfda",
+    "g3_fixed_single_point.py": "8d73e8e3fd905f8cbda8e8bac9af00e32487a169a21d680c39521d535c600f3a",
+    "make_endpoints.py": "1ff12a9e40931f8d849768fc83a5fef0111d0eb16424d055949584f1160f291a"
+  },
+  "submission": {"smoke_job_id": "32468465", "supersedes_smoke_job_id": "32468430_0", "superseded_reason": "fixed-path smoke initially invoked the optimizing NEB runner; the row was canceled and preserved as a protocol-mismatch attempt; corrected fixed single-point evaluator submitted", "submitted_at_local": "2026-10-25", "partition": "parallel", "batch_size": 3},
+  "status": "SUBMITTED_PENDING_SMOKE"
+}
