@@ -18,7 +18,7 @@ The full MigrationBench central provenance catalog remains an immutable 2026-11-
 - `revision1_lineage_overlay_r4/queries.sql`: QL21–QL26 query R4 run archives, corrected symlink/input identities, Table S5 outputs, and their source statuses.
 - `manifest_sidecar_r1/`: central-compatible schema, Python 3.6+ importer, Q1–Q7, staging snapshot manifest/receipt, and exact SQL row-grain definitions. The actual SQLite payload and frozen scan/revalidation inputs are in the pinned Scratch16 archive.
 - `dualx_exact_bridge_r1/`: QX01–QX05 read-only attached-database queries, per-model exact SHA index, and source snapshot manifest.
-- `mb15_dualx_snapshot/`: QMB01–QMB06 and an immutable model-grain SQLite snapshot for the submitted 15-model MD status plus exact-hash DUAL-X coverage. It preserves candidate, NEB, and historical run counts as distinct evidence types; QMB06 recomputes cross-source exact-hash joins against the pinned R4 and DUAL-X sources.
+- `mb15_dualx_snapshot/`: QMB01–QMB07 and an immutable model-grain SQLite snapshot for the submitted 15-model MD status plus exact-hash DUAL-X coverage. It preserves candidate, NEB, and historical run counts as distinct evidence types; QMB06 recomputes cross-source exact-hash joins and QMB07 expands the matching DUAL-X model/task design cells and run records.
 - `neb_dft/`: 24 Table S5 cell/output recheck rows and the issue/gap register. Its query source is QL25–QL26 in R4.
 
 ## One read-only SQL entry point
@@ -33,9 +33,10 @@ python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-i
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id Q1 --format csv
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QX01
 python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QMB01
+python3 analysis/revision1_evidence_bridge_20261126/query_federated.py --query-id QMB07
 ```
 
-Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), QX01–QX05 (DUAL-X), and QMB01–QMB06 (MB15 status/reuse coverage, snapshot provenance, and cross-source exact-hash links). The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
+Registered IDs are QL21–QL26 (R4), Q1–Q7 (manifest sidecar), QX01–QX05 (DUAL-X), and QMB01–QMB07 (MB15 status/reuse coverage, snapshot provenance, cross-source exact-hash links, and the DUAL-X task-cell expansion). The launcher uses the frozen SQL blocks in their original files. A custom cross-database query must be one `SELECT` or `WITH ... SELECT` statement and should refer to source-prefixed views, for example:
 
 ```sql
 SELECT dx__models.model_id, dx__models.checkpoint_sha256
